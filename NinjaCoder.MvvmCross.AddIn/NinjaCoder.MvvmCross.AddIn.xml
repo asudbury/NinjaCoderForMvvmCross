@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NinjaCoder.MvvmCross.AddIn</name>
+    </assembly>
+    <members>
+        <member name="T:NinjaCoder.MvvmCross.AddIn.Connect">
+            <summary>
+               Defines the Connect type.
+            </summary>
+        </member>
+        <member name="F:NinjaCoder.MvvmCross.AddIn.Connect.Version">
+            <summary>
+            Version Number.
+            </summary>
+        </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NinjaCoder.MvvmCross.AddIn.Connect"/> class.
+            </summary>
+        </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.StartUp">
+            <summary>
+            Starts up.
+            </summary>
+        </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.UISetup">
+            <summary>
+            UIs the setup.
+            </summary>
+        </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.AfterStartUp">
+            <summary>
+            After the start up.
+            </summary>
+        </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.Initialize">
+            <summary>
+            Initializes this instance.
+            </summary>
+        </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.AddCommands">
+            <summary>
+            Adds the commands.
+            </summary>
+        </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.BuildProjects">
+            <summary>
+            Builds Projects.
+            </summary>
+        </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.AddViewModelAndViews">
+            <summary>
+            Adds the view model and views.
+            </summary>
+        </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.AddConverters">
+            <summary>
+            Adds the converters.
+            </summary>
+        </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.ShowStackOverFlow">
+            <summary>
+            Shows the stack over flow.
+            </summary>
+        </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.ShowJabbrRoom">
+            <summary>
+            Shows the Jabbr room.
+            </summary>
+        </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.ShowGitHub">
+            <summary>
+            Shows the GitHub.
+            </summary>
+        </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.ShowOptions">
+            <summary>
+            Shows the options.
+            </summary>
+        </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.ShowHelp">
+            <summary>
+            Shows help.
+            </summary>
+        </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.ShowAbout">
+            <summary>
+            Shows about.
+            </summary>
+        </member>
+        <member name="P:NinjaCoder.MvvmCross.AddIn.Connect.Controller">
+            <summary>
+            Gets the controller.
+            </summary>
+            <value>
+            The controller.
+            </value>
+        </member>
+    </members>
+</doc>

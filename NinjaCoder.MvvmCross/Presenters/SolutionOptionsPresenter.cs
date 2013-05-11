@@ -1,0 +1,132 @@
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//    Defines the SolutionOptionsPresenter type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace NinjaCoder.MvvmCross.Presenters
+{
+    using System.Collections.Generic;
+    using System.Configuration;
+
+    using NinjaCoder.MvvmCross.Constants;
+    using NinjaCoder.MvvmCross.Views.Interfaces;
+
+    using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Services;
+
+    using Settings = NinjaCoder.MvvmCross.Properties.Settings;
+
+    /// <summary>
+    ///  Defines the SolutionOptionsPresenter type.
+    /// </summary>
+    public class SolutionOptionsPresenter
+    {
+        /// <summary>
+        /// The view.
+        /// </summary>
+        private readonly ISolutionOptionsView view;
+
+        /// <summary>
+        /// The default projects location
+        /// </summary>
+        private readonly string defaultProjectsLocation;
+
+        /// <summary>
+        /// The default project name
+        /// </summary>
+        private readonly string defaultProjectName;
+
+        /// <summary>
+        /// The project infos
+        /// </summary>
+        private readonly List<ProjectInfo> projectInfos;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SolutionOptionsPresenter" /> class.
+        /// </summary>
+        /// <param name="view">The view.</param>
+        /// <param name="defaultProjectsLocation">The default projects location.</param>
+        /// <param name="defaultProjectName">Default name of the project.</param>
+        /// <param name="projectInfos">The project infos.</param>
+        public SolutionOptionsPresenter(
+            ISolutionOptionsView view,
+            string defaultProjectsLocation,
+            string defaultProjectName,
+            List<ProjectInfo> projectInfos)
+        {
+            this.view = view;
+            this.defaultProjectsLocation = defaultProjectsLocation;
+            this.defaultProjectName = defaultProjectName;
+            this.projectInfos = projectInfos;
+        }
+
+        /// <summary>
+        /// Gets the required templates.
+        /// </summary>
+        /// <returns>The required templates.</returns>
+        public List<ProjectInfo> GetRequiredTemplates()
+        {
+            this.projectInfos.Clear();
+
+            string projectName = this.view.ProjectName;
+
+            foreach (ProjectInfo projectInfo in this.view.RequiredProjects)
+            {
+                projectInfo.Name = projectName + projectInfo.ProjectSuffix;
+                this.projectInfos.Add(projectInfo);
+            }
+
+            return this.projectInfos;
+        }
+
+        /// <summary>
+        /// Loads the settings.
+        /// </summary>
+        public void LoadSettings()
+        {
+            try
+            {
+                string defaultPath = Settings.Default[Constants.Settings.DefaultPath].ToString();
+
+                this.view.Path = defaultPath != string.Empty ? defaultPath : this.defaultProjectsLocation;
+
+                this.view.ProjectName = this.defaultProjectName;
+                this.view.EnableProjectName = this.defaultProjectName.Length > 0;
+
+                foreach (ProjectInfo projectInfo in this.projectInfos)
+                {
+                    this.view.AddTemplate(projectInfo);
+                }
+            }
+            catch (SettingsPropertyNotFoundException exception)
+            {
+                TraceService.WriteLine("Setting not found :-" + exception.Message);
+            }
+        }
+
+        /// <summary>
+        /// Saves the settings.
+        /// </summary>
+        public void SaveSettings()
+        {
+            Settings.Default[Constants.Settings.DefaultPath] = this.view.Path;
+            Settings.Default.Save();
+        }
+
+        /// <summary>
+        /// Updates the name of the project.
+        /// </summary>
+        /// <param name="required">if set to <c>true</c> [required].</param>
+        /// <param name="currentValue">The current value.</param>
+        /// <param name="extension">The extension.</param>
+        /// <returns>The updated project name.</returns>
+        internal string UpdateProjectName(
+            bool required, 
+            string currentValue, 
+            string extension)
+        {
+            return required ? currentValue + extension : string.Empty;
+        }
+    }
+}

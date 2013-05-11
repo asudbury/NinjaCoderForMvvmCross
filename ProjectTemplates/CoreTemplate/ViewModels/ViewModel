@@ -1,0 +1,18 @@
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ViewModel.cs" company="Eon Uk Limited">
+//   (C) 2013 Eon Uk Limited
+// </copyright>
+// <summary>
+//    Defines the ViewModel type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace MvvmCross.Core.ViewModels
+{
+    /// <summary>
+    ///  Defines the ViewModel type.
+    /// </summary>
+    public class ViewModel
+    {
+    }
+}
