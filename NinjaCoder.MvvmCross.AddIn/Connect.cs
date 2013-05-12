@@ -24,7 +24,7 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// <summary>
         /// Version Number.
         /// </summary>
-        private const string Version = "Version 1.0.1";
+        private const string Version = "Version 1.0.2";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Connect"/> class.

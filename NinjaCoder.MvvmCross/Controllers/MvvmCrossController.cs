@@ -64,44 +64,44 @@ namespace NinjaCoder.MvvmCross.Controllers
             {
                new ProjectInfo
                     {
-                        FriendlyName = "Core",
+                        FriendlyName = FriendlyNames.Core,
                         ProjectSuffix = ProjectSuffixes.Core,
                         TemplateName = ProjectTemplates.Core,
                     },
               new ProjectInfo
                     {
-                        FriendlyName = "Core Tests",
+                        FriendlyName = FriendlyNames.CoreTests,
                         ProjectSuffix = ProjectSuffixes.Tests,
                         TemplateName = ProjectTemplates.Tests,
                     },
                 new ProjectInfo
                     {
-                        FriendlyName = "iOS",
-                        ProjectSuffix = ProjectSuffixes.IOS,
+                        FriendlyName = FriendlyNames.iOS,
+                        ProjectSuffix = ProjectSuffixes.iOS,
                         TemplateName = ProjectTemplates.IOS,
                     },
                 new ProjectInfo
                     {
-                        FriendlyName = "Droid",
+                        FriendlyName = FriendlyNames.Droid,
                         ProjectSuffix = ProjectSuffixes.Droid,
                         TemplateName = ProjectTemplates.Droid,
                     },
                 new ProjectInfo
                     {
-                        FriendlyName = "Windows Phone",
+                        FriendlyName = FriendlyNames.WindowsPhone,
                         ProjectSuffix = ProjectSuffixes.WindowsPhone,
                         TemplateName = ProjectTemplates.WindowsPhone,
                     },
                 new ProjectInfo
                     {
-                        FriendlyName = "Windows Store",
+                        FriendlyName = FriendlyNames.WindowsStore,
                         ProjectSuffix = ProjectSuffixes.WindowsStore,
                         TemplateName = ProjectTemplates.WindowsStore,
                     },
                 new ProjectInfo
                     {
-                        FriendlyName = "Windows WPF",
-                        ProjectSuffix = ProjectSuffixes.WindowsWPF,
+                        FriendlyName = FriendlyNames.WindowsWpf,
+                        ProjectSuffix = ProjectSuffixes.WindowsWpf,
                         TemplateName = ProjectTemplates.WindowsWPF,
                     },
             };
@@ -159,37 +159,37 @@ namespace NinjaCoder.MvvmCross.Controllers
             {
                 new ItemTemplateInfo
                     {
-                        FriendlyName = "iOS",
-                        ProjectSuffix = ProjectSuffixes.IOS,
-                        FolderName = "View",
+                        FriendlyName = FriendlyNames.iOS,
+                        ProjectSuffix = ProjectSuffixes.iOS,
+                        FolderName = "Views",
                         TemplateName = ItemTemplates.Views.IOS,
                     },
                 new ItemTemplateInfo
                     {
-                        FriendlyName = "Droid",
+                        FriendlyName = FriendlyNames.Droid,
                         ProjectSuffix = ProjectSuffixes.Droid,
-                        FolderName = "View",
+                        FolderName = "Views",
                         TemplateName = ItemTemplates.Views.Droid,
                     },
                 new ItemTemplateInfo
                     {
-                        FriendlyName = "Windows Phone",
+                        FriendlyName = FriendlyNames.WindowsPhone,
                         ProjectSuffix = ProjectSuffixes.WindowsPhone,
-                        FolderName = "View",
+                        FolderName = "Views",
                         TemplateName = ItemTemplates.Views.WindowsPhone,
                     },
                 new ItemTemplateInfo
                     {
-                        FriendlyName = "Windows Store",
+                        FriendlyName = FriendlyNames.WindowsStore,
                         ProjectSuffix = ProjectSuffixes.WindowsStore,
-                        FolderName = "View",
+                        FolderName = "Views",
                         TemplateName = ItemTemplates.Views.WindowsStore,
                     },
                 new ItemTemplateInfo
                     {
-                        FriendlyName = "Windows WPF",
-                        ProjectSuffix = ProjectSuffixes.WindowsWPF,
-                        FolderName = "View",
+                        FriendlyName = FriendlyNames.WindowsWpf,
+                        ProjectSuffix = ProjectSuffixes.WindowsWpf,
+                        FolderName = "Views",
                         TemplateName = ItemTemplates.Views.WindowsWPF,
                     },
             };

@@ -1,7 +1,4 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IConvertersView.cs" company="Eon Uk Limited">
-//   (C) 2013 Eon Uk Limited
-// </copyright>
 // <summary>
 //    Defines the IConvertersView type.
 // </summary>

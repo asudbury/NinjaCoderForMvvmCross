@@ -22,9 +22,9 @@ namespace NinjaCoder.MvvmCross.Constants
         public const string Tests = ".Core.Tests";
 
         /// <summary>
-        /// The IOS
+        /// The iOS
         /// </summary>
-        public const string IOS = ".iOS";
+        public const string iOS = ".iOS";
 
         /// <summary>
         /// The droid
@@ -44,6 +44,6 @@ namespace NinjaCoder.MvvmCross.Constants
         /// <summary>
         /// The windows WPF
         /// </summary>
-        public const string WindowsWPF = ".Wpf";
+        public const string WindowsWpf = ".Wpf";
     }
 }

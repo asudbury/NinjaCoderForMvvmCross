@@ -1,7 +1,4 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ConvertersPresenter.cs" company="Eon Uk Limited">
-//   (C) 2013 Eon Uk Limited
-// </copyright>
 // <summary>
 //    Defines the ConvertersPresenter type.
 // </summary>

@@ -113,20 +113,5 @@ namespace NinjaCoder.MvvmCross.Presenters
             Settings.Default[Constants.Settings.DefaultPath] = this.view.Path;
             Settings.Default.Save();
         }
-
-        /// <summary>
-        /// Updates the name of the project.
-        /// </summary>
-        /// <param name="required">if set to <c>true</c> [required].</param>
-        /// <param name="currentValue">The current value.</param>
-        /// <param name="extension">The extension.</param>
-        /// <returns>The updated project name.</returns>
-        internal string UpdateProjectName(
-            bool required, 
-            string currentValue, 
-            string extension)
-        {
-            return required ? currentValue + extension : string.Empty;
-        }
     }
 }

@@ -22,7 +22,7 @@ namespace NinjaCoder.MvvmCross.Constants
         public static class Views
         {
             /// <summary>
-            /// The IOS
+            /// The iOS
             /// </summary>
             public const string IOS = "MvvmCross.iOS.View.zip";
 
@@ -34,15 +34,15 @@ namespace NinjaCoder.MvvmCross.Constants
             /// <summary>
             /// The windows phone
             /// </summary>
-            public const string WindowsPhone = "MvvmCrossWindows.WP.View.zip";
+            public const string WindowsPhone = "MvvmCross.WindowsPhone.View.zip";
 
             /// <summary>
             /// The windows store
             /// </summary>
-            public const string WindowsStore = "MvvmCross.Store.View.zip";
+            public const string WindowsStore = "MvvmCross.WindowsStore.View.zip";
 
             /// <summary>
-            /// The windows WPF
+            /// The windows Wpf
             /// </summary>
             public const string WindowsWPF = "MvvmCross.Wpf.View.zip";
         }
