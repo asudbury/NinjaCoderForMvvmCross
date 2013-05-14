@@ -31,7 +31,7 @@ namespace NinjaCoder.MvvmCross.Views
         public SolutionOptionsForm(
             string defaultProjectsLocation,
             string defaultProjectName,
-            List<ProjectInfo> projectInfos)
+            List<ProjectTemplateInfo> projectInfos)
         {
             this.Presenter = new SolutionOptionsPresenter(
                 this, 
@@ -103,18 +103,21 @@ namespace NinjaCoder.MvvmCross.Views
         /// <summary>
         /// Gets the required projects.
         /// </summary>
-        public List<ProjectInfo> RequiredProjects
+        /// <value>
+        /// The required projects.
+        /// </value>
+        public List<ProjectTemplateInfo> RequiredProjects
         {
-            get { return this.checkedListBox.CheckedItems.Cast<ProjectInfo>().ToList(); }
+            get { return this.mvxListView1.RequiredTemplates.Cast<ProjectTemplateInfo>().ToList(); }
         }
 
         /// <summary>
         /// Adds the template.
         /// </summary>
-        /// <param name="projectInfo">The project info.</param>
-        public void AddTemplate(ProjectInfo projectInfo)
+        /// <param name="projectTemplateInfo">The project template info.</param>
+        public void AddTemplate(ProjectTemplateInfo projectTemplateInfo)
         {
-            this.checkedListBox.Items.Add(projectInfo, true);
+            this.mvxListView1.AddTemplate(projectTemplateInfo);
         }
 
         /// <summary>
@@ -188,6 +191,22 @@ namespace NinjaCoder.MvvmCross.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void ButtonHelpClick(object sender, EventArgs e)
         {
+        }
+
+        /// <summary>
+        /// Handles the KeyDown event of the textBoxProject control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+        private void TextBoxProjectKeyDown(object sender, KeyEventArgs e)
+        {
+            if (this.textBoxProject.Text.Length > 0)
+            {
+                int start = this.textBoxProject.SelectionStart;
+
+                this.textBoxProject.Text = this.textBoxProject.Text.Substring(0, 1).ToUpper() + this.textBoxProject.Text.Substring(1);
+                this.textBoxProject.SelectionStart = start;
+            }
         }
     }
 }

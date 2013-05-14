@@ -7,7 +7,10 @@
 namespace NinjaCoder.MvvmCross.UI
 {
     using System;
+    using System.Collections.Generic;
     using System.Windows.Forms;
+
+    using EnvDTE;
 
     using NinjaCoder.MvvmCross.Controllers;
 
@@ -17,11 +20,25 @@ namespace NinjaCoder.MvvmCross.UI
     public partial class FormMain : Form
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FormMain"/> class.
+        /// The MvvmCrossController.
+        /// </summary>
+        private readonly MvvmCrossController controller;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormMain" /> class.
         /// </summary>
         public FormMain()
         {
             this.InitializeComponent();
+
+            this.controller = new MvvmCrossController();
+
+            IEnumerable<Project> projects = controller.GetProjects();
+
+            foreach (Project project in projects)
+            {
+                this.treeView1.Nodes.Add(project.Name);
+            }
         }
 
         /// <summary>
@@ -31,7 +48,6 @@ namespace NinjaCoder.MvvmCross.UI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void AddProjectsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MvvmCrossController controller = new MvvmCrossController();
             controller.BuildProjects();
         }
 
@@ -42,7 +58,6 @@ namespace NinjaCoder.MvvmCross.UI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void AddViewModelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MvvmCrossController controller = new MvvmCrossController();
             controller.AddViewModelAndViews();
         }
 
@@ -53,7 +68,6 @@ namespace NinjaCoder.MvvmCross.UI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void OptionsToolStripMenuItemClick(object sender, EventArgs e)
         {
-            MvvmCrossController controller = new MvvmCrossController();
             controller.ShowOptions();
         }
 
@@ -64,7 +78,6 @@ namespace NinjaCoder.MvvmCross.UI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void AddConvertersToolStripMenuItemClick(object sender, EventArgs e)
         {
-            MvvmCrossController controller = new MvvmCrossController();
             controller.AddConverters();
         }
 
@@ -85,7 +98,6 @@ namespace NinjaCoder.MvvmCross.UI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void StackOverflowToolStripMenuItemClick(object sender, EventArgs e)
         {
-            MvvmCrossController controller = new MvvmCrossController();
             controller.ShowStackOverFlow();
         }
 
@@ -96,7 +108,6 @@ namespace NinjaCoder.MvvmCross.UI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void JabbRToolStripMenuItemClick(object sender, EventArgs e)
         {
-            MvvmCrossController controller = new MvvmCrossController();
             controller.ShowJabbrRoom();
         }
 
@@ -107,7 +118,6 @@ namespace NinjaCoder.MvvmCross.UI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void GitHubToolStripMenuItemClick(object sender, EventArgs e)
         {
-            MvvmCrossController controller = new MvvmCrossController();
             controller.ShowGitHub();
         }
     }

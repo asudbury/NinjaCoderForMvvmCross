@@ -37,18 +37,25 @@
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stackOverflowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jabbRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.lblThisApplicationNeedsToBeRunAsAnAdminstrator = new System.Windows.Forms.Label();
+            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.treeView1 = new System.Windows.Forms.TreeView();
             this.menuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip
             // 
-            this.statusStrip.Location = new System.Drawing.Point(0, 233);
+            this.statusStrip.Location = new System.Drawing.Point(0, 546);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(282, 22);
+            this.statusStrip.Size = new System.Drawing.Size(981, 22);
             this.statusStrip.TabIndex = 3;
             // 
             // menuStrip
@@ -57,7 +64,7 @@
             this.toolsToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(282, 28);
+            this.menuStrip.Size = new System.Drawing.Size(981, 28);
             this.menuStrip.TabIndex = 0;
             // 
             // toolsToolStripMenuItem
@@ -117,13 +124,6 @@
             this.jabbRToolStripMenuItem.Text = "JabbR";
             this.jabbRToolStripMenuItem.Click += new System.EventHandler(this.JabbRToolStripMenuItemClick);
             // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(189, 24);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItemClick);
-            // 
             // gitHubToolStripMenuItem
             // 
             this.gitHubToolStripMenuItem.Name = "gitHubToolStripMenuItem";
@@ -131,28 +131,69 @@
             this.gitHubToolStripMenuItem.Text = "GitHub";
             this.gitHubToolStripMenuItem.Click += new System.EventHandler(this.GitHubToolStripMenuItemClick);
             // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(189, 24);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItemClick);
+            // 
             // toolStrip
             // 
             this.toolStrip.Location = new System.Drawing.Point(0, 28);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(282, 25);
+            this.toolStrip.Size = new System.Drawing.Size(981, 25);
             this.toolStrip.TabIndex = 1;
             // 
             // lblThisApplicationNeedsToBeRunAsAnAdminstrator
             // 
             this.lblThisApplicationNeedsToBeRunAsAnAdminstrator.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblThisApplicationNeedsToBeRunAsAnAdminstrator.Location = new System.Drawing.Point(5, 102);
+            this.lblThisApplicationNeedsToBeRunAsAnAdminstrator.Location = new System.Drawing.Point(252, 47);
             this.lblThisApplicationNeedsToBeRunAsAnAdminstrator.Name = "lblThisApplicationNeedsToBeRunAsAnAdminstrator";
-            this.lblThisApplicationNeedsToBeRunAsAnAdminstrator.Size = new System.Drawing.Size(277, 66);
+            this.lblThisApplicationNeedsToBeRunAsAnAdminstrator.Size = new System.Drawing.Size(233, 71);
             this.lblThisApplicationNeedsToBeRunAsAnAdminstrator.TabIndex = 2;
             this.lblThisApplicationNeedsToBeRunAsAnAdminstrator.Text = "This application needs to be run as an adminstrator";
+            // 
+            // splitter1
+            // 
+            this.splitter1.Location = new System.Drawing.Point(0, 53);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(3, 493);
+            this.splitter1.TabIndex = 4;
+            this.splitter1.TabStop = false;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 53);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.treeView1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.lblThisApplicationNeedsToBeRunAsAnAdminstrator);
+            this.splitContainer1.Size = new System.Drawing.Size(978, 493);
+            this.splitContainer1.SplitterDistance = 326;
+            this.splitContainer1.TabIndex = 5;
+            // 
+            // treeView1
+            // 
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.Location = new System.Drawing.Point(0, 0);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(326, 493);
+            this.treeView1.TabIndex = 0;
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 255);
-            this.Controls.Add(this.lblThisApplicationNeedsToBeRunAsAnAdminstrator);
+            this.ClientSize = new System.Drawing.Size(981, 568);
+            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.splitter1);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
@@ -162,6 +203,10 @@
             this.Text = "Ninja Coder for MvvmCross ";
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -182,6 +227,9 @@
         private System.Windows.Forms.ToolStripMenuItem stackOverflowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem jabbRToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gitHubToolStripMenuItem;
+        private System.Windows.Forms.Splitter splitter1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.TreeView treeView1;
     }
 }
 

@@ -49,6 +49,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\FriendlyNames.cs" />
     <Compile Include="Constants\ItemTemplates.cs" />
     <Compile Include="Constants\Links.cs" />
     <Compile Include="Constants\ProjectSuffixes.cs" />
@@ -69,6 +70,15 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Services\IVisualStudioService.cs" />
+    <Compile Include="Services\VisualStudioService.cs" />
+    <Compile Include="UserControls\IMvxListView.cs" />
+    <Compile Include="UserControls\MvxListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\MvxListView.Designer.cs">
+      <DependentUpon>MvxListView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\ConvertersForm.cs">
       <SubType>Form</SubType>
@@ -109,6 +119,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\MvxListView.resx">
+      <DependentUpon>MvxListView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ConvertersForm.resx">
       <DependentUpon>ConvertersForm.cs</DependentUpon>

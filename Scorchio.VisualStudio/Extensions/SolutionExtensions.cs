@@ -128,7 +128,7 @@ namespace Scorchio.VisualStudio.Extensions
         public static void AddProjects(
             this Solution2 instance,
             string path,
-            IEnumerable<ProjectInfo> projectsInfos, 
+            IEnumerable<ProjectTemplateInfo> projectsInfos, 
             bool referenceFirstProject)
         {
             string message = string.Format(
@@ -140,7 +140,7 @@ namespace Scorchio.VisualStudio.Extensions
 
             Solution solution = instance as Solution;
 
-            foreach (ProjectInfo projectInfo in projectsInfos)
+            foreach (ProjectTemplateInfo projectInfo in projectsInfos)
             {
                 try
                 {
@@ -209,6 +209,8 @@ namespace Scorchio.VisualStudio.Extensions
         {
             IEnumerable<Project> projects = instance.GetProjects();
 
+            TraceService.WriteError("AddItemTemplateToProjects project count=" + projects.Count());   
+
             foreach (ItemTemplateInfo info in templateInfos)
             {
                 Project project = projects.FirstOrDefault(x => x.Name.EndsWith(info.ProjectSuffix));
@@ -216,6 +218,18 @@ namespace Scorchio.VisualStudio.Extensions
                 if (project != null)
                 {
                     project.AddToFolderFromTemplate(info.FolderName, info.TemplateName, info.FileName);
+                }
+
+                else
+                {
+                    TraceService.WriteError("AddItemTemplateToProjects cannot find project " + info.ProjectSuffix);
+
+                    foreach (Project projectItem in projects)
+                    {
+                        string projectName = projectItem.Name;
+
+                        TraceService.WriteError("AddItemTemplateToProjects project " + projectName);    
+                    }
                 }
             }
         }

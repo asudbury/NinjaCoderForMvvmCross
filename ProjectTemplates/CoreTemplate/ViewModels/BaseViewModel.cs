@@ -9,14 +9,20 @@ namespace CoreTemplate.ViewModels
     using Cirrious.CrossCore;
     using Cirrious.MvvmCross.ViewModels;
 
+    using CoreTemplate.Services;
+
     /// <summary>
     ///    Defines the BaseViewModel type.
     /// </summary>
-    public class BaseViewModel : MvxViewModel
+    public abstract class BaseViewModel : MvxViewModel
     {
-        /*public void ReportError(string error)
+        /// <summary>
+        /// Reports the error.
+        /// </summary>
+        /// <param name="error">The error.</param>
+        public void ReportError(string error)
         {
             Mvx.Resolve<IErrorService>().ReportError(error);
-        }*/
+        }
     }
 }

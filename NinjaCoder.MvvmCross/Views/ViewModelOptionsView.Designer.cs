@@ -37,7 +37,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.lblRequiredViews = new System.Windows.Forms.Label();
             this.buttonHelp = new System.Windows.Forms.Button();
-            this.checkedListBox = new System.Windows.Forms.CheckedListBox();
+            this.mvxListView1 = new NinjaCoder.MvvmCross.UserControls.MvxListView();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -76,7 +76,7 @@
             this.textBoxViewModel.Size = new System.Drawing.Size(248, 22);
             this.textBoxViewModel.TabIndex = 1;
             this.textBoxViewModel.Text = "ViewModel";
-            this.textBoxViewModel.TextChanged += new System.EventHandler(this.TextBoxProjectTextChanged);
+            this.textBoxViewModel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxViewModelKeyDown);
             // 
             // buttonOK
             // 
@@ -122,21 +122,19 @@
             this.buttonHelp.Text = "&Help";
             this.buttonHelp.Click += new System.EventHandler(this.ButtonHelpClick);
             // 
-            // checkedListBox
+            // mvxListView1
             // 
-            this.checkedListBox.CheckOnClick = true;
-            this.checkedListBox.FormattingEnabled = true;
-            this.checkedListBox.Location = new System.Drawing.Point(336, 104);
-            this.checkedListBox.Name = "checkedListBox";
-            this.checkedListBox.Size = new System.Drawing.Size(248, 157);
-            this.checkedListBox.TabIndex = 3;
+            this.mvxListView1.Location = new System.Drawing.Point(335, 94);
+            this.mvxListView1.Name = "mvxListView1";
+            this.mvxListView1.Size = new System.Drawing.Size(249, 150);
+            this.mvxListView1.TabIndex = 3;
             // 
             // ViewModelOptionsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(606, 379);
-            this.Controls.Add(this.checkedListBox);
+            this.Controls.Add(this.mvxListView1);
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.lblRequiredViews);
             this.Controls.Add(this.pictureBox2);
@@ -168,6 +166,6 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label lblRequiredViews;
         private System.Windows.Forms.Button buttonHelp;
-        private System.Windows.Forms.CheckedListBox checkedListBox;
+        private UserControls.MvxListView mvxListView1;
     }
 }

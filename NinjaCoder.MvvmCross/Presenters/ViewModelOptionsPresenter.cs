@@ -34,7 +34,7 @@ namespace NinjaCoder.MvvmCross.Presenters
         /// <param name="view">The view.</param>
         /// <param name="itemTemplateInfos">The item template infos.</param>
         public ViewModelOptionsPresenter(
-            IViewModelOptionsView view,
+             IViewModelOptionsView view,
              List<ItemTemplateInfo> itemTemplateInfos)
         {
             this.view = view;
@@ -76,7 +76,7 @@ namespace NinjaCoder.MvvmCross.Presenters
 
             this.itemTemplateInfos.Add(viewModelTemplateInfo);
 
-            foreach (ItemTemplateInfo itemTemplateInfo in this.view.RequiredViews)
+            foreach (ItemTemplateInfo itemTemplateInfo in this.view.RequiredTemplates)
             {
                 itemTemplateInfo.FileName = viewName;
 

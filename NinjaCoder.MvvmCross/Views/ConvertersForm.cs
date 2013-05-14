@@ -13,6 +13,8 @@ namespace NinjaCoder.MvvmCross.Views
     using NinjaCoder.MvvmCross.Presenters;
     using NinjaCoder.MvvmCross.Views.Interfaces;
 
+    using Scorchio.VisualStudio.Entities;
+
     /// <summary>
     ///    Defines the ConvertersForm type.
     /// </summary>
@@ -21,17 +23,14 @@ namespace NinjaCoder.MvvmCross.Views
         /// <summary>
         /// Initializes a new instance of the <see cref="ConvertersForm" /> class.
         /// </summary>
-        /// <param name="templatesPath">The templates path.</param>
-        public ConvertersForm(string templatesPath)
+        /// <param name="itemTemplateInfos">The item template infos.</param>
+        public ConvertersForm(List<ItemTemplateInfo> itemTemplateInfos)
         {
             this.InitializeComponent();
 
-            this.Presenter = new ConvertersPresenter(this)
-                                 {
-                                     TemplatesPath = templatesPath
-                                 };
+            this.Presenter = new ConvertersPresenter(this, itemTemplateInfos);
+            this.Presenter.LoadItemTemplates();
 
-            this.Presenter.LoadTemplates();
         }
 
         /// <summary>
@@ -45,23 +44,20 @@ namespace NinjaCoder.MvvmCross.Views
         public bool Continue { get; set; }
 
         /// <summary>
-        /// Gets the required converters.
+        /// Gets the required templates.
         /// </summary>
-        public List<string> RequiredConverters
+        public List<ItemTemplateInfo> RequiredTemplates
         {
-            get
-            {
-                return this.checkedListBox.CheckedItems.Cast<string>().ToList();
-            }
+            get { return this.mvxListView1.RequiredTemplates.Cast<ItemTemplateInfo>().ToList(); }
         }
 
         /// <summary>
         /// Adds the template.
         /// </summary>
-        /// <param name="name">The name.</param>
-        public void AddTemplate(string name)
+        /// <param name="itemTemplateInfo">The item template info.</param>
+        public void AddTemplate(ItemTemplateInfo itemTemplateInfo)
         {
-            this.checkedListBox.Items.Add(name);
+            this.mvxListView1.AddTemplate(itemTemplateInfo);
         }
 
         /// <summary>

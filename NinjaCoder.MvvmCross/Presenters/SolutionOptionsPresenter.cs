@@ -9,7 +9,6 @@ namespace NinjaCoder.MvvmCross.Presenters
     using System.Collections.Generic;
     using System.Configuration;
 
-    using NinjaCoder.MvvmCross.Constants;
     using NinjaCoder.MvvmCross.Views.Interfaces;
 
     using Scorchio.VisualStudio.Entities;
@@ -40,7 +39,7 @@ namespace NinjaCoder.MvvmCross.Presenters
         /// <summary>
         /// The project infos
         /// </summary>
-        private readonly List<ProjectInfo> projectInfos;
+        private readonly List<ProjectTemplateInfo> projectInfos;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SolutionOptionsPresenter" /> class.
@@ -53,7 +52,7 @@ namespace NinjaCoder.MvvmCross.Presenters
             ISolutionOptionsView view,
             string defaultProjectsLocation,
             string defaultProjectName,
-            List<ProjectInfo> projectInfos)
+            List<ProjectTemplateInfo> projectInfos)
         {
             this.view = view;
             this.defaultProjectsLocation = defaultProjectsLocation;
@@ -65,13 +64,13 @@ namespace NinjaCoder.MvvmCross.Presenters
         /// Gets the required templates.
         /// </summary>
         /// <returns>The required templates.</returns>
-        public List<ProjectInfo> GetRequiredTemplates()
+        public List<ProjectTemplateInfo> GetRequiredTemplates()
         {
             this.projectInfos.Clear();
 
             string projectName = this.view.ProjectName;
 
-            foreach (ProjectInfo projectInfo in this.view.RequiredProjects)
+            foreach (ProjectTemplateInfo projectInfo in this.view.RequiredProjects)
             {
                 projectInfo.Name = projectName + projectInfo.ProjectSuffix;
                 this.projectInfos.Add(projectInfo);
@@ -94,7 +93,7 @@ namespace NinjaCoder.MvvmCross.Presenters
                 this.view.ProjectName = this.defaultProjectName;
                 this.view.EnableProjectName = this.defaultProjectName.Length > 0;
 
-                foreach (ProjectInfo projectInfo in this.projectInfos)
+                foreach (ProjectTemplateInfo projectInfo in this.projectInfos)
                 {
                     this.view.AddTemplate(projectInfo);
                 }

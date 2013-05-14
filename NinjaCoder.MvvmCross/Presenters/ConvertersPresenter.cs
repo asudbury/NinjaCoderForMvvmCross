@@ -6,9 +6,10 @@
 
 namespace NinjaCoder.MvvmCross.Presenters
 {
-    using System.IO;
-
+    using System.Collections.Generic;
     using NinjaCoder.MvvmCross.Views.Interfaces;
+
+    using Scorchio.VisualStudio.Entities;
 
     /// <summary>
     ///  Defines the ConvertersPresenter type.
@@ -21,60 +22,41 @@ namespace NinjaCoder.MvvmCross.Presenters
         private readonly IConvertersView view;
 
         /// <summary>
-        /// The paths
+        /// The item template infos.
         /// </summary>
-        private string[] paths;
- 
+        private readonly List<ItemTemplateInfo> itemTemplateInfos;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ConvertersPresenter" /> class.
         /// </summary>
         /// <param name="view">The view.</param>
-        public ConvertersPresenter(IConvertersView view)
+        /// <param name="itemTemplateInfos">The item template infos.</param>
+        public ConvertersPresenter(
+            IConvertersView view,
+            List<ItemTemplateInfo> itemTemplateInfos)
         {
             this.view = view;
+            this.itemTemplateInfos = itemTemplateInfos;
         }
 
-        /// <summary>
-        /// Gets or sets the templates path.
-        /// </summary>
-        public string TemplatesPath { get; set; }
 
         /// <summary>
-        /// Loads the templates.
+        /// Loads the item templates.
         /// </summary>
-        public void LoadTemplates()
+        public void LoadItemTemplates()
         {
-            this.paths = Directory.GetFiles(this.TemplatesPath);
-
-            foreach (string path in this.paths)
+            foreach (ItemTemplateInfo itemTemplateInfo in this.itemTemplateInfos)
             {
-                FileInfo fileInfo = new FileInfo(path);
-
-                string name = Path.GetFileNameWithoutExtension(fileInfo.Name);
-
-                this.view.AddTemplate(name);
+                this.view.AddTemplate(itemTemplateInfo);
             }
         }
-
         /// <summary>
-        /// Gets the name of the path from file.
+        /// Updates the item templates.
         /// </summary>
-        /// <param name="fileName">Name of the file.</param>
-        /// <returns>The template.</returns>
-        public string GetPathFromFileName(string fileName)
+        /// <returns>A list of required views.</returns>
+        public List<ItemTemplateInfo> GetRequiredItemTemplates()
         {
-            foreach (string path in this.paths)
-            {
-                FileInfo fileInfo = new FileInfo(path);
-
-                if (Path.GetFileNameWithoutExtension(fileInfo.Name) == 
-                    Path.GetFileNameWithoutExtension(fileName))
-                {
-                    return path;
-                }
-            }
-
-            return string.Empty;
+            return this.view.RequiredTemplates;
         }
     }
 }

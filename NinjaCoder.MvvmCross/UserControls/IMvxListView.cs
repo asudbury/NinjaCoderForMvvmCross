@@ -1,34 +1,29 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-//    Defines the IViewModelOptionsView type.
+//    Defines the IMvxListView type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace NinjaCoder.MvvmCross.Views.Interfaces
+namespace NinjaCoder.MvvmCross.UserControls
 {
     using System.Collections.Generic;
 
     using Scorchio.VisualStudio.Entities;
 
     /// <summary>
-    ///  Defines the IViewModelOptionsView type.
+    ///  Defines the IMvxListView type.
     /// </summary>
-    public interface IViewModelOptionsView
+    public interface IMvxListView
     {
-        /// <summary>
-        /// Gets or sets the name of the view model.
-        /// </summary>
-        string ViewModelName { get; set; }
-
         /// <summary>
         /// Gets the required templates.
         /// </summary>
-        List<ItemTemplateInfo> RequiredTemplates { get; }
+        List<object> RequiredTemplates { get; }
 
         /// <summary>
         /// Adds the template.
         /// </summary>
-        /// <param name="itemTemplateInfo">The item template info.</param>
-        void AddTemplate(ItemTemplateInfo itemTemplateInfo);
+        /// <param name="baseTemplateInfo">The base template info.</param>
+        void AddTemplate(BaseTemplateInfo baseTemplateInfo);
     }
 }

@@ -56,11 +56,11 @@ namespace NinjaCoder.MvvmCross.Views
         }
 
         /// <summary>
-        /// Gets the required views.
+        /// Gets the required templates.
         /// </summary>
-        public List<ItemTemplateInfo> RequiredViews
+        public List<ItemTemplateInfo> RequiredTemplates
         {
-            get { return this.checkedListBox.CheckedItems.Cast<ItemTemplateInfo>().ToList(); }
+            get { return this.mvxListView1.RequiredTemplates.Cast<ItemTemplateInfo>().ToList(); }
         }
 
         /// <summary>
@@ -69,16 +69,7 @@ namespace NinjaCoder.MvvmCross.Views
         /// <param name="itemTemplateInfo">The item template info.</param>
         public void AddTemplate(ItemTemplateInfo itemTemplateInfo)
         {
-            this.checkedListBox.Items.Add(itemTemplateInfo, true);
-        }
-
-        /// <summary>
-        /// Texts the box project text changed.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void TextBoxProjectTextChanged(object sender, EventArgs e)
-        {
+            this.mvxListView1.AddTemplate(itemTemplateInfo);
         }
 
         /// <summary>
@@ -122,6 +113,22 @@ namespace NinjaCoder.MvvmCross.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void ButtonHelpClick(object sender, EventArgs e)
         {
+        }
+
+        /// <summary>
+        /// Texts the box view model key down.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+        private void TextBoxViewModelKeyDown(object sender, KeyEventArgs e)
+        {
+            if (this.textBoxViewModel.Text.Length > 0)
+            {
+                int start = this.textBoxViewModel.SelectionStart;
+
+                this.textBoxViewModel.Text = this.textBoxViewModel.Text.Substring(0, 1).ToUpper() + this.textBoxViewModel.Text.Substring(1);
+                this.textBoxViewModel.SelectionStart = start;
+            }
         }
     }
 }

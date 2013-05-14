@@ -10,22 +10,42 @@ namespace NinjaCoder.MvvmCross.Controllers
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Forms;
-
+    using Constants;
     using EnvDTE;
     using EnvDTE80;
-
-    using NinjaCoder.MvvmCross.Constants;
-    using NinjaCoder.MvvmCross.Views;
-
+    using NinjaCoder.MvvmCross.Services;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
+    using Views;
 
     /// <summary>
     ///  Defines the MvvmCrossController type.
     /// </summary>
     public class MvvmCrossController
     {
+        /// <summary>
+        /// The visual studio service
+        /// </summary>
+        private readonly IVisualStudioService visualStudioService;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MvvmCrossController" /> class.
+        /// </summary>
+        public MvvmCrossController()
+            : this(new VisualStudioService())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MvvmCrossController" /> class.
+        /// </summary>
+        /// <param name="visualStudioService">The visual studio service.</param>
+        public MvvmCrossController(IVisualStudioService visualStudioService)
+        {
+            this.visualStudioService = visualStudioService;
+        }
+
         /// <summary>
         /// Visual Studio Instance.
         /// </summary>
@@ -50,7 +70,19 @@ namespace NinjaCoder.MvvmCross.Controllers
             set
             {
                 this.dte2 = value;
+                this.visualStudioService.DTE2 = value;
             }
+        }
+
+        /// <summary>
+        /// Gets the projects.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Project> GetProjects()
+        {
+            Solution2 solution = this.VisualStudio.GetSolution() as Solution2;
+
+            return solution.GetProjects();
         }
 
         /// <summary>
@@ -60,51 +92,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("MvvmCrossController::BuildProjects");
 
-            List<ProjectInfo> projectInfos = new List<ProjectInfo>
-            {
-               new ProjectInfo
-                    {
-                        FriendlyName = FriendlyNames.Core,
-                        ProjectSuffix = ProjectSuffixes.Core,
-                        TemplateName = ProjectTemplates.Core,
-                    },
-              new ProjectInfo
-                    {
-                        FriendlyName = FriendlyNames.CoreTests,
-                        ProjectSuffix = ProjectSuffixes.Tests,
-                        TemplateName = ProjectTemplates.Tests,
-                    },
-                new ProjectInfo
-                    {
-                        FriendlyName = FriendlyNames.iOS,
-                        ProjectSuffix = ProjectSuffixes.iOS,
-                        TemplateName = ProjectTemplates.IOS,
-                    },
-                new ProjectInfo
-                    {
-                        FriendlyName = FriendlyNames.Droid,
-                        ProjectSuffix = ProjectSuffixes.Droid,
-                        TemplateName = ProjectTemplates.Droid,
-                    },
-                new ProjectInfo
-                    {
-                        FriendlyName = FriendlyNames.WindowsPhone,
-                        ProjectSuffix = ProjectSuffixes.WindowsPhone,
-                        TemplateName = ProjectTemplates.WindowsPhone,
-                    },
-                new ProjectInfo
-                    {
-                        FriendlyName = FriendlyNames.WindowsStore,
-                        ProjectSuffix = ProjectSuffixes.WindowsStore,
-                        TemplateName = ProjectTemplates.WindowsStore,
-                    },
-                new ProjectInfo
-                    {
-                        FriendlyName = FriendlyNames.WindowsWpf,
-                        ProjectSuffix = ProjectSuffixes.WindowsWpf,
-                        TemplateName = ProjectTemplates.WindowsWPF,
-                    },
-            };
+            this.visualStudioService.DTE2 = VisualStudio;
 
             string defaultLocation;
             string defaultProjectName = string.Empty;
@@ -114,11 +102,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             {
                 defaultLocation = this.VisualStudio.GetDefaultProjectsLocation();
 
-                Solution2 solution = this.VisualStudio.GetSolution() as Solution2;
-
-                IEnumerable<Project> projects = solution.GetProjects();
-
-                Project project = projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.Core));
+                Project project = this.GetProjects().FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.Core));
 
                 if (project != null)
                 {
@@ -133,18 +117,28 @@ namespace NinjaCoder.MvvmCross.Controllers
                 return;
             }
 
-            SolutionOptionsForm form = new SolutionOptionsForm(defaultLocation, defaultProjectName, projectInfos);
+            List<ProjectTemplateInfo> projectTemplateInfos = this.visualStudioService.AllowedProjectTemplates;
 
-            form.ShowDialog();
-
-            if (form.Continue)
+            if (projectTemplateInfos.Count > 0)
             {
-                Solution2 solution2 = this.VisualStudio.GetSolution() as Solution2;
-                
-                solution2.AddProjects(form.Path, form.Presenter.GetRequiredTemplates(), true);
+                SolutionOptionsForm form = new SolutionOptionsForm(defaultLocation, defaultProjectName, projectTemplateInfos);
 
-                //// now collapse the solution!
-                this.dte2.CollapseSolution();
+                form.ShowDialog();
+
+                if (form.Continue)
+                {
+                    Solution2 solution2 = this.VisualStudio.GetSolution() as Solution2;
+
+                    solution2.AddProjects(form.Path, form.Presenter.GetRequiredTemplates(), true);
+
+                    //// now collapse the solution!
+                    this.dte2.CollapseSolution();
+                }
+            }
+            else
+            {
+                MessageBox.Show(@"This solution has already been setup with the MvvmCross projects");
+               
             }
         }
         
@@ -155,56 +149,29 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("MvvmCrossController::AddViewModelAndViews");
 
-            List<ItemTemplateInfo> itemTemplateInfos = new List<ItemTemplateInfo>
+            VisualStudioService service = new VisualStudioService
+                                              {
+                                                  DTE2 = this.VisualStudio
+                                              };
+
+            List<ItemTemplateInfo> templateInfos = service.AllowedItemTemplates;
+
+            if (templateInfos.Any())
             {
-                new ItemTemplateInfo
-                    {
-                        FriendlyName = FriendlyNames.iOS,
-                        ProjectSuffix = ProjectSuffixes.iOS,
-                        FolderName = "Views",
-                        TemplateName = ItemTemplates.Views.IOS,
-                    },
-                new ItemTemplateInfo
-                    {
-                        FriendlyName = FriendlyNames.Droid,
-                        ProjectSuffix = ProjectSuffixes.Droid,
-                        FolderName = "Views",
-                        TemplateName = ItemTemplates.Views.Droid,
-                    },
-                new ItemTemplateInfo
-                    {
-                        FriendlyName = FriendlyNames.WindowsPhone,
-                        ProjectSuffix = ProjectSuffixes.WindowsPhone,
-                        FolderName = "Views",
-                        TemplateName = ItemTemplates.Views.WindowsPhone,
-                    },
-                new ItemTemplateInfo
-                    {
-                        FriendlyName = FriendlyNames.WindowsStore,
-                        ProjectSuffix = ProjectSuffixes.WindowsStore,
-                        FolderName = "Views",
-                        TemplateName = ItemTemplates.Views.WindowsStore,
-                    },
-                new ItemTemplateInfo
-                    {
-                        FriendlyName = FriendlyNames.WindowsWpf,
-                        ProjectSuffix = ProjectSuffixes.WindowsWpf,
-                        FolderName = "Views",
-                        TemplateName = ItemTemplates.Views.WindowsWPF,
-                    },
-            };
+                ViewModelOptionsView form = new ViewModelOptionsView(templateInfos);
 
+                form.ShowDialog();
 
-            //// set all platforms required for now.
-            ViewModelOptionsView form = new ViewModelOptionsView(itemTemplateInfos);
+                if (form.Continue)
+                {
+                    Solution2 solution = this.VisualStudio.GetSolution() as Solution2;
 
-            form.ShowDialog();
-
-            if (form.Continue)
+                    solution.AddItemTemplateToProjects(form.Presenter.GetRequiredItemTemplates());
+                }
+            }
+            else
             {
-                Solution2 solution = this.VisualStudio.GetSolution() as Solution2;
-
-                solution.AddItemTemplateToProjects(form.Presenter.GetRequiredItemTemplates());
+                MessageBox.Show("This solution is not a MvvmCross solution", "Ninja Coder for MvvmCross");
             }
         }
 
@@ -215,35 +182,28 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("MvvmCrossController::AddConverters");
 
-             string templatesPath  = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\Microsoft Visual Studio 11.0\Common7\IDE\ItemTemplates\CSharp\MvvmCross\Converters";
+            string templatesPath  = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\Microsoft Visual Studio 11.0\Common7\IDE\ItemTemplates\CSharp\MvvmCross\Converters";
 
-            ConvertersForm form = new ConvertersForm(templatesPath);
+            List<ItemTemplateInfo> itemTemplateInfos = this.visualStudioService.GetFolderTemplateInfos(templatesPath, "Converters");
+
+            ConvertersForm form = new ConvertersForm(itemTemplateInfos);
 
             form.ShowDialog();
 
             if (form.Continue)
             {
-                Solution2 solution = this.VisualStudio.GetSolution() as Solution2;
-
-                IEnumerable<Project> projects = solution.GetProjects();
-
                 //// big assumption here that this is the right project!!
-                Project project = projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.Core));
+                Project project = this.GetProjects().FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.Core));
 
                 if (project != null)
                 {
-                    List<string> converters = form.RequiredConverters;
-
-                    foreach (string converter in converters)
+                    foreach (ItemTemplateInfo templateInfo in form.RequiredTemplates)
                     {
-                        string templatePath = form.Presenter.GetPathFromFileName(converter);
+                        TraceService.WriteLine("MvvmCrossController::AddConverters adding from template path " + templatesPath);
 
-                        TraceService.WriteError("MvvmCrossController::AddConverters adding from template path " + templatesPath);
-
-                        project.AddToFolderFromTemplate("Converters", templatePath, converter + ".cs");
+                        project.AddToFolderFromTemplate("Converters", templateInfo.FileName, templateInfo.FriendlyName + ".cs");
                     }
                 }
-
                 else
                 {
                     TraceService.WriteError("MvvmCrossController::AddConverters Cannot find Core project");

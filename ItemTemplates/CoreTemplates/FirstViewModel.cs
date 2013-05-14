@@ -1,32 +1,24 @@
-﻿// -----------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-//   Defines the $safeitemrootname$ type.
+//    Defines the FirstViewModel type.
 // </summary>
-// -----------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 
-namespace CoreTemplates
+namespace CoreTemplate.ViewModels
 {
     using System.Windows.Input;
 
     using Cirrious.MvvmCross.ViewModels;
 
     /// <summary>
-    ///   Defines the $safeitemrootname$ type.
+    /// Define the FirstViewModel type.
     /// </summary>
-    public class ViewModel : MvxViewModel
+    public class FirstViewModel : MvxViewModel
     {
         /// <summary>
         /// Backing field for my property.
         /// </summary>
-        private string myProperty;
-
-        /// <summary>
-        /// Gets the hello.
-        /// </summary>
-        public string Hello
-        {
-            get { return "Hello MvvmCross from the Ninja Coder!"; }
-        }
+        private string myProperty = "Hello MvvmCross from the Ninja Coder!";
 
         //// An example of a Dependency property.
         /// <summary>
@@ -47,7 +39,7 @@ namespace CoreTemplates
         }
 
         //// An example of a command and how to navigate to another view model
-        //// Note the viewModel inside of ShowViewModel needs to change!
+        //// Note the ViewModel inside of ShowViewModel needs to change!
         /// <summary>
         /// Gets My Command.
         /// </summary>

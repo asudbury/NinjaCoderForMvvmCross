@@ -29,25 +29,16 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConvertersForm));
-            this.checkedListBox = new System.Windows.Forms.CheckedListBox();
             this.lblSelectTheRequiredConverters = new System.Windows.Forms.Label();
             this.buttonHelp = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.mvxListView1 = new NinjaCoder.MvvmCross.UserControls.MvxListView();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // checkedListBox
-            // 
-            this.checkedListBox.CheckOnClick = true;
-            this.checkedListBox.FormattingEnabled = true;
-            this.checkedListBox.Location = new System.Drawing.Point(265, 58);
-            this.checkedListBox.Name = "checkedListBox";
-            this.checkedListBox.Size = new System.Drawing.Size(399, 259);
-            this.checkedListBox.TabIndex = 1;
             // 
             // lblSelectTheRequiredConverters
             // 
@@ -110,18 +101,25 @@
             this.buttonCancel.Text = "&Cancel";
             this.buttonCancel.Click += new System.EventHandler(this.ButtonCancelClick);
             // 
+            // mvxListView1
+            // 
+            this.mvxListView1.Location = new System.Drawing.Point(268, 58);
+            this.mvxListView1.Name = "mvxListView1";
+            this.mvxListView1.Size = new System.Drawing.Size(396, 264);
+            this.mvxListView1.TabIndex = 1;
+            // 
             // ConvertersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(690, 396);
+            this.Controls.Add(this.mvxListView1);
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.lblSelectTheRequiredConverters);
-            this.Controls.Add(this.checkedListBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ConvertersForm";
             this.Text = "Ninja Coder for MvvmCross - Converters";
@@ -133,12 +131,12 @@
 
         #endregion
 
-        private System.Windows.Forms.CheckedListBox checkedListBox;
         private System.Windows.Forms.Label lblSelectTheRequiredConverters;
         private System.Windows.Forms.Button buttonHelp;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
+        private UserControls.MvxListView mvxListView1;
     }
 }

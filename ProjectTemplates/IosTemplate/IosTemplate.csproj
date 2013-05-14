@@ -78,6 +78,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Setup.cs" />
+    <Compile Include="Views\BaseView.cs" />
     <Compile Include="Views\FirstView.cs" />
     <None Include="app.config" />
     <None Include="Info.plist" />

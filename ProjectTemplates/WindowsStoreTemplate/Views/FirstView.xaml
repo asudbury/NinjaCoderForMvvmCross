@@ -1,4 +1,4 @@
-﻿<common2:LayoutAwarePage
+﻿<views:BaseView
     x:Name="pageRoot"
     x:Class="WindowsStoreTemplate.Views.FirstView"
     DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
@@ -6,6 +6,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:common2="using:WindowsStoreTemplate.Common"
+    xmlns:views="using:WindowsStoreTemplate.Views"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -75,4 +76,4 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
     </Grid>
-</common2:LayoutAwarePage>
+</views:BaseView>

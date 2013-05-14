@@ -65,8 +65,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandManager.cs" />
+    <Compile Include="Entities\BaseTemplateInfo.cs" />
     <Compile Include="Entities\ItemTemplateInfo.cs" />
-    <Compile Include="Entities\ProjectInfo.cs" />
+    <Compile Include="Entities\ProjectTemplateInfo.cs" />
     <Compile Include="Entities\VSCommandInfo.cs" />
     <Compile Include="Extensions\DTEExtensions.cs" />
     <Compile Include="Extensions\ProjectExtensions.cs" />

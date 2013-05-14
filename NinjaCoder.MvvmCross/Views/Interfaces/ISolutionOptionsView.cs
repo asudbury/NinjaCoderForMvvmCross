@@ -33,12 +33,12 @@ namespace NinjaCoder.MvvmCross.Views.Interfaces
         /// <summary>
         /// Gets the required projects.
         /// </summary>
-        List<ProjectInfo> RequiredProjects { get; }
+        List<ProjectTemplateInfo> RequiredProjects { get; }
 
         /// <summary>
         /// Adds the template.
         /// </summary>
         /// <param name="projectInfo">The project info.</param>
-        void AddTemplate(ProjectInfo projectInfo);
+        void AddTemplate(ProjectTemplateInfo projectInfo);
     }
 }

@@ -8,20 +8,22 @@ namespace NinjaCoder.MvvmCross.Views.Interfaces
 {
     using System.Collections.Generic;
 
+    using Scorchio.VisualStudio.Entities;
+
     /// <summary>
     ///  Defines the IConvertersView type.
     /// </summary>
     public interface IConvertersView
     {
         /// <summary>
-        /// Gets the required converters.
+        /// Gets the required templates.
         /// </summary>
-        List<string> RequiredConverters { get; }
+        List<ItemTemplateInfo> RequiredTemplates { get; }
 
         /// <summary>
         /// Adds the template.
         /// </summary>
-        /// <param name="name">The name.</param>
-        void AddTemplate(string name);
+        /// <param name="itemTemplateInfo">The item template info.</param>
+        void AddTemplate(ItemTemplateInfo itemTemplateInfo);
     }
 }

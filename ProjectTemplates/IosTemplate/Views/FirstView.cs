@@ -9,7 +9,6 @@ namespace IosTemplate.Views
     using System.Drawing;
 
     using Cirrious.MvvmCross.Binding.BindingContext;
-    using Cirrious.MvvmCross.Touch.Views;
 
     using Core.ViewModels;
 
@@ -20,8 +19,16 @@ namespace IosTemplate.Views
     /// Defines the FirstView type.
     /// </summary>
     [Register("FirstView")]
-    public class FirstView : MvxViewController
+    public class FirstView : BaseView
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FirstView"/> class.
+        /// </summary>
+        public FirstView()
+            : base("FirstView", null)
+		{
+		}
+
         /// <summary>
         /// Views the did load.
         /// </summary>

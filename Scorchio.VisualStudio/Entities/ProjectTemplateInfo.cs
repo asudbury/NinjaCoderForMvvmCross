@@ -1,24 +1,19 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-//    Defines the ItemTemplateInfo type.
+//    Defines the ProjectTemplateInfo type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace Scorchio.VisualStudio.Entities
 {
     /// <summary>
-    ///  Defines the ItemTemplateInfo type.
+    ///  Defines the ProjectTemplateInfo type.
     /// </summary>
-    public class ItemTemplateInfo : BaseTemplateInfo
+    public class ProjectTemplateInfo : BaseTemplateInfo
     {
         /// <summary>
-        /// Gets or sets the name of the folder.
+        /// Gets or sets the Name.
         /// </summary>
-        public string FolderName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the file.
-        /// </summary>
-        public string FileName { get; set; }
+        public string Name { get; set; }
     }
 }
