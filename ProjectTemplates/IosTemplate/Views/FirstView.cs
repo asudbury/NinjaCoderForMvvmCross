@@ -22,14 +22,6 @@ namespace IosTemplate.Views
     public class FirstView : BaseView
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FirstView"/> class.
-        /// </summary>
-        public FirstView()
-            : base("FirstView", null)
-		{
-		}
-
-        /// <summary>
         /// Views the did load.
         /// </summary>
         /// <summary>

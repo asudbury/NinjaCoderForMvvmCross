@@ -51,6 +51,7 @@
     <Reference Include="Cirrious.CrossCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e16445fd9b451819, processorArchitecture=MSIL" />
     <Reference Include="Cirrious.CrossCore.WindowsPhone, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Cirrious.MvvmCross, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e16445fd9b451819, processorArchitecture=MSIL" />
+    <Reference Include="Cirrious.MvvmCross.Plugins.Messenger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Cirrious.MvvmCross.WindowsPhone, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Interop" />
@@ -65,6 +66,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Bootstrap\MessengerPluginBootstrap.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -104,6 +106,7 @@
     <Content Include="Lib\Cirrious.CrossCore.dll" />
     <Content Include="Lib\Cirrious.CrossCore.WindowsPhone.dll" />
     <Content Include="Lib\Cirrious.MvvmCross.dll" />
+    <Content Include="Lib\Cirrious.MvvmCross.Plugins.Messenger.dll" />
     <Content Include="Lib\Cirrious.MvvmCross.WindowsPhone.dll" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>

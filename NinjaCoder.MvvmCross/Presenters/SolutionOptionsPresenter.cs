@@ -82,7 +82,7 @@ namespace NinjaCoder.MvvmCross.Presenters
         /// <summary>
         /// Loads the settings.
         /// </summary>
-        public void LoadSettings()
+        public void Load()
         {
             try
             {

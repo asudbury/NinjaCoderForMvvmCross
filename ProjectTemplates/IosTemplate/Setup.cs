@@ -6,7 +6,6 @@
 
 namespace IosTemplate
 {
-    using Cirrious.CrossCore.Platform;
     using Cirrious.MvvmCross.Touch.Platform;
     using Cirrious.MvvmCross.Touch.Views.Presenters;
 
@@ -26,19 +25,10 @@ namespace IosTemplate
 		}
 
         /// <summary>
-        /// Creates the debug trace.
-        /// </summary>
-        /// <returns></returns>
-        protected override IMvxTrace CreateDebugTrace()
-        {
-            return null;
-        }
-
-        /// <summary>
         /// Creates the app.
         /// </summary>
         /// <returns></returns>
-		protected override Cirrious.MvvmCross.ViewModels.IMvxApplication CreateApp ()
+		protected override Cirrious.MvvmCross.ViewModels.IMvxApplication CreateApp()
 		{
 			return new Core.App();
 		}

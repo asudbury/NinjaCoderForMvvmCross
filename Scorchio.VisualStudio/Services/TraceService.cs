@@ -47,7 +47,7 @@ namespace Scorchio.VisualStudio.Services
         /// <param name="message">The message.</param>
         public static void WriteLine(string message)
         {
-            Trace.WriteLine(string.Format("{0} {1}", DateTime.Now, message));
+            Trace.WriteLine(string.Format("{0} {1}", DateTime.Now.ToString("dd MMM YYY hh:mm:ss"), message));
 
             if (LogToFile)
             {

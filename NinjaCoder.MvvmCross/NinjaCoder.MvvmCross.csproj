@@ -40,8 +40,11 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Serialization" />
     <Reference Include="VSLangProj, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -56,8 +59,9 @@
     <Compile Include="Constants\Settings.cs" />
     <Compile Include="Constants\ProjectTemplates.cs" />
     <Compile Include="Controllers\MvvmCrossController.cs" />
-    <Compile Include="Presenters\ConvertersPresenter.cs" />
+    <Compile Include="Presenters\ItemTemplatesPresenter.cs" />
     <Compile Include="Presenters\OptionsPresenter.cs" />
+    <Compile Include="Presenters\PluginsPresenter.cs" />
     <Compile Include="Presenters\SolutionOptionsPresenter.cs" />
     <Compile Include="Presenters\ViewModelOptionsPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,7 +75,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Services\ISettingsService.cs" />
     <Compile Include="Services\IVisualStudioService.cs" />
+    <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\VisualStudioService.cs" />
     <Compile Include="UserControls\IMvxListView.cs" />
     <Compile Include="UserControls\MvxListView.cs">
@@ -80,13 +86,13 @@
     <Compile Include="UserControls\MvxListView.Designer.cs">
       <DependentUpon>MvxListView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ConvertersForm.cs">
+    <Compile Include="Views\ItemTemplatesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\ConvertersForm.Designer.cs">
-      <DependentUpon>ConvertersForm.cs</DependentUpon>
+    <Compile Include="Views\ItemTemplatesForm.Designer.cs">
+      <DependentUpon>ItemTemplatesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Interfaces\IConvertersView.cs" />
+    <Compile Include="Views\Interfaces\IItemTemplatesView.cs" />
     <Compile Include="Views\Interfaces\IOptionsView.cs" />
     <Compile Include="Views\Interfaces\ISolutionOptionsView.cs" />
     <Compile Include="Views\Interfaces\IViewModelOptionsView.cs" />
@@ -123,8 +129,8 @@
     <EmbeddedResource Include="UserControls\MvxListView.resx">
       <DependentUpon>MvxListView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ConvertersForm.resx">
-      <DependentUpon>ConvertersForm.cs</DependentUpon>
+    <EmbeddedResource Include="Views\ItemTemplatesForm.resx">
+      <DependentUpon>ItemTemplatesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\OptionsForm.resx">
       <DependentUpon>OptionsForm.cs</DependentUpon>
@@ -145,6 +151,7 @@
   <ItemGroup>
     <Content Include="Resources\NinjaCoder.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

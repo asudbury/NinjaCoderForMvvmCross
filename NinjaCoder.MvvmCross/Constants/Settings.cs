@@ -20,35 +20,5 @@ namespace NinjaCoder.MvvmCross.Constants
         /// The default path
         /// </summary>
         public const string DefaultPath = "DefaultPath";
-
-        /// <summary>
-        /// The core tests required
-        /// </summary>
-        public const string CoreTestsRequired = "CoreTestsChecked";
-
-        /// <summary>
-        /// The iOS required
-        /// </summary>
-        public const string IOSRequired = "iOSChecked";
-
-        /// <summary>
-        /// The droid required
-        /// </summary>
-        public const string DroidRequired = "DroidChecked";
-
-        /// <summary>
-        /// The phone required
-        /// </summary>
-        public const string PhoneRequired = "PhoneChecked";
-
-        /// <summary>
-        /// The store required
-        /// </summary>
-        public const string StoreRequired = "StoreChecked";
-
-        /// <summary>
-        /// The WPF required
-        /// </summary>
-        public const string WPFRequired = "WPFChecked";
     }
 }

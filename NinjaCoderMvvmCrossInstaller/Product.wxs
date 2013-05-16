@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?define CONNECT_CLASS_FULL_NAME_VS_2012 = "NinjaCoder.MvvmCross.AddIn.Connect" ?>
 <?define CONNECT_CLASS_FULL_NAME_VS = NinjaCoder.MvvmCross.AddIn.Connect" ?>
+<?define SOURCE_DIR = "C:\Scorchio\Projects\c#\NinjaCoderMvvmCross" ?>
+<?define PROJECT_TEMPLATES_SOURCE_DIR = "$(var.SOURCE_DIR)\ProjectTemplates\Zips" ?>
+<?define ITEM_TEMPLATES_SOURCE_DIR = "$(var.SOURCE_DIR)\ItemTemplates\Zips" ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
   <Product Id="825c8b3c-e1ee-4eae-85b2-175f15b0b3bf" 
-           Name="Ninja Coder for MvvmCross v1.0.3" 
+           Name="Ninja Coder for MvvmCross v1.0.4" 
            Language="1033" 
-           Version="1.0.3" 
+           Version="1.0.4" 
            Manufacturer="Scorchio Limited" 
            UpgradeCode="825c8b3c-e1ee-4eae-85b2-175f15b0b3bf">
     <Package InstallerVersion="200" Compressed="yes" />
@@ -42,11 +45,11 @@
                       <Directory Id='SupportedFrameworks' Name='SupportedFrameworks'>
                         <Component Id="PCLSupport" DiskId="1" Guid="925c8b3c-e1ee-4eae-85b2-175f15b0b3bf">
                           <File Id="Droid" Name="monoAndroid,Version=v1.6+.xml"
-                                Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\monoAndroid,Version=v1.6+.xml" Vital="yes" KeyPath="no" >
+                                Source="$(var.SOURCE_DIR)\monoAndroid,Version=v1.6+.xml" Vital="yes" KeyPath="no" >
                             <CopyFile Id="copyfilePCLDroid" DestinationDirectory="SupportedFrameworks"/>
                           </File>
                           <File Id="iOS" Name="MonoTouch,Version=v1.0+.xml"
-                              Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\MonoTouch,Version=v1.0+.xml" Vital="yes" KeyPath="no" >
+                              Source="$(var.SOURCE_DIR)\MonoTouch,Version=v1.0+.xml" Vital="yes" KeyPath="no" >
                             <CopyFile Id="copyfilePCLiOS" DestinationDirectory="SupportedFrameworks"/>
                           </File>
                         </Component>
@@ -64,19 +67,19 @@
           <Directory Id="INSTALLLOCATION" Name="Ninja Coder for MvvmCross">
             <Component Id="CMPVSEXTENSION" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-175f15b0b3bf">
               <File Id="EXTENSIONBINARY" Name="NinjaCoder.MvvmCross.AddIn.dll"
-                    Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\NinjaCoder.MvvmCross.AddIn\bin\Debug\NinjaCoder.MvvmCross.AddIn.dll" Vital="yes" KeyPath="no" >
+                    Source="$(var.SOURCE_DIR)\NinjaCoder.MvvmCross.AddIn\bin\Debug\NinjaCoder.MvvmCross.AddIn.dll" Vital="yes" KeyPath="no" >
                 <CopyFile Id="copyfile1" DestinationDirectory="INSTALLLOCATION"/>
               </File>
               <File Id="MvvmCrossLibrary" Name="NinjaCoder.MvvmCross.dll"
-                  Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\NinjaCoder.MvvmCross.UI\bin\Debug\NinjaCoder.MvvmCross.dll" Vital="yes" KeyPath="no" >
+                  Source="$(var.SOURCE_DIR)\NinjaCoder.MvvmCross.UI\bin\Debug\NinjaCoder.MvvmCross.dll" Vital="yes" KeyPath="no" >
                 <CopyFile Id="copyfile2" DestinationDirectory="INSTALLLOCATION"/>
               </File>
               <File Id="ScorchioLibrary" Name="Scorchio.VisualStudio.dll"
-                Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\NinjaCoder.MvvmCross.UI\bin\Debug\Scorchio.VisualStudio.dll" Vital="yes" KeyPath="no" >
+                Source="$(var.SOURCE_DIR)\NinjaCoder.MvvmCross.UI\bin\Debug\Scorchio.VisualStudio.dll" Vital="yes" KeyPath="no" >
                 <CopyFile Id="copyfile3" DestinationDirectory="INSTALLLOCATION"/>
               </File>
               <File Id="MvvmCrossUI" Name="NinjaCoder.MvvmCross.UI.exe"
-                Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\NinjaCoder.MvvmCross.UI\bin\Debug\NinjaCoder.MvvmCross.UI.exe" Vital="yes" KeyPath="no" >
+                Source="$(var.SOURCE_DIR)\NinjaCoder.MvvmCross.UI\bin\Debug\NinjaCoder.MvvmCross.UI.exe" Vital="yes" KeyPath="no" >
                 <CopyFile Id="copyfile4" DestinationDirectory="INSTALLLOCATION"/>
               </File>
             </Component>
@@ -87,44 +90,44 @@
           <Directory Id="Common7" Name="Common7">
             <Directory Id="IDE" Name="IDE">
               
-              <!--Project Template for VS 2012-->
+              <!--Project Templates for VS 2012-->
               <Directory Id="ProjectTemplatesFolder" Name="ProjectTemplates">
                 <Directory Id="ProjectTemplatesCSharp" Name="CSharp">
                   <Directory Id="ProjectTemplatesMvvmCross" Name="MvvmCross">
                     <Component Id="ProjectTemplates" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-175f15b0b3b1">
                       <File Id="MvvmCross.Core.zip"
                             Name="MvvmCross.Core.zip"
-                            Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\Zips\MvvmCross.Core.zip">
+                            Source="$(var.PROJECT_TEMPLATES_SOURCE_DIR)\MvvmCross.Core.zip">
                             <CopyFile Id="copyfileCore" DestinationDirectory="ProjectTemplatesMvvmCross"/>  
                       </File>
                      <File Id="MvvmCross.Core.Tests.zip"
                             Name="MvvmCross.Core.Tests.zip"
-                            Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\Zips\MvvmCross.Core.Tests.zip">
+                            Source="$(var.PROJECT_TEMPLATES_SOURCE_DIR)\MvvmCross.Core.Tests.zip">
                             <CopyFile Id="copyfileCoreTests" DestinationDirectory="ProjectTemplatesMvvmCross"/>  
                       </File>
                       <File Id="MvvmCross.Droid.zip"
                             Name="MvvmCross.Droid.zip"
-                            Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\Zips\MvvmCross.Droid.zip">
+                            Source="$(var.PROJECT_TEMPLATES_SOURCE_DIR)\MvvmCross.Droid.zip">
                             <CopyFile Id="copyfileDroid" DestinationDirectory="ProjectTemplatesMvvmCross"/>  
                       </File>
                       <File Id="MvvmCross.WindowsPhone.zip"
                             Name="MvvmCross.WindowsPhone.zip"
-                            Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\Zips\MvvmCross.WindowsPhone.zip">
+                            Source="$(var.PROJECT_TEMPLATES_SOURCE_DIR)\MvvmCross.WindowsPhone.zip">
                             <CopyFile Id="copyfilePhone" DestinationDirectory="ProjectTemplatesMvvmCross"/>  
                       </File>
                       <File Id="MvvmCross.WindowsStore.zip"
                             Name="MvvmCross.WindowsStore.zip"
-                            Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\Zips\MvvmCross.WindowsStore.zip">
+                            Source="$(var.PROJECT_TEMPLATES_SOURCE_DIR)\MvvmCross.WindowsStore.zip">
                             <CopyFile Id="copyfileStore" DestinationDirectory="ProjectTemplatesMvvmCross"/>  
                       </File>
                       <File Id="MvvmCross.Wpf.zip"
                             Name="MvvmCross.Wpf.zip"
-                            Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\Zips\MvvmCross.Wpf.zip">
+                            Source="$(var.PROJECT_TEMPLATES_SOURCE_DIR)\MvvmCross.Wpf.zip">
                             <CopyFile Id="copyfileWpf" DestinationDirectory="ProjectTemplatesMvvmCross"/>  
                       </File>
                       <File Id="MvvmCross.iOS.zip"
                           Name="MvvmCross.iOS.zip"
-                          Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\Zips\MvvmCross.iOS.zip">
+                          Source="$(var.PROJECT_TEMPLATES_SOURCE_DIR)\MvvmCross.iOS.zip">
                             <CopyFile Id="copyfileiOS" DestinationDirectory="ProjectTemplatesMvvmCross"/>
                       </File>
                     </Component>
@@ -132,7 +135,7 @@
                 </Directory>
               </Directory>
             
-               <!--Item Template for VS 2012-->
+               <!--Item Templates for VS 2012-->
                <Directory Id="ItemTemplatesFolder" Name="ItemTemplates">
                 <Directory Id="ItemTemplatesCSharp" Name="CSharp">
                   <Directory Id="ItemTemplatesMvvmCross" Name="MvvmCross">
@@ -140,78 +143,92 @@
                       
                       <File Id="MvvmCross.ViewModel"
                             Name="MvvmCross.ViewModel.zip"
-                            Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ItemTemplates\Zips\MvvmCross.ViewModel.zip">
+                            Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\MvvmCross.ViewModel.zip">
                             <CopyFile Id="copyItemTemplate1" DestinationDirectory="ItemTemplatesMvvmCross"/>
                       </File>
 
                       <File Id="MvvmCross.iOS.View"
                           Name="MvvmCross.iOS.View.zip"
-                          Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ItemTemplates\Zips\MvvmCross.iOS.View.zip">
+                          Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\MvvmCross.iOS.View.zip">
                         <CopyFile Id="copyItemTemplate2" DestinationDirectory="ItemTemplatesMvvmCross"/>
                       </File>
                       
                       <File Id="MvvmCross.Droid.View"
                           Name="MvvmCross.Droid.View.zip"
-                          Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ItemTemplates\Zips\MvvmCross.Droid.View.zip">
+                          Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\MvvmCross.Droid.View.zip">
                         <CopyFile Id="copyItemTemplate3" DestinationDirectory="ItemTemplatesMvvmCross"/>
                       </File>
                       
                       <File Id="MvvmCross.WindowsPhone.View"
                           Name="MvvmCross.WindowsPhone.View.zip"
-                          Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ItemTemplates\Zips\MvvmCross.WindowsPhone.View.zip">
+                          Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\MvvmCross.WindowsPhone.View.zip">
                         <CopyFile Id="copyItemTemplate4" DestinationDirectory="ItemTemplatesMvvmCross"/>
                       </File>
 
                       <File Id="MvvmCross.WindowsStore.View"
                           Name="MvvmCross.WindowsStore.View.zip"
-                          Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ItemTemplates\Zips\MvvmCross.WindowsStore.View.zip">
+                          Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\MvvmCross.WindowsStore.View.zip">
                         <CopyFile Id="copyItemTemplate5" DestinationDirectory="ItemTemplatesMvvmCross"/>
                       </File>
                       
                       <File Id="MvvmCross.Wpf.View"
                           Name="MvvmCross.Wpf.View.zip"
-                          Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ItemTemplates\Zips\MvvmCross.Wpf.View.zip">
+                          Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\MvvmCross.Wpf.View.zip">
                         <CopyFile Id="copyItemTemplate6" DestinationDirectory="ItemTemplatesMvvmCross"/>
                       </File>
 
                       
                     </Component>
                     
-                    <!--Item Converter Template for VS 2012-->
+                    <!--Item Converter Templates for VS 2012-->
                     <Directory Id="ItemTemplatesMvvmCrossConverters" Name="Converters">
                       <Component Id="ItemConverterTemplates" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-175f15b0b3b6">
                         
                         <File Id="MvvmCross.FloatConverter"
                               Name="MvvmCross.FloatConverter.zip"
-                              Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ItemTemplates\Zips\Converters\MvvmCross.FloatConverter.zip">
+                              Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\Converters\MvvmCross.FloatConverter.zip">
                                <CopyFile Id="copyConverter1" DestinationDirectory="ItemTemplatesMvvmCrossConverters"/>
                         </File>
 
                         <File Id="MvvmCross.IntConverter"
                             Name="MvvmCross.IntConverter.zip"
-                            Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ItemTemplates\Zips\Converters\MvvmCross.IntConverter.zip">
+                            Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\Converters\MvvmCross.IntConverter.zip">
                           <CopyFile Id="copyConverter2" DestinationDirectory="ItemTemplatesMvvmCrossConverters"/>
                         </File>
                         
                         <File Id="MvvmCross.IntToFloatConverter"
                             Name="MvvmCross.IntToFloatConverter.zip"
-                            Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ItemTemplates\Zips\Converters\MvvmCross.IntToFloatConverter.zip">
+                            Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\Converters\MvvmCross.IntToFloatConverter.zip">
                             <CopyFile Id="copyConverter3" DestinationDirectory="ItemTemplatesMvvmCrossConverters"/>
                         </File>
                         
                         <File Id="MvvmCross.StringLengthValueConverter"
                             Name="MvvmCross.StringLengthValueConverter.zip"
-                            Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ItemTemplates\Zips\Converters\MvvmCross.StringLengthValueConverter.zip">
+                            Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\Converters\MvvmCross.StringLengthValueConverter.zip">
                           <CopyFile Id="copyConverter4" DestinationDirectory="ItemTemplatesMvvmCrossConverters"/>
                         </File>
 
                         <File Id="MvvmCross.StringReverseValueConverter"
                             Name="MvvmCross.StringReverseValueConverter.zip"
-                            Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ItemTemplates\Zips\Converters\MvvmCross.StringReverseValueConverter.zip">
+                            Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\Converters\MvvmCross.StringReverseValueConverter.zip">
                           <CopyFile Id="copyConverter5" DestinationDirectory="ItemTemplatesMvvmCrossConverters"/>
                         </File>
                       </Component>
                     </Directory>
+
+                    <!--Item Plugin Templates for VS 2012-->
+                    <!--<Directory Id="ItemTemplatesMvvmCrossPlugins" Name="Plugins">
+                      <Component Id="ItemPluginTemplates" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-175f15b0b3b6">
+
+                        <File Id="MvvmCross.FloatConverter"
+                              Name="MvvmCross.FloatConverter.zip"
+                              Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ItemTemplates\Zips\Plugins\MvvmCross.FloatConverter.zip">
+                          <CopyFile Id="copyConverter1" DestinationDirectory="ItemTemplatesMvvmCrossConverters"/>
+                        </File>
+
+                      </Component>
+                    </Directory>-->
+                    
                   </Directory>
                 </Directory>
               </Directory>        
@@ -228,7 +245,7 @@
                 <Component Id="CMPADDIN" Guid="825c8b3c-e1ee-4eae-85b2-175f15b0b3be">
                   <File Id="VsIdeHostAddinFile" 
                         Name="NinjaCoder.MvvmCross.AddIn.AddIn" 
-                        Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\NinjaCoder.MvvmCross.AddIn\NinjaCoder.MvvmCross.AddIn.AddIn">
+                        Source="$(var.SOURCE_DIR)\NinjaCoder.MvvmCross.AddIn\NinjaCoder.MvvmCross.AddIn.AddIn">
                     
                     <CopyFile Id="copyfileAddIn" DestinationDirectory="Dir80AddInsId"/>  
                 </File>
@@ -290,7 +307,7 @@
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
     <UIRef Id="WixUI_Minimal" />
     <UIRef Id="WixUI_ErrorProgressText" />
-     <Icon Id="icon.ico" SourceFile="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\Resources\NinjaCoder.ico"/>
+     <Icon Id="icon.ico" SourceFile="$(var.SOURCE_DIR)\Resources\NinjaCoder.ico"/>
      <Property Id="ARPPRODUCTICON" Value="icon.ico" />
   </Product>
 </Wix>

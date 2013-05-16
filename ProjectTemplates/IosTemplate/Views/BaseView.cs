@@ -16,6 +16,13 @@ namespace IosTemplate.Views
     public abstract class BaseView : MvxViewController
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="BaseView" /> class.
+        /// </summary>
+        protected BaseView()
+        {
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="BaseView"/> class.
         /// </summary>
         /// <param name="nibName">Name of the nib.</param>

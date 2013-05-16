@@ -4,7 +4,7 @@
 // </summary>
 // -----------------------------------------------------------------------
 
-namespace Scorchio.VisualStudio
+namespace Scorchio.VisualStudio.Entities
 {
     using EnvDTE80;
 

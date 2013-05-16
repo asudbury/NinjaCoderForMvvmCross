@@ -17,6 +17,7 @@ namespace NinjaCoder.MvvmCross.Services
 
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Extensions;
+    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     /// Defines the VisualStudioService type.
@@ -29,6 +30,11 @@ namespace NinjaCoder.MvvmCross.Services
         private IEnumerable<Project> projects;
 
         /// <summary>
+        /// Gets or sets the dte2.
+        /// </summary>
+        private DTE2 dte2 { get; set; }
+
+        /// <summary>
         /// Gets the projects.
         /// </summary>
         public IEnumerable<Project> Projects
@@ -37,9 +43,26 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets or sets the instance.
+        /// Gets or sets the visual studio.
         /// </summary>
-        public DTE2 DTE2 { get; set; }
+        public DTE2 DTE2
+        {
+            get
+            {
+                if (this.dte2 == null)
+                {
+                    TraceService.WriteLine("MvvmCrossController Activating Visual Studio Link");
+                    this.dte2 = VSActivatorService.Activate();
+                }
+
+                return this.dte2;
+            }
+
+            set
+            {
+                this.dte2 = value;
+            }
+        }
 
         public Solution2 Solution 
         {
@@ -90,10 +113,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public Project CoreProject
         {
-            get             
-            {
-                return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.Core));
-            }
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.Core)); }
         }
 
         /// <summary>
@@ -101,20 +121,14 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public Project CoreTestsProject
         {
-            get             
-            {
-                return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.Tests));
-            }
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.Tests)); }
         }
         /// <summary>
         /// Gets the droid project.
         /// </summary>
         public Project DroidProject
         {
-            get
-            {
-                return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.Droid));
-            }
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.Droid)); }
         }
 
         /// <summary>
@@ -122,10 +136,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public Project iOSProject
         {
-            get
-            {
-                return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.iOS));
-            }
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.iOS)); }
         }
         
         /// <summary>
@@ -133,10 +144,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public Project WindowsPhoneProject 
         { 
-            get
-            {
-                return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.WindowsPhone));
-            } 
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.WindowsPhone)); } 
         }
 
         /// <summary>
@@ -144,10 +152,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public Project WindowsStoreProject
         {
-            get
-            {
-                return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.WindowsStore));
-            }
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.WindowsStore)); }
         }
 
         /// <summary>
@@ -155,10 +160,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public Project WpfProject 
         {
-            get
-            {
-                return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.WindowsWpf));
-            }
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.WindowsWpf)); }
         }
 
         /// <summary>

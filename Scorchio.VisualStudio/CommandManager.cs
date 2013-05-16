@@ -86,8 +86,10 @@ namespace Scorchio.VisualStudio
         {
             this.VSInstance = new VSInstance((DTE2)application);
             this.AddInInstance = (AddIn)addInInst;
-
+            
+            TraceService.WriteLine("--------------------------------------------------------");
             TraceService.WriteLine("CommandManager::OnConnection ConnectMode=" + connectMode);
+            TraceService.WriteLine("--------------------------------------------------------");
             
             switch (connectMode)
             {
@@ -313,11 +315,8 @@ namespace Scorchio.VisualStudio
                     return;
                 }
 
-                ////TraceService.WriteLine("CommandManager::QueryStatus commandName=" + commandName + " status=" + status);
-
                 if (this.commandInfos.Any(vsCommandInfo => vsCommandInfo.Command.Name == commandName))
                 {
-                    TraceService.WriteLine("CommandManager::QueryStatus commandName=" + commandName + " enabled");
                     status = vsCommandStatus.vsCommandStatusSupported | vsCommandStatus.vsCommandStatusEnabled;
                 }
             }

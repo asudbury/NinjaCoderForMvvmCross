@@ -8,8 +8,7 @@ namespace NinjaCoder.MvvmCross.Presenters
 {
     using System;
 
-    using Microsoft.Win32;
-
+    using NinjaCoder.MvvmCross.Services;
     using NinjaCoder.MvvmCross.Views.Interfaces;
 
     /// <summary>
@@ -23,23 +22,29 @@ namespace NinjaCoder.MvvmCross.Presenters
         private readonly IOptionsView view;
 
         /// <summary>
-        /// Gets the log file registry setting.
+        /// The settings service.
         /// </summary>
-        private string LogFileRegistrySetting
+        private readonly ISettingsService settingsService;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OptionsPresenter" /> class.
+        /// </summary>
+        public OptionsPresenter(IOptionsView view)
+            : this(view, new SettingsService())
         {
-            get
-            {
-                return @"SOFTWARE\Scorchio Limited\Ninja Coder for MvvmCross\LogToFile";
-            }
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OptionsPresenter" /> class.
         /// </summary>
         /// <param name="view">The view.</param>
-        public OptionsPresenter(IOptionsView view)
+        /// <param name="settingsService">The settings service.</param>
+        public OptionsPresenter(
+            IOptionsView view,
+            ISettingsService settingsService)
         {
-            this.view = view;    
+            this.view = view;
+            this.settingsService = settingsService;
         }
 
         /// <summary>
@@ -47,9 +52,7 @@ namespace NinjaCoder.MvvmCross.Presenters
         /// </summary>
         public void LoadSettings()
         {
-            string value = (string)Registry.CurrentUser.GetValue(this.LogFileRegistrySetting, "N");
-
-            this.view.LogToFile = value != "N";
+            this.view.LogToFile = this.settingsService.LogToFile;
 
             this.view.LogFilePath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\ninja-coder-for-mvvmcross.log";
         }
@@ -59,14 +62,7 @@ namespace NinjaCoder.MvvmCross.Presenters
         /// </summary>
         public void SaveSettings()
         {
-            string value = "N";
-
-            if (this.view.LogToFile)
-            {
-                value = "Y";
-            }
-
-            Registry.CurrentUser.SetValue(this.LogFileRegistrySetting, value);
+            this.settingsService.LogToFile = this.view.LogToFile;
         }
     }
 }

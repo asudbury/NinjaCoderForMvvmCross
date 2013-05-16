@@ -24,7 +24,7 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// <summary>
         /// Version Number.
         /// </summary>
-        private const string Version = "Version 1.0.3";
+        private const string Version = "Version 1.0.4";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Connect"/> class.
@@ -217,7 +217,7 @@ namespace NinjaCoder.MvvmCross.AddIn
             {
                 return new MvvmCrossController
                 {
-                    VisualStudio = this.VSInstance.ApplicationObject
+                    DTE2 = this.VSInstance.ApplicationObject
                 };            
             }
         }

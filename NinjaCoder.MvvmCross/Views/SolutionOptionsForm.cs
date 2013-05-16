@@ -163,7 +163,7 @@ namespace NinjaCoder.MvvmCross.Views
         /// </summary>
         private void LoadSettings()
         {
-            this.Presenter.LoadSettings();
+            this.Presenter.Load();
         }
 
         /// <summary>
