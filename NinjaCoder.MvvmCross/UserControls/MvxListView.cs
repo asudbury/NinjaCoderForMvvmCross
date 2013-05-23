@@ -10,6 +10,8 @@ namespace NinjaCoder.MvvmCross.UserControls
     using System.Linq;
     using System.Windows.Forms;
 
+    using NinjaCoder.MvvmCross.Entities;
+
     using Scorchio.VisualStudio.Entities;
 
     /// <summary>
@@ -55,6 +57,20 @@ namespace NinjaCoder.MvvmCross.UserControls
                                             Tag = baseTemplateInfo,
                                             Checked = baseTemplateInfo.PreSelected
                                         });
+        }
+
+        /// <summary>
+        /// Adds the plugin.
+        /// </summary>
+        /// <param name="plugin">The plugin.</param>
+        public void AddPlugin(Plugin plugin)
+        {
+            this.listView.Items.Add(new ListViewItem
+            {
+                Text = plugin.FriendlyName,
+                ImageIndex = 0,
+                Tag = plugin,
+            });
         }
     }
 }

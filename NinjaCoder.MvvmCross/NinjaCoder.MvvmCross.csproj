@@ -36,6 +36,7 @@
     <Reference Include="EnvDTE80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -59,6 +60,8 @@
     <Compile Include="Constants\Settings.cs" />
     <Compile Include="Constants\ProjectTemplates.cs" />
     <Compile Include="Controllers\MvvmCrossController.cs" />
+    <Compile Include="Entities\Plugin.cs" />
+    <Compile Include="Entities\Plugins.cs" />
     <Compile Include="Presenters\ItemTemplatesPresenter.cs" />
     <Compile Include="Presenters\OptionsPresenter.cs" />
     <Compile Include="Presenters\PluginsPresenter.cs" />
@@ -75,17 +78,28 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Services\ISettingsService.cs" />
-    <Compile Include="Services\IVisualStudioService.cs" />
+    <Compile Include="Services\Interfaces\IPluginsService.cs" />
+    <Compile Include="Services\Interfaces\ISettingsService.cs" />
+    <Compile Include="Services\Interfaces\IVisualStudioService.cs" />
+    <Compile Include="Services\PluginsService.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\VisualStudioService.cs" />
+    <Compile Include="Translators\ITranslator.cs" />
+    <Compile Include="Translators\PluginsTranslator.cs" />
     <Compile Include="UserControls\IMvxListView.cs" />
+    <Compile Include="UserControls\Logo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Logo.Designer.cs">
+      <DependentUpon>Logo.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\MvxListView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\MvxListView.Designer.cs">
       <DependentUpon>MvxListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Interfaces\IPluginsView.cs" />
     <Compile Include="Views\ItemTemplatesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +115,12 @@
     </Compile>
     <Compile Include="Views\OptionsForm.designer.cs">
       <DependentUpon>OptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PluginsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PluginsForm.Designer.cs">
+      <DependentUpon>PluginsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\SolutionOptionsForm.cs">
       <SubType>Form</SubType>
@@ -126,6 +146,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Logo.resx">
+      <DependentUpon>Logo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\MvxListView.resx">
       <DependentUpon>MvxListView.cs</DependentUpon>
     </EmbeddedResource>
@@ -134,6 +157,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\OptionsForm.resx">
       <DependentUpon>OptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PluginsForm.resx">
+      <DependentUpon>PluginsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\SolutionOptionsForm.resx">
       <DependentUpon>SolutionOptionsForm.cs</DependentUpon>

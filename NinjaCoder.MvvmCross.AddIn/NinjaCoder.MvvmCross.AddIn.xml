@@ -9,11 +9,6 @@
                Defines the Connect type.
             </summary>
         </member>
-        <member name="F:NinjaCoder.MvvmCross.AddIn.Connect.Version">
-            <summary>
-            Version Number.
-            </summary>
-        </member>
         <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:NinjaCoder.MvvmCross.AddIn.Connect"/> class.
@@ -54,24 +49,14 @@
             Adds the view model and views.
             </summary>
         </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.AddPlugins">
+            <summary>
+            Add the plugins.
+            </summary>
+        </member>
         <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.AddConverters">
             <summary>
             Adds the converters.
-            </summary>
-        </member>
-        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.ShowStackOverFlow">
-            <summary>
-            Shows the stack over flow.
-            </summary>
-        </member>
-        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.ShowJabbrRoom">
-            <summary>
-            Shows the Jabbr room.
-            </summary>
-        </member>
-        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.ShowGitHub">
-            <summary>
-            Shows the GitHub.
             </summary>
         </member>
         <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.ShowOptions">

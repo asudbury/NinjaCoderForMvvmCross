@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addProjectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addViewModelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addConvertersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addPluginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stackOverflowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jabbRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,6 +75,7 @@
             this.addProjectsToolStripMenuItem,
             this.addViewModelToolStripMenuItem,
             this.addConvertersToolStripMenuItem,
+            this.addPluginsToolStripMenuItem,
             this.optionsToolStripMenuItem,
             this.stackOverflowToolStripMenuItem,
             this.jabbRToolStripMenuItem,
@@ -102,6 +105,13 @@
             this.addConvertersToolStripMenuItem.Size = new System.Drawing.Size(189, 24);
             this.addConvertersToolStripMenuItem.Text = "Add Converters";
             this.addConvertersToolStripMenuItem.Click += new System.EventHandler(this.AddConvertersToolStripMenuItemClick);
+            // 
+            // addPluginsToolStripMenuItem
+            // 
+            this.addPluginsToolStripMenuItem.Name = "addPluginsToolStripMenuItem";
+            this.addPluginsToolStripMenuItem.Size = new System.Drawing.Size(189, 24);
+            this.addPluginsToolStripMenuItem.Text = "Add Plugins";
+            this.addPluginsToolStripMenuItem.Click += new System.EventHandler(this.AddPluginsToolStripMenuItemClick);
             // 
             // optionsToolStripMenuItem
             // 
@@ -197,6 +207,7 @@
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
             this.MaximizeBox = false;
             this.Name = "FormMain";
@@ -230,6 +241,7 @@
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.ToolStripMenuItem addPluginsToolStripMenuItem;
     }
 }
 

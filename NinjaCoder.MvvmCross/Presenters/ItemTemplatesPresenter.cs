@@ -38,12 +38,11 @@ namespace NinjaCoder.MvvmCross.Presenters
             this.view = view;
             this.itemTemplateInfos = itemTemplateInfos;
         }
-
-
+        
         /// <summary>
         /// Loads the item templates.
         /// </summary>
-        public void LoadItemTemplates()
+        public void Load()
         {
             foreach (ItemTemplateInfo itemTemplateInfo in this.itemTemplateInfos)
             {

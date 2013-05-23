@@ -8,15 +8,19 @@ namespace NinjaCoder.MvvmCross.Controllers
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Windows.Forms;
     using Constants;
     using EnvDTE;
     using EnvDTE80;
-    using NinjaCoder.MvvmCross.Services;
+    using Services;
+    using Services.Interfaces;
+
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
+
     using Views;
 
     /// <summary>
@@ -35,10 +39,17 @@ namespace NinjaCoder.MvvmCross.Controllers
         private readonly ISettingsService settingsService;
 
         /// <summary>
+        /// The plugins service.
+        /// </summary>
+        private readonly IPluginsService pluginsService;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MvvmCrossController" /> class.
         /// </summary>
         public MvvmCrossController()
-            : this(new VisualStudioService(), new SettingsService())
+            : this(new VisualStudioService(), 
+            new SettingsService(), 
+            new PluginsService())
         {
         }
 
@@ -47,12 +58,15 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="settingsService">The settings service.</param>
+        /// <param name="pluginsService">The plugins service.</param>
         public MvvmCrossController(
             IVisualStudioService visualStudioService, 
-            ISettingsService settingsService)
+            ISettingsService settingsService,
+            IPluginsService pluginsService)
         {
             this.visualStudioService = visualStudioService;
             this.settingsService = settingsService;
+            this.pluginsService = pluginsService;
         }
 
         /// <summary>
@@ -60,10 +74,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         public DTE2 DTE2
         {
-            set
-            {
-                this.visualStudioService.DTE2 = value;
-            }
+            set { this.visualStudioService.DTE2 = value; }
         }
 
         /// <summary>
@@ -92,7 +103,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             {
                 defaultLocation = this.visualStudioService.DTE2.GetDefaultProjectsLocation();
 
-                Project project = this.GetProjects().FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.Core));
+                Project project = this.visualStudioService.CoreProject;
 
                 if (project != null)
                 {
@@ -117,12 +128,16 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                 if (form.Continue)
                 {
+                    this.visualStudioService.DTE2.WriteStatusBarMessage("Ninja Coder is running....");
+
                     Solution2 solution2 = this.visualStudioService.DTE2.GetSolution() as Solution2;
 
                     solution2.AddProjects(form.Path, form.Presenter.GetRequiredTemplates(), true);
 
                     //// now collapse the solution!
                     this.visualStudioService.DTE2.CollapseSolution();
+
+                    this.visualStudioService.DTE2.WriteStatusBarMessage("Ninja Coder has completed the build of the MvvmCross solution.");
                 }
             }
             else
@@ -139,24 +154,30 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             this.AddTraceHeader("AddViewModelAndViews");
 
-            List<ItemTemplateInfo> templateInfos = this.visualStudioService.AllowedItemTemplates;
-
-            if (templateInfos.Any())
+            if (this.visualStudioService.IsMvvmCrossSolution)
             {
+                List<ItemTemplateInfo> templateInfos = this.visualStudioService.AllowedItemTemplates;
                 ViewModelOptionsView form = new ViewModelOptionsView(templateInfos);
 
                 form.ShowDialog();
 
                 if (form.Continue)
                 {
+                    this.visualStudioService.DTE2.WriteStatusBarMessage("Ninja Coder is running....");
+
                     Solution2 solution = this.visualStudioService.DTE2.GetSolution() as Solution2;
 
                     solution.AddItemTemplateToProjects(form.Presenter.GetRequiredItemTemplates());
+
+                    //// now collapse the solution!
+                    this.visualStudioService.DTE2.CollapseSolution();
+
+                    this.visualStudioService.DTE2.WriteStatusBarMessage("Ninja Coder has completed the adding of the viewmodel and views.");
                 }
             }
             else
             {
-                MessageBox.Show("This solution is not a MvvmCross solution", Settings.ApplicationName);
+                MessageBox.Show("This solution is not a MvvmCross solution.", Settings.ApplicationName);
             }
         }
 
@@ -167,9 +188,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             this.AddTraceHeader("AddConverters");
 
-            List<ItemTemplateInfo> templateInfos = this.visualStudioService.AllowedItemTemplates;
-
-            if (templateInfos.Any())
+            if (this.visualStudioService.IsMvvmCrossSolution)
             {
                 string templatesPath = this.settingsService.ConvertersTemplatesPath;
 
@@ -181,8 +200,9 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                 if (form.Continue)
                 {
-                    //// big assumption here that this is the right project!!
-                    Project project = this.GetProjects().FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.Core));
+                    this.visualStudioService.DTE2.WriteStatusBarMessage("Ninja Coder is running....");
+
+                    Project project = this.visualStudioService.CoreProject;
 
                     if (project != null)
                     {
@@ -192,6 +212,11 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                             project.AddToFolderFromTemplate("Converters", templateInfo.FileName, templateInfo.FriendlyName + ".cs");
                         }
+                        
+                        //// now collapse the solution!
+                        this.visualStudioService.DTE2.CollapseSolution();
+
+                        this.visualStudioService.DTE2.WriteStatusBarMessage("Ninja Coder has completed the adding of the converters.");
                     }
                     else
                     {
@@ -201,11 +226,10 @@ namespace NinjaCoder.MvvmCross.Controllers
             }
             else
             {
-                MessageBox.Show("This solution is not a MvvmCross solution", Settings.ApplicationName);
+                MessageBox.Show("This solution is not a MvvmCross solution.", Settings.ApplicationName);
             }
         }
-
-
+        
         /// <summary>
         /// Adds the plugins.
         /// </summary>
@@ -213,43 +237,48 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             this.AddTraceHeader("AddPlugins");
 
-            List<ItemTemplateInfo> templateInfos = this.visualStudioService.AllowedItemTemplates;
-
-            if (templateInfos.Any())
+            if (this.visualStudioService.IsMvvmCrossSolution)
             {
-                string templatesPath = this.settingsService.PluginsTemplatesPath;
+                List<string> viewModelNames = new List<string>();
 
-                List<ItemTemplateInfo> itemTemplateInfos = this.visualStudioService.GetFolderTemplateInfos(templatesPath, "Bootstrap");
+                Project coreProject = this.visualStudioService.CoreProject;
 
-                ItemTemplatesForm form = new ItemTemplatesForm(itemTemplateInfos);
+                //// look for the current view models in the project.
+                if (coreProject != null)
+                {
+                    ProjectItem projectItem = coreProject.GetFolder("ViewModels");
+
+                    IEnumerable<ProjectItem> projectItems = projectItem.GetSubProjectItems();
+
+                    viewModelNames.AddRange(projectItems.Select(item => Path.GetFileNameWithoutExtension(item.Name)));
+                }
+
+                PluginsForm form = new PluginsForm(viewModelNames);
 
                 form.ShowDialog();
 
                 if (form.Continue)
                 {
-                    //// big assumption here that this is the right project!!
-                    Project project = this.GetProjects().FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.Core));
+                    this.visualStudioService.DTE2.WriteStatusBarMessage("Ninja Coder is running....");
 
-                    if (project != null)
-                    {
-                        foreach (ItemTemplateInfo templateInfo in form.RequiredTemplates)
-                        {
-                            TraceService.WriteLine("MvvmCrossController::AddPlugin adding from template path " + templatesPath + " template=" + templateInfo.FileName);
+                    pluginsService.AddPlugins(
+                        this.visualStudioService, 
+                        form.RequiredPlugins, 
+                        form.ImplementInViewModel,
+                        this.settingsService.CodeSnippetsPath);
 
-                            project.AddToFolderFromTemplate("Bootstrap", templateInfo.FileName, templateInfo.FriendlyName + ".cs");
-                        }
-                    }
-                    else
-                    {
-                        TraceService.WriteError("MvvmCrossController::AddPlugIns Cannot find Core project");
-                    }
+                    //// now collapse the solution!
+                    this.visualStudioService.DTE2.CollapseSolution();
+
+                    this.visualStudioService.DTE2.WriteStatusBarMessage("Ninja Coder has completed the adding of the plugins.");
                 }
             }
             else
             {
-                MessageBox.Show("This solution is not a MvvmCross solution", Settings.ApplicationName);
+                MessageBox.Show("This solution is not a MvvmCross solution.", Settings.ApplicationName);
             }
         }
+        
         /// <summary>
         /// Shows the options form.
         /// </summary>

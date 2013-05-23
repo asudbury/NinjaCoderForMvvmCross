@@ -62,16 +62,6 @@ namespace NinjaCoder.MvvmCross.UI
         }
 
         /// <summary>
-        /// Options the tool strip menu item click.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void OptionsToolStripMenuItemClick(object sender, EventArgs e)
-        {
-            controller.ShowOptions();
-        }
-
-        /// <summary>
         /// Handles the Click event of the addConvertersToolStripMenuItem control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -79,6 +69,25 @@ namespace NinjaCoder.MvvmCross.UI
         private void AddConvertersToolStripMenuItemClick(object sender, EventArgs e)
         {
             controller.AddConverters();
+        }
+
+        /// <summary>
+        /// Adds the plugins tool strip menu item click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void AddPluginsToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            controller.AddPlugins();
+        }
+        /// <summary>
+        /// Options the tool strip menu item click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void OptionsToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            controller.ShowOptions();
         }
 
         /// <summary>

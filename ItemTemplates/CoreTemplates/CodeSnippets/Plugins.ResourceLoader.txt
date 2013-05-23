@@ -1,0 +1,10 @@
+        /// <summary>
+        /// Gets the text resource.
+        /// </summary>
+        /// <param name="resourcePath">The resource path.</param>
+        /// <returns>The text resource</returns>
+        public string GetTextResource(string resourcePath)
+        {
+            IMvxResourceLoader resourceLoader = Mvx.Resolve<IMvxResourceLoader>();
+            return resourceLoader.GetTextResource(resourcePath);
+        }

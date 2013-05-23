@@ -183,16 +183,7 @@ namespace NinjaCoder.MvvmCross.Views
         {
             this.Close();
         }
-
-        /// <summary>
-        /// Buttons the help click.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void ButtonHelpClick(object sender, EventArgs e)
-        {
-        }
-
+        
         /// <summary>
         /// Handles the KeyDown event of the textBoxProject control.
         /// </summary>

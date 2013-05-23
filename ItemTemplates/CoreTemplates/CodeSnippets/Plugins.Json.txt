@@ -1,0 +1,10 @@
+        /// <summary>
+        /// Parses the JSON.
+        /// </summary>
+        /// <param name="jsonString">The JSON string.</param>
+        /// <returns>A List of strings.</returns>
+        public IEnumerable<string> ParseJson(string jsonString)
+        {
+            IMvxJsonConverter jsonConverter = Mvx.Resolve<IMvxJsonConverter>();
+            return jsonConverter.DeserializeObject<List<string>>(jsonString);
+        }

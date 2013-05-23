@@ -6,10 +6,15 @@
 
 namespace Scorchio.VisualStudio.Extensions
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
     using EnvDTE;
+
+    using EnvDTE80;
+
+    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     ///  Defines the ProjectItemExtensions type.
@@ -82,25 +87,44 @@ namespace Scorchio.VisualStudio.Extensions
         }
 
         /// <summary>
+        /// Gets the first name space.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns>The first namespace.</returns>
+        public static CodeNamespace GetFirstNameSpace(this ProjectItem instance)
+        {
+            IEnumerable<CodeNamespace> codeNameespaces = instance.FileCodeModel.CodeElements.OfType<CodeNamespace>();
+            
+            return codeNameespaces.FirstOrDefault();
+        }
+
+        /// <summary>
         /// Gets the first class.
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <returns>The first class.</returns>
         public static CodeClass GetFirstClass(this ProjectItem instance)
         {
-            CodeClass codeClass = null;
+            IEnumerable<CodeClass> codeClasses = instance.FileCodeModel.CodeElements.OfType<CodeClass>();
 
-            CodeElement codeElement = instance.GetFirstCodeElement();
-
-            if (codeElement != null)
+            if (!codeClasses.Any())
             {
-                if (codeElement.Kind == vsCMElement.vsCMElementClass)
+                CodeNamespace codeNamespace = instance.GetFirstNameSpace();
+
+                foreach (CodeElement codeElement in codeNamespace.Children)
                 {
-                    codeClass = codeElement as CodeClass;
+                    if (codeElement.Kind == vsCMElement.vsCMElementClass)
+                    {
+                        return codeElement as CodeClass;
+                    }
                 }
+           }
+            else
+            {
+                return codeClasses.FirstOrDefault();
             }
 
-            return codeClass;
+            return null;
         }
 
         /// <summary>
@@ -110,19 +134,9 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The first interface.</returns>
         public static CodeInterface GetFirstInterface(this ProjectItem instance)
         {
-            CodeInterface codeInterface = null;
+            IEnumerable<CodeInterface> codeInterfaces = instance.FileCodeModel.CodeElements.OfType<CodeInterface>();
 
-            CodeElement codeElement = instance.GetFirstCodeElement();
-
-            if (codeElement != null)
-            {
-                if (codeElement.Kind == vsCMElement.vsCMElementInterface)
-                {
-                    codeInterface = codeElement as CodeInterface;
-                }
-            }
-
-            return codeInterface;
+            return codeInterfaces.FirstOrDefault();
         }
 
         /// <summary>
@@ -163,7 +177,9 @@ namespace Scorchio.VisualStudio.Extensions
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="headerComment">The header comment.</param>
-        public static void AddHeaderComment(this ProjectItem instance, string headerComment)
+        public static void AddHeaderComment(
+            this ProjectItem instance, 
+            string headerComment)
         {
             TextSelection selection = (TextSelection)instance.Document.Selection;
 
@@ -171,6 +187,139 @@ namespace Scorchio.VisualStudio.Extensions
             selection.NewLine();
             selection.LineUp();
             selection.Text = headerComment;
+        }
+
+        /// <summary>
+        /// Adds the using statement.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="usingStatement">The using statement.</param>
+        public static void AddUsingStatement(
+            this ProjectItem instance,
+            string usingStatement)
+        {
+            FileCodeModel2 fileCodeModel2 = instance.GetFirstNameSpace().ProjectItem.FileCodeModel as FileCodeModel2;
+
+            if (fileCodeModel2 != null)
+            {
+                foreach (CodeElement codeElement in fileCodeModel2.CodeElements)
+                {
+                    if (codeElement.Kind == vsCMElement.vsCMElementImportStmt)
+                    {
+                        CodeImport codeImport = codeElement as CodeImport;
+
+                        if (codeImport.Namespace == usingStatement)
+                        {
+                            return;
+                        }
+                    }
+                }
+
+                fileCodeModel2.AddImport(usingStatement);
+            }
+        }
+
+        /// <summary>
+        /// Inserts the method at end of class.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="snippetPath">The snippet path.</param>
+        public static void InsertMethod(
+            this ProjectItem instance,
+            string snippetPath)
+        {
+            CodeClass codeClass = instance.GetFirstClass();
+
+            if (codeClass != null)
+            {
+                CodeFunction codeFunction = codeClass.AddFunction("temp",
+                                                    vsCMFunction.vsCMFunctionFunction,
+                                                    vsCMTypeRef.vsCMTypeRefVoid,
+                                                    -1,
+                                                    vsCMAccess.vsCMAccessPublic,
+                                                    null);
+
+                TextPoint startPoint = codeFunction.StartPoint;
+
+                EditPoint editPoint = startPoint.CreateEditPoint();
+
+                codeClass.RemoveMember(codeFunction);
+
+                editPoint.Insert("\n\n");
+                editPoint.InsertFromFile(snippetPath);
+            }
+        }
+
+        /// <summary>
+        /// Moves the using statements.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        public static void MoveUsingStatements(this ProjectItem instance)
+        {
+            List<string> usingStatements = new List<string>();
+
+            try
+            {
+                foreach (CodeElement codeElement in instance.FileCodeModel.CodeElements)
+                {
+                    //// assume the using statements come before the required namespace.
+                    if (codeElement.Kind == vsCMElement.vsCMElementImportStmt)
+                    {
+                        TextPoint startPoint = codeElement.StartPoint;
+                        TextPoint endPoint = codeElement.EndPoint;
+
+                        string text = startPoint.CreateEditPoint().GetText(endPoint);
+                        usingStatements.Add(text);
+                    }
+                    else if (codeElement.Kind == vsCMElement.vsCMElementNamespace)
+                    {
+                        TextPoint nameSpacePoint = codeElement.GetStartPoint(vsCMPart.vsCMPartBody);
+                        EditPoint editPoint = nameSpacePoint.CreateEditPoint();
+
+                        foreach (string statement in usingStatements)
+                        {
+                            editPoint.Insert("\t" + statement + "\n");
+                        }
+                    }
+                }
+
+                //// now perform the deletes.
+                for (int i = 1; i <= instance.FileCodeModel.CodeElements.Count; i++)
+                {
+                    CodeElement codeElement = instance.FileCodeModel.CodeElements.Item(i);
+
+                    if (codeElement.Kind == vsCMElement.vsCMElementImportStmt)
+                    {
+                        instance.FileCodeModel.Remove(codeElement);
+                    }
+                }
+            }
+
+            catch (Exception exception)
+            {
+                TraceService.WriteError("MoveUsingStatements " + exception.Message);
+            }
+        }
+
+        /// <summary>
+        /// Sorts the and remove using statements.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        public static void SortAndRemoveUsingStatements(this ProjectItem instance)
+        {
+            try
+            {
+                string ConstantsvsViewKindCode = "{7651A701-06E5-11D1-8EBD-00A0C90F26EA}";
+                Window window = instance.Open(ConstantsvsViewKindCode);
+
+                window.Activate();
+
+                instance.DTE.ExecuteCommand("Edit.RemoveAndSort");
+            }
+            catch (Exception exception)
+            {
+                TraceService.WriteError("SortAndRemoveUsingStatements " + exception.Message);
+            }
         }
 
         /// <summary>

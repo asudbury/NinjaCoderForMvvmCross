@@ -13,14 +13,13 @@ namespace CoreTemplate.ViewModels
     /// <summary>
     /// Define the FirstViewModel type.
     /// </summary>
-    public class FirstViewModel : MvxViewModel
+    public class FirstViewModel : BaseViewModel
     {
         /// <summary>
         /// Backing field for my property.
         /// </summary>
         private string myProperty = "Hello MvvmCross from the Ninja Coder!";
 
-        //// An example of a Dependency property.
         /// <summary>
         /// Gets or sets my property.
         /// </summary>

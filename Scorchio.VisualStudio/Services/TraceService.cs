@@ -47,11 +47,11 @@ namespace Scorchio.VisualStudio.Services
         /// <param name="message">The message.</param>
         public static void WriteLine(string message)
         {
-            Trace.WriteLine(string.Format("{0} {1}", DateTime.Now.ToString("dd MMM YYY hh:mm:ss"), message));
+            Trace.WriteLine(GetTimedMessage(message));
 
             if (LogToFile)
             {
-                WriteMessage(message);
+                WriteMessageToLogFile(GetTimedMessage(message));
             }
         }
 
@@ -61,23 +61,35 @@ namespace Scorchio.VisualStudio.Services
         /// <param name="message">The message.</param>
         public static void WriteError(string message)
         {
-            Trace.WriteLine(string.Format("{0} {1}", DateTime.Now, message));
+            string timedMessage = "**ERROR** " + GetTimedMessage(message);
+
+            Trace.WriteLine(timedMessage);
 
             if (LogToFile)
             {
-                WriteMessage("**ERROR** " + message);
+                WriteMessageToLogFile(timedMessage);
             }
         }
 
         /// <summary>
-        /// Writes the message.
+        /// Writes the message to logfile.
         /// </summary>
         /// <param name="message">The message.</param>
-        internal static void WriteMessage(string message)
+        internal static void WriteMessageToLogFile(string message)
         {
             StreamWriter sw = new StreamWriter(LogFile, true);
-            sw.WriteLine("{0} {1}", DateTime.Now, message);
+            sw.WriteLine(message);
             sw.Close();            
         }
-    }
+
+        /// <summary>
+        /// Gets the timed message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <returns>A timed stamped message</returns>
+        internal static string GetTimedMessage(string message)
+        {
+            return string.Format("{0} {1}", DateTime.Now.ToString("dd MMM yyyy hh:mm:ss"), message);
+        }
+   }
 }

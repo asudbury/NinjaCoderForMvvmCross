@@ -1,0 +1,14 @@
+        /// <summary>
+        /// Composes the email.
+        /// </summary>
+        /// <param name="to">To - Who the email is going to..</param>
+        /// <param name="subject">The subject of the email.</param>
+        /// <param name="body">The body of the email.</param>
+        protected void ComposeEmail(
+            string to,
+            string subject, 
+            string body)
+        {
+            IMvxComposeEmailTask task = Mvx.Resolve<IMvxComposeEmailTask>();
+            task.ComposeEmail(to, null, subject, body, false);
+        }

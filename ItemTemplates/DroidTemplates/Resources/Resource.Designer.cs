@@ -26,6 +26,10 @@ namespace DroidTemplates
 		
 		public static void UpdateIdValues()
 		{
+			Cirrious.MvvmCross.Plugins.Network.Droid.Resource.String.ApplicationName = DroidTemplates.Resource.String.ApplicationName;
+			Cirrious.MvvmCross.Plugins.Network.Droid.Resource.String.Hello = DroidTemplates.Resource.String.Hello;
+			Cirrious.MvvmCross.Plugins.ReflectionEx.Droid.Resource.String.ApplicationName = DroidTemplates.Resource.String.ApplicationName;
+			Cirrious.MvvmCross.Plugins.ReflectionEx.Droid.Resource.String.Hello = DroidTemplates.Resource.String.Hello;
 		}
 		
 		public partial class Attribute

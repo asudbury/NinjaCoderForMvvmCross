@@ -30,7 +30,7 @@ namespace NinjaCoder.MvvmCross.Views
             this.InitializeComponent();
 
             this.Presenter = new ViewModelOptionsPresenter(this, itemTemplateInfos);
-            this.Presenter.LoadItemTemplates();
+            this.Presenter.Load();
         }
 
         /// <summary>
@@ -105,16 +105,7 @@ namespace NinjaCoder.MvvmCross.Views
         {
             this.Close();
         }
-
-        /// <summary>
-        /// Buttons the help click.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void ButtonHelpClick(object sender, EventArgs e)
-        {
-        }
-
+        
         /// <summary>
         /// Texts the box view model key down.
         /// </summary>

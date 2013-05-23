@@ -79,15 +79,5 @@ namespace NinjaCoder.MvvmCross.Views
             this.presenter.SaveSettings();
             this.Close();
         }
-
-        /// <summary>
-        /// Buttons the path click.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void ButtonPathClick(object sender, EventArgs e)
-        {
-
-        }
     }
 }

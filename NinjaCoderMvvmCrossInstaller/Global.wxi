@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <?define CONNECT_CLASS_FULL_NAME_VS = NinjaCoder.MvvmCross.AddIn.Connect" ?>
+  <?define REGISTRY_KEY = "Software\Scorchio Limited\Ninja Coder for MvvmCross" ?>
+  <?define SOURCE_DIR = "C:\Scorchio\Projects\c#\NinjaCoderMvvmCross" ?>
+
+  <?define PROJECT_TEMPLATES_DIR = "$(var.SOURCE_DIR)\ProjectTemplates" ?>
+  <?define PROJECT_TEMPLATES_ZIPS_DIR = "$(var.PROJECT_TEMPLATES_DIR)\Zips" ?>
+  <?define PROJECT_TEMPLATES_CORE_LIB = "$(var.SOURCE_DIR)\ProjectTemplates\CoreTemplate\Lib" ?>
+  <?define PROJECT_TEMPLATES_DROID_LIB = "$(var.SOURCE_DIR)\ProjectTemplates\DroidTemplate\Lib" ?>
+  <?define PROJECT_TEMPLATES_IOS_LIB = "$(var.SOURCE_DIR)\ProjectTemplates\iOSTemplate\Lib" ?>
+  <?define PROJECT_TEMPLATES_WINDOWSPHONE_LIB = "$(var.SOURCE_DIR)\ProjectTemplates\WindowsPhoneTemplate\Lib" ?>
+  <?define PROJECT_TEMPLATES_WINDOWSSTORE_LIB = "$(var.SOURCE_DIR)\ProjectTemplates\WindowsStoreTemplate\Lib" ?>
+  <?define PROJECT_TEMPLATES_WPF_LIB = "$(var.SOURCE_DIR)\ProjectTemplates\WpfTemplate\Lib" ?>
+  
+  <?define CORE_CODE_SNIPPETS_LIB = "$(var.SOURCE_DIR)\ItemTemplates\CoreTemplates\CodeSnippets" ?>
+  
+  <?define ITEM_TEMPLATES_DIR = "$(var.SOURCE_DIR)\ItemTemplates" ?>
+  <?define ITEM_TEMPLATES_ZIPS_DIR = "$(var.ITEM_TEMPLATES_DIR)\Zips" ?>
+</Include>

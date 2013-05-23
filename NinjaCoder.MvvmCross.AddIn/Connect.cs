@@ -4,13 +4,15 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
+
 namespace NinjaCoder.MvvmCross.AddIn
 {
     using System.Windows.Forms;
 
     using Microsoft.VisualStudio.CommandBars;
 
-    using NinjaCoder.MvvmCross.Controllers;
+    using Controllers;
 
     using Scorchio.VisualStudio;
     using Scorchio.VisualStudio.Entities;
@@ -21,17 +23,22 @@ namespace NinjaCoder.MvvmCross.AddIn
     /// </summary>
     public class Connect : CommandManager
     {
-        /// <summary>
-        /// Version Number.
-        /// </summary>
-        private const string Version = "Version 1.0.4";
+        private string ApplicationVersion
+        {
+            get 
+            { 
+                Version version = typeof(MvvmCrossController).Assembly.GetName().Version;
+ 
+                return "Version " + version.Major + "." + version.Minor + "." + version.Revision;
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Connect"/> class.
         /// </summary>
         public Connect()
         {
-            TraceService.WriteLine("Connect::Constructor Version=" + Version);  
+            TraceService.WriteLine("Connect::Constructor Version=" + this.ApplicationVersion);  
         }
 
         /// <summary>
@@ -39,7 +46,7 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// </summary>
         public override void StartUp()
         {
-            TraceService.WriteLine("Connect::StartUp Version=" + Version);
+            TraceService.WriteLine("Connect::StartUp Version=" + this.ApplicationVersion);
         }
 
         /// <summary>
@@ -47,7 +54,7 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// </summary>
         public override void UISetup()
         {
-            TraceService.WriteLine("Connect::UISetup Version=" + Version);
+            TraceService.WriteLine("Connect::UISetup Version=" + this.ApplicationVersion);
         }
 
         /// <summary>
@@ -55,7 +62,7 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// </summary>
         public override void AfterStartUp()
         {
-            TraceService.WriteLine("Connect::AfterStartUp Version=" + Version);
+            TraceService.WriteLine("Connect::AfterStartUp Version=" + this.ApplicationVersion);
         }
 
         /// <summary>
@@ -63,7 +70,7 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// </summary>
         public override void Initialize()
         {
-            TraceService.WriteLine("Connect::Initialize Version=" + Version);
+            TraceService.WriteLine("Connect::Initialize Version=" + this.ApplicationVersion);
             this.AddCommands();
         }
 
@@ -72,7 +79,7 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// </summary>
         internal void AddCommands()
         {
-            TraceService.WriteLine("Connect::AddCommands Version=" + Version);
+            TraceService.WriteLine("Connect::AddCommands Version=" + this.ApplicationVersion);
 
             CommandBar commandBar = this.AddCommandBar("Ninja Coder for MvvmCross");
 
@@ -107,12 +114,26 @@ namespace NinjaCoder.MvvmCross.AddIn
             commandInfo = new VSCommandInfo
             {
                 AddIn = this.AddInInstance,
+                Name = "NinjaCoderforMvvmCrossAddPlugins",
+                ButtonText = "Add Plugins",
+                Tooltip = "Ninja Coder for MvvmCross Add Plugins",
+                Action = this.AddPlugins,
+                ParentCommand = commandBar,
+                Position = 3,
+                BitmapResourceId = 450,
+            };
+
+            this.AddMenuItem(commandInfo);
+
+            commandInfo = new VSCommandInfo
+            {
+                AddIn = this.AddInInstance,
                 Name = "NinjaCoderforMvvmCrossAddConverters",
                 ButtonText = "Add Converters",
                 Tooltip = "Ninja Coder for MvvmCross Add Converters",
                 Action = this.AddConverters,
                 ParentCommand = commandBar,
-                Position = 3,
+                Position = 4,
                 BitmapResourceId = 450,
             };
 
@@ -126,51 +147,8 @@ namespace NinjaCoder.MvvmCross.AddIn
                 Tooltip = "Ninja Coder for MvvmCross Options",
                 Action = this.ShowOptions,
                 ParentCommand = commandBar,
-                Position = 4,
-                BitmapResourceId = 642
-            };
-
-            this.AddMenuItem(commandInfo);
-
-            commandInfo = new VSCommandInfo
-            {
-                AddIn = this.AddInInstance,
-                Name = "NinjaCoderforMvvmCrossStackOverFlow",
-                ButtonText = "Stack Overflow",
-                Tooltip = "Ninja Coder for MvvmCross Stack Overflow",
-                Action = this.ShowStackOverFlow,
-                ParentCommand = commandBar,
                 Position = 5,
-                BitmapResourceId = 1445,
-                BeginGroup = true
-            };
-
-            this.AddMenuItem(commandInfo);
-
-            commandInfo = new VSCommandInfo
-            {
-                AddIn = this.AddInInstance,
-                Name = "NinjaCoderforMvvmCrossJabbrRoom",
-                ButtonText = "JAbbR",
-                Tooltip = "Ninja Coder for MvvmCross JAbbR Room",
-                Action = this.ShowJabbrRoom,
-                ParentCommand = commandBar,
-                Position = 6,
-                BitmapResourceId = 1445
-            };
-
-            this.AddMenuItem(commandInfo);
-
-            commandInfo = new VSCommandInfo
-            {
-                AddIn = this.AddInInstance,
-                Name = "NinjaCoderforMvvmCrossGitHub",
-                ButtonText = "GitHub",
-                Tooltip = "Ninja Coder for MvvmCross GitHub",
-                Action = this.ShowGitHub,
-                ParentCommand = commandBar,
-                Position = 7,
-                BitmapResourceId = 1445
+                BitmapResourceId = 642
             };
 
             this.AddMenuItem(commandInfo);
@@ -183,7 +161,7 @@ namespace NinjaCoder.MvvmCross.AddIn
                 Tooltip = "Ninja Coder for MvvmCross Help",
                 Action = this.ShowHelp,
                 ParentCommand = commandBar,
-                Position = 8,
+                Position = 6,
                 BitmapResourceId = 1954,
                 BeginGroup = true
             };
@@ -198,7 +176,7 @@ namespace NinjaCoder.MvvmCross.AddIn
                 Tooltip = "Ninja Coder for MvvmCross About",
                 Action = this.ShowAbout,
                 ParentCommand = commandBar,
-                Position = 9,
+                Position = 7,
                 BitmapResourceId = 0
             };
 
@@ -227,7 +205,7 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// </summary>
         internal void BuildProjects()
         {
-            TraceService.WriteLine("Connect::BuildProjects Version=" + Version);  
+            TraceService.WriteLine("Connect::BuildProjects Version=" + this.ApplicationVersion);  
             this.Controller.BuildProjects();
         }
 
@@ -236,8 +214,17 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// </summary>
         internal void AddViewModelAndViews()
         {
-            TraceService.WriteLine("Connect::AddViewModelAndViews");
+            TraceService.WriteLine("Connect::AddViewModelAndViews Version=" + this.ApplicationVersion);  
             this.Controller.AddViewModelAndViews();
+        }
+
+        /// <summary>
+        /// Add the plugins.
+        /// </summary>
+        internal void AddPlugins()
+        {
+            TraceService.WriteLine("Connect::AddPlugins Version=" + this.ApplicationVersion); 
+            this.Controller.AddPlugins();   
         }
 
         /// <summary>
@@ -245,35 +232,8 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// </summary>
         internal void AddConverters()
         {
-            TraceService.WriteLine("Connect::AddConverters");
+            TraceService.WriteLine("Connect::AddConverters Version=" + this.ApplicationVersion); 
             this.Controller.AddConverters();
-        }
-
-        /// <summary>
-        /// Shows the stack over flow.
-        /// </summary>
-        internal void ShowStackOverFlow()
-        {
-            TraceService.WriteLine("Connect::StackOverFlow");
-            this.Controller.ShowStackOverFlow();
-        }
-
-        /// <summary>
-        /// Shows the Jabbr room.
-        /// </summary>
-        internal void ShowJabbrRoom()
-        {
-            TraceService.WriteLine("Connect::ShowJabbrRoom");
-            this.Controller.ShowJabbrRoom();
-        }
-
-        /// <summary>
-        /// Shows the GitHub.
-        /// </summary>
-        internal void ShowGitHub()
-        {
-            TraceService.WriteLine("Connect::ShowGitHub");
-            this.Controller.ShowGitHub();
         }
 
         /// <summary>
@@ -281,7 +241,7 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// </summary>
         internal void ShowOptions()
         {
-            TraceService.WriteLine("Connect::ShowOptions");
+            TraceService.WriteLine("Connect::ShowOptions Version=" + this.ApplicationVersion); 
             this.Controller.ShowOptions();
         }
 
@@ -290,8 +250,8 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// </summary>
         internal void ShowHelp()
         {
-            TraceService.WriteLine("Connect::ShowHelp");
-            MessageBox.Show(Version);
+            TraceService.WriteLine("Connect::ShowHelp Version=" + this.ApplicationVersion);
+            MessageBox.Show(this.ApplicationVersion);
         }
 
         /// <summary>
@@ -299,8 +259,8 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// </summary>
         internal void ShowAbout()
         {
-            TraceService.WriteLine("Connect::ShowAbout");
-            MessageBox.Show(Version);
+            TraceService.WriteLine("Connect::ShowAbout Version=" + this.ApplicationVersion);
+            MessageBox.Show(this.ApplicationVersion);
         }
     }
 }

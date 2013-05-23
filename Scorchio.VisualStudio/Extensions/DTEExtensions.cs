@@ -192,12 +192,15 @@ namespace Scorchio.VisualStudio.Extensions
             instance.Find.Action = vsFindAction.vsFindActionReplaceAll;
             instance.Find.FindWhat = findText;
             instance.Find.ReplaceWith = replaceText;
-            instance.Find.Target = vsFindTarget.vsFindTargetSolution;
+
+            instance.Find.Target = vsFindTarget.vsFindTargetCurrentDocument;
+            ////instance.Find.Target = vsFindTarget.vsFindTargetSolution;
             instance.Find.MatchCase = false;
             instance.Find.MatchWholeWord = false;
             instance.Find.MatchInHiddenText = true;
             instance.Find.PatternSyntax = vsFindPatternSyntax.vsFindPatternSyntaxRegExpr;
-            instance.Find.SearchPath = "Entire Solution";
+            ////instance.Find.SearchPath = "Current Document";
+            ////instance.Find.SearchPath = "Entire Solution";
             instance.Find.SearchSubfolders = true;
             instance.Find.KeepModifiedDocumentsOpen = false;
             instance.Find.FilesOfType = "*.cs";
@@ -207,7 +210,7 @@ namespace Scorchio.VisualStudio.Extensions
 
             if (findResults == vsFindResult.vsFindResultNotFound)
             {
-                TraceService.WriteLine("Unable to replace text from:-" + findText + " to:- " + replaceText);
+                TraceService.WriteError("Unable to replace text from:-" + findText + " to:- " + replaceText);
             }
 
             instance.Windows.Item("{CF2DDC32-8CAD-11D2-9302-005345000000}").Close();
@@ -262,6 +265,46 @@ namespace Scorchio.VisualStudio.Extensions
                 foreach (UIHierarchyItem item in rootItem.UIHierarchyItems)
                 {
                     item.UIHierarchyItems.Expanded = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Writes the status bar message.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="message">The message.</param>
+        public static void WriteStatusBarMessage(
+            this DTE2 instance,
+            string message)
+        {
+            instance.StatusBar.Text = message;
+        }
+
+        /// <summary>
+        /// Replaces the window text.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="fromText">From text.</param>
+        /// <param name="toText">To text.</param>
+        /// <param name="closeWindow">if set to <c>true</c> [close window].</param>
+        public static void ReplaceWindowText(
+            this DTE2 instance,
+            string fromText,
+            string toText,
+            bool closeWindow)
+        {
+            instance.ReplaceText(fromText, toText, true);
+
+            if (closeWindow)
+            {
+                try
+                {
+                    instance.ActiveWindow.Close(vsSaveChanges.vsSaveChangesYes);
+                }
+                catch (Exception exception)
+                {
+                    TraceService.WriteError("Error closing window in ReplaceWindowText error:-" + exception.Message);    
                 }
             }
         }

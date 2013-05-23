@@ -29,8 +29,7 @@ namespace NinjaCoder.MvvmCross.Views
             this.InitializeComponent();
 
             this.Presenter = new ItemTemplatesPresenter(this, itemTemplateInfos);
-            this.Presenter.LoadItemTemplates();
-
+            this.Presenter.Load();
         }
 
         /// <summary>

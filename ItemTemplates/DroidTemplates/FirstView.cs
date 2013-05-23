@@ -1,19 +1,19 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <summary>
-//    Defines the FirstView type.
+//    Defines the $safeitemname$ type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace DroidTemplate.Views
+namespace DroidTemplates
 {
     using Android.App;
     using Android.OS;
 
     /// <summary>
-    /// Defines the FirstView type.
+    /// Defines the $safeitemname$ type.
     /// </summary>
-    [Activity(Label = "View for FirstViewModel")]
-    public class FirstView : BaseView
+    [Activity(Label = "View for  $safeitemname$ Model")]
+    public class  $safeitemname$ : BaseView
     {
         /// <summary>
         /// Called when [create].

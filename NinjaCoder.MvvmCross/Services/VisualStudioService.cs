@@ -14,6 +14,7 @@ namespace NinjaCoder.MvvmCross.Services
     using EnvDTE80;
 
     using NinjaCoder.MvvmCross.Constants;
+    using NinjaCoder.MvvmCross.Services.Interfaces;
 
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Extensions;
@@ -51,7 +52,7 @@ namespace NinjaCoder.MvvmCross.Services
             {
                 if (this.dte2 == null)
                 {
-                    TraceService.WriteLine("MvvmCrossController Activating Visual Studio Link");
+                    TraceService.WriteLine("*****MvvmCrossController Activating Visual Studio Link*****");
                     this.dte2 = VSActivatorService.Activate();
                 }
 
@@ -68,6 +69,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             get { return this.DTE2.Solution as Solution2; }
         }
+        
         /// <summary>
         /// Gets a value indicating whether [allow droid project].
         /// </summary>
@@ -106,6 +108,14 @@ namespace NinjaCoder.MvvmCross.Services
         public bool AllowWpfProject
         {
             get { return true; }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is MVVM cross solution.
+        /// </summary>
+        public bool IsMvvmCrossSolution 
+        {
+            get { return this.CoreProject != null; }
         }
 
         /// <summary>
@@ -255,6 +265,8 @@ namespace NinjaCoder.MvvmCross.Services
         {
             get
             {
+                const string FolderName = "Views";
+
                 List<ItemTemplateInfo> itemTemplateInfos = new List<ItemTemplateInfo>();
 
                 if (this.iOSProject != null)
@@ -263,7 +275,7 @@ namespace NinjaCoder.MvvmCross.Services
                     {
                         FriendlyName = FriendlyNames.iOS,
                         ProjectSuffix = ProjectSuffixes.iOS,
-                        FolderName = "Views",
+                        FolderName = FolderName,
                         TemplateName = ItemTemplates.Views.IOS,
                         PreSelected = true
                     });
@@ -275,7 +287,7 @@ namespace NinjaCoder.MvvmCross.Services
                     {
                         FriendlyName = FriendlyNames.Droid,
                         ProjectSuffix = ProjectSuffixes.Droid,
-                        FolderName = "Views",
+                        FolderName = FolderName,
                         TemplateName = ItemTemplates.Views.Droid,
                         PreSelected = true
                     });
@@ -287,7 +299,7 @@ namespace NinjaCoder.MvvmCross.Services
                     {
                         FriendlyName = FriendlyNames.WindowsPhone,
                         ProjectSuffix = ProjectSuffixes.WindowsPhone,
-                        FolderName = "Views",
+                        FolderName = FolderName,
                         TemplateName = ItemTemplates.Views.WindowsPhone,
                         PreSelected = true
                     });
@@ -299,7 +311,7 @@ namespace NinjaCoder.MvvmCross.Services
                     {
                         FriendlyName = FriendlyNames.WindowsStore,
                         ProjectSuffix = ProjectSuffixes.WindowsStore,
-                        FolderName = "Views",
+                        FolderName = FolderName,
                         TemplateName = ItemTemplates.Views.WindowsStore,
                         PreSelected = true
                     });
@@ -311,7 +323,7 @@ namespace NinjaCoder.MvvmCross.Services
                     {
                         FriendlyName = FriendlyNames.WindowsWpf,
                         ProjectSuffix = ProjectSuffixes.WindowsWpf,
-                        FolderName = "Views",
+                        FolderName = FolderName,
                         TemplateName = ItemTemplates.Views.WindowsWPF,
                         PreSelected = true
                     });

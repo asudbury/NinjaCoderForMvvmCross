@@ -1,0 +1,16 @@
+        /// <summary>
+        /// Determines whether the host is reachable.
+        /// </summary>
+        /// <param name="host">The host.</param>
+        /// <returns>
+        ///   <c>true</c> if the host is reachable otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsHostReachable(string host)
+        {
+            IMvxReachability reach;
+
+            if (Mvx.TryResolve(out reach))
+            {
+                return reach.IsHostReachable(host);
+            }
+        }

@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?define CONNECT_CLASS_FULL_NAME_VS_2012 = "NinjaCoder.MvvmCross.AddIn.Connect" ?>
-<?define CONNECT_CLASS_FULL_NAME_VS = NinjaCoder.MvvmCross.AddIn.Connect" ?>
-<?define SOURCE_DIR = "C:\Scorchio\Projects\c#\NinjaCoderMvvmCross" ?>
-<?define PROJECT_TEMPLATES_SOURCE_DIR = "$(var.SOURCE_DIR)\ProjectTemplates\Zips" ?>
-<?define ITEM_TEMPLATES_SOURCE_DIR = "$(var.SOURCE_DIR)\ItemTemplates\Zips" ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
-  <Product Id="825c8b3c-e1ee-4eae-85b2-175f15b0b3bf" 
-           Name="Ninja Coder for MvvmCross v1.0.4" 
+  <?include $(sys.CURRENTDIR)Global.wxi ?>
+  <Product Id="*" 
+           Name="Ninja Coder for MvvmCross v1.1.0" 
            Language="1033" 
-           Version="1.0.4" 
+           Version="1.1.0" 
            Manufacturer="Scorchio Limited" 
            UpgradeCode="825c8b3c-e1ee-4eae-85b2-175f15b0b3bf">
     <Package InstallerVersion="200" Compressed="yes" />
+
+    <!--<WixVariable Id="WixUILicenseRtf" Value="path\License.rtf" />-->
+    <!--<WixVariable Id="WixUIBannerBmp" Value="resources\banner.bmp" />-->
+    <WixVariable Id="WixUIDialogBmp" Value="resources\dialog.bmp" />
+    <!--<WixVariable Id="WixUIExclamationIco" Value="path\exclamation.ico" />-->
+    <!--<WixVariable Id="WixUIInfoIco" Value="path\information.ico" />-->
+    <!--<WixVariable Id="WixUINewIco" Value="path\new.ico" />-->
+    <!--<WixVariable Id="WixUIUpIco" Value="path\up.ico" />-->
     
     <!-- Upgrade options -->
     <Property Id="PREVIOUSVERSIONSINSTALLED" Secure="yes" />
@@ -43,7 +47,7 @@
                   <Directory Id='Profile' Name='Profile'>
                     <Directory Id='Profile104' Name='Profile104'>
                       <Directory Id='SupportedFrameworks' Name='SupportedFrameworks'>
-                        <Component Id="PCLSupport" DiskId="1" Guid="925c8b3c-e1ee-4eae-85b2-175f15b0b3bf">
+                        <Component Id="PCLSupport" DiskId="1" Guid="925c8b3c-e1ee-4eae-85b2-100000000001">
                           <File Id="Droid" Name="monoAndroid,Version=v1.6+.xml"
                                 Source="$(var.SOURCE_DIR)\monoAndroid,Version=v1.6+.xml" Vital="yes" KeyPath="no" >
                             <CopyFile Id="copyfilePCLDroid" DestinationDirectory="SupportedFrameworks"/>
@@ -65,7 +69,8 @@
         <!-- Install Application files -->
         <Directory Id='CompanyFolder' Name="Scorchio Limited">
           <Directory Id="INSTALLLOCATION" Name="Ninja Coder for MvvmCross">
-            <Component Id="CMPVSEXTENSION" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-175f15b0b3bf">
+            
+            <Component Id="CMPVSEXTENSION" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-200000000001">
               <File Id="EXTENSIONBINARY" Name="NinjaCoder.MvvmCross.AddIn.dll"
                     Source="$(var.SOURCE_DIR)\NinjaCoder.MvvmCross.AddIn\bin\Debug\NinjaCoder.MvvmCross.AddIn.dll" Vital="yes" KeyPath="no" >
                 <CopyFile Id="copyfile1" DestinationDirectory="INSTALLLOCATION"/>
@@ -83,9 +88,46 @@
                 <CopyFile Id="copyfile4" DestinationDirectory="INSTALLLOCATION"/>
               </File>
             </Component>
-          </Directory>
+
+            <!-- Code Snippets -->
+            <Directory Id="CodeSnippets" Name="CodeSnippets">            
+            
+            </Directory>
+            
+            <!-- Plugins -->
+            <Directory Id="MvvmCross" Name="MvvmCross">
+
+              <Directory Id="MvvmCrossAssemblies" Name="Assemblies">
+
+                <Directory Id="MvvmCrossAssembliesCore" Name="Core">
+                  <Directory Id="MvvmCrossAssembliesCorePlugins" Name="Plugins" />
+                </Directory>
+
+                <Directory Id="MvvmCrossAssembliesDroid" Name="Droid">
+                  <Directory Id="MvvmCrossAssembliesDroidPlugins" Name="Plugins"/>
+                </Directory>
+                
+                <Directory Id="MvvmCrossAssembliesiOS" Name="iOS">
+                  <Directory Id="MvvmCrossAssembliesiOSPlugins" Name="Plugins">
+                  </Directory>
+                </Directory>
+
+                <Directory Id="MvvmCrossAssembliesWindowsPhone" Name="WindowsPhone">
+                  <Directory Id="MvvmCrossAssembliesWindowsPhonePlugins" Name="Plugins"/>
+                </Directory>
+
+                <Directory Id="MvvmCrossAssembliesWindowsStore" Name="WindowsStore">
+                  <Directory Id="MvvmCrossAssembliesWindowsStorePlugins" Name="Plugins"/>
+                </Directory>
+                
+                <Directory Id="MvvmCrossAssembliesWpf" Name="Wpf">
+                  <Directory Id="MvvmCrossAssembliesWpfPlugins" Name="Plugins"/>
+                </Directory>
+                </Directory>
+              </Directory>
+            </Directory>
         </Directory>
-      
+          
         <Directory Id="VisualStudio" Name="Microsoft Visual Studio 11.0">
           <Directory Id="Common7" Name="Common7">
             <Directory Id="IDE" Name="IDE">
@@ -94,40 +136,40 @@
               <Directory Id="ProjectTemplatesFolder" Name="ProjectTemplates">
                 <Directory Id="ProjectTemplatesCSharp" Name="CSharp">
                   <Directory Id="ProjectTemplatesMvvmCross" Name="MvvmCross">
-                    <Component Id="ProjectTemplates" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-175f15b0b3b1">
+                    <Component Id="ProjectTemplates" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-400000000001">
                       <File Id="MvvmCross.Core.zip"
                             Name="MvvmCross.Core.zip"
-                            Source="$(var.PROJECT_TEMPLATES_SOURCE_DIR)\MvvmCross.Core.zip">
+                            Source="$(var.PROJECT_TEMPLATES_ZIPS_DIR)\MvvmCross.Core.zip">
                             <CopyFile Id="copyfileCore" DestinationDirectory="ProjectTemplatesMvvmCross"/>  
                       </File>
                      <File Id="MvvmCross.Core.Tests.zip"
                             Name="MvvmCross.Core.Tests.zip"
-                            Source="$(var.PROJECT_TEMPLATES_SOURCE_DIR)\MvvmCross.Core.Tests.zip">
+                            Source="$(var.PROJECT_TEMPLATES_ZIPS_DIR)\MvvmCross.Core.Tests.zip">
                             <CopyFile Id="copyfileCoreTests" DestinationDirectory="ProjectTemplatesMvvmCross"/>  
                       </File>
                       <File Id="MvvmCross.Droid.zip"
                             Name="MvvmCross.Droid.zip"
-                            Source="$(var.PROJECT_TEMPLATES_SOURCE_DIR)\MvvmCross.Droid.zip">
+                            Source="$(var.PROJECT_TEMPLATES_ZIPS_DIR)\MvvmCross.Droid.zip">
                             <CopyFile Id="copyfileDroid" DestinationDirectory="ProjectTemplatesMvvmCross"/>  
                       </File>
                       <File Id="MvvmCross.WindowsPhone.zip"
                             Name="MvvmCross.WindowsPhone.zip"
-                            Source="$(var.PROJECT_TEMPLATES_SOURCE_DIR)\MvvmCross.WindowsPhone.zip">
+                            Source="$(var.PROJECT_TEMPLATES_ZIPS_DIR)\MvvmCross.WindowsPhone.zip">
                             <CopyFile Id="copyfilePhone" DestinationDirectory="ProjectTemplatesMvvmCross"/>  
                       </File>
                       <File Id="MvvmCross.WindowsStore.zip"
                             Name="MvvmCross.WindowsStore.zip"
-                            Source="$(var.PROJECT_TEMPLATES_SOURCE_DIR)\MvvmCross.WindowsStore.zip">
+                            Source="$(var.PROJECT_TEMPLATES_ZIPS_DIR)\MvvmCross.WindowsStore.zip">
                             <CopyFile Id="copyfileStore" DestinationDirectory="ProjectTemplatesMvvmCross"/>  
                       </File>
                       <File Id="MvvmCross.Wpf.zip"
                             Name="MvvmCross.Wpf.zip"
-                            Source="$(var.PROJECT_TEMPLATES_SOURCE_DIR)\MvvmCross.Wpf.zip">
+                            Source="$(var.PROJECT_TEMPLATES_ZIPS_DIR)\MvvmCross.Wpf.zip">
                             <CopyFile Id="copyfileWpf" DestinationDirectory="ProjectTemplatesMvvmCross"/>  
                       </File>
                       <File Id="MvvmCross.iOS.zip"
                           Name="MvvmCross.iOS.zip"
-                          Source="$(var.PROJECT_TEMPLATES_SOURCE_DIR)\MvvmCross.iOS.zip">
+                          Source="$(var.PROJECT_TEMPLATES_ZIPS_DIR)\MvvmCross.iOS.zip">
                             <CopyFile Id="copyfileiOS" DestinationDirectory="ProjectTemplatesMvvmCross"/>
                       </File>
                     </Component>
@@ -139,78 +181,82 @@
                <Directory Id="ItemTemplatesFolder" Name="ItemTemplates">
                 <Directory Id="ItemTemplatesCSharp" Name="CSharp">
                   <Directory Id="ItemTemplatesMvvmCross" Name="MvvmCross">
-                    <Component Id="ItemTemplates" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-175f15b0b3b8">
+                    <Component Id="ItemTemplates" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-500000000001">
                       
                       <File Id="MvvmCross.ViewModel"
                             Name="MvvmCross.ViewModel.zip"
-                            Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\MvvmCross.ViewModel.zip">
+                            Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\MvvmCross.ViewModel.zip">
                             <CopyFile Id="copyItemTemplate1" DestinationDirectory="ItemTemplatesMvvmCross"/>
                       </File>
 
                       <File Id="MvvmCross.iOS.View"
                           Name="MvvmCross.iOS.View.zip"
-                          Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\MvvmCross.iOS.View.zip">
+                          Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\MvvmCross.iOS.View.zip">
                         <CopyFile Id="copyItemTemplate2" DestinationDirectory="ItemTemplatesMvvmCross"/>
                       </File>
                       
                       <File Id="MvvmCross.Droid.View"
                           Name="MvvmCross.Droid.View.zip"
-                          Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\MvvmCross.Droid.View.zip">
+                          Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\MvvmCross.Droid.View.zip">
                         <CopyFile Id="copyItemTemplate3" DestinationDirectory="ItemTemplatesMvvmCross"/>
                       </File>
                       
                       <File Id="MvvmCross.WindowsPhone.View"
                           Name="MvvmCross.WindowsPhone.View.zip"
-                          Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\MvvmCross.WindowsPhone.View.zip">
+                          Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\MvvmCross.WindowsPhone.View.zip">
                         <CopyFile Id="copyItemTemplate4" DestinationDirectory="ItemTemplatesMvvmCross"/>
                       </File>
 
                       <File Id="MvvmCross.WindowsStore.View"
                           Name="MvvmCross.WindowsStore.View.zip"
-                          Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\MvvmCross.WindowsStore.View.zip">
+                          Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\MvvmCross.WindowsStore.View.zip">
                         <CopyFile Id="copyItemTemplate5" DestinationDirectory="ItemTemplatesMvvmCross"/>
                       </File>
                       
                       <File Id="MvvmCross.Wpf.View"
                           Name="MvvmCross.Wpf.View.zip"
-                          Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\MvvmCross.Wpf.View.zip">
+                          Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\MvvmCross.Wpf.View.zip">
                         <CopyFile Id="copyItemTemplate6" DestinationDirectory="ItemTemplatesMvvmCross"/>
                       </File>
 
-                      
+                      <File Id="MvvmCross.Plugin"
+                        Name="MvvmCross.Plugin.zip"
+                        Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\MvvmCross.Plugin.zip">
+                        <CopyFile Id="copyItemTemplate7" DestinationDirectory="ItemTemplatesMvvmCross"/>
+                      </File>
                     </Component>
                     
                     <!--Item Converter Templates for VS 2012-->
                     <Directory Id="ItemTemplatesMvvmCrossConverters" Name="Converters">
-                      <Component Id="ItemConverterTemplates" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-175f15b0b3b6">
+                      <Component Id="ItemConverterTemplates" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-600000000001">
                         
                         <File Id="MvvmCross.FloatConverter"
                               Name="MvvmCross.FloatConverter.zip"
-                              Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\Converters\MvvmCross.FloatConverter.zip">
+                              Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\Converters\MvvmCross.FloatConverter.zip">
                                <CopyFile Id="copyConverter1" DestinationDirectory="ItemTemplatesMvvmCrossConverters"/>
                         </File>
 
                         <File Id="MvvmCross.IntConverter"
                             Name="MvvmCross.IntConverter.zip"
-                            Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\Converters\MvvmCross.IntConverter.zip">
+                            Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\Converters\MvvmCross.IntConverter.zip">
                           <CopyFile Id="copyConverter2" DestinationDirectory="ItemTemplatesMvvmCrossConverters"/>
                         </File>
                         
                         <File Id="MvvmCross.IntToFloatConverter"
                             Name="MvvmCross.IntToFloatConverter.zip"
-                            Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\Converters\MvvmCross.IntToFloatConverter.zip">
+                            Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\Converters\MvvmCross.IntToFloatConverter.zip">
                             <CopyFile Id="copyConverter3" DestinationDirectory="ItemTemplatesMvvmCrossConverters"/>
                         </File>
                         
                         <File Id="MvvmCross.StringLengthValueConverter"
                             Name="MvvmCross.StringLengthValueConverter.zip"
-                            Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\Converters\MvvmCross.StringLengthValueConverter.zip">
+                            Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\Converters\MvvmCross.StringLengthValueConverter.zip">
                           <CopyFile Id="copyConverter4" DestinationDirectory="ItemTemplatesMvvmCrossConverters"/>
                         </File>
 
                         <File Id="MvvmCross.StringReverseValueConverter"
                             Name="MvvmCross.StringReverseValueConverter.zip"
-                            Source="$(var.ITEM_TEMPLATES_SOURCE_DIR)\Converters\MvvmCross.StringReverseValueConverter.zip">
+                            Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\Converters\MvvmCross.StringReverseValueConverter.zip">
                           <CopyFile Id="copyConverter5" DestinationDirectory="ItemTemplatesMvvmCrossConverters"/>
                         </File>
                       </Component>
@@ -242,7 +288,7 @@
           <Directory Id="VisualStudioDirId" Name="VisualStudio">
             <Directory Id="Dir11Id" Name="11.0">
               <Directory Id="Dir80AddInsId" Name="AddIns">
-                <Component Id="CMPADDIN" Guid="825c8b3c-e1ee-4eae-85b2-175f15b0b3be">
+                <Component Id="CMPADDIN" Guid="825c8b3c-e1ee-4eae-85b2-700000000001">
                   <File Id="VsIdeHostAddinFile" 
                         Name="NinjaCoder.MvvmCross.AddIn.AddIn" 
                         Source="$(var.SOURCE_DIR)\NinjaCoder.MvvmCross.AddIn\NinjaCoder.MvvmCross.AddIn.AddIn">
@@ -272,18 +318,22 @@
     <Feature Id="ProductFeature" Title="VSWixExtension" Level="1">
       <ComponentRef	Id="PCLSupport"	/>
       <ComponentRef	Id="CMPVSEXTENSION"	/>
+      <ComponentRef	Id="MvvmCrossAssembliesCorePluginsComponent"	/>
+      <ComponentRef	Id="MvvmCrossAssembliesDroidPluginsComponent"	/>
+      <ComponentRef	Id="MvvmCrossAssembliesiOSPluginsComponent"	/>
+      <ComponentRef	Id="MvvmCrossAssembliesWindowsPhonePluginsComponent"	/>
+      <ComponentRef	Id="MvvmCrossAssembliesWindowsStorePluginsComponent"	/>
+      <ComponentRef	Id="MvvmCrossAssembliesWpfPluginsComponent"	/>
       <ComponentRef	Id="CMPADDIN"	/>      
       <ComponentRef	Id="ProjectTemplates"	/>
       <ComponentRef	Id="ItemTemplates"	/>
       <ComponentRef	Id="ItemConverterTemplates"	/>
+      <ComponentRef	Id="CodeSnippetsComponent"	/>
     </Feature>
     <CustomAction Id="RemoveVS2012AddInCommands" Script="vbscript" Execute="deferred" Return="ignore" Impersonate="yes">
       <![CDATA[
             Set dte = CreateObject("VisualStudio.DTE.11.0")
             For Each cmd In dte.Commands
-               If InStr(cmd, "$(var.CONNECT_CLASS_FULL_NAME_VS_2012)") <> 0 Then
-                  cmd.Delete()
-               End If
                If InStr(cmd, "$(var.CONNECT_CLASS_FULL_NAME_VS)") <> 0 Then
                   cmd.Delete()
                End If
@@ -291,12 +341,21 @@
             dte.Quit()
          ]]>
     </CustomAction>
-    
+
+    <CustomAction Id="VS2012ResetAddin" Script="jscript" Execute="deferred" Return="ignore" Impersonate="yes">
+	        <![CDATA[
+		        var shell = new ActiveXObject( "WScript.Shell" );
+		        var path = shell.RegRead( "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\VisualStudio\\11.0\\InstallDir" );
+		        shell.Run( '"' + path + 'DEVENV.EXE" /ResetAddIn NinjaCoder.MvvmCross.AddIn.Connect /Command File.Exit' );             
+           ]]>
+    </CustomAction>
+
     <InstallExecuteSequence>
+      <Custom Action="VS2012ResetAddin" After="InstallInitialize"></Custom>
+      
       <RemoveExistingProducts After="InstallInitialize"/>
       
       <Custom Action="VS2012InstallVSTemplates" Before="InstallFinalize"></Custom>
-
       <Custom Action="RemoveVS2012AddInCommands"
                  After="RemoveFiles">
         Installed AND NOT UPGRADINGPRODUCTCODE AND VS2012INSTALLATIONFOLDER

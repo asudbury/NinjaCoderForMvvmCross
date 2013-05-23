@@ -10,16 +10,13 @@ namespace NinjaCoder.MvvmCross.Services
 
     using Microsoft.Win32;
 
+    using NinjaCoder.MvvmCross.Services.Interfaces;
+
     /// <summary>
     ///  Defines the SettingsService type.
     /// </summary>
     public class SettingsService : ISettingsService
     {
-        /// <summary>
-        /// Registry Key.
-        /// </summary>
-        private const string RegistryKey = @"SOFTWARE\Scorchio Limited\Ninja Coder for MvvmCross";
-
         /// <summary>
         /// Gets or sets a value indicating whether [log to file].
         /// </summary>
@@ -46,22 +43,40 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets the plugins templates path.
+        /// Gets the core plugins path.
         /// </summary>
-        public string PluginsTemplatesPath
-        {
-            get { return this.GetItemTemplatesPath() + @"\Plugins"; }
+        public string CorePluginsPath 
+        { 
+            get { return this.GetRegistryValue("Core Plugins Path", string.Empty); }
         }
 
+        /// <summary>
+        /// Gets the code snippets path.
+        /// </summary>
+        public string CodeSnippetsPath
+        {
+            get { return this.GetRegistryValue("Code Snippets Path", string.Empty); }
+        }
 
         /// <summary>
-        /// Gets the value key.
+        /// Gets the registry key.
         /// </summary>
-        /// <param name="keyName">Name of the key.</param>
         /// <returns></returns>
-        internal string GetValueKey(string keyName)
+        internal RegistryKey GetRegistryKey(bool writeable)
         {
-            return string.Format("{0}\\{1}", RegistryKey, keyName);
+            RegistryKey softwareKey = Registry.CurrentUser.OpenSubKey("Software");
+
+            if (softwareKey != null)
+            {
+                RegistryKey scorchioKey = softwareKey.OpenSubKey("Scorchio Limited");
+
+                if (scorchioKey != null)
+                {
+                    return scorchioKey.OpenSubKey("Ninja Coder for MvvmCross", writeable);
+                }
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -69,12 +84,20 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="defaultValue">The default value.</param>
-        /// <returns>The value.</returns>
+        /// <returns>The vaue.</returns>
         internal string GetRegistryValue(
             string name, 
             string defaultValue)
         {
-            return (string)Registry.CurrentUser.GetValue(this.GetValueKey(name), defaultValue);
+            RegistryKey registryKey = this.GetRegistryKey(false);
+
+            if (registryKey != null)
+            {
+                return (string)registryKey.GetValue(name);
+
+            }
+
+            return defaultValue;
         }
 
         /// <summary>
@@ -86,7 +109,12 @@ namespace NinjaCoder.MvvmCross.Services
             string name,
             string value)
         {
-            Registry.CurrentUser.SetValue(this.GetValueKey(name), value);
+             RegistryKey registryKey = this.GetRegistryKey(true);
+
+             if (registryKey != null)
+             {
+                 registryKey.SetValue(name, value);
+             }
         }
 
         /// <summary>

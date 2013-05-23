@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include $(sys.CURRENTDIR)\Global.wxi?>
+  <Fragment>
+    <ComponentGroup Id='ComponentGroupCodeSnippets'>
+
+      <Component Id="CodeSnippetsComponent" Directory="CodeSnippets" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-30000000000A">
+
+        <RegistryKey Root="HKCU"
+                 Key="$(var.REGISTRY_KEY)">
+          <RegistryValue Type="string" Name="Code Snippets Path" Value="[CodeSnippets]"/>
+        </RegistryKey>
+
+        <File Id="Snippet1" Name="Plugins.Accelerometer.txt"
+            Source="$(var.CORE_CODE_SNIPPETS_LIB)\Plugins.Accelerometer.txt" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet1" DestinationDirectory="CodeSnippets"/>
+        </File>
+
+        <File Id="Snippet2" Name="Plugins.Bookmarks.txt"
+            Source="$(var.CORE_CODE_SNIPPETS_LIB)\Plugins.Bookmarks.txt" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet2" DestinationDirectory="CodeSnippets"/>
+        </File>
+
+        <File Id="Snippet3" Name="Plugins.Color.txt"
+            Source="$(var.CORE_CODE_SNIPPETS_LIB)\Plugins.Color.txt" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet3" DestinationDirectory="CodeSnippets"/>
+        </File>
+        
+        <File Id="Snippet4" Name="Plugins.DownloadCache.txt"
+            Source="$(var.CORE_CODE_SNIPPETS_LIB)\Plugins.DownloadCache.txt" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet4" DestinationDirectory="CodeSnippets"/>
+        </File>
+
+        <File Id="Snippet5" Name="Plugins.Email.txt"
+            Source="$(var.CORE_CODE_SNIPPETS_LIB)\Plugins.Email.txt" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet5" DestinationDirectory="CodeSnippets"/>
+        </File>
+
+        <File Id="Snippet6" Name="Plugins.File.txt"
+            Source="$(var.CORE_CODE_SNIPPETS_LIB)\Plugins.File.txt" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet6" DestinationDirectory="CodeSnippets"/>
+        </File>
+
+        <File Id="Snippet7" Name="Plugins.Json.txt"
+            Source="$(var.CORE_CODE_SNIPPETS_LIB)\Plugins.Json.txt" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet7" DestinationDirectory="CodeSnippets"/>
+        </File>
+
+        <File Id="Snippet8" Name="Plugins.Network.txt"
+            Source="$(var.CORE_CODE_SNIPPETS_LIB)\Plugins.Network.txt" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet8" DestinationDirectory="CodeSnippets"/>
+        </File>
+
+        <File Id="Snippet9" Name="Plugins.PhoneCall.txt"
+          Source="$(var.CORE_CODE_SNIPPETS_LIB)\Plugins.PhoneCall.txt" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet9" DestinationDirectory="CodeSnippets"/>
+        </File>
+
+        <File Id="Snippet10" Name="Plugins.PictureChooser.txt"
+            Source="$(var.CORE_CODE_SNIPPETS_LIB)\Plugins.PictureChooser.txt" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet10" DestinationDirectory="CodeSnippets"/>
+        </File>
+
+        <File Id="Snippet11" Name="Plugins.ReflectionEx.txt"
+            Source="$(var.CORE_CODE_SNIPPETS_LIB)\Plugins.ReflectionEx.txt" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet11" DestinationDirectory="CodeSnippets"/>
+        </File>
+
+        <File Id="Snippet12" Name="Plugins.ResourceLoader.txt"
+            Source="$(var.CORE_CODE_SNIPPETS_LIB)\Plugins.ResourceLoader.txt" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet12" DestinationDirectory="CodeSnippets"/>
+        </File>
+
+        <File Id="Snippet13" Name="Plugins.Share.txt"
+            Source="$(var.CORE_CODE_SNIPPETS_LIB)\Plugins.Share.txt" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet13" DestinationDirectory="CodeSnippets"/>
+        </File>
+
+        <File Id="Snippet14" Name="Plugins.SoundEffects.txt"
+            Source="$(var.CORE_CODE_SNIPPETS_LIB)\Plugins.SoundEffects.txt" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet14" DestinationDirectory="CodeSnippets"/>
+        </File>
+
+        <File Id="Snippet15" Name="Plugins.Sqlite.txt"
+            Source="$(var.CORE_CODE_SNIPPETS_LIB)\Plugins.Sqlite.txt" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet15" DestinationDirectory="CodeSnippets"/>
+        </File>
+
+        <File Id="Snippet16" Name="Plugins.ThreadUtils.txt"
+            Source="$(var.CORE_CODE_SNIPPETS_LIB)\Plugins.ThreadUtils.txt" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet16" DestinationDirectory="CodeSnippets"/>
+        </File>
+
+        <File Id="Snippet17" Name="Plugins.Visibility.txt"
+            Source="$(var.CORE_CODE_SNIPPETS_LIB)\Plugins.Visibility.txt" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet17" DestinationDirectory="CodeSnippets"/>
+        </File>
+
+        <File Id="Snippet18" Name="Plugins.WebBrowser.txt"
+            Source="$(var.CORE_CODE_SNIPPETS_LIB)\Plugins.WebBrowser.txt" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet18" DestinationDirectory="CodeSnippets"/>
+        </File>
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

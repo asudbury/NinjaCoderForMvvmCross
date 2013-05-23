@@ -9,6 +9,7 @@ namespace NinjaCoder.MvvmCross.Presenters
     using System;
 
     using NinjaCoder.MvvmCross.Services;
+    using NinjaCoder.MvvmCross.Services.Interfaces;
     using NinjaCoder.MvvmCross.Views.Interfaces;
 
     /// <summary>
