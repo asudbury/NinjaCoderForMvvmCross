@@ -72,8 +72,11 @@ namespace NinjaCoder.MvvmCross.Services
                                 projectItem.InsertMethod(snippetPath);
 
                                 //// tidy up the using statements.
+                                projectItem.Save();
                                 projectItem.MoveUsingStatements();
+                                projectItem.Save();
                                 projectItem.SortAndRemoveUsingStatements();
+                                projectItem.Save();
 
                                 if (projectItem.Document != null)
                                 {
@@ -263,6 +266,7 @@ namespace NinjaCoder.MvvmCross.Services
                     TextSelection textSelection = projectItem.DTE.ActiveDocument.Selection;
                     textSelection.SelectAll();
                     textSelection.ReplacePattern(PlaceHolderText, friendlyName);
+                    projectItem.Save();
                 }
             }
             catch (Exception exception)

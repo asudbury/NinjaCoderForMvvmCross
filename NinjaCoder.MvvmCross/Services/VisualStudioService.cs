@@ -131,7 +131,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public Project CoreTestsProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.Tests)); }
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.CoreTests)); }
         }
         /// <summary>
         /// Gets the droid project.
@@ -198,7 +198,7 @@ namespace NinjaCoder.MvvmCross.Services
                     projectInfos.Add(new ProjectTemplateInfo
                         {
                             FriendlyName = FriendlyNames.CoreTests,
-                            ProjectSuffix = ProjectSuffixes.Tests,
+                            ProjectSuffix = ProjectSuffixes.CoreTests,
                             TemplateName = ProjectTemplates.Tests,
                             PreSelected = true
                         });

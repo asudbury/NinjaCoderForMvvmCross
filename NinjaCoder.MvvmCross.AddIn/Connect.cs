@@ -71,6 +71,7 @@ namespace NinjaCoder.MvvmCross.AddIn
         public override void Initialize()
         {
             TraceService.WriteLine("Connect::Initialize Version=" + this.ApplicationVersion);
+            this.Controller.Initialize();
             this.AddCommands();
         }
 

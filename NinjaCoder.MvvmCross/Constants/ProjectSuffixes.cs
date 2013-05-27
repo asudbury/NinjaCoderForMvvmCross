@@ -14,36 +14,36 @@ namespace NinjaCoder.MvvmCross.Constants
         /// <summary>
         /// The core
         /// </summary>
-        public const string Core = ".Core";
+        public const string Core = "." + Settings.Core;
 
         /// <summary>
         /// The tests
         /// </summary>
-        public const string Tests = ".Core.Tests";
+        public const string CoreTests = "." + Settings.Core + ".Tests";
 
         /// <summary>
         /// The iOS
         /// </summary>
-        public const string iOS = ".iOS";
+        public const string iOS = "." + Settings.iOS;
 
         /// <summary>
         /// The droid
         /// </summary>
-        public const string Droid = ".Droid";
+        public const string Droid = "." + Settings.Droid;
 
         /// <summary>
         /// The windows phone
         /// </summary>
-        public const string WindowsPhone = ".WindowsPhone";
+        public const string WindowsPhone = "." + Settings.WindowsPhone;
 
         /// <summary>
         /// The windows store
         /// </summary>
-        public const string WindowsStore = ".WindowsStore";
+        public const string WindowsStore = "." + Settings.WindowsStore;
 
         /// <summary>
         /// The windows WPF
         /// </summary>
-        public const string WindowsWpf = ".Wpf";
+        public const string WindowsWpf = "." + Settings.Wpf;
     }
 }

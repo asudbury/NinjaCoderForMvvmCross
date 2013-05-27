@@ -44,12 +44,18 @@ namespace NinjaCoder.MvvmCross.Controllers
         private readonly IPluginsService pluginsService;
 
         /// <summary>
+        /// The configuration service.
+        /// </summary>
+        private readonly IConfigurationService configurationService;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MvvmCrossController" /> class.
         /// </summary>
         public MvvmCrossController()
             : this(new VisualStudioService(), 
             new SettingsService(), 
-            new PluginsService())
+            new PluginsService(),
+            new ConfigurationService())
         {
         }
 
@@ -59,14 +65,17 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="pluginsService">The plugins service.</param>
+        /// <param name="configurationService">The configuration service.</param>
         public MvvmCrossController(
             IVisualStudioService visualStudioService, 
             ISettingsService settingsService,
-            IPluginsService pluginsService)
+            IPluginsService pluginsService,
+            IConfigurationService configurationService)
         {
             this.visualStudioService = visualStudioService;
             this.settingsService = settingsService;
             this.pluginsService = pluginsService;
+            this.configurationService = configurationService;
         }
 
         /// <summary>
@@ -86,6 +95,14 @@ namespace NinjaCoder.MvvmCross.Controllers
             Solution2 solution = this.visualStudioService.DTE2.GetSolution() as Solution2;
 
             return solution.GetProjects();
+        }
+
+        /// <summary>
+        /// Initializes Ninja Coder for MvvmCross.
+        /// </summary>
+        public void Initialize()
+        {
+            this.configurationService.CreateUserDirectories();
         }
 
         /// <summary>

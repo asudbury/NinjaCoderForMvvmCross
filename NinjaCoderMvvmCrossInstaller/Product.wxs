@@ -2,9 +2,9 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
   <?include $(sys.CURRENTDIR)Global.wxi ?>
   <Product Id="*" 
-           Name="Ninja Coder for MvvmCross v1.1.0" 
+           Name="Ninja Coder for MvvmCross v1.1.1" 
            Language="1033" 
-           Version="1.1.0" 
+           Version="1.1.1" 
            Manufacturer="Scorchio Limited" 
            UpgradeCode="825c8b3c-e1ee-4eae-85b2-175f15b0b3bf">
     <Package InstallerVersion="200" Compressed="yes" />

@@ -24,27 +24,27 @@ namespace NinjaCoder.MvvmCross.Constants
             /// <summary>
             /// The iOS
             /// </summary>
-            public const string IOS = "MvvmCross.iOS.View.zip";
+            public const string IOS = "MvvmCross." + Settings.iOS + ".View.zip";
 
             /// <summary>
             /// The droid
             /// </summary>
-            public const string Droid = "MvvmCross.Droid.View.zip";
+            public const string Droid = "MvvmCross." + Settings.Droid + ".View.zip";
 
             /// <summary>
             /// The windows phone
             /// </summary>
-            public const string WindowsPhone = "MvvmCross.WindowsPhone.View.zip";
+            public const string WindowsPhone = "MvvmCross." + Settings.WindowsPhone + ".View.zip";
 
             /// <summary>
             /// The windows store
             /// </summary>
-            public const string WindowsStore = "MvvmCross.WindowsStore.View.zip";
+            public const string WindowsStore = "MvvmCross." + Settings.WindowsStore + ".View.zip";
 
             /// <summary>
             /// The windows Wpf
             /// </summary>
-            public const string WindowsWPF = "MvvmCross.Wpf.View.zip";
+            public const string WindowsWPF = "MvvmCross." + Settings.Wpf  + ".View.zip";
         }
     }
 }

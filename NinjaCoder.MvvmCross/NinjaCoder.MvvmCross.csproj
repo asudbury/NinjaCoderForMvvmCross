@@ -62,6 +62,7 @@
     <Compile Include="Controllers\MvvmCrossController.cs" />
     <Compile Include="Entities\Plugin.cs" />
     <Compile Include="Entities\Plugins.cs" />
+    <Compile Include="Extensions\DirectoryInfoExtensions.cs" />
     <Compile Include="Presenters\ItemTemplatesPresenter.cs" />
     <Compile Include="Presenters\OptionsPresenter.cs" />
     <Compile Include="Presenters\PluginsPresenter.cs" />
@@ -78,6 +79,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Services\ConfigurationService.cs" />
+    <Compile Include="Services\Interfaces\IConfigurationService.cs" />
     <Compile Include="Services\Interfaces\IPluginsService.cs" />
     <Compile Include="Services\Interfaces\ISettingsService.cs" />
     <Compile Include="Services\Interfaces\IVisualStudioService.cs" />
