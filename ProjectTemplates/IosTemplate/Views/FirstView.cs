@@ -33,7 +33,7 @@ namespace IosTemplate.Views
 
             UILabel uiLabel = new UILabel(new RectangleF(10, 10, 300, 40));
             View.AddSubview(uiLabel);
-            UITextField uiTextField = new UITextField(new RectangleF(0, 50, 300, 40));
+            UITextField uiTextField = new UITextField(new RectangleF(10, 50, 300, 40));
             View.AddSubview(uiTextField);
 
             var set = this.CreateBindingSet<FirstView, FirstViewModel>();
