@@ -40,6 +40,9 @@ namespace IosTemplate.Views
             set.Bind(uiLabel).To(vm => vm.MyProperty);
             set.Bind(uiTextField).To(vm => vm.MyProperty);
             set.Apply();
+                        
+            UITapGestureRecognizer tap = new UITapGestureRecognizer(() => uiTextField.ResignFirstResponder());
+            View.AddGestureRecognizer(tap);            
         }
     }
 }
