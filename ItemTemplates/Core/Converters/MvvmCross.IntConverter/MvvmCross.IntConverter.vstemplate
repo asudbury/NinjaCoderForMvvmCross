@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>MvvmCross.IntConverter</Name>
+    <Description>MvvmCross.IntConverter</Description>
+    <Icon>MvvmCross.ico</Icon>
+    <TemplateID>9770c150-7de3-4132-9d16-897ed11d5560</TemplateID>
+    <ProjectType>CSharp</ProjectType>
+    <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+    <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+    <DefaultName>IntConverter.cs</DefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <References>
+      <Reference>
+        <Assembly>System</Assembly>
+      </Reference>
+    </References>
+    <ProjectItem ReplaceParameters="true">Converters\IntConverter.cs</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

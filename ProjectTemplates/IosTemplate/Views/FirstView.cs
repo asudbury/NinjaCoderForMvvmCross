@@ -3,7 +3,6 @@
 //    Defines the FirstView type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace IosTemplate.Views
 {
     using System.Drawing;
@@ -11,9 +10,8 @@ namespace IosTemplate.Views
     using Cirrious.MvvmCross.Binding.BindingContext;
 
     using Core.ViewModels;
-
-    using MonoTouch.UIKit;
     using MonoTouch.Foundation;
+    using MonoTouch.UIKit;
 
     /// <summary>
     /// Defines the FirstView type.
@@ -29,11 +27,13 @@ namespace IosTemplate.Views
         /// </summary>
         public override void ViewDidLoad()
         {
+            this.View = new UIView() { BackgroundColor = UIColor.White };
+
             base.ViewDidLoad();
 
-            UILabel uiLabel = new UILabel(new RectangleF(0, 0, 320, 50));
+            UILabel uiLabel = new UILabel(new RectangleF(10, 10, 300, 40));
             View.AddSubview(uiLabel);
-            UITextField uiTextField = new UITextField(new RectangleF(0, 50, 320, 50));
+            UITextField uiTextField = new UITextField(new RectangleF(0, 50, 300, 40));
             View.AddSubview(uiTextField);
 
             var set = this.CreateBindingSet<FirstView, FirstViewModel>();

@@ -8,7 +8,6 @@ namespace NinjaCoder.MvvmCross.Views
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Windows.Forms;
 
     using NinjaCoder.MvvmCross.Presenters;
     using NinjaCoder.MvvmCross.Views.Interfaces;
@@ -18,7 +17,7 @@ namespace NinjaCoder.MvvmCross.Views
     /// <summary>
     ///    Defines the ConvertersForm type.
     /// </summary>
-    public partial class ItemTemplatesForm : Form, IItemTemplatesView
+    public partial class ItemTemplatesForm : BaseView, IItemTemplatesView
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ItemTemplatesForm" /> class.
@@ -36,11 +35,6 @@ namespace NinjaCoder.MvvmCross.Views
         /// Gets the presenter.
         /// </summary>
         public ItemTemplatesPresenter Presenter { get; private set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="SolutionOptionsForm"/> is continue.
-        /// </summary>
-        public bool Continue { get; set; }
 
         /// <summary>
         /// Gets the required templates.

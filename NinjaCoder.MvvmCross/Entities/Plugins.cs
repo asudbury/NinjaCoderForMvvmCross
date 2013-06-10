@@ -3,7 +3,6 @@
 //    Defines the Plugins type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Entities
 {
     using System.Collections.Generic;

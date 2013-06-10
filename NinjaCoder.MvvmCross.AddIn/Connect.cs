@@ -3,17 +3,12 @@
 //    Defines the Connect type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
-using System;
-
 namespace NinjaCoder.MvvmCross.AddIn
 {
     using System.Windows.Forms;
-
-    using Microsoft.VisualStudio.CommandBars;
-
     using Controllers;
-
+    using Microsoft.VisualStudio.CommandBars;
+    using NinjaCoder.MvvmCross.Services;
     using Scorchio.VisualStudio;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
@@ -23,22 +18,25 @@ namespace NinjaCoder.MvvmCross.AddIn
     /// </summary>
     public class Connect : CommandManager
     {
-        private string ApplicationVersion
-        {
-            get 
-            { 
-                Version version = typeof(MvvmCrossController).Assembly.GetName().Version;
- 
-                return "Version " + version.Major + "." + version.Minor + "." + version.Revision;
-            }
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Connect"/> class.
         /// </summary>
         public Connect()
         {
             TraceService.WriteLine("Connect::Constructor Version=" + this.ApplicationVersion);  
+        }
+
+        /// <summary>
+        /// Gets the application version.
+        /// </summary>
+        private string ApplicationVersion
+        {
+            get
+            {
+                SettingsService settingsService = new SettingsService();
+
+                return settingsService.ApplicationVersion;
+            }
         }
 
         /// <summary>
@@ -71,7 +69,14 @@ namespace NinjaCoder.MvvmCross.AddIn
         public override void Initialize()
         {
             TraceService.WriteLine("Connect::Initialize Version=" + this.ApplicationVersion);
-            this.Controller.Initialize();
+
+            ConfigurationController controller = new ConfigurationController(new ConfigurationService(), new VisualStudioService())
+            {
+                DTE2 = this.VSInstance.ApplicationObject
+            };
+
+            controller.Run();
+
             this.AddCommands();
         }
 
@@ -125,6 +130,21 @@ namespace NinjaCoder.MvvmCross.AddIn
             };
 
             this.AddMenuItem(commandInfo);
+
+            /*commandInfo = new VSCommandInfo
+            {
+                AddIn = this.AddInInstance,
+                Name = "NinjaCoderforMvvmCrossAddServices",
+                ButtonText = "Add Services",
+                Tooltip = "Ninja Coder for MvvmCross Add Services",
+                Action = this.AddServices,
+                ParentCommand = commandBar,
+                Position = 4,
+                BitmapResourceId = 450,
+            };*/
+
+            this.AddMenuItem(commandInfo);
+
 
             commandInfo = new VSCommandInfo
             {
@@ -185,29 +205,18 @@ namespace NinjaCoder.MvvmCross.AddIn
         }
 
         /// <summary>
-        /// Gets the controller.
-        /// </summary>
-        /// <value>
-        /// The controller.
-        /// </value>
-        internal MvvmCrossController Controller
-        {
-            get
-            {
-                return new MvvmCrossController
-                {
-                    DTE2 = this.VSInstance.ApplicationObject
-                };            
-            }
-        }
-
-        /// <summary>
         /// Builds Projects.
         /// </summary>
         internal void BuildProjects()
         {
-            TraceService.WriteLine("Connect::BuildProjects Version=" + this.ApplicationVersion);  
-            this.Controller.BuildProjects();
+            TraceService.WriteLine("Connect::BuildProjects Version=" + this.ApplicationVersion);
+
+            ProjectsController controller = new ProjectsController
+            {
+                DTE2 = this.VSInstance.ApplicationObject
+            };
+
+            controller.Run();
         }
 
         /// <summary>
@@ -215,8 +224,14 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// </summary>
         internal void AddViewModelAndViews()
         {
-            TraceService.WriteLine("Connect::AddViewModelAndViews Version=" + this.ApplicationVersion);  
-            this.Controller.AddViewModelAndViews();
+            TraceService.WriteLine("Connect::AddViewModelAndViews Version=" + this.ApplicationVersion);
+
+            ViewModelViewsController controller = new ViewModelViewsController
+            {
+                DTE2 = this.VSInstance.ApplicationObject
+            };
+
+            controller.Run();
         }
 
         /// <summary>
@@ -224,8 +239,30 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// </summary>
         internal void AddPlugins()
         {
-            TraceService.WriteLine("Connect::AddPlugins Version=" + this.ApplicationVersion); 
-            this.Controller.AddPlugins();   
+            TraceService.WriteLine("Connect::AddPlugins Version=" + this.ApplicationVersion);
+
+            PluginsController controller = new PluginsController
+            {
+                DTE2 = this.VSInstance.ApplicationObject
+            };
+
+            controller.Run();
+        }
+
+
+        /// <summary>
+        /// Adds the services.
+        /// </summary>
+        internal void AddServices()
+        {
+            TraceService.WriteLine("Connect::AddServices Version=" + this.ApplicationVersion);
+
+            ServicesController controller = new ServicesController
+            {
+                DTE2 = this.VSInstance.ApplicationObject
+            };
+
+            controller.Run(); 
         }
 
         /// <summary>
@@ -233,8 +270,14 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// </summary>
         internal void AddConverters()
         {
-            TraceService.WriteLine("Connect::AddConverters Version=" + this.ApplicationVersion); 
-            this.Controller.AddConverters();
+            TraceService.WriteLine("Connect::AddConverters Version=" + this.ApplicationVersion);
+
+            ConvertersController controller = new ConvertersController
+            {
+                DTE2 = this.VSInstance.ApplicationObject
+            };
+
+            controller.Run();
         }
 
         /// <summary>
@@ -242,8 +285,14 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// </summary>
         internal void ShowOptions()
         {
-            TraceService.WriteLine("Connect::ShowOptions Version=" + this.ApplicationVersion); 
-            this.Controller.ShowOptions();
+            TraceService.WriteLine("Connect::ShowOptions Version=" + this.ApplicationVersion);
+
+            ApplicationController controller = new ApplicationController
+            {
+                DTE2 = this.VSInstance.ApplicationObject
+            };
+
+            controller.ShowOptions();
         }
 
         /// <summary>

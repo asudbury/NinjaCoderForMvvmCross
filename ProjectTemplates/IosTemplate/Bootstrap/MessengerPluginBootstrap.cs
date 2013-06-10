@@ -3,7 +3,6 @@
 //    Defines the MessengerPluginBootstrap type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace IosTemplate.Bootstrap
 {
     using Cirrious.CrossCore.Plugins;

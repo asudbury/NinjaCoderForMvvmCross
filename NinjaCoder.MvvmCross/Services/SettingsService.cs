@@ -22,12 +22,12 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public bool LogToFile
         {
-            get { return this.GetRegistryValue("LogToFile", "N") == "N"; }
-            set { this.SetRegistryValue("LogFile", value ? "Y" : "N"); }
+            get { return this.GetRegistryValue("LogToFile", "N") == "Y"; }
+            set { this.SetRegistryValue("LogToFile", value ? "Y" : "N"); }
         }
         
         /// <summary>
-        /// Gets or sets the log file path.
+        /// Gets the log file path.
         /// </summary>
         public string LogFilePath 
         {
@@ -39,7 +39,16 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public string ConvertersTemplatesPath
         {
-            get { return  this.GetItemTemplatesPath() + @"\Converters"; }
+            get { return this.GetItemTemplatesPath() + @"\Converters"; }
+        }
+
+
+        /// <summary>
+        /// Gets the services templates path.
+        /// </summary>
+        public string ServicesTemplatesPath
+        {
+            get { return this.GetItemTemplatesPath() + @"\Services"; }
         }
 
         /// <summary>
@@ -59,9 +68,28 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets the application version.
+        /// </summary>
+        public string ApplicationVersion 
+        { 
+            get { return this.GetRegistryValue("Version", "Unknown"); }
+        }
+
+        /// <summary>
+        /// Gets the MvvmCross version.
+        /// </summary>
+        public string MvvmCrossVersion 
+        {
+            get { return this.GetRegistryValue("MvvmCross Version", "Unknown"); } 
+        }
+
+        /// <summary>
         /// Gets the registry key.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="writeable">if set to <c>true</c> [writeable].</param>
+        /// <returns>
+        /// The registry key.
+        /// </returns>
         internal RegistryKey GetRegistryKey(bool writeable)
         {
             RegistryKey softwareKey = Registry.CurrentUser.OpenSubKey("Software");
@@ -84,7 +112,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="defaultValue">The default value.</param>
-        /// <returns>The vaue.</returns>
+        /// <returns>The value.</returns>
         internal string GetRegistryValue(
             string name, 
             string defaultValue)
@@ -93,8 +121,14 @@ namespace NinjaCoder.MvvmCross.Services
 
             if (registryKey != null)
             {
-                return (string)registryKey.GetValue(name);
+                object obj = registryKey.GetValue(name);
 
+                if (obj == null)
+                {
+                    return defaultValue;
+                }
+
+                return (string)obj;
             }
 
             return defaultValue;

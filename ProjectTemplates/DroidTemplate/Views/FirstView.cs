@@ -3,7 +3,6 @@
 //    Defines the FirstView type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace DroidTemplate.Views
 {
     using Android.App;
@@ -22,7 +21,7 @@ namespace DroidTemplate.Views
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            SetContentView(Resource.Layout.FirstView);
+            this.SetContentView(Resource.Layout.FirstView);
         }
     }
 }

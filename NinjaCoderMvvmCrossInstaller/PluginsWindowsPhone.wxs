@@ -35,6 +35,10 @@
           Source="$(var.PROJECT_TEMPLATES_WINDOWSPHONE_LIB)\Cirrious.MvvmCross.Plugins.File.WindowsPhone.dll" Vital="yes" KeyPath="no" >
           <CopyFile Id="WindowsPhonePlugins6" DestinationDirectory="MvvmCrossAssembliesWindowsPhonePlugins"/>
         </File>
+        <File Id="WindowsPhonePlugins6a" Name="Cirrious.MvvmCross.Plugins.Location.WindowsPhone.dll"
+          Source="$(var.PROJECT_TEMPLATES_WINDOWSPHONE_LIB)\Cirrious.MvvmCross.Plugins.Location.WindowsPhone.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="WindowsPhonePlugins6a" DestinationDirectory="MvvmCrossAssembliesWindowsPhonePlugins"/>
+        </File>
         <!--<File Id="WindowsPhonePlugins7" Name="Cirrious.MvvmCross.Plugins.Json.WindowsPhone.dll"
           Source="$(var.PROJECT_TEMPLATES_WINDOWSPHONE_LIB)\Cirrious.MvvmCross.Plugins.Json.WindowsPhone.dll" Vital="yes" KeyPath="no" >
           <CopyFile Id="WindowsPhonePlugins7" DestinationDirectory="MvvmCrossAssembliesWindowsPhonePlugins"/>

@@ -8,7 +8,6 @@ namespace NinjaCoder.MvvmCross.Views
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Windows.Forms;
 
     using NinjaCoder.MvvmCross.Entities;
     using NinjaCoder.MvvmCross.Presenters;
@@ -17,7 +16,7 @@ namespace NinjaCoder.MvvmCross.Views
     /// <summary>
     ///  Defines the PluginsForm type.
     /// </summary>
-    public partial class PluginsForm : Form, IPluginsView
+    public partial class PluginsForm : BaseView, IPluginsView
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PluginsForm" /> class.
@@ -37,14 +36,15 @@ namespace NinjaCoder.MvvmCross.Views
         public PluginsPresenter Presenter { get; private set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="SolutionOptionsForm"/> is continue.
-        /// </summary>
-        public bool Continue { get; set; }
-
-        /// <summary>
         /// Gets the implement in view model.
         /// </summary>
-        public string ImplementInViewModel { get { return this.comboBoxViewModel.SelectedItem as string; } }
+        public string ImplementInViewModel
+        {
+            get
+            {
+                return this.comboBoxViewModel.SelectedItem as string;
+            }
+        }
 
         /// <summary>
         /// Gets the required templates.

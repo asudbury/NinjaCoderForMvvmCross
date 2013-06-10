@@ -3,7 +3,6 @@
 //    Defines the Setup type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace WpfTemplate
 {
     using System.Windows.Threading;

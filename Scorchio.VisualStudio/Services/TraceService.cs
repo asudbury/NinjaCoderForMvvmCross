@@ -3,7 +3,6 @@
 //    Defines the TraceService type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace Scorchio.VisualStudio.Services
 {
     using System;
@@ -72,7 +71,7 @@ namespace Scorchio.VisualStudio.Services
         }
 
         /// <summary>
-        /// Writes the message to logfile.
+        /// Writes the message to the log file.
         /// </summary>
         /// <param name="message">The message.</param>
         internal static void WriteMessageToLogFile(string message)
@@ -89,7 +88,7 @@ namespace Scorchio.VisualStudio.Services
         /// <returns>A timed stamped message</returns>
         internal static string GetTimedMessage(string message)
         {
-            return string.Format("{0} {1}", DateTime.Now.ToString("dd MMM yyyy hh:mm:ss"), message);
+            return string.Format("{0} {1}", DateTime.Now.ToString("dd MMM yy HH:mm:ss"), message);
         }
    }
 }

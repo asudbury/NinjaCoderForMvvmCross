@@ -39,6 +39,10 @@
           Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.Json.dll" Vital="yes" KeyPath="no" >
           <CopyFile Id="CorePlugins7" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
         </File>
+        <File Id="CorePlugins7a" Name="Cirrious.MvvmCross.Plugins.Location.dll"
+          Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.Location.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="CorePlugins7a" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
+        </File>        
         <File Id="CorePlugins8" Name="Cirrious.MvvmCross.Plugins.Network.dll"
           Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.Network.dll" Vital="yes" KeyPath="no" >
           <CopyFile Id="CorePlugins8" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>

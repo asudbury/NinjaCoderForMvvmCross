@@ -3,7 +3,6 @@
 //    Defines the PluginsPresenter type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Presenters
 {
     using System.Collections.Generic;
@@ -17,7 +16,7 @@ namespace NinjaCoder.MvvmCross.Presenters
     /// <summary>
     ///  Defines the PluginsPresenter type.
     /// </summary>
-    public class PluginsPresenter
+    public class PluginsPresenter : BasePresenter
     {
         /// <summary>
         /// The view.
@@ -28,19 +27,18 @@ namespace NinjaCoder.MvvmCross.Presenters
         /// The Settings Service.
         /// </summary>
         private readonly ISettingsService settingsService;
-
-
+        
         /// <summary>
         /// The translator.
         /// </summary>
         private readonly ITranslator<string, Plugins> translator;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PluginsPresenter" /> class.
         /// </summary>
+        /// <param name="view">The view.</param>
         public PluginsPresenter(IPluginsView view)
-            : this(new SettingsService(), 
-                   new PluginsTranslator())
+            : this(new SettingsService(), new PluginsTranslator())
         {
             this.view = view;
         }

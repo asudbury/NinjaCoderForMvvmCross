@@ -39,10 +39,9 @@
             // 
             // lblSelectTheRequiredConverters
             // 
-            this.lblSelectTheRequiredConverters.Location = new System.Drawing.Point(358, 21);
-            this.lblSelectTheRequiredConverters.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblSelectTheRequiredConverters.Location = new System.Drawing.Point(477, 26);
             this.lblSelectTheRequiredConverters.Name = "lblSelectTheRequiredConverters";
-            this.lblSelectTheRequiredConverters.Size = new System.Drawing.Size(204, 15);
+            this.lblSelectTheRequiredConverters.Size = new System.Drawing.Size(272, 18);
             this.lblSelectTheRequiredConverters.TabIndex = 0;
             this.lblSelectTheRequiredConverters.Text = "Select the required converters";
             // 
@@ -50,9 +49,10 @@
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonHelp.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonHelp.Location = new System.Drawing.Point(236, 340);
+            this.buttonHelp.Location = new System.Drawing.Point(315, 418);
+            this.buttonHelp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonHelp.Name = "buttonHelp";
-            this.buttonHelp.Size = new System.Drawing.Size(75, 22);
+            this.buttonHelp.Size = new System.Drawing.Size(100, 27);
             this.buttonHelp.TabIndex = 4;
             this.buttonHelp.Text = "&Help";
             // 
@@ -60,9 +60,10 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonOK.Location = new System.Drawing.Point(501, 305);
+            this.buttonOK.Location = new System.Drawing.Point(668, 375);
+            this.buttonOK.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(75, 22);
+            this.buttonOK.Size = new System.Drawing.Size(100, 27);
             this.buttonOK.TabIndex = 2;
             this.buttonOK.Text = "&OK";
             this.buttonOK.Click += new System.EventHandler(this.ButtonOKClick);
@@ -71,35 +72,37 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(582, 305);
+            this.buttonCancel.Location = new System.Drawing.Point(776, 375);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 22);
+            this.buttonCancel.Size = new System.Drawing.Size(100, 27);
             this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "&Cancel";
             this.buttonCancel.Click += new System.EventHandler(this.ButtonCancelClick);
             // 
             // mvxListView1
             // 
-            this.mvxListView1.Location = new System.Drawing.Point(360, 47);
-            this.mvxListView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.mvxListView1.Location = new System.Drawing.Point(480, 58);
+            this.mvxListView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.mvxListView1.Name = "mvxListView1";
-            this.mvxListView1.Size = new System.Drawing.Size(297, 214);
+            this.mvxListView1.Size = new System.Drawing.Size(396, 263);
             this.mvxListView1.TabIndex = 1;
             // 
             // logo1
             // 
             this.logo1.BackColor = System.Drawing.Color.White;
             this.logo1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.logo1.Location = new System.Drawing.Point(31, 12);
+            this.logo1.Location = new System.Drawing.Point(41, 15);
+            this.logo1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.logo1.Name = "logo1";
-            this.logo1.Size = new System.Drawing.Size(290, 306);
+            this.logo1.Size = new System.Drawing.Size(386, 376);
             this.logo1.TabIndex = 5;
             // 
             // ItemTemplatesForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(677, 338);
+            this.ClientSize = new System.Drawing.Size(903, 416);
             this.Controls.Add(this.logo1);
             this.Controls.Add(this.mvxListView1);
             this.Controls.Add(this.buttonHelp);
@@ -107,7 +110,9 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.lblSelectTheRequiredConverters);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ItemTemplatesForm";
             this.Text = "Ninja Coder for MvvmCross - Converters";
             this.ResumeLayout(false);

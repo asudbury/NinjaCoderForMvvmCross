@@ -3,7 +3,6 @@
 //    Defines the ViewModelOptionsPresenter type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Presenters
 {
     using System.Collections.Generic;
@@ -16,7 +15,7 @@ namespace NinjaCoder.MvvmCross.Presenters
     /// <summary>
     ///  Defines the ViewModelOptionsPresenter type.
     /// </summary>
-    public class ViewModelOptionsPresenter 
+    public class ViewModelOptionsPresenter : BasePresenter
     {
         /// <summary>
         /// The view.

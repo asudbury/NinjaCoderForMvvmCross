@@ -3,7 +3,6 @@
 //    Defines the FirstViewModel type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace CoreTemplate.ViewModels
 {
     using System.Windows.Input;
@@ -18,7 +17,12 @@ namespace CoreTemplate.ViewModels
         /// <summary>
         /// Backing field for my property.
         /// </summary>
-        private string myProperty = "Hello MvvmCross from the Ninja Coder!";
+        private string myProperty = "Mvx Ninja Coder!";
+
+        /// <summary>
+        ///  Backing field for my command.
+        /// </summary>
+        private MvxCommand myCommand;
 
         /// <summary>
         /// Gets or sets my property.
@@ -36,15 +40,20 @@ namespace CoreTemplate.ViewModels
                 this.RaisePropertyChanged(() => this.MyProperty);
             }
         }
-
-        //// An example of a command and how to navigate to another view model
-        //// Note the ViewModel inside of ShowViewModel needs to change!
+        
         /// <summary>
         /// Gets My Command.
+        /// <para>
+        /// An example of a command and how to navigate to another view model
+        /// Note the ViewModel inside of ShowViewModel needs to change!
+        /// </para>
         /// </summary>
         public ICommand MyCommand
         {
-            get { return new MvxCommand(() => this.ShowViewModel<$safeitemrootname$>()); }
+            get
+            {
+                return this.myCommand ?? (this.myCommand = new MvxCommand(() => this.ShowViewModel<FirstViewModel>()));
+            }
         }
     }
 }

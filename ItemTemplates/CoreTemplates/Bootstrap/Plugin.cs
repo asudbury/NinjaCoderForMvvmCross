@@ -3,7 +3,6 @@
 //    Defines the $safeitemname$ type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace CoreTemplates.Bootstrap
 {
     using Cirrious.CrossCore.Plugins;

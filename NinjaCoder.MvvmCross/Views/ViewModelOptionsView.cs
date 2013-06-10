@@ -3,7 +3,6 @@
 //    Defines the ViewModelOptionsView type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Views
 {
     using System;
@@ -19,7 +18,7 @@ namespace NinjaCoder.MvvmCross.Views
     /// <summary>
     /// Define the ViewModelOptionsView type. 
     /// </summary>
-    public partial class ViewModelOptionsView : Form, IViewModelOptionsView
+    public partial class ViewModelOptionsView : BaseView, IViewModelOptionsView
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewModelOptionsView" /> class.
@@ -32,14 +31,6 @@ namespace NinjaCoder.MvvmCross.Views
             this.Presenter = new ViewModelOptionsPresenter(this, itemTemplateInfos);
             this.Presenter.Load();
         }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="SolutionOptionsForm"/> is continue.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if continue; otherwise, <c>false</c>.
-        /// </value>
-        public bool Continue { get; set; }
 
         /// <summary>
         /// Gets or sets the presenter.

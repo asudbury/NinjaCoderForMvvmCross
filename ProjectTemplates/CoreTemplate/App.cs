@@ -3,12 +3,10 @@
 //    Defines the App type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace CoreTemplate
 {
     using Cirrious.CrossCore.IoC;
     using Cirrious.MvvmCross.ViewModels;
-
     using CoreTemplate.ViewModels;
 
     /// <summary>

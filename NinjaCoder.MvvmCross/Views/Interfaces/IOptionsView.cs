@@ -3,7 +3,6 @@
 //    Defines the IOptionsView type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Views.Interfaces
 {
     /// <summary>

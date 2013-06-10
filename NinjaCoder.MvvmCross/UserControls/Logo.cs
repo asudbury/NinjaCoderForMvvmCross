@@ -1,26 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//    Defines the Logo type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.UserControls
 {
+    using System;
+    using System.Windows.Forms;
+
+    using NinjaCoder.MvvmCross.Services;
+
+    /// <summary>
+    /// Defines the Logo type.
+    /// </summary>
     public partial class Logo : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Logo"/> class.
+        /// </summary>
         public Logo()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
-            Version version = this.GetType().Assembly.GetName().Version;
+            SettingsService settingsService = new SettingsService();
 
-            this.labelVersion.Text += " v" + version.Major + "." + version.Minor + "." + version.Revision;
+            this.labelVersion.Text += " v" + settingsService.ApplicationVersion;
 
-            this.labelMvvmCross.Text += " v3.0.6";
+            this.labelMvvmCross.Text += " v" + settingsService.MvvmCrossVersion;
         }
     }
 }

@@ -6,18 +6,14 @@
 namespace NinjaCoder.MvvmCross.Services
 {
     using System;
-
-    using EnvDTE80;
-
-    using Interfaces;
-    using EnvDTE;
     using System.Collections.Generic;
     using System.IO;
-    using NinjaCoder.MvvmCross.Entities;
+    using Entities;
+    using EnvDTE;
+    using EnvDTE80;
+    using Interfaces;
     using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
-
-    using VSLangProj;
 
     /// <summary>
     /// Defines the PluginsService type.
@@ -25,18 +21,26 @@ namespace NinjaCoder.MvvmCross.Services
     public class PluginsService : IPluginsService
     {
         /// <summary>
+        /// The messages
+        /// </summary>
+        private List<string> messages;
+ 
+        /// <summary>
         /// Adds the plugins.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="plugins">The plugins.</param>
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="codeSnippetsPath">The code snippets path.</param>
-        public void AddPlugins(
+        /// <returns>The messages.</returns>
+        public IEnumerable<string> AddPlugins(
             IVisualStudioService visualStudioService, 
             List<Plugin> plugins,
             string viewModelName,
             string codeSnippetsPath)
         {
+            this.messages = new List<string>();
+
             Project coreProject = visualStudioService.CoreProject;
 
             this.AddProjectPlugins(coreProject, plugins, "Core", "Core");
@@ -54,42 +58,15 @@ namespace NinjaCoder.MvvmCross.Services
                 {
                     foreach (Plugin plugin in plugins)
                     {
-                        string snippetPath = string.Format(@"{0}\Plugins.{1}.txt", codeSnippetsPath, plugin.FriendlyName);
-
-                        if (File.Exists(snippetPath))
-                        {
-                            FileInfo fileInfo = new FileInfo(snippetPath);
-
-                            //// only do if the snippet contains some text :-)
-                            if (fileInfo.Length > 0)
-                            {
-                                string assemblyName = Path.GetFileNameWithoutExtension(plugin.FileName);
-
-                                projectItem.AddUsingStatement("Cirrious.CrossCore");
-
-                                projectItem.AddUsingStatement(assemblyName);
-
-                                projectItem.InsertMethod(snippetPath);
-
-                                //// tidy up the using statements.
-                                projectItem.Save();
-                                projectItem.MoveUsingStatements();
-                                projectItem.Save();
-                                projectItem.SortAndRemoveUsingStatements();
-                                projectItem.Save();
-
-                                if (projectItem.Document != null)
-                                {
-                                    projectItem.Document.ActiveWindow.Close();
-                                }
-                            }
-                        }
+                        this.GenerateSnippet(codeSnippetsPath, plugin, projectItem, coreProject);
                     }
                 }
             }
             
             DTE2 dte2 = coreProject.DTE as DTE2;
             dte2.SaveAll();
+
+            return this.messages;
         }
 
         /// <summary>
@@ -100,7 +77,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="folderName">Name of the folder.</param>
         /// <param name="extensionName">Name of the extension.</param>
         public void AddProjectPlugins(
-            Project project, 
+            Project project,
             List<Plugin> plugins,
             string folderName,
             string extensionName)
@@ -119,6 +96,7 @@ namespace NinjaCoder.MvvmCross.Services
             }
         }
 
+
         /// <summary>
         /// Adds the plugin.
         /// </summary>
@@ -128,19 +106,19 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="extensionName">Name of the extension.</param>
         internal void AddPlugin(
             Plugin plugin,
-            Project project, 
-            string folderName, 
+            Project project,
+            string folderName,
             string extensionName)
         {
             string projectPath = project.GetProjectPath();
             string source = plugin.Source;
             string destination = string.Format(@"{0}\Lib\{1}", projectPath, plugin.FileName);
-            
+
             //// at this moment we only want ot do the core as this plugin might not be
             //// supported in the ui project.
             if (extensionName == "Core")
             {
-                this.AddReference(project, destination, source);
+                project.AddReference("Lib", destination, source);
             }
             else
             {
@@ -155,20 +133,71 @@ namespace NinjaCoder.MvvmCross.Services
                 {
                     //// if the plugin is supported add in the core library.
 
-                    //// only do if destination file doesnt exist
+                    //// only do if destination file doesn't exist
                     if (File.Exists(destination) == false)
                     {
-                        this.AddReference(project, destination, source);
+                        project.AddReference("Lib", destination, source);
                     }
 
-                    //// only do if extensionDestination file doesnt exist
+                    //// only do if extensionDestination file doesn't exist
                     if (File.Exists(extensionDestination) == false)
                     {
-                        this.AddReference(project, extensionDestination, extensionSource);
+                        project.AddReference("Lib", extensionDestination, extensionSource);
                         this.BuildSourceFile(project, extensionSource, extensionDestination, plugin.FriendlyName);
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Generates the snippet.
+        /// </summary>
+        /// <param name="codeSnippetsPath">The code snippets path.</param>
+        /// <param name="plugin">The plugin.</param>
+        /// <param name="projectItem">The project item.</param>
+        /// <param name="coreProject">The core project.</param>
+        internal void GenerateSnippet(
+            string codeSnippetsPath, 
+            Plugin plugin, 
+            ProjectItem projectItem, 
+            Project coreProject)
+        {
+            string snippetPath = string.Format(@"{0}\Plugins.{1}.txt", codeSnippetsPath, plugin.FriendlyName);
+
+            if (File.Exists(snippetPath))
+            {
+                FileInfo fileInfo = new FileInfo(snippetPath);
+
+                //// only do if the snippet contains some text :-)
+                if (fileInfo.Length > 0)
+                {
+                    this.ProduceSnippet(plugin, projectItem, coreProject, snippetPath);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Products the snippet.
+        /// </summary>
+        /// <param name="plugin">The plugin.</param>
+        /// <param name="projectItem">The project item.</param>
+        /// <param name="coreProject">The core project.</param>
+        /// <param name="snippetPath">The snippet path.</param>
+        internal void ProduceSnippet(
+            Plugin plugin, 
+            ProjectItem projectItem, 
+            Project coreProject, 
+            string snippetPath)
+        {
+            string assemblyName = Path.GetFileNameWithoutExtension(plugin.FileName);
+
+            projectItem.AddUsingStatement("Cirrious.CrossCore");
+
+            projectItem.AddUsingStatement(assemblyName);
+
+            projectItem.InsertMethod(snippetPath, true, true);
+
+            this.messages.Add(plugin.FriendlyName + " plugin code added to " + projectItem.Name + " in project " + coreProject.Name + ".");
         }
 
         /// <summary>
@@ -177,7 +206,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="folderName">Name of the folder.</param>
         /// <param name="extensionName">Name of the extension.</param>
         /// <param name="destination">The destination.</param>
-        /// <returns></returns>
+        /// <returns>The extension destination.</returns>
         internal string GetExtensionDestination(
             string folderName, 
             string extensionName, 
@@ -194,7 +223,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="folderName">Name of the folder.</param>
         /// <param name="extensionName">Name of the extension.</param>
         /// <param name="source">The source.</param>
-        /// <returns></returns>
+        /// <returns>The extension source.</returns>
         internal string GetExtensionSource(
             string folderName, 
             string extensionName, 
@@ -203,33 +232,6 @@ namespace NinjaCoder.MvvmCross.Services
             string extensionSource = source.Replace(@"\Core\", string.Format(@"\{0}\", folderName));
             extensionSource = extensionSource.Replace(".dll", string.Format(".{0}.dll", extensionName));
             return extensionSource;
-        }
-
-        /// <summary>
-        /// Adds the reference.
-        /// </summary>
-        /// <param name="project">The project.</param>
-        /// <param name="destination">The destination.</param>
-        /// <param name="source">The source.</param>
-        internal void AddReference(
-            Project project, 
-            string destination, 
-            string source)
-        {
-            //// only do if destination file doesnt exist
-            if (File.Exists(destination) == false)
-            {
-                File.Copy(source, destination, true);
-                project.AddToFolderFromFile("Lib", destination);
-
-                //// now add a reference to the file
-                VSProject vsProject = project.Object as VSProject;
-
-                if (vsProject != null)
-                {
-                    vsProject.References.Add(destination);
-                }
-            }
         }
 
         /// <summary>
@@ -247,7 +249,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             try
             {
-                const string PlaceHolderText = "#PlaceHolder#";
+                const string PlaceHolderText = "All";
 
                 string message = string.Format("BuildSourceFile Project Name={0} friendlyName={1}", project.Name, friendlyName);
 
@@ -256,17 +258,16 @@ namespace NinjaCoder.MvvmCross.Services
                 string sourceFile = friendlyName + "PluginBootstrap.cs";
 
                 //// now we need to sort out the item template!
-                project.AddToFolderFromTemplate("Bootstrap", "MvvmCross.Plugin.zip", sourceFile);
+                project.AddToFolderFromTemplate("Bootstrap", "MvvmCross.Plugin.zip", sourceFile, false);
+                
+                this.messages.Add(string.Format(@"Bootstrap\{0} added to {1} project.", sourceFile, project.Name));
 
                 ProjectItem projectItem = project.GetProjectItem(sourceFile);
 
-                //// if we find the project item replace the text in it else use the find/replace window.
+                //// if we find the project item replace the text in it.
                 if (projectItem != null)
                 {
-                    TextSelection textSelection = projectItem.DTE.ActiveDocument.Selection;
-                    textSelection.SelectAll();
-                    textSelection.ReplacePattern(PlaceHolderText, friendlyName);
-                    projectItem.Save();
+                    projectItem.ReplaceText(PlaceHolderText, friendlyName);
                 }
             }
             catch (Exception exception)

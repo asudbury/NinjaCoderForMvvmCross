@@ -3,7 +3,6 @@
 //    Defines the ProjectExtensions type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace Scorchio.VisualStudio.Extensions
 {
     using System.Collections.Generic;
@@ -14,7 +13,7 @@ namespace Scorchio.VisualStudio.Extensions
 
     using EnvDTE80;
 
-    using Scorchio.VisualStudio.Services;
+    using Services;
 
     using VSLangProj;
 
@@ -24,18 +23,10 @@ namespace Scorchio.VisualStudio.Extensions
     public static class ProjectExtensions
     {
         /// <summary>
-        /// Gets the icon.
+        /// Gets the project path.
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns>The associated icon.</returns>
-        /*public static ImageSource GetIcon(this Project instance)
-        {
-            IconService iconService = new IconService();
-
-            return iconService.GetImageSource(instance.ProjectName, false) ??
-                   iconService.GetFolderImageSource(false);
-        }*/
-
+        /// <returns>The project path.</returns>
         public static string GetProjectPath(this Project instance)
         {
             string path = string.Empty;
@@ -120,7 +111,7 @@ namespace Scorchio.VisualStudio.Extensions
             this Project instance,
             string folderName)
         {
-            List<ProjectItem> projectItems =  instance.ProjectItems != null ? instance.ProjectItems.Cast<ProjectItem>().ToList() : null;
+            List<ProjectItem> projectItems = instance.ProjectItems != null ? instance.ProjectItems.Cast<ProjectItem>().ToList() : null;
 
             if (projectItems != null)
             {
@@ -147,9 +138,9 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The project references.</returns>
         public static IEnumerable<Reference> GetProjectReferences(this Project instance)
         {
-            VSProject vsProject = instance.Object as VSProject;
+            VSProject project = instance.Object as VSProject;
 
-            return vsProject != null ? vsProject.References.Cast<Reference>() : null;
+            return project != null ? project.References.Cast<Reference>() : null;
         }
 
         /// <summary>
@@ -162,9 +153,9 @@ namespace Scorchio.VisualStudio.Extensions
             this Project instance, 
             Project referencedProject)
         {
-            VSProject vsproject = (VSProject)instance.Object;
+            VSProject project = (VSProject)instance.Object;
 
-            return vsproject.References.AddProject(referencedProject);
+            return project.References.AddProject(referencedProject);
         }
 
         /// <summary>
@@ -174,21 +165,35 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="folderName">Name of the folder.</param>
         /// <param name="templateName">Name of the template.</param>
         /// <param name="fileName">Name of the file.</param>
+        /// <param name="createFolder">if set to <c>true</c> [create folder].</param>
         /// <returns>True or False.</returns>
         public static bool AddToFolderFromTemplate(
             this Project instance,
             string folderName,
             string templateName,
-            string fileName)
+            string fileName,
+            bool createFolder)
         {
-            ProjectItem folderProjectItem = instance.ProjectItems
-                .Cast<ProjectItem>()
-                .FirstOrDefault(projectItem => projectItem.Name == folderName);
+            string path = instance.Properties.Item("FullPath").Value;
+            ProjectItems projectItems = instance.ProjectItems;
 
-            //// if the folder doesn't exist create it.
-            if (folderProjectItem == null)
+            //// this supports passing of folder name - currently used by viewmodels and views.
+            //// may not be required if we refactor the item templates to embed the directory.
+            if (createFolder)
             {
-                folderProjectItem = instance.ProjectItems.AddFolder(folderName);
+                ProjectItem folderProjectItem = instance.ProjectItems
+                    .Cast<ProjectItem>()
+                    .FirstOrDefault(projectItem => projectItem.Name == folderName);
+
+                //// if the folder doesn't exist create it.
+                if (folderProjectItem == null)
+                {
+                    folderProjectItem = instance.ProjectItems.AddFolder(folderName);
+                }
+
+                projectItems = folderProjectItem.ProjectItems;
+
+                path = folderProjectItem.Properties.Item("FullPath").Value;
             }
 
             Solution2 solution = instance.DTE.Solution as Solution2;
@@ -197,11 +202,11 @@ namespace Scorchio.VisualStudio.Extensions
 
             if (templatePath != null)
             {
-                string path = folderProjectItem.Properties.Item("FullPath").Value;
+                string filePath = string.Format(@"{0}\{1}\{2}", path, folderName, fileName);
 
-                if (File.Exists(path + fileName) == false)
+                if (File.Exists(filePath) == false)
                 {
-                    folderProjectItem.ProjectItems.AddFromTemplate(templatePath, fileName);
+                    projectItems.AddFromTemplate(templatePath, fileName);
                 }
 
                 return true;
@@ -236,6 +241,56 @@ namespace Scorchio.VisualStudio.Extensions
 
             folderProjectItem.ProjectItems.AddFromFile(fileName);
             return true;
+        }
+
+        /// <summary>
+        /// Adds the reference.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="destinationFolder">The destination folder.</param>
+        /// <param name="destination">The destination.</param>
+        /// <param name="source">The source.</param>
+        public static void AddReference(
+            this Project instance,
+            string destinationFolder,
+            string destination,
+            string source)
+        {
+            //// tidy up misspelt file names!
+            if (destination.EndsWith(";"))
+            {
+                destination = destination.TrimEnd(';');
+            }
+
+            if (destination.EndsWith(".dll") == false)
+            {
+                destination += ".dll";
+            }
+
+            if (source.EndsWith(";"))
+            {
+                source = source.TrimEnd(';');
+            }
+
+            if (source.EndsWith(".dll") == false)
+            {
+                source += ".dll";
+            }
+
+            //// only do if destination file doesn't exist
+            if (File.Exists(destination) == false)
+            {
+                File.Copy(source, destination, true);
+                instance.AddToFolderFromFile(destinationFolder, destination);
+
+                //// now add a reference to the file
+                VSProject studioProject = instance.Object as VSProject;
+
+                if (studioProject != null)
+                {
+                    studioProject.References.Add(destination);
+                }
+            }
         }
     }
 }

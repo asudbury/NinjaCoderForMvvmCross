@@ -3,7 +3,6 @@
 //    Defines the DTEExtensions type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace Scorchio.VisualStudio.Extensions
 {
     using System;
@@ -114,6 +113,20 @@ namespace Scorchio.VisualStudio.Extensions
         }
 
         /// <summary>
+        /// Closes the documents.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        public static void CloseDocuments(this DTE2 instance)
+        {
+            Documents documents = instance.Documents;
+
+            foreach (Document document in documents)
+            {
+                document.Close(vsSaveChanges.vsSaveChangesYes);    
+            }
+        }
+
+        /// <summary>
         /// Gets the menu.
         /// </summary>
         /// <param name="instance">The instance.</param>
@@ -192,19 +205,8 @@ namespace Scorchio.VisualStudio.Extensions
             instance.Find.Action = vsFindAction.vsFindActionReplaceAll;
             instance.Find.FindWhat = findText;
             instance.Find.ReplaceWith = replaceText;
-
-            instance.Find.Target = vsFindTarget.vsFindTargetCurrentDocument;
-            ////instance.Find.Target = vsFindTarget.vsFindTargetSolution;
-            instance.Find.MatchCase = false;
-            instance.Find.MatchWholeWord = false;
-            instance.Find.MatchInHiddenText = true;
-            instance.Find.PatternSyntax = vsFindPatternSyntax.vsFindPatternSyntaxRegExpr;
-            ////instance.Find.SearchPath = "Current Document";
-            ////instance.Find.SearchPath = "Entire Solution";
             instance.Find.SearchSubfolders = true;
-            instance.Find.KeepModifiedDocumentsOpen = false;
-            instance.Find.FilesOfType = "*.cs";
-            instance.Find.ResultsLocation = vsFindResultsLocation.vsFindResultsNone;
+            instance.Find.FilesOfType = "*.*";
 
             vsFindResult findResults = instance.Find.Execute();
 

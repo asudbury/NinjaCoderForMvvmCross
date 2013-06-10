@@ -6,14 +6,17 @@
 
 namespace CoreTemplate.Services
 {
+    using System;
+
     using Cirrious.MvvmCross.Plugins.Messenger;
 
     using CoreTemplate.Entities;
+    using CoreTemplate.EventArgs;
 
     /// <summary>
     /// Defines the ErrorService type.
     /// </summary>
-    public class ErrorService : IErrorService
+    public class ErrorService : IErrorService, IErrorSource
     {
         /// <summary>
         /// The messenger
@@ -32,10 +35,16 @@ namespace CoreTemplate.Services
         /// <summary>
         /// Reports the error.
         /// </summary>
-        /// <param name="error">The error.</param>
-        public void ReportError(string error)
+        /// <param name="title">The title.</param>
+        /// <param name="message">The message.</param>
+        public void ReportError(string title, string message)
         {
-            this.messenger.Publish(new ErrorMessage(this, error));
+            this.messenger.Publish(new ErrorMessage(this, title, message));
         }
+
+        /// <summary>
+        /// Occurs when error reported.
+        /// </summary>
+        public event EventHandler<ErrorEventArgs> ErrorReported;
     }
 }

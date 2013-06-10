@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  
+  <!-- Ensure version of assembley is the same as the version below -->
   <?include $(sys.CURRENTDIR)Global.wxi ?>
+  <?define APPLICATION_VERSION = 1.1.5 ?>
+  <?define MVVMCROSS_VERSION = 3.0.8 ?>
   <Product Id="*" 
-           Name="Ninja Coder for MvvmCross v1.1.1" 
+           Name="Ninja Coder for MvvmCross v$(var.APPLICATION_VERSION)" 
            Language="1033" 
-           Version="1.1.1" 
+           Version="$(var.APPLICATION_VERSION)"
            Manufacturer="Scorchio Limited" 
            UpgradeCode="825c8b3c-e1ee-4eae-85b2-175f15b0b3bf">
     <Package InstallerVersion="200" Compressed="yes" />
@@ -69,8 +73,19 @@
         <!-- Install Application files -->
         <Directory Id='CompanyFolder' Name="Scorchio Limited">
           <Directory Id="INSTALLLOCATION" Name="Ninja Coder for MvvmCross">
-            
+
             <Component Id="CMPVSEXTENSION" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-200000000001">
+
+              <RegistryKey Root="HKCU"
+                Key="$(var.REGISTRY_KEY)">
+                <RegistryValue Type="string" Name="Version" Value="$(var.APPLICATION_VERSION)"/>
+              </RegistryKey>
+              
+              <RegistryKey Root="HKCU"
+                Key="$(var.REGISTRY_KEY)">
+                          <RegistryValue Type="string" Name="MvvmCross Version" Value="$(var.MVVMCROSS_VERSION)"/>
+              </RegistryKey>
+              
               <File Id="EXTENSIONBINARY" Name="NinjaCoder.MvvmCross.AddIn.dll"
                     Source="$(var.SOURCE_DIR)\NinjaCoder.MvvmCross.AddIn\bin\Debug\NinjaCoder.MvvmCross.AddIn.dll" Vital="yes" KeyPath="no" >
                 <CopyFile Id="copyfile1" DestinationDirectory="INSTALLLOCATION"/>
@@ -92,6 +107,10 @@
             <!-- Code Snippets -->
             <Directory Id="CodeSnippets" Name="CodeSnippets">            
             
+              <Directory Id="CodeSnippetsPlugins" Name="Plugins"/>
+              
+              <Directory Id="CodeSnippetsServices" Name="Services"/>
+              
             </Directory>
             
             <!-- Plugins -->
@@ -221,7 +240,7 @@
 
                       <File Id="MvvmCross.Plugin"
                         Name="MvvmCross.Plugin.zip"
-                        Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\MvvmCross.Plugin.zip">
+                        Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\ItemTemplates\CSharp\1033\MvvmCross.Plugin.zip">
                         <CopyFile Id="copyItemTemplate7" DestinationDirectory="ItemTemplatesMvvmCross"/>
                       </File>
                     </Component>
@@ -229,52 +248,51 @@
                     <!--Item Converter Templates for VS 2012-->
                     <Directory Id="ItemTemplatesMvvmCrossConverters" Name="Converters">
                       <Component Id="ItemConverterTemplates" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-600000000001">
-                        
-                        <File Id="MvvmCross.FloatConverter"
-                              Name="MvvmCross.FloatConverter.zip"
-                              Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\Converters\MvvmCross.FloatConverter.zip">
-                               <CopyFile Id="copyConverter1" DestinationDirectory="ItemTemplatesMvvmCrossConverters"/>
-                        </File>
 
+                        <File Id="MvvmCross.FloatConverter"
+                            Name="MvvmCross.FloatConverter.zip"
+                            Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\ItemTemplates\CSharp\1033\MvvmCross.FloatConverter.zip">
+                            <CopyFile Id="copyConverter1" DestinationDirectory="ItemTemplatesMvvmCrossConverters"/>
+                        </File>
+                        
                         <File Id="MvvmCross.IntConverter"
                             Name="MvvmCross.IntConverter.zip"
-                            Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\Converters\MvvmCross.IntConverter.zip">
+                            Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\ItemTemplates\CSharp\1033\MvvmCross.IntConverter.zip">
                           <CopyFile Id="copyConverter2" DestinationDirectory="ItemTemplatesMvvmCrossConverters"/>
                         </File>
                         
                         <File Id="MvvmCross.IntToFloatConverter"
                             Name="MvvmCross.IntToFloatConverter.zip"
-                            Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\Converters\MvvmCross.IntToFloatConverter.zip">
+                            Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\ItemTemplates\CSharp\1033\MvvmCross.IntToFloatConverter.zip">
                             <CopyFile Id="copyConverter3" DestinationDirectory="ItemTemplatesMvvmCrossConverters"/>
                         </File>
                         
                         <File Id="MvvmCross.StringLengthValueConverter"
                             Name="MvvmCross.StringLengthValueConverter.zip"
-                            Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\Converters\MvvmCross.StringLengthValueConverter.zip">
+                            Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\ItemTemplates\CSharp\1033\MvvmCross.StringLengthValueConverter.zip">
                           <CopyFile Id="copyConverter4" DestinationDirectory="ItemTemplatesMvvmCrossConverters"/>
                         </File>
 
                         <File Id="MvvmCross.StringReverseValueConverter"
                             Name="MvvmCross.StringReverseValueConverter.zip"
-                            Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\Converters\MvvmCross.StringReverseValueConverter.zip">
+                            Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\ItemTemplates\CSharp\1033\MvvmCross.StringReverseValueConverter.zip">
                           <CopyFile Id="copyConverter5" DestinationDirectory="ItemTemplatesMvvmCrossConverters"/>
                         </File>
                       </Component>
                     </Directory>
 
-                    <!--Item Plugin Templates for VS 2012-->
-                    <!--<Directory Id="ItemTemplatesMvvmCrossPlugins" Name="Plugins">
-                      <Component Id="ItemPluginTemplates" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-175f15b0b3b6">
+                    <!--Item Services Templates for VS 2012-->
+                    <Directory Id="ItemTemplatesMvvmCrossServices" Name="Services">
+                      <Component Id="ItemServiceTemplates" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-600000000009">
 
-                        <File Id="MvvmCross.FloatConverter"
-                              Name="MvvmCross.FloatConverter.zip"
-                              Source="C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ItemTemplates\Zips\Plugins\MvvmCross.FloatConverter.zip">
-                          <CopyFile Id="copyConverter1" DestinationDirectory="ItemTemplatesMvvmCrossConverters"/>
+                        <File Id="MvvmCross.Services.Location"
+                              Name="MvvmCross.LocationServices.zip"
+                              Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\ItemTemplates\CSharp\1033\MvvmCross.LocationService.zip">
+                          <CopyFile Id="copyService1" DestinationDirectory="ItemTemplatesMvvmCrossServices"/>
                         </File>
-
                       </Component>
-                    </Directory>-->
-                    
+                    </Directory>
+                   
                   </Directory>
                 </Directory>
               </Directory>        
@@ -328,7 +346,9 @@
       <ComponentRef	Id="ProjectTemplates"	/>
       <ComponentRef	Id="ItemTemplates"	/>
       <ComponentRef	Id="ItemConverterTemplates"	/>
-      <ComponentRef	Id="CodeSnippetsComponent"	/>
+      <ComponentRef	Id="ItemServiceTemplates"	/>
+      <ComponentRef	Id="CodeSnippetsPluginsComponent"	/>
+      <ComponentRef	Id="CodeSnippetsServicesComponent"	/>
     </Feature>
     <CustomAction Id="RemoveVS2012AddInCommands" Script="vbscript" Execute="deferred" Return="ignore" Impersonate="yes">
       <![CDATA[

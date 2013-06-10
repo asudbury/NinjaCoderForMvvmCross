@@ -3,7 +3,6 @@
 //    Defines the Setup type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace WindowsStoreTemplate
 {
     using Cirrious.MvvmCross.ViewModels;
@@ -28,7 +27,7 @@ namespace WindowsStoreTemplate
         /// <summary>
         /// Creates the app.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>An instance of IMvxApplication.</returns>
         protected override IMvxApplication CreateApp()
         {
             return new Core.App();

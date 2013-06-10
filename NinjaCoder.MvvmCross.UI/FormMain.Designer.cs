@@ -37,15 +37,13 @@
             this.addConvertersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addPluginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stackOverflowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.jabbRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.lblThisApplicationNeedsToBeRunAsAnAdminstrator = new System.Windows.Forms.Label();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treeView1 = new System.Windows.Forms.TreeView();
+            this.addServicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -75,11 +73,9 @@
             this.addProjectsToolStripMenuItem,
             this.addViewModelToolStripMenuItem,
             this.addConvertersToolStripMenuItem,
+            this.addServicesToolStripMenuItem,
             this.addPluginsToolStripMenuItem,
             this.optionsToolStripMenuItem,
-            this.stackOverflowToolStripMenuItem,
-            this.jabbRToolStripMenuItem,
-            this.gitHubToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
@@ -119,27 +115,6 @@
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(189, 24);
             this.optionsToolStripMenuItem.Text = "Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.OptionsToolStripMenuItemClick);
-            // 
-            // stackOverflowToolStripMenuItem
-            // 
-            this.stackOverflowToolStripMenuItem.Name = "stackOverflowToolStripMenuItem";
-            this.stackOverflowToolStripMenuItem.Size = new System.Drawing.Size(189, 24);
-            this.stackOverflowToolStripMenuItem.Text = "Stack Overflow";
-            this.stackOverflowToolStripMenuItem.Click += new System.EventHandler(this.StackOverflowToolStripMenuItemClick);
-            // 
-            // jabbRToolStripMenuItem
-            // 
-            this.jabbRToolStripMenuItem.Name = "jabbRToolStripMenuItem";
-            this.jabbRToolStripMenuItem.Size = new System.Drawing.Size(189, 24);
-            this.jabbRToolStripMenuItem.Text = "JabbR";
-            this.jabbRToolStripMenuItem.Click += new System.EventHandler(this.JabbRToolStripMenuItemClick);
-            // 
-            // gitHubToolStripMenuItem
-            // 
-            this.gitHubToolStripMenuItem.Name = "gitHubToolStripMenuItem";
-            this.gitHubToolStripMenuItem.Size = new System.Drawing.Size(189, 24);
-            this.gitHubToolStripMenuItem.Text = "GitHub";
-            this.gitHubToolStripMenuItem.Click += new System.EventHandler(this.GitHubToolStripMenuItemClick);
             // 
             // exitToolStripMenuItem
             // 
@@ -197,6 +172,13 @@
             this.treeView1.Size = new System.Drawing.Size(326, 493);
             this.treeView1.TabIndex = 0;
             // 
+            // addServicesToolStripMenuItem
+            // 
+            this.addServicesToolStripMenuItem.Name = "addServicesToolStripMenuItem";
+            this.addServicesToolStripMenuItem.Size = new System.Drawing.Size(189, 24);
+            this.addServicesToolStripMenuItem.Text = "Add Services";
+            this.addServicesToolStripMenuItem.Click += new System.EventHandler(this.AddServicesToolStripMenuItemClick);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -228,20 +210,18 @@
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStrip toolStrip;
-        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addProjectsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addViewModelToolStripMenuItem;
         private System.Windows.Forms.Label lblThisApplicationNeedsToBeRunAsAnAdminstrator;
-        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addConvertersToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem stackOverflowToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem jabbRToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem gitHubToolStripMenuItem;
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addProjectsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addViewModelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addConvertersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addPluginsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addServicesToolStripMenuItem;
     }
 }
 

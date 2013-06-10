@@ -3,7 +3,6 @@
 //    Defines the FirstView type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace WpfTemplate.Views
 {
     /// <summary>
@@ -11,6 +10,9 @@ namespace WpfTemplate.Views
     /// </summary>
     public partial class FirstView
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FirstView"/> class.
+        /// </summary>
         public FirstView()
         {
             this.InitializeComponent();

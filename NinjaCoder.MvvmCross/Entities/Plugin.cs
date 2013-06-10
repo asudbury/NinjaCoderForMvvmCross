@@ -3,7 +3,6 @@
 //    Defines the Plugin type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Entities
 {
     using System.Runtime.Serialization;

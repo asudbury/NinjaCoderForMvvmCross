@@ -35,6 +35,10 @@
           Source="$(var.PROJECT_TEMPLATES_WINDOWSSTORE_LIB)\Cirrious.MvvmCross.Plugins.File.WindowsStore.dll" Vital="yes" KeyPath="no" >
           <CopyFile Id="WindowsStorePlugins6" DestinationDirectory="MvvmCrossAssembliesWindowsStorePlugins"/>
         </File>
+        <File Id="WindowsStorePlugins6a" Name="Cirrious.MvvmCross.Plugins.Location.WindowsStore.dll"
+            Source="$(var.PROJECT_TEMPLATES_WINDOWSSTORE_LIB)\Cirrious.MvvmCross.Plugins.Location.WindowsStore.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="WindowsStorePlugins6a" DestinationDirectory="MvvmCrossAssembliesWindowsStorePlugins"/>
+        </File>
         <!--<File Id="WindowsStorePlugins7" Name="Cirrious.MvvmCross.Plugins.Json.WindowsStore.dll"
           Source="$(var.PROJECT_TEMPLATES_WINDOWSSTORE_LIB)\Cirrious.MvvmCross.Plugins.Json.WindowsStore.dll" Vital="yes" KeyPath="no" >
           <CopyFile Id="WindowsStorePlugins7" DestinationDirectory="MvvmCrossAssembliesWindowsStorePlugins"/>

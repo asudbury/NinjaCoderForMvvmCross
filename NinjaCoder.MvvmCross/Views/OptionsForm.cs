@@ -7,7 +7,6 @@
 namespace NinjaCoder.MvvmCross.Views
 {
     using System;
-    using System.Windows.Forms;
 
     using NinjaCoder.MvvmCross.Presenters;
     using NinjaCoder.MvvmCross.Views.Interfaces;
@@ -15,7 +14,7 @@ namespace NinjaCoder.MvvmCross.Views
     /// <summary>
     ///    Defines the OptionsForm type.
     /// </summary>
-    public partial class OptionsForm : Form, IOptionsView
+    public partial class OptionsForm : BaseView, IOptionsView
     {
         /// <summary>
         /// The presenter.
@@ -33,11 +32,6 @@ namespace NinjaCoder.MvvmCross.Views
 
             this.presenter.LoadSettings();
         }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="SolutionOptionsForm"/> is continue.
-        /// </summary>
-        public bool Continue { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether log to file.

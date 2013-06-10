@@ -3,7 +3,6 @@
 //    Defines the SolutionOptionsPresenter type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Presenters
 {
     using System.Collections.Generic;
@@ -19,7 +18,7 @@ namespace NinjaCoder.MvvmCross.Presenters
     /// <summary>
     ///  Defines the SolutionOptionsPresenter type.
     /// </summary>
-    public class SolutionOptionsPresenter
+    public class SolutionOptionsPresenter : BasePresenter
     {
         /// <summary>
         /// The view.

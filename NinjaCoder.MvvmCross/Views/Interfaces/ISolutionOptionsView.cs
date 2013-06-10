@@ -3,7 +3,6 @@
 //    Defines the ISolutionOptionsView type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Views.Interfaces
 {
     using System.Collections.Generic;

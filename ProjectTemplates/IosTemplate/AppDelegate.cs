@@ -3,35 +3,39 @@
 //    Defines the AppDelegate type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace IosTemplate
 {
     using Cirrious.CrossCore;
+    using Cirrious.MvvmCross.Touch.Platform;
+    using Cirrious.MvvmCross.Touch.Views.Presenters;
     using Cirrious.MvvmCross.ViewModels;
     using MonoTouch.Foundation;
     using MonoTouch.UIKit;
-    using Cirrious.MvvmCross.Touch.Platform;
-    using Cirrious.MvvmCross.Touch.Views.Presenters;
 
-    // The UIApplicationDelegate for the application. This class is responsible for launching the 
-    // User Interface of the application, as well as listening (and optionally responding) to 
-    // application events from iOS.
+    /// <summary>
+    /// The UIApplicationDelegate for the application. This class is responsible for launching the 
+    /// User Interface of the application, as well as listening (and optionally responding) to 
+    /// application events from iOS.
+    /// </summary>
     [Register("AppDelegate")]
     public class AppDelegate : MvxApplicationDelegate
     {
+        /// <summary>
+        /// The window.
+        /// </summary>
         private UIWindow window;
 
         /// <summary>
-        /// Finisheds the launching.
+        /// Finished the launching.
         /// </summary>
         /// <param name="app">The app.</param>
         /// <param name="options">The options.</param>
-        /// <returns></returns>
+        /// <returns>True or false.</returns>
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            window = new UIWindow(UIScreen.MainScreen.Bounds);
+            this.window = new UIWindow(UIScreen.MainScreen.Bounds);
 
-            MvxTouchViewPresenter presenter = new MvxTouchViewPresenter(this, window);
+            MvxTouchViewPresenter presenter = new MvxTouchViewPresenter(this, this.window);
 
             Setup setup = new Setup(this, presenter);
             setup.Initialize();

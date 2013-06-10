@@ -39,6 +39,10 @@
           Source="$(var.PROJECT_TEMPLATES_DROID_LIB)\Cirrious.MvvmCross.Plugins.Json.Droid.dll" Vital="yes" KeyPath="no" >
           <CopyFile Id="DroidPlugins7" DestinationDirectory="MvvmCrossAssembliesDroidPlugins"/>
         </File>-->
+        <File Id="DroidPlugins6a" Name="Cirrious.MvvmCross.Plugins.Location.Droid.dll"
+          Source="$(var.PROJECT_TEMPLATES_DROID_LIB)\Cirrious.MvvmCross.Plugins.Location.Droid.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="DroidPlugins6a" DestinationDirectory="MvvmCrossAssembliesDroidPlugins"/>
+        </File>
         <File Id="DroidPlugins8" Name="Cirrious.MvvmCross.Plugins.Network.Droid.dll"
           Source="$(var.PROJECT_TEMPLATES_DROID_LIB)\Cirrious.MvvmCross.Plugins.Network.Droid.dll" Vital="yes" KeyPath="no" >
           <CopyFile Id="DroidPlugins8" DestinationDirectory="MvvmCrossAssembliesDroidPlugins"/>

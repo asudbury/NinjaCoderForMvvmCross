@@ -39,7 +39,7 @@ namespace NinjaCoder.MvvmCross.Constants
         /// <summary>
         /// The windows store
         /// </summary>
-        public const string WindowsStore = "MvvmCross." + Settings.WindowsPhone + ".zip";
+        public const string WindowsStore = "MvvmCross." + Settings.WindowsStore + ".zip";
 
         /// <summary>
         /// The windows WPF

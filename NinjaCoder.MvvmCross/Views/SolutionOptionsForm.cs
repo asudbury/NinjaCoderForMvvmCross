@@ -4,7 +4,6 @@
 //    Defines the SolutionOptionsForm type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Views
 {
     using System;
@@ -20,7 +19,7 @@ namespace NinjaCoder.MvvmCross.Views
     /// <summary>
     /// Defines the SolutionOptionsForm type.
     /// </summary>
-    public partial class SolutionOptionsForm : Form, ISolutionOptionsView
+    public partial class SolutionOptionsForm : BaseView, ISolutionOptionsView
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SolutionOptionsForm" /> class.
@@ -43,14 +42,6 @@ namespace NinjaCoder.MvvmCross.Views
 
             this.LoadSettings();
         }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="SolutionOptionsForm"/> is continue.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if continue; otherwise, <c>false</c>.
-        /// </value>
-        public bool Continue { get; set; }
 
         /// <summary>
         /// Gets or sets the presenter.
@@ -198,6 +189,17 @@ namespace NinjaCoder.MvvmCross.Views
                 this.textBoxProject.Text = this.textBoxProject.Text.Substring(0, 1).ToUpper() + this.textBoxProject.Text.Substring(1);
                 this.textBoxProject.SelectionStart = start;
             }
+        }
+
+        /// <summary>
+        /// Solutions the options form load.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void SolutionOptionsFormLoad(object sender, EventArgs e)
+        {
+            this.textBoxProject.Focus();
+            this.textBoxProject.Select();
         }
     }
 }

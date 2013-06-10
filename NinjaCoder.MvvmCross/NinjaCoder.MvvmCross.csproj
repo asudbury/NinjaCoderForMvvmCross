@@ -41,6 +41,8 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -55,17 +57,25 @@
   <ItemGroup>
     <Compile Include="Constants\FriendlyNames.cs" />
     <Compile Include="Constants\ItemTemplates.cs" />
-    <Compile Include="Constants\Links.cs" />
     <Compile Include="Constants\ProjectSuffixes.cs" />
     <Compile Include="Constants\Settings.cs" />
     <Compile Include="Constants\ProjectTemplates.cs" />
-    <Compile Include="Controllers\MvvmCrossController.cs" />
+    <Compile Include="Controllers\ApplicationController.cs" />
+    <Compile Include="Controllers\ConvertersController.cs" />
+    <Compile Include="Controllers\PluginsController.cs" />
+    <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
+    <Compile Include="Controllers\ViewModelViewsController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Entities\Plugin.cs" />
     <Compile Include="Entities\Plugins.cs" />
     <Compile Include="Extensions\DirectoryInfoExtensions.cs" />
+    <Compile Include="Presenters\BasePresenter.cs" />
     <Compile Include="Presenters\ItemTemplatesPresenter.cs" />
     <Compile Include="Presenters\OptionsPresenter.cs" />
     <Compile Include="Presenters\PluginsPresenter.cs" />
+    <Compile Include="Presenters\ServicesPresenter.cs" />
     <Compile Include="Presenters\SolutionOptionsPresenter.cs" />
     <Compile Include="Presenters\ViewModelOptionsPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,11 +92,15 @@
     <Compile Include="Services\ConfigurationService.cs" />
     <Compile Include="Services\Interfaces\IConfigurationService.cs" />
     <Compile Include="Services\Interfaces\IPluginsService.cs" />
+    <Compile Include="Services\Interfaces\IReadMeService.cs" />
     <Compile Include="Services\Interfaces\ISettingsService.cs" />
     <Compile Include="Services\Interfaces\IVisualStudioService.cs" />
+    <Compile Include="Services\Interfaces\IZipperService.cs" />
     <Compile Include="Services\PluginsService.cs" />
+    <Compile Include="Services\ReadMeService.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\VisualStudioService.cs" />
+    <Compile Include="Services\ZipperService.cs" />
     <Compile Include="Translators\ITranslator.cs" />
     <Compile Include="Translators\PluginsTranslator.cs" />
     <Compile Include="UserControls\IMvxListView.cs" />
@@ -102,7 +116,11 @@
     <Compile Include="UserControls\MvxListView.Designer.cs">
       <DependentUpon>MvxListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\BaseView.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\Interfaces\IPluginsView.cs" />
+    <Compile Include="Views\Interfaces\IServicesView.cs" />
     <Compile Include="Views\ItemTemplatesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +142,12 @@
     </Compile>
     <Compile Include="Views\PluginsForm.Designer.cs">
       <DependentUpon>PluginsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ServicesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ServicesForm.Designer.cs">
+      <DependentUpon>ServicesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\SolutionOptionsForm.cs">
       <SubType>Form</SubType>
@@ -163,6 +187,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PluginsForm.resx">
       <DependentUpon>PluginsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ServicesForm.resx">
+      <DependentUpon>ServicesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\SolutionOptionsForm.resx">
       <DependentUpon>SolutionOptionsForm.cs</DependentUpon>

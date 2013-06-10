@@ -21,7 +21,8 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CodeSnippets.wxs" />
+    <Compile Include="CodeSnippetsPlugins.wxs" />
+    <Compile Include="CodeSnippetsServices.wxs" />
     <Compile Include="PluginsWpf.wxs" />
     <Compile Include="PluginsWindowsStore.wxs" />
     <Compile Include="PluginsWindowsPhone.wxs" />

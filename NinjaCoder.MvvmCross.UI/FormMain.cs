@@ -3,7 +3,6 @@
 //    Defines the Form1 type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.UI
 {
     using System;
@@ -20,18 +19,20 @@ namespace NinjaCoder.MvvmCross.UI
     public partial class FormMain : Form
     {
         /// <summary>
-        /// The MvvmCrossController.
-        /// </summary>
-        private readonly MvvmCrossController controller;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="FormMain" /> class.
         /// </summary>
         public FormMain()
         {
             this.InitializeComponent();
+            this.ShowProjects();
+        }
 
-            this.controller = new MvvmCrossController();
+        /// <summary>
+        /// Shows the projects.
+        /// </summary>
+        private void ShowProjects()
+        {
+            ApplicationController controller = new ApplicationController();
 
             IEnumerable<Project> projects = controller.GetProjects();
 
@@ -48,7 +49,9 @@ namespace NinjaCoder.MvvmCross.UI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void AddProjectsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            controller.BuildProjects();
+            ProjectsController controller = new ProjectsController();
+            controller.Run(); 
+            this.ShowProjects();
         }
 
         /// <summary>
@@ -58,7 +61,8 @@ namespace NinjaCoder.MvvmCross.UI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void AddViewModelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            controller.AddViewModelAndViews();
+            ViewModelViewsController controller = new ViewModelViewsController();
+            controller.Run(); 
         }
 
         /// <summary>
@@ -68,7 +72,8 @@ namespace NinjaCoder.MvvmCross.UI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void AddConvertersToolStripMenuItemClick(object sender, EventArgs e)
         {
-            controller.AddConverters();
+            ConvertersController controller = new ConvertersController();
+            controller.Run(); 
         }
 
         /// <summary>
@@ -78,8 +83,21 @@ namespace NinjaCoder.MvvmCross.UI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void AddPluginsToolStripMenuItemClick(object sender, EventArgs e)
         {
-            controller.AddPlugins();
+            PluginsController controller = new PluginsController();
+            controller.Run(); 
         }
+        
+        /// <summary>
+        /// Adds the services tool strip menu item click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void AddServicesToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            ServicesController controller = new ServicesController();
+            controller.Run(); 
+        }
+
         /// <summary>
         /// Options the tool strip menu item click.
         /// </summary>
@@ -87,6 +105,7 @@ namespace NinjaCoder.MvvmCross.UI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void OptionsToolStripMenuItemClick(object sender, EventArgs e)
         {
+            ApplicationController controller = new ApplicationController();
             controller.ShowOptions();
         }
 
@@ -98,36 +117,6 @@ namespace NinjaCoder.MvvmCross.UI
         private void ExitToolStripMenuItemClick(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        /// <summary>
-        /// Handles the Click event of the stackOverflowToolStripMenuItem control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void StackOverflowToolStripMenuItemClick(object sender, EventArgs e)
-        {
-            controller.ShowStackOverFlow();
-        }
-
-        /// <summary>
-        /// JabbR tool strip menu item click.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void JabbRToolStripMenuItemClick(object sender, EventArgs e)
-        {
-            controller.ShowJabbrRoom();
-        }
-
-        /// <summary>
-        /// Handles the Click event of the gitHubToolStripMenuItem control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void GitHubToolStripMenuItemClick(object sender, EventArgs e)
-        {
-            controller.ShowGitHub();
         }
     }
 }

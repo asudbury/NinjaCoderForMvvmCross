@@ -1,0 +1,16 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
+  <TemplateData>
+    <DefaultName>MvvmCross.Services.Location.cs</DefaultName>
+    <Name>MvvmCross.Services.Location</Name>
+    <Description>MvvmCross.Services.Location</Description>
+    <ProjectType>CSharp</ProjectType>
+    <SortOrder>10</SortOrder>
+    <Icon>__TemplateIcon.ico</Icon>
+    <PreviewImage>__PreviewImage.ico</PreviewImage>
+  </TemplateData>
+  <TemplateContent>
+    <References />
+    <ProjectItem SubType="Code" TargetFileName="$fileinputname$.cs" ReplaceParameters="true">LocationService.cs</ProjectItem>
+    <ProjectItem SubType="Code" TargetFileName="ILocationService.cs" ReplaceParameters="true">ILocationService.cs</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

@@ -24,7 +24,12 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Gets the converters templates path.
         /// </summary>
-        string ConvertersTemplatesPath  { get; }
+        string ConvertersTemplatesPath { get; }
+
+        /// <summary>
+        /// Gets the services templates path.
+        /// </summary>
+        string ServicesTemplatesPath { get; }
 
         /// <summary>
         /// Gets the core plugins path.
@@ -35,5 +40,15 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets the code snippets path.
         /// </summary>
         string CodeSnippetsPath { get; }
+
+        /// <summary>
+        /// Gets the application version.
+        /// </summary>
+        string ApplicationVersion { get; }
+
+        /// <summary>
+        /// Gets the MvvmCross version.
+        /// </summary>
+        string MvvmCrossVersion { get; }
     }
 }

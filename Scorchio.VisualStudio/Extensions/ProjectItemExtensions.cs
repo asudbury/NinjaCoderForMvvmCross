@@ -3,7 +3,6 @@
 //    Defines the ProjectItemExtensions type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace Scorchio.VisualStudio.Extensions
 {
     using System;
@@ -224,15 +223,19 @@ namespace Scorchio.VisualStudio.Extensions
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="snippetPath">The snippet path.</param>
+        /// <param name="updateUsingStatements">if set to <c>true</c> [update using statements].</param>
         public static void InsertMethod(
             this ProjectItem instance,
-            string snippetPath)
+            string snippetPath,
+            bool updateUsingStatements,
+            bool closeWindow)
         {
             CodeClass codeClass = instance.GetFirstClass();
 
             if (codeClass != null)
             {
-                CodeFunction codeFunction = codeClass.AddFunction("temp",
+                CodeFunction codeFunction = codeClass.AddFunction(
+                                                    "temp",
                                                     vsCMFunction.vsCMFunctionFunction,
                                                     vsCMTypeRef.vsCMTypeRefVoid,
                                                     -1,
@@ -245,9 +248,47 @@ namespace Scorchio.VisualStudio.Extensions
 
                 codeClass.RemoveMember(codeFunction);
 
-                editPoint.Insert("\n\n");
+                editPoint.Insert("\r\n\r\n");
                 editPoint.InsertFromFile(snippetPath);
+
+                if (updateUsingStatements)
+                {
+                    //// tidy up the using statements.
+                    instance.Save();
+                    instance.MoveUsingStatements();
+                    instance.Save();
+                    instance.SortAndRemoveUsingStatements();
+                    instance.Save();
+                }
+
+                if (closeWindow)
+                {
+                    if (instance.Document != null)
+                    {
+                        instance.Document.ActiveWindow.Close();
+                    }
+                }
             }
+        }
+
+        /// <summary>
+        /// Gets the using statements.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns>A list of using statements.</returns>
+        public static List<string> GetUsingStatements(this ProjectItem instance)
+        {
+            List<string> statements = new List<string>();
+
+            foreach (CodeElement codeElement in instance.FileCodeModel.CodeElements)
+            {
+                if (codeElement.Kind == vsCMElement.vsCMElementImportStmt)
+                {
+                    statements.Add(codeElement.FullName);
+                }
+            }
+
+            return statements;
         }
 
         /// <summary>
@@ -290,11 +331,16 @@ namespace Scorchio.VisualStudio.Extensions
 
                     if (codeElement.Kind == vsCMElement.vsCMElementImportStmt)
                     {
-                        instance.FileCodeModel.Remove(codeElement);
+                        EditPoint editPoint = codeElement.GetStartPoint().CreateEditPoint();
+                        TextPoint textPoint = codeElement.GetEndPoint();
+
+                        editPoint.Delete(textPoint);
+                        
+                        //// should get rid of the blank line!
+                        editPoint.Delete(1);
                     }
                 }
             }
-
             catch (Exception exception)
             {
                 TraceService.WriteError("MoveUsingStatements " + exception.Message);
@@ -309,7 +355,7 @@ namespace Scorchio.VisualStudio.Extensions
         {
             try
             {
-                string ConstantsvsViewKindCode = "{7651A701-06E5-11D1-8EBD-00A0C90F26EA}";
+                const string ConstantsvsViewKindCode = "{7651A701-06E5-11D1-8EBD-00A0C90F26EA}";
                 Window window = instance.Open(ConstantsvsViewKindCode);
 
                 window.Activate();
@@ -323,16 +369,32 @@ namespace Scorchio.VisualStudio.Extensions
         }
 
         /// <summary>
-        /// Gets the icon.
+        /// Replaces the text.
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns>The associated icon.</returns>
-        /*public static ImageSource GetIcon(this ProjectItem instance)
+        /// <param name="text">The text.</param>
+        /// <param name="replacementText">The replacement text.</param>
+        public static void ReplaceText(
+            this ProjectItem instance,
+            string text,
+            string replacementText)
         {
-            IconService iconService = new IconService();
+            TextSelection textSelection = instance.DTE.ActiveDocument.Selection;
+            textSelection.SelectAll();
+            textSelection.ReplacePattern(text, replacementText);
+            instance.Save();
+        }
 
-            return iconService.GetImageSource(instance.Document.FullName, false) ?? 
-                   iconService.GetFolderImageSource(false);
+        /*public static CodeVariable  AddVariable(
+            this ProjectItem instance,
+            string text)
+        {
+            CodeClass codeClass = instance.GetFirstClass();
+
+            if (codeClass != null)
+            {
+                codeClass.AddVariable()
+            }
         }*/
     }
 }

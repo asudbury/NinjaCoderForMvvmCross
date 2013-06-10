@@ -3,7 +3,6 @@
 //    Defines the OptionsPresenter type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Presenters
 {
     using System;
@@ -15,7 +14,7 @@ namespace NinjaCoder.MvvmCross.Presenters
     /// <summary>
     ///    Defines the OptionsPresenter type.
     /// </summary>
-    public class OptionsPresenter
+    public class OptionsPresenter : BasePresenter
     {
         /// <summary>
         /// The view.
@@ -30,6 +29,7 @@ namespace NinjaCoder.MvvmCross.Presenters
         /// <summary>
         /// Initializes a new instance of the <see cref="OptionsPresenter" /> class.
         /// </summary>
+        /// <param name="view">The view.</param>
         public OptionsPresenter(IOptionsView view)
             : this(view, new SettingsService())
         {

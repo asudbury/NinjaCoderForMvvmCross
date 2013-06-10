@@ -3,7 +3,6 @@
 //    Defines the ItemTemplatesPresenter type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Presenters
 {
     using System.Collections.Generic;
@@ -14,7 +13,7 @@ namespace NinjaCoder.MvvmCross.Presenters
     /// <summary>
     ///  Defines the ItemTemplatesPresenter type.
     /// </summary>
-    public class ItemTemplatesPresenter
+    public class ItemTemplatesPresenter : BasePresenter
     {
         /// <summary>
         /// The view.
@@ -49,6 +48,7 @@ namespace NinjaCoder.MvvmCross.Presenters
                 this.view.AddTemplate(itemTemplateInfo);
             }
         }
+
         /// <summary>
         /// Updates the item templates.
         /// </summary>

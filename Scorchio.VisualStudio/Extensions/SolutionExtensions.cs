@@ -3,14 +3,12 @@
 //    Defines the SolutionExtensions type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace Scorchio.VisualStudio.Extensions
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Windows.Forms;
 
     using EnvDTE;
     using EnvDTE80;
@@ -25,6 +23,21 @@ namespace Scorchio.VisualStudio.Extensions
     /// </summary>
     public static class SolutionExtensions
     {
+        /// <summary>
+        /// Gets the directory name.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns>The Directory path.</returns>
+        public static string GetDirectoryName(this Solution2 instance)
+        {
+            if (instance.FileName != string.Empty)
+            {
+                return Path.GetDirectoryName(instance.FullName);
+            }
+
+            return string.Empty;
+        }
+
         /// <summary>
         /// Gets the project template.
         /// </summary>
@@ -49,6 +62,25 @@ namespace Scorchio.VisualStudio.Extensions
             string templateName)
         {
             return instance.GetProjectItemTemplate(templateName, "CSharp");
+        }
+
+        /// <summary>
+        /// Adds the item.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="solutionFolder">The solution folder.</param>
+        /// <param name="path">The path.</param>
+        /// <returns>
+        /// The project item.
+        /// </returns>
+        public static ProjectItem AddSolutionItem(
+            this Solution2 instance,
+            string solutionFolder,
+            string path)
+        {
+            Project project = instance.GetProject(solutionFolder) ?? instance.AddSolutionFolder(solutionFolder);
+
+            return project.ProjectItems.AddFromFile(path);
         }
 
         /// <summary>
@@ -125,7 +157,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="path">The path.</param>
         /// <param name="projectsInfos">The projects infos.</param>
         /// <param name="referenceFirstProject">if set to <c>true</c> [reference first project].</param>
-        public static void AddProjects(
+        /// <returns>The messages.</returns>
+        public static IEnumerable<string> AddProjects(
             this Solution2 instance,
             string path,
             IEnumerable<ProjectTemplateInfo> projectsInfos, 
@@ -140,6 +173,8 @@ namespace Scorchio.VisualStudio.Extensions
 
             Solution solution = instance as Solution;
 
+            List<string> messages = new List<string>();
+
             foreach (ProjectTemplateInfo projectInfo in projectsInfos)
             {
                 try
@@ -152,6 +187,7 @@ namespace Scorchio.VisualStudio.Extensions
                         {
                             string template = instance.GetProjectTemplate(projectInfo.TemplateName);
                             solution.AddProjectToSolution(path, template, projectInfo.Name);
+                            messages.Add(projectInfo.Name + " project successfully added.");
                         }
                         catch (Exception exception)
                         {
@@ -159,7 +195,8 @@ namespace Scorchio.VisualStudio.Extensions
                                 "Unsupported project {0} not added to the solution.", projectInfo.Name);
 
                             TraceService.WriteError(exceptionMessage + " exception=" + exception.Message);
-                            MessageBox.Show(exceptionMessage, "Scorchio.VisualStudio");
+                            
+                            messages.Add(exceptionMessage);
                         }
                     }
 
@@ -181,7 +218,10 @@ namespace Scorchio.VisualStudio.Extensions
                                 }
                                 catch (Exception exception)
                                 {
-                                    TraceService.WriteLine("SolutionExtensions::AddProjects Error=" + exception.Message);
+                                    string exceptionMessage = "SolutionExtensions::AddProjects Error=" + exception.Message;
+
+                                    TraceService.WriteError(exceptionMessage);
+                                    messages.Add(exceptionMessage);
                                 }
                             }
                         }
@@ -194,19 +234,27 @@ namespace Scorchio.VisualStudio.Extensions
                         "Template not found for {0} Error {1}", projectInfo.TemplateName, exception.Message);
 
                     TraceService.WriteError(message);
+                    messages.Add(message);
                 }
              }
+
+            return messages;
         }
-        
+
         /// <summary>
         /// Adds the item template to project.
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="templateInfos">The template infos.</param>
-        public static void AddItemTemplateToProjects(
+        /// <param name="createFolder">if set to <c>true</c> [create folder].</param>
+        /// <returns> The messages. </returns>
+        public static List<string> AddItemTemplateToProjects(
              this Solution2 instance,
-            IEnumerable<ItemTemplateInfo> templateInfos) 
+            IEnumerable<ItemTemplateInfo> templateInfos,
+            bool createFolder) 
         {
+            List<string> messages = new List<string>();
+
             IEnumerable<Project> projects = instance.GetProjects();
 
             TraceService.WriteError("AddItemTemplateToProjects project count=" + projects.Count());   
@@ -217,9 +265,9 @@ namespace Scorchio.VisualStudio.Extensions
 
                 if (project != null)
                 {
-                    project.AddToFolderFromTemplate(info.FolderName, info.TemplateName, info.FileName);
+                    project.AddToFolderFromTemplate(info.FolderName, info.TemplateName, info.FileName, createFolder);
+                    messages.Add(info.FolderName + @"\" + info.FileName + ".cs added to " + project.Name + " project.");
                 }
-
                 else
                 {
                     TraceService.WriteError("AddItemTemplateToProjects cannot find project " + info.ProjectSuffix);
@@ -228,10 +276,13 @@ namespace Scorchio.VisualStudio.Extensions
                     {
                         string projectName = projectItem.Name;
 
-                        TraceService.WriteError("AddItemTemplateToProjects project " + projectName);    
+                        TraceService.WriteError("AddItemTemplateToProjects project " + projectName);
+                        messages.Add(info.FileName + " added to " + projectName + " project.");
                     }
                 }
             }
+
+            return messages;
         }
 
         /// <summary>

@@ -6,9 +6,8 @@
 namespace NinjaCoder.MvvmCross.Services.Interfaces
 {
     using System.Collections.Generic;
-    using NinjaCoder.MvvmCross.Entities;
-
     using EnvDTE;
+    using NinjaCoder.MvvmCross.Entities;
 
     /// <summary>
     /// Defines the IPluginsService type.
@@ -22,7 +21,8 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <param name="plugins">The plugins.</param>
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="codeSnippetsPath">The code snippets path.</param>
-        void AddPlugins(
+        /// <returns>The messages.</returns>
+        IEnumerable<string> AddPlugins(
             IVisualStudioService visualStudioService, 
             List<Plugin> plugins, 
             string viewModelName,

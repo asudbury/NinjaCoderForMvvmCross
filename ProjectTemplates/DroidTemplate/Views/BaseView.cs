@@ -3,7 +3,6 @@
 //    Defines the BaseView type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace DroidTemplate.Views
 {
     using Cirrious.MvvmCross.Droid.Views;

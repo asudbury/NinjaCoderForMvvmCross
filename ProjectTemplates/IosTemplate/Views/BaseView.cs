@@ -3,7 +3,6 @@
 //    Defines the BaseView type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace IosTemplate.Views
 {
     using Cirrious.MvvmCross.Touch.Views;
@@ -29,6 +28,7 @@ namespace IosTemplate.Views
         /// <param name="bundle">The bundle.</param>
         protected BaseView(string nibName, NSBundle bundle)
             : base(nibName, bundle)
-        {}
+        {
+        }
     }
 }

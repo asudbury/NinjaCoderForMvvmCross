@@ -239,22 +239,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstrap\AccelerometerPluginBootstrap.cs" />
-    <Compile Include="Bootstrap\ColorPluginBootstrap.cs" />
-    <Compile Include="Bootstrap\DownloadCachePluginBootstrap.cs" />
-    <Compile Include="Bootstrap\EmailPluginBootstrap.cs" />
-    <Compile Include="Bootstrap\FilePluginBootstrap.cs" />
-    <Compile Include="Bootstrap\LocationPluginBootstrap.cs" />
-    <Compile Include="Bootstrap\NetworkPluginBootstrap.cs" />
-    <Compile Include="Bootstrap\PhoneCallPluginBootstrap.cs" />
-    <Compile Include="Bootstrap\PictureChooserPluginBootstrap.cs" />
-    <Compile Include="Bootstrap\ReflectionExPluginBootstrap.cs" />
-    <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
-    <Compile Include="Bootstrap\SharePluginBootstrap.cs" />
-    <Compile Include="Bootstrap\SqlitePluginBootstrap.cs" />
-    <Compile Include="Bootstrap\ThreadUtilsPluginBootstrap.cs" />
-    <Compile Include="Bootstrap\VisibilityPluginBootstrap.cs" />
-    <Compile Include="Bootstrap\WebBrowserPluginBootstrap.cs" />
     <Compile Include="FirstView.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -273,58 +257,6 @@
     <AndroidResource Include="Resources\Drawable\Icon.png" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Content Include="Lib\Cirrious.CrossCore.dll" />
-    <Content Include="Lib\Cirrious.CrossCore.Droid.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.AutoView.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.AutoView.Droid.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Binding.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Binding.Droid.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Dialog.Droid.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Droid.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Droid.Fragging.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Droid.Maps.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Localization.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.Accelerometer.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.Accelerometer.Droid.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.Color.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.Color.Droid.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.DownloadCache.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.DownloadCache.Droid.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.Email.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.Email.Droid.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.File.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.File.Droid.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.Location.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.Location.Droid.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.Network.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.Network.Droid.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.PhoneCall.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.PhoneCall.Droid.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.PictureChooser.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.PictureChooser.Droid.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.ReflectionEx.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.ReflectionEx.Droid.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.ResourceLoader.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.ResourceLoader.Droid.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.Share.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.Share.Droid.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.Sqlite.Console.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.Sqlite.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.Sqlite.Droid.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.ThreadUtils.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.ThreadUtils.Droid.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.Visibility.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.Visibility.Droid.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.WebBrowser.dll" />
-    <Content Include="Lib\Cirrious.MvvmCross.Plugins.WebBrowser.Droid.dll" />
-    <Content Include="Lib\CrossUI.Core.dll" />
-    <Content Include="Lib\CrossUI.Droid.dll" />
-    <Content Include="Lib\System.Net.dll" />
-    <Content Include="Lib\System.Windows.dll" />
-    <Content Include="Lib\System.Xml.Serialization.dll" />
-  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.

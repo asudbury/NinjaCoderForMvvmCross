@@ -3,7 +3,6 @@
 //    Defines the BaseView type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-    
 namespace WindowsStoreTemplate.Views
 {
     using WindowsStoreTemplate.Common;

@@ -1,0 +1,1 @@
+Cirrious.MvvmCross.Plugins.Location;

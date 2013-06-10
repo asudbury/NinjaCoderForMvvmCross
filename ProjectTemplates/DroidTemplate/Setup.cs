@@ -3,7 +3,6 @@
 //    Defines the Setup type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace DroidTemplate
 {
     using Android.Content;
@@ -27,7 +26,7 @@ namespace DroidTemplate
         /// <summary>
         /// Creates the app.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>An instance of IMvxApplication.</returns>
         protected override IMvxApplication CreateApp()
         {
             return new Core.App();

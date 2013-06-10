@@ -69,6 +69,7 @@
     <Compile Include="Entities\ItemTemplateInfo.cs" />
     <Compile Include="Entities\ProjectTemplateInfo.cs" />
     <Compile Include="Entities\VSCommandInfo.cs" />
+    <Compile Include="Extensions\CodeClassExtensions.cs" />
     <Compile Include="Extensions\DTEExtensions.cs" />
     <Compile Include="Extensions\ProjectExtensions.cs" />
     <Compile Include="Extensions\ProjectItemExtensions.cs" />

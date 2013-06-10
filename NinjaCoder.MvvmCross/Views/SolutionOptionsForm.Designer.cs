@@ -46,9 +46,10 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(505, 312);
+            this.buttonCancel.Location = new System.Drawing.Point(673, 384);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 22);
+            this.buttonCancel.Size = new System.Drawing.Size(100, 27);
             this.buttonCancel.TabIndex = 9;
             this.buttonCancel.Text = "&Cancel";
             this.buttonCancel.Click += new System.EventHandler(this.ButtonCancelClick);
@@ -58,19 +59,20 @@
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonOK.Enabled = false;
-            this.buttonOK.Location = new System.Drawing.Point(424, 312);
+            this.buttonOK.Location = new System.Drawing.Point(565, 384);
+            this.buttonOK.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(75, 22);
+            this.buttonOK.Size = new System.Drawing.Size(100, 27);
             this.buttonOK.TabIndex = 8;
             this.buttonOK.Text = "&OK";
             this.buttonOK.Click += new System.EventHandler(this.ButtonOKClick);
             // 
             // textBoxProject
             // 
-            this.textBoxProject.Location = new System.Drawing.Point(364, 43);
-            this.textBoxProject.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxProject.Location = new System.Drawing.Point(485, 53);
+            this.textBoxProject.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxProject.Name = "textBoxProject";
-            this.textBoxProject.Size = new System.Drawing.Size(187, 20);
+            this.textBoxProject.Size = new System.Drawing.Size(248, 22);
             this.textBoxProject.TabIndex = 4;
             this.textBoxProject.TextChanged += new System.EventHandler(this.TextBoxProjectTextChanged);
             this.textBoxProject.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxProjectKeyDown);
@@ -78,37 +80,35 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(313, 43);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Location = new System.Drawing.Point(417, 53);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(40, 13);
+            this.label4.Size = new System.Drawing.Size(52, 17);
             this.label4.TabIndex = 3;
             this.label4.Text = "Project";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(324, 16);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Location = new System.Drawing.Point(432, 20);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(29, 13);
+            this.label9.Size = new System.Drawing.Size(37, 17);
             this.label9.TabIndex = 0;
             this.label9.Text = "Path";
             // 
             // textBoxPath
             // 
-            this.textBoxPath.Location = new System.Drawing.Point(364, 12);
-            this.textBoxPath.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxPath.Location = new System.Drawing.Point(485, 15);
+            this.textBoxPath.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxPath.Name = "textBoxPath";
-            this.textBoxPath.Size = new System.Drawing.Size(187, 20);
+            this.textBoxPath.Size = new System.Drawing.Size(248, 22);
             this.textBoxPath.TabIndex = 1;
             // 
             // buttonPath
             // 
-            this.buttonPath.Location = new System.Drawing.Point(555, 12);
-            this.buttonPath.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonPath.Location = new System.Drawing.Point(740, 15);
+            this.buttonPath.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonPath.Name = "buttonPath";
-            this.buttonPath.Size = new System.Drawing.Size(29, 19);
+            this.buttonPath.Size = new System.Drawing.Size(39, 23);
             this.buttonPath.TabIndex = 2;
             this.buttonPath.Text = "...";
             this.buttonPath.UseVisualStyleBackColor = true;
@@ -116,34 +116,35 @@
             // 
             // lblRequiredProjects
             // 
-            this.lblRequiredProjects.Location = new System.Drawing.Point(364, 81);
-            this.lblRequiredProjects.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblRequiredProjects.Location = new System.Drawing.Point(485, 100);
             this.lblRequiredProjects.Name = "lblRequiredProjects";
-            this.lblRequiredProjects.Size = new System.Drawing.Size(186, 13);
+            this.lblRequiredProjects.Size = new System.Drawing.Size(248, 16);
             this.lblRequiredProjects.TabIndex = 5;
             this.lblRequiredProjects.Text = "Required Projects";
             // 
             // mvxListView1
             // 
-            this.mvxListView1.Location = new System.Drawing.Point(364, 96);
-            this.mvxListView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.mvxListView1.Location = new System.Drawing.Point(485, 118);
+            this.mvxListView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.mvxListView1.Name = "mvxListView1";
-            this.mvxListView1.Size = new System.Drawing.Size(184, 188);
+            this.mvxListView1.Size = new System.Drawing.Size(245, 231);
             this.mvxListView1.TabIndex = 6;
             // 
             // logo1
             // 
+            this.logo1.BackColor = System.Drawing.Color.White;
             this.logo1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.logo1.Location = new System.Drawing.Point(12, 12);
+            this.logo1.Location = new System.Drawing.Point(16, 15);
+            this.logo1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.logo1.Name = "logo1";
-            this.logo1.Size = new System.Drawing.Size(290, 306);
+            this.logo1.Size = new System.Drawing.Size(386, 376);
             this.logo1.TabIndex = 10;
             // 
             // SolutionOptionsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(616, 367);
+            this.ClientSize = new System.Drawing.Size(821, 452);
             this.Controls.Add(this.logo1);
             this.Controls.Add(this.mvxListView1);
             this.Controls.Add(this.lblRequiredProjects);
@@ -155,11 +156,12 @@
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SolutionOptionsForm";
             this.Text = "Ninja Coder for MvvmCross - Add Projects";
+            this.Load += new System.EventHandler(this.SolutionOptionsFormLoad);
             this.ResumeLayout(false);
             this.PerformLayout();
 

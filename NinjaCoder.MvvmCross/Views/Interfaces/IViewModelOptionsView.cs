@@ -3,7 +3,6 @@
 //    Defines the IViewModelOptionsView type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Views.Interfaces
 {
     using System.Collections.Generic;

@@ -40,39 +40,39 @@
             // chkCreateLogFile
             // 
             this.chkCreateLogFile.AutoSize = true;
-            this.chkCreateLogFile.Location = new System.Drawing.Point(376, 36);
-            this.chkCreateLogFile.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkCreateLogFile.Location = new System.Drawing.Point(501, 44);
+            this.chkCreateLogFile.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chkCreateLogFile.Name = "chkCreateLogFile";
-            this.chkCreateLogFile.Size = new System.Drawing.Size(97, 17);
+            this.chkCreateLogFile.Size = new System.Drawing.Size(126, 21);
             this.chkCreateLogFile.TabIndex = 0;
             this.chkCreateLogFile.Text = "Create Log File";
             this.chkCreateLogFile.UseVisualStyleBackColor = true;
             // 
             // lblLogFile
             // 
-            this.lblLogFile.Location = new System.Drawing.Point(324, 63);
-            this.lblLogFile.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblLogFile.Location = new System.Drawing.Point(432, 78);
             this.lblLogFile.Name = "lblLogFile";
-            this.lblLogFile.Size = new System.Drawing.Size(61, 13);
+            this.lblLogFile.Size = new System.Drawing.Size(81, 16);
             this.lblLogFile.TabIndex = 1;
             this.lblLogFile.Text = "Log File";
             // 
             // textBoxLogFile
             // 
-            this.textBoxLogFile.Location = new System.Drawing.Point(376, 58);
-            this.textBoxLogFile.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxLogFile.Location = new System.Drawing.Point(501, 71);
+            this.textBoxLogFile.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxLogFile.Name = "textBoxLogFile";
             this.textBoxLogFile.ReadOnly = true;
-            this.textBoxLogFile.Size = new System.Drawing.Size(293, 20);
+            this.textBoxLogFile.Size = new System.Drawing.Size(389, 22);
             this.textBoxLogFile.TabIndex = 2;
             // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonOK.Location = new System.Drawing.Point(514, 289);
+            this.buttonOK.Location = new System.Drawing.Point(685, 356);
+            this.buttonOK.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(75, 22);
+            this.buttonOK.Size = new System.Drawing.Size(100, 27);
             this.buttonOK.TabIndex = 3;
             this.buttonOK.Text = "&OK";
             this.buttonOK.Click += new System.EventHandler(this.ButtonOKClick);
@@ -81,9 +81,10 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(595, 289);
+            this.buttonCancel.Location = new System.Drawing.Point(793, 356);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 22);
+            this.buttonCancel.Size = new System.Drawing.Size(100, 27);
             this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "&Cancel";
             this.buttonCancel.Click += new System.EventHandler(this.ButtonCancelClick);
@@ -92,16 +93,17 @@
             // 
             this.logo1.BackColor = System.Drawing.Color.White;
             this.logo1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.logo1.Location = new System.Drawing.Point(12, 13);
+            this.logo1.Location = new System.Drawing.Point(16, 16);
+            this.logo1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.logo1.Name = "logo1";
-            this.logo1.Size = new System.Drawing.Size(290, 306);
+            this.logo1.Size = new System.Drawing.Size(386, 376);
             this.logo1.TabIndex = 5;
             // 
             // OptionsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(687, 331);
+            this.ClientSize = new System.Drawing.Size(916, 407);
             this.Controls.Add(this.logo1);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
@@ -109,7 +111,9 @@
             this.Controls.Add(this.lblLogFile);
             this.Controls.Add(this.chkCreateLogFile);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "OptionsForm";
             this.Text = "Ninja Coder for MvvmCross - Options";
             this.ResumeLayout(false);

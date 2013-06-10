@@ -3,7 +3,6 @@
 //    Defines the FirstView.xaml type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace WindowsStoreTemplate.Views
 {
     /// <summary>
@@ -11,6 +10,9 @@ namespace WindowsStoreTemplate.Views
     /// </summary>
     public sealed partial class FirstView
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FirstView"/> class.
+        /// </summary>
         public FirstView()
         {
             this.InitializeComponent();

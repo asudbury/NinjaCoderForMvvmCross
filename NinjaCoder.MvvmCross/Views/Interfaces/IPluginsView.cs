@@ -3,7 +3,6 @@
 //    Defines the IPluginsView type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Views.Interfaces
 {
     using System.Collections.Generic;
@@ -32,7 +31,7 @@ namespace NinjaCoder.MvvmCross.Views.Interfaces
         void AddPlugin(Plugin plugin);
 
         /// <summary>
-        /// Adds the plugin.
+        /// Adds the viewModel.
         /// </summary>
         /// <param name="viewModelName">Name of the view model.</param>
         void AddViewModel(string viewModelName);

@@ -35,6 +35,10 @@
           Source="$(var.PROJECT_TEMPLATES_IOS_LIB)\Cirrious.MvvmCross.Plugins.File.Touch.dll" Vital="yes" KeyPath="no" >
           <CopyFile Id="iOSPlugins6" DestinationDirectory="MvvmCrossAssembliesiOSPlugins"/>
         </File>
+        <File Id="iOSPlugins6a" Name="Cirrious.MvvmCross.Plugins.Location.Touch.dll"
+          Source="$(var.PROJECT_TEMPLATES_IOS_LIB)\Cirrious.MvvmCross.Plugins.Location.Touch.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="iOSPlugins6a" DestinationDirectory="MvvmCrossAssembliesiOSPlugins"/>
+        </File>
         <!--<File Id="iOSPlugins7" Name="Cirrious.MvvmCross.Plugins.Json.Touch.dll"
           Source="$(var.PROJECT_TEMPLATES_IOS_LIB)\Cirrious.MvvmCross.Plugins.Json.Touch.dll" Vital="yes" KeyPath="no" >
           <CopyFile Id="iOSPlugins7" DestinationDirectory="MvvmCrossAssembliesiOSPlugins"/>

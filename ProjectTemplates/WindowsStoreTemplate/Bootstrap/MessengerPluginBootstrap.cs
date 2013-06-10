@@ -3,7 +3,6 @@
 //    Defines the MessengerPluginBootstrap type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace WindowsStoreTemplate.Bootstrap
 {
     using Cirrious.CrossCore.Plugins;

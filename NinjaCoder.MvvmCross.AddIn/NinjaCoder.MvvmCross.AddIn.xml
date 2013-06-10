@@ -54,6 +54,11 @@
             Add the plugins.
             </summary>
         </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.AddServices">
+            <summary>
+            Adds the services.
+            </summary>
+        </member>
         <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.AddConverters">
             <summary>
             Adds the converters.
@@ -74,13 +79,10 @@
             Shows about.
             </summary>
         </member>
-        <member name="P:NinjaCoder.MvvmCross.AddIn.Connect.Controller">
+        <member name="P:NinjaCoder.MvvmCross.AddIn.Connect.ApplicationVersion">
             <summary>
-            Gets the controller.
+            Gets the application version.
             </summary>
-            <value>
-            The controller.
-            </value>
         </member>
     </members>
 </doc>
