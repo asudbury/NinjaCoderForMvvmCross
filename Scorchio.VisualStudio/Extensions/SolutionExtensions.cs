@@ -181,12 +181,14 @@ namespace Scorchio.VisualStudio.Extensions
                 {
                     //// Project may actually already exist - if so just skip it!
 
-                    if (Directory.Exists(path + "\\" + projectInfo.Name) == false)
+                    string projectPath = string.Format(@"{0}\{1}\", path, projectInfo.Name);
+
+                    if (Directory.Exists(projectPath) == false)
                     {
                         try
                         {
                             string template = instance.GetProjectTemplate(projectInfo.TemplateName);
-                            solution.AddProjectToSolution(path, template, projectInfo.Name);
+                            solution.AddProjectToSolution(projectPath, template, projectInfo.Name);
                             messages.Add(projectInfo.Name + " project successfully added.");
                         }
                         catch (Exception exception)

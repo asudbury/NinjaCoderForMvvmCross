@@ -60,9 +60,9 @@ namespace NinjaCoder.MvvmCross.Views
             {
                 string path = this.textBoxPath.Text;
 
-                if (path.EndsWith("\\") == false)
+                if (path.EndsWith(@"\") == false)
                 {
-                    path = string.Format("{0}\\", path);
+                    path = string.Format(@"{0}\", path);
                 }   
 
                 return path;

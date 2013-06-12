@@ -7,6 +7,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Windows.Forms;
 
     using EnvDTE;
@@ -69,7 +70,20 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                     Solution2 solution2 = this.VisualStudioService.DTE2.GetSolution() as Solution2;
 
-                    IEnumerable<string> messages = solution2.AddProjects(form.Path, form.Presenter.GetRequiredTemplates(), true);
+                    //// create the solution if we dont have one!
+                    if (string.IsNullOrEmpty(solution2.FullName))
+                    {
+                        string solutionPath = form.Presenter.GetSolutionPath();
+
+                        if (Directory.Exists(solutionPath) == false)
+                        {
+                            Directory.CreateDirectory(solutionPath);
+                        }
+
+                        solution2.Create(solutionPath, form.ProjectName);
+                    }
+
+                    IEnumerable<string> messages = solution2.AddProjects(form.Presenter.GetSolutionPath(), form.Presenter.GetRequiredTemplates(), true);
                     
                     this.WriteStatusBarMessage("Ninja Coder is updating files...");
 
