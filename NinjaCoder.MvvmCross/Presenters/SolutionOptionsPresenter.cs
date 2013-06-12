@@ -79,6 +79,15 @@ namespace NinjaCoder.MvvmCross.Presenters
         }
 
         /// <summary>
+        /// Gets the solution path.
+        /// </summary>
+        /// <returns>The solution path.</returns>
+        public string GetSolutionPath()
+        {
+            return string.Format(@"{0}{1}", this.view.Path, this.view.ProjectName);
+        }
+
+        /// <summary>
         /// Loads the settings.
         /// </summary>
         public void Load()
