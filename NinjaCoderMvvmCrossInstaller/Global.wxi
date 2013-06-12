@@ -2,7 +2,7 @@
 <Include>
   <?define CONNECT_CLASS_FULL_NAME_VS = NinjaCoder.MvvmCross.AddIn.Connect" ?>
   <?define REGISTRY_KEY = "Software\Scorchio Limited\Ninja Coder for MvvmCross" ?>
-  <?define SOURCE_DIR = "C:\Scorchio\Projects\c#\NinjaCoderMvvmCross" ?>
+  <?define SOURCE_DIR = "C:\Scorchio\Projects\c#\NinjaCoderForMvvmCross" ?>
 
   <?define PROJECT_TEMPLATES_DIR = "$(var.SOURCE_DIR)\ProjectTemplates" ?>
   <?define PROJECT_TEMPLATES_ZIPS_DIR = "$(var.PROJECT_TEMPLATES_DIR)\Zips" ?>
