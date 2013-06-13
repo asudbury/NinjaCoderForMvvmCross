@@ -3,7 +3,7 @@
 //    Defines the ITypeResolverService type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace CoreTemplate.Services
+namespace MvvmCross.TypeResolverService.Services
 {
     /// <summary>
     /// Defines the ITypeResolverService type.

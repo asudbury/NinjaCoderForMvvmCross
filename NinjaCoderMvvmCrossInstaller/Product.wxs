@@ -3,7 +3,7 @@
   
   <!-- Ensure version of assembley is the same as the version below -->
   <?include $(sys.CURRENTDIR)Global.wxi ?>
-  <?define APPLICATION_VERSION = 1.1.5 ?>
+  <?define APPLICATION_VERSION = 1.1.6 ?>
   <?define MVVMCROSS_VERSION = 3.0.8 ?>
   <Product Id="*" 
            Name="Ninja Coder for MvvmCross v$(var.APPLICATION_VERSION)" 

@@ -87,6 +87,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2A
 		ItemTemplates\Core\CodeSnippets\Services\Services.LocationServices.UsingStatements.txt = ItemTemplates\Core\CodeSnippets\Services\Services.LocationServices.UsingStatements.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.TypeResolverService", "ItemTemplates\Core\Services\MvvmCross.TypeResolverService\MvvmCross.TypeResolverService.csproj", "{457B14E5-CBED-4936-AE1C-F46EEB623B28}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -797,6 +799,42 @@ Global
 		{BFC01E99-51CF-4E15-86A7-325AF21B36ED}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BFC01E99-51CF-4E15-86A7-325AF21B36ED}.Release|x64.ActiveCfg = Release|Any CPU
 		{BFC01E99-51CF-4E15-86A7-325AF21B36ED}.Release|x86.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Ad-Hoc|ARM.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Ad-Hoc|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Ad-Hoc|Mixed Platforms.Build.0 = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Ad-Hoc|x64.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Ad-Hoc|x86.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.AppStore|Any CPU.Build.0 = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.AppStore|ARM.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.AppStore|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.AppStore|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.AppStore|Mixed Platforms.Build.0 = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.AppStore|x64.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.AppStore|x86.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Release|ARM.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Release|x64.ActiveCfg = Release|Any CPU
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -824,6 +862,7 @@ Global
 		{878B313A-1ED3-4C66-8B0A-352039BCD1D0} = {57CEA34B-317D-47F2-B56A-33782CD98E2D}
 		{63642E05-1023-4883-80E9-30A0BA416179} = {57CEA34B-317D-47F2-B56A-33782CD98E2D}
 		{BFC01E99-51CF-4E15-86A7-325AF21B36ED} = {731EBF6A-E718-4FF2-BD11-7311C9C8EE4B}
+		{457B14E5-CBED-4936-AE1C-F46EEB623B28} = {731EBF6A-E718-4FF2-BD11-7311C9C8EE4B}
 		{2DBE39C7-8950-49F5-B24F-ADF44512CBBC} = {4DC2D446-8564-4C67-BEED-098990449CCA}
 		{7836EE93-6A3A-4756-BE3B-0D5FC0F1EB23} = {D28560DF-FA52-4974-9D98-C4D21691811D}
 		{2A21A7FB-5AFB-41CC-8F16-89A7876CE975} = {D28560DF-FA52-4974-9D98-C4D21691811D}

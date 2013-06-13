@@ -71,6 +71,7 @@
     <Compile Include="Entities\VSCommandInfo.cs" />
     <Compile Include="Extensions\CodeClassExtensions.cs" />
     <Compile Include="Extensions\DTEExtensions.cs" />
+    <Compile Include="Extensions\EditPointExtensions.cs" />
     <Compile Include="Extensions\ProjectExtensions.cs" />
     <Compile Include="Extensions\ProjectItemExtensions.cs" />
     <Compile Include="Extensions\SolutionExtensions.cs" />

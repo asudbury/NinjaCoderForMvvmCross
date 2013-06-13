@@ -69,20 +69,18 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         /// <param name="name">The name.</param>
         /// <param name="type">The type.</param>
-        /// <param name="comment">The comment.</param>
         /// <returns>
         /// The Code Variable.
         /// </returns>
         public static CodeVariable AddVariable(
             this CodeClass instance,
             string name,
-            string type,
-            string comment)
+            string type)
         {
-            CodeVariable codeVariable = instance.AddVariable(name, type, 0, vsCMAccess.vsCMAccessPrivate);
+            CodeVariable codeVariable = instance.AddVariable(name, type, 0, vsCMAccess.vsCMAccessPrivate, 0);
 
-            codeVariable.Comment = comment;
-
+            codeVariable.DocComment = "<doc><summary>\r\nBacking field for " + name + ".\r\n</summary></doc>";
+            codeVariable.GetEndPoint().CreateEditPoint().InsertNewLine();
             return codeVariable;
         }
     }

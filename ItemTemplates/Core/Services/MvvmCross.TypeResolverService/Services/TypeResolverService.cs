@@ -3,7 +3,7 @@
 //    Defines the TypeResolverService type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace CoreTemplate.Services
+namespace MvvmCross.TypeResolverService.Services
 {
     using Cirrious.CrossCore;
 
