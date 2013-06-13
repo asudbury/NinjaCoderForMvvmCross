@@ -84,7 +84,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{7836
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2A21A7FB-5AFB-41CC-8F16-89A7876CE975}"
 	ProjectSection(SolutionItems) = preProject
-		ItemTemplates\Core\CodeSnippets\Services\Services.LocationServices.UsingStatements.txt = ItemTemplates\Core\CodeSnippets\Services\Services.LocationServices.UsingStatements.txt
+		ItemTemplates\Core\CodeSnippets\Services\Services.LocationService.Config.xml = ItemTemplates\Core\CodeSnippets\Services\Services.LocationService.Config.xml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.TypeResolverService", "ItemTemplates\Core\Services\MvvmCross.TypeResolverService\MvvmCross.TypeResolverService.csproj", "{457B14E5-CBED-4936-AE1C-F46EEB623B28}"

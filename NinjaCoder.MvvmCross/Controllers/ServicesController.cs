@@ -64,22 +64,22 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                             string fileName = templateInfo.FriendlyName + ".cs";
 
-                            project.AddToFolderFromTemplate("Services", templateInfo.FileName, fileName, true);
+                            project.AddToFolderFromTemplate("Services", templateInfo.FileName, fileName, false);
 
                             //// do we need to add any using statements??
-                            string references = string.Format(@"{0}\Services\Services.{1}.References.txt", this.SettingsService.CodeSnippetsPath, templateInfo.FriendlyName);
+                            string configFile = string.Format(@"{0}\Services\Services.{1}.Config.xml", this.SettingsService.CodeSnippetsPath, templateInfo.FriendlyName);
 
-                            if (File.Exists(references))
+                            if (File.Exists(configFile))
                             {
                                 string line;
 
                                 string sourceDirectory = this.SettingsService.CorePluginsPath;
 
-                                StreamReader streamReader = new StreamReader(references);
+                                StreamReader streamReader = new StreamReader(configFile);
 
                                 while ((line = streamReader.ReadLine()) != null)
                                 {
-                                    project.AddReference("Lib", project.GetProjectPath() + @"\Lib\" +  line, sourceDirectory + @"\" + line);
+                                    project.AddReference("Lib", project.GetProjectPath() + @"\Lib\" + line, sourceDirectory + @"\" + line);
                                 }
 
                                 streamReader.Close();

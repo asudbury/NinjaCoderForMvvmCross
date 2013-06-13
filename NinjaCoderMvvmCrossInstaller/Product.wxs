@@ -102,11 +102,12 @@
                 Source="$(var.SOURCE_DIR)\NinjaCoder.MvvmCross.UI\bin\Debug\NinjaCoder.MvvmCross.UI.exe" Vital="yes" KeyPath="no" >
                 <CopyFile Id="copyfile4" DestinationDirectory="INSTALLLOCATION"/>
               </File>
+              
             </Component>
 
             <!-- Code Snippets -->
-            <Directory Id="CodeSnippets" Name="CodeSnippets">            
-            
+            <Directory Id="CodeSnippets" Name="CodeSnippets">
+              
               <Directory Id="CodeSnippetsPlugins" Name="Plugins"/>
               
               <Directory Id="CodeSnippetsServices" Name="Services"/>

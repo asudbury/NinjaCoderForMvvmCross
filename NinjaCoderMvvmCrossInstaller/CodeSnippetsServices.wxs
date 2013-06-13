@@ -6,8 +6,8 @@
 
       <Component Id="CodeSnippetsServicesComponent" Directory="CodeSnippetsServices" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-30000000000B">
         
-        <File Id="Snippet19" Name="Services.LocationServices.References.txt"
-            Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Services\Services.LocationServices.References.txt" Vital="yes" KeyPath="no" >
+        <File Id="Snippet19" Name="Services.LocationService.Config.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Services\Services.LocationService.Config.xml" Vital="yes" KeyPath="no" >
           <CopyFile Id="Snippet19" DestinationDirectory="CodeSnippetsServices"/>
         </File>        
       </Component>

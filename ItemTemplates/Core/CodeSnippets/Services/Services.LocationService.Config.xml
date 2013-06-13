@@ -1,0 +1,8 @@
+<Config>
+  <References>
+    <Reference>Cirrious.MvvmCross.Plugins.Location</Reference>
+  </References>
+  <Interfaces>
+    <Interface>ILocationService</Interface>
+  </Interfaces>
+</Config>
