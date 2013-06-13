@@ -3,7 +3,7 @@
   
   <!-- Ensure version of assembley is the same as the version below -->
   <?include $(sys.CURRENTDIR)Global.wxi ?>
-  <?define APPLICATION_VERSION = 1.1.6 ?>
+  <?define APPLICATION_VERSION = 1.2.0 ?>
   <?define MVVMCROSS_VERSION = 3.0.8 ?>
   <Product Id="*" 
            Name="Ninja Coder for MvvmCross v$(var.APPLICATION_VERSION)" 
@@ -351,7 +351,7 @@
       <ComponentRef	Id="CodeSnippetsPluginsComponent"	/>
       <ComponentRef	Id="CodeSnippetsServicesComponent"	/>
     </Feature>
-    <CustomAction Id="RemoveVS2012AddInCommands" Script="vbscript" Execute="deferred" Return="ignore" Impersonate="yes">
+    <!--<CustomAction Id="RemoveVS2012AddInCommands" Script="vbscript" Execute="deferred" Return="ignore" Impersonate="yes">
       <![CDATA[
             Set dte = CreateObject("VisualStudio.DTE.11.0")
             For Each cmd In dte.Commands
@@ -369,19 +369,19 @@
 		        var path = shell.RegRead( "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\VisualStudio\\11.0\\InstallDir" );
 		        shell.Run( '"' + path + 'DEVENV.EXE" /ResetAddIn NinjaCoder.MvvmCross.AddIn.Connect /Command File.Exit' );             
            ]]>
-    </CustomAction>
+    </CustomAction>-->
 
     <InstallExecuteSequence>
-      <Custom Action="VS2012ResetAddin" After="InstallInitialize"></Custom>
+      <!--<Custom Action="VS2012ResetAddin" After="InstallInitialize"></Custom>-->
       
       <RemoveExistingProducts After="InstallInitialize"/>
       
       <Custom Action="VS2012InstallVSTemplates" Before="InstallFinalize"></Custom>
-      <Custom Action="RemoveVS2012AddInCommands"
+      <!--<Custom Action="RemoveVS2012AddInCommands"
                  After="RemoveFiles">
         Installed AND NOT UPGRADINGPRODUCTCODE AND VS2012INSTALLATIONFOLDER
         AND !ProductFeature=3
-      </Custom>
+      </Custom>-->
     
     </InstallExecuteSequence>
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
