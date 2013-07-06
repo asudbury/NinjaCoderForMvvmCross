@@ -8,7 +8,7 @@ namespace NinjaCoder.MvvmCross.Translators
     using System.Collections.Generic;
     using System.IO;
 
-    using NinjaCoder.MvvmCross.Entities;
+    using Entities;
 
     /// <summary>
     /// Defines the PluginsTranslator type.
@@ -18,7 +18,7 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <summary>
         /// Translates the specified from.
         /// </summary>
-        /// <param name="from">From.</param>
+        /// <param name="from">From object.</param>
         /// <returns>An instance of Plugins</returns>
         public Plugins Translate(string @from)
         {

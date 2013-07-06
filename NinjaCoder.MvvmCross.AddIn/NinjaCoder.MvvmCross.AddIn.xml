@@ -9,6 +9,11 @@
                Defines the Connect type.
             </summary>
         </member>
+        <member name="F:NinjaCoder.MvvmCross.AddIn.Connect.commandPosition">
+            <summary>
+            The command position
+            </summary>
+        </member>
         <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:NinjaCoder.MvvmCross.AddIn.Connect"/> class.
@@ -78,6 +83,12 @@
             <summary>
             Shows about.
             </summary>
+        </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.AddMenuItem(Scorchio.VisualStudio.Entities.VSCommandInfo)">
+            <summary>
+            Add item to the menu.
+            </summary>
+            <param name="vsCommandInfo">The command info.</param>
         </member>
         <member name="P:NinjaCoder.MvvmCross.AddIn.Connect.ApplicationVersion">
             <summary>

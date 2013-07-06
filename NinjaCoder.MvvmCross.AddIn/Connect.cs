@@ -8,16 +8,21 @@ namespace NinjaCoder.MvvmCross.AddIn
     using System.Windows.Forms;
     using Controllers;
     using Microsoft.VisualStudio.CommandBars;
-    using NinjaCoder.MvvmCross.Services;
     using Scorchio.VisualStudio;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
+    using Services;
 
     /// <summary>
     ///    Defines the Connect type.
     /// </summary>
     public class Connect : CommandManager
     {
+        /// <summary>
+        /// The command position
+        /// </summary>
+        private int commandPosition = 1;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Connect"/> class.
         /// </summary>
@@ -70,12 +75,18 @@ namespace NinjaCoder.MvvmCross.AddIn
         {
             TraceService.WriteLine("Connect::Initialize Version=" + this.ApplicationVersion);
 
-            ConfigurationController controller = new ConfigurationController(new ConfigurationService(), new VisualStudioService())
+            ConfigurationController controller = new ConfigurationController(
+                new ConfigurationService(), 
+                new VisualStudioService())
             {
                 DTE2 = this.VSInstance.ApplicationObject
             };
 
+            TraceService.WriteLine("Connect::Initialize Pre ConfigurationController::Run");
+
             controller.Run();
+
+            TraceService.WriteLine("Connect::Initialize Post ConfigurationController::Run");
 
             this.AddCommands();
         }
@@ -97,7 +108,6 @@ namespace NinjaCoder.MvvmCross.AddIn
                 Tooltip = "Ninja Coder for MvvmCross Add Projects",
                 Action = this.BuildProjects,
                 ParentCommand = commandBar,
-                Position = 1,
                 BitmapResourceId = 183,
             };
 
@@ -111,7 +121,6 @@ namespace NinjaCoder.MvvmCross.AddIn
                 Tooltip = "Ninja Coder for MvvmCross Add ViewModel and Views",
                 Action = this.AddViewModelAndViews,
                 ParentCommand = commandBar,
-                Position = 2,
                 BitmapResourceId = 303,
             };
 
@@ -125,7 +134,6 @@ namespace NinjaCoder.MvvmCross.AddIn
                 Tooltip = "Ninja Coder for MvvmCross Add Plugins",
                 Action = this.AddPlugins,
                 ParentCommand = commandBar,
-                Position = 3,
                 BitmapResourceId = 450,
             };
 
@@ -139,13 +147,11 @@ namespace NinjaCoder.MvvmCross.AddIn
                 Tooltip = "Ninja Coder for MvvmCross Add Services",
                 Action = this.AddServices,
                 ParentCommand = commandBar,
-                Position = 4,
                 BitmapResourceId = 450,
-            };*/
+            };
 
-            this.AddMenuItem(commandInfo);
-
-
+            this.AddMenuItem(commandInfo);*/
+            
             commandInfo = new VSCommandInfo
             {
                 AddIn = this.AddInInstance,
@@ -154,7 +160,6 @@ namespace NinjaCoder.MvvmCross.AddIn
                 Tooltip = "Ninja Coder for MvvmCross Add Converters",
                 Action = this.AddConverters,
                 ParentCommand = commandBar,
-                Position = 4,
                 BitmapResourceId = 450,
             };
 
@@ -168,7 +173,6 @@ namespace NinjaCoder.MvvmCross.AddIn
                 Tooltip = "Ninja Coder for MvvmCross Options",
                 Action = this.ShowOptions,
                 ParentCommand = commandBar,
-                Position = 5,
                 BitmapResourceId = 642
             };
 
@@ -182,7 +186,6 @@ namespace NinjaCoder.MvvmCross.AddIn
                 Tooltip = "Ninja Coder for MvvmCross Help",
                 Action = this.ShowHelp,
                 ParentCommand = commandBar,
-                Position = 6,
                 BitmapResourceId = 1954,
                 BeginGroup = true
             };
@@ -197,11 +200,12 @@ namespace NinjaCoder.MvvmCross.AddIn
                 Tooltip = "Ninja Coder for MvvmCross About",
                 Action = this.ShowAbout,
                 ParentCommand = commandBar,
-                Position = 7,
                 BitmapResourceId = 0
             };
 
             this.AddMenuItem(commandInfo);
+
+            TraceService.WriteLine("Connect::AddCommands Ended");
         }
 
         /// <summary>
@@ -311,6 +315,17 @@ namespace NinjaCoder.MvvmCross.AddIn
         {
             TraceService.WriteLine("Connect::ShowAbout Version=" + this.ApplicationVersion);
             MessageBox.Show(this.ApplicationVersion);
+        }
+
+        /// <summary>
+        /// Add item to the menu.
+        /// </summary>
+        /// <param name="vsCommandInfo">The command info.</param>
+        protected override void AddMenuItem(VSCommandInfo vsCommandInfo)
+        {
+            vsCommandInfo.Position = this.commandPosition;
+            base.AddMenuItem(vsCommandInfo);
+            this.commandPosition++;
         }
     }
 }

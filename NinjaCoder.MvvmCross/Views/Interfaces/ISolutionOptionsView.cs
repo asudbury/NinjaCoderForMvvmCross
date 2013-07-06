@@ -15,6 +15,11 @@ namespace NinjaCoder.MvvmCross.Views.Interfaces
     public interface ISolutionOptionsView
     {
         /// <summary>
+        /// Sets a value indicating whether [display logo].
+        /// </summary>
+        bool DisplayLogo { set; }
+
+        /// <summary>
         /// Gets or sets the path.
         /// </summary>
         string Path { get; set; }

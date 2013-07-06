@@ -36,12 +36,13 @@
             this.lblRequiredViews = new System.Windows.Forms.Label();
             this.mvxListView1 = new NinjaCoder.MvvmCross.UserControls.MvxListView();
             this.logo1 = new NinjaCoder.MvvmCross.UserControls.Logo();
+            this.checkBoxIncludeUnitTests = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(440, 22);
+            this.label4.Location = new System.Drawing.Point(323, 19);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(120, 17);
             this.label4.TabIndex = 0;
@@ -49,10 +50,10 @@
             // 
             // textBoxViewModel
             // 
-            this.textBoxViewModel.Location = new System.Drawing.Point(576, 22);
+            this.textBoxViewModel.Location = new System.Drawing.Point(459, 19);
             this.textBoxViewModel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxViewModel.Name = "textBoxViewModel";
-            this.textBoxViewModel.Size = new System.Drawing.Size(248, 22);
+            this.textBoxViewModel.Size = new System.Drawing.Size(165, 22);
             this.textBoxViewModel.TabIndex = 1;
             this.textBoxViewModel.Text = "ViewModel";
             this.textBoxViewModel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxViewModelKeyDown);
@@ -61,8 +62,8 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonOK.Location = new System.Drawing.Point(616, 414);
-            this.buttonOK.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonOK.Location = new System.Drawing.Point(416, 399);
+            this.buttonOK.Margin = new System.Windows.Forms.Padding(4);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(100, 27);
             this.buttonOK.TabIndex = 5;
@@ -73,8 +74,8 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(724, 414);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonCancel.Location = new System.Drawing.Point(524, 399);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 27);
             this.buttonCancel.TabIndex = 6;
@@ -83,7 +84,7 @@
             // 
             // lblRequiredViews
             // 
-            this.lblRequiredViews.Location = new System.Drawing.Point(576, 69);
+            this.lblRequiredViews.Location = new System.Drawing.Point(376, 54);
             this.lblRequiredViews.Name = "lblRequiredViews";
             this.lblRequiredViews.Size = new System.Drawing.Size(149, 21);
             this.lblRequiredViews.TabIndex = 2;
@@ -91,7 +92,7 @@
             // 
             // mvxListView1
             // 
-            this.mvxListView1.Location = new System.Drawing.Point(575, 105);
+            this.mvxListView1.Location = new System.Drawing.Point(375, 90);
             this.mvxListView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.mvxListView1.Name = "mvxListView1";
             this.mvxListView1.Size = new System.Drawing.Size(249, 272);
@@ -102,16 +103,29 @@
             this.logo1.BackColor = System.Drawing.Color.White;
             this.logo1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.logo1.Location = new System.Drawing.Point(28, 22);
-            this.logo1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.logo1.Margin = new System.Windows.Forms.Padding(5);
             this.logo1.Name = "logo1";
-            this.logo1.Size = new System.Drawing.Size(386, 391);
+            this.logo1.Size = new System.Drawing.Size(279, 391);
             this.logo1.TabIndex = 7;
+            // 
+            // checkBoxIncludeUnitTests
+            // 
+            this.checkBoxIncludeUnitTests.AutoSize = true;
+            this.checkBoxIncludeUnitTests.Checked = true;
+            this.checkBoxIncludeUnitTests.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxIncludeUnitTests.Location = new System.Drawing.Point(375, 371);
+            this.checkBoxIncludeUnitTests.Name = "checkBoxIncludeUnitTests";
+            this.checkBoxIncludeUnitTests.Size = new System.Drawing.Size(226, 21);
+            this.checkBoxIncludeUnitTests.TabIndex = 98;
+            this.checkBoxIncludeUnitTests.Text = "Create ViewModel unit tests file";
+            this.checkBoxIncludeUnitTests.UseVisualStyleBackColor = true;
             // 
             // ViewModelOptionsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(865, 455);
+            this.ClientSize = new System.Drawing.Size(665, 452);
+            this.Controls.Add(this.checkBoxIncludeUnitTests);
             this.Controls.Add(this.logo1);
             this.Controls.Add(this.mvxListView1);
             this.Controls.Add(this.lblRequiredViews);
@@ -140,5 +154,6 @@
         private System.Windows.Forms.Label lblRequiredViews;
         private UserControls.MvxListView mvxListView1;
         private UserControls.Logo logo1;
+        private System.Windows.Forms.CheckBox checkBoxIncludeUnitTests;
     }
 }

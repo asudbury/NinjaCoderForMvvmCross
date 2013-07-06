@@ -11,8 +11,8 @@ namespace NinjaCoder.MvvmCross.Controllers
 
     using EnvDTE80;
 
-    using NinjaCoder.MvvmCross.Services;
-    using NinjaCoder.MvvmCross.Views;
+    using Services;
+    using Views;
 
     using Scorchio.VisualStudio.Extensions;
 

@@ -13,7 +13,7 @@ namespace Scorchio.VisualStudio.Extensions
 
     using Microsoft.VisualStudio.CommandBars;
 
-    using Scorchio.VisualStudio.Services;
+    using Services;
 
     /// <summary>
     ///  Defines the DTEExtensions type.
@@ -31,6 +31,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         public static void Activate(this DTE2 instance)
         {
+            TraceService.WriteLine("DTEExtensions::Activate");
+
             instance.MainWindow.Activate();
         }
 
@@ -43,6 +45,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// </returns>
         public static bool IsSolutionLoaded(this DTE2 instance)
         {
+            TraceService.WriteLine("DTEExtensions::IsSolutionLoaded");
+
             return instance != null && instance.Solution != null;
         }
 
@@ -83,6 +87,8 @@ namespace Scorchio.VisualStudio.Extensions
             this DTE instance, 
             string solutionName)
         {
+            TraceService.WriteLine("DTEExtensions::CreateSolution");
+
             Solution solution = instance.Solution;
             string tempPath = System.IO.Path.GetTempPath();
             solution.Create(tempPath, solutionName);
@@ -95,6 +101,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The active project.</returns>
         public static Project GetActiveProject(this DTE2 instance)
         {
+            TraceService.WriteLine("DTEExtensions::GetActiveProject");
+
             Array array = instance.ActiveSolutionProjects as Array;
 
             return array != null ? array.GetValue(0) as Project : null;
@@ -109,6 +117,8 @@ namespace Scorchio.VisualStudio.Extensions
             this DTE2 instance,
             string path)
         {
+            TraceService.WriteLine("DTEExtensions::CreateNewFile");
+
             instance.ItemOperations.NewFile(path, string.Empty); 
         }
 
@@ -118,6 +128,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         public static void CloseDocuments(this DTE2 instance)
         {
+            TraceService.WriteLine("DTEExtensions::CloseDocuments");
+
             Documents documents = instance.Documents;
 
             foreach (Document document in documents)
@@ -185,6 +197,8 @@ namespace Scorchio.VisualStudio.Extensions
             this DTE2 instance, 
             string command)
         {
+            TraceService.WriteLine("DTEExtensions::ExecuteNugetCommand");
+
             instance.ExecuteCommand("View.PackageManagerConsole  " + command);
         }
 
@@ -201,21 +215,64 @@ namespace Scorchio.VisualStudio.Extensions
             string replaceText,
             bool saveFiles)
         {
-            instance.ExecuteCommand("Edit.ReplaceInFiles");
-            instance.Find.Action = vsFindAction.vsFindActionReplaceAll;
-            instance.Find.FindWhat = findText;
-            instance.Find.ReplaceWith = replaceText;
-            instance.Find.SearchSubfolders = true;
-            instance.Find.FilesOfType = "*.*";
+            TraceService.WriteLine("DTEExtensions::ReplaceText from " + findText + " to " + replaceText);
 
-            vsFindResult findResults = instance.Find.Execute();
+            Find2 find2 = (Find2)instance.Find;
 
+            vsFindResult findResults = find2.FindReplace(
+                                vsFindAction.vsFindActionReplaceAll,
+                                findText,
+                                (int)vsFindOptions.vsFindOptionsFromStart,
+                                replaceText,
+                                vsFindTarget.vsFindTargetSolution,
+                                string.Empty,
+                                string.Empty,
+                                vsFindResultsLocation.vsFindResultsNone);
+            
             if (findResults == vsFindResult.vsFindResultNotFound)
             {
                 TraceService.WriteError("Unable to replace text from:-" + findText + " to:- " + replaceText);
             }
 
-            instance.Windows.Item("{CF2DDC32-8CAD-11D2-9302-005345000000}").Close();
+            if (saveFiles)
+            {
+                instance.SaveAll();
+            }
+        }
+
+        /// <summary>
+        /// Replaces the text in current document.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="findText">The find text.</param>
+        /// <param name="replaceText">The replace text.</param>
+        /// <param name="regularExpression">if set to <c>true</c> [regular expression].</param>
+        /// <param name="saveFiles">if set to <c>true</c> [save files].</param>
+         public static void ReplaceTextInCurrentDocument(
+            this DTE2 instance,
+            string findText,
+            string replaceText,
+            bool regularExpression,
+            bool saveFiles)
+        {
+            TraceService.WriteLine("DTEExtensions::ReplaceTextInCurrentDocument from:-" + findText + " to:- " + replaceText);
+
+            Find2 find2 = (Find2)instance.Find;
+
+            vsFindResult findResults = find2.FindReplace(
+                                vsFindAction.vsFindActionReplaceAll,
+                                findText,
+                                (int)vsFindOptions.vsFindOptionsFromStart,
+                                replaceText,
+                                vsFindTarget.vsFindTargetCurrentDocument,
+                                string.Empty,
+                                string.Empty,
+                                vsFindResultsLocation.vsFindResultsNone);
+
+            if (findResults == vsFindResult.vsFindResultNotFound)
+            {
+                TraceService.WriteError("Unable to replace text from:-" + findText + " to:- " + replaceText);
+            }
 
             if (saveFiles)
             {
@@ -229,6 +286,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         public static void SaveAll(this DTE2 instance)
         {
+            TraceService.WriteLine("DTEExtensions::SaveAll");
+
             instance.ExecuteCommand("File.SaveAll");
         }
 
@@ -238,6 +297,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         public static void CloseSolutionExplorerWindow(this DTE instance)
         {
+            TraceService.WriteLine("DTEExtensions::CloseSolutionExplorerWindow");
+
             instance.Windows.Item(vsext_wk_SProjectWindow).Close();
         }
 
@@ -247,6 +308,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         public static void ShowSolutionExplorerWindow(this DTE instance)
         {
+            TraceService.WriteLine("DTEExtensions::ShowSolutionExplorerWindow");
+
             instance.ExecuteCommand("View.SolutionExplorer");
         }
 
@@ -256,6 +319,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         public static void CollapseSolution(this DTE2 instance)
         {
+            TraceService.WriteLine("DTEExtensions::CollapseSolution");
+
             Window window = instance.Windows.Item(vsext_wk_SProjectWindow);
 
             UIHierarchy uiHierarchy = (UIHierarchy)window.Object;
@@ -281,34 +346,6 @@ namespace Scorchio.VisualStudio.Extensions
             string message)
         {
             instance.StatusBar.Text = message;
-        }
-
-        /// <summary>
-        /// Replaces the window text.
-        /// </summary>
-        /// <param name="instance">The instance.</param>
-        /// <param name="fromText">From text.</param>
-        /// <param name="toText">To text.</param>
-        /// <param name="closeWindow">if set to <c>true</c> [close window].</param>
-        public static void ReplaceWindowText(
-            this DTE2 instance,
-            string fromText,
-            string toText,
-            bool closeWindow)
-        {
-            instance.ReplaceText(fromText, toText, true);
-
-            if (closeWindow)
-            {
-                try
-                {
-                    instance.ActiveWindow.Close(vsSaveChanges.vsSaveChangesYes);
-                }
-                catch (Exception exception)
-                {
-                    TraceService.WriteError("Error closing window in ReplaceWindowText error:-" + exception.Message);    
-                }
-            }
         }
     }
 }

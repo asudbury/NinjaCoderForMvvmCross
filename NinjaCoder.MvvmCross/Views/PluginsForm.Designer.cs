@@ -36,13 +36,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.logo1 = new NinjaCoder.MvvmCross.UserControls.Logo();
             this.mvxListView1 = new NinjaCoder.MvvmCross.UserControls.MvxListView();
+            this.checkBoxIncludeUnitTests = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
-            this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonOK.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonOK.Location = new System.Drawing.Point(673, 731);
+            this.buttonOK.Location = new System.Drawing.Point(546, 730);
             this.buttonOK.Margin = new System.Windows.Forms.Padding(4);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(100, 27);
@@ -52,9 +53,9 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(781, 731);
+            this.buttonCancel.Location = new System.Drawing.Point(654, 730);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 27);
@@ -63,7 +64,7 @@
             // 
             // lblSelectTheRequiredConverters
             // 
-            this.lblSelectTheRequiredConverters.Location = new System.Drawing.Point(455, 33);
+            this.lblSelectTheRequiredConverters.Location = new System.Drawing.Point(327, 33);
             this.lblSelectTheRequiredConverters.Name = "lblSelectTheRequiredConverters";
             this.lblSelectTheRequiredConverters.Size = new System.Drawing.Size(272, 18);
             this.lblSelectTheRequiredConverters.TabIndex = 93;
@@ -73,15 +74,16 @@
             // 
             this.comboBoxViewModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxViewModel.FormattingEnabled = true;
-            this.comboBoxViewModel.Location = new System.Drawing.Point(459, 670);
+            this.comboBoxViewModel.Location = new System.Drawing.Point(331, 670);
             this.comboBoxViewModel.Name = "comboBoxViewModel";
             this.comboBoxViewModel.Size = new System.Drawing.Size(210, 24);
             this.comboBoxViewModel.TabIndex = 95;
+            this.comboBoxViewModel.SelectedValueChanged += new System.EventHandler(this.ComboBoxViewModelSelectedValueChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(456, 641);
+            this.label1.Location = new System.Drawing.Point(328, 641);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(368, 17);
             this.label1.TabIndex = 96;
@@ -94,22 +96,36 @@
             this.logo1.Location = new System.Drawing.Point(16, 54);
             this.logo1.Margin = new System.Windows.Forms.Padding(5);
             this.logo1.Name = "logo1";
-            this.logo1.Size = new System.Drawing.Size(386, 376);
+            this.logo1.Size = new System.Drawing.Size(278, 376);
             this.logo1.TabIndex = 94;
             // 
             // mvxListView1
             // 
-            this.mvxListView1.Location = new System.Drawing.Point(459, 54);
+            this.mvxListView1.Location = new System.Drawing.Point(331, 54);
             this.mvxListView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.mvxListView1.Name = "mvxListView1";
             this.mvxListView1.Size = new System.Drawing.Size(423, 569);
             this.mvxListView1.TabIndex = 90;
             // 
+            // checkBoxIncludeUnitTests
+            // 
+            this.checkBoxIncludeUnitTests.AutoSize = true;
+            this.checkBoxIncludeUnitTests.Checked = true;
+            this.checkBoxIncludeUnitTests.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxIncludeUnitTests.Location = new System.Drawing.Point(331, 701);
+            this.checkBoxIncludeUnitTests.Name = "checkBoxIncludeUnitTests";
+            this.checkBoxIncludeUnitTests.Size = new System.Drawing.Size(207, 21);
+            this.checkBoxIncludeUnitTests.TabIndex = 97;
+            this.checkBoxIncludeUnitTests.Text = "Include ViewModel unit tests";
+            this.checkBoxIncludeUnitTests.UseVisualStyleBackColor = true;
+            this.checkBoxIncludeUnitTests.Visible = false;
+            // 
             // PluginsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(935, 770);
+            this.ClientSize = new System.Drawing.Size(789, 770);
+            this.Controls.Add(this.checkBoxIncludeUnitTests);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxViewModel);
             this.Controls.Add(this.logo1);
@@ -137,5 +153,6 @@
         private UserControls.Logo logo1;
         private System.Windows.Forms.ComboBox comboBoxViewModel;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox checkBoxIncludeUnitTests;
     }
 }

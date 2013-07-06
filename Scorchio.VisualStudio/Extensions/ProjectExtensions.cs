@@ -31,11 +31,6 @@ namespace Scorchio.VisualStudio.Extensions
         {
             string path = string.Empty;
 
-            if (instance == null)
-            {
-                return path;
-            }
-
             try
             {
                 path = Path.GetDirectoryName(instance.FullName);
@@ -54,6 +49,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The project items.</returns>
         public static IEnumerable<ProjectItem> GetProjectItems(this Project instance)
         {
+            TraceService.WriteLine("ProjectExtensions::GetProjectItems");
+
             return instance.ProjectItems != null ? instance.ProjectItems.Cast<ProjectItem>().ToList() : null;
         }
 
@@ -64,6 +61,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The project items.</returns>
         public static IEnumerable<ProjectItem> GetCSharpProjectItems(this Project instance)
         {
+            TraceService.WriteLine("ProjectExtensions::GetCSharpProjectItems");
+
             return instance.ProjectItems.Cast<ProjectItem>().Where(x => x.Name.EndsWith(".cs")).ToList();
         }
 
@@ -77,6 +76,8 @@ namespace Scorchio.VisualStudio.Extensions
             this Project instance,
             string fileName)
         {
+            TraceService.WriteLine("ProjectExtensions::GetProjectItem fileName=" + fileName);
+
             ProjectItem projectItem = instance.GetCSharpProjectItems().FirstOrDefault(x => x.Name.StartsWith(fileName));
 
             //// try all the subfolders!
@@ -91,7 +92,9 @@ namespace Scorchio.VisualStudio.Extensions
                         return item;
                     }
 
-                    foreach (ProjectItem subItem in item.GetSubProjectItems().Where(subItem => subItem.Name.StartsWith(fileName)))
+                    IEnumerable<ProjectItem> subProjectItems = item.GetSubProjectItems();
+
+                    foreach (ProjectItem subItem in subProjectItems.Where(subItem => subItem.Name.StartsWith(fileName)))
                     {
                         return subItem;
                     }
@@ -111,6 +114,8 @@ namespace Scorchio.VisualStudio.Extensions
             this Project instance,
             string folderName)
         {
+            TraceService.WriteLine("ProjectExtensions::GetFolder");
+
             List<ProjectItem> projectItems = instance.ProjectItems != null ? instance.ProjectItems.Cast<ProjectItem>().ToList() : null;
 
             if (projectItems != null)
@@ -138,6 +143,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The project references.</returns>
         public static IEnumerable<Reference> GetProjectReferences(this Project instance)
         {
+            TraceService.WriteLine("ProjectExtensions::GetProjectReferences");
+
             VSProject project = instance.Object as VSProject;
 
             return project != null ? project.References.Cast<Reference>() : null;
@@ -153,6 +160,8 @@ namespace Scorchio.VisualStudio.Extensions
             this Project instance, 
             Project referencedProject)
         {
+            TraceService.WriteLine("ProjectExtensions::AddProjectReference");
+
             VSProject project = (VSProject)instance.Object;
 
             return project.References.AddProject(referencedProject);
@@ -174,6 +183,8 @@ namespace Scorchio.VisualStudio.Extensions
             string fileName,
             bool createFolder)
         {
+            TraceService.WriteLine("ProjectExtensions::AddToFolderFromTemplate");
+
             string path = instance.Properties.Item("FullPath").Value;
             ProjectItems projectItems = instance.ProjectItems;
 
@@ -229,6 +240,8 @@ namespace Scorchio.VisualStudio.Extensions
             string folderName,
             string fileName)
         {
+            TraceService.WriteLine("ProjectExtensions::AddToFolderFromFile");
+
             ProjectItem folderProjectItem = instance.ProjectItems
                 .Cast<ProjectItem>()
                 .FirstOrDefault(projectItem => projectItem.Name == folderName);
@@ -256,7 +269,8 @@ namespace Scorchio.VisualStudio.Extensions
             string destination,
             string source)
         {
-            //// tidy up misspelt file names!
+            TraceService.WriteLine("ProjectExtensions::AddReference");
+
             if (destination.EndsWith(";"))
             {
                 destination = destination.TrimEnd(';');

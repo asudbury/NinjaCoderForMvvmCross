@@ -3,7 +3,6 @@
 //    Defines the ISettingsService type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Services.Interfaces
 {
     /// <summary>
@@ -12,6 +11,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     public interface ISettingsService
     {
         /// <summary>
+        /// Gets a value indicating whether [display logo].
+        /// </summary>
+        bool DisplayLogo { get; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [log to file].
         /// </summary>
         bool LogToFile { get; set; }
@@ -19,7 +23,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Gets the log file path.
         /// </summary>
-        string LogFilePath { get; }
+        string LogFilePath { get; set; }
 
         /// <summary>
         /// Gets the converters templates path.

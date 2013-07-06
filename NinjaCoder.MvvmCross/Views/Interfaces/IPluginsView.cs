@@ -15,6 +15,11 @@ namespace NinjaCoder.MvvmCross.Views.Interfaces
     public interface IPluginsView
     {
         /// <summary>
+        /// Sets a value indicating whether [display logo].
+        /// </summary>
+        bool DisplayLogo { set; }
+
+        /// <summary>
         /// Gets the implement in view model.
         /// </summary>
         string ImplementInViewModel { get;  }
@@ -23,6 +28,11 @@ namespace NinjaCoder.MvvmCross.Views.Interfaces
         /// Gets the required templates.
         /// </summary>
         List<Plugin> RequiredPlugins { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether [include unit tests].
+        /// </summary>
+        bool IncludeUnitTests { get; }
 
         /// <summary>
         /// Adds the plugin.

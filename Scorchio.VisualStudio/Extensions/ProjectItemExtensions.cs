@@ -8,12 +8,10 @@ namespace Scorchio.VisualStudio.Extensions
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
+    using Entities;
     using EnvDTE;
-
     using EnvDTE80;
-
-    using Scorchio.VisualStudio.Services;
+    using Services;
 
     /// <summary>
     ///  Defines the ProjectItemExtensions type.
@@ -27,6 +25,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The sub project items.</returns>
         public static IEnumerable<ProjectItem> GetSubProjectItems(this ProjectItem instance)
         {
+            TraceService.WriteLine("ProjectItemExtensions::GetSubProjectItems " + instance.Name);
+
             return instance.ProjectItems.Cast<ProjectItem>().ToList();
         }
 
@@ -37,6 +37,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The name space.</returns>
         public static CodeNamespace GetNameSpace(this ProjectItem instance)
         {
+            TraceService.WriteLine("ProjectItemExtensions::GetNameSpace " + instance.Name);
+
             return
                 instance.FileCodeModel.CodeElements.Cast<CodeElement>()
                         .Where(codeElement => codeElement.Kind == vsCMElement.vsCMElementNamespace)
@@ -54,6 +56,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// </returns>
         public static CodeNamespace AddNameSpace(this ProjectItem instance, string nameSpace)
         {
+            TraceService.WriteLine("ProjectItemExtensions::AddNameSpace " + instance.Name);
+
             return instance.ContainingProject.CodeModel.AddNamespace(nameSpace, instance.Name);
         }
 
@@ -64,6 +68,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The first code element</returns>
         public static CodeElement GetFirstCodeElement(this ProjectItem instance)
         {
+            TraceService.WriteLine("ProjectItemExtensions::GetFirstCodeElement " + instance.Name);
+
             if (instance.FileCodeModel.CodeElements.Count > 0)
             {
                 CodeElement nameSpaceCodeElement = instance.FileCodeModel.CodeElements.Item(1);
@@ -92,9 +98,11 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The first namespace.</returns>
         public static CodeNamespace GetFirstNameSpace(this ProjectItem instance)
         {
-            IEnumerable<CodeNamespace> codeNameespaces = instance.FileCodeModel.CodeElements.OfType<CodeNamespace>();
+            TraceService.WriteLine("ProjectItemExtensions::GetFirstNameSpace " + instance.Name);
+
+            IEnumerable<CodeNamespace> codeNamespaces = instance.FileCodeModel.CodeElements.OfType<CodeNamespace>();
             
-            return codeNameespaces.FirstOrDefault();
+            return codeNamespaces.FirstOrDefault();
         }
 
         /// <summary>
@@ -104,23 +112,32 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The first class.</returns>
         public static CodeClass GetFirstClass(this ProjectItem instance)
         {
+            TraceService.WriteLine("ProjectItemExtensions::GetFirstClass " + instance.Name);
+
             IEnumerable<CodeClass> codeClasses = instance.FileCodeModel.CodeElements.OfType<CodeClass>();
 
             if (!codeClasses.Any())
             {
                 CodeNamespace codeNamespace = instance.GetFirstNameSpace();
 
-                foreach (CodeElement codeElement in codeNamespace.Children)
+                if (codeNamespace != null)
                 {
-                    if (codeElement.Kind == vsCMElement.vsCMElementClass)
+                    foreach (CodeElement codeElement in codeNamespace.Children)
                     {
-                        return codeElement as CodeClass;
+                        if (codeElement.Kind == vsCMElement.vsCMElementClass)
+                        {
+                            return codeElement as CodeClass;
+                        }
                     }
                 }
-           }
+                else
+                {
+                    TraceService.WriteError("ProjectItemExtensions::GetFirstClass cannot find namespace");
+                }
+            }
             else
             {
-                return codeClasses.FirstOrDefault();
+               return codeClasses.FirstOrDefault();
             }
 
             return null;
@@ -133,6 +150,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The first interface.</returns>
         public static CodeInterface GetFirstInterface(this ProjectItem instance)
         {
+            TraceService.WriteLine("ProjectItemExtensions::GetFirstInterface");
+
             IEnumerable<CodeInterface> codeInterfaces = instance.FileCodeModel.CodeElements.OfType<CodeInterface>();
 
             return codeInterfaces.FirstOrDefault();
@@ -145,6 +164,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The interface.</returns>
         public static CodeInterface CreateInterface(this ProjectItem instance)
         {
+            TraceService.WriteLine("ProjectItemExtensions::CreateInterface");
+
             string interfaceName = string.Format("I{0}", instance.Name);
             string path = instance.FileNames[1].Replace(instance.Name, interfaceName);
 
@@ -158,7 +179,10 @@ namespace Scorchio.VisualStudio.Extensions
                 nameSpace, path);
 
             CodeInterface codeInterface = interfaceNameSpace.AddInterface(
-                interfaceName, -1, bases, vsCMAccess.vsCMAccessPublic);
+                interfaceName, 
+                -1, 
+                bases, 
+                vsCMAccess.vsCMAccessPublic);
 
             CodeClass codeClass = instance.GetFirstClass();
 
@@ -166,6 +190,10 @@ namespace Scorchio.VisualStudio.Extensions
             {
                 object interfaceClass = interfaceName;
                 codeClass.AddImplementedInterface(interfaceClass, 0);
+            }
+            else
+            {
+                TraceService.WriteError("ProjectItemExtensions::CreateInterface cannot GetFirstClass");
             }
 
             return codeInterface;
@@ -180,12 +208,46 @@ namespace Scorchio.VisualStudio.Extensions
             this ProjectItem instance, 
             string headerComment)
         {
+            TraceService.WriteLine("ProjectItemExtensions::AddHeaderComment");
+            
             TextSelection selection = (TextSelection)instance.Document.Selection;
 
             selection.StartOfDocument();
             selection.NewLine();
             selection.LineUp();
             selection.Text = headerComment;
+        }
+
+        /// <summary>
+        /// Implements the code snippet.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="codeSnippet">The code snippet.</param>
+        public static void ImplementCodeSnippet(
+            this ProjectItem instance,
+            CodeSnippet codeSnippet)
+        {
+            TraceService.WriteLine("ProjectItemExtensions::ImplementCodeSnippet in file " + instance.Name);
+
+            if (codeSnippet.UsingStatements.Any())
+            {
+                List<string> statements = instance.GetUsingStatements();
+
+                foreach (string reference in codeSnippet.UsingStatements)
+                {
+                    string contains = statements.FirstOrDefault(x => x.Contains(reference));
+
+                    if (contains == null)
+                    {
+                        instance.AddUsingStatement(reference);
+                    }
+                }
+            }
+
+            instance.GetFirstClass().ImplementCodeSnippet(codeSnippet);
+
+            //// now do any code tidying up!
+            instance.TidyUpCode();
         }
 
         /// <summary>
@@ -197,77 +259,22 @@ namespace Scorchio.VisualStudio.Extensions
             this ProjectItem instance,
             string usingStatement)
         {
-            FileCodeModel2 fileCodeModel2 = instance.GetFirstNameSpace().ProjectItem.FileCodeModel as FileCodeModel2;
+            TraceService.WriteLine("ProjectItemExtensions::AddUsingStatement in file " + instance.Name + " statement " + usingStatement);
 
-            if (fileCodeModel2 != null)
+            CodeNamespace codeNamespace = instance.GetFirstNameSpace();
+
+            if (codeNamespace != null)
             {
-                foreach (CodeElement codeElement in fileCodeModel2.CodeElements)
+                FileCodeModel2 fileCodeModel2 = codeNamespace.ProjectItem.FileCodeModel as FileCodeModel2;
+
+                if (fileCodeModel2 != null)
                 {
-                    if (codeElement.Kind == vsCMElement.vsCMElementImportStmt)
-                    {
-                        CodeImport codeImport = codeElement as CodeImport;
-
-                        if (codeImport.Namespace == usingStatement)
-                        {
-                            return;
-                        }
-                    }
+                    fileCodeModel2.AddImport(usingStatement);
                 }
-
-                fileCodeModel2.AddImport(usingStatement);
             }
-        }
-
-        /// <summary>
-        /// Inserts the method at end of class.
-        /// </summary>
-        /// <param name="instance">The instance.</param>
-        /// <param name="snippetPath">The snippet path.</param>
-        /// <param name="updateUsingStatements">if set to <c>true</c> [update using statements].</param>
-        public static void InsertMethod(
-            this ProjectItem instance,
-            string snippetPath,
-            bool updateUsingStatements,
-            bool closeWindow)
-        {
-            CodeClass codeClass = instance.GetFirstClass();
-
-            if (codeClass != null)
+            else
             {
-                CodeFunction codeFunction = codeClass.AddFunction(
-                                                    "temp",
-                                                    vsCMFunction.vsCMFunctionFunction,
-                                                    vsCMTypeRef.vsCMTypeRefVoid,
-                                                    -1,
-                                                    vsCMAccess.vsCMAccessPublic,
-                                                    null);
-
-                TextPoint startPoint = codeFunction.StartPoint;
-
-                EditPoint editPoint = startPoint.CreateEditPoint();
-
-                codeClass.RemoveMember(codeFunction);
-
-                editPoint.Insert("\r\n\r\n");
-                editPoint.InsertFromFile(snippetPath);
-
-                if (updateUsingStatements)
-                {
-                    //// tidy up the using statements.
-                    instance.Save();
-                    instance.MoveUsingStatements();
-                    instance.Save();
-                    instance.SortAndRemoveUsingStatements();
-                    instance.Save();
-                }
-
-                if (closeWindow)
-                {
-                    if (instance.Document != null)
-                    {
-                        instance.Document.ActiveWindow.Close();
-                    }
-                }
+                TraceService.WriteError("ProjectItemExtensions::AddUsingStatement cannot find namespace");
             }
         }
 
@@ -278,13 +285,39 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>A list of using statements.</returns>
         public static List<string> GetUsingStatements(this ProjectItem instance)
         {
+            TraceService.WriteLine("ProjectItemExtensions::GetUsingStatements in file " + instance.Name);
+
             List<string> statements = new List<string>();
 
             foreach (CodeElement codeElement in instance.FileCodeModel.CodeElements)
             {
                 if (codeElement.Kind == vsCMElement.vsCMElementImportStmt)
                 {
-                    statements.Add(codeElement.FullName);
+                    CodeImport import = codeElement as CodeImport;
+
+                    if (import != null)
+                    {
+                        EditPoint startEditPoint = import.GetStartPoint().CreateEditPoint();
+                        TextPoint textPoint = import.GetEndPoint();
+                        string text = startEditPoint.GetText(textPoint);
+                        statements.Add(text);
+                    }
+                }
+
+                if (codeElement.Kind == vsCMElement.vsCMElementNamespace)
+                {
+                    foreach (CodeElement childCodeElement in codeElement.Children)
+                    {
+                        CodeImport import = childCodeElement as CodeImport;
+
+                        if (import != null)
+                        {
+                            EditPoint startEditPoint = import.GetStartPoint().CreateEditPoint();
+                            TextPoint textPoint = import.GetEndPoint();
+                            string text = startEditPoint.GetText(textPoint);
+                            statements.Add(text);
+                        }                        
+                    }
                 }
             }
 
@@ -297,6 +330,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         public static void MoveUsingStatements(this ProjectItem instance)
         {
+            TraceService.WriteLine("ProjectItemExtensions::MoveUsingStatements in file " + instance.Name);
+
             List<string> usingStatements = new List<string>();
 
             try
@@ -353,6 +388,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         public static void SortAndRemoveUsingStatements(this ProjectItem instance)
         {
+            TraceService.WriteLine("ProjectItemExtensions::SortAndRemoveUsingStatements in file " + instance.Name);
+
             try
             {
                 const string ConstantsvsViewKindCode = "{7651A701-06E5-11D1-8EBD-00A0C90F26EA}";
@@ -379,22 +416,23 @@ namespace Scorchio.VisualStudio.Extensions
             string text,
             string replacementText)
         {
+            TraceService.WriteLine("ProjectItemExtensions::ReplaceText in file " + instance.Name  + " from " + text + " to " + replacementText);
+
             TextSelection textSelection = instance.DTE.ActiveDocument.Selection;
             textSelection.SelectAll();
-            textSelection.ReplacePattern(text, replacementText);
+            textSelection.ReplacePattern(text, replacementText, (int)vsFindOptions.vsFindOptionsMatchCase);
             instance.Save();
         }
 
-        /*public static CodeVariable  AddVariable(
-            this ProjectItem instance,
-            string text)
+        /// <summary>
+        /// Tidies up code.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        public static void TidyUpCode(this ProjectItem instance)
         {
-            CodeClass codeClass = instance.GetFirstClass();
+            TraceService.WriteLine("ProjectItemExtensions::TidyUpCode in file " + instance.Name);
 
-            if (codeClass != null)
-            {
-                codeClass.AddVariable()
-            }
-        }*/
+            ////instance.ReplaceText("\t", "    ");
+        }
     }
 }

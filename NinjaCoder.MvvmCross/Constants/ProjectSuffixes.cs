@@ -3,7 +3,6 @@
 //    Defines the ProjectSuffixes type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Constants
 {
     /// <summary>

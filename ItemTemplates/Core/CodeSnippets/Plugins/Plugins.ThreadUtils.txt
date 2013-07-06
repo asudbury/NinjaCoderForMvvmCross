@@ -1,9 +1,0 @@
-        /// <summary>
-        /// Gets the sleeper thread.
-        /// </summary>
-        /// <returns>The sleeper thread.</returns>
-        public IMvxThreadSleep GetSleepThread()
-        {
-            return this.GetService<IMvxThreadSleep>();
-        
-	}

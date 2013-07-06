@@ -1,9 +1,0 @@
-        /// <summary>
-        /// Shares the specified to share.
-        /// </summary>
-        /// <param name="toShare">To share.</param>
-        public void Share(string toShare)
-        {
-            IMvxShareTask task = this.GetService<IMvxShareTask>();
-            task.ShareShort(toShare);
-        }

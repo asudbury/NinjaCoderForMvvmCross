@@ -1,9 +1,0 @@
-        /// <summary>
-        /// Shows the web page.
-        /// </summary>
-        /// <param name="webPage">The web page.</param>
-        public void ShowWebPage(string webPage)
-        {
-            IMvxWebBrowserTask task = this.GetService<IMvxWebBrowserTask>();
-            task.ShowWebPage(webPage);
-        }

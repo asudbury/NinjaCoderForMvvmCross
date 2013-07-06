@@ -3,14 +3,13 @@
 //    Defines the ConvertersForm type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Views
 {
     using System.Collections.Generic;
     using System.Linq;
 
-    using NinjaCoder.MvvmCross.Presenters;
-    using NinjaCoder.MvvmCross.Views.Interfaces;
+    using Presenters;
+    using Interfaces;
 
     using Scorchio.VisualStudio.Entities;
 

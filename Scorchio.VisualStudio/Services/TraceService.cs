@@ -36,7 +36,7 @@ namespace Scorchio.VisualStudio.Services
         {
             get
             {
-                return Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\ninja-coder-for-mvvmcross.log";
+                return (string)Registry.CurrentUser.GetValue(@"SOFTWARE\Scorchio Limited\Ninja Coder for MvvmCross\LogFilePath", Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\ninja-coder-for-mvvmcross.log");
             }
         }
 
@@ -78,7 +78,7 @@ namespace Scorchio.VisualStudio.Services
         {
             StreamWriter sw = new StreamWriter(LogFile, true);
             sw.WriteLine(message);
-            sw.Close();            
+            sw.Close();
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace Scorchio.VisualStudio.Services
         /// <returns>A timed stamped message</returns>
         internal static string GetTimedMessage(string message)
         {
-            return string.Format("{0} {1}", DateTime.Now.ToString("dd MMM yy HH:mm:ss"), message);
+            return string.Format("{0} {1}", DateTime.Now.ToString("dd MMM yy HH:mm:ss fff"), message);
         }
    }
 }

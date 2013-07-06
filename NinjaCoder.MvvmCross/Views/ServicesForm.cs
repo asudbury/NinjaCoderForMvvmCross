@@ -8,10 +8,8 @@ namespace NinjaCoder.MvvmCross.Views
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
-    using NinjaCoder.MvvmCross.Presenters;
-    using NinjaCoder.MvvmCross.Views.Interfaces;
-
+    using Interfaces;
+    using Presenters;
     using Scorchio.VisualStudio.Entities;
 
     /// <summary>
@@ -59,6 +57,14 @@ namespace NinjaCoder.MvvmCross.Views
         }
 
         /// <summary>
+        /// Gets a value indicating whether [include unit tests].
+        /// </summary>
+        public bool IncludeUnitTests
+        {
+            get { return this.checkBoxIncludeUnitTests.Checked; }
+        }
+
+        /// <summary>
         /// Adds the service.
         /// </summary>
         /// <param name="itemTemplateInfo">The item template info.</param>
@@ -84,6 +90,18 @@ namespace NinjaCoder.MvvmCross.Views
         private void ButtonOKClick(object sender, EventArgs e)
         {
             this.Continue = true;
+        }
+
+        /// <summary>
+        /// When view model selected value changed.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void ComboBoxViewModelSelectedValueChanged(
+            object sender, 
+            EventArgs e)
+        {
+            this.checkBoxIncludeUnitTests.Visible = this.comboBoxViewModel.SelectedItem != string.Empty;
         }
     }
 }

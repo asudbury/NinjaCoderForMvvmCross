@@ -3,13 +3,12 @@
 //    Defines the OptionsForm type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Views
 {
     using System;
 
-    using NinjaCoder.MvvmCross.Presenters;
-    using NinjaCoder.MvvmCross.Views.Interfaces;
+    using Presenters;
+    using Interfaces;
 
     /// <summary>
     ///    Defines the OptionsForm type.

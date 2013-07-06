@@ -3,7 +3,6 @@
 //    Defines the IVisualStudioService type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Services.Interfaces
 {
     using System.Collections.Generic;
@@ -13,6 +12,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     using EnvDTE80;
 
     using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Services.Interfaces;
 
     /// <summary>
     /// Defines the IVisualStudioService type.
@@ -30,7 +30,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         bool AllowDroidProject { get; }
 
         /// <summary>
-        /// Gets a value indicating whether [allowi OS project].
+        /// Gets a value indicating whether [allow iOS project].
         /// </summary>
         bool AllowiOSProject { get; }
 
@@ -60,9 +60,19 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         Project CoreProject { get; }
 
         /// <summary>
+        /// Gets the core project service.
+        /// </summary>
+        IProjectService CoreProjectService { get; }
+        
+        /// <summary>
         /// Gets the core tests project.
         /// </summary>
         Project CoreTestsProject { get;  }
+
+        /// <summary>
+        /// Gets the core tests project service.
+        /// </summary>
+        IProjectService CoreTestsProjectService { get; }
 
         /// <summary>
         /// Gets the droid project.
@@ -70,9 +80,19 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         Project DroidProject { get; }
 
         /// <summary>
+        /// Gets the droid project service.
+        /// </summary>
+        IProjectService DroidProjectService { get; }
+
+        /// <summary>
         /// Gets the i OS project.
         /// </summary>
         Project iOSProject { get; }
+
+        /// <summary>
+        /// Gets the iOS project service.
+        /// </summary>
+        IProjectService iOSProjectService { get; }
 
         /// <summary>
         /// Gets the windows phone project.
@@ -80,14 +100,29 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         Project WindowsPhoneProject { get; }
 
         /// <summary>
+        /// Gets the windows phone project service.
+        /// </summary>
+        IProjectService WindowsPhoneProjectService { get; }
+
+        /// <summary>
         /// Gets the windows store project.
         /// </summary>
         Project WindowsStoreProject { get; }
 
         /// <summary>
+        /// Gets the windows store project service.
+        /// </summary>
+        IProjectService WindowsStoreProjectService { get; }
+
+        /// <summary>
         /// Gets the WPF project.
         /// </summary>
         Project WpfProject { get; }
+
+        /// <summary>
+        /// Gets the WPF project service.
+        /// </summary>
+        IProjectService WpfProjectService { get; }
 
         /// <summary>
         /// Gets the allowed project templates.

@@ -8,12 +8,12 @@ namespace NinjaCoder.MvvmCross.Presenters
     using System.Collections.Generic;
     using System.Configuration;
 
-    using NinjaCoder.MvvmCross.Views.Interfaces;
+    using Views.Interfaces;
 
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
 
-    using Settings = NinjaCoder.MvvmCross.Properties.Settings;
+    using Settings = Properties.Settings;
 
     /// <summary>
     ///  Defines the SolutionOptionsPresenter type.
@@ -26,19 +26,24 @@ namespace NinjaCoder.MvvmCross.Presenters
         private readonly ISolutionOptionsView view;
 
         /// <summary>
-        /// The default projects location
+        /// The default projects location.
         /// </summary>
         private readonly string defaultProjectsLocation;
 
         /// <summary>
-        /// The default project name
+        /// The default project name.
         /// </summary>
         private readonly string defaultProjectName;
 
         /// <summary>
-        /// The project infos
+        /// The project infos.
         /// </summary>
         private readonly List<ProjectTemplateInfo> projectInfos;
+
+        /// <summary>
+        /// The display logo.
+        /// </summary>
+        private readonly bool displayLogo;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SolutionOptionsPresenter" /> class.
@@ -47,16 +52,19 @@ namespace NinjaCoder.MvvmCross.Presenters
         /// <param name="defaultProjectsLocation">The default projects location.</param>
         /// <param name="defaultProjectName">Default name of the project.</param>
         /// <param name="projectInfos">The project infos.</param>
+        /// <param name="displayLogo">if set to <c>true</c> [display logo].</param>
         public SolutionOptionsPresenter(
             ISolutionOptionsView view,
             string defaultProjectsLocation,
             string defaultProjectName,
-            List<ProjectTemplateInfo> projectInfos)
+            List<ProjectTemplateInfo> projectInfos,
+            bool displayLogo)
         {
             this.view = view;
             this.defaultProjectsLocation = defaultProjectsLocation;
             this.defaultProjectName = defaultProjectName;
             this.projectInfos = projectInfos;
+            this.displayLogo = displayLogo;
         }
 
         /// <summary>
@@ -94,6 +102,7 @@ namespace NinjaCoder.MvvmCross.Presenters
         {
             try
             {
+                this.view.DisplayLogo = this.displayLogo;
                 string defaultPath = Settings.Default[Constants.Settings.DefaultPath].ToString();
 
                 this.view.Path = defaultPath != string.Empty ? defaultPath : this.defaultProjectsLocation;

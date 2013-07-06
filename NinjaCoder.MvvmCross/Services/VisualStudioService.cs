@@ -3,7 +3,6 @@
 //    Defines the VisualStudioService type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Services
 {
     using System.Collections.Generic;
@@ -13,12 +12,13 @@ namespace NinjaCoder.MvvmCross.Services
     using EnvDTE;
     using EnvDTE80;
 
-    using NinjaCoder.MvvmCross.Constants;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Constants;
+    using Interfaces;
 
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
+    using Scorchio.VisualStudio.Services.Interfaces;
 
     /// <summary>
     /// Defines the VisualStudioService type.
@@ -31,9 +31,12 @@ namespace NinjaCoder.MvvmCross.Services
         private IEnumerable<Project> projects;
 
         /// <summary>
-        /// Gets or sets the dte2.
+        /// Initializes a new instance of the <see cref="VisualStudioService" /> class.
         /// </summary>
-        private DTE2 dte2 { get; set; }
+        public VisualStudioService()
+        {
+            TraceService.WriteLine("VisualStudioService::Constructor");
+        }
 
         /// <summary>
         /// Gets the projects.
@@ -65,6 +68,9 @@ namespace NinjaCoder.MvvmCross.Services
             }
         }
 
+        /// <summary>
+        /// Gets the solution.
+        /// </summary>
         public Solution2 Solution 
         {
             get { return this.DTE2.Solution as Solution2; }
@@ -127,12 +133,29 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets the core project service.
+        /// </summary>
+        public IProjectService CoreProjectService 
+        { 
+            get { return new ProjectService(this.CoreProject); }
+        }
+
+        /// <summary>
         /// Gets the core test project.
         /// </summary>
         public Project CoreTestsProject
         {
             get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.CoreTests)); }
         }
+
+        /// <summary>
+        /// Gets the core tests project service.
+        /// </summary>
+        public IProjectService CoreTestsProjectService
+        {
+            get { return new ProjectService(this.CoreTestsProject); }
+        }
+
         /// <summary>
         /// Gets the droid project.
         /// </summary>
@@ -142,19 +165,43 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets the droid project service.
+        /// </summary>
+        public IProjectService DroidProjectService
+        {
+            get { return new ProjectService(this.DroidProject); }
+        }
+
+        /// <summary>
         /// Gets the i OS project.
         /// </summary>
         public Project iOSProject
         {
             get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.iOS)); }
         }
-        
+
+        /// <summary>
+        /// Gets the iOS project service.
+        /// </summary>
+        public IProjectService iOSProjectService 
+        { 
+            get { return new ProjectService(this.iOSProject); }
+        }
+
         /// <summary>
         /// Gets the windows phone project.
         /// </summary>
         public Project WindowsPhoneProject 
         { 
             get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.WindowsPhone)); } 
+        }
+
+        /// <summary>
+        /// Gets the windows phone project service.
+        /// </summary>
+        public IProjectService WindowsPhoneProjectService 
+        {
+            get { return new ProjectService(this.WindowsPhoneProject); } 
         }
 
         /// <summary>
@@ -166,6 +213,14 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets the windows store project service.
+        /// </summary>
+        public IProjectService WindowsStoreProjectService 
+        { 
+            get { return new ProjectService(this.WindowsStoreProject); }
+        }
+
+        /// <summary>
         /// Gets the WPF project.
         /// </summary>
         public Project WpfProject 
@@ -173,6 +228,14 @@ namespace NinjaCoder.MvvmCross.Services
             get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.WindowsWpf)); }
         }
 
+        /// <summary>
+        /// Gets the WPF project service.
+        /// </summary>
+        public IProjectService WpfProjectService
+        {
+            get { return new ProjectService(this.WpfProject); }
+        }
+        
         /// <summary>
         /// Gets the allowed project templates.
         /// </summary>
@@ -334,13 +397,16 @@ namespace NinjaCoder.MvvmCross.Services
          }
 
         /// <summary>
+        /// Gets or sets the dte2.
+        /// </summary>
+        private DTE2 dte2 { get; set; }
+
+        /// <summary>
         /// Gets the folder template infos.
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="destinationFolder">The destination folder.</param>
-        /// <returns>
-        /// The template Infos.
-        /// </returns>
+        /// <returns>The template Infos.</returns>
         public List<ItemTemplateInfo> GetFolderTemplateInfos(
             string path,
             string destinationFolder)

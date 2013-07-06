@@ -6,7 +6,7 @@
 namespace NinjaCoder.MvvmCross.Presenters
 {
     using System.Collections.Generic;
-    using NinjaCoder.MvvmCross.Views.Interfaces;
+    using Views.Interfaces;
 
     using Scorchio.VisualStudio.Entities;
 

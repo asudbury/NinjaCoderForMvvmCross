@@ -3,7 +3,6 @@
 //    Defines the ProjectTemplates type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Constants
 {
     /// <summary>

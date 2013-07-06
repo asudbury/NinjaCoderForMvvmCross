@@ -40,20 +40,20 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(82, 17);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox2.Location = new System.Drawing.Point(48, 17);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(134, 98);
+            this.pictureBox2.Size = new System.Drawing.Size(179, 121);
             this.pictureBox2.TabIndex = 87;
             this.pictureBox2.TabStop = false;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(75, 128);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox1.Location = new System.Drawing.Point(39, 154);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(141, 121);
+            this.pictureBox1.Size = new System.Drawing.Size(188, 149);
             this.pictureBox1.TabIndex = 86;
             this.pictureBox1.TabStop = false;
             // 
@@ -62,9 +62,10 @@
             this.labelVersion.AutoSize = true;
             this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelVersion.ForeColor = System.Drawing.Color.Gray;
-            this.labelVersion.Location = new System.Drawing.Point(61, 262);
+            this.labelVersion.Location = new System.Drawing.Point(20, 318);
+            this.labelVersion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(155, 15);
+            this.labelVersion.Size = new System.Drawing.Size(193, 18);
             this.labelVersion.TabIndex = 88;
             this.labelVersion.Text = "Ninja Coder for MvvmCross";
             // 
@@ -73,15 +74,16 @@
             this.labelMvvmCross.AutoSize = true;
             this.labelMvvmCross.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelMvvmCross.ForeColor = System.Drawing.Color.Gray;
-            this.labelMvvmCross.Location = new System.Drawing.Point(106, 277);
+            this.labelMvvmCross.Location = new System.Drawing.Point(80, 337);
+            this.labelMvvmCross.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelMvvmCross.Name = "labelMvvmCross";
-            this.labelMvvmCross.Size = new System.Drawing.Size(70, 15);
+            this.labelMvvmCross.Size = new System.Drawing.Size(89, 18);
             this.labelMvvmCross.TabIndex = 89;
             this.labelMvvmCross.Text = "MvvmCross";
             // 
             // Logo
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -89,8 +91,9 @@
             this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Logo";
-            this.Size = new System.Drawing.Size(290, 306);
+            this.Size = new System.Drawing.Size(273, 377);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

@@ -8,14 +8,22 @@ namespace NinjaCoder.MvvmCross.Services
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.IO.Abstractions;
 
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Interfaces;
+
+    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     /// Defines the ReadMeService type.
     /// </summary>
     public class ReadMeService : IReadMeService
     {
+        /// <summary>
+        /// The file system.
+        /// </summary>
+        private readonly IFileSystem fileSystem;
+
         /// <summary>
         /// The application version.
         /// </summary>
@@ -25,6 +33,24 @@ namespace NinjaCoder.MvvmCross.Services
         /// The MMVM cross version.
         /// </summary>
         private string mmvmCrossVersion;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReadMeService" /> class.
+        /// </summary>
+        public ReadMeService()
+            : this(new FileSystem())
+        {
+            TraceService.WriteLine("ReadMeService::Constructor");
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReadMeService" /> class.
+        /// </summary>
+        /// <param name="fileSystem">The file system.</param>
+        public ReadMeService(IFileSystem fileSystem)
+        {
+            this.fileSystem = fileSystem;
+        }
 
         /// <summary>
         /// Initializes this instance.
@@ -52,7 +78,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             string currentLines = string.Empty;
 
-            if (File.Exists(filePath))
+            if (this.fileSystem.File.Exists(filePath))
             {
                 currentLines = File.ReadAllText(filePath);
             }

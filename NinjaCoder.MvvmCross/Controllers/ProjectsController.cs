@@ -9,18 +9,14 @@ namespace NinjaCoder.MvvmCross.Controllers
     using System.Collections.Generic;
     using System.IO;
     using System.Windows.Forms;
-
+    using Constants;
     using EnvDTE;
-
     using EnvDTE80;
-
-    using NinjaCoder.MvvmCross.Constants;
-    using NinjaCoder.MvvmCross.Services;
-    using NinjaCoder.MvvmCross.Views;
-
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
+    using Services;
+    using Views;
 
     /// <summary>
     ///  Defines the ProjectsController type.
@@ -33,6 +29,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         public ProjectsController()
             : base(new VisualStudioService(), new ReadMeService(), new SettingsService())
         {
+            TraceService.WriteLine("ProjectsController::Constructor");
         }
 
         /// <summary>
@@ -60,7 +57,11 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             if (projectTemplateInfos.Count > 0)
             {
-                SolutionOptionsForm form = new SolutionOptionsForm(defaultLocation, defaultProjectName, projectTemplateInfos);
+                SolutionOptionsForm form = new SolutionOptionsForm(
+                    defaultLocation, 
+                    defaultProjectName, 
+                    projectTemplateInfos, 
+                    this.SettingsService.DisplayLogo);
 
                 form.ShowDialog();
 
@@ -70,7 +71,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                     Solution2 solution2 = this.VisualStudioService.DTE2.GetSolution() as Solution2;
 
-                    //// create the solution if we dont have one!
+                    //// create the solution if we don't have one!
                     if (string.IsNullOrEmpty(solution2.FullName))
                     {
                         string solutionPath = form.Presenter.GetSolutionPath();
@@ -88,17 +89,18 @@ namespace NinjaCoder.MvvmCross.Controllers
                     this.WriteStatusBarMessage("Ninja Coder is updating files...");
 
                     //// this really shouldn't be done - templates now have a mind of their own - please fix!!
-                    this.VisualStudioService.DTE2.ReplaceText("Cirrious." + form.ProjectName + ".", "Cirrious.MvvmCross.", true);
-                    
-                    //// close any open documents.
-                    this.VisualStudioService.DTE2.CloseDocuments();
+                    this.VisualStudioService.DTE2.ReplaceText("Cirrious." + form.ProjectName + ".", "Cirrious.MvvmCross.", false);
 
-                    //// now collapse the solution!
-                    this.VisualStudioService.DTE2.CollapseSolution();
+                    //// sort out core project references - needs looking into!!
+                    this.VisualStudioService.DTE2.ReplaceText("CoreTemplate.", "Core.", false);
+
+                    //// create the version files.
+                    this.CreateNinjaVersionFile(this.SettingsService.ApplicationVersion);
+                    this.CreateMvvmCrossVersionFile(this.SettingsService.MvvmCrossVersion);
 
                     //// show the readme.
                     this.ShowReadMe("Add Projects", messages);
-                     
+
                     this.WriteStatusBarMessage("Ninja Coder has completed the build of the MvvmCross solution.");
                 }
             }

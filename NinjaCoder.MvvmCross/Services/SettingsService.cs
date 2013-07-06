@@ -3,20 +3,29 @@
 //    Defines the SettingsService type.
 // </summary>
 // ------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Services
 {
     using System;
 
     using Microsoft.Win32;
 
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Interfaces;
+
+    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     ///  Defines the SettingsService type.
     /// </summary>
     public class SettingsService : ISettingsService
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SettingsService" /> class.
+        /// </summary>
+        public SettingsService()
+        {
+            TraceService.WriteLine("SettingsService::Constructor");
+        }
+
         /// <summary>
         /// Gets or sets a value indicating whether [log to file].
         /// </summary>
@@ -25,13 +34,22 @@ namespace NinjaCoder.MvvmCross.Services
             get { return this.GetRegistryValue("LogToFile", "N") == "Y"; }
             set { this.SetRegistryValue("LogToFile", value ? "Y" : "N"); }
         }
+
+        /// <summary>
+        /// Gets a value indicating whether [display logo].
+        /// </summary>
+        public bool DisplayLogo
+        {
+            get { return this.GetRegistryValue("DisplayLogo", "Y") == "Y"; }
+        }
         
         /// <summary>
-        /// Gets the log file path.
+        /// Gets or sets the log file path.
         /// </summary>
         public string LogFilePath 
         {
-            get { return Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\ninja-coder-for-mvvmcross.log"; } 
+            get { return this.GetRegistryValue("LogFilePath", Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\ninja-coder-for-mvvmcross.log"); }
+            set { this.SetRegistryValue("LogFilePath", value); }
         }
 
         /// <summary>
@@ -41,8 +59,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             get { return this.GetItemTemplatesPath() + @"\Converters"; }
         }
-
-
+        
         /// <summary>
         /// Gets the services templates path.
         /// </summary>

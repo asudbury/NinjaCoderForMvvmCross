@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+﻿ // --------------------------------------------------------------------------------------------------------------------
 // <summary>
 //    Defines the OptionsPresenter type.
 // </summary>
@@ -7,9 +7,9 @@ namespace NinjaCoder.MvvmCross.Presenters
 {
     using System;
 
-    using NinjaCoder.MvvmCross.Services;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-    using NinjaCoder.MvvmCross.Views.Interfaces;
+    using Services;
+    using Services.Interfaces;
+    using Views.Interfaces;
 
     /// <summary>
     ///    Defines the OptionsPresenter type.
@@ -55,7 +55,7 @@ namespace NinjaCoder.MvvmCross.Presenters
         {
             this.view.LogToFile = this.settingsService.LogToFile;
 
-            this.view.LogFilePath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\ninja-coder-for-mvvmcross.log";
+            this.view.LogFilePath = this.settingsService.LogFilePath;
         }
 
         /// <summary>
@@ -64,6 +64,7 @@ namespace NinjaCoder.MvvmCross.Presenters
         public void SaveSettings()
         {
             this.settingsService.LogToFile = this.view.LogToFile;
+            this.settingsService.LogFilePath = this.view.LogFilePath;
         }
     }
 }

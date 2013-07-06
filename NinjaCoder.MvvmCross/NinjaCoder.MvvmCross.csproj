@@ -41,6 +41,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Abstractions, Version=1.4.0.64, Culture=neutral, PublicKeyToken=d480b5b72fb413da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\System.IO.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Runtime.Serialization" />
@@ -90,19 +94,26 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Services\ConfigurationService.cs" />
+    <Compile Include="Services\ConvertersService.cs" />
     <Compile Include="Services\Interfaces\IConfigurationService.cs" />
+    <Compile Include="Services\Interfaces\IConvertersService.cs" />
     <Compile Include="Services\Interfaces\IPluginsService.cs" />
     <Compile Include="Services\Interfaces\IReadMeService.cs" />
+    <Compile Include="Services\Interfaces\IServicesService.cs" />
     <Compile Include="Services\Interfaces\ISettingsService.cs" />
+    <Compile Include="Services\Interfaces\IUpdateVersionService.cs" />
     <Compile Include="Services\Interfaces\IVisualStudioService.cs" />
     <Compile Include="Services\Interfaces\IZipperService.cs" />
     <Compile Include="Services\PluginsService.cs" />
     <Compile Include="Services\ReadMeService.cs" />
+    <Compile Include="Services\ServicesService.cs" />
     <Compile Include="Services\SettingsService.cs" />
+    <Compile Include="Services\UpdateVersionService.cs" />
     <Compile Include="Services\VisualStudioService.cs" />
     <Compile Include="Services\ZipperService.cs" />
     <Compile Include="Translators\ITranslator.cs" />
     <Compile Include="Translators\PluginsTranslator.cs" />
+    <Compile Include="Translators\CodeSnippetTranslator.cs" />
     <Compile Include="UserControls\IMvxListView.cs" />
     <Compile Include="UserControls\Logo.cs">
       <SubType>UserControl</SubType>
@@ -205,6 +216,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Lib\System.IO.Abstractions.dll" />
     <Content Include="Resources\NinjaCoder.ico" />
   </ItemGroup>
   <ItemGroup />

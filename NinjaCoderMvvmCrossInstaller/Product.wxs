@@ -14,7 +14,7 @@
     <Package InstallerVersion="200" Compressed="yes" />
 
     <!--<WixVariable Id="WixUILicenseRtf" Value="path\License.rtf" />-->
-    <!--<WixVariable Id="WixUIBannerBmp" Value="resources\banner.bmp" />-->
+    <WixVariable Id="WixUIBannerBmp" Value="resources\banner.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="resources\dialog.bmp" />
     <!--<WixVariable Id="WixUIExclamationIco" Value="path\exclamation.ico" />-->
     <!--<WixVariable Id="WixUIInfoIco" Value="path\information.ico" />-->
@@ -102,7 +102,10 @@
                 Source="$(var.SOURCE_DIR)\NinjaCoder.MvvmCross.UI\bin\Debug\NinjaCoder.MvvmCross.UI.exe" Vital="yes" KeyPath="no" >
                 <CopyFile Id="copyfile4" DestinationDirectory="INSTALLLOCATION"/>
               </File>
-              
+              <File Id="SystemAbstraction.IO" Name="System.IO.Abstractions.dll"
+                Source="$(var.SOURCE_DIR)\NinjaCoder.MvvmCross.UI\bin\Debug\System.IO.Abstractions.dll" Vital="yes" KeyPath="no" >
+                <CopyFile Id="copyfile5" DestinationDirectory="INSTALLLOCATION"/>
+              </File>              
             </Component>
 
             <!-- Code Snippets -->
@@ -208,7 +211,12 @@
                             Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\MvvmCross.ViewModel.zip">
                             <CopyFile Id="copyItemTemplate1" DestinationDirectory="ItemTemplatesMvvmCross"/>
                       </File>
-
+                      <File Id="MvvmCross.Test.ViewModel"
+                            Name="MvvmCross.Test.ViewModel.zip"
+                            Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\MvvmCross.Test.ViewModel.zip">
+                        <CopyFile Id="copyItemTemplate1T" DestinationDirectory="ItemTemplatesMvvmCross"/>
+                      </File>
+                      
                       <File Id="MvvmCross.iOS.View"
                           Name="MvvmCross.iOS.View.zip"
                           Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\MvvmCross.iOS.View.zip">
@@ -331,7 +339,7 @@
     </Directory>
 
     <UI>
-      <ProgressText Action="VS2012InstallVSTemplates">Configuring Visual Studio 2012... (this may take a few minutes)</ProgressText>
+      <ProgressText Action="VS2012InstallVSTemplates">Configuring Visual Studio 2012... (may take a few minutes)</ProgressText>
     </UI>
     
     <Feature Id="ProductFeature" Title="VSWixExtension" Level="1">

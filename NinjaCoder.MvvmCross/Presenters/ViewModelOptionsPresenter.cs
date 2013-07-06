@@ -6,11 +6,9 @@
 namespace NinjaCoder.MvvmCross.Presenters
 {
     using System.Collections.Generic;
-
-    using NinjaCoder.MvvmCross.Constants;
-    using NinjaCoder.MvvmCross.Views.Interfaces;
-
+    using Constants;
     using Scorchio.VisualStudio.Entities;
+    using Views.Interfaces;
 
     /// <summary>
     ///  Defines the ViewModelOptionsPresenter type.
@@ -63,7 +61,7 @@ namespace NinjaCoder.MvvmCross.Presenters
 
             this.itemTemplateInfos.Clear();
 
-            //// first add thew view model
+            //// first add the view model
 
             ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
             {
@@ -80,6 +78,21 @@ namespace NinjaCoder.MvvmCross.Presenters
                 itemTemplateInfo.FileName = viewName;
 
                 this.itemTemplateInfos.Add(itemTemplateInfo);
+            }
+
+            //// do we require a Test ViewModel?
+
+            if (this.view.IncludeUnitTests)
+            {
+                viewModelTemplateInfo = new ItemTemplateInfo
+                {
+                    ProjectSuffix = ProjectSuffixes.CoreTests,
+                    FolderName = "ViewModels",
+                    TemplateName = ItemTemplates.TestViewModel,
+                    FileName = "Test" + this.view.ViewModelName,
+                };
+
+                this.itemTemplateInfos.Add(viewModelTemplateInfo);
             }
 
             return this.itemTemplateInfos;

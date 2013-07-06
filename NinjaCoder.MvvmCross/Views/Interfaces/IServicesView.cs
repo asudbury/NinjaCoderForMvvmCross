@@ -16,6 +16,11 @@ namespace NinjaCoder.MvvmCross.Views.Interfaces
         string ImplementInViewModel { get; }
 
         /// <summary>
+        /// Gets a value indicating whether [include unit tests].
+        /// </summary>
+        bool IncludeUnitTests { get; }
+
+        /// <summary>
         /// Adds the viewModel.
         /// </summary>
         /// <param name="viewModelName">Name of the view model.</param>

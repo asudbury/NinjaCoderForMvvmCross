@@ -3,24 +3,69 @@
 //    Defines the TestFirstViewModel type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace CoreTestsTemplate.ViewModels
 {
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using CoreTemplate.ViewModels;
+
+    using NUnit.Framework;
 
     /// <summary>
     /// Defines the TestFirstViewModel type.
     /// </summary>
-    [TestClass]
-    public class TestFirstViewModel
+    [TestFixture]
+    public class TestFirstViewModel : BaseTest
     {
         /// <summary>
-        /// Tests the hello method.
+        /// The first view model.
         /// </summary>
-        [TestMethod]
-        public void TestHello()
+        private FirstViewModel firstViewModel;
+
+        /// <summary>
+        /// Creates an instance of the object to test.
+        /// To allow Ninja automatically create the unit tests
+        /// this method should not be changed.
+        /// </summary>
+        public override void CreateTestableObject()
         {
-            //// TODO: Add test logic here
+            this.firstViewModel = new FirstViewModel();
+        }
+        
+        /// <summary>
+        /// Tests my property.
+        /// </summary>
+        [Test]
+        public void TestMyProperty()
+        {
+            //// arrange
+            bool changed = false;
+
+            this.firstViewModel.PropertyChanged += (sender, args) =>
+                {
+                    if (args.PropertyName == "MyProperty")
+                    {
+                        changed = true;
+                    }
+                };
+            
+            //// act
+            this.firstViewModel.MyProperty = "Hello MvvmCross";
+
+            //// assert
+            Assert.AreEqual(changed, true);
+        }
+
+        /// <summary>
+        /// Tests my command.
+        /// </summary>
+        [Test]
+        public void TestMyCommand()
+        {
+            //// arrange
+
+            //// act
+            this.firstViewModel.MyCommand.Execute(null);
+
+            //// assert
         }
     }
 }

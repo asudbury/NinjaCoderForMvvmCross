@@ -10,8 +10,8 @@ namespace NinjaCoder.MvvmCross.Views
     using System.Linq;
     using System.Windows.Forms;
 
-    using NinjaCoder.MvvmCross.Presenters;
-    using NinjaCoder.MvvmCross.Views.Interfaces;
+    using Presenters;
+    using Interfaces;
 
     using Scorchio.VisualStudio.Entities;
 
@@ -52,6 +52,14 @@ namespace NinjaCoder.MvvmCross.Views
         public List<ItemTemplateInfo> RequiredTemplates
         {
             get { return this.mvxListView1.RequiredTemplates.Cast<ItemTemplateInfo>().ToList(); }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [include unit tests].
+        /// </summary>
+        public bool IncludeUnitTests
+        {
+            get { return this.checkBoxIncludeUnitTests.Checked; }
         }
 
         /// <summary>

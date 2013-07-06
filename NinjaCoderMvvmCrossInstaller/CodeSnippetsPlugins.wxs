@@ -11,96 +11,161 @@
           <RegistryValue Type="string" Name="Code Snippets Path" Value="[CodeSnippets]"/>
         </RegistryKey>
 
-          <File Id="Snippet1" Name="Plugins.Accelerometer.txt"
-            Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Accelerometer.txt" Vital="yes" KeyPath="no" >
+          <File Id="Snippet1" Name="Plugins.Accelerometer.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Accelerometer.xml" Vital="yes" KeyPath="no" >
             <CopyFile Id="Snippet1" DestinationDirectory="CodeSnippetsPlugins"/>
           </File>
-
-          <File Id="Snippet2" Name="Plugins.Bookmarks.txt"
-              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Bookmarks.txt" Vital="yes" KeyPath="no" >
+          <File Id="Snippet1T" Name="Plugins.Accelerometer.Tests.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Accelerometer.Tests.xml" Vital="yes" KeyPath="no" >
+            <CopyFile Id="Snippet1T" DestinationDirectory="CodeSnippetsPlugins"/>
+          </File>
+        
+          <File Id="Snippet2" Name="Plugins.Bookmarks.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Bookmarks.xml" Vital="yes" KeyPath="no" >
             <CopyFile Id="Snippet2" DestinationDirectory="CodeSnippetsPlugins"/>
           </File>
-
-          <File Id="Snippet3" Name="Plugins.Color.txt"
-              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Color.txt" Vital="yes" KeyPath="no" >
+          <File Id="Snippet2T" Name="Plugins.Bookmarks.Tests.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Bookmarks.Tests.xml" Vital="yes" KeyPath="no" >
+            <CopyFile Id="Snippet2T" DestinationDirectory="CodeSnippetsPlugins"/>
+          </File>
+          
+          <!--<File Id="Snippet3" Name="Plugins.Color.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Color.xml" Vital="yes" KeyPath="no" >
             <CopyFile Id="Snippet3" DestinationDirectory="CodeSnippetsPlugins"/>
-          </File>
+          </File>-->
 
-          <File Id="Snippet4" Name="Plugins.DownloadCache.txt"
-              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.DownloadCache.txt" Vital="yes" KeyPath="no" >
+          <!--<File Id="Snippet4" Name="Plugins.DownloadCache.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.DownloadCache.xml" Vital="yes" KeyPath="no" >
             <CopyFile Id="Snippet4" DestinationDirectory="CodeSnippetsPlugins"/>
-          </File>
+          </File>-->
 
-          <File Id="Snippet5" Name="Plugins.Email.txt"
-              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Email.txt" Vital="yes" KeyPath="no" >
+          <File Id="Snippet5" Name="Plugins.Email.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Email.xml" Vital="yes" KeyPath="no" >
             <CopyFile Id="Snippet5" DestinationDirectory="CodeSnippetsPlugins"/>
           </File>
 
-          <File Id="Snippet6" Name="Plugins.File.txt"
-              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.File.txt" Vital="yes" KeyPath="no" >
+          <File Id="Snippet5T" Name="Plugins.Email.Tests.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Email.Tests.xml" Vital="yes" KeyPath="no" >
+            <CopyFile Id="Snippet5T" DestinationDirectory="CodeSnippetsPlugins"/>
+          </File>
+        
+          <File Id="Snippet6" Name="Plugins.File.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.File.xml" Vital="yes" KeyPath="no" >
             <CopyFile Id="Snippet6" DestinationDirectory="CodeSnippetsPlugins"/>
           </File>
 
-          <File Id="Snippet7" Name="Plugins.Json.txt"
-              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Json.txt" Vital="yes" KeyPath="no" >
+        <File Id="Snippet6T" Name="Plugins.File.Tests.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.File.Tests.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet6T" DestinationDirectory="CodeSnippetsPlugins"/>
+        </File>
+        
+          <File Id="Snippet7" Name="Plugins.Json.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Json.xml" Vital="yes" KeyPath="no" >
             <CopyFile Id="Snippet7" DestinationDirectory="CodeSnippetsPlugins"/>
           </File>
 
-          <File Id="Snippet8" Name="Plugins.Network.txt"
-              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Network.txt" Vital="yes" KeyPath="no" >
+          <File Id="Snippet7T" Name="Plugins.Json.Tests.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Json.Tests.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet7T" DestinationDirectory="CodeSnippetsPlugins"/>
+        </File>
+        
+          <File Id="Snippet8" Name="Plugins.Network.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Network.xml" Vital="yes" KeyPath="no" >
             <CopyFile Id="Snippet8" DestinationDirectory="CodeSnippetsPlugins"/>
           </File>
 
-          <File Id="Snippet9" Name="Plugins.PhoneCall.txt"
-            Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.PhoneCall.txt" Vital="yes" KeyPath="no" >
+        <File Id="Snippet8T" Name="Plugins.Network.Tests.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Network.Tests.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet8T" DestinationDirectory="CodeSnippetsPlugins"/>
+        </File>
+        
+          <File Id="Snippet9" Name="Plugins.PhoneCall.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.PhoneCall.xml" Vital="yes" KeyPath="no" >
             <CopyFile Id="Snippet9" DestinationDirectory="CodeSnippetsPlugins"/>
           </File>
 
-          <File Id="Snippet10" Name="Plugins.PictureChooser.txt"
-              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.PictureChooser.txt" Vital="yes" KeyPath="no" >
+        <File Id="Snippet9T" Name="Plugins.PhoneCall.Tests.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.PhoneCall.Tests.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet9T" DestinationDirectory="CodeSnippetsPlugins"/>
+        </File>
+        
+         <File Id="Snippet10" Name="Plugins.PictureChooser.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.PictureChooser.xml" Vital="yes" KeyPath="no" >
             <CopyFile Id="Snippet10" DestinationDirectory="CodeSnippetsPlugins"/>
           </File>
-
-          <File Id="Snippet11" Name="Plugins.ReflectionEx.txt"
-              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.ReflectionEx.txt" Vital="yes" KeyPath="no" >
+        
+         <File Id="Snippet10T" Name="Plugins.PictureChooser.Tests.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.PictureChooser.Tests.xml" Vital="yes" KeyPath="no" >
+            <CopyFile Id="Snippet10T" DestinationDirectory="CodeSnippetsPlugins"/>
+          </File>
+        
+          <File Id="Snippet11" Name="Plugins.ReflectionEx.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.ReflectionEx.xml" Vital="yes" KeyPath="no" >
             <CopyFile Id="Snippet11" DestinationDirectory="CodeSnippetsPlugins"/>
           </File>
-
-          <File Id="Snippet12" Name="Plugins.ResourceLoader.txt"
-              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.ResourceLoader.txt" Vital="yes" KeyPath="no" >
+        
+          <File Id="Snippet11T" Name="Plugins.ReflectionEx.Tests.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.ReflectionEx.Tests.xml" Vital="yes" KeyPath="no" >
+            <CopyFile Id="Snippet11T" DestinationDirectory="CodeSnippetsPlugins"/>
+          </File>
+                
+          <File Id="Snippet12" Name="Plugins.ResourceLoader.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.ResourceLoader.xml" Vital="yes" KeyPath="no" >
             <CopyFile Id="Snippet12" DestinationDirectory="CodeSnippetsPlugins"/>
           </File>
 
-          <File Id="Snippet13" Name="Plugins.Share.txt"
-              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Share.txt" Vital="yes" KeyPath="no" >
+        <File Id="Snippet12T" Name="Plugins.ResourceLoader.Tests.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.ResourceLoader.Tests.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet12T" DestinationDirectory="CodeSnippetsPlugins"/>
+        </File>
+        
+          <File Id="Snippet13" Name="Plugins.Share.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Share.xml" Vital="yes" KeyPath="no" >
             <CopyFile Id="Snippet13" DestinationDirectory="CodeSnippetsPlugins"/>
           </File>
 
-          <File Id="Snippet14" Name="Plugins.SoundEffects.txt"
-              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.SoundEffects.txt" Vital="yes" KeyPath="no" >
+        <File Id="Snippet13T" Name="Plugins.Share.Tests.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Share.Tests.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet13T" DestinationDirectory="CodeSnippetsPlugins"/>
+        </File>
+          <File Id="Snippet14" Name="Plugins.SoundEffects.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.SoundEffects.xml" Vital="yes" KeyPath="no" >
             <CopyFile Id="Snippet14" DestinationDirectory="CodeSnippetsPlugins"/>
           </File>
 
-          <File Id="Snippet15" Name="Plugins.Sqlite.txt"
-              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Sqlite.txt" Vital="yes" KeyPath="no" >
-            <CopyFile Id="Snippet15" DestinationDirectory="CodeSnippetsPlugins"/>
+          <File Id="Snippet14T" Name="Plugins.SoundEffects.Tests.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.SoundEffects.Tests.xml" Vital="yes" KeyPath="no" >
+            <CopyFile Id="Snippet14T" DestinationDirectory="CodeSnippetsPlugins"/>
           </File>
+        
+          <!--<File Id="Snippet15" Name="Plugins.Sqlite.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Sqlite.xml" Vital="yes" KeyPath="no" >
+            <CopyFile Id="Snippet15" DestinationDirectory="CodeSnippetsPlugins"/>
+          </File>-->
 
-          <File Id="Snippet16" Name="Plugins.ThreadUtils.txt"
-              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.ThreadUtils.txt" Vital="yes" KeyPath="no" >
+          <File Id="Snippet16" Name="Plugins.ThreadUtils.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.ThreadUtils.xml" Vital="yes" KeyPath="no" >
             <CopyFile Id="Snippet16" DestinationDirectory="CodeSnippetsPlugins"/>
           </File>
 
-          <File Id="Snippet17" Name="Plugins.Visibility.txt"
-              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Visibility.txt" Vital="yes" KeyPath="no" >
+        <File Id="Snippet16T" Name="Plugins.ThreadUtils.Tests.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.ThreadUtils.Tests.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet16T" DestinationDirectory="CodeSnippetsPlugins"/>
+        </File>
+          <!--<File Id="Snippet17" Name="Plugins.Visibility.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.Visibility.xml" Vital="yes" KeyPath="no" >
             <CopyFile Id="Snippet17" DestinationDirectory="CodeSnippetsPlugins"/>
-          </File>
+          </File>-->
 
-          <File Id="Snippet18" Name="Plugins.WebBrowser.txt"
-              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.WebBrowser.txt" Vital="yes" KeyPath="no" >
+          <File Id="Snippet18" Name="Plugins.WebBrowser.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.WebBrowser.xml" Vital="yes" KeyPath="no" >
             <CopyFile Id="Snippet18" DestinationDirectory="CodeSnippetsPlugins"/>
           </File>
-     
+
+        <File Id="Snippet18T" Name="Plugins.WebBrowser.Tests.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Plugins\Plugins.WebBrowser.Tests.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet18T" DestinationDirectory="CodeSnippetsPlugins"/>
+        </File>
       </Component>
     </ComponentGroup>
 	</Fragment>

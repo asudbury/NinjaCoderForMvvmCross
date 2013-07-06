@@ -25,6 +25,11 @@ namespace NinjaCoder.MvvmCross.Views.Interfaces
         List<ItemTemplateInfo> RequiredTemplates { get; }
 
         /// <summary>
+        /// Gets a value indicating whether [include unit tests].
+        /// </summary>
+        bool IncludeUnitTests { get; }
+
+        /// <summary>
         /// Adds the template.
         /// </summary>
         /// <param name="itemTemplateInfo">The item template info.</param>

@@ -3,10 +3,14 @@
 //    Defines the ConfigurationController type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
+
 namespace NinjaCoder.MvvmCross.Controllers
 {
-    using NinjaCoder.MvvmCross.Services;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Services;
+    using Services.Interfaces;
+
+    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     /// Defines the ConfigurationController type.
@@ -28,6 +32,8 @@ namespace NinjaCoder.MvvmCross.Controllers
             IVisualStudioService visualStudioService)
             : base(visualStudioService, new ReadMeService(), new SettingsService())
         {
+            TraceService.WriteLine("ConfigurationController::Constructor");
+
             this.configurationService = configurationService;
         }
 
@@ -36,6 +42,8 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         public void Run()
         {
+            TraceService.WriteLine("ConfigurationController::Run");
+
             this.configurationService.CreateUserDirectories();
         }
     }

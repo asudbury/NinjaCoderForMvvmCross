@@ -3,7 +3,6 @@
 //    Defines the CommandManager type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace Scorchio.VisualStudio
 {
     using System;
@@ -60,10 +59,7 @@ namespace Scorchio.VisualStudio
         /// </summary>
         public Assembly ResourceAssembly 
         { 
-            set
-            {
-                this.ResourceManager = new ResourceManager(value.GetName().Name + ".Resources", value);                       
-            }
+            set { this.ResourceManager = new ResourceManager(value.GetName().Name + ".Resources", value); }
         }
 
         /// <summary>
@@ -76,7 +72,7 @@ namespace Scorchio.VisualStudio
         /// </summary>
         /// <param name="application">The application.</param>
         /// <param name="connectMode">The connect mode.</param>
-        /// <param name="addInInst">The add in inst.</param>
+        /// <param name="addInInst">The add in instance.</param>
         /// <param name="custom">The custom.</param>
         public void OnConnection(
             object application, 
@@ -146,7 +142,7 @@ namespace Scorchio.VisualStudio
         }
 
         /// <summary>
-        /// Initalizes this instance.
+        /// Initializes this instance.
         /// </summary>
         public virtual void Initialize()
         {
@@ -186,61 +182,6 @@ namespace Scorchio.VisualStudio
             }
 
             return commandBar;
-        }
-
-        /// <summary>
-        /// Add item to the menu.
-        /// </summary>
-        /// <param name="vsCommandInfo">The command info.</param>
-        /// <returns>The command</returns>
-        public void AddMenuItem(VSCommandInfo vsCommandInfo)
-        {
-            TraceService.WriteLine("CommandManager::AddMenuItem Name=" + vsCommandInfo.Name);
-
-            //// This try/catch block can be duplicated if you wish to add multiple commands to be handled by your Add-in,
-            //// just make sure you also update the QueryStatus/Exec method to include the new command names.
-            try
-            {
-                Commands2 commands = (Commands2)this.VSInstance.ApplicationObject.Commands;
-                object[] context = new object[] { };
-
-                TraceService.WriteLine("CommandManager::AddMenuItem Adding command name=" + vsCommandInfo.Name);
-
-                IEnumerable<Command> currentCommands = commands.Cast<Command>();
-
-                foreach (Command command in currentCommands
-                    .Where(command => command.Name == vsCommandInfo.Name))
-                {
-                    TraceService.WriteLine("CommandManager::AddMenuItem Deleting Command already in memory name=" + vsCommandInfo.Name);
-                    command.Delete();
-                    break;
-                }
-  
-                vsCommandInfo.Command = commands.AddNamedCommand2(
-                        vsCommandInfo.AddIn,
-                        vsCommandInfo.Name,
-                        vsCommandInfo.ButtonText,
-                        vsCommandInfo.Tooltip,
-                        vsCommandInfo.UseOfficeResources,
-                        vsCommandInfo.BitmapResourceId,
-                        ref context);
-
-                vsCommandInfo.Command.AddControl(vsCommandInfo.ParentCommand, vsCommandInfo.Position);
-                
-                this.commandInfos.Add(vsCommandInfo);
-            }
-            catch (ArgumentException exception)
-            {
-                //// If we are here, then the exception is probably because a command with that name
-                //// already exists. If so there is no need to recreate the command and we can 
-                //// safely ignore the exception.
-                
-                TraceService.WriteError("CommandManager::AddMenuItem ArgumentException");
-                TraceService.WriteLine("commandName=" + vsCommandInfo.Name);
-                TraceService.WriteError("message=" + exception.Message);
-                TraceService.WriteError("parameterName=" + exception.ParamName);
-                TraceService.WriteError("stackTrace=" + exception.StackTrace);
-            } 
         }
 
         /// <summary>
@@ -358,6 +299,60 @@ namespace Scorchio.VisualStudio
 
                 handled = true;
                 break;
+            }
+        }
+
+        /// <summary>
+        /// Add item to the menu.
+        /// </summary>
+        /// <param name="vsCommandInfo">The command info.</param>
+        protected virtual void AddMenuItem(VSCommandInfo vsCommandInfo)
+        {
+            TraceService.WriteLine("CommandManager::AddMenuItem Name=" + vsCommandInfo.Name);
+
+            //// This try/catch block can be duplicated if you wish to add multiple commands to be handled by your Add-in,
+            //// just make sure you also update the QueryStatus/Exec method to include the new command names.
+            try
+            {
+                Commands2 commands = (Commands2)this.VSInstance.ApplicationObject.Commands;
+                object[] context = new object[] { };
+
+                TraceService.WriteLine("CommandManager::AddMenuItem Adding command name=" + vsCommandInfo.Name);
+
+                IEnumerable<Command> currentCommands = commands.Cast<Command>();
+
+                foreach (Command command in currentCommands
+                    .Where(command => command.Name == vsCommandInfo.Name))
+                {
+                    TraceService.WriteLine("CommandManager::AddMenuItem Deleting Command already in memory name=" + vsCommandInfo.Name);
+                    command.Delete();
+                    break;
+                }
+
+                vsCommandInfo.Command = commands.AddNamedCommand2(
+                        vsCommandInfo.AddIn,
+                        vsCommandInfo.Name,
+                        vsCommandInfo.ButtonText,
+                        vsCommandInfo.Tooltip,
+                        vsCommandInfo.UseOfficeResources,
+                        vsCommandInfo.BitmapResourceId,
+                        ref context);
+
+                vsCommandInfo.Command.AddControl(vsCommandInfo.ParentCommand, vsCommandInfo.Position);
+
+                this.commandInfos.Add(vsCommandInfo);
+            }
+            catch (ArgumentException exception)
+            {
+                //// If we are here, then the exception is probably because a command with that name
+                //// already exists. If so there is no need to recreate the command and we can 
+                //// safely ignore the exception.
+
+                TraceService.WriteError("CommandManager::AddMenuItem ArgumentException");
+                TraceService.WriteLine("commandName=" + vsCommandInfo.Name);
+                TraceService.WriteError("message=" + exception.Message);
+                TraceService.WriteError("parameterName=" + exception.ParamName);
+                TraceService.WriteError("stackTrace=" + exception.StackTrace);
             }
         }
     }

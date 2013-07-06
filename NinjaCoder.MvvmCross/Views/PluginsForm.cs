@@ -3,15 +3,15 @@
 //    Defines the PluginsForm type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Views
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Presenters;
-    using NinjaCoder.MvvmCross.Views.Interfaces;
+    using Entities;
+    using Presenters;
+    using Views.Interfaces;
 
     /// <summary>
     ///  Defines the PluginsForm type.
@@ -22,12 +22,15 @@ namespace NinjaCoder.MvvmCross.Views
         /// Initializes a new instance of the <see cref="PluginsForm" /> class.
         /// </summary>
         /// <param name="viewModelNames">The view model names.</param>
-        public PluginsForm(List<string> viewModelNames)
+        /// <param name="displayLogo">if set to <c>true</c> [display logo].</param>
+        public PluginsForm(
+            List<string> viewModelNames,
+            bool displayLogo)
         {
             this.InitializeComponent();
 
             this.Presenter = new PluginsPresenter(this);
-            this.Presenter.Load(viewModelNames);
+            this.Presenter.Load(viewModelNames, displayLogo);
         }
 
         /// <summary>
@@ -36,14 +39,19 @@ namespace NinjaCoder.MvvmCross.Views
         public PluginsPresenter Presenter { get; private set; }
 
         /// <summary>
+        /// Sets a value indicating whether [display logo].
+        /// </summary>
+        public bool DisplayLogo
+        {
+            set { this.SetLogoVisibility(this.logo1, value); }
+        }
+
+        /// <summary>
         /// Gets the implement in view model.
         /// </summary>
         public string ImplementInViewModel
         {
-            get
-            {
-                return this.comboBoxViewModel.SelectedItem as string;
-            }
+            get { return this.comboBoxViewModel.SelectedItem as string; }
         }
 
         /// <summary>
@@ -52,6 +60,14 @@ namespace NinjaCoder.MvvmCross.Views
         public List<Plugin> RequiredPlugins 
         {
             get { return this.mvxListView1.RequiredTemplates.Cast<Plugin>().ToList(); }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [include unit tests].
+        /// </summary>
+        public bool IncludeUnitTests
+        {
+            get { return this.checkBoxIncludeUnitTests.Checked; }
         }
 
         /// <summary>
@@ -80,6 +96,18 @@ namespace NinjaCoder.MvvmCross.Views
         private void ButtonOKClick(object sender, System.EventArgs e)
         {
             this.Continue = true;
+        }
+
+        /// <summary>
+        /// when the view model selected value changed.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void ComboBoxViewModelSelectedValueChanged(
+            object sender, 
+            EventArgs e)
+        {
+            this.checkBoxIncludeUnitTests.Visible = this.comboBoxViewModel.SelectedItem != string.Empty;
         }
     }
 }

@@ -39,7 +39,7 @@
             // 
             // lblSelectTheRequiredConverters
             // 
-            this.lblSelectTheRequiredConverters.Location = new System.Drawing.Point(477, 26);
+            this.lblSelectTheRequiredConverters.Location = new System.Drawing.Point(325, 14);
             this.lblSelectTheRequiredConverters.Name = "lblSelectTheRequiredConverters";
             this.lblSelectTheRequiredConverters.Size = new System.Drawing.Size(272, 18);
             this.lblSelectTheRequiredConverters.TabIndex = 0;
@@ -49,8 +49,8 @@
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonHelp.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonHelp.Location = new System.Drawing.Point(315, 418);
-            this.buttonHelp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonHelp.Location = new System.Drawing.Point(153, 418);
+            this.buttonHelp.Margin = new System.Windows.Forms.Padding(4);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(100, 27);
             this.buttonHelp.TabIndex = 4;
@@ -60,8 +60,8 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonOK.Location = new System.Drawing.Point(668, 375);
-            this.buttonOK.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonOK.Location = new System.Drawing.Point(516, 363);
+            this.buttonOK.Margin = new System.Windows.Forms.Padding(4);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(100, 27);
             this.buttonOK.TabIndex = 2;
@@ -72,8 +72,8 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(776, 375);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonCancel.Location = new System.Drawing.Point(624, 363);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 27);
             this.buttonCancel.TabIndex = 3;
@@ -82,7 +82,7 @@
             // 
             // mvxListView1
             // 
-            this.mvxListView1.Location = new System.Drawing.Point(480, 58);
+            this.mvxListView1.Location = new System.Drawing.Point(328, 46);
             this.mvxListView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.mvxListView1.Name = "mvxListView1";
             this.mvxListView1.Size = new System.Drawing.Size(396, 263);
@@ -92,17 +92,17 @@
             // 
             this.logo1.BackColor = System.Drawing.Color.White;
             this.logo1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.logo1.Location = new System.Drawing.Point(41, 15);
-            this.logo1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.logo1.Location = new System.Drawing.Point(14, 14);
+            this.logo1.Margin = new System.Windows.Forms.Padding(5);
             this.logo1.Name = "logo1";
-            this.logo1.Size = new System.Drawing.Size(386, 376);
+            this.logo1.Size = new System.Drawing.Size(278, 376);
             this.logo1.TabIndex = 5;
             // 
             // ItemTemplatesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(903, 416);
+            this.ClientSize = new System.Drawing.Size(741, 416);
             this.Controls.Add(this.logo1);
             this.Controls.Add(this.mvxListView1);
             this.Controls.Add(this.buttonHelp);

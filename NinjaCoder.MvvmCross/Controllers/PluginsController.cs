@@ -5,13 +5,15 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
+    using System;
     using System.Collections.Generic;
-
-    using NinjaCoder.MvvmCross.Services;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-    using NinjaCoder.MvvmCross.Views;
-
+    using System.IO.Abstractions;
     using Scorchio.VisualStudio.Extensions;
+    using Scorchio.VisualStudio.Services;
+    using Services;
+    using Services.Interfaces;
+    using Translators;
+    using Views;
 
     /// <summary>
     /// Defines the PluginsController type.
@@ -27,8 +29,9 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// Initializes a new instance of the <see cref="PluginsController" /> class.
         /// </summary>
         public PluginsController()
-            : this(new PluginsService())
+            : this(new PluginsService(new CodeSnippetTranslator(), new FileSystem()))
         {
+            TraceService.WriteLine("PluginsController::Constructor");
         }
 
         /// <summary>
@@ -51,7 +54,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             if (this.VisualStudioService.IsMvvmCrossSolution)
             {
-                PluginsForm form = new PluginsForm(this.GetViewModelNames());
+                PluginsForm form = new PluginsForm(this.GetViewModelNames(), this.SettingsService.DisplayLogo);
 
                 form.ShowDialog();
 
@@ -59,22 +62,29 @@ namespace NinjaCoder.MvvmCross.Controllers
                 {
                     this.WriteStatusBarMessage("Ninja Coder is running....");
 
-                    IEnumerable<string> messages = this.pluginsService.AddPlugins(
-                        this.VisualStudioService,
-                        form.RequiredPlugins,
-                        form.ImplementInViewModel,
-                        this.SettingsService.CodeSnippetsPath + @"\Plugins");
+                    try
+                    {
+                        IEnumerable<string> messages = this.pluginsService.AddPlugins(
+                            this.VisualStudioService,
+                            form.RequiredPlugins,
+                            form.ImplementInViewModel,
+                            this.SettingsService.CodeSnippetsPath + @"\Plugins",
+                            form.IncludeUnitTests);
 
-                    //// close any open documents.
-                    this.VisualStudioService.DTE2.CloseDocuments();
+                        //// needs fixing - this is when we create the constructor parameters for the unit tests.
+                        this.VisualStudioService.DTE2.ReplaceText(",)", ")", false);
 
-                    //// now collapse the solution!
-                    this.VisualStudioService.DTE2.CollapseSolution();
+                        this.VisualStudioService.DTE2.SaveAll();
 
-                    //// show the readme.
-                    this.ShowReadMe("Add Plugins", messages);
+                        //// show the readme.
+                        this.ShowReadMe("Add Plugins", messages);
 
-                    this.WriteStatusBarMessage("Ninja Coder has completed the adding of the plugins.");
+                        this.WriteStatusBarMessage("Ninja Coder has completed the adding of the plugins.");
+                    }
+                    catch (Exception exception)
+                    {
+                        TraceService.WriteError("Cannot create plugins exception=" + exception.Message);
+                    }
                 }
             }
             else

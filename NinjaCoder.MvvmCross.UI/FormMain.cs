@@ -11,7 +11,7 @@ namespace NinjaCoder.MvvmCross.UI
 
     using EnvDTE;
 
-    using NinjaCoder.MvvmCross.Controllers;
+    using Controllers;
 
     /// <summary>
     ///    Defines the Form1 type.

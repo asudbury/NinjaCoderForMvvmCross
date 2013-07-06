@@ -62,24 +62,34 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.LocationService",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{7836EE93-6A3A-4756-BE3B-0D5FC0F1EB23}"
 	ProjectSection(SolutionItems) = preProject
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Accelerometer.txt = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Accelerometer.txt
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Bookmarks.txt = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Bookmarks.txt
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Color.txt = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Color.txt
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.DownloadCache.txt = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.DownloadCache.txt
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Email.txt = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Email.txt
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.File.txt = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.File.txt
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Json.txt = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Json.txt
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Network.txt = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Network.txt
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.PhoneCall.txt = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.PhoneCall.txt
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.PictureChooser.txt = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.PictureChooser.txt
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ReflectionEx.txt = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ReflectionEx.txt
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ResourceLoader.txt = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ResourceLoader.txt
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Share.txt = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Share.txt
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.SoundEffects.txt = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.SoundEffects.txt
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Sqlite.txt = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Sqlite.txt
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ThreadUtils.txt = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ThreadUtils.txt
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Visibility.txt = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Visibility.txt
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.WebBrowser.txt = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.WebBrowser.txt
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Accelerometer.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Accelerometer.Tests.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Accelerometer.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Accelerometer.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Bookmarks.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Bookmarks.Tests.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Bookmarks.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Bookmarks.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Email.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Email.Tests.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Email.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Email.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.File.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.File.Tests.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.File.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.File.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Json.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Json.Tests.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Json.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Json.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Network.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Network.Tests.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Network.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Network.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.PhoneCall.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.PhoneCall.Tests.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.PhoneCall.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.PhoneCall.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.PictureChooser.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.PictureChooser.Tests.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.PictureChooser.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.PictureChooser.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ReflectionEx.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ReflectionEx.Tests.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ReflectionEx.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ReflectionEx.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ResourceLoader.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ResourceLoader.Tests.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ResourceLoader.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ResourceLoader.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Share.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Share.Tests.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Share.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Share.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.SoundEffects.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.SoundEffects.Tests.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.SoundEffects.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.SoundEffects.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ThreadUtils.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ThreadUtils.Tests.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ThreadUtils.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ThreadUtils.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.WebBrowser.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.WebBrowser.Tests.xml
+		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.WebBrowser.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.WebBrowser.xml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2A21A7FB-5AFB-41CC-8F16-89A7876CE975}"
@@ -88,6 +98,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2A
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.TypeResolverService", "ItemTemplates\Core\Services\MvvmCross.TypeResolverService\MvvmCross.TypeResolverService.csproj", "{457B14E5-CBED-4936-AE1C-F46EEB623B28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.AzureMobileService", "ItemTemplates\Core\Services\MvvmCross.AzureMobileService\MvvmCross.AzureMobileService.csproj", "{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -835,6 +847,42 @@ Global
 		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Release|x64.ActiveCfg = Release|Any CPU
 		{457B14E5-CBED-4936-AE1C-F46EEB623B28}.Release|x86.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Ad-Hoc|ARM.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Ad-Hoc|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Ad-Hoc|Mixed Platforms.Build.0 = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Ad-Hoc|x64.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Ad-Hoc|x86.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.AppStore|Any CPU.Build.0 = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.AppStore|ARM.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.AppStore|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.AppStore|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.AppStore|Mixed Platforms.Build.0 = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.AppStore|x64.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.AppStore|x86.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Release|ARM.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Release|x64.ActiveCfg = Release|Any CPU
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -863,6 +911,7 @@ Global
 		{63642E05-1023-4883-80E9-30A0BA416179} = {57CEA34B-317D-47F2-B56A-33782CD98E2D}
 		{BFC01E99-51CF-4E15-86A7-325AF21B36ED} = {731EBF6A-E718-4FF2-BD11-7311C9C8EE4B}
 		{457B14E5-CBED-4936-AE1C-F46EEB623B28} = {731EBF6A-E718-4FF2-BD11-7311C9C8EE4B}
+		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D} = {731EBF6A-E718-4FF2-BD11-7311C9C8EE4B}
 		{2DBE39C7-8950-49F5-B24F-ADF44512CBBC} = {4DC2D446-8564-4C67-BEED-098990449CCA}
 		{7836EE93-6A3A-4756-BE3B-0D5FC0F1EB23} = {D28560DF-FA52-4974-9D98-C4D21691811D}
 		{2A21A7FB-5AFB-41CC-8F16-89A7876CE975} = {D28560DF-FA52-4974-9D98-C4D21691811D}

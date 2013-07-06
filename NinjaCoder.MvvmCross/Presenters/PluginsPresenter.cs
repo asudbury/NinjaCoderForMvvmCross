@@ -7,11 +7,11 @@ namespace NinjaCoder.MvvmCross.Presenters
 {
     using System.Collections.Generic;
 
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Services;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-    using NinjaCoder.MvvmCross.Translators;
-    using NinjaCoder.MvvmCross.Views.Interfaces;
+    using Entities;
+    using Services;
+    using Services.Interfaces;
+    using Translators;
+    using Views.Interfaces;
 
     /// <summary>
     ///  Defines the PluginsPresenter type.
@@ -60,7 +60,10 @@ namespace NinjaCoder.MvvmCross.Presenters
         /// Loads this instance.
         /// </summary>
         /// <param name="viewModelNames">The view model names.</param>
-        public void Load(List<string> viewModelNames)
+        /// <param name="displayLogo">if set to <c>true</c> [display logo].</param>
+        public void Load(
+            List<string> viewModelNames,
+            bool displayLogo)
         {
             Plugins plugins = this.translator.Translate(this.settingsService.CorePluginsPath);
 
@@ -76,6 +79,9 @@ namespace NinjaCoder.MvvmCross.Presenters
                     this.view.AddViewModel(viewModelName);
                 }
             }
+
+            this.view.DisplayLogo = displayLogo;
         }
+
     }
 }

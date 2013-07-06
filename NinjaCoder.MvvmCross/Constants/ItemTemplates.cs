@@ -3,7 +3,6 @@
 //    Defines the ItemTemplates type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Constants
 {
     /// <summary>
@@ -15,6 +14,11 @@ namespace NinjaCoder.MvvmCross.Constants
         /// The view model
         /// </summary>
         public const string ViewModel = "MvvmCross.ViewModel.zip";
+
+        /// <summary>
+        /// The test view model
+        /// </summary>
+        public const string TestViewModel = "MvvmCross.Test.ViewModel.zip";
 
         /// <summary>
         /// The Views type.

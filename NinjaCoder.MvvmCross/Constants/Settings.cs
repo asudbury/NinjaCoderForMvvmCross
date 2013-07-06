@@ -3,7 +3,6 @@
 //    Defines the Settings type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Constants
 {
     /// <summary>
@@ -20,7 +19,12 @@ namespace NinjaCoder.MvvmCross.Constants
         /// The core
         /// </summary>
         public const string Core = "Core";
-        
+
+        /// <summary>
+        /// The core tests
+        /// </summary>
+        public const string CoreTests = "Core.Tests";
+
         /// <summary>
         /// The droid
         /// </summary>
@@ -50,5 +54,10 @@ namespace NinjaCoder.MvvmCross.Constants
         /// The default path
         /// </summary>
         public const string DefaultPath = "DefaultPath";
+
+        /// <summary>
+        /// The replace blank lines reg ex
+        /// </summary>
+        public const string ReplaceBlankLinesRegEx = @"(?<!\r)\n";
     }
 }

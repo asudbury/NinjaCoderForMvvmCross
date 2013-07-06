@@ -16,5 +16,27 @@ namespace NinjaCoder.MvvmCross.Views
         /// Gets or sets a value indicating whether this <see cref="SolutionOptionsForm"/> is continue.
         /// </summary>
         public bool Continue { get; set; }
-    }
+
+        /// <summary>
+        /// Sets the logo visibility.
+        /// </summary>
+        /// <param name="logoControl">The logo control.</param>
+        /// <param name="visibility">if set to <c>true</c> [visibility].</param>
+        protected void SetLogoVisibility(
+            Control logoControl, 
+            bool visibility)
+        {
+            logoControl.Visible = visibility;
+
+            if (visibility == false)
+            {
+                this.Width = this.Width - logoControl.Width;
+
+                foreach (Control control in this.Controls)
+                {
+                    control.Left = control.Left - logoControl.Width;
+                }
+            }
+        }
+}
 }

@@ -7,12 +7,11 @@ namespace NinjaCoder.MvvmCross.Controllers
 {
     using System.Collections.Generic;
     using System.IO;
-    using System.Net;
 
     using EnvDTE;
 
-    using NinjaCoder.MvvmCross.Services;
-    using NinjaCoder.MvvmCross.Views;
+    using Services;
+    using Views;
 
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Extensions;
@@ -29,6 +28,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         public ServicesController()
             : base(new VisualStudioService(), new ReadMeService(), new SettingsService())
         {
+            TraceService.WriteLine("ServicesController::Constructor");
         }
 
         /// <summary>
@@ -60,39 +60,8 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                         foreach (ItemTemplateInfo templateInfo in form.RequiredTemplates)
                         {
-                            TraceService.WriteLine("MvvmCrossController::AddServices adding from template path " + templatesPath + " template=" + templateInfo.FileName);
-
-                            string fileName = templateInfo.FriendlyName + ".cs";
-
-                            project.AddToFolderFromTemplate("Services", templateInfo.FileName, fileName, false);
-
-                            //// do we need to add any using statements??
-                            string configFile = string.Format(@"{0}\Services\Services.{1}.Config.xml", this.SettingsService.CodeSnippetsPath, templateInfo.FriendlyName);
-
-                            if (File.Exists(configFile))
-                            {
-                                string line;
-
-                                string sourceDirectory = this.SettingsService.CorePluginsPath;
-
-                                StreamReader streamReader = new StreamReader(configFile);
-
-                                while ((line = streamReader.ReadLine()) != null)
-                                {
-                                    project.AddReference("Lib", project.GetProjectPath() + @"\Lib\" + line, sourceDirectory + @"\" + line);
-                                }
-
-                                streamReader.Close();
-                            }
-
-                            messages.Add(@"Services\" + fileName + " added to project " + project.Name + ".");
+                            messages.Add(this.CreateTemplate(templatesPath, templateInfo, project));
                         }
-
-                        //// close any open documents.
-                        this.VisualStudioService.DTE2.CloseDocuments();
-
-                        //// now collapse the solution!
-                        this.VisualStudioService.DTE2.CollapseSolution();
 
                         //// show the readme.
                         this.ShowReadMe("Add Services", messages);
@@ -101,7 +70,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                     }
                     else
                     {
-                        TraceService.WriteError("MvvmCrossController::AddServices Cannot find Core project");
+                        TraceService.WriteError("ServicesController::AddServices Cannot find Core project");
                     }
                 }
             }
@@ -109,6 +78,45 @@ namespace NinjaCoder.MvvmCross.Controllers
             {
                 this.ShowNotMvvmCrossSolutionMessage();
             }
+        }
+
+        /// <summary>
+        /// Creates the template.
+        /// </summary>
+        /// <param name="templatesPath">The templates path.</param>
+        /// <param name="templateInfo">The template info.</param>
+        /// <param name="project">The project.</param>
+        /// <returns>The message.</returns>
+        private string CreateTemplate(
+            string templatesPath, 
+            ItemTemplateInfo templateInfo, 
+            Project project)
+        {
+            TraceService.WriteLine("ServicesController::AddServices adding from template path " + templatesPath + " template=" + templateInfo.FileName);
+
+            string fileName = templateInfo.FriendlyName + ".cs";
+
+            project.AddToFolderFromTemplate("Services", templateInfo.FileName, fileName, false);
+
+            string configFile = string.Format(@"{0}\Services\Services.{1}.Config.xml", this.SettingsService.CodeSnippetsPath, templateInfo.FriendlyName);
+
+            if (File.Exists(configFile))
+            {
+                string line;
+
+                string sourceDirectory = this.SettingsService.CorePluginsPath;
+
+                StreamReader streamReader = new StreamReader(configFile);
+
+                while ((line = streamReader.ReadLine()) != null)
+                {
+                    project.AddReference("Lib", project.GetProjectPath() + @"\Lib\" + line, sourceDirectory + @"\" + line);
+                }
+
+                streamReader.Close();
+            }
+
+            return @"Services\" + fileName + " added to project " + project.Name + ".";
         }
     }
 }

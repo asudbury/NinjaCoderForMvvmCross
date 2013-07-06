@@ -44,10 +44,10 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(673, 384);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonCancel.Location = new System.Drawing.Point(530, 388);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 27);
             this.buttonCancel.TabIndex = 9;
@@ -56,11 +56,11 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonOK.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonOK.Enabled = false;
-            this.buttonOK.Location = new System.Drawing.Point(565, 384);
-            this.buttonOK.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonOK.Location = new System.Drawing.Point(422, 388);
+            this.buttonOK.Margin = new System.Windows.Forms.Padding(4);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(100, 27);
             this.buttonOK.TabIndex = 8;
@@ -69,7 +69,7 @@
             // 
             // textBoxProject
             // 
-            this.textBoxProject.Location = new System.Drawing.Point(485, 53);
+            this.textBoxProject.Location = new System.Drawing.Point(385, 58);
             this.textBoxProject.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxProject.Name = "textBoxProject";
             this.textBoxProject.Size = new System.Drawing.Size(248, 22);
@@ -80,7 +80,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(417, 53);
+            this.label4.Location = new System.Drawing.Point(317, 58);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(52, 17);
             this.label4.TabIndex = 3;
@@ -89,7 +89,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(432, 20);
+            this.label9.Location = new System.Drawing.Point(332, 25);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(37, 17);
             this.label9.TabIndex = 0;
@@ -97,7 +97,7 @@
             // 
             // textBoxPath
             // 
-            this.textBoxPath.Location = new System.Drawing.Point(485, 15);
+            this.textBoxPath.Location = new System.Drawing.Point(385, 20);
             this.textBoxPath.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxPath.Name = "textBoxPath";
             this.textBoxPath.Size = new System.Drawing.Size(248, 22);
@@ -105,7 +105,7 @@
             // 
             // buttonPath
             // 
-            this.buttonPath.Location = new System.Drawing.Point(740, 15);
+            this.buttonPath.Location = new System.Drawing.Point(640, 20);
             this.buttonPath.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonPath.Name = "buttonPath";
             this.buttonPath.Size = new System.Drawing.Size(39, 23);
@@ -116,7 +116,7 @@
             // 
             // lblRequiredProjects
             // 
-            this.lblRequiredProjects.Location = new System.Drawing.Point(485, 100);
+            this.lblRequiredProjects.Location = new System.Drawing.Point(385, 105);
             this.lblRequiredProjects.Name = "lblRequiredProjects";
             this.lblRequiredProjects.Size = new System.Drawing.Size(248, 16);
             this.lblRequiredProjects.TabIndex = 5;
@@ -124,7 +124,7 @@
             // 
             // mvxListView1
             // 
-            this.mvxListView1.Location = new System.Drawing.Point(485, 118);
+            this.mvxListView1.Location = new System.Drawing.Point(385, 123);
             this.mvxListView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.mvxListView1.Name = "mvxListView1";
             this.mvxListView1.Size = new System.Drawing.Size(245, 231);
@@ -134,17 +134,17 @@
             // 
             this.logo1.BackColor = System.Drawing.Color.White;
             this.logo1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.logo1.Location = new System.Drawing.Point(16, 15);
-            this.logo1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.logo1.Location = new System.Drawing.Point(14, 20);
+            this.logo1.Margin = new System.Windows.Forms.Padding(5);
             this.logo1.Name = "logo1";
-            this.logo1.Size = new System.Drawing.Size(386, 376);
+            this.logo1.Size = new System.Drawing.Size(285, 381);
             this.logo1.TabIndex = 10;
             // 
             // SolutionOptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(821, 452);
+            this.ClientSize = new System.Drawing.Size(700, 452);
             this.Controls.Add(this.logo1);
             this.Controls.Add(this.mvxListView1);
             this.Controls.Add(this.lblRequiredProjects);

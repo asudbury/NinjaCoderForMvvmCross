@@ -3,19 +3,16 @@
 //    Defines the ConvertersController type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace NinjaCoder.MvvmCross.Controllers
 {
     using System.Collections.Generic;
+    using Services.Interfaces;
 
-    using EnvDTE;
-
-    using NinjaCoder.MvvmCross.Services;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-    using NinjaCoder.MvvmCross.Views;
+    using Services;
+    using Views;
 
     using Scorchio.VisualStudio.Entities;
-    using Scorchio.VisualStudio.Extensions;
-    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     /// Defines the ConvertersController type.
@@ -28,10 +25,15 @@ namespace NinjaCoder.MvvmCross.Controllers
         private readonly ISettingsService settingsService;
 
         /// <summary>
+        /// The converter service.
+        /// </summary>
+        private readonly IConvertersService converterService;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ConvertersController"/> class.
         /// </summary>
         public ConvertersController()
-            : this(new SettingsService())
+            : this(new SettingsService(), new ConvertersService())
         {
         }
 
@@ -39,10 +41,14 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// Initializes a new instance of the <see cref="ConvertersController" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
-        public ConvertersController(ISettingsService settingsService)
+        /// <param name="convertersService">The converters service.</param>
+        public ConvertersController(
+            ISettingsService settingsService,
+            IConvertersService convertersService)
             : base(new VisualStudioService(), new ReadMeService(), new SettingsService())
         {
             this.settingsService = settingsService;
+            this.converterService = convertersService;
         }
 
         /// <summary>
@@ -66,49 +72,15 @@ namespace NinjaCoder.MvvmCross.Controllers
                 {
                     this.WriteStatusBarMessage("Ninja Coder is running....");
 
-                    Project project = this.VisualStudioService.CoreProject;
+                    IEnumerable<string> messages = this.converterService.AddConverters(
+                                                        this.VisualStudioService.CoreProjectService, 
+                                                        templatesPath, 
+                                                        form.RequiredTemplates);
 
-                    if (project != null)
-                    {
-                        List<string> messages = new List<string>();
+                    //// show the readme.
+                    this.ShowReadMe("Add Converters", messages);
 
-                        foreach (ItemTemplateInfo templateInfo in form.RequiredTemplates)
-                        {
-                            TraceService.WriteLine("MvvmCrossController::AddConverters adding from template path " + templatesPath + " template=" + templateInfo.FileName);
-
-                            string fileName = templateInfo.FriendlyName + ".cs";
-
-                            project.AddToFolderFromTemplate("Converters", templateInfo.FileName, fileName, false);
-
-                            ProjectItem projectItem = project.GetProjectItem(fileName);
-
-                            //// if we find the project item replace the text in it.
-                            if (projectItem != null)
-                            {
-                                TextSelection textSelection = projectItem.DTE.ActiveDocument.Selection;
-                                textSelection.SelectAll();
-                                textSelection.ReplacePattern("MvvmCross." + templateInfo.FriendlyName, project.Name);
-                                projectItem.Save();
-                            }
-
-                            messages.Add(@"Converters\" + fileName + " added to project " + project.Name + ".");
-                        }
-
-                        //// close any open documents.
-                        this.VisualStudioService.DTE2.CloseDocuments();
-
-                        //// now collapse the solution!
-                        this.VisualStudioService.DTE2.CollapseSolution();
-
-                        //// show the readme.
-                        this.ShowReadMe("Add Converters", messages);
-
-                        this.WriteStatusBarMessage("Ninja Coder has completed the adding of the converters.");
-                    }
-                    else
-                    {
-                        TraceService.WriteError("MvvmCrossController::AddConverters cannot find Core project");
-                    }
+                    this.WriteStatusBarMessage("Ninja Coder has completed the adding of the converters.");
                 }
             }
             else

@@ -3,7 +3,6 @@
 //    Defines the FirstView type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace WpfTemplate.Views
 {
     using Cirrious.MvvmCross.Wpf.Views;

@@ -11,8 +11,8 @@ namespace NinjaCoder.MvvmCross.Views
     using System.Linq;
     using System.Windows.Forms;
 
-    using NinjaCoder.MvvmCross.Presenters;
-    using NinjaCoder.MvvmCross.Views.Interfaces;
+    using Presenters;
+    using Interfaces;
 
     using Scorchio.VisualStudio.Entities;
 
@@ -27,16 +27,19 @@ namespace NinjaCoder.MvvmCross.Views
         /// <param name="defaultProjectsLocation">The default projects location.</param>
         /// <param name="defaultProjectName">Default name of the project.</param>
         /// <param name="projectInfos">The project infos.</param>
+        /// <param name="displayLogo">if set to <c>true</c> [display logo].</param>
         public SolutionOptionsForm(
             string defaultProjectsLocation,
             string defaultProjectName,
-            List<ProjectTemplateInfo> projectInfos)
+            List<ProjectTemplateInfo> projectInfos,
+            bool displayLogo)
         {
             this.Presenter = new SolutionOptionsPresenter(
                 this, 
                 defaultProjectsLocation, 
                 defaultProjectName,
-                projectInfos);
+                projectInfos,
+                displayLogo);
 
             this.InitializeComponent();
 
@@ -50,6 +53,14 @@ namespace NinjaCoder.MvvmCross.Views
         /// The presenter.
         /// </value>
         public SolutionOptionsPresenter Presenter { get; set; }
+
+        /// <summary>
+        /// Sets a value indicating whether [display logo].
+        /// </summary>
+        public bool DisplayLogo 
+        { 
+            set { this.SetLogoVisibility(this.logo1, value); }
+        }
 
         /// <summary>
         /// Gets or sets the path.

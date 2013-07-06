@@ -13,12 +13,12 @@ namespace Scorchio.VisualStudio.Extensions
     using EnvDTE;
     using EnvDTE80;
 
-    using Scorchio.VisualStudio.Entities;
-    using Scorchio.VisualStudio.Services;
+    using Entities;
+    using Services;
 
     using Project = EnvDTE.Project;
 
-    /// <summary>
+    /// <summary>L
     ///  Defines the SolutionExtensions type.
     /// </summary>
     public static class SolutionExtensions
@@ -30,9 +30,23 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The Directory path.</returns>
         public static string GetDirectoryName(this Solution2 instance)
         {
+            TraceService.WriteLine("SolutionExtensions::GetDirectoryName");
+
             if (instance.FileName != string.Empty)
             {
                 return Path.GetDirectoryName(instance.FullName);
+            }
+                
+            Project project = instance.GetProjects().FirstOrDefault();
+
+            if (project != null) 
+            {
+                string projectPath = Path.GetDirectoryName(project.FullName);
+
+                if (projectPath != null)
+                {
+                    return projectPath.Replace(project.Name, string.Empty);
+                }
             }
 
             return string.Empty;
@@ -48,7 +62,9 @@ namespace Scorchio.VisualStudio.Extensions
             this Solution2 instance,
             string templateName)
         {
-             return instance.GetProjectTemplate(templateName, "CSharp");
+            TraceService.WriteLine("SolutionExtensions::GetProjectTemplate templateName=" + templateName);
+
+            return instance.GetProjectTemplate(templateName, "CSharp");
         }
 
         /// <summary>
@@ -61,6 +77,8 @@ namespace Scorchio.VisualStudio.Extensions
             this Solution2 instance,
             string templateName)
         {
+            TraceService.WriteLine("SolutionExtensions::GetProjectItemTemplate templateName=" + templateName);
+
             return instance.GetProjectItemTemplate(templateName, "CSharp");
         }
 
@@ -78,6 +96,8 @@ namespace Scorchio.VisualStudio.Extensions
             string solutionFolder,
             string path)
         {
+            TraceService.WriteLine("SolutionExtensions::AddSolutionItem path=" + path);
+
             Project project = instance.GetProject(solutionFolder) ?? instance.AddSolutionFolder(solutionFolder);
 
             return project.ProjectItems.AddFromFile(path);
@@ -96,9 +116,9 @@ namespace Scorchio.VisualStudio.Extensions
             string templatePath,
             string projectName)
         {
-            string projectPath = string.Format("{0}{1}", path, projectName);
+            TraceService.WriteLine("SolutionExtensions::AddProjectToSolution path=" + path);
 
-            instance.AddFromTemplate(templatePath, projectPath, projectName);
+            instance.AddFromTemplate(templatePath, path, projectName);
         }
 
         /// <summary>
@@ -259,7 +279,7 @@ namespace Scorchio.VisualStudio.Extensions
 
             IEnumerable<Project> projects = instance.GetProjects();
 
-            TraceService.WriteError("AddItemTemplateToProjects project count=" + projects.Count());   
+            TraceService.WriteError("AddItemTemplateToProjects project count=" + projects.Count());
 
             foreach (ItemTemplateInfo info in templateInfos)
             {

@@ -8,8 +8,10 @@ namespace NinjaCoder.MvvmCross.Services
     using System;
     using System.IO;
 
-    using NinjaCoder.MvvmCross.Constants;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Constants;
+    using Interfaces;
+
+    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     /// Defines the ConfigurationService type.
@@ -17,22 +19,32 @@ namespace NinjaCoder.MvvmCross.Services
     public class ConfigurationService : IConfigurationService
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="ConfigurationService" /> class.
+        /// </summary>
+        public ConfigurationService()
+        {
+            TraceService.WriteLine("ConfigurationService::Constructor");
+        }
+
+        /// <summary>
         /// Creates the user directories.
         /// </summary>
         public void CreateUserDirectories()
         {
+            TraceService.WriteLine("ConfigurationService::CreateUserDirectories");
+
             string myDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-            string parentPath = CreateDirectoryIfNotExist(myDocumentsPath, Settings.ApplicationName);
-            CreateDirectoryIfNotExist(parentPath, "CodeSnippets");
-            string mvvmCrossPath = CreateDirectoryIfNotExist(parentPath, "MvvmCross");
-            string assembliesPath = CreateDirectoryIfNotExist(mvvmCrossPath, "Assemblies");
-            CreatePluginsDirectoryIfNotExist(assembliesPath, Settings.Core);
-            CreatePluginsDirectoryIfNotExist(assembliesPath, Settings.Droid);
-            CreatePluginsDirectoryIfNotExist(assembliesPath, Settings.iOS);
-            CreatePluginsDirectoryIfNotExist(assembliesPath, Settings.WindowsPhone);
-            CreatePluginsDirectoryIfNotExist(assembliesPath, Settings.WindowsStore);
-            CreatePluginsDirectoryIfNotExist(assembliesPath, Settings.Wpf);
+            string parentPath = this.CreateDirectoryIfNotExist(myDocumentsPath, Settings.ApplicationName);
+            this.CreateDirectoryIfNotExist(parentPath, "CodeSnippets");
+            string mvvmCrossPath = this.CreateDirectoryIfNotExist(parentPath, "MvvmCross");
+            string assembliesPath = this.CreateDirectoryIfNotExist(mvvmCrossPath, "Assemblies");
+            this.CreatePluginsDirectoryIfNotExist(assembliesPath, Settings.Core);
+            this.CreatePluginsDirectoryIfNotExist(assembliesPath, Settings.Droid);
+            this.CreatePluginsDirectoryIfNotExist(assembliesPath, Settings.iOS);
+            this.CreatePluginsDirectoryIfNotExist(assembliesPath, Settings.WindowsPhone);
+            this.CreatePluginsDirectoryIfNotExist(assembliesPath, Settings.WindowsStore);
+            this.CreatePluginsDirectoryIfNotExist(assembliesPath, Settings.Wpf);
         }
 
         /// <summary>
@@ -45,11 +57,20 @@ namespace NinjaCoder.MvvmCross.Services
             string parentPath,
             string directoryName)
         {
+            TraceService.WriteLine("ConfigurationService::CreateDirectoryIfNotExist directoryName=" + directoryName);
+
             string path = string.Format(@"{0}\{1}", parentPath, directoryName);
 
             if (Directory.Exists(path) == false)
             {
-                Directory.CreateDirectory(path);
+                try
+                {
+                    Directory.CreateDirectory(path);
+                }
+                catch (Exception exception)
+                {
+                    TraceService.WriteError("Error Creating directory Error=" + exception.Message);
+                }
             }
 
             return path;
@@ -65,8 +86,10 @@ namespace NinjaCoder.MvvmCross.Services
             string parentPath,
             string directoryName)
         {
-            string path = CreateDirectoryIfNotExist(parentPath, directoryName);
-            return CreateDirectoryIfNotExist(path, "Plugins");
+            TraceService.WriteLine("ConfigurationService::CreatePluginsDirectoryIfNotExist directoryName=" + directoryName);
+
+            string path = this.CreateDirectoryIfNotExist(parentPath, directoryName);
+            return this.CreateDirectoryIfNotExist(path, "Plugins");
         }
     }
 }
