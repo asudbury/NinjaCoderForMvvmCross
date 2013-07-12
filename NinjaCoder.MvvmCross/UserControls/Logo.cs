@@ -5,7 +5,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.UserControls
 {
-    using System;
     using System.Windows.Forms;
 
     using NinjaCoder.MvvmCross.Services;

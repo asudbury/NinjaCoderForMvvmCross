@@ -49,7 +49,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The project items.</returns>
         public static IEnumerable<ProjectItem> GetProjectItems(this Project instance)
         {
-            TraceService.WriteLine("ProjectExtensions::GetProjectItems");
+            TraceService.WriteLine("ProjectExtensions::GetProjectItems project=" + instance.Name);
 
             return instance.ProjectItems != null ? instance.ProjectItems.Cast<ProjectItem>().ToList() : null;
         }
@@ -61,7 +61,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The project items.</returns>
         public static IEnumerable<ProjectItem> GetCSharpProjectItems(this Project instance)
         {
-            TraceService.WriteLine("ProjectExtensions::GetCSharpProjectItems");
+            TraceService.WriteLine("ProjectExtensions::GetCSharpProjectItems project=" + instance.Name);
 
             return instance.ProjectItems.Cast<ProjectItem>().Where(x => x.Name.EndsWith(".cs")).ToList();
         }
@@ -76,11 +76,11 @@ namespace Scorchio.VisualStudio.Extensions
             this Project instance,
             string fileName)
         {
-            TraceService.WriteLine("ProjectExtensions::GetProjectItem fileName=" + fileName);
+            TraceService.WriteLine("ProjectExtensions::GetProjectItem project=" + instance.Name + " fileName=" + fileName);
 
             ProjectItem projectItem = instance.GetCSharpProjectItems().FirstOrDefault(x => x.Name.StartsWith(fileName));
 
-            //// try all the subfolders!
+            //// try all the sub-folders!
             if (projectItem == null)
             {
                 IEnumerable<ProjectItem> projectItems = instance.GetProjectItems();
@@ -114,7 +114,7 @@ namespace Scorchio.VisualStudio.Extensions
             this Project instance,
             string folderName)
         {
-            TraceService.WriteLine("ProjectExtensions::GetFolder");
+            TraceService.WriteLine("ProjectExtensions::GetFolder project=" + instance.Name + " folderName=" + folderName);
 
             List<ProjectItem> projectItems = instance.ProjectItems != null ? instance.ProjectItems.Cast<ProjectItem>().ToList() : null;
 
@@ -122,8 +122,7 @@ namespace Scorchio.VisualStudio.Extensions
             {
                 foreach (ProjectItem projectItem in projectItems)
                 {
-                    ////if (projectItem.Kind == ProjectKinds.vsProjectKindPhysicalFolder)
-                    if (projectItem.Kind == "{6BB5F8EF-4483-11D3-8BCF-00C04F8EC28C}")
+                    if (projectItem.Kind == VSConstants.VsProjectItemKindPhysicalFolder)
                     {
                         if (projectItem.Name == folderName)
                         {
@@ -143,7 +142,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The project references.</returns>
         public static IEnumerable<Reference> GetProjectReferences(this Project instance)
         {
-            TraceService.WriteLine("ProjectExtensions::GetProjectReferences");
+            TraceService.WriteLine("ProjectExtensions::GetProjectReferences project=" + instance.Name);
 
             VSProject project = instance.Object as VSProject;
 
@@ -160,7 +159,7 @@ namespace Scorchio.VisualStudio.Extensions
             this Project instance, 
             Project referencedProject)
         {
-            TraceService.WriteLine("ProjectExtensions::AddProjectReference");
+            TraceService.WriteLine("ProjectExtensions::AddProjectReference project=" + instance.Name);
 
             VSProject project = (VSProject)instance.Object;
 
@@ -183,7 +182,7 @@ namespace Scorchio.VisualStudio.Extensions
             string fileName,
             bool createFolder)
         {
-            TraceService.WriteLine("ProjectExtensions::AddToFolderFromTemplate");
+            TraceService.WriteLine("ProjectExtensions::AddToFolderFromTemplate project=" + instance.Name);
 
             string path = instance.Properties.Item("FullPath").Value;
             ProjectItems projectItems = instance.ProjectItems;
@@ -234,13 +233,13 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         /// <param name="folderName">Name of the folder.</param>
         /// <param name="fileName">Name of the file.</param>
-        /// <returns>True or False.</returns>
+        /// <returns> True or False.</returns>
         public static bool AddToFolderFromFile(
             this Project instance,
             string folderName,
             string fileName)
         {
-            TraceService.WriteLine("ProjectExtensions::AddToFolderFromFile");
+            TraceService.WriteLine("ProjectExtensions::AddToFolderFromFile folderName=" + folderName + " fileName=" + fileName);
 
             ProjectItem folderProjectItem = instance.ProjectItems
                 .Cast<ProjectItem>()
@@ -263,13 +262,15 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="destinationFolder">The destination folder.</param>
         /// <param name="destination">The destination.</param>
         /// <param name="source">The source.</param>
+        /// <param name="addFileToFolder">if set to <c>true</c> [add file to folder].</param>
         public static void AddReference(
             this Project instance,
             string destinationFolder,
             string destination,
-            string source)
+            string source,
+            bool addFileToFolder)
         {
-            TraceService.WriteLine("ProjectExtensions::AddReference");
+            TraceService.WriteLine("ProjectExtensions::AddReference project=" + instance.Name);
 
             if (destination.EndsWith(";"))
             {
@@ -295,7 +296,11 @@ namespace Scorchio.VisualStudio.Extensions
             if (File.Exists(destination) == false)
             {
                 File.Copy(source, destination, true);
-                instance.AddToFolderFromFile(destinationFolder, destination);
+
+                if (addFileToFolder)
+                {
+                    instance.AddToFolderFromFile(destinationFolder, destination);
+                }
 
                 //// now add a reference to the file
                 VSProject studioProject = instance.Object as VSProject;
@@ -303,6 +308,35 @@ namespace Scorchio.VisualStudio.Extensions
                 if (studioProject != null)
                 {
                     studioProject.References.Add(destination);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Removes the folder.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="folderName">Name of the folder.</param>
+        public static void RemoveFolder(
+            this Project instance, 
+            string folderName)
+        {
+            TraceService.WriteLine("ProjectExtensions::RemoveFolder project=" + instance.Name);
+
+            IEnumerable<ProjectItem> projectItems = instance.GetProjectItems();
+
+            if (projectItems != null)
+            {
+                foreach (ProjectItem projectItem in projectItems)
+                {
+                    if (projectItem.Kind == VSConstants.VsProjectItemKindPhysicalFolder)
+                    {
+                        if (projectItem.Name.ToLower() == folderName.ToLower())
+                        {
+                            projectItem.Remove();
+                            break;
+                        }
+                    }
                 }
             }
         }

@@ -36,10 +36,8 @@
     <Reference Include="EnvDTE80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Abstractions, Version=1.4.0.64, Culture=neutral, PublicKeyToken=d480b5b72fb413da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -50,13 +48,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml.Serialization" />
-    <Reference Include="VSLangProj, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>..\..\..\..\Program Files (x86)\Common Files\microsoft shared\MSEnv\PublicAssemblies\VSLangProj.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\FriendlyNames.cs" />
@@ -93,6 +85,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\ConfigurationService.cs" />
     <Compile Include="Services\ConvertersService.cs" />
     <Compile Include="Services\Interfaces\IConfigurationService.cs" />
@@ -101,6 +94,7 @@
     <Compile Include="Services\Interfaces\IReadMeService.cs" />
     <Compile Include="Services\Interfaces\IServicesService.cs" />
     <Compile Include="Services\Interfaces\ISettingsService.cs" />
+    <Compile Include="Services\Interfaces\ISnippetService.cs" />
     <Compile Include="Services\Interfaces\IUpdateVersionService.cs" />
     <Compile Include="Services\Interfaces\IVisualStudioService.cs" />
     <Compile Include="Services\Interfaces\IZipperService.cs" />
@@ -108,9 +102,11 @@
     <Compile Include="Services\ReadMeService.cs" />
     <Compile Include="Services\ServicesService.cs" />
     <Compile Include="Services\SettingsService.cs" />
+    <Compile Include="Services\SnippetService.cs" />
     <Compile Include="Services\UpdateVersionService.cs" />
     <Compile Include="Services\VisualStudioService.cs" />
     <Compile Include="Services\ZipperService.cs" />
+    <Compile Include="Translators\CodeConfigTranslator.cs" />
     <Compile Include="Translators\ITranslator.cs" />
     <Compile Include="Translators\PluginsTranslator.cs" />
     <Compile Include="Translators\CodeSnippetTranslator.cs" />

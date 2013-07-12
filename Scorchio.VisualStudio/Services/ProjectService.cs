@@ -20,7 +20,7 @@ namespace Scorchio.VisualStudio.Services
     /// <summary>
     /// Defines the ProjectService type.
     /// </summary>
-    public class ProjectService : IProjectService   
+    public class ProjectService : IProjectService
     {
         /// <summary>
         /// The project.
@@ -33,7 +33,7 @@ namespace Scorchio.VisualStudio.Services
         /// <param name="project">The project.</param>
         public ProjectService(Project project)
         {
-            this.project = project;    
+            this.project = project;
         }
 
         /// <summary>
@@ -172,15 +172,18 @@ namespace Scorchio.VisualStudio.Services
         /// <param name="destinationFolder">The destination folder.</param>
         /// <param name="destination">The destination.</param>
         /// <param name="source">The source.</param>
+        /// <param name="addFileToFolder">if set to <c>true</c> [add file to folder].</param>
         public void AddReference(
             string destinationFolder, 
             string destination, 
-            string source)
+            string source,
+            bool addFileToFolder)
         {
             this.project.AddReference(
                 destinationFolder,
                 destination,
-                source);
+                source,
+                addFileToFolder);
         }
 
         /// <summary>

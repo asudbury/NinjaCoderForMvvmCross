@@ -21,16 +21,14 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="plugins">The plugins.</param>
         /// <param name="viewModelName">Name of the view model.</param>
-        /// <param name="codeSnippetsPath">The code snippets path.</param>
         /// <param name="createUnitTests">if set to <c>true</c> [create unit tests].</param>
         /// <returns>
         /// The messages.
         /// </returns>
         IEnumerable<string> AddPlugins(
             IVisualStudioService visualStudioService, 
-            List<Plugin> plugins, 
+            IEnumerable<Plugin> plugins, 
             string viewModelName,
-            string codeSnippetsPath,
             bool createUnitTests);
 
         /// <summary>
@@ -42,7 +40,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <param name="extensionName">Name of the extension.</param>
         void AddProjectPlugins(
             IProjectService projectService,
-            List<Plugin> plugins, 
+            IEnumerable<Plugin> plugins, 
             string folderName, 
             string extensionName);
     }

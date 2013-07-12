@@ -6,15 +6,13 @@
 namespace NinjaCoder.MvvmCross.Controllers
 {
     using System.Collections.Generic;
-
     using EnvDTE;
-
     using EnvDTE80;
+    using Scorchio.VisualStudio.Extensions;
+    using Scorchio.VisualStudio.Services;
 
     using Services;
     using Views;
-
-    using Scorchio.VisualStudio.Extensions;
 
     /// <summary>
     /// Defines the ApplicationController type.
@@ -34,9 +32,16 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         public void ShowOptions()
         {
-            OptionsForm form = new OptionsForm();
+            OptionsForm form = new OptionsForm(this.SettingsService.DisplayLogo);
 
             form.ShowDialog();
+
+            //// in case any of the setting have changed to do with logging reset them!
+            TraceService.Initialize(
+                this.SettingsService.LogToTrace, 
+                this.SettingsService.LogToFile, 
+                this.SettingsService.LogFilePath, 
+                this.SettingsService.DisplayErrors);
         }
 
         /// <summary>

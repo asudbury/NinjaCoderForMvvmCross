@@ -4,11 +4,14 @@
   <Fragment>
     <ComponentGroup Id='ComponentGroupWindowsPhnonePlugins'>
 
-      <Component Id="MvvmCrossAssembliesWindowsPhonePluginsComponent" Directory="MvvmCrossAssembliesWindowsPhonePlugins" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-300000000004">
+      <Component Id="WindowsPhonePluginsComponent" 
+                 Directory="MvvmCrossAssembliesWindowsPhonePlugins" 
+                 DiskId="1" 
+                 Guid="825c8b3c-e1ee-4eae-85b2-300000000004">
 
         <RegistryKey Root="HKCU"
-                 Key="$(var.REGISTRY_KEY)">
-          <RegistryValue Type="string" Name="Windows Phone Plugins Path" Value="[MvvmCrossAssembliesWindowsPhonePlugins]"/>
+                 Key="$(var.PLUGINS_REGISTRY_KEY)" ForceCreateOnInstall="yes">
+          <RegistryValue Type="string" Name="Windows Phone Path" Value="[MvvmCrossAssembliesWindowsPhonePlugins]"/>
         </RegistryKey>
 
         <File Id="WindowsPhonePlugins1" Name="Cirrious.MvvmCross.Plugins.Accelerometer.WindowsPhone.dll"

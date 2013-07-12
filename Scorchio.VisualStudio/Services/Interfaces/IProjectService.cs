@@ -102,10 +102,12 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// <param name="destinationFolder">The destination folder.</param>
         /// <param name="destination">The destination.</param>
         /// <param name="source">The source.</param>
+        /// <param name="addFileToFolder">if set to <c>true</c> [add file to folder].</param>
         void AddReference(
             string destinationFolder,
             string destination,
-            string source);
+            string source,
+            bool addFileToFolder);
 
         /// <summary>
         /// Saves all.

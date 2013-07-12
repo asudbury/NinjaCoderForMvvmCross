@@ -21,11 +21,6 @@ namespace Scorchio.VisualStudio.Extensions
     public static class DTEExtensions
     {
         /// <summary>
-        /// Solutions Window.
-        /// </summary>
-        private const string vsext_wk_SProjectWindow = "{3AE79031-E1BC-11D0-8F78-00A0C9110057}";
-
-        /// <summary>
         /// Activates the specified instance.
         /// </summary>
         /// <param name="instance">The instance.</param>
@@ -209,13 +204,16 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="findText">The find text.</param>
         /// <param name="replaceText">The replace text.</param>
         /// <param name="saveFiles">if set to <c>true</c> [save files].</param>
-        public static void ReplaceText(
+        /// <returns>True or false.</returns>
+        public static bool ReplaceText(
             this DTE2 instance,
             string findText, 
             string replaceText,
             bool saveFiles)
         {
-            TraceService.WriteLine("DTEExtensions::ReplaceText from " + findText + " to " + replaceText);
+            TraceService.WriteLine("DTEExtensions::ReplaceText from '" + findText + "' to '" + replaceText + "'");
+
+            bool replaced = true;
 
             Find2 find2 = (Find2)instance.Find;
 
@@ -231,6 +229,7 @@ namespace Scorchio.VisualStudio.Extensions
             
             if (findResults == vsFindResult.vsFindResultNotFound)
             {
+                replaced = false;
                 TraceService.WriteError("Unable to replace text from:-" + findText + " to:- " + replaceText);
             }
 
@@ -238,6 +237,8 @@ namespace Scorchio.VisualStudio.Extensions
             {
                 instance.SaveAll();
             }
+
+            return replaced;
         }
 
         /// <summary>
@@ -248,7 +249,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="replaceText">The replace text.</param>
         /// <param name="regularExpression">if set to <c>true</c> [regular expression].</param>
         /// <param name="saveFiles">if set to <c>true</c> [save files].</param>
-         public static void ReplaceTextInCurrentDocument(
+        /// <returns>True or false.</returns>
+         public static bool ReplaceTextInCurrentDocument(
             this DTE2 instance,
             string findText,
             string replaceText,
@@ -256,6 +258,8 @@ namespace Scorchio.VisualStudio.Extensions
             bool saveFiles)
         {
             TraceService.WriteLine("DTEExtensions::ReplaceTextInCurrentDocument from:-" + findText + " to:- " + replaceText);
+
+            bool replaced = true;
 
             Find2 find2 = (Find2)instance.Find;
 
@@ -271,6 +275,7 @@ namespace Scorchio.VisualStudio.Extensions
 
             if (findResults == vsFindResult.vsFindResultNotFound)
             {
+                replaced = false;
                 TraceService.WriteError("Unable to replace text from:-" + findText + " to:- " + replaceText);
             }
 
@@ -278,6 +283,8 @@ namespace Scorchio.VisualStudio.Extensions
             {
                 instance.SaveAll();
             }
+
+            return replaced;
         }
 
         /// <summary>
@@ -299,7 +306,7 @@ namespace Scorchio.VisualStudio.Extensions
         {
             TraceService.WriteLine("DTEExtensions::CloseSolutionExplorerWindow");
 
-            instance.Windows.Item(vsext_wk_SProjectWindow).Close();
+            instance.Windows.Item(VSConstants.VsWindowKindSolutionExplorer).Close();
         }
 
         /// <summary>
@@ -321,7 +328,7 @@ namespace Scorchio.VisualStudio.Extensions
         {
             TraceService.WriteLine("DTEExtensions::CollapseSolution");
 
-            Window window = instance.Windows.Item(vsext_wk_SProjectWindow);
+            Window window = instance.Windows.Item(VSConstants.VsWindowKindSolutionExplorer);
 
             UIHierarchy uiHierarchy = (UIHierarchy)window.Object;
 
@@ -346,6 +353,16 @@ namespace Scorchio.VisualStudio.Extensions
             string message)
         {
             instance.StatusBar.Text = message;
+        }
+
+        /// <summary>
+        /// Gets the C sharp project items events.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns>The item events object.</returns>
+        public static ProjectItemsEvents GetCSharpProjectItemsEvents(this DTE2 instance)
+        {
+            return instance.Events.GetObject("CSharpProjectItemsEvents");
         }
     }
 }

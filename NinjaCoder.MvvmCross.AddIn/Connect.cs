@@ -8,6 +8,7 @@ namespace NinjaCoder.MvvmCross.AddIn
     using System.Windows.Forms;
     using Controllers;
     using Microsoft.VisualStudio.CommandBars;
+
     using Scorchio.VisualStudio;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;

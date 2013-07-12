@@ -15,7 +15,7 @@ namespace NinjaCoder.MvvmCross.Services
     /// <summary>
     ///  Defines the ZipperService type.
     /// </summary>
-    public class ZipperService : IZipperService
+    public class ZipperService : BaseService, IZipperService
     {
         /// <summary>
         /// The file system.

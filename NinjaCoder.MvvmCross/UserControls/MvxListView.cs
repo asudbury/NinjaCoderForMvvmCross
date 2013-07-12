@@ -3,7 +3,6 @@
 //    Defines the MvxListView type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.UserControls
 {
     using System.Collections.Generic;

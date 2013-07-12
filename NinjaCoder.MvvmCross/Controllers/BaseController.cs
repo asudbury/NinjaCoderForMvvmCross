@@ -37,6 +37,13 @@ namespace NinjaCoder.MvvmCross.Controllers
             IReadMeService readMeService,
             ISettingsService settingsService)
         {
+            //// init the tracing service first!
+            TraceService.Initialize(
+                settingsService.LogToTrace,
+                settingsService.LogToFile,
+                settingsService.LogFilePath,
+                settingsService.DisplayErrors);
+
             TraceService.WriteLine("BaseController::Constructor");
 
             this.VisualStudioService = visualStudioService;
@@ -90,9 +97,14 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <returns>The path of the ReadMe file.</returns>
         protected string GetReadMePath()
         {
+            TraceService.WriteLine("BaseController::GetReadMePath");
+
             Solution2 solution3 = this.VisualStudioService.DTE2.GetSolution() as Solution2;
 
-            return solution3.GetDirectoryName() + @"\NinjaReadMe.txt";
+            string path = solution3.GetDirectoryName() + @"NinjaReadMe.txt";
+
+            TraceService.WriteLine("BaseController::GetReadMePath path=" + path);
+            return path;
         }
 
         /// <summary>
@@ -101,9 +113,14 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <returns>The path of the Ninja Version file.</returns>
         protected string GetNinjaVersionPath()
         {
+            TraceService.WriteLine("BaseController::GetNinjaVersionPath");
+
             Solution2 solution3 = this.VisualStudioService.DTE2.GetSolution() as Solution2;
 
-            return solution3.GetDirectoryName() + @"\NinjaVersion.txt";
+            string path = solution3.GetDirectoryName() + @"NinjaVersion.txt";
+
+            TraceService.WriteLine("BaseController::GetNinjaVersionPath path=" + path);
+            return path;
         }
 
         /// <summary>
@@ -112,9 +129,14 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <returns>The path of the MvvmCross version file.</returns>
         protected string GetMvvmCrossVersionPath()
         {
+            TraceService.WriteLine("BaseController::GetMvvmCrossVersionPath");
+
             Solution2 solution3 = this.VisualStudioService.DTE2.GetSolution() as Solution2;
 
-            return solution3.GetDirectoryName() + @"\MvvmCrossVersion.txt";
+            string path = solution3.GetDirectoryName() + @"MvvmCrossVersion.txt";
+
+            TraceService.WriteLine("BaseController::GetMvvmCrossVersionPath path=" + path);
+            return path;
         }
 
         /// <summary>
@@ -129,11 +151,14 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <summary>
         /// Adds the trace header.
         /// </summary>
+        /// <param name="controller">The controller.</param>
         /// <param name="methodName">Name of the method.</param>
-        protected void AddTraceHeader(string methodName)
+        protected void AddTraceHeader(
+            string controller,
+            string methodName)
         {
             TraceService.WriteLine("--------------------------------------------------------");
-            TraceService.WriteLine("MvvmCrossController::" + methodName);
+            TraceService.WriteLine(controller + "::" + methodName);
             TraceService.WriteLine("--------------------------------------------------------");
         }
 
@@ -201,13 +226,23 @@ namespace NinjaCoder.MvvmCross.Controllers
             
             Solution2 solution2 = this.VisualStudioService.DTE2.GetSolution() as Solution2;
 
+            string readeMePath = this.GetReadMePath();
+
             //// now construct the ReadMe.txt
             this.ReadMeLines.AddRange(messages);
-            this.ReadMeService.AddLines(this.GetReadMePath(), function, this.ReadMeLines);
+            this.ReadMeService.AddLines(readeMePath, function, this.ReadMeLines);
 
             //// now show the ReadMe.txt.
-            ProjectItem projectItem = solution2.AddSolutionItem("Solution Items", this.GetReadMePath());
-            projectItem.Open();
+            ProjectItem projectItem = solution2.AddSolutionItem("Solution Items", readeMePath);
+
+            if (projectItem != null)
+            {
+                projectItem.Open();
+            }
+            else
+            {
+                TraceService.WriteError("BaseController::ShowReadMe Cannot open file :-" + readeMePath);
+            }
         }
 
         /// <summary>
@@ -219,12 +254,8 @@ namespace NinjaCoder.MvvmCross.Controllers
             TraceService.WriteLine("BaseController::CreateNinjaVersionFile version=" + version);
 
             string path = this.GetNinjaVersionPath();
-
-            using (StreamWriter sw = new StreamWriter(path, false))
-            {
-                sw.Write(version);
-                sw.Close();
-            }
+            
+            this.WriteVersionFile(path, version);
         }
 
         /// <summary>
@@ -236,6 +267,20 @@ namespace NinjaCoder.MvvmCross.Controllers
             TraceService.WriteLine("BaseController::CreateMvvmCrossVersionFile version=" + version);
 
             string path = this.GetMvvmCrossVersionPath();
+
+            this.WriteVersionFile(path, version);
+        }
+
+        /// <summary>
+        /// Writes the version file.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="version">The version.</param>
+        internal void WriteVersionFile(
+            string path,
+            string version)
+        {
+            TraceService.WriteLine("BaseController::CreateMvvmCrossVersionFile WriteVersionFile path=" + path);
 
             using (StreamWriter sw = new StreamWriter(path, false))
             {

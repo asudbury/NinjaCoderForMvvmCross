@@ -4,11 +4,14 @@
   <Fragment>
     <ComponentGroup Id='ComponentGroupWindowsStorePlugins'>
 
-      <Component Id="MvvmCrossAssembliesWindowsStorePluginsComponent" Directory="MvvmCrossAssembliesWindowsStorePlugins" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-300000000005">
+      <Component Id="WindowsStorePluginsComponent" 
+                 Directory="MvvmCrossAssembliesWindowsStorePlugins" 
+                 DiskId="1" 
+                 Guid="825c8b3c-e1ee-4eae-85b2-300000000005">
 
         <RegistryKey Root="HKCU"
-                 Key="$(var.REGISTRY_KEY)">
-          <RegistryValue Type="string" Name="Windows Store Plugins Path" Value="[MvvmCrossAssembliesWindowsStorePlugins]"/>
+                 Key="$(var.PLUGINS_REGISTRY_KEY)" ForceCreateOnInstall="yes">
+          <RegistryValue Type="string" Name="Windows Store Path" Value="[MvvmCrossAssembliesWindowsStorePlugins]"/>
         </RegistryKey>
 
         <File Id="WindowsStorePlugins1" Name="Cirrious.MvvmCross.Plugins.Accelerometer.WindowsStore.dll"

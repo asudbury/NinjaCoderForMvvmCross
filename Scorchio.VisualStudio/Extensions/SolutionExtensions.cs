@@ -9,13 +9,10 @@ namespace Scorchio.VisualStudio.Extensions
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-
+    using Entities;
     using EnvDTE;
     using EnvDTE80;
-
-    using Entities;
     using Services;
-
     using Project = EnvDTE.Project;
 
     /// <summary>L
@@ -30,26 +27,48 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The Directory path.</returns>
         public static string GetDirectoryName(this Solution2 instance)
         {
+            string directoryName = string.Empty;
+
             TraceService.WriteLine("SolutionExtensions::GetDirectoryName");
 
             if (instance.FileName != string.Empty)
             {
-                return Path.GetDirectoryName(instance.FullName);
-            }
-                
-            Project project = instance.GetProjects().FirstOrDefault();
+                string path = Path.GetDirectoryName(instance.FullName);
 
-            if (project != null) 
-            {
-                string projectPath = Path.GetDirectoryName(project.FullName);
-
-                if (projectPath != null)
+                if (string.IsNullOrEmpty(path) == false)
                 {
-                    return projectPath.Replace(project.Name, string.Empty);
+                    if (path.EndsWith(@"\") == false)
+                    {
+                        directoryName = path + @"\";
+                    }
                 }
             }
+            
+            if (directoryName == string.Empty)
+            {
+                Project project = instance.GetProjects().FirstOrDefault();
 
-            return string.Empty;
+                if (project != null)
+                {
+                    string projectPath = Path.GetDirectoryName(project.FullName);
+
+                    if (projectPath != null)
+                    {
+                        string path = projectPath.Replace(project.Name, string.Empty);
+
+                        if (path.EndsWith(@"\") == false)
+                        {
+                            path += @"\";
+                        }
+
+                        directoryName = path;
+                    }
+                } 
+            }
+
+            TraceService.WriteLine("SolutionExtensions::GetDirectoryName directoryName=" + directoryName);
+           
+            return directoryName;
         }
 
         /// <summary>
@@ -128,6 +147,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The projects.</returns>
         public static IEnumerable<Project> GetProjects(this Solution2 instance)
         {
+            TraceService.WriteLine("SolutionExtensions::GetProjects");
+
             List<Project> projects = instance.Projects.Cast<Project>().ToList();
 
             List<Project> allProjects = new List<Project>(projects);
@@ -140,8 +161,7 @@ namespace Scorchio.VisualStudio.Extensions
                 {
                     foreach (ProjectItem projectItem in projectItems)
                     {
-                        ////if (projectItem.Kind == ProjectKinds.vsProjectKindSolutionFolder)
-                        if (projectItem.Kind == "{66A26722-8FB5-11D2-AA7E-00C04F688DDE}")
+                        if (projectItem.Kind == VSConstants.VsProjectItemKindSolutionItems)
                         {
                             if (projectItem.SubProject != null)
                             {
@@ -177,12 +197,14 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="path">The path.</param>
         /// <param name="projectsInfos">The projects infos.</param>
         /// <param name="referenceFirstProject">if set to <c>true</c> [reference first project].</param>
-        /// <returns>The messages.</returns>
+        /// <param name="includeLibFolderInProjects">if set to <c>true</c> [include lib folder in projects].</param>
+        /// <returns> The messages.</returns>
         public static IEnumerable<string> AddProjects(
             this Solution2 instance,
             string path,
             IEnumerable<ProjectTemplateInfo> projectsInfos, 
-            bool referenceFirstProject)
+            bool referenceFirstProject,
+            bool includeLibFolderInProjects)
         {
             string message = string.Format(
                 "SolutionExtensions::AddProjects project count={0} path={1}", projectsInfos.Count(), path);
@@ -209,6 +231,18 @@ namespace Scorchio.VisualStudio.Extensions
                         {
                             string template = instance.GetProjectTemplate(projectInfo.TemplateName);
                             solution.AddProjectToSolution(projectPath, template, projectInfo.Name);
+                            
+                            //// remove the lib folder if that's what the developer wants to happen.
+                            if (includeLibFolderInProjects == false)
+                            {
+                                Project project = instance.GetProject(projectInfo.Name);
+
+                                if (project != null)
+                                {
+                                    project.RemoveFolder("Lib");
+                                }
+                            }
+
                             messages.Add(projectInfo.Name + " project successfully added.");
                         }
                         catch (Exception exception)
@@ -312,7 +346,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="folderName">Name of the folder.</param>
-        public static void RemoveFolders(
+        public static void RemoveFolder(
             this Solution2 instance, 
             string folderName)
         {
@@ -320,23 +354,7 @@ namespace Scorchio.VisualStudio.Extensions
 
             foreach (Project project in projects)
             {
-                IEnumerable<ProjectItem> projectItems = project.GetProjectItems();
-
-                if (projectItems != null)
-                {
-                    foreach (ProjectItem projectItem in projectItems)
-                    {
-                        ////if (projectItem.Kind == ProjectKinds.vsProjectKindPhysicalFolder)
-                        if (projectItem.Kind == "{6BB5F8EF-4483-11D3-8BCF-00C04F8EC28C}")
-                        {
-                            if (projectItem.Name.ToLower() == folderName.ToLower())
-                            {
-                                projectItem.Remove();
-                                break;
-                            }
-                        }
-                    }
-                }
+                project.RemoveFolder(folderName);
             }
         }
     }

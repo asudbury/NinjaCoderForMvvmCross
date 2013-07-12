@@ -6,9 +6,8 @@
 namespace NinjaCoder.MvvmCross.Presenters
 {
     using System.Collections.Generic;
-    using Views.Interfaces;
-
     using Scorchio.VisualStudio.Entities;
+    using Views.Interfaces;
 
     /// <summary>
     ///  Defines the ItemTemplatesPresenter type.
@@ -26,16 +25,24 @@ namespace NinjaCoder.MvvmCross.Presenters
         private readonly List<ItemTemplateInfo> itemTemplateInfos;
 
         /// <summary>
+        /// The display logo
+        /// </summary>
+        private readonly bool displayLogo;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ItemTemplatesPresenter" /> class.
         /// </summary>
         /// <param name="view">The view.</param>
         /// <param name="itemTemplateInfos">The item template infos.</param>
+        /// <param name="displayLogo">if set to <c>true</c> [display logo].</param>
         public ItemTemplatesPresenter(
             IItemTemplatesView view,
-            List<ItemTemplateInfo> itemTemplateInfos)
+            List<ItemTemplateInfo> itemTemplateInfos,
+            bool displayLogo)
         {
             this.view = view;
             this.itemTemplateInfos = itemTemplateInfos;
+            this.displayLogo = displayLogo;
         }
         
         /// <summary>
@@ -43,6 +50,8 @@ namespace NinjaCoder.MvvmCross.Presenters
         /// </summary>
         public void Load()
         {
+            this.view.DisplayLogo = this.displayLogo;
+
             foreach (ItemTemplateInfo itemTemplateInfo in this.itemTemplateInfos)
             {
                 this.view.AddTemplate(itemTemplateInfo);

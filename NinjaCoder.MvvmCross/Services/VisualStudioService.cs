@@ -8,13 +8,10 @@ namespace NinjaCoder.MvvmCross.Services
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-
+    using Constants;
     using EnvDTE;
     using EnvDTE80;
-
-    using Constants;
     using Interfaces;
-
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
@@ -23,7 +20,7 @@ namespace NinjaCoder.MvvmCross.Services
     /// <summary>
     /// Defines the VisualStudioService type.
     /// </summary>
-    public class VisualStudioService : IVisualStudioService
+    public class VisualStudioService : BaseService, IVisualStudioService
     {
         /// <summary>
         /// The projects
@@ -43,7 +40,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<Project> Projects
         {
-            get { return this.projects ?? (this.projects = Solution.GetProjects()); }
+            get { return this.projects ?? (this.projects = this.Solution.GetProjects()); }
         }
 
         /// <summary>

@@ -16,7 +16,7 @@ namespace NinjaCoder.MvvmCross.Services
     /// <summary>
     /// Defines the ConfigurationService type.
     /// </summary>
-    public class ConfigurationService : IConfigurationService
+    public class ConfigurationService : BaseService, IConfigurationService
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ConfigurationService" /> class.

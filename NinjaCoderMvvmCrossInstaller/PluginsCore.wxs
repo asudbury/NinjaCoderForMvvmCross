@@ -4,11 +4,14 @@
   <Fragment>
     <ComponentGroup Id='ComponentGroupCorePlugins'>
 
-      <Component Id="MvvmCrossAssembliesCorePluginsComponent" Directory="MvvmCrossAssembliesCorePlugins" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-300000000001">
+      <Component Id="CorePluginsComponent" 
+                 Directory="MvvmCrossAssembliesCorePlugins" 
+                 DiskId="1" 
+                 Guid="825c8b3c-e1ee-4eae-85b2-300000000001">
 
         <RegistryKey Root="HKCU"
-                 Key="$(var.REGISTRY_KEY)">
-          <RegistryValue Type="string" Name="Core Plugins Path" Value="[MvvmCrossAssembliesCorePlugins]"/>
+                 Key="$(var.PLUGINS_REGISTRY_KEY)" ForceCreateOnInstall="yes">
+          <RegistryValue Type="string" Name="Core Path" Value="[MvvmCrossAssembliesCorePlugins]"/>
         </RegistryKey>
 
         <File Id="CorePlugins1" Name="Cirrious.MvvmCross.Plugins.Accelerometer.dll"

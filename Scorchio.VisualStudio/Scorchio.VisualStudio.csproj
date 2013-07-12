@@ -41,7 +41,6 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\..\..\..\Program Files (x86)\Microsoft Visual Studio 10.0\Visual Studio Tools for Office\PIA\Common\Extensibility.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Build.Engine" />
     <Reference Include="Microsoft.VisualStudio.CommandBars, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -55,7 +54,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.XML" />
@@ -68,8 +66,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandManager.cs" />
+    <Compile Include="VSConstants.cs" />
     <Compile Include="Entities\BaseTemplateInfo.cs" />
     <Compile Include="Entities\CodeSnippet.cs" />
+    <Compile Include="Entities\CodeConfig.cs" />
     <Compile Include="Entities\ItemTemplateInfo.cs" />
     <Compile Include="Entities\ProjectTemplateInfo.cs" />
     <Compile Include="Entities\VSCommandInfo.cs" />

@@ -65,7 +65,7 @@ namespace Scorchio.VisualStudio
         /// <summary>
         /// Gets or sets the resource manager.
         /// </summary>
-        public ResourceManager ResourceManager { get; set; }                   
+        public ResourceManager ResourceManager { get; set; }
 
         /// <summary>
         /// Called when [connection].

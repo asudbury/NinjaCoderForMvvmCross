@@ -4,7 +4,10 @@
   <Fragment>
     <ComponentGroup Id='ComponentGroupCodeSnippetsPlugins'>
 
-      <Component Id="CodeSnippetsPluginsComponent" Directory="CodeSnippetsPlugins" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-30000000000A">
+      <Component Id="CodeSnippetsPluginsComponent" 
+                 Directory="CodeSnippetsPlugins" 
+                 DiskId="1" 
+                 Guid="825c8b3c-e1ee-4eae-85b2-30000000000A">
 
         <RegistryKey Root="HKCU"
                  Key="$(var.REGISTRY_KEY)">

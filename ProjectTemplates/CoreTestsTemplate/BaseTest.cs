@@ -3,18 +3,14 @@
 //    Defines the BaseTest type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-using Cirrious.CrossCore.Platform;
-using Cirrious.MvvmCross;
-using Cirrious.MvvmCross.Platform;
-
 namespace CoreTestsTemplate
 {
     using Cirrious.CrossCore.Core;
+    using Cirrious.CrossCore.Platform;
+    using Cirrious.MvvmCross.Platform;
     using Cirrious.MvvmCross.Test.Core;
     using Cirrious.MvvmCross.Views;
-
     using Mocks;
-
     using NUnit.Framework;
 
     /// <summary>
@@ -27,7 +23,7 @@ namespace CoreTestsTemplate
         /// The mock dispatcher.
         /// </summary>
         private MockDispatcher mockDispatcher;
-        
+
         /// <summary>
         /// Sets up.
         /// </summary>
@@ -42,10 +38,6 @@ namespace CoreTestsTemplate
             Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(this.mockDispatcher);
             Ioc.RegisterSingleton<IMvxTrace>(new TestTrace());
             Ioc.RegisterSingleton<IMvxSettings>(new MvxSettings());
-
-            MvxSingletonCache.Initialise();
-
-            MvxTrace.Initialize();
 
             this.Initialize();
             this.CreateTestableObject();

@@ -17,7 +17,7 @@ namespace NinjaCoder.MvvmCross.Services
     /// <summary>
     /// Defines the ReadMeService type.
     /// </summary>
-    public class ReadMeService : IReadMeService
+    public class ReadMeService : BaseService, IReadMeService
     {
         /// <summary>
         /// The file system.
@@ -90,7 +90,6 @@ namespace NinjaCoder.MvvmCross.Services
             sw.WriteLine(string.Empty);
             sw.WriteLine(this.GetSeperatorLine());
             sw.WriteLine(DateTime.Now.ToString("dd MMM yy HH:mm")  + " " + functionName);
-            sw.WriteLine("MvvmCross v" + this.mmvmCrossVersion);
             sw.WriteLine(this.GetSeperatorLine());
             sw.WriteLine(string.Empty);
 
@@ -131,8 +130,6 @@ namespace NinjaCoder.MvvmCross.Services
                 this.GetSeperatorLine(),
                 string.Empty,
                 "All feedback welcome - get in touch with the email or twitter address below.",
-                string.Empty,
-                "Have a good day!",
                 string.Empty,
                 "Thanks",
                 string.Empty,

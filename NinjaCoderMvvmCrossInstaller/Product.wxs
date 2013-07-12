@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
   
-  <!-- Ensure version of assembley is the same as the version below -->
+  <!-- Ensure version of assembly is the same as the version below -->
   <?include $(sys.CURRENTDIR)Global.wxi ?>
-  <?define APPLICATION_VERSION = 1.2.0 ?>
-  <?define MVVMCROSS_VERSION = 3.0.8 ?>
   <Product Id="*" 
            Name="Ninja Coder for MvvmCross v$(var.APPLICATION_VERSION)" 
            Language="1033" 
@@ -39,7 +37,9 @@
     <Condition Message="This Wix Add-in project template requires Visual Studio 2012.">
       Installed OR VS2012INSTALLATIONFOLDER
     </Condition>
+
     <Directory Id="TARGETDIR" Name="SourceDir">
+      
       <Directory Id="ProgramFilesFolder">
 
         <!-- Install PCL support files -->
@@ -105,9 +105,20 @@
               <File Id="SystemAbstraction.IO" Name="System.IO.Abstractions.dll"
                 Source="$(var.SOURCE_DIR)\NinjaCoder.MvvmCross.UI\bin\Debug\System.IO.Abstractions.dll" Vital="yes" KeyPath="no" >
                 <CopyFile Id="copyfile5" DestinationDirectory="INSTALLLOCATION"/>
-              </File>              
+              </File>
+              <File Id="FileManifest" Name="extension.vsixmanifest"
+                      Source="$(var.SOURCE_DIR)\extension.vsixmanifest" Vital="yes" KeyPath="no" >
+                    <CopyFile Id="copyfileManifest" DestinationDirectory="INSTALLLOCATION"/>
+              </File>
             </Component>
 
+            <!-- Config -->
+            <Directory Id="Config" Name="Config">
+
+              <Directory Id="ConfigServices" Name="Services"/>
+
+            </Directory>
+            
             <!-- Code Snippets -->
             <Directory Id="CodeSnippets" Name="CodeSnippets">
               
@@ -159,43 +170,6 @@
               <Directory Id="ProjectTemplatesFolder" Name="ProjectTemplates">
                 <Directory Id="ProjectTemplatesCSharp" Name="CSharp">
                   <Directory Id="ProjectTemplatesMvvmCross" Name="MvvmCross">
-                    <Component Id="ProjectTemplates" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-400000000001">
-                      <File Id="MvvmCross.Core.zip"
-                            Name="MvvmCross.Core.zip"
-                            Source="$(var.PROJECT_TEMPLATES_ZIPS_DIR)\MvvmCross.Core.zip">
-                            <CopyFile Id="copyfileCore" DestinationDirectory="ProjectTemplatesMvvmCross"/>  
-                      </File>
-                     <File Id="MvvmCross.Core.Tests.zip"
-                            Name="MvvmCross.Core.Tests.zip"
-                            Source="$(var.PROJECT_TEMPLATES_ZIPS_DIR)\MvvmCross.Core.Tests.zip">
-                            <CopyFile Id="copyfileCoreTests" DestinationDirectory="ProjectTemplatesMvvmCross"/>  
-                      </File>
-                      <File Id="MvvmCross.Droid.zip"
-                            Name="MvvmCross.Droid.zip"
-                            Source="$(var.PROJECT_TEMPLATES_ZIPS_DIR)\MvvmCross.Droid.zip">
-                            <CopyFile Id="copyfileDroid" DestinationDirectory="ProjectTemplatesMvvmCross"/>  
-                      </File>
-                      <File Id="MvvmCross.WindowsPhone.zip"
-                            Name="MvvmCross.WindowsPhone.zip"
-                            Source="$(var.PROJECT_TEMPLATES_ZIPS_DIR)\MvvmCross.WindowsPhone.zip">
-                            <CopyFile Id="copyfilePhone" DestinationDirectory="ProjectTemplatesMvvmCross"/>  
-                      </File>
-                      <File Id="MvvmCross.WindowsStore.zip"
-                            Name="MvvmCross.WindowsStore.zip"
-                            Source="$(var.PROJECT_TEMPLATES_ZIPS_DIR)\MvvmCross.WindowsStore.zip">
-                            <CopyFile Id="copyfileStore" DestinationDirectory="ProjectTemplatesMvvmCross"/>  
-                      </File>
-                      <File Id="MvvmCross.Wpf.zip"
-                            Name="MvvmCross.Wpf.zip"
-                            Source="$(var.PROJECT_TEMPLATES_ZIPS_DIR)\MvvmCross.Wpf.zip">
-                            <CopyFile Id="copyfileWpf" DestinationDirectory="ProjectTemplatesMvvmCross"/>  
-                      </File>
-                      <File Id="MvvmCross.iOS.zip"
-                          Name="MvvmCross.iOS.zip"
-                          Source="$(var.PROJECT_TEMPLATES_ZIPS_DIR)\MvvmCross.iOS.zip">
-                            <CopyFile Id="copyfileiOS" DestinationDirectory="ProjectTemplatesMvvmCross"/>
-                      </File>
-                    </Component>
                   </Directory>
                 </Directory>
               </Directory>
@@ -204,7 +178,9 @@
                <Directory Id="ItemTemplatesFolder" Name="ItemTemplates">
                 <Directory Id="ItemTemplatesCSharp" Name="CSharp">
                   <Directory Id="ItemTemplatesMvvmCross" Name="MvvmCross">
-                    <Component Id="ItemTemplates" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-500000000001">
+                    <Component Id="ItemTemplates" 
+                               DiskId="1" 
+                               Guid="825c8b3c-e1ee-4eae-85b2-500000000001">
                       
                       <File Id="MvvmCross.ViewModel"
                             Name="MvvmCross.ViewModel.zip"
@@ -295,7 +271,7 @@
                       <Component Id="ItemServiceTemplates" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-600000000009">
 
                         <File Id="MvvmCross.Services.Location"
-                              Name="MvvmCross.LocationServices.zip"
+                              Name="MvvmCross.LocationService.zip"
                               Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\ItemTemplates\CSharp\1033\MvvmCross.LocationService.zip">
                           <CopyFile Id="copyService1" DestinationDirectory="ItemTemplatesMvvmCrossServices"/>
                         </File>
@@ -304,7 +280,7 @@
                    
                   </Directory>
                 </Directory>
-              </Directory>        
+              </Directory>
             </Directory>
           </Directory>
         </Directory>
@@ -343,21 +319,23 @@
     </UI>
     
     <Feature Id="ProductFeature" Title="VSWixExtension" Level="1">
-      <ComponentRef	Id="PCLSupport"	/>
-      <ComponentRef	Id="CMPVSEXTENSION"	/>
-      <ComponentRef	Id="MvvmCrossAssembliesCorePluginsComponent"	/>
-      <ComponentRef	Id="MvvmCrossAssembliesDroidPluginsComponent"	/>
-      <ComponentRef	Id="MvvmCrossAssembliesiOSPluginsComponent"	/>
-      <ComponentRef	Id="MvvmCrossAssembliesWindowsPhonePluginsComponent"	/>
-      <ComponentRef	Id="MvvmCrossAssembliesWindowsStorePluginsComponent"	/>
-      <ComponentRef	Id="MvvmCrossAssembliesWpfPluginsComponent"	/>
-      <ComponentRef	Id="CMPADDIN"	/>      
-      <ComponentRef	Id="ProjectTemplates"	/>
-      <ComponentRef	Id="ItemTemplates"	/>
-      <ComponentRef	Id="ItemConverterTemplates"	/>
-      <ComponentRef	Id="ItemServiceTemplates"	/>
-      <ComponentRef	Id="CodeSnippetsPluginsComponent"	/>
-      <ComponentRef	Id="CodeSnippetsServicesComponent"	/>
+      <ComponentRef	Id="PCLSupport" />
+      <ComponentRef	Id="CMPVSEXTENSION" />
+      <ComponentRef	Id="CorePluginsComponent" />
+      <ComponentRef	Id="DroidPluginsComponent" />
+      <ComponentRef	Id="iOSPluginsComponent" />
+      <ComponentRef	Id="WindowsPhonePluginsComponent" />
+      <ComponentRef	Id="WindowsStorePluginsComponent" />
+      <ComponentRef	Id="WpfPluginsComponent" />
+      <ComponentRef	Id="CMPADDIN" />
+      <ComponentRef	Id="ItemTemplates" />
+      <ComponentRef	Id="ItemConverterTemplates" />
+      <ComponentRef	Id="ItemServiceTemplates" />
+      <ComponentRef	Id="CodeSnippetsPluginsComponent" />
+      <!--<ComponentRef	Id="CodeSnippetsServicesComponent" />-->
+      <ComponentRef	Id="ConfigServicesComponent" />
+      <ComponentRef	Id="ComponentProjectTemplates" />
+
     </Feature>
     <!--<CustomAction Id="RemoveVS2012AddInCommands" Script="vbscript" Execute="deferred" Return="ignore" Impersonate="yes">
       <![CDATA[

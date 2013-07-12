@@ -16,14 +16,29 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         bool DisplayLogo { get; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [log to trace].
+        /// </summary>
+        bool LogToTrace { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [log to file].
         /// </summary>
         bool LogToFile { get; set; }
 
         /// <summary>
-        /// Gets the log file path.
+        /// Gets or sets the log file path.
         /// </summary>
         string LogFilePath { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [include lib folder in projects].
+        /// </summary>
+        bool IncludeLibFolderInProjects { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [display errors].
+        /// </summary>
+        bool DisplayErrors { get; set; }
 
         /// <summary>
         /// Gets the converters templates path.
@@ -44,6 +59,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets the code snippets path.
         /// </summary>
         string CodeSnippetsPath { get; }
+
+        /// <summary>
+        /// Gets the config path.
+        /// </summary>
+        string ConfigPath { get; }
 
         /// <summary>
         /// Gets the application version.

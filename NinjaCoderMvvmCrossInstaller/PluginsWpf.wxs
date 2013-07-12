@@ -4,11 +4,14 @@
   <Fragment>
     <ComponentGroup Id='ComponentGroupWpfPlugins'>
 
-      <Component Id="MvvmCrossAssembliesWpfPluginsComponent" Directory="MvvmCrossAssembliesWpfPlugins" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-300000000006">
+      <Component Id="WpfPluginsComponent" 
+                 Directory="MvvmCrossAssembliesWpfPlugins" 
+                 DiskId="1" 
+                 Guid="825c8b3c-e1ee-4eae-85b2-300000000006">
 
         <RegistryKey Root="HKCU"
-                 Key="$(var.REGISTRY_KEY)">
-          <RegistryValue Type="string" Name="Wpf Plugins Path" Value="[MvvmCrossAssembliesWpfPlugins]"/>
+                 Key="$(var.PLUGINS_REGISTRY_KEY)" ForceCreateOnInstall="yes">
+          <RegistryValue Type="string" Name="Wpf Path" Value="[MvvmCrossAssembliesWpfPlugins]"/>
         </RegistryKey>
 
         <File Id="WpfPlugins1" Name="Cirrious.MvvmCross.Plugins.Accelerometer.Wpf.dll"

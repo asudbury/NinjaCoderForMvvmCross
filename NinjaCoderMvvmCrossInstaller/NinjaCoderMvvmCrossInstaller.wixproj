@@ -23,13 +23,18 @@
   <ItemGroup>
     <Compile Include="CodeSnippetsPlugins.wxs" />
     <Compile Include="CodeSnippetsServices.wxs" />
+    <Compile Include="ConfigServices.wxs" />
+    <Compile Include="ProjectTemplates.wxs" />
     <Compile Include="PluginsWpf.wxs" />
     <Compile Include="PluginsWindowsStore.wxs" />
     <Compile Include="PluginsWindowsPhone.wxs" />
     <Compile Include="PluginsiOS.wxs" />
     <Compile Include="PluginsDroid.wxs" />
     <Compile Include="PluginsCore.wxs" />
-    <Compile Include="Product.wxs" />
+    <Compile Include="Product.wxs">
+      <Link>
+      </Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <WixExtension Include="WixVSExtension">

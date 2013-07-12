@@ -41,5 +41,4 @@ namespace NinjaCoder.MvvmCross.Extensions
             return unionList.Union(overrideFileList).ToList();
         }
     }
-
 }

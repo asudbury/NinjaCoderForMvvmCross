@@ -29,7 +29,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// Initializes a new instance of the <see cref="PluginsController" /> class.
         /// </summary>
         public PluginsController()
-            : this(new PluginsService(new CodeSnippetTranslator(), new FileSystem()))
+            : this(new PluginsService(new FileSystem(), new SettingsService(), new SnippetService(new FileSystem(), new CodeSnippetTranslator())))
         {
             TraceService.WriteLine("PluginsController::Constructor");
         }
@@ -40,7 +40,10 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="pluginsService">The plugins service.</param>
         public PluginsController(
             IPluginsService pluginsService)
-            : base(new VisualStudioService(), new ReadMeService(), new SettingsService())
+            : base(
+                new VisualStudioService(), 
+                new ReadMeService(), 
+                new SettingsService())
         {
             this.pluginsService = pluginsService;
         }
@@ -50,7 +53,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         public void Run()
         {
-            this.AddTraceHeader("PluginsController::Run");
+            this.AddTraceHeader("PluginsController", "Run");
 
             if (this.VisualStudioService.IsMvvmCrossSolution)
             {
@@ -68,7 +71,6 @@ namespace NinjaCoder.MvvmCross.Controllers
                             this.VisualStudioService,
                             form.RequiredPlugins,
                             form.ImplementInViewModel,
-                            this.SettingsService.CodeSnippetsPath + @"\Plugins",
                             form.IncludeUnitTests);
 
                         //// needs fixing - this is when we create the constructor parameters for the unit tests.

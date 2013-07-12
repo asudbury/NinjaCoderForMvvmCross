@@ -15,6 +15,11 @@ namespace NinjaCoder.MvvmCross.Views.Interfaces
     public interface IItemTemplatesView
     {
         /// <summary>
+        /// Sets a value indicating whether [display logo].
+        /// </summary>
+        bool DisplayLogo { set; }
+
+        /// <summary>
         /// Gets the required templates.
         /// </summary>
         List<ItemTemplateInfo> RequiredTemplates { get; }

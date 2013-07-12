@@ -7,10 +7,8 @@ namespace NinjaCoder.MvvmCross.Views
 {
     using System.Collections.Generic;
     using System.Linq;
-
-    using Presenters;
     using Interfaces;
-
+    using Presenters;
     using Scorchio.VisualStudio.Entities;
 
     /// <summary>
@@ -22,11 +20,13 @@ namespace NinjaCoder.MvvmCross.Views
         /// Initializes a new instance of the <see cref="ItemTemplatesForm" /> class.
         /// </summary>
         /// <param name="itemTemplateInfos">The item template infos.</param>
-        public ItemTemplatesForm(List<ItemTemplateInfo> itemTemplateInfos)
+        public ItemTemplatesForm(
+            List<ItemTemplateInfo> itemTemplateInfos,
+            bool displayLogo)
         {
             this.InitializeComponent();
 
-            this.Presenter = new ItemTemplatesPresenter(this, itemTemplateInfos);
+            this.Presenter = new ItemTemplatesPresenter(this, itemTemplateInfos, displayLogo);
             this.Presenter.Load();
         }
 
@@ -34,6 +34,14 @@ namespace NinjaCoder.MvvmCross.Views
         /// Gets the presenter.
         /// </summary>
         public ItemTemplatesPresenter Presenter { get; private set; }
+        
+        /// <summary>
+        /// Sets a value indicating whether [display logo].
+        /// </summary>
+        public bool DisplayLogo
+        {
+            set { this.SetLogoVisibility(this.logo1, value); }
+        }
 
         /// <summary>
         /// Gets the required templates.

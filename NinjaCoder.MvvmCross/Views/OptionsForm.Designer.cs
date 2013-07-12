@@ -35,12 +35,15 @@
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.logo1 = new NinjaCoder.MvvmCross.UserControls.Logo();
+            this.checkBoxIncludeLibFolders = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisplayErrors = new System.Windows.Forms.CheckBox();
+            this.checkBoxTrace = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // chkCreateLogFile
             // 
             this.chkCreateLogFile.AutoSize = true;
-            this.chkCreateLogFile.Location = new System.Drawing.Point(371, 29);
+            this.chkCreateLogFile.Location = new System.Drawing.Point(372, 61);
             this.chkCreateLogFile.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chkCreateLogFile.Name = "chkCreateLogFile";
             this.chkCreateLogFile.Size = new System.Drawing.Size(126, 21);
@@ -50,7 +53,7 @@
             // 
             // lblLogFile
             // 
-            this.lblLogFile.Location = new System.Drawing.Point(302, 63);
+            this.lblLogFile.Location = new System.Drawing.Point(303, 95);
             this.lblLogFile.Name = "lblLogFile";
             this.lblLogFile.Size = new System.Drawing.Size(81, 16);
             this.lblLogFile.TabIndex = 1;
@@ -58,7 +61,7 @@
             // 
             // textBoxLogFile
             // 
-            this.textBoxLogFile.Location = new System.Drawing.Point(371, 56);
+            this.textBoxLogFile.Location = new System.Drawing.Point(372, 88);
             this.textBoxLogFile.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxLogFile.Name = "textBoxLogFile";
             this.textBoxLogFile.Size = new System.Drawing.Size(389, 22);
@@ -98,11 +101,47 @@
             this.logo1.Size = new System.Drawing.Size(274, 376);
             this.logo1.TabIndex = 5;
             // 
+            // checkBoxIncludeLibFolders
+            // 
+            this.checkBoxIncludeLibFolders.AutoSize = true;
+            this.checkBoxIncludeLibFolders.Location = new System.Drawing.Point(372, 151);
+            this.checkBoxIncludeLibFolders.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxIncludeLibFolders.Name = "checkBoxIncludeLibFolders";
+            this.checkBoxIncludeLibFolders.Size = new System.Drawing.Size(214, 21);
+            this.checkBoxIncludeLibFolders.TabIndex = 6;
+            this.checkBoxIncludeLibFolders.Text = "Include Lib folders in projects";
+            this.checkBoxIncludeLibFolders.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxDisplayErrors
+            // 
+            this.checkBoxDisplayErrors.AutoSize = true;
+            this.checkBoxDisplayErrors.Location = new System.Drawing.Point(372, 191);
+            this.checkBoxDisplayErrors.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxDisplayErrors.Name = "checkBoxDisplayErrors";
+            this.checkBoxDisplayErrors.Size = new System.Drawing.Size(119, 21);
+            this.checkBoxDisplayErrors.TabIndex = 8;
+            this.checkBoxDisplayErrors.Text = "Display Errors";
+            this.checkBoxDisplayErrors.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxTrace
+            // 
+            this.checkBoxTrace.AutoSize = true;
+            this.checkBoxTrace.Location = new System.Drawing.Point(372, 36);
+            this.checkBoxTrace.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxTrace.Name = "checkBoxTrace";
+            this.checkBoxTrace.Size = new System.Drawing.Size(169, 21);
+            this.checkBoxTrace.TabIndex = 9;
+            this.checkBoxTrace.Text = "Trace Output enabled";
+            this.checkBoxTrace.UseVisualStyleBackColor = true;
+            // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(791, 404);
+            this.Controls.Add(this.checkBoxTrace);
+            this.Controls.Add(this.checkBoxDisplayErrors);
+            this.Controls.Add(this.checkBoxIncludeLibFolders);
             this.Controls.Add(this.logo1);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
@@ -128,5 +167,8 @@
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
         private UserControls.Logo logo1;
+        private System.Windows.Forms.CheckBox checkBoxIncludeLibFolders;
+        private System.Windows.Forms.CheckBox checkBoxDisplayErrors;
+        private System.Windows.Forms.CheckBox checkBoxTrace;
     }
 }

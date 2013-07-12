@@ -33,7 +33,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         public void Run()
         {
-            this.AddTraceHeader("ViewModelAndViewsController::Run");
+            this.AddTraceHeader("ViewModelAndViewsController", "Run");
 
             if (this.VisualStudioService.IsMvvmCrossSolution)
             {

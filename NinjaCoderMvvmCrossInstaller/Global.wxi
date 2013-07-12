@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
-  <?define CONNECT_CLASS_FULL_NAME_VS = NinjaCoder.MvvmCross.AddIn.Connect" ?>
-  <?define REGISTRY_KEY = "Software\Scorchio Limited\Ninja Coder for MvvmCross" ?>
+
+  <?define APPLICATION_VERSION = 1.2.1 ?>
+  <?define MVVMCROSS_VERSION = 3.0.8 ?>
+
   <?define SOURCE_DIR = "B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross" ?>
 
+  <?define CONNECT_CLASS_FULL_NAME_VS = NinjaCoder.MvvmCross.AddIn.Connect" ?>
+  
+  <?define REGISTRY_KEY = "Software\Scorchio Limited\Ninja Coder for MvvmCross" ?>
+  <?define PLUGINS_REGISTRY_KEY = "$(var.REGISTRY_KEY)\Plugins" ?>
+  <?define OPTIONS_REGISTRY_KEY = "$(var.REGISTRY_KEY)\Options" ?>
+  
   <?define PROJECT_TEMPLATES_DIR = "$(var.SOURCE_DIR)\ProjectTemplates" ?>
   <?define PROJECT_TEMPLATES_ZIPS_DIR = "$(var.PROJECT_TEMPLATES_DIR)\Zips" ?>
   <?define PROJECT_TEMPLATES_CORE_LIB = "$(var.SOURCE_DIR)\ProjectTemplates\CoreTemplate\Lib" ?>

@@ -43,7 +43,7 @@
             // 
             this.buttonOK.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonOK.Location = new System.Drawing.Point(546, 730);
+            this.buttonOK.Location = new System.Drawing.Point(327, 732);
             this.buttonOK.Margin = new System.Windows.Forms.Padding(4);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(100, 27);
@@ -55,7 +55,7 @@
             // 
             this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(654, 730);
+            this.buttonCancel.Location = new System.Drawing.Point(438, 731);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 27);
@@ -83,11 +83,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(328, 641);
+            this.label1.Location = new System.Drawing.Point(9, 673);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(368, 17);
+            this.label1.Size = new System.Drawing.Size(316, 17);
             this.label1.TabIndex = 96;
-            this.label1.Text = "Select the ViewModel to implement plugins or leave blank";
+            this.label1.Text = "Optionally select ViewModel to implement plugins";
             // 
             // logo1
             // 
@@ -104,7 +104,7 @@
             this.mvxListView1.Location = new System.Drawing.Point(331, 54);
             this.mvxListView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.mvxListView1.Name = "mvxListView1";
-            this.mvxListView1.Size = new System.Drawing.Size(423, 569);
+            this.mvxListView1.Size = new System.Drawing.Size(210, 569);
             this.mvxListView1.TabIndex = 90;
             // 
             // checkBoxIncludeUnitTests
@@ -124,7 +124,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(789, 770);
+            this.ClientSize = new System.Drawing.Size(565, 771);
             this.Controls.Add(this.checkBoxIncludeUnitTests);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxViewModel);

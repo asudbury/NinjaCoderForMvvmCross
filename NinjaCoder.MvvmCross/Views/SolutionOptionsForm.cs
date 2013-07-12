@@ -1,5 +1,4 @@
-﻿
- // --------------------------------------------------------------------------------------------------------------------
+﻿ // --------------------------------------------------------------------------------------------------------------------
 // <summary>
 //    Defines the SolutionOptionsForm type.
 // </summary>
@@ -10,10 +9,8 @@ namespace NinjaCoder.MvvmCross.Views
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Forms;
-
-    using Presenters;
     using Interfaces;
-
+    using Presenters;
     using Scorchio.VisualStudio.Entities;
 
     /// <summary>

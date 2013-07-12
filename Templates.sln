@@ -94,12 +94,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{7836
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2A21A7FB-5AFB-41CC-8F16-89A7876CE975}"
 	ProjectSection(SolutionItems) = preProject
-		ItemTemplates\Core\CodeSnippets\Services\Services.LocationService.Config.xml = ItemTemplates\Core\CodeSnippets\Services\Services.LocationService.Config.xml
+		ItemTemplates\Core\CodeSnippets\Services\Services.LocationService.Tests.xml = ItemTemplates\Core\CodeSnippets\Services\Services.LocationService.Tests.xml
+		ItemTemplates\Core\CodeSnippets\Services\Services.LocationService.xml = ItemTemplates\Core\CodeSnippets\Services\Services.LocationService.xml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.TypeResolverService", "ItemTemplates\Core\Services\MvvmCross.TypeResolverService\MvvmCross.TypeResolverService.csproj", "{457B14E5-CBED-4936-AE1C-F46EEB623B28}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.AzureMobileService", "ItemTemplates\Core\Services\MvvmCross.AzureMobileService\MvvmCross.AzureMobileService.csproj", "{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{0732EB57-4A91-473E-A1F7-E0C5D9F44A8B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{084DE483-B02A-44CF-B5A7-9B7EF54D0516}"
+	ProjectSection(SolutionItems) = preProject
+		ItemTemplates\Core\Config\Services\Config.LocationService.xml = ItemTemplates\Core\Config\Services\Config.LocationService.xml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -904,6 +912,7 @@ Global
 		{731EBF6A-E718-4FF2-BD11-7311C9C8EE4B} = {DA7A827F-1D4A-4E6E-9365-71562047160E}
 		{4DC2D446-8564-4C67-BEED-098990449CCA} = {DA7A827F-1D4A-4E6E-9365-71562047160E}
 		{D28560DF-FA52-4974-9D98-C4D21691811D} = {DA7A827F-1D4A-4E6E-9365-71562047160E}
+		{0732EB57-4A91-473E-A1F7-E0C5D9F44A8B} = {DA7A827F-1D4A-4E6E-9365-71562047160E}
 		{F538A86F-B05D-418E-8585-C8849998AF66} = {57CEA34B-317D-47F2-B56A-33782CD98E2D}
 		{41E99EA2-78A5-4E00-A043-CF411E5C0A4C} = {57CEA34B-317D-47F2-B56A-33782CD98E2D}
 		{0AFFF403-85DB-4314-9246-D1B3FAC590B5} = {57CEA34B-317D-47F2-B56A-33782CD98E2D}
@@ -915,5 +924,6 @@ Global
 		{2DBE39C7-8950-49F5-B24F-ADF44512CBBC} = {4DC2D446-8564-4C67-BEED-098990449CCA}
 		{7836EE93-6A3A-4756-BE3B-0D5FC0F1EB23} = {D28560DF-FA52-4974-9D98-C4D21691811D}
 		{2A21A7FB-5AFB-41CC-8F16-89A7876CE975} = {D28560DF-FA52-4974-9D98-C4D21691811D}
+		{084DE483-B02A-44CF-B5A7-9B7EF54D0516} = {0732EB57-4A91-473E-A1F7-E0C5D9F44A8B}
 	EndGlobalSection
 EndGlobal

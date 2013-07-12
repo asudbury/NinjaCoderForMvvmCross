@@ -22,13 +22,15 @@ namespace NinjaCoder.MvvmCross.Views
         /// </summary>
         /// <param name="viewModelNames">The view model names.</param>
         /// <param name="itemTemplateInfos">The item template infos.</param>
+        /// <param name="displayLogo">if set to <c>true</c> [display logo].</param>
         public ServicesForm(
             List<string> viewModelNames,
-             List<ItemTemplateInfo> itemTemplateInfos)
+             List<ItemTemplateInfo> itemTemplateInfos,
+             bool displayLogo)
         {
             this.InitializeComponent();
 
-            this.Presenter = new ServicesPresenter(this, itemTemplateInfos);
+            this.Presenter = new ServicesPresenter(this, itemTemplateInfos, displayLogo);
             this.Presenter.Load(viewModelNames);
         }
 
@@ -36,16 +38,21 @@ namespace NinjaCoder.MvvmCross.Views
         /// Gets the presenter.
         /// </summary>
         public ServicesPresenter Presenter { get; private set; }
+        
+        /// <summary>
+        /// Sets a value indicating whether [display logo].
+        /// </summary>
+        public bool DisplayLogo
+        {
+            set { this.SetLogoVisibility(this.logo1, value); }
+        }
 
         /// <summary>
         /// Gets the implement in view model.
         /// </summary>
         public string ImplementInViewModel
         {
-            get
-            {
-                return this.comboBoxViewModel.SelectedItem as string;
-            }
+            get { return this.comboBoxViewModel.SelectedItem as string; }
         }
 
         /// <summary>

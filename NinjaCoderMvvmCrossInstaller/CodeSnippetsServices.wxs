@@ -4,12 +4,21 @@
   <Fragment>
     <ComponentGroup Id='ComponentGroupCodeSnippetsServices'>
 
-      <Component Id="CodeSnippetsServicesComponent" Directory="CodeSnippetsServices" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-30000000000B">
+      <Component Id="CodeSnippetsServicesComponent" 
+                 Directory="CodeSnippetsServices" 
+                 DiskId="1" 
+                 Guid="825c8b3c-e1ee-4eae-85b2-30000000000B">
         
-        <File Id="Snippet19" Name="Services.LocationService.Config.xml"
-            Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Services\Services.LocationService.Config.xml" Vital="yes" KeyPath="no" >
-          <CopyFile Id="Snippet19" DestinationDirectory="CodeSnippetsServices"/>
-        </File>        
+        <File Id="SnippetService1" Name="Services.LocationService.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Services\Services.LocationService.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="SnippetService1" DestinationDirectory="CodeSnippetsServices"/>
+        </File>
+
+        <File Id="SnippetService1T" Name="Services.LocationService.Tests.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Services\Services.LocationService.Tests.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="SnippetService1T" DestinationDirectory="CodeSnippetsServices"/>
+        </File>
+        
       </Component>
     </ComponentGroup>
 	</Fragment>

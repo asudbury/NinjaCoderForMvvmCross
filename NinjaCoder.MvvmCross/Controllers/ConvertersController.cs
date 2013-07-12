@@ -3,16 +3,13 @@
 //    Defines the ConvertersController type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Controllers
 {
     using System.Collections.Generic;
-    using Services.Interfaces;
-
-    using Services;
-    using Views;
-
     using Scorchio.VisualStudio.Entities;
+    using Services;
+    using Services.Interfaces;
+    using Views;
 
     /// <summary>
     /// Defines the ConvertersController type.
@@ -56,7 +53,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         public void Run()
         {
-            this.AddTraceHeader("ConvertersController::Run");
+            this.AddTraceHeader("ConvertersController", "Run");
 
             if (this.VisualStudioService.IsMvvmCrossSolution)
             {
@@ -64,7 +61,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                 List<ItemTemplateInfo> itemTemplateInfos = this.VisualStudioService.GetFolderTemplateInfos(templatesPath, "Converters");
 
-                ItemTemplatesForm form = new ItemTemplatesForm(itemTemplateInfos);
+                ItemTemplatesForm form = new ItemTemplatesForm(itemTemplateInfos, this.SettingsService.DisplayLogo);
 
                 form.ShowDialog();
 

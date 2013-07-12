@@ -37,7 +37,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         public void Run()
         {
-            this.AddTraceHeader("AddProjectsController::Run");
+            this.AddTraceHeader("ProjectsController", "Run");
 
             string defaultLocation;
             string defaultProjectName = this.GetDefaultProjectName();
@@ -84,15 +84,13 @@ namespace NinjaCoder.MvvmCross.Controllers
                         solution2.Create(solutionPath, form.ProjectName);
                     }
 
-                    IEnumerable<string> messages = solution2.AddProjects(form.Presenter.GetSolutionPath(), form.Presenter.GetRequiredTemplates(), true);
-                    
+                    IEnumerable<string> messages = solution2.AddProjects(
+                        form.Presenter.GetSolutionPath(),
+                        form.Presenter.GetRequiredTemplates(), 
+                        true,
+                        this.SettingsService.IncludeLibFolderInProjects);
+
                     this.WriteStatusBarMessage("Ninja Coder is updating files...");
-
-                    //// this really shouldn't be done - templates now have a mind of their own - please fix!!
-                    this.VisualStudioService.DTE2.ReplaceText("Cirrious." + form.ProjectName + ".", "Cirrious.MvvmCross.", false);
-
-                    //// sort out core project references - needs looking into!!
-                    this.VisualStudioService.DTE2.ReplaceText("CoreTemplate.", "Core.", false);
 
                     //// create the version files.
                     this.CreateNinjaVersionFile(this.SettingsService.ApplicationVersion);
@@ -120,7 +118,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             if (project != null)
             {
-                TraceService.WriteLine("AddProjectsController::Run defaultProject=" + project.Name);
+                TraceService.WriteLine("ProjectsController::GetDefaultProjectName defaultProject=" + project.Name);
 
                 return project.Name.Replace(ProjectSuffixes.Core, string.Empty);
             }

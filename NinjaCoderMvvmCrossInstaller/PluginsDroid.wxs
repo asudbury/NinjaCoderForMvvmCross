@@ -4,11 +4,14 @@
   <Fragment>
     <ComponentGroup Id='ComponentGroupDroidPlugins'>
 
-      <Component Id="MvvmCrossAssembliesDroidPluginsComponent" Directory="MvvmCrossAssembliesDroidPlugins" DiskId="1" Guid="825c8b3c-e1ee-4eae-85b2-300000000002">
+      <Component Id="DroidPluginsComponent" 
+                 Directory="MvvmCrossAssembliesDroidPlugins" 
+                 DiskId="1" 
+                 Guid="825c8b3c-e1ee-4eae-85b2-300000000002">
 
         <RegistryKey Root="HKCU"
-                 Key="$(var.REGISTRY_KEY)">
-          <RegistryValue Type="string" Name="Droid Plugins Path" Value="[MvvmCrossAssembliesDroidPlugins]"/>
+                 Key="$(var.PLUGINS_REGISTRY_KEY)" ForceCreateOnInstall="yes">
+          <RegistryValue Type="string" Name="Droid Path" Value="[MvvmCrossAssembliesDroidPlugins]"/>
         </RegistryKey>
 
         <File Id="DroidPlugins1" Name="Cirrious.MvvmCross.Plugins.Accelerometer.Droid.dll"

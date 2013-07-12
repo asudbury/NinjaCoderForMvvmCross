@@ -26,7 +26,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The constructors.</returns>
         public static IEnumerable<CodeFunction> GetConstructors(this CodeClass instance)
         {
-            TraceService.WriteLine("CodeClassExtensions::GetConstructors " + instance.Name);
+            TraceService.WriteLine("CodeClassExtensions::GetConstructors file=" + instance.Name);
 
             return instance.Members.OfType<CodeFunction>()
                             .Where(x => x.FunctionKind == vsCMFunction.vsCMFunctionConstructor);
@@ -41,7 +41,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// </returns>
         public static CodeFunction AddDefaultConstructor(this CodeClass instance)
         {
-            TraceService.WriteLine("CodeClassExtensions::AddDefaultConstructor " + instance.Name);
+            TraceService.WriteLine("CodeClassExtensions::AddDefaultConstructor file=" + instance.Name);
 
             CodeFunction codeFunction = instance.AddFunction(
                 instance.Name,
@@ -69,7 +69,7 @@ namespace Scorchio.VisualStudio.Extensions
             this CodeClass instance,
             string functionName)
         {
-            TraceService.WriteLine("CodeClassExtensions::GetFunction " + functionName);
+            TraceService.WriteLine("CodeClassExtensions::GetFunction file=" + instance.Name + " function" + functionName);
 
             return instance.Members.OfType<CodeFunction>().FirstOrDefault(x => x.FullName.Contains(functionName));
         }
@@ -83,7 +83,7 @@ namespace Scorchio.VisualStudio.Extensions
             this CodeClass instance,
             CodeSnippet codeSnippet)
         {
-            TraceService.WriteLine("CodeClassExtensions::ImplementCodeSnippet " + instance.Name);
+            TraceService.WriteLine("CodeClassExtensions::ImplementCodeSnippet file" + instance.Name);
 
             if (string.IsNullOrEmpty(codeSnippet.Code) == false)
             {
@@ -150,7 +150,7 @@ namespace Scorchio.VisualStudio.Extensions
             this CodeClass instance, 
             CodeSnippet codeSnippet)
         {
-            TraceService.WriteLine("CodeClassExtensions::ImplementMockCode " + instance.Name);
+            TraceService.WriteLine("CodeClassExtensions::ImplementMockCode file=" + instance.Name);
 
             CodeFunction codeFunction = instance.GetFunction(codeSnippet.TestInitMethod);
 
@@ -206,7 +206,7 @@ namespace Scorchio.VisualStudio.Extensions
             this CodeClass instance, 
             CodeSnippet codeSnippet)
         {
-            TraceService.WriteLine("CodeClassExtensions::ImplementFunction " + instance.Name);
+            TraceService.WriteLine("CodeClassExtensions::ImplementFunction file=" + instance.Name);
 
             CodeFunction codeFunction = instance.AddFunction(
                 "temp",
@@ -236,7 +236,7 @@ namespace Scorchio.VisualStudio.Extensions
             CodeFunction constructor, 
             string variable)
         {
-            TraceService.WriteLine("CodeClassExtensions::ImplementInterface " + variable);
+            TraceService.WriteLine("CodeClassExtensions::ImplementInterface file=" + variable);
 
             //// now add in the interfaces!
 
@@ -323,7 +323,7 @@ namespace Scorchio.VisualStudio.Extensions
             string name,
             string type)
         {
-            TraceService.WriteLine("CodeClassExtensions::ImplementMockVariable " + instance.Name);
+            TraceService.WriteLine("CodeClassExtensions::ImplementMockVariable file=" + instance.Name);
 
             CodeVariable codeVariable = instance.AddVariable(name, type, 0, vsCMAccess.vsCMAccessPrivate, 0);
 

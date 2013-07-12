@@ -7,6 +7,7 @@ namespace Scorchio.VisualStudio.Extensions
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using Entities;
     using EnvDTE;
@@ -25,7 +26,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The sub project items.</returns>
         public static IEnumerable<ProjectItem> GetSubProjectItems(this ProjectItem instance)
         {
-            TraceService.WriteLine("ProjectItemExtensions::GetSubProjectItems " + instance.Name);
+            TraceService.WriteLine("ProjectItemExtensions::GetSubProjectItems file=" + instance.Name);
 
             return instance.ProjectItems.Cast<ProjectItem>().ToList();
         }
@@ -37,7 +38,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The name space.</returns>
         public static CodeNamespace GetNameSpace(this ProjectItem instance)
         {
-            TraceService.WriteLine("ProjectItemExtensions::GetNameSpace " + instance.Name);
+            TraceService.WriteLine("ProjectItemExtensions::GetNameSpace file=" + instance.Name);
 
             return
                 instance.FileCodeModel.CodeElements.Cast<CodeElement>()
@@ -56,7 +57,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// </returns>
         public static CodeNamespace AddNameSpace(this ProjectItem instance, string nameSpace)
         {
-            TraceService.WriteLine("ProjectItemExtensions::AddNameSpace " + instance.Name);
+            TraceService.WriteLine("ProjectItemExtensions::AddNameSpace file=" + instance.Name);
 
             return instance.ContainingProject.CodeModel.AddNamespace(nameSpace, instance.Name);
         }
@@ -68,7 +69,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The first code element</returns>
         public static CodeElement GetFirstCodeElement(this ProjectItem instance)
         {
-            TraceService.WriteLine("ProjectItemExtensions::GetFirstCodeElement " + instance.Name);
+            TraceService.WriteLine("ProjectItemExtensions::GetFirstCodeElement projectItem" + instance.Name);
 
             if (instance.FileCodeModel.CodeElements.Count > 0)
             {
@@ -98,7 +99,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The first namespace.</returns>
         public static CodeNamespace GetFirstNameSpace(this ProjectItem instance)
         {
-            TraceService.WriteLine("ProjectItemExtensions::GetFirstNameSpace " + instance.Name);
+            TraceService.WriteLine("ProjectItemExtensions::GetFirstNameSpace file=" + instance.Name);
 
             IEnumerable<CodeNamespace> codeNamespaces = instance.FileCodeModel.CodeElements.OfType<CodeNamespace>();
             
@@ -112,7 +113,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The first class.</returns>
         public static CodeClass GetFirstClass(this ProjectItem instance)
         {
-            TraceService.WriteLine("ProjectItemExtensions::GetFirstClass " + instance.Name);
+            TraceService.WriteLine("ProjectItemExtensions::GetFirstClass file=" + instance.Name);
 
             IEnumerable<CodeClass> codeClasses = instance.FileCodeModel.CodeElements.OfType<CodeClass>();
 
@@ -245,9 +246,6 @@ namespace Scorchio.VisualStudio.Extensions
             }
 
             instance.GetFirstClass().ImplementCodeSnippet(codeSnippet);
-
-            //// now do any code tidying up!
-            instance.TidyUpCode();
         }
 
         /// <summary>
@@ -316,12 +314,22 @@ namespace Scorchio.VisualStudio.Extensions
                             TextPoint textPoint = import.GetEndPoint();
                             string text = startEditPoint.GetText(textPoint);
                             statements.Add(text);
-                        }                        
+                        }
                     }
                 }
             }
 
             return statements;
+        }
+
+        /// <summary>
+        /// Fixes the using statements.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        public static void FixUsingStatements(this ProjectItem instance)
+        {
+            instance.MoveUsingStatements();
+            instance.SortAndRemoveUsingStatements();
         }
 
         /// <summary>
@@ -359,27 +367,49 @@ namespace Scorchio.VisualStudio.Extensions
                     }
                 }
 
-                //// now perform the deletes.
-                for (int i = 1; i <= instance.FileCodeModel.CodeElements.Count; i++)
-                {
-                    CodeElement codeElement = instance.FileCodeModel.CodeElements.Item(i);
+                instance.DeleteNameSpaceUsingStatements();
+            }
+            catch (Exception exception)
+            {
+                TraceService.WriteError("MoveUsingStatements " + exception.Message);
+            }
+        }
 
+        /// <summary>
+        /// Deletes the name space using statements.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        public static void DeleteNameSpaceUsingStatements(this ProjectItem instance)
+        {
+            bool continueLoop = true;
+
+            do
+            {
+                CodeElement codeElement = instance.FileCodeModel.CodeElements.Item(1);
+
+                if (codeElement != null)
+                {
                     if (codeElement.Kind == vsCMElement.vsCMElementImportStmt)
                     {
                         EditPoint editPoint = codeElement.GetStartPoint().CreateEditPoint();
                         TextPoint textPoint = codeElement.GetEndPoint();
 
                         editPoint.Delete(textPoint);
-                        
+
                         //// should get rid of the blank line!
                         editPoint.Delete(1);
                     }
+                    else
+                    {
+                        continueLoop = false;
+                    }
+                }
+                else
+                {
+                    continueLoop = false;
                 }
             }
-            catch (Exception exception)
-            {
-                TraceService.WriteError("MoveUsingStatements " + exception.Message);
-            }
+            while (continueLoop);
         }
 
         /// <summary>
@@ -392,8 +422,7 @@ namespace Scorchio.VisualStudio.Extensions
 
             try
             {
-                const string ConstantsvsViewKindCode = "{7651A701-06E5-11D1-8EBD-00A0C90F26EA}";
-                Window window = instance.Open(ConstantsvsViewKindCode);
+                Window window = instance.Open(VSConstants.VsViewKindCode);
 
                 window.Activate();
 
@@ -416,23 +445,74 @@ namespace Scorchio.VisualStudio.Extensions
             string text,
             string replacementText)
         {
-            TraceService.WriteLine("ProjectItemExtensions::ReplaceText in file " + instance.Name  + " from " + text + " to " + replacementText);
+            TraceService.WriteLine("ProjectItemExtensions::ReplaceText in file " + instance.Name  + " from '" + text + "' to '" + replacementText + "'");
 
-            TextSelection textSelection = instance.DTE.ActiveDocument.Selection;
-            textSelection.SelectAll();
-            textSelection.ReplacePattern(text, replacementText, (int)vsFindOptions.vsFindOptionsMatchCase);
-            instance.Save();
+            Window window = instance.Open(VSConstants.VsViewKindCode);
+
+            if (window != null)
+            {
+                window.Activate();
+
+                TextSelection textSelection = instance.DTE.ActiveDocument.Selection;
+                textSelection.SelectAll();
+                textSelection.ReplacePattern(text, replacementText, (int)vsFindOptions.vsFindOptionsMatchCase);
+                instance.Save();
+            }
         }
 
         /// <summary>
-        /// Tidies up code.
+        /// Determines whether the project item is a physical file.
         /// </summary>
         /// <param name="instance">The instance.</param>
-        public static void TidyUpCode(this ProjectItem instance)
+        /// <returns>
+        ///   <c>true</c> if [is physical file] [the specified instance]; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool IsPhysicalFile(this ProjectItem instance)
         {
-            TraceService.WriteLine("ProjectItemExtensions::TidyUpCode in file " + instance.Name);
-
-            ////instance.ReplaceText("\t", "    ");
+            return instance.Kind == VSConstants.VsProjectItemKindPhysicalFile;
         }
-    }
+
+        /// <summary>
+        /// Determines whether [is C sharp file] [the specified instance].
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns>
+        ///   <c>true</c> if [is C sharp file] [the specified instance]; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool IsCSharpFile(this ProjectItem instance)
+        {
+            bool csharpFile = false;
+
+            if (instance.IsPhysicalFile())
+            {
+                if (instance.Name.EndsWith(".cs"))
+                {
+                    csharpFile = true;
+                }
+            }
+
+            return csharpFile;
+        }
+
+        /// <summary>
+        /// Gets the folder.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns>The folder.</returns>
+        public static string GetFolder(this ProjectItem instance)
+        {
+            string folder = string.Empty;
+            
+            string fileName = instance.FileNames[0];
+
+            DirectoryInfo directoryInfo = new DirectoryInfo(fileName);
+
+            if (directoryInfo.Parent != null)
+            {
+                folder = directoryInfo.Parent.ToString();
+            }
+
+            return folder;
+        }
+   }
 }

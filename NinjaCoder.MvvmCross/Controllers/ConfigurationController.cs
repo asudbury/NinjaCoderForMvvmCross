@@ -3,14 +3,11 @@
 //    Defines the ConfigurationController type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
-
 namespace NinjaCoder.MvvmCross.Controllers
 {
+    using Scorchio.VisualStudio.Services;
     using Services;
     using Services.Interfaces;
-
-    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     /// Defines the ConfigurationController type.
