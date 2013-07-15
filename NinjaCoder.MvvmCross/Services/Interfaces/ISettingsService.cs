@@ -36,6 +36,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         bool IncludeLibFolderInProjects { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [use nuget for project templates].
+        /// </summary>
+        bool UseNugetForProjectTemplates { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [display errors].
         /// </summary>
         bool DisplayErrors { get; set; }

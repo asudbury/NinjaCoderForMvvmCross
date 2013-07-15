@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
   
-  <!-- Ensure version of assembly is the same as the version below -->
   <?include $(sys.CURRENTDIR)Global.wxi ?>
   <Product Id="*" 
            Name="Ninja Coder for MvvmCross v$(var.APPLICATION_VERSION)" 
@@ -11,13 +10,8 @@
            UpgradeCode="825c8b3c-e1ee-4eae-85b2-175f15b0b3bf">
     <Package InstallerVersion="200" Compressed="yes" />
 
-    <!--<WixVariable Id="WixUILicenseRtf" Value="path\License.rtf" />-->
     <WixVariable Id="WixUIBannerBmp" Value="resources\banner.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="resources\dialog.bmp" />
-    <!--<WixVariable Id="WixUIExclamationIco" Value="path\exclamation.ico" />-->
-    <!--<WixVariable Id="WixUIInfoIco" Value="path\information.ico" />-->
-    <!--<WixVariable Id="WixUINewIco" Value="path\new.ico" />-->
-    <!--<WixVariable Id="WixUIUpIco" Value="path\up.ico" />-->
     
     <!-- Upgrade options -->
     <Property Id="PREVIOUSVERSIONSINSTALLED" Secure="yes" />
@@ -332,42 +326,17 @@
       <ComponentRef	Id="ItemConverterTemplates" />
       <ComponentRef	Id="ItemServiceTemplates" />
       <ComponentRef	Id="CodeSnippetsPluginsComponent" />
-      <!--<ComponentRef	Id="CodeSnippetsServicesComponent" />-->
+      <ComponentRef	Id="CodeSnippetsServicesComponent" />
       <ComponentRef	Id="ConfigServicesComponent" />
       <ComponentRef	Id="ComponentProjectTemplates" />
 
     </Feature>
-    <!--<CustomAction Id="RemoveVS2012AddInCommands" Script="vbscript" Execute="deferred" Return="ignore" Impersonate="yes">
-      <![CDATA[
-            Set dte = CreateObject("VisualStudio.DTE.11.0")
-            For Each cmd In dte.Commands
-               If InStr(cmd, "$(var.CONNECT_CLASS_FULL_NAME_VS)") <> 0 Then
-                  cmd.Delete()
-               End If
-            Next
-            dte.Quit()
-         ]]>
-    </CustomAction>
-
-    <CustomAction Id="VS2012ResetAddin" Script="jscript" Execute="deferred" Return="ignore" Impersonate="yes">
-	        <![CDATA[
-		        var shell = new ActiveXObject( "WScript.Shell" );
-		        var path = shell.RegRead( "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\VisualStudio\\11.0\\InstallDir" );
-		        shell.Run( '"' + path + 'DEVENV.EXE" /ResetAddIn NinjaCoder.MvvmCross.AddIn.Connect /Command File.Exit' );             
-           ]]>
-    </CustomAction>-->
 
     <InstallExecuteSequence>
-      <!--<Custom Action="VS2012ResetAddin" After="InstallInitialize"></Custom>-->
-      
+     
       <RemoveExistingProducts After="InstallInitialize"/>
       
       <Custom Action="VS2012InstallVSTemplates" Before="InstallFinalize"></Custom>
-      <!--<Custom Action="RemoveVS2012AddInCommands"
-                 After="RemoveFiles">
-        Installed AND NOT UPGRADINGPRODUCTCODE AND VS2012INSTALLATIONFOLDER
-        AND !ProductFeature=3
-      </Custom>-->
     
     </InstallExecuteSequence>
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />

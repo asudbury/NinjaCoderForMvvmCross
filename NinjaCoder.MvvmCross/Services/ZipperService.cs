@@ -102,8 +102,10 @@ namespace NinjaCoder.MvvmCross.Services
 
                 this.WriteMessageToLogFile("Entries = " + entries.Count);
 
-                foreach (ZipArchiveEntry zipArchiveEntry in entries)
+                for (int i = 0; i < entries.Count; i++)
                 {
+                    ZipArchiveEntry zipArchiveEntry = entries[i];
+
                     this.BuildZipFile(updatesDirectory, folderName, replaceFiles, zipArchive, zipArchiveEntry);
                 }
             }

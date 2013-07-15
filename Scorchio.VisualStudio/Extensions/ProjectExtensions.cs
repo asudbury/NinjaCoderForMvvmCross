@@ -317,11 +317,13 @@ namespace Scorchio.VisualStudio.Extensions
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="folderName">Name of the folder.</param>
-        public static void RemoveFolder(
+        public static ProjectItem RemoveFolder(
             this Project instance, 
             string folderName)
         {
             TraceService.WriteLine("ProjectExtensions::RemoveFolder project=" + instance.Name);
+
+            ProjectItem removedProjectItem = null;
 
             IEnumerable<ProjectItem> projectItems = instance.GetProjectItems();
 
@@ -333,12 +335,15 @@ namespace Scorchio.VisualStudio.Extensions
                     {
                         if (projectItem.Name.ToLower() == folderName.ToLower())
                         {
+                            removedProjectItem = projectItem;
                             projectItem.Remove();
                             break;
                         }
                     }
                 }
             }
+
+            return removedProjectItem;
         }
     }
 }

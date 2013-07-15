@@ -37,13 +37,14 @@
             this.logo1 = new NinjaCoder.MvvmCross.UserControls.Logo();
             this.mvxListView1 = new NinjaCoder.MvvmCross.UserControls.MvxListView();
             this.checkBoxIncludeUnitTests = new System.Windows.Forms.CheckBox();
+            this.checkBoxUseNuget = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
             this.buttonOK.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonOK.Location = new System.Drawing.Point(327, 732);
+            this.buttonOK.Location = new System.Drawing.Point(391, 731);
             this.buttonOK.Margin = new System.Windows.Forms.Padding(4);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(100, 27);
@@ -55,7 +56,7 @@
             // 
             this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(438, 731);
+            this.buttonCancel.Location = new System.Drawing.Point(499, 731);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 27);
@@ -104,7 +105,7 @@
             this.mvxListView1.Location = new System.Drawing.Point(331, 54);
             this.mvxListView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.mvxListView1.Name = "mvxListView1";
-            this.mvxListView1.Size = new System.Drawing.Size(210, 569);
+            this.mvxListView1.Size = new System.Drawing.Size(268, 569);
             this.mvxListView1.TabIndex = 90;
             // 
             // checkBoxIncludeUnitTests
@@ -120,11 +121,23 @@
             this.checkBoxIncludeUnitTests.UseVisualStyleBackColor = true;
             this.checkBoxIncludeUnitTests.Visible = false;
             // 
+            // checkBoxUseNuget
+            // 
+            this.checkBoxUseNuget.AutoSize = true;
+            this.checkBoxUseNuget.Enabled = false;
+            this.checkBoxUseNuget.Location = new System.Drawing.Point(331, 643);
+            this.checkBoxUseNuget.Name = "checkBoxUseNuget";
+            this.checkBoxUseNuget.Size = new System.Drawing.Size(289, 21);
+            this.checkBoxUseNuget.TabIndex = 98;
+            this.checkBoxUseNuget.Text = "Use Nuget (Internet connection required)";
+            this.checkBoxUseNuget.UseVisualStyleBackColor = true;
+            // 
             // PluginsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(565, 771);
+            this.ClientSize = new System.Drawing.Size(627, 771);
+            this.Controls.Add(this.checkBoxUseNuget);
             this.Controls.Add(this.checkBoxIncludeUnitTests);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxViewModel);
@@ -154,5 +167,6 @@
         private System.Windows.Forms.ComboBox comboBoxViewModel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkBoxIncludeUnitTests;
+        private System.Windows.Forms.CheckBox checkBoxUseNuget;
     }
 }

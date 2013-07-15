@@ -7,12 +7,9 @@ namespace NinjaCoder.MvvmCross.Presenters
 {
     using System.Collections.Generic;
     using System.Configuration;
-
-    using Views.Interfaces;
-
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
-
+    using Views.Interfaces;
     using Settings = Properties.Settings;
 
     /// <summary>
@@ -46,6 +43,11 @@ namespace NinjaCoder.MvvmCross.Presenters
         private readonly bool displayLogo;
 
         /// <summary>
+        /// The use nuget.
+        /// </summary>
+        private readonly bool useNuget;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SolutionOptionsPresenter" /> class.
         /// </summary>
         /// <param name="view">The view.</param>
@@ -53,18 +55,21 @@ namespace NinjaCoder.MvvmCross.Presenters
         /// <param name="defaultProjectName">Default name of the project.</param>
         /// <param name="projectInfos">The project infos.</param>
         /// <param name="displayLogo">if set to <c>true</c> [display logo].</param>
+        /// <param name="useNuget">if set to <c>true</c> [use nuget].</param>
         public SolutionOptionsPresenter(
             ISolutionOptionsView view,
             string defaultProjectsLocation,
             string defaultProjectName,
             List<ProjectTemplateInfo> projectInfos,
-            bool displayLogo)
+            bool displayLogo,
+            bool useNuget)
         {
             this.view = view;
             this.defaultProjectsLocation = defaultProjectsLocation;
             this.defaultProjectName = defaultProjectName;
             this.projectInfos = projectInfos;
             this.displayLogo = displayLogo;
+            this.useNuget = useNuget;
         }
 
         /// <summary>
@@ -80,6 +85,14 @@ namespace NinjaCoder.MvvmCross.Presenters
             foreach (ProjectTemplateInfo projectInfo in this.view.RequiredProjects)
             {
                 projectInfo.Name = projectName + projectInfo.ProjectSuffix;
+
+                ///// set up the nuget property if the nuget command exists for the project!
+                if (this.view.UseNuget && string.IsNullOrEmpty(projectInfo.NugetCommand) == false)
+                {
+                    projectInfo.UseNuget = this.view.UseNuget;
+                }
+
+
                 this.projectInfos.Add(projectInfo);
             }
 
@@ -103,6 +116,7 @@ namespace NinjaCoder.MvvmCross.Presenters
             try
             {
                 this.view.DisplayLogo = this.displayLogo;
+                this.view.UseNuget = this.useNuget;
                 string defaultPath = Settings.Default[Constants.Settings.DefaultPath].ToString();
 
                 this.view.Path = defaultPath != string.Empty ? defaultPath : this.defaultProjectsLocation;

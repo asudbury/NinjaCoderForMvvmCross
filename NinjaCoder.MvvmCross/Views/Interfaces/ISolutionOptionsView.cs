@@ -20,6 +20,11 @@ namespace NinjaCoder.MvvmCross.Views.Interfaces
         bool DisplayLogo { set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [use nuget].
+        /// </summary>
+        bool UseNuget { get; set; }
+
+        /// <summary>
         /// Gets or sets the path.
         /// </summary>
         string Path { get; set; }

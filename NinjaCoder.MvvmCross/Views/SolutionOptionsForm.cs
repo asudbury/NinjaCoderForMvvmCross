@@ -25,18 +25,21 @@ namespace NinjaCoder.MvvmCross.Views
         /// <param name="defaultProjectName">Default name of the project.</param>
         /// <param name="projectInfos">The project infos.</param>
         /// <param name="displayLogo">if set to <c>true</c> [display logo].</param>
+        /// <param name="useNuget">if set to <c>true</c> [use nuget].</param>
         public SolutionOptionsForm(
             string defaultProjectsLocation,
             string defaultProjectName,
             List<ProjectTemplateInfo> projectInfos,
-            bool displayLogo)
+            bool displayLogo,
+            bool useNuget)
         {
             this.Presenter = new SolutionOptionsPresenter(
                 this, 
                 defaultProjectsLocation, 
                 defaultProjectName,
                 projectInfos,
-                displayLogo);
+                displayLogo,
+                useNuget);
 
             this.InitializeComponent();
 
@@ -57,6 +60,15 @@ namespace NinjaCoder.MvvmCross.Views
         public bool DisplayLogo 
         { 
             set { this.SetLogoVisibility(this.logo1, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use nuget].
+        /// </summary>
+        public bool UseNuget
+        {
+            get { return this.checkBoxUseNuget.Checked; }
+            set { this.checkBoxUseNuget.Checked = value; }
         }
 
         /// <summary>

@@ -59,5 +59,10 @@ namespace NinjaCoder.MvvmCross.Constants
         /// The replace blank lines reg ex
         /// </summary>
         public const string ReplaceBlankLinesRegEx = @"(?<!\r)\n";
+
+        /// <summary>
+        /// The nuget command
+        /// </summary>
+        public const string NugetCommand = "Install-Package MvvmCross.HotTuna.CrossCore";
     }
 }

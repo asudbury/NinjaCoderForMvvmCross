@@ -61,7 +61,8 @@ namespace NinjaCoder.MvvmCross.Controllers
                     defaultLocation, 
                     defaultProjectName, 
                     projectTemplateInfos, 
-                    this.SettingsService.DisplayLogo);
+                    this.SettingsService.DisplayLogo,
+                    this.SettingsService.UseNugetForProjectTemplates);
 
                 form.ShowDialog();
 

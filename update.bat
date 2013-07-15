@@ -3,67 +3,73 @@
 echo -----------------------------
 echo Project templates - Portable Libraries 
 echo -----------------------------
-copy C:\Scorchio\Projects\c#\MvvmCross-Binaries-master\MvvmCross-Binaries-master\VS2012\bin\Release\Mvx\Portable\*.*  C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\CoreTemplate\Lib
+copy b:\Scorchio\Projects\c#\MvvmCross-Binaries-master\MvvmCross-Binaries-master\VS2012\bin\Release\Mvx\Portable\*.*  b:\Scorchio\Projects\c#\
+NinjaCoderForMvvmCross\ProjectTemplates\CoreTemplate\Lib
 
 echo -----------------------------
 echo Project templates - Droid Libraries
 echo -----------------------------
-copy C:\Scorchio\Projects\c#\MvvmCross-Binaries-master\MvvmCross-Binaries-master\VS2012\bin\Release\Mvx\Droid\*.*  C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\DroidTemplate\Lib
+copy b:\Scorchio\Projects\c#\MvvmCross-Binaries-master\MvvmCross-Binaries-master\VS2012\bin\Release\Mvx\Droid\*.*  b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\DroidTemplate\Lib
 
 echo -----------------------------
 echo Project templates - iOS Libraries
 echo -----------------------------
-copy C:\Scorchio\Projects\c#\MvvmCross-Binaries-master\MvvmCross-Binaries-master\VS2012\bin\Release\Mvx\Touch\*.*  C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\IosTemplate\Lib
+copy b:\Scorchio\Projects\c#\MvvmCross-Binaries-master\MvvmCross-Binaries-master\VS2012\bin\Release\Mvx\Touch\*.*  b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\IosTemplate\Lib
 
 echo -----------------------------
 echo Project templates - Wpf Libraries
 echo -----------------------------
-copy C:\Scorchio\Projects\c#\MvvmCross-Binaries-master\MvvmCross-Binaries-master\VS2012\bin\Release\Mvx\Wpf\*.*  C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\WpfTemplate\Lib
+copy b:\Scorchio\Projects\c#\MvvmCross-Binaries-master\MvvmCross-Binaries-master\VS2012\bin\Release\Mvx\Wpf\*.*  b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\WpfTemplate\Lib
 
 echo -----------------------------
 echo Project templates - WindowsPhone Libraries 
 echo -----------------------------
-copy C:\Scorchio\Projects\c#\MvvmCross-Binaries-master\MvvmCross-Binaries-master\VS2012\bin\Release\Mvx\WindowsPhone\*.*  C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\WindowsPhoneTemplate\Lib
+copy b:\Scorchio\Projects\c#\MvvmCross-Binaries-master\MvvmCross-Binaries-master\VS2012\bin\Release\Mvx\WindowsPhone\*.*  b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\WindowsPhoneTemplate\Lib
 
 echo -----------------------------
 echo Project templates - WindowsStore Libraries
 echo -----------------------------
-copy C:\Scorchio\Projects\c#\MvvmCross-Binaries-master\MvvmCross-Binaries-master\VS2012\bin\Release\Mvx\WindowsStore\*.*  C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\WindowsStoreTemplate\Lib
+copy b:\Scorchio\Projects\c#\MvvmCross-Binaries-master\MvvmCross-Binaries-master\VS2012\bin\Release\Mvx\WindowsStore\*.*  b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\WindowsStoreTemplate\Lib
 
 echo -----------------------------
 echo Zipper - Amend Project Templates
 echo -----------------------------
-cd C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\Zipper\bin\Debug\
+cd b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Zipper\bin\Debug\
 
 echo -----------------------------
 echo Zipper - Amend Core Template
 echo -----------------------------
-Zipper C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\Zips\MvvmCross.Core.zip C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\CoreTemplate\Lib
+Zipper b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\Zips\MvvmCross.Core.zip b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\CoreTemplate\Lib
+
+echo -----------------------------
+echo Zipper - Amend Core Tests Template
+echo -----------------------------
+Zipper b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\Zips\MvvmCross.Core.Tests.zip b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\CoreTemplate\Lib
 
 echo -----------------------------
 echo Zipper - Amend Droid Template
 echo -----------------------------
-Zipper C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\Zips\MvvmCross.Droid.zip C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\DroidTemplate\Lib
+Zipper b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\Zips\MvvmCross.Droid.zip b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\DroidTemplate\Lib
 
 echo -----------------------------
 echo Zipper - Amend iOS Template
 echo -----------------------------
-Zipper C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\Zips\MvvmCross.iOS.zip C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\IosTemplate\Lib
+Zipper b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\Zips\MvvmCross.iOS.zip b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\IosTemplate\Lib
 
 echo -----------------------------
 echo Zipper - Amend WindowsPhone Template
 echo -----------------------------
-Zipper C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\Zips\MvvmCross.WindowsPhone.zip C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\WindowsPhoneTemplate\Lib
+Zipper b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\Zips\MvvmCross.WindowsPhone.zip b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\WindowsPhoneTemplate\Lib
 
 echo -----------------------------
 echo Zipper - Amend WindowsStore Template
 echo -----------------------------
-Zipper C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\Zips\MvvmCross.WindowsStore.zip C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\WindowsStoreTemplate\Lib
+Zipper b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\Zips\MvvmCross.WindowsStore.zip b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\WindowsStoreTemplate\Lib
 
 echo -----------------------------
 echo Zipper - Amend Wpf Template
 echo -----------------------------
-Zipper C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\Zips\MvvmCross.Wpf.zip C:\Scorchio\Projects\c#\NinjaCoderMvvmCross\ProjectTemplates\WpfTemplate\Lib
+Zipper b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\Zips\MvvmCross.Wpf.zip b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\WpfTemplate\Lib
 
 
 

@@ -68,6 +68,15 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [use nuget for project templates].
+        /// </summary>
+        public bool UseNugetForProjectTemplates
+        {
+            get { return this.GetRegistryValue(string.Empty, "UseNugetForProjectTemplates", "N") == "Y"; }
+            set { this.SetRegistryValue("UseNugetForProjectTemplates", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [display errors].
         /// </summary>
         public bool DisplayErrors

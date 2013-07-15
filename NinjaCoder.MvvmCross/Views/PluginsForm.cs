@@ -47,6 +47,15 @@ namespace NinjaCoder.MvvmCross.Views
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [use nuget].
+        /// </summary>
+        public bool UseNuget
+        {
+            get { return this.checkBoxUseNuget.Checked; }
+            set { this.checkBoxUseNuget.Checked = value; }
+        }
+
+        /// <summary>
         /// Gets the implement in view model.
         /// </summary>
         public string ImplementInViewModel

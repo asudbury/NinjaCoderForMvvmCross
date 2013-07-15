@@ -3,7 +3,6 @@
 //    Defines the BaseTemplateInfo type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace Scorchio.VisualStudio.Entities
 {
     /// <summary>
@@ -27,7 +26,7 @@ namespace Scorchio.VisualStudio.Entities
         public string ProjectSuffix { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [pre selected].
+        /// Gets or sets a value indicating whether the item is pre selected.
         /// </summary>
         public bool PreSelected { get; set; }
 

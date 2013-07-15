@@ -198,7 +198,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="projectsInfos">The projects infos.</param>
         /// <param name="referenceFirstProject">if set to <c>true</c> [reference first project].</param>
         /// <param name="includeLibFolderInProjects">if set to <c>true</c> [include lib folder in projects].</param>
-        /// <returns> The messages.</returns>
+        /// <returns>The messages.</returns>
         public static IEnumerable<string> AddProjects(
             this Solution2 instance,
             string path,
@@ -233,14 +233,31 @@ namespace Scorchio.VisualStudio.Extensions
                             solution.AddProjectToSolution(projectPath, template, projectInfo.Name);
                             
                             //// remove the lib folder if that's what the developer wants to happen.
-                            if (includeLibFolderInProjects == false)
+                            //// if the develop has selected use nuget then also remove the project
+                            if (includeLibFolderInProjects == false ||
+                                projectInfo.UseNuget)
                             {
                                 Project project = instance.GetProject(projectInfo.Name);
 
                                 if (project != null)
                                 {
-                                    project.RemoveFolder("Lib");
+                                    ProjectItem projectItem = project.RemoveFolder("Lib");
+
+                                    //// remove the local files if we are going to use nuget.
+                                    if (projectInfo.UseNuget)
+                                    {
+                                        projectItem.DeleteFolder();
+                                    }
                                 }
+                            }
+
+                            if (projectInfo.UseNuget)
+                            {
+                                //// now execute Nuget command.
+
+                                DTE2 dte2 = instance.DTE as DTE2;
+
+                                dte2.ExecuteNugetCommand(projectInfo.NugetCommand);
                             }
 
                             messages.Add(projectInfo.Name + " project successfully added.");

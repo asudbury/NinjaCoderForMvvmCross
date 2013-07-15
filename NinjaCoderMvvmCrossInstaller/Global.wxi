@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
 
-  <?define APPLICATION_VERSION = 1.2.1 ?>
-  <?define MVVMCROSS_VERSION = 3.0.8 ?>
+  <?define APPLICATION_VERSION = 1.2.2 ?>
+  <?define MVVMCROSS_VERSION = 3.0.9 ?>
 
   <?define SOURCE_DIR = "B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross" ?>
 

@@ -514,5 +514,23 @@ namespace Scorchio.VisualStudio.Extensions
 
             return folder;
         }
+
+        /// <summary>
+        /// Deletes the folder.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        public static void DeleteFolder(this ProjectItem instance)
+        {
+            string directoryName = instance.FileNames[0];
+
+            DirectoryInfo directoryInfo = new DirectoryInfo(directoryName);
+
+            foreach (FileInfo fileInfo in directoryInfo.GetFiles())
+            {
+                fileInfo.Delete();
+            }
+
+            directoryInfo.Delete();
+        }
    }
 }

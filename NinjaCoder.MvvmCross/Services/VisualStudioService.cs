@@ -249,7 +249,8 @@ namespace NinjaCoder.MvvmCross.Services
                             FriendlyName = FriendlyNames.Core,
                             ProjectSuffix = ProjectSuffixes.Core,
                             TemplateName = ProjectTemplates.Core,
-                            PreSelected = true
+                            PreSelected = true,
+                            NugetCommand = Settings.NugetCommand
                         });
                 }
 
@@ -271,6 +272,7 @@ namespace NinjaCoder.MvvmCross.Services
                             FriendlyName = FriendlyNames.Droid,
                             ProjectSuffix = ProjectSuffixes.Droid,
                             TemplateName = ProjectTemplates.Droid,
+                            NugetCommand = Settings.NugetCommand
                         });
                 }
 
@@ -281,6 +283,7 @@ namespace NinjaCoder.MvvmCross.Services
                             FriendlyName = FriendlyNames.iOS,
                             ProjectSuffix = ProjectSuffixes.iOS,
                             TemplateName = ProjectTemplates.IOS,
+                            NugetCommand = Settings.NugetCommand
                         });
                 }
 
@@ -291,6 +294,7 @@ namespace NinjaCoder.MvvmCross.Services
                             FriendlyName = FriendlyNames.WindowsPhone,
                             ProjectSuffix = ProjectSuffixes.WindowsPhone,
                             TemplateName = ProjectTemplates.WindowsPhone,
+                            NugetCommand = Settings.NugetCommand
                         });
                 }
 
@@ -301,6 +305,7 @@ namespace NinjaCoder.MvvmCross.Services
                             FriendlyName = FriendlyNames.WindowsStore,
                             ProjectSuffix = ProjectSuffixes.WindowsStore,
                             TemplateName = ProjectTemplates.WindowsStore,
+                            NugetCommand = Settings.NugetCommand
                         });
                 }
 
@@ -311,6 +316,7 @@ namespace NinjaCoder.MvvmCross.Services
                             FriendlyName = FriendlyNames.WindowsWpf,
                             ProjectSuffix = ProjectSuffixes.WindowsWpf,
                             TemplateName = ProjectTemplates.WindowsWPF,
+                            NugetCommand = Settings.NugetCommand
                         });
                 }
  

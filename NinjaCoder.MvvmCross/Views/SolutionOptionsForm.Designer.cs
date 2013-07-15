@@ -40,13 +40,14 @@
             this.lblRequiredProjects = new System.Windows.Forms.Label();
             this.mvxListView1 = new NinjaCoder.MvvmCross.UserControls.MvxListView();
             this.logo1 = new NinjaCoder.MvvmCross.UserControls.Logo();
+            this.checkBoxUseNuget = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(530, 388);
+            this.buttonCancel.Location = new System.Drawing.Point(629, 402);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 27);
@@ -59,7 +60,7 @@
             this.buttonOK.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonOK.Enabled = false;
-            this.buttonOK.Location = new System.Drawing.Point(422, 388);
+            this.buttonOK.Location = new System.Drawing.Point(521, 402);
             this.buttonOK.Margin = new System.Windows.Forms.Padding(4);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(100, 27);
@@ -72,7 +73,7 @@
             this.textBoxProject.Location = new System.Drawing.Point(385, 58);
             this.textBoxProject.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxProject.Name = "textBoxProject";
-            this.textBoxProject.Size = new System.Drawing.Size(248, 22);
+            this.textBoxProject.Size = new System.Drawing.Size(292, 22);
             this.textBoxProject.TabIndex = 4;
             this.textBoxProject.TextChanged += new System.EventHandler(this.TextBoxProjectTextChanged);
             this.textBoxProject.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxProjectKeyDown);
@@ -100,12 +101,12 @@
             this.textBoxPath.Location = new System.Drawing.Point(385, 20);
             this.textBoxPath.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxPath.Name = "textBoxPath";
-            this.textBoxPath.Size = new System.Drawing.Size(248, 22);
+            this.textBoxPath.Size = new System.Drawing.Size(292, 22);
             this.textBoxPath.TabIndex = 1;
             // 
             // buttonPath
             // 
-            this.buttonPath.Location = new System.Drawing.Point(640, 20);
+            this.buttonPath.Location = new System.Drawing.Point(690, 20);
             this.buttonPath.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonPath.Name = "buttonPath";
             this.buttonPath.Size = new System.Drawing.Size(39, 23);
@@ -116,7 +117,7 @@
             // 
             // lblRequiredProjects
             // 
-            this.lblRequiredProjects.Location = new System.Drawing.Point(385, 105);
+            this.lblRequiredProjects.Location = new System.Drawing.Point(385, 133);
             this.lblRequiredProjects.Name = "lblRequiredProjects";
             this.lblRequiredProjects.Size = new System.Drawing.Size(248, 16);
             this.lblRequiredProjects.TabIndex = 5;
@@ -124,10 +125,10 @@
             // 
             // mvxListView1
             // 
-            this.mvxListView1.Location = new System.Drawing.Point(385, 123);
+            this.mvxListView1.Location = new System.Drawing.Point(385, 151);
             this.mvxListView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.mvxListView1.Name = "mvxListView1";
-            this.mvxListView1.Size = new System.Drawing.Size(245, 231);
+            this.mvxListView1.Size = new System.Drawing.Size(292, 231);
             this.mvxListView1.TabIndex = 6;
             // 
             // logo1
@@ -140,11 +141,23 @@
             this.logo1.Size = new System.Drawing.Size(285, 381);
             this.logo1.TabIndex = 10;
             // 
+            // checkBoxUseNuget
+            // 
+            this.checkBoxUseNuget.AutoSize = true;
+            this.checkBoxUseNuget.Enabled = false;
+            this.checkBoxUseNuget.Location = new System.Drawing.Point(388, 99);
+            this.checkBoxUseNuget.Name = "checkBoxUseNuget";
+            this.checkBoxUseNuget.Size = new System.Drawing.Size(289, 21);
+            this.checkBoxUseNuget.TabIndex = 11;
+            this.checkBoxUseNuget.Text = "Use Nuget (Internet connection required)";
+            this.checkBoxUseNuget.UseVisualStyleBackColor = true;
+            // 
             // SolutionOptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(700, 452);
+            this.ClientSize = new System.Drawing.Size(761, 462);
+            this.Controls.Add(this.checkBoxUseNuget);
             this.Controls.Add(this.logo1);
             this.Controls.Add(this.mvxListView1);
             this.Controls.Add(this.lblRequiredProjects);
@@ -180,5 +193,6 @@
         private System.Windows.Forms.Label lblRequiredProjects;
         private UserControls.MvxListView mvxListView1;
         private UserControls.Logo logo1;
+        private System.Windows.Forms.CheckBox checkBoxUseNuget;
     }
 }
