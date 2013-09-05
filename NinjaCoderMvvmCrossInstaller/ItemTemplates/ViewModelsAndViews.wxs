@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include $(sys.CURRENTDIR)\Global.wxi?>
+  <Fragment>
+    <ComponentGroup Id='ComponentGroupViewModelsAndViewsTemplates'>
+
+      <Component Id="ComponentViewModelsAndViewsTemplates" 
+                 Directory="ItemTemplatesMvvmCross" 
+                 DiskId="1" 
+                 Guid="825c8b3c-e1ee-4eae-85b2-30000000000C">
+
+        <File Id="MvvmCross.ViewModel"
+              Name="MvvmCross.ViewModel.zip"
+              Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\MvvmCross.ViewModel.zip">
+          <CopyFile Id="copyItemTemplate1" DestinationDirectory="ItemTemplatesMvvmCross"/>
+        </File>
+        <File Id="MvvmCross.Test.ViewModel"
+              Name="MvvmCross.Test.ViewModel.zip"
+              Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\MvvmCross.Test.ViewModel.zip">
+          <CopyFile Id="copyItemTemplate1T" DestinationDirectory="ItemTemplatesMvvmCross"/>
+        </File>
+
+        <File Id="MvvmCross.iOS.View"
+            Name="MvvmCross.iOS.View.zip"
+            Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\MvvmCross.iOS.View.zip">
+          <CopyFile Id="copyItemTemplate2" DestinationDirectory="ItemTemplatesMvvmCross"/>
+        </File>
+
+        <File Id="MvvmCross.Droid.View"
+            Name="MvvmCross.Droid.View.zip"
+            Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\MvvmCross.Droid.View.zip">
+          <CopyFile Id="copyItemTemplate3" DestinationDirectory="ItemTemplatesMvvmCross"/>
+        </File>
+
+        <File Id="MvvmCross.WindowsPhone.View"
+            Name="MvvmCross.WindowsPhone.View.zip"
+            Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\MvvmCross.WindowsPhone.View.zip">
+          <CopyFile Id="copyItemTemplate4" DestinationDirectory="ItemTemplatesMvvmCross"/>
+        </File>
+
+        <File Id="MvvmCross.WindowsStore.View"
+            Name="MvvmCross.WindowsStore.View.zip"
+            Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\MvvmCross.WindowsStore.View.zip">
+          <CopyFile Id="copyItemTemplate5" DestinationDirectory="ItemTemplatesMvvmCross"/>
+        </File>
+
+        <File Id="MvvmCross.Wpf.View"
+            Name="MvvmCross.Wpf.View.zip"
+            Source="$(var.ITEM_TEMPLATES_ZIPS_DIR)\MvvmCross.Wpf.View.zip">
+          <CopyFile Id="copyItemTemplate6" DestinationDirectory="ItemTemplatesMvvmCross"/>
+        </File>
+
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

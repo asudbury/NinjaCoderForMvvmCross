@@ -1,0 +1,32 @@
+﻿<CodeSnippet>
+  <UsingStatements>
+    <Statement>Cirrious.MvvmCross.Plugins.Network.Reachability</Statement>
+  </UsingStatements>
+  <MockVariables>
+    <MockVariable>IMvxReachability mockReachability</MockVariable>
+  </MockVariables>
+  <MockInitCode>
+    <![CDATA[this.mockReachability = new Mock<IMvxReachability>();]]>
+  </MockInitCode>
+  <MockConstructorCode>
+    <![CDATA[this.mockReachability.Object]]>
+  </MockConstructorCode>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Tests Is Host Reachable.
+        /// </summary>
+        [Test]
+        public void TestIsHostReachable()
+        {
+            //// arrange
+            
+            //// act
+            this.TestableObject.IsHostReachable("host");
+            
+            //// assert
+        }
+    ]]>
+  </Code>
+</CodeSnippet>
+

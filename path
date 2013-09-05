@@ -1,0 +1,48 @@
+12 Aug 13 07:36:16 585  BaseController::Constructor
+12 Aug 13 07:36:16 590  ConfigurationController::Constructor
+12 Aug 13 07:36:16 594  ConfigurationController::Run
+12 Aug 13 07:36:16 598  ConfigurationService::CreateUserDirectories
+12 Aug 13 07:36:16 602  ConfigurationService::CreateDirectoryIfNotExist directoryName=Ninja Coder for MvvmCross
+12 Aug 13 07:36:16 606  ConfigurationService::CreateDirectoryIfNotExist directoryName=CodeSnippets
+12 Aug 13 07:36:16 611  ConfigurationService::CreateDirectoryIfNotExist directoryName=MvvmCross
+12 Aug 13 07:36:16 615  ConfigurationService::CreateDirectoryIfNotExist directoryName=Assemblies
+12 Aug 13 07:36:16 619  ConfigurationService::CreatePluginsDirectoryIfNotExist directoryName=Core
+12 Aug 13 07:36:16 623  ConfigurationService::CreateDirectoryIfNotExist directoryName=Core
+12 Aug 13 07:36:16 627  ConfigurationService::CreateDirectoryIfNotExist directoryName=Plugins
+12 Aug 13 07:36:16 631  ConfigurationService::CreatePluginsDirectoryIfNotExist directoryName=Droid
+12 Aug 13 07:36:16 635  ConfigurationService::CreateDirectoryIfNotExist directoryName=Droid
+12 Aug 13 07:36:16 639  ConfigurationService::CreateDirectoryIfNotExist directoryName=Plugins
+12 Aug 13 07:36:16 643  ConfigurationService::CreatePluginsDirectoryIfNotExist directoryName=iOS
+12 Aug 13 07:36:16 648  ConfigurationService::CreateDirectoryIfNotExist directoryName=iOS
+12 Aug 13 07:36:16 652  ConfigurationService::CreateDirectoryIfNotExist directoryName=Plugins
+12 Aug 13 07:36:16 656  ConfigurationService::CreatePluginsDirectoryIfNotExist directoryName=WindowsPhone
+12 Aug 13 07:36:16 660  ConfigurationService::CreateDirectoryIfNotExist directoryName=WindowsPhone
+12 Aug 13 07:36:16 664  ConfigurationService::CreateDirectoryIfNotExist directoryName=Plugins
+12 Aug 13 07:36:16 668  ConfigurationService::CreatePluginsDirectoryIfNotExist directoryName=WindowsStore
+12 Aug 13 07:36:16 672  ConfigurationService::CreateDirectoryIfNotExist directoryName=WindowsStore
+12 Aug 13 07:36:16 677  ConfigurationService::CreateDirectoryIfNotExist directoryName=Plugins
+12 Aug 13 07:36:16 681  ConfigurationService::CreatePluginsDirectoryIfNotExist directoryName=Wpf
+12 Aug 13 07:36:16 686  ConfigurationService::CreateDirectoryIfNotExist directoryName=Wpf
+12 Aug 13 07:36:16 691  ConfigurationService::CreateDirectoryIfNotExist directoryName=Plugins
+12 Aug 13 07:36:16 696  Connect::Initialize Post ConfigurationController::Run
+12 Aug 13 07:36:16 701  SettingsService::Constructor
+12 Aug 13 07:36:16 705  Connect::AddCommands Version=2.0.0
+12 Aug 13 07:36:16 744  CommandManager::AddCommandBar commandName=Ninja Coder for MvvmCross
+12 Aug 13 07:36:18 032  CommandManager::AddCommandBar commandFound in collection
+12 Aug 13 07:36:18 038  CommandManager::AddMenuItem Name=NinjaCoderforMvvmCrossAddProjects
+12 Aug 13 07:36:18 043  CommandManager::AddMenuItem Adding command name=NinjaCoderforMvvmCrossAddProjects
+12 Aug 13 07:36:18 182  CommandManager::AddMenuItem Name=NinjaCoderforMvvmCrossAddViewModel
+12 Aug 13 07:36:18 188  CommandManager::AddMenuItem Adding command name=NinjaCoderforMvvmCrossAddViewModel
+12 Aug 13 07:36:18 241  CommandManager::AddMenuItem Name=NinjaCoderforMvvmCrossAddPlugins
+12 Aug 13 07:36:18 246  CommandManager::AddMenuItem Adding command name=NinjaCoderforMvvmCrossAddPlugins
+12 Aug 13 07:36:18 296  CommandManager::AddMenuItem Name=NinjaCoderforMvvmCrossAddConverters
+12 Aug 13 07:36:18 300  CommandManager::AddMenuItem Adding command name=NinjaCoderforMvvmCrossAddConverters
+12 Aug 13 07:36:18 350  CommandManager::AddMenuItem Name=NinjaCoderforMvvmCrossOptions
+12 Aug 13 07:36:18 355  CommandManager::AddMenuItem Adding command name=NinjaCoderforMvvmCrossOptions
+12 Aug 13 07:36:18 407  CommandManager::AddMenuItem Name=NinjaCoderforMvvmCrossHelp
+12 Aug 13 07:36:18 412  CommandManager::AddMenuItem Adding command name=NinjaCoderforMvvmCrossHelp
+12 Aug 13 07:36:18 498  CommandManager::AddMenuItem Name=NinjaCoderforMvvmCrossAbout
+12 Aug 13 07:36:18 503  CommandManager::AddMenuItem Adding command name=NinjaCoderforMvvmCrossAbout
+12 Aug 13 07:36:18 553  Connect::AddCommands Ended
+12 Aug 13 07:36:18 768  CommandManager::OnAddInsUpdate
+12 Aug 13 07:36:30 323  CommandManager::OnStartupComplete

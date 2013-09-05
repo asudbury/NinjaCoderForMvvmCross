@@ -1,0 +1,33 @@
+﻿<CodeSnippet>
+  <UsingStatements>
+    <Statement>System</Statement>
+    <Statement>System.IO</Statement>
+  </UsingStatements>
+  <Interfaces>
+    <Interface>IMvxCombinedPictureChooserTask pictureChooserTask</Interface>
+  </Interfaces>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Chooses the or take picture.
+        /// </summary>
+        /// <param name="maxPixelDimension">The max pixel dimension.</param>
+        /// <param name="percentQuality">The percent quality.</param>
+        /// <param name="pictureAvailable">The picture available.</param>
+        /// <param name="assumeCancelled">The assume cancelled.</param>
+        public void ChooseOrTakePicture(
+            int maxPixelDimension, 
+            int percentQuality, 
+            System.Action<Stream> pictureAvailable, 
+            System.Action assumeCancelled)
+        {
+            this.pictureChooserTask.ChooseOrTakePicture(
+                maxPixelDimension, 
+                percentQuality, 
+                pictureAvailable, 
+                assumeCancelled);
+        }
+        ]]>
+  </Code>
+</CodeSnippet>
+

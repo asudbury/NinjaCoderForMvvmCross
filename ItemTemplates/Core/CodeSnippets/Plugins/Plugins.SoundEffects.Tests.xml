@@ -1,0 +1,46 @@
+﻿<CodeSnippet>
+  <UsingStatements>
+    <Statement>Cirrious.CrossCore.Platform</Statement>
+  </UsingStatements>
+  <MockVariables>
+    <MockVariable>IMvxSoundEffectInstance mockSoundEffectInstance</MockVariable>
+  </MockVariables>
+  <MockInitCode>
+    <![CDATA[this.mockSoundEffectInstance = new Mock<IMvxSoundEffectInstance>();]]>
+  </MockInitCode>
+  <MockConstructorCode>
+    <![CDATA[this.mockSoundEffectInstance.Object]]>
+  </MockConstructorCode>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Tests Play Sound.
+        /// </summary>
+        [Test]
+        public void TestPlaySound()
+        {
+            //// arrange
+            
+            //// act
+            this.TestableObject.PlaySound();
+            
+            //// assert
+        }
+        
+        /// <summary>
+        /// Tests Stop Sound.
+        /// </summary>
+        [Test]
+        public void TestStopSound()
+        {
+            //// arrange
+            
+            //// act
+            this.TestableObject.StopSound();
+            
+            //// assert
+        }
+    ]]>
+  </Code>
+</CodeSnippet>
+

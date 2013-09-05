@@ -1,0 +1,29 @@
+﻿<CodeSnippet>
+  <MockVariables>
+    <MockVariable>IMvxShareTask mockShareTask</MockVariable>
+  </MockVariables>
+  <MockInitCode>
+    <![CDATA[this.mockShareTask = new Mock<IMvxShareTask>();]]>
+  </MockInitCode>
+  <MockConstructorCode>
+    <![CDATA[this.mockShareTask.Object]]>
+  </MockConstructorCode>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Tests Share.
+        /// </summary>
+        [Test]
+        public void TestShare()
+        {
+            //// arrange
+            
+            //// act
+            this.TestableObject.Share("toShare");
+            
+            //// assert
+        }
+    ]]>
+  </Code>
+</CodeSnippet>
+

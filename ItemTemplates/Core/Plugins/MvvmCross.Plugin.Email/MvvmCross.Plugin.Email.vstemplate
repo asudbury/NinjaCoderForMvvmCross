@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>MvvmCross.Plugin.Email</Name>
+    <Description>MvvmCross.Plugin.Email</Description>
+    <Icon>mvvmcross.ico</Icon>
+    <ProjectType>CSharp</ProjectType>
+    <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+    <SortOrder>1000</SortOrder>
+    <TemplateID>6ffaae73-fe52-43ac-9b26-060539254883</TemplateID>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>MvvmCross.Plugin.Email</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <ProjectItem ReplaceParameters="true">Bootstrap\EmailPluginBootstrap.cs</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

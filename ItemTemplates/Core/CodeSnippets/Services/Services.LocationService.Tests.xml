@@ -1,0 +1,32 @@
+﻿<CodeSnippet>
+  <UsingStatements>
+    <Statement>Services</Statement>
+  </UsingStatements>
+  <MockVariables>
+    <MockVariable>ILocationService mockLocationService</MockVariable>
+  </MockVariables>
+  <MockInitCode>
+    <![CDATA[this.mockLocationService = new Mock<ILocationService>();]]>
+  </MockInitCode>
+  <MockConstructorCode>
+    <![CDATA[this.mockLocationService.Object]]>
+  </MockConstructorCode>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Tests Get Location.
+        /// </summary>
+        [Test]
+        public void TestGetLocation()
+        {
+            //// arrange
+            
+            //// act
+            this.TestableObject.GetLocation();
+            
+            //// assert
+        }
+    ]]>
+  </Code>
+</CodeSnippet>
+

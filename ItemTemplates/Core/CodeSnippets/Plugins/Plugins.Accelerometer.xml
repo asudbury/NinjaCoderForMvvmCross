@@ -1,0 +1,18 @@
+﻿<CodeSnippet>
+  <Interfaces>
+    <Interface>IMvxAccelerometer accelerometer</Interface>
+  </Interfaces>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Gets the last reading.
+        /// </summary>
+        /// <returns>The Last Reading.</returns>
+        public MvxAccelerometerReading GetLastReading()
+        {
+           return this.accelerometer.LastReading;
+        }
+        ]]>
+  </Code>
+</CodeSnippet>
+

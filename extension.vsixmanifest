@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Vsix 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+		Version="1.0.0" 
+		xmlns="http://schemas.microsoft.com/developer/vsx-schema/2010">
+  <Identifier Id="AB2BD8EF-571C-47dc-87D2-6CC966FC1346">
+    <Name>Ninja Coder for MvvmCross</Name>
+    <Author>Scorchio Limited</Author>
+    <Version>1.2.1</Version>
+    <Description xml:space="preserve">Ninja Coder for MvvmCross.</Description>
+    <Locale>1033</Locale>
+    <InstalledByMsi>true</InstalledByMsi>
+    <SupportedProducts>
+      <VisualStudio Version="11.0">
+        <Edition>Ultimate</Edition>
+        <Edition>Premium</Edition>
+        <Edition>Pro</Edition>
+      </VisualStudio>
+    </SupportedProducts>
+    <SupportedFrameworkRuntimeEdition MinVersion="4.0" MaxVersion="4.0" />
+    <AllUsers>true</AllUsers>
+  </Identifier>
+</Vsix>

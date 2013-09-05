@@ -1,0 +1,59 @@
+﻿<CodeSnippet>
+  <UsingStatements>
+    <Statement>System.Collections.Generic</Statement>
+  </UsingStatements>
+  <Interfaces>
+    <Interface>IMvxBookmarkLibrarian bookmarkLibrarian</Interface>
+  </Interfaces>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Adds the bookmark.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="bookmarkName">Name of the bookmark.</param>
+        /// <param name="metadata">The metadata.</param>
+        /// <param name="args">The args.</param>
+        public void AddBookmark(
+            System.Type type,
+            string bookmarkName,
+            MvxBookmarkMetadata metadata,
+            IDictionary<string, string> args)
+        {
+            this.bookmarkLibrarian.AddBookmark(
+                type, 
+                bookmarkName, 
+                metadata, 
+                args);
+        }
+
+        /// <summary>
+        /// Determines whether the specified bookmark has bookmark.
+        /// </summary>
+        /// <param name="bookmarkName">The bookmark.</param>
+        /// <returns>
+        ///   <c>true</c> if the bookmark exists; otherwise, <c>false</c>.
+        /// </returns>
+        public bool HasBookmark(string bookmarkName)
+        {
+            return this.bookmarkLibrarian.HasBookmark(bookmarkName);
+        }
+
+        /// <summary>
+        /// Updates the bookmark.
+        /// </summary>
+        /// <param name="bookmarkName">Name of the bookmark.</param>
+        /// <param name="metadata">The metadata.</param>
+        /// <returns>True or false.</returns>
+        public bool UpdateBookmark(
+            string bookmarkName,
+            MvxBookmarkMetadata metadata)
+        {
+            return this.bookmarkLibrarian.UpdateBookmark(
+                bookmarkName, 
+                metadata);
+        }
+        ]]>
+  </Code>
+</CodeSnippet>
+

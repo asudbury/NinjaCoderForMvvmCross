@@ -1,0 +1,7 @@
+<CodeConfig>
+	<NugetPackage>MvvmCross.HotTuna.Plugin.Accelerometer</NugetPackage>
+  <References>
+    <Reference>R1</Reference>
+    <Reference>R2</Reference>
+  </References>
+</CodeConfig>

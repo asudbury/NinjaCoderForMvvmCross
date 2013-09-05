@@ -1,0 +1,32 @@
+﻿<CodeSnippet>
+  <UsingStatements>
+    <Statement>Cirrious.CrossCore.Platform</Statement>
+  </UsingStatements>
+  <MockVariables>
+    <MockVariable>IMvxJsonConverter mockJSonConverter</MockVariable>
+  </MockVariables>
+  <MockInitCode>
+    <![CDATA[this.mockJSonConverter = new Mock<IMvxJsonConverter>();]]>
+  </MockInitCode>
+  <MockConstructorCode>
+    <![CDATA[this.mockJSonConverter.Object]]>
+  </MockConstructorCode>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Tests Parse Json.
+        /// </summary>
+        [Test]
+        public void TestParseJson()
+        {
+            //// arrange
+            
+            //// act
+            this.TestableObject.ParseJson("path");
+            
+            //// assert
+        }
+    ]]>
+  </Code>
+</CodeSnippet>
+

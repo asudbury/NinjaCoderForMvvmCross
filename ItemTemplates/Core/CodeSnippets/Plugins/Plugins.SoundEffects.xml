@@ -1,0 +1,25 @@
+﻿<CodeSnippet>
+  <Interfaces>
+    <Interface>IMvxSoundEffectInstance soundEffectInstance</Interface>
+  </Interfaces>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Plays the sound.
+        /// </summary>
+        public void PlaySound()
+        {
+            this.soundEffectInstance.Play();
+        }
+
+        /// <summary>
+        /// Stops the sound.
+        /// </summary>
+        public void StopSound()
+        {
+            this.soundEffectInstance.Stop();
+        }
+        ]]>
+  </Code>
+</CodeSnippet>
+

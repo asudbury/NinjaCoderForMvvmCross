@@ -1,0 +1,35 @@
+<CodeSnippet>
+  <Interfaces>
+  <Interface>ILocationService</Interface>
+  <Interface>IDropboxService</Interface>
+  <Interface>IUknownService</Interface>
+</Interfaces> 
+<References>
+  <Reference>ILocationService</Reference>
+  <Reference>IDropboxService</Reference>
+  <Reference>IUknownService</Reference>
+</References> 
+<UsingStatements>
+  <Statement>aaa.bbb.ccc</Statement>
+  <Statement>bbb.bbb.ccc</Statement>
+  <Statement>ccc.bbb.ccc</Statement>
+</UsingStatements>
+<Code>
+        <![CDATA[
+        /// <summary>
+        /// Composes the email.
+        /// </summary>
+        /// <param name="to">To - Who the email is going to..</param>
+        /// <param name="subject">The subject of the email.</param>
+        /// <param name="body">The body of the email.</param>
+        public void ComposeEmail(
+            string to,
+            string subject, 
+            string body)
+        {
+            IMvxComposeEmailTask task = this.GetService<IMvxComposeEmailTask>();
+            task.ComposeEmail(to, null, subject, body, false);
+        }
+        ]]>
+</Code>
+</CodeSnippet>

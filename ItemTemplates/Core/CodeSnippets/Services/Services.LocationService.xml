@@ -1,0 +1,21 @@
+﻿<CodeSnippet>
+  <UsingStatements>
+    <Statement>Services</Statement>
+  </UsingStatements>
+  <Interfaces>
+    <Interface>ILocationService locationService</Interface>
+  </Interfaces>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Get Location.
+        /// </summary>
+        public void GetLocation()
+        {
+            double latitude;
+            double longitude;
+            this.locationService.TryGetLatestLocation(out latitude, out longitude);
+        }
+    ]]>
+  </Code>
+</CodeSnippet>

@@ -1,0 +1,5 @@
+<CodeConfig>
+  <References>
+    <Reference>Cirrious.MvvmCross.Plugins.Location</Reference>
+  </References>
+</CodeConfig>
