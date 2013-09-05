@@ -5,13 +5,11 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.UserControls
 {
+    using Entities;
+    using Scorchio.VisualStudio.Entities;
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Forms;
-
-    using NinjaCoder.MvvmCross.Entities;
-
-    using Scorchio.VisualStudio.Entities;
 
     /// <summary>
     /// Defines the MvxListView type.

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
 
-  <?define APPLICATION_VERSION = 1.2.2 ?>
-  <?define MVVMCROSS_VERSION = 3.0.9 ?>
+  <?define APPLICATION_VERSION = 2.0.0 ?>
+  <?define MVVMCROSS_VERSION = 3.0.10 ?>
 
+  <?define SOURCE_DIRX = "C:\Projects\c#\NinjaCoderForMvvmCross" ?>
   <?define SOURCE_DIR = "B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross" ?>
-
+  
   <?define CONNECT_CLASS_FULL_NAME_VS = NinjaCoder.MvvmCross.AddIn.Connect" ?>
   
   <?define REGISTRY_KEY = "Software\Scorchio Limited\Ninja Coder for MvvmCross" ?>

@@ -43,5 +43,33 @@ namespace NinjaCoder.MvvmCross.Tests.Translators
 
             Assert.IsTrue(codeSnippet == null);
         }
+
+        /// <summary>
+        /// Tests the cleaned code.
+        /// </summary>
+        [Test]
+        public void TestCleanedCode()
+        {
+            CodeSnippetTranslator translator = new CodeSnippetTranslator();
+
+            const string Code = "   hello\r";
+
+            string cleanedCode = translator.CleanedCode(Code);
+
+            Assert.IsTrue(cleanedCode == "hello");
+        }
+
+        /// <summary>
+        /// Tests the get spaced code line.
+        /// </summary>
+        [Test]
+        public void TestGetSpacedCodeLine()
+        {
+            CodeSnippetTranslator translator = new CodeSnippetTranslator();
+
+            string spacedCodeLine = translator.GetSpacedCodeLine("hello");
+
+            Assert.IsTrue(spacedCodeLine != "hello");
+        }
     }
 }

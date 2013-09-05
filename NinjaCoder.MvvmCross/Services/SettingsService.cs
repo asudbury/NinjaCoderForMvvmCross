@@ -37,7 +37,7 @@ namespace NinjaCoder.MvvmCross.Services
         public bool LogToTrace
         {
             get { return this.GetRegistryValue(string.Empty, "LogToTrace", "N") == "Y"; }
-            set { this.SetRegistryValue("LogToTrace", value ? "Y" : "N"); }
+            set { this.SetRegistryValue(string.Empty, "LogToTrace", value ? "Y" : "N"); }
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace NinjaCoder.MvvmCross.Services
         public bool LogToFile
         {
             get { return this.GetRegistryValue(string.Empty, "LogToFile", "N") == "Y"; }
-            set { this.SetRegistryValue("LogToFile", value ? "Y" : "N"); }
+            set { this.SetRegistryValue(string.Empty, "LogToFile", value ? "Y" : "N"); }
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace NinjaCoder.MvvmCross.Services
         public string LogFilePath 
         {
             get { return this.GetRegistryValue(string.Empty, "LogFilePath", Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\ninja-coder-for-mvvmcross.log"); }
-            set { this.SetRegistryValue("LogFilePath", value); }
+            set { this.SetRegistryValue(string.Empty, "LogFilePath", value); }
         }
 
         /// <summary>
@@ -63,8 +63,8 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public bool IncludeLibFolderInProjects
         {
-            get { return this.GetRegistryValue(string.Empty, "IncludeLibFolderInProjects", "N") == "Y"; }
-            set { this.SetRegistryValue("IncludeLibFolderInProjects", value ? "Y" : "N"); }
+            get { return this.GetRegistryValue("Coding Style", "IncludeLibFolderInProjects", "N") == "Y"; }
+            set { this.SetRegistryValue("Coding Style", "IncludeLibFolderInProjects", value ? "Y" : "N"); }
         }
 
         /// <summary>
@@ -72,8 +72,26 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public bool UseNugetForProjectTemplates
         {
-            get { return this.GetRegistryValue(string.Empty, "UseNugetForProjectTemplates", "N") == "Y"; }
-            set { this.SetRegistryValue("UseNugetForProjectTemplates", value ? "Y" : "N"); }
+            get { return this.GetRegistryValue("Nuget", "UseNugetForProjectTemplates", "N") == "Y"; }
+            set { this.SetRegistryValue("Nuget", "UseNugetForProjectTemplates", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use nuget for plugins].
+        /// </summary>
+        public bool UseNugetForPlugins
+        {
+            get { return this.GetRegistryValue("Nuget", "UseNugetForPlugins", "N") == "Y"; }
+            set { this.SetRegistryValue("Nuget", "UseNugetForPlugins", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [suspend re sharper during build].
+        /// </summary>
+        public bool SuspendReSharperDuringBuild
+        {
+            get { return this.GetRegistryValue("Nuget", "SuspendReSharperDuringBuild", "N") == "Y"; }
+            set { this.SetRegistryValue("Nuget", "SuspendReSharperDuringBuild", value ? "Y" : "N"); }
         }
 
         /// <summary>
@@ -82,8 +100,25 @@ namespace NinjaCoder.MvvmCross.Services
         public bool DisplayErrors
         {
             get { return this.GetRegistryValue(string.Empty, "DisplayErrors", "N") == "Y"; }
-            set { this.SetRegistryValue("DisplayErrors", value ? "Y" : "N"); }
+            set { this.SetRegistryValue(string.Empty, "DisplayErrors", value ? "Y" : "N"); }
+        }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [remove default file headers].
+        /// </summary>
+        public bool RemoveDefaultFileHeaders
+        {
+            get { return this.GetRegistryValue("Coding Style", "RemoveDefaultFileHeaders", "N") == "Y"; }
+            set { this.SetRegistryValue("Coding Style", "RemoveDefaultFileHeaders", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [remove default comments].
+        /// </summary>
+        public bool RemoveDefaultComments
+        {
+            get { return this.GetRegistryValue("Coding Style", "RemoveDefaultComments", "N") == "Y"; }
+            set { this.SetRegistryValue("Coding Style", "RemoveDefaultComments", value ? "Y" : "N"); }
         }
 
         /// <summary>
@@ -143,6 +178,30 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets the download nuget page.
+        /// </summary>
+        public string DownloadNugetPage
+        {
+            get { return "http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c"; }
+        }
+
+        /// <summary>
+        /// Gets the unit testing assemblies.
+        /// </summary>
+        public string UnitTestingAssemblies
+        {
+            get { return this.GetRegistryValue(string.Empty, "UnitTestingAssemblies", "Moq,Cirrious.CrossCore"); } 
+        }
+
+        /// <summary>
+        /// Gets the unit testing init method.
+        /// </summary>
+        public string UnitTestingInitMethod
+        {
+            get { return this.GetRegistryValue(string.Empty, "UnitTestingInitMethod", "CreateTestableObject"); } 
+        }
+
+        /// <summary>
         /// Gets the registry key.
         /// </summary>
         /// <param name="subKey">The sub key.</param>
@@ -164,10 +223,15 @@ namespace NinjaCoder.MvvmCross.Services
 
                     if (ninjaKey != null)
                     {
-                        return string.IsNullOrEmpty(subKey) == false ? 
-                            ninjaKey.OpenSubKey(subKey, writeable) : 
-                            ninjaKey;
+                        if (string.IsNullOrEmpty(subKey) == false)
+                        {
+                            RegistryKey registryKey = ninjaKey.OpenSubKey(subKey, writeable);
+
+                            return registryKey ?? ninjaKey.CreateSubKey(subKey);
+                        }
                     }
+
+                    return ninjaKey;
                 }
             }
 
@@ -186,7 +250,7 @@ namespace NinjaCoder.MvvmCross.Services
             string name, 
             string defaultValue)
         {
-            RegistryKey registryKey = this.GetRegistryKey(subKey, false);
+            RegistryKey registryKey = this.GetRegistryKey(subKey, true);
 
             if (registryKey != null)
             {
@@ -206,13 +270,15 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Sets the value.
         /// </summary>
+        /// <param name="subKey">The sub key.</param>
         /// <param name="name">The name.</param>
         /// <param name="value">The value.</param>
         internal void SetRegistryValue(
+            string subKey,
             string name,
             string value)
         {
-             RegistryKey registryKey = this.GetRegistryKey(string.Empty, true);
+             RegistryKey registryKey = this.GetRegistryKey(subKey, true);
 
              if (registryKey != null)
              {

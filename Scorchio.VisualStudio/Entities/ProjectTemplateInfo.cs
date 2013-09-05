@@ -5,6 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio.Entities
 {
+    using System.Collections.Generic;
+
     /// <summary>
     ///  Defines the ProjectTemplateInfo type.
     /// </summary>
@@ -21,8 +23,13 @@ namespace Scorchio.VisualStudio.Entities
         public bool UseNuget { get; set; }
 
         /// <summary>
-        /// Gets or sets the nuget command.
+        /// Gets or sets the nuget commands.
         /// </summary>
-        public string NugetCommand { get; set; }
+        public List<string> NugetCommands { get; set; }
+
+        /// <summary>
+        /// Gets or sets the non MVX assemblies.
+        /// </summary>
+        public IEnumerable<string> NonMvxAssemblies { get; set; }
     }
 }

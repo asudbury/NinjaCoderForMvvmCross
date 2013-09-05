@@ -41,9 +41,29 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         bool UseNugetForProjectTemplates { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [use nuget for plugins].
+        /// </summary>
+        bool UseNugetForPlugins { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [suspend re sharper during build].
+        /// </summary>
+        bool SuspendReSharperDuringBuild { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [display errors].
         /// </summary>
         bool DisplayErrors { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [remove default file headers].
+        /// </summary>
+        bool RemoveDefaultFileHeaders { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [remove default comments].
+        /// </summary>
+        bool RemoveDefaultComments { get; set; }
 
         /// <summary>
         /// Gets the converters templates path.
@@ -79,5 +99,20 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets the MvvmCross version.
         /// </summary>
         string MvvmCrossVersion { get; }
+
+        /// <summary>
+        /// Gets the download nuget page.
+        /// </summary>
+        string DownloadNugetPage { get; }
+
+        /// <summary>
+        /// Gets the unit testing assemblies.
+        /// </summary>
+        string UnitTestingAssemblies { get; }
+
+        /// <summary>
+        /// Gets the unit testing init method.
+        /// </summary>
+        string UnitTestingInitMethod { get; }
     }
 }

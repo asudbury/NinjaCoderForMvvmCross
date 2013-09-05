@@ -3,7 +3,6 @@
 //    Defines the ItemTemplateInfo type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace Scorchio.VisualStudio.Entities
 {
     /// <summary>

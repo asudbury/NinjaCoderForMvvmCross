@@ -8,8 +8,12 @@ namespace NinjaCoder.MvvmCross.Views
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Windows.Forms;
 
     using Entities;
+
+    using NinjaCoder.MvvmCross.Services.Interfaces;
+
     using Presenters;
     using Views.Interfaces;
 
@@ -21,16 +25,19 @@ namespace NinjaCoder.MvvmCross.Views
         /// <summary>
         /// Initializes a new instance of the <see cref="PluginsForm" /> class.
         /// </summary>
+        /// <param name="settingsService">The settings service.</param>
         /// <param name="viewModelNames">The view model names.</param>
-        /// <param name="displayLogo">if set to <c>true</c> [display logo].</param>
+        /// <param name="plugins">The plugins.</param>
         public PluginsForm(
-            List<string> viewModelNames,
-            bool displayLogo)
+            ISettingsService settingsService,
+            IEnumerable<string> viewModelNames,
+            Plugins plugins)
         {
             this.InitializeComponent();
 
-            this.Presenter = new PluginsPresenter(this);
-            this.Presenter.Load(viewModelNames, displayLogo);
+            this.Presenter = new PluginsPresenter(this, settingsService);
+
+            this.Presenter.Load(viewModelNames, plugins.Items);
         }
 
         /// <summary>
@@ -102,9 +109,10 @@ namespace NinjaCoder.MvvmCross.Views
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void ButtonOKClick(object sender, System.EventArgs e)
+        private void ButtonOKClick(object sender, EventArgs e)
         {
-            this.Continue = true;
+            this.Presenter.SaveSettings();
+            this.DialogResult = DialogResult.OK;
         }
 
         /// <summary>
@@ -116,7 +124,7 @@ namespace NinjaCoder.MvvmCross.Views
             object sender, 
             EventArgs e)
         {
-            this.checkBoxIncludeUnitTests.Visible = this.comboBoxViewModel.SelectedItem != string.Empty;
+            this.checkBoxIncludeUnitTests.Visible = (string)this.comboBoxViewModel.SelectedItem != string.Empty;
         }
     }
 }

@@ -6,7 +6,12 @@
 namespace NinjaCoder.MvvmCross.Views
 {
     using System;
+    using System.Windows.Forms;
+
     using Interfaces;
+
+    using NinjaCoder.MvvmCross.Services.Interfaces;
+
     using Presenters;
 
     /// <summary>
@@ -22,12 +27,12 @@ namespace NinjaCoder.MvvmCross.Views
         /// <summary>
         /// Initializes a new instance of the <see cref="OptionsForm" /> class.
         /// </summary>
-        /// <param name="displayLogo">if set to <c>true</c> [display logo].</param>
-        public OptionsForm(bool displayLogo)
+        /// <param name="settingsService">The settings service.</param>
+        public OptionsForm(ISettingsService settingsService)
         {
             this.InitializeComponent();
 
-            this.presenter = new OptionsPresenter(this, displayLogo);
+            this.presenter = new OptionsPresenter(this, settingsService);
 
             this.presenter.LoadSettings();
         }
@@ -37,7 +42,7 @@ namespace NinjaCoder.MvvmCross.Views
         /// </summary>
         public bool DisplayLogo
         {
-            set { this.SetLogoVisibility(this.logo1, value); }
+            set { }
         }
 
         /// <summary>
@@ -86,6 +91,51 @@ namespace NinjaCoder.MvvmCross.Views
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [remove default file headers].
+        /// </summary>
+        public bool RemoveDefaultFileHeaders
+        {
+            get { return this.checkBoxRemoveFileHeaders.Checked; }
+            set { this.checkBoxRemoveFileHeaders.Checked = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [remove default comments].
+        /// </summary>
+        public bool RemoveDefaultComments
+        {
+            get { return this.checkBoxRemoveCodeComments.Checked; }
+            set { this.checkBoxRemoveCodeComments.Checked = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use nuget for project templates].
+        /// </summary>
+        public bool UseNugetForProjectTemplates
+        {
+            get { return this.checkBoxUseNugetForProjectTemplates.Checked; }
+            set { this.checkBoxUseNugetForProjectTemplates.Checked = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use nuget for plugins].
+        /// </summary>
+        public bool UseNugetForPlugins
+        {
+            get { return this.checkBoxUseNugetForPlugins.Checked; }
+            set { this.checkBoxUseNugetForPlugins.Checked = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [suspend re sharper during build].
+        /// </summary>
+        public bool SuspendReSharperDuringBuild
+        {
+            get { return this.checkBoxSuspendReSharper.Checked; }
+            set { this.checkBoxSuspendReSharper.Checked = value; }
+        }
+
+        /// <summary>
         /// Buttons the cancel click.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -100,12 +150,26 @@ namespace NinjaCoder.MvvmCross.Views
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void ButtonOKClick(object sender, EventArgs e)
+        private void ButtonOKClick(
+            object sender, 
+            EventArgs e)
         {
-            this.Continue = true;
+            this.DialogResult = DialogResult.OK;
 
             this.presenter.SaveSettings();
             this.Close();
+        }
+
+        /// <summary>
+        /// Links the label link clicked.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Windows.Forms.LinkLabelLinkClickedEventArgs"/> instance containing the event data.</param>
+        private void LinkLabelLinkClicked(
+            object sender,
+            LinkLabelLinkClickedEventArgs e)
+        {
+            this.presenter.ShowDownloadNugetPage();
         }
     }
 }

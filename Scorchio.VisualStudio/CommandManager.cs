@@ -12,16 +12,13 @@ namespace Scorchio.VisualStudio
     using System.Resources;
     using System.Runtime.InteropServices;
 
+    using Entities;
     using EnvDTE;
     using EnvDTE80;
     using Extensibility;
-
+    using Extensions;
     using Microsoft.VisualStudio.CommandBars;
-
-    using Scorchio.VisualStudio.Entities;
-    using Scorchio.VisualStudio.Extensions;
-    using Scorchio.VisualStudio.Services;
-
+    using Services;
     using stdole;
 
     /// <summary>
@@ -35,13 +32,13 @@ namespace Scorchio.VisualStudio
         /// The command infos
         /// </summary>
         private readonly List<VSCommandInfo> commandInfos = new List<VSCommandInfo>();
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandManager" /> class.
         /// </summary>
         protected CommandManager()
         {
-            TraceService.WriteLine("CommandManager::Constructor");  
+            TraceService.WriteLine("CommandManager::Constructor");
         }
 
         /// <summary>
@@ -215,7 +212,7 @@ namespace Scorchio.VisualStudio
         /// <param name="custom">The custom.</param>
         public void OnAddInsUpdate(ref Array custom)
         {
-            TraceService.WriteLine("CommandManager::OnAddInsUpdate");  
+            TraceService.WriteLine("CommandManager::OnAddInsUpdate");
         }
 
         /// <summary>
@@ -224,7 +221,7 @@ namespace Scorchio.VisualStudio
         /// <param name="custom">The custom.</param>
         public void OnStartupComplete(ref Array custom)
         {
-            TraceService.WriteLine("CommandManager::OnStartupComplete");  
+            TraceService.WriteLine("CommandManager::OnStartupComplete");
         }
 
         /// <summary>
@@ -233,7 +230,7 @@ namespace Scorchio.VisualStudio
         /// <param name="custom">The custom.</param>
         public void OnBeginShutdown(ref Array custom)
         {
-            TraceService.WriteLine("CommandManager::OnBeginShutdown");  
+            TraceService.WriteLine("CommandManager::OnBeginShutdown");
         }
 
         /// <summary>
@@ -350,9 +347,9 @@ namespace Scorchio.VisualStudio
 
                 TraceService.WriteError("CommandManager::AddMenuItem ArgumentException");
                 TraceService.WriteLine("commandName=" + vsCommandInfo.Name);
-                TraceService.WriteError("message=" + exception.Message);
-                TraceService.WriteError("parameterName=" + exception.ParamName);
-                TraceService.WriteError("stackTrace=" + exception.StackTrace);
+                TraceService.WriteLine("message=" + exception.Message);
+                TraceService.WriteLine("parameterName=" + exception.ParamName);
+                TraceService.WriteLine("stackTrace=" + exception.StackTrace);
             }
         }
     }

@@ -5,13 +5,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Translators
 {
+    using System;
     using System.IO;
     using System.Text.RegularExpressions;
     using System.Xml;
     using System.Xml.Serialization;
-
     using Constants;
-
     using Scorchio.VisualStudio.Entities;
 
     /// <summary>
@@ -52,7 +51,7 @@ namespace NinjaCoder.MvvmCross.Translators
             //// replace all the single \n with a null!
             Regex regEx = new Regex(Settings.ReplaceBlankLinesRegEx);
 
-            string code = regEx.Replace(codeSnippet.Code, "\r\n").TrimEnd();
+            string code = regEx.Replace(codeSnippet.Code, Environment.NewLine).TrimEnd();
 
             //// get rid of tabs
             code = code.Replace("\t", "    ");

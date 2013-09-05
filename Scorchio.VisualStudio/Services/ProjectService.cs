@@ -7,14 +7,10 @@ namespace Scorchio.VisualStudio.Services
 {
     using System.Collections.Generic;
     using System.Linq;
-
     using EnvDTE;
-
     using EnvDTE80;
-
-    using Scorchio.VisualStudio.Extensions;
-    using Scorchio.VisualStudio.Services.Interfaces;
-
+    using Extensions;
+    using Interfaces;
     using VSLangProj;
 
     /// <summary>
@@ -123,11 +119,11 @@ namespace Scorchio.VisualStudio.Services
         /// <summary>
         /// Adds the project reference.
         /// </summary>
-        /// <param name="referencedProject">The referenced project.</param>
-        /// <returns>The reference. </returns>
-        public Reference AddProjectReference(Project referencedProject)
+        /// <param name="referencedProjectService">The referenced project service.</param>
+        /// <returns>The reference.</returns>
+        public Reference AddProjectReference(IProjectService referencedProjectService)
         {
-            return this.project.AddProjectReference(referencedProject);
+            return this.project.AddProjectReference(referencedProjectService.Project);
         }
 
         /// <summary>
@@ -203,6 +199,40 @@ namespace Scorchio.VisualStudio.Services
         {
             DTE2 dte2 = this.project.DTE as DTE2;
             dte2.StatusBar.Text = message;
+        }
+
+        /// <summary>
+        /// Gets the folder items.
+        /// </summary>
+        /// <param name="folderName">Name of the folder.</param>
+        /// <param name="withFileExtensions">if set to <c>true</c> [with file extensions].</param>
+        /// <returns>The folder items.</returns>
+        public IEnumerable<string> GetFolderItems(
+            string folderName, 
+            bool withFileExtensions)
+        {
+            return this.project.GetFolderItems(folderName, withFileExtensions);
+        }
+
+        /// <summary>
+        /// Removes the reference.
+        /// </summary>
+        /// <param name="referenceName">Name of the reference.</param>
+        public void RemoveReference(string referenceName)
+        {
+            this.project.RemoveReference(referenceName);
+        }
+
+        /// <summary>
+        /// Removes the folder.
+        /// </summary>
+        /// <param name="folderName">Name of the folder.</param>
+        /// <returns>The projectItem Service.</returns>
+        public ProjectItemService RemoveFolder(string folderName)
+        {
+            ProjectItem projectItem = this.project.RemoveFolder(folderName);
+
+            return projectItem != null ? new ProjectItemService(projectItem) : null;
         }
     }
 }

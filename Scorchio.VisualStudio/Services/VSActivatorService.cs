@@ -3,30 +3,17 @@
 //    Defines the VSActivatorService type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace Scorchio.VisualStudio.Services
 {
     using System;
-
     using EnvDTE80;
-
-    using Scorchio.VisualStudio.Extensions;
+    using Extensions;
 
     /// <summary>
     ///  Defines the VSActivatorService type.
     /// </summary>
     public static class VSActivatorService
     {
-        /// <summary>
-        /// Object Name.
-        /// </summary>
-        private const string ObjectName = "VisualStudio.DTE.11.0";
-
-        /// <summary>
-        /// 2nd Object Name
-        /// </summary>
-        private const string ObjectName2 = "VisualStudio.DTE";
-
         /// <summary>
         /// Activates this instance.
         /// </summary>
@@ -37,14 +24,14 @@ namespace Scorchio.VisualStudio.Services
 
             try
             {
-                TraceService.WriteLine("VSActivatorService::Activate " + ObjectName);
-                dte2 = (DTE2)System.Runtime.InteropServices.Marshal.GetActiveObject(ObjectName);
+                TraceService.WriteLine("VSActivatorService::Activate " + ScorchioConstants.VisualStudio2012);
+                dte2 = (DTE2)System.Runtime.InteropServices.Marshal.GetActiveObject(ScorchioConstants.VisualStudio2012);
 
             }
             catch (Exception)
             {
-                TraceService.WriteLine("VSActivatorService::Activate " + ObjectName2);
-                dte2 = (DTE2)System.Runtime.InteropServices.Marshal.GetActiveObject(ObjectName2);
+                TraceService.WriteLine("VSActivatorService::Activate " + ScorchioConstants.VisualStudio);
+                dte2 = (DTE2)System.Runtime.InteropServices.Marshal.GetActiveObject(ScorchioConstants.VisualStudio);
             }
 
             TraceService.WriteLine("VSActivatorService::Activate Register");

@@ -9,8 +9,8 @@ namespace NinjaCoder.MvvmCross.Services
     using System.IO;
     using System.IO.Abstractions;
     using System.IO.Compression;
-
     using Interfaces;
+    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     ///  Defines the ZipperService type.
@@ -30,17 +30,19 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="ZipperService" /> class.
         /// </summary>
-        public ZipperService()
-            : this(new FileSystem())
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ZipperService" /> class.
-        /// </summary>
         /// <param name="fileSystem">The file system.</param>
         public ZipperService(IFileSystem fileSystem)
         {
+            //// init the tracing service first!
+            TraceService.Initialize(
+                false,
+                true, //// log to console.
+                false,
+                string.Empty,
+                false);
+
+            TraceService.WriteLine("ZipperService::Constructor");
+
             this.fileSystem = fileSystem;
         }
 
@@ -51,14 +53,14 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="updatesDirectory">The updates directory.</param>
         /// <param name="folderName">Name of the folder.</param>
         /// <param name="createLogFile">if set to <c>true</c> [create log file].</param>
-        /// <param name="replaceFiles">if set to <c>true</c> [replace files].</param>
         public void UpdateDirectory(
             string directory, 
             string updatesDirectory,
             string folderName,
-            bool createLogFile,
-            bool replaceFiles)
+            bool createLogFile)
         {
+            TraceService.WriteLine("ZipperService::UpdateDirectory");
+
             bool exists = this.fileSystem.Directory.Exists(directory);
 
             if (exists)
@@ -67,7 +69,7 @@ namespace NinjaCoder.MvvmCross.Services
 
                 foreach (string file in files)
                 {
-                    this.UpdateZip(file, updatesDirectory, folderName, createLogFile, replaceFiles);
+                    this.UpdateZip(file, updatesDirectory, folderName, createLogFile);
                 }
             }
         }
@@ -79,40 +81,39 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="updatesDirectory">The updates directory.</param>
         /// <param name="folderName">Name of the folder.</param>
         /// <param name="createLogFile">if set to <c>true</c> [create log file].</param>
-        /// <param name="replaceFiles">if set to <c>true</c> [replace files].</param>
         public void UpdateZip(
             string zipName, 
             string updatesDirectory,
             string folderName,
-            bool createLogFile,
-            bool replaceFiles)
+            bool createLogFile)
         {
+            ////TraceService.WriteLine("ZipperService::UpdateZip");
+
             if (createLogFile)
             {
                 this.streamWriter = new StreamWriter(zipName + ".log", true);
-                this.WriteMessageToLogFile("Start");
+                TraceService.WriteLine("Start");
             }
              
             using (ZipArchive zipArchive = ZipFile.Open(zipName, ZipArchiveMode.Update))
             {
-                this.WriteMessageToLogFile("Opening Zip File");
+                TraceService.WriteLine("Opening Zip File");
 
                 //// look for the lib directory
                 ReadOnlyCollection<ZipArchiveEntry> entries = zipArchive.Entries;
 
-                this.WriteMessageToLogFile("Entries = " + entries.Count);
+                TraceService.WriteLine("Entries = " + entries.Count);
 
-                for (int i = 0; i < entries.Count; i++)
+                for (int index = 0; index < entries.Count; index++)
                 {
-                    ZipArchiveEntry zipArchiveEntry = entries[i];
-
-                    this.BuildZipFile(updatesDirectory, folderName, replaceFiles, zipArchive, zipArchiveEntry);
+                    ZipArchiveEntry zipArchiveEntry = entries[index];
+                    this.BuildZipFile(updatesDirectory, folderName, zipArchive, zipArchiveEntry);
                 }
             }
-
+                    
             if (this.streamWriter != null)
             {
-                this.WriteMessageToLogFile("End");
+                TraceService.WriteLine("End");
                 this.streamWriter.Close();
             }
         }
@@ -122,25 +123,25 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         /// <param name="updatesDirectory">The updates directory.</param>
         /// <param name="folderName">Name of the folder.</param>
-        /// <param name="replaceFiles">if set to <c>true</c> [replace files].</param>
         /// <param name="zipArchive">The zip archive.</param>
         /// <param name="zipArchiveEntry">The zip archive entry.</param>
         internal void BuildZipFile(
             string updatesDirectory, 
             string folderName, 
-            bool replaceFiles, 
             ZipArchive zipArchive, 
             ZipArchiveEntry zipArchiveEntry)
         {
+            ////TraceService.WriteLine("ZipperService::BuildZipFile");
+
             string fullName = zipArchiveEntry.FullName;
 
-            this.WriteMessageToLogFile("Processing " + fullName);
+            ////TraceService.WriteLine("Processing " + fullName);
 
             if (fullName.ToLower().StartsWith(folderName.ToLower()) &&
                 fullName.ToLower().EndsWith(".dll"))
             {
                 //// we have found one of the assemblies
-                this.WriteMessageToLogFile("Found assembley " + fullName);
+                TraceService.WriteLine("Found assembley " + fullName);
 
                 //// first look to see if we have a replacement
                 string newFilePath = updatesDirectory + @"\" + zipArchiveEntry.Name;
@@ -149,11 +150,11 @@ namespace NinjaCoder.MvvmCross.Services
 
                 if (exists)
                 {
-                    this.UpdateFile(replaceFiles, zipArchive, zipArchiveEntry, fullName, newFilePath);
+                    this.UpdateFile(zipArchive, zipArchiveEntry, fullName, newFilePath);
                 }
                 else
                 {
-                    this.WriteMessageToLogFile(newFilePath + " does not exist");
+                    TraceService.WriteLine(newFilePath + " does not exist");
                 }
             }
         }
@@ -161,51 +162,34 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Updates the file.
         /// </summary>
-        /// <param name="replaceFiles">if set to <c>true</c> [replace files].</param>
         /// <param name="zipArchive">The zip archive.</param>
         /// <param name="zipArchiveEntry">The zip archive entry.</param>
         /// <param name="fullName">The full name.</param>
         /// <param name="newFilePath">The new file path.</param>
         internal void UpdateFile(
-            bool replaceFiles, 
             ZipArchive zipArchive, 
             ZipArchiveEntry zipArchiveEntry, 
             string fullName, 
             string newFilePath)
         {
-            FileInfo fileInfo = new FileInfo(fullName);
-            FileInfo newFileInfo = new FileInfo(newFilePath);
+            TraceService.WriteLine("ZipperService::UpdateFile fullName=" + fullName);
 
-            if (newFileInfo.LastWriteTime > fileInfo.LastWriteTime)
+            FileInfoBase fileInfoBase = this.fileSystem.FileInfo.FromFileName(fullName);
+            FileInfoBase newFileInfoBase = this.fileSystem.FileInfo.FromFileName(newFilePath);
+
+            if (newFileInfoBase.LastWriteTime > fileInfoBase.LastWriteTime)
             {
-                this.WriteMessageToLogFile(zipArchiveEntry.Name + " is marked to be replaced");
+                //// delete the current one!
+                zipArchiveEntry.Delete();
 
-                if (replaceFiles)
-                {
-                    //// delete the current one!
-                    zipArchiveEntry.Delete();
+                //// and now add the new one!
+                zipArchive.CreateEntryFromFile(newFilePath, fullName);
 
-                    //// and now add the new one!
-                    zipArchive.CreateEntryFromFile(newFilePath, fullName);
-
-                    this.WriteMessageToLogFile(zipArchiveEntry.Name + " has been replaced");
-                }
+                TraceService.WriteLine(zipArchiveEntry.Name + " has been replaced");
             }
             else
             {
-                this.WriteMessageToLogFile(zipArchiveEntry.Name + " has not been replaced");
-            }
-        }
-
-        /// <summary>
-        /// Writes the message to log file.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        internal void WriteMessageToLogFile(string message)
-        {
-            if (this.streamWriter != null)
-            {
-                this.streamWriter.WriteLine(message);
+                TraceService.WriteLine(zipArchiveEntry.Name + " has not been replaced");
             }
         }
     }

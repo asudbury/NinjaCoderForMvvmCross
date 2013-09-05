@@ -8,7 +8,12 @@ namespace NinjaCoder.MvvmCross.Views
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Windows.Forms;
+
     using Interfaces;
+
+    using NinjaCoder.MvvmCross.Services.Interfaces;
+
     using Presenters;
     using Scorchio.VisualStudio.Entities;
 
@@ -22,16 +27,16 @@ namespace NinjaCoder.MvvmCross.Views
         /// </summary>
         /// <param name="viewModelNames">The view model names.</param>
         /// <param name="itemTemplateInfos">The item template infos.</param>
-        /// <param name="displayLogo">if set to <c>true</c> [display logo].</param>
+        /// <param name="settingsService">The settings service.</param>
         public ServicesForm(
-            List<string> viewModelNames,
-             List<ItemTemplateInfo> itemTemplateInfos,
-             bool displayLogo)
+            IEnumerable<string> viewModelNames,
+            IEnumerable<ItemTemplateInfo> itemTemplateInfos,
+            ISettingsService settingsService)
         {
             this.InitializeComponent();
 
-            this.Presenter = new ServicesPresenter(this, itemTemplateInfos, displayLogo);
-            this.Presenter.Load(viewModelNames);
+            this.Presenter = new ServicesPresenter(this, settingsService);
+            this.Presenter.Load(viewModelNames, itemTemplateInfos);
         }
 
         /// <summary>
@@ -96,7 +101,7 @@ namespace NinjaCoder.MvvmCross.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void ButtonOKClick(object sender, EventArgs e)
         {
-            this.Continue = true;
+            this.DialogResult = DialogResult.OK;
         }
 
         /// <summary>
@@ -108,7 +113,7 @@ namespace NinjaCoder.MvvmCross.Views
             object sender, 
             EventArgs e)
         {
-            this.checkBoxIncludeUnitTests.Visible = this.comboBoxViewModel.SelectedItem != string.Empty;
+            this.checkBoxIncludeUnitTests.Visible = (string)this.comboBoxViewModel.SelectedItem != string.Empty;
         }
     }
 }

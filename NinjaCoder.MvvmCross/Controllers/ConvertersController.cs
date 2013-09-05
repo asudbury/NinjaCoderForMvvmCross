@@ -5,11 +5,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
-    using System.Collections.Generic;
+    using Constants;
+    using EnvDTE;
     using Scorchio.VisualStudio.Entities;
-    using Services;
+    using Scorchio.VisualStudio.Services;
     using Services.Interfaces;
-    using Views;
+    using System.Collections.Generic;
+    using System.Windows.Forms;
+    using Views.Interfaces;
 
     /// <summary>
     /// Defines the ConvertersController type.
@@ -17,34 +20,38 @@ namespace NinjaCoder.MvvmCross.Controllers
     public class ConvertersController : BaseController
     {
         /// <summary>
-        /// The settings service.
-        /// </summary>
-        private readonly ISettingsService settingsService;
-
-        /// <summary>
         /// The converter service.
         /// </summary>
         private readonly IConvertersService converterService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConvertersController"/> class.
-        /// </summary>
-        public ConvertersController()
-            : this(new SettingsService(), new ConvertersService())
-        {
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="ConvertersController" /> class.
         /// </summary>
-        /// <param name="settingsService">The settings service.</param>
         /// <param name="convertersService">The converters service.</param>
+        /// <param name="visualStudioService">The visual studio service.</param>
+        /// <param name="readMeService">The read me service.</param>
+        /// <param name="settingsService">The settings service.</param>
+        /// <param name="messageBoxService">The message box service.</param>
+        /// <param name="dialogService">The dialog service.</param>
+        /// <param name="formsService">The forms service.</param>
         public ConvertersController(
+            IConvertersService convertersService,
+            IVisualStudioService visualStudioService,
+            IReadMeService readMeService,
             ISettingsService settingsService,
-            IConvertersService convertersService)
-            : base(new VisualStudioService(), new ReadMeService(), new SettingsService())
+            IMessageBoxService messageBoxService,
+            IDialogService dialogService,
+            IFormsService formsService)
+            : base(
+            visualStudioService, 
+            readMeService, 
+            settingsService, 
+            messageBoxService,
+            dialogService,
+            formsService)
         {
-            this.settingsService = settingsService;
+            TraceService.WriteLine("ConfigurationController::Constructor");
+
             this.converterService = convertersService;
         }
 
@@ -53,37 +60,52 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         public void Run()
         {
-            this.AddTraceHeader("ConvertersController", "Run");
+            TraceService.WriteHeader("ConvertersController::Run");
 
             if (this.VisualStudioService.IsMvvmCrossSolution)
             {
-                string templatesPath = this.settingsService.ConvertersTemplatesPath;
+                string templatesPath = this.SettingsService.ConvertersTemplatesPath;
 
                 List<ItemTemplateInfo> itemTemplateInfos = this.VisualStudioService.GetFolderTemplateInfos(templatesPath, "Converters");
 
-                ItemTemplatesForm form = new ItemTemplatesForm(itemTemplateInfos, this.SettingsService.DisplayLogo);
+                IItemTemplatesView view = this.FormsService.GetItemTemplatesForm(itemTemplateInfos, this.SettingsService);
 
-                form.ShowDialog();
+                DialogResult result = this.DialogService.ShowDialog(view as Form);
 
-                if (form.Continue)
+                if (result == DialogResult.OK)
                 {
-                    this.WriteStatusBarMessage("Ninja Coder is running....");
-
-                    IEnumerable<string> messages = this.converterService.AddConverters(
-                                                        this.VisualStudioService.CoreProjectService, 
-                                                        templatesPath, 
-                                                        form.RequiredTemplates);
-
-                    //// show the readme.
-                    this.ShowReadMe("Add Converters", messages);
-
-                    this.WriteStatusBarMessage("Ninja Coder has completed the adding of the converters.");
+                    this.Process(templatesPath, view.RequiredTemplates);
                 }
             }
             else
             {
                 this.ShowNotMvvmCrossSolutionMessage();
             }
+        }
+
+        /// <summary>
+        /// Processes the specified templates path.
+        /// </summary>
+        /// <param name="templatesPath">The templates path.</param>
+        /// <param name="templateInfos">The template infos.</param>
+        internal void Process(string templatesPath, List<ItemTemplateInfo> templateInfos)
+        {
+            this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NinjaIsRunning);
+
+            ProjectItemsEvents cSharpProjectItemsEvents = this.VisualStudioService.DTEService.GetCSharpProjectItemsEvents();
+            cSharpProjectItemsEvents.ItemAdded += this.ProjectItemsEventsItemAdded;
+
+            IEnumerable<string> messages = this.converterService.AddConverters(
+                this.VisualStudioService.CoreProjectService, templatesPath, templateInfos);
+
+            cSharpProjectItemsEvents.ItemAdded -= this.ProjectItemsEventsItemAdded;
+
+            this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.UpdatingFiles);
+
+            //// show the readme.
+            this.ShowReadMe("Add Converters", messages);
+
+            this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.ConvertersCompleted);
         }
     }
 }

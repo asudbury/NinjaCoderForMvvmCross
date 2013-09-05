@@ -5,9 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.UserControls
 {
+    using Services;
     using System.Windows.Forms;
-
-    using NinjaCoder.MvvmCross.Services;
 
     /// <summary>
     /// Defines the Logo type.

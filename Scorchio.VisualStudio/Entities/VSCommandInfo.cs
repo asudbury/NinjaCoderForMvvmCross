@@ -3,13 +3,10 @@
 //    Defines the VSCommandInfo type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace Scorchio.VisualStudio.Entities
 {
     using EnvDTE;
-
     using EnvDTE80;
-
     using Microsoft.VisualStudio.CommandBars;
 
     /// <summary>

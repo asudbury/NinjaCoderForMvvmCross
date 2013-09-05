@@ -3,7 +3,6 @@
 //   Defines the VSInstance type.
 // </summary>
 // -----------------------------------------------------------------------
-
 namespace Scorchio.VisualStudio.Entities
 {
     using EnvDTE80;

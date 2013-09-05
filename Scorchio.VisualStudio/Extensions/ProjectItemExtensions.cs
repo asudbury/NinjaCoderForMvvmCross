@@ -32,6 +32,30 @@ namespace Scorchio.VisualStudio.Extensions
         }
 
         /// <summary>
+        /// Gets the c# project items.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns>The project items.</returns>
+        public static IEnumerable<ProjectItem> GetCSharpProjectItems(this ProjectItem instance)
+        {
+            TraceService.WriteLine("ProjectExtensions::GetCSharpProjectItems project=" + instance.Name);
+
+            return instance.ProjectItems.Cast<ProjectItem>().Where(x => x.Name.EndsWith(".cs")).ToList();
+        }
+
+        /// <summary>
+        /// Gets the c# project items.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns>The project items.</returns>
+        public static IEnumerable<ProjectItem> GetXamlProjectItems(this ProjectItem instance)
+        {
+            TraceService.WriteLine("ProjectExtensions::GetCSharpProjectItems project=" + instance.Name);
+
+            return instance.ProjectItems.Cast<ProjectItem>().Where(x => x.Name.EndsWith(".xaml")).ToList();
+        }
+
+        /// <summary>
         /// Gets the name space.
         /// </summary>
         /// <param name="instance">The instance.</param>
@@ -117,28 +141,28 @@ namespace Scorchio.VisualStudio.Extensions
 
             IEnumerable<CodeClass> codeClasses = instance.FileCodeModel.CodeElements.OfType<CodeClass>();
 
-            if (!codeClasses.Any())
-            {
-                CodeNamespace codeNamespace = instance.GetFirstNameSpace();
+            CodeClass codeClass = codeClasses.FirstOrDefault();
 
-                if (codeNamespace != null)
+            if (codeClass != null)
+            {
+                return codeClass;
+            }
+
+            CodeNamespace codeNamespace = instance.GetFirstNameSpace();
+
+            if (codeNamespace != null)
+            {
+                foreach (CodeElement codeElement in codeNamespace.Children)
                 {
-                    foreach (CodeElement codeElement in codeNamespace.Children)
+                    if (codeElement.Kind == vsCMElement.vsCMElementClass)
                     {
-                        if (codeElement.Kind == vsCMElement.vsCMElementClass)
-                        {
-                            return codeElement as CodeClass;
-                        }
+                        return codeElement as CodeClass;
                     }
-                }
-                else
-                {
-                    TraceService.WriteError("ProjectItemExtensions::GetFirstClass cannot find namespace");
                 }
             }
             else
             {
-               return codeClasses.FirstOrDefault();
+                TraceService.WriteError("ProjectItemExtensions::GetFirstClass cannot find namespace");
             }
 
             return null;
@@ -232,7 +256,7 @@ namespace Scorchio.VisualStudio.Extensions
 
             if (codeSnippet.UsingStatements.Any())
             {
-                List<string> statements = instance.GetUsingStatements();
+                IEnumerable<string> statements = instance.GetUsingStatements();
 
                 foreach (string reference in codeSnippet.UsingStatements)
                 {
@@ -281,7 +305,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <returns>A list of using statements.</returns>
-        public static List<string> GetUsingStatements(this ProjectItem instance)
+        public static IEnumerable<string> GetUsingStatements(this ProjectItem instance)
         {
             TraceService.WriteLine("ProjectItemExtensions::GetUsingStatements in file " + instance.Name);
 
@@ -289,24 +313,11 @@ namespace Scorchio.VisualStudio.Extensions
 
             foreach (CodeElement codeElement in instance.FileCodeModel.CodeElements)
             {
-                if (codeElement.Kind == vsCMElement.vsCMElementImportStmt)
-                {
-                    CodeImport import = codeElement as CodeImport;
+                CodeImport import = codeElement as CodeImport;
 
-                    if (import != null)
-                    {
-                        EditPoint startEditPoint = import.GetStartPoint().CreateEditPoint();
-                        TextPoint textPoint = import.GetEndPoint();
-                        string text = startEditPoint.GetText(textPoint);
-                        statements.Add(text);
-                    }
-                }
-
-                if (codeElement.Kind == vsCMElement.vsCMElementNamespace)
+                switch (codeElement.Kind)
                 {
-                    foreach (CodeElement childCodeElement in codeElement.Children)
-                    {
-                        CodeImport import = childCodeElement as CodeImport;
+                    case vsCMElement.vsCMElementImportStmt:
 
                         if (import != null)
                         {
@@ -315,7 +326,25 @@ namespace Scorchio.VisualStudio.Extensions
                             string text = startEditPoint.GetText(textPoint);
                             statements.Add(text);
                         }
-                    }
+
+                        break;
+
+                    case vsCMElement.vsCMElementNamespace:
+
+                        foreach (CodeElement childCodeElement in codeElement.Children)
+                        {
+                            import = childCodeElement as CodeImport;
+
+                            if (import != null)
+                            {
+                                EditPoint startEditPoint = import.GetStartPoint().CreateEditPoint();
+                                TextPoint textPoint = import.GetEndPoint();
+                                string text = startEditPoint.GetText(textPoint);
+                                statements.Add(text);
+                            }
+                        }
+
+                        break;
                 }
             }
 
@@ -347,23 +376,29 @@ namespace Scorchio.VisualStudio.Extensions
                 foreach (CodeElement codeElement in instance.FileCodeModel.CodeElements)
                 {
                     //// assume the using statements come before the required namespace.
-                    if (codeElement.Kind == vsCMElement.vsCMElementImportStmt)
+                    switch (codeElement.Kind)
                     {
-                        TextPoint startPoint = codeElement.StartPoint;
-                        TextPoint endPoint = codeElement.EndPoint;
+                        case vsCMElement.vsCMElementImportStmt:
 
-                        string text = startPoint.CreateEditPoint().GetText(endPoint);
-                        usingStatements.Add(text);
-                    }
-                    else if (codeElement.Kind == vsCMElement.vsCMElementNamespace)
-                    {
-                        TextPoint nameSpacePoint = codeElement.GetStartPoint(vsCMPart.vsCMPartBody);
-                        EditPoint editPoint = nameSpacePoint.CreateEditPoint();
+                            TextPoint startPoint = codeElement.StartPoint;
+                            TextPoint endPoint = codeElement.EndPoint;
 
-                        foreach (string statement in usingStatements)
-                        {
-                            editPoint.Insert("\t" + statement + "\n");
-                        }
+                            string text = startPoint.CreateEditPoint().GetText(endPoint);
+                            usingStatements.Add(text);
+
+                            break;
+
+                        case vsCMElement.vsCMElementNamespace:
+                            
+                            TextPoint nameSpacePoint = codeElement.GetStartPoint(vsCMPart.vsCMPartBody);
+                            EditPoint editPoint = nameSpacePoint.CreateEditPoint();
+
+                            foreach (string statement in usingStatements)
+                            {
+                                editPoint.Insert("\t" + statement + "\n");
+                            }
+
+                            break;
                     }
                 }
 
@@ -495,12 +530,36 @@ namespace Scorchio.VisualStudio.Extensions
         }
 
         /// <summary>
+        /// Determines whether [is xaml file] [the specified instance].
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns>
+        ///   <c>true</c> if [is xaml file] [the specified instance]; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool IsXamlFile(this ProjectItem instance)
+        {
+            bool xamlFile = false;
+
+            if (instance.IsPhysicalFile())
+            {
+                if (instance.Name.EndsWith(".xaml"))
+                {
+                    xamlFile = true;
+                }
+            }
+
+            return xamlFile;
+        }
+
+        /// <summary>
         /// Gets the folder.
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <returns>The folder.</returns>
         public static string GetFolder(this ProjectItem instance)
         {
+            TraceService.WriteLine("ProjectItemExtensions::GetFolder");
+
             string folder = string.Empty;
             
             string fileName = instance.FileNames[0];
@@ -519,18 +578,158 @@ namespace Scorchio.VisualStudio.Extensions
         /// Deletes the folder.
         /// </summary>
         /// <param name="instance">The instance.</param>
-        public static void DeleteFolder(this ProjectItem instance)
+        /// <param name="excludeFiles">The exclude files.</param>
+        public static void DeleteFolder(
+            this ProjectItem instance,
+            IEnumerable<string> excludeFiles = null)
         {
+            TraceService.WriteLine("ProjectItemExtensions::DeleteFolder");
+
+            bool deleteDirectory = true;
+
             string directoryName = instance.FileNames[0];
 
             DirectoryInfo directoryInfo = new DirectoryInfo(directoryName);
 
             foreach (FileInfo fileInfo in directoryInfo.GetFiles())
             {
-                fileInfo.Delete();
+                if (excludeFiles != null)
+                {
+                    if (excludeFiles.Any(excludeFile => fileInfo.FullName.ToLower().Contains(excludeFile.ToLower())))
+                    {
+                        deleteDirectory = false;
+                    }
+                    else
+                    {
+                       fileInfo.Delete();
+                    }
+                }
+                else
+                {
+                    fileInfo.Delete();
+                }
             }
 
-            directoryInfo.Delete();
+            if (deleteDirectory)
+            {
+                directoryInfo.Delete();
+            }
+        }
+
+        /// <summary>
+        /// Removes the comments.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        public static void RemoveComments(this ProjectItem instance)
+        {
+            TraceService.WriteLine("ProjectExtensions::RemoveComments");
+
+            if (instance.IsCSharpFile())
+            {
+                CodeClass codeClass = instance.GetFirstClass();
+
+                if (codeClass != null)
+                {
+                    instance.GetFirstClass().RemoveComments();
+                }
+            }
+
+            //// don't forget sub items.
+
+            if (instance.ProjectItems != null)
+            {
+                IEnumerable<ProjectItem> csharpProjectItems = instance.GetCSharpProjectItems();
+
+                foreach (ProjectItem subProjectItem in csharpProjectItems)
+                {
+                    subProjectItem.RemoveComments();
+                }
+
+                IEnumerable<ProjectItem> xamlProjectItems = instance.GetXamlProjectItems();
+
+                foreach (ProjectItem subProjectItem in xamlProjectItems)
+                {
+                    subProjectItem.RemoveComments();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Removes the header.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        public static void RemoveHeader(this ProjectItem instance)
+        {
+            TraceService.WriteLine("ProjectExtensions::RemoveHeader");
+
+            if (instance.IsCSharpFile())
+            {
+                Window window = instance.Open(VSConstants.VsViewKindCode);
+                
+                if (window != null)
+                {
+                    window.Activate();
+
+                    TextSelection selection = (TextSelection)instance.Document.Selection;
+
+                    bool continueLoop = true;
+                    int loopCounter = 0;
+
+                    do
+                    {
+                        //// just in case we get infinity loop problem!
+                        if (loopCounter > 100)
+                        {
+                            continueLoop = false;
+                        }
+
+                        selection.GotoLine(1, true);
+                        selection.SelectLine();
+
+                        if (selection.Text.StartsWith("//"))
+                        {
+                            selection.Delete();
+                            loopCounter++;
+                        }
+                        else
+                        {
+                            continueLoop = false;
+                        }
+                    }
+                    while (continueLoop);
+                    }
+            }
+
+            //// don't forget sub items.
+
+            if (instance.ProjectItems != null)
+            {
+                IEnumerable<ProjectItem> subProjectItems = instance.GetCSharpProjectItems();
+
+                foreach (ProjectItem subProjectItem in subProjectItems)
+                {
+                    subProjectItem.RemoveHeader();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Removes the and delete.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        public static void RemoveAndDelete(this ProjectItem instance)
+        {
+            TraceService.WriteLine("ProjectExtensions::RemoveAndDelete");
+
+            instance.Remove();
+
+            string fileName = instance.FileNames[0];
+
+            if (File.Exists(fileName))
+            {
+                TraceService.WriteLine("ProjectExtensions::RemoveAndDelete fileName=" + fileName);
+                ////File.Delete(fileName);
+            }
         }
    }
 }

@@ -21,16 +21,21 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CodeSnippetsPlugins.wxs" />
-    <Compile Include="CodeSnippetsServices.wxs" />
-    <Compile Include="ConfigServices.wxs" />
+    <Compile Include="CodeSnippets\CodeSnippetsPlugins.wxs" />
+    <Compile Include="CodeSnippets\CodeSnippetsServices.wxs" />
+    <Compile Include="Config\Plugins.wxs" />
+    <Compile Include="Config\Services.wxs" />
+    <Compile Include="ItemTemplates\Converters.wxs" />
+    <Compile Include="ItemTemplates\Services.wxs" />
+    <Compile Include="ItemTemplates\ViewModelsAndViews.wxs" />
+    <Compile Include="ItemTemplates\Plugins.wxs" />
+    <Compile Include="Plugins\PluginsCore.wxs" />
+    <Compile Include="Plugins\PluginsDroid.wxs" />
+    <Compile Include="Plugins\PluginsiOS.wxs" />
+    <Compile Include="Plugins\PluginsWindowsPhone.wxs" />
+    <Compile Include="Plugins\PluginsWindowsStore.wxs" />
+    <Compile Include="Plugins\PluginsWpf.wxs" />
     <Compile Include="ProjectTemplates.wxs" />
-    <Compile Include="PluginsWpf.wxs" />
-    <Compile Include="PluginsWindowsStore.wxs" />
-    <Compile Include="PluginsWindowsPhone.wxs" />
-    <Compile Include="PluginsiOS.wxs" />
-    <Compile Include="PluginsDroid.wxs" />
-    <Compile Include="PluginsCore.wxs" />
     <Compile Include="Product.wxs">
       <Link>
       </Link>
@@ -66,6 +71,10 @@
     <Content Include="Resources\banner.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="CodeSnippets" />
+    <Folder Include="Config" />
+    <Folder Include="ItemTemplates" />
+    <Folder Include="Plugins" />
     <Folder Include="Resources" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />

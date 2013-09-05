@@ -9,9 +9,7 @@ namespace NinjaCoder.MvvmCross.Services
     using System.Collections.Generic;
     using System.IO;
     using System.IO.Abstractions;
-
     using Interfaces;
-
     using Scorchio.VisualStudio.Services;
 
     /// <summary>
@@ -37,18 +35,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="ReadMeService" /> class.
         /// </summary>
-        public ReadMeService()
-            : this(new FileSystem())
-        {
-            TraceService.WriteLine("ReadMeService::Constructor");
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ReadMeService" /> class.
-        /// </summary>
         /// <param name="fileSystem">The file system.</param>
         public ReadMeService(IFileSystem fileSystem)
         {
+            TraceService.WriteLine("ReadMeService::Constructor");
+
             this.fileSystem = fileSystem;
         }
 

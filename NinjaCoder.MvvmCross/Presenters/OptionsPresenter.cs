@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Presenters
 {
-    using Services;
+    using System.Diagnostics;
     using Services.Interfaces;
     using Views.Interfaces;
 
@@ -23,36 +23,18 @@ namespace NinjaCoder.MvvmCross.Presenters
         /// The settings service.
         /// </summary>
         private readonly ISettingsService settingsService;
-        
-        /// <summary>
-        /// The display logo.
-        /// </summary>
-        private readonly bool displayLogo;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OptionsPresenter" /> class.
-        /// </summary>
-        /// <param name="view">The view.</param>
-        /// <param name="displayLogo">if set to <c>true</c> [display logo].</param>
-        public OptionsPresenter(IOptionsView view, bool displayLogo)
-            : this(view, new SettingsService(), displayLogo)
-        {
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OptionsPresenter" /> class.
         /// </summary>
         /// <param name="view">The view.</param>
         /// <param name="settingsService">The settings service.</param>
-        /// <param name="displayLogo">if set to <c>true</c> [display logo].</param>
         public OptionsPresenter(
             IOptionsView view,
-            ISettingsService settingsService,
-            bool displayLogo)
+            ISettingsService settingsService)
         {
-            this.view = view;
             this.settingsService = settingsService;
-            this.displayLogo = displayLogo;
+            this.view = view;
         }
 
         /// <summary>
@@ -60,13 +42,16 @@ namespace NinjaCoder.MvvmCross.Presenters
         /// </summary>
         public void LoadSettings()
         {
-            this.view.DisplayLogo = this.displayLogo;
-
             this.view.TraceOutputEnabled = this.settingsService.LogToTrace;
             this.view.LogToFile = this.settingsService.LogToFile;
             this.view.LogFilePath = this.settingsService.LogFilePath;
             this.view.IncludeLibFolderInProjects = this.settingsService.IncludeLibFolderInProjects;
             this.view.DisplayErrors = this.settingsService.DisplayErrors;
+            this.view.RemoveDefaultComments = this.settingsService.RemoveDefaultComments;
+            this.view.RemoveDefaultFileHeaders = this.settingsService.RemoveDefaultFileHeaders;
+            this.view.UseNugetForProjectTemplates = this.settingsService.UseNugetForProjectTemplates;
+            this.view.UseNugetForPlugins = this.settingsService.UseNugetForPlugins;
+            this.view.SuspendReSharperDuringBuild = this.settingsService.SuspendReSharperDuringBuild;
         }
 
         /// <summary>
@@ -79,6 +64,19 @@ namespace NinjaCoder.MvvmCross.Presenters
             this.settingsService.LogFilePath = this.view.LogFilePath;
             this.settingsService.IncludeLibFolderInProjects = this.view.IncludeLibFolderInProjects;
             this.settingsService.DisplayErrors = this.view.DisplayErrors;
+            this.settingsService.RemoveDefaultComments = this.view.RemoveDefaultComments;
+            this.settingsService.RemoveDefaultFileHeaders = this.view.RemoveDefaultFileHeaders;
+            this.settingsService.UseNugetForProjectTemplates = this.view.UseNugetForProjectTemplates;
+            this.settingsService.UseNugetForPlugins = this.view.UseNugetForPlugins;
+            this.settingsService.SuspendReSharperDuringBuild = this.view.SuspendReSharperDuringBuild;
+        }
+
+        /// <summary>
+        /// Shows the download nuget page.
+        /// </summary>
+        public void ShowDownloadNugetPage()
+        {
+           Process.Start(@"IEXPLORE.EXE", this.settingsService.DownloadNugetPage);
         }
     }
 }

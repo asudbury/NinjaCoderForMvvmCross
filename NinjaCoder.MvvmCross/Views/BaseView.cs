@@ -13,11 +13,6 @@ namespace NinjaCoder.MvvmCross.Views
     public class BaseView : Form
     {
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="SolutionOptionsForm"/> is continue.
-        /// </summary>
-        public bool Continue { get; set; }
-
-        /// <summary>
         /// Sets the logo visibility.
         /// </summary>
         /// <param name="logoControl">The logo control.</param>

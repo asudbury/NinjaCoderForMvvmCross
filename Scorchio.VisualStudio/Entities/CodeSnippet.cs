@@ -15,7 +15,7 @@ namespace Scorchio.VisualStudio.Entities
     /// </summary>
     [Serializable]
     [XmlRoot(ElementName = "CodeSnippet", Namespace = "")]
-    public class CodeSnippet 
+    public class CodeSnippet
     {
         /// <summary>
         /// Gets or sets the references.

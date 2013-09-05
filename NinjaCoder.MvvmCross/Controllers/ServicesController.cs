@@ -5,18 +5,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
-    using System.Collections.Generic;
-    using System.IO.Abstractions;
-
-    using EnvDTE;
-
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-    using NinjaCoder.MvvmCross.Translators;
-
+    using Constants;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
-    using Services;
-    using Views;
+    using Scorchio.VisualStudio.Services.Interfaces;
+    using Services.Interfaces;
+    using System.Collections.Generic;
+    using System.Windows.Forms;
+    using Views.Interfaces;
 
     /// <summary>
     /// Defines the ServicesController type.
@@ -29,20 +25,30 @@ namespace NinjaCoder.MvvmCross.Controllers
         private readonly IServicesService servicesService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ServicesController"/> class.
-        /// </summary>
-        public ServicesController()
-            : this(new ServicesService(new CodeConfigTranslator(), new FileSystem(), new SettingsService(), new SnippetService(new FileSystem(), new CodeSnippetTranslator())))
-        {
-            TraceService.WriteLine("ServicesController::Constructor");
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="ServicesController" /> class.
         /// </summary>
         /// <param name="servicesService">The services service.</param>
-        public ServicesController(IServicesService servicesService)
-            : base(new VisualStudioService(), new ReadMeService(), new SettingsService())
+        /// <param name="visualStudioService">The visual studio service.</param>
+        /// <param name="readMeService">The read me service.</param>
+        /// <param name="settingsService">The settings service.</param>
+        /// <param name="messageBoxService">The message box service.</param>
+        /// <param name="dialogService">The dialog service.</param>
+        /// <param name="formsService">The forms service.</param>
+        public ServicesController(
+            IServicesService servicesService,
+            IVisualStudioService visualStudioService,
+            IReadMeService readMeService,
+            ISettingsService settingsService,
+            IMessageBoxService messageBoxService,
+            IDialogService dialogService,
+            IFormsService formsService)
+            : base(
+            visualStudioService, 
+            readMeService, 
+            settingsService, 
+            messageBoxService,
+            dialogService,
+            formsService)
         {
             TraceService.WriteLine("ServicesController::Constructor");
 
@@ -54,7 +60,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         public void Run()
         {
-            this.AddTraceHeader("ServicesController", "Run");
+            TraceService.WriteHeader("ServicesController::Run");
 
             if (this.VisualStudioService.IsMvvmCrossSolution)
             {
@@ -62,38 +68,58 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                 List<ItemTemplateInfo> itemTemplateInfos = this.VisualStudioService.GetFolderTemplateInfos(templatesPath, "Services");
 
-                ServicesForm form = new ServicesForm(this.GetViewModelNames(), itemTemplateInfos, this.SettingsService.DisplayLogo);
+                IEnumerable<string> viewModelNames = this.VisualStudioService.CoreProjectService.GetFolderItems("ViewModels", false);
 
-                form.ShowDialog();
+                IServicesView view = this.FormsService.GetServicesForm(viewModelNames, itemTemplateInfos, this.SettingsService);
+
+                DialogResult result = this.DialogService.ShowDialog(view as Form);
                 
-                if (form.Continue)
+                if (result == DialogResult.OK)
                 {
-                    this.WriteStatusBarMessage("Ninja Coder is running....");
-
-                    Project project = this.VisualStudioService.CoreProject;
-
-                    if (project != null)
-                    {
-                        List<string> messages = this.servicesService.AddServices(
-                            this.VisualStudioService,
-                            form.RequiredTemplates,
-                            form.ImplementInViewModel,
-                            form.IncludeUnitTests);
-
-                        //// show the readme.
-                        this.ShowReadMe("Add Services", messages);
-
-                        this.WriteStatusBarMessage("Ninja Coder has completed the adding of the services.");
-                    }
-                    else
-                    {
-                        TraceService.WriteError("ServicesController::AddServices Cannot find Core project");
-                    }
+                    this.Process(view.RequiredTemplates, view.ImplementInViewModel, view.IncludeUnitTests);
                 }
             }
             else
             {
                 this.ShowNotMvvmCrossSolutionMessage();
+            }
+        }
+
+        /// <summary>
+        /// Processes the specified form.
+        /// </summary>
+        /// <param name="templateInfos">The template infos.</param>
+        /// <param name="implementInViewModel">The implement in view model.</param>
+        /// <param name="includeUnitTests">if set to <c>true</c> [include unit tests].</param>
+        internal void Process(
+            IEnumerable<ItemTemplateInfo> templateInfos,
+            string implementInViewModel,
+            bool includeUnitTests)
+        {
+            TraceService.WriteLine("ServicesController::Process");
+
+            this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NinjaIsRunning);
+
+            IProjectService projectService = this.VisualStudioService.CoreProjectService;
+
+            if (projectService != null)
+            {
+                List<string> messages = this.servicesService.AddServices(
+                    this.VisualStudioService,
+                    templateInfos,
+                    implementInViewModel,
+                    includeUnitTests);
+
+                this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.UpdatingFiles);
+
+                //// show the readme.
+                this.ShowReadMe("Add Services", messages);
+
+                this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.ServicesCompleted);
+            }
+            else
+            {
+                TraceService.WriteError("ServicesController::AddServices Cannot find Core project");
             }
         }
     }

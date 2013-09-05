@@ -6,11 +6,10 @@
 namespace NinjaCoder.MvvmCross.Services
 {
     using System;
-    using System.IO;
+    using System.IO.Abstractions;
 
     using Constants;
     using Interfaces;
-
     using Scorchio.VisualStudio.Services;
 
     /// <summary>
@@ -19,11 +18,19 @@ namespace NinjaCoder.MvvmCross.Services
     public class ConfigurationService : BaseService, IConfigurationService
     {
         /// <summary>
+        /// The file system.
+        /// </summary>
+        private readonly IFileSystem fileSystem;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ConfigurationService" /> class.
         /// </summary>
-        public ConfigurationService()
+        /// <param name="fileSystem">The file system.</param>
+        public ConfigurationService(IFileSystem fileSystem)
         {
             TraceService.WriteLine("ConfigurationService::Constructor");
+
+            this.fileSystem = fileSystem;
         }
 
         /// <summary>
@@ -61,11 +68,11 @@ namespace NinjaCoder.MvvmCross.Services
 
             string path = string.Format(@"{0}\{1}", parentPath, directoryName);
 
-            if (Directory.Exists(path) == false)
+            if (this.fileSystem.Directory.Exists(path))
             {
                 try
                 {
-                    Directory.CreateDirectory(path);
+                    this.fileSystem.Directory.CreateDirectory(path);
                 }
                 catch (Exception exception)
                 {

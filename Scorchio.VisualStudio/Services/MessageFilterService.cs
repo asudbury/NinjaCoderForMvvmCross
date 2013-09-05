@@ -6,10 +6,9 @@
 
 namespace Scorchio.VisualStudio.Services
 {
+    using Interfaces;
     using System;
     using System.Runtime.InteropServices;
-
-    using Scorchio.VisualStudio.Services.Interfaces;
 
     /// <summary>
     ///   Defines the StudioMessageFilter type.

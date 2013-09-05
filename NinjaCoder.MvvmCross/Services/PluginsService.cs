@@ -14,47 +14,37 @@ namespace NinjaCoder.MvvmCross.Services
     using Entities;
     using Interfaces;
     using Scorchio.VisualStudio.Entities;
-    using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
+    using Translators;
 
     /// <summary>
     /// Defines the PluginsService type.
     /// </summary>
-    public class PluginsService : BaseService, IPluginsService
+    public class PluginsService : BaseCodeService, IPluginsService
     {
-        /// <summary>
-        /// The file system.
-        /// </summary>
-        private readonly IFileSystem fileSystem;
-
-        /// <summary>
-        /// The settings service.
-        /// </summary>
-        private readonly ISettingsService settingsService;
-
-        /// <summary>
-        /// The snippet service.
-        /// </summary>
-        private readonly ISnippetService snippetService;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PluginsService" /> class.
         /// </summary>
         /// <param name="fileSystem">The file system.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="snippetService">The snippet service.</param>
+        /// <param name="translator">The translator.</param>
         public PluginsService(
             IFileSystem fileSystem,
             ISettingsService settingsService,
-            ISnippetService snippetService)
+            ISnippetService snippetService,
+            ITranslator<string, CodeConfig> translator)
+            : base(translator, fileSystem, settingsService, snippetService)
         {
             TraceService.WriteLine("PluginsService::Constructor");
-
-            this.fileSystem = fileSystem;
-            this.settingsService = settingsService;
-            this.snippetService = snippetService;
+            this.NugetCommands = new List<string>();
         }
+
+        /// <summary>
+        /// Gets the nuget commands.
+        /// </summary>
+        public List<string> NugetCommands { get; private set; }
 
         /// <summary>
         /// Adds the plugins.
@@ -74,10 +64,21 @@ namespace NinjaCoder.MvvmCross.Services
         {
             TraceService.WriteLine("PluginsService::AddPlugins viewModelName=" + viewModelName);
 
+            //// make sure we clear ouy any nuget commands before we start adding the plugins!
+            this.NugetCommands.Clear();
+
+            //// put at the top of the stack!
+            if (this.SettingsService.UseNugetForPlugins)
+            {
+                this.Messages.Add(NinjaMessages.PluginsViaNuget);
+                this.Messages.Add(NinjaMessages.PmConsole);
+                this.Messages.Add(string.Empty);
+            }
+
             IProjectService coreProjectService = visualStudioService.CoreProjectService;
 
             Plugin[] enumerablePlugins = plugins as Plugin[] ?? plugins.ToArray();
-
+            
             this.AddProjectPlugins(coreProjectService, enumerablePlugins, Settings.Core, Settings.Core);
             this.AddProjectPlugins(visualStudioService.DroidProjectService, enumerablePlugins, Settings.Droid, Settings.Droid);
             this.AddProjectPlugins(visualStudioService.iOSProjectService, enumerablePlugins, Settings.iOS, "Touch");
@@ -87,31 +88,7 @@ namespace NinjaCoder.MvvmCross.Services
 
             if (string.IsNullOrEmpty(viewModelName) == false)
             {
-                IProjectItemService testProjectItemService = null;
-                IProjectItemService projectItemService = coreProjectService.GetProjectItem(viewModelName);
-
-                if (projectItemService.ProjectItem != null)
-                {
-                    foreach (Plugin plugin in enumerablePlugins)
-                    {
-                        testProjectItemService = this.CreateSnippet(
-                            visualStudioService,
-                            viewModelName,
-                            this.settingsService.CodeSnippetsPath + @"\Plugins",
-                            createUnitTests,
-                            coreProjectService,
-                            projectItemService,
-                            plugin);
-                    }
-                    
-                    projectItemService.ProjectItem.FixUsingStatements();
-
-                    //// also only do once for the unit test file.
-                    if (createUnitTests && testProjectItemService != null)
-                    {
-                        testProjectItemService.ProjectItem.FixUsingStatements();
-                    }
-                }
+                this.AddToViewModel(visualStudioService, viewModelName, createUnitTests, coreProjectService, enumerablePlugins);
             }
 
             return this.Messages;
@@ -132,17 +109,126 @@ namespace NinjaCoder.MvvmCross.Services
         {
             TraceService.WriteLine("PluginsService::AddProjectPlugins folder=" + folderName);
 
-            if (projectService.Project != null)
+            if (projectService != null)
             {
                 foreach (Plugin plugin in plugins)
                 {
-                    string message = string.Format("Ninja Coder is adding {0} plugin to {1} project.", plugin.FriendlyName, projectService.Name);
-                    projectService.WriteStatusBarMessage(message);
-
-                    this.AddPlugin(projectService, plugin, folderName, extensionName);
-                    this.Messages.Add(plugin.FriendlyName + " plugin added to project " + projectService.Name + ".");
+                    this.AddProjectPlugin(projectService, folderName, extensionName, plugin);
                 }
             }
+        }
+
+        /// <summary>
+        /// Adds to view model.
+        /// </summary>
+        /// <param name="visualStudioService">The visual studio service.</param>
+        /// <param name="viewModelName">Name of the view model.</param>
+        /// <param name="createUnitTests">if set to <c>true</c> [create unit tests].</param>
+        /// <param name="coreProjectService">The core project service.</param>
+        /// <param name="enumerablePlugins">The enumerable plugins.</param>
+        internal void AddToViewModel(
+            IVisualStudioService visualStudioService, 
+            string viewModelName, 
+            bool createUnitTests, 
+            IProjectService coreProjectService, 
+            Plugin[] enumerablePlugins)
+        {
+            TraceService.WriteLine("PluginsService::AddToViewModel viewModelName=" + viewModelName);
+            
+            IProjectItemService testProjectItemService = null;
+            IProjectItemService projectItemService = coreProjectService.GetProjectItem(viewModelName);
+
+            if (projectItemService.ProjectItem != null)
+            {
+                foreach (Plugin plugin in enumerablePlugins)
+                {
+                    testProjectItemService = this.CreateSnippet(
+                        visualStudioService,
+                        viewModelName,
+                        this.SettingsService.CodeSnippetsPath + @"\Plugins",
+                        createUnitTests,
+                        coreProjectService.Name,
+                        projectItemService,
+                        plugin);
+                }
+
+                //// also only do once for the unit test file.
+                if (createUnitTests && testProjectItemService != null)
+                {
+                    testProjectItemService.FixUsingStatements();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds the project plugin.
+        /// </summary>
+        /// <param name="projectService">The project service.</param>
+        /// <param name="folderName">Name of the folder.</param>
+        /// <param name="extensionName">Name of the extension.</param>
+        /// <param name="plugin">The plugin.</param>
+        /// <returns>Returns true if plugin added.</returns>
+        internal bool AddProjectPlugin(
+            IProjectService projectService, 
+            string folderName, 
+            string extensionName, 
+            Plugin plugin)
+        {
+            TraceService.WriteLine("PluginsService::AddProjectPlugin folder=" + folderName);
+
+            string message = string.Format("Ninja Coder is adding {0} plugin to {1} project.", plugin.FriendlyName, projectService.Name);
+            projectService.WriteStatusBarMessage(message);
+
+            bool added = this.AddPlugin(projectService, plugin, folderName, extensionName);
+
+            if (added)
+            {
+                //// if we want to add via nuget then generate the command.
+                if (this.SettingsService.UseNugetForPlugins)
+                {
+                    this.UpdateViaNuget(projectService, plugin);
+                }
+
+                this.Messages.Add(plugin.FriendlyName + " plugin added to project " + projectService.Name + ".");
+            }
+
+            return added;
+        }
+
+        /// <summary>
+        /// Updates the via nuget.
+        /// </summary>
+        /// <param name="projectService">The project service.</param>
+        /// <param name="plugin">The plugin.</param>
+        /// <returns>True if updated via nuget.</returns>
+        internal bool UpdateViaNuget(
+            IProjectService projectService, 
+            Plugin plugin)
+        {
+            TraceService.WriteLine("PluginsService::UpdateViaNuget");
+
+            bool updated = false;
+
+            string path = string.Format(
+                    @"{0}\Plugins\Config.Plugin.{1}.xml",
+                    this.SettingsService.ConfigPath,
+                    plugin.FriendlyName);
+
+            CodeConfig codeConfig = this.Translator.Translate(path);
+
+            if (codeConfig != null && string.IsNullOrEmpty(codeConfig.NugetPackage) == false)
+            {
+                string command = Settings.NugetInstallPackage.Replace("%s", codeConfig.NugetPackage);
+
+                //// need to add the project to the end of the command!
+                command += string.Format(" {0}", projectService.Name);
+
+                this.NugetCommands.Add(command);
+
+                updated = true;
+            }
+
+            return updated;
         }
 
         /// <summary>
@@ -152,15 +238,16 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="codeSnippetsPath">The code snippets path.</param>
         /// <param name="createUnitTests">if set to <c>true</c> [create unit tests].</param>
-        /// <param name="coreProjectService">The core project service.</param>
+        /// <param name="projectName">Name of the project.</param>
         /// <param name="projectItemService">The project item service.</param>
         /// <param name="plugin">The plugin.</param>
+        /// <returns>The project item service interface..</returns>
         internal IProjectItemService CreateSnippet(
             IVisualStudioService visualStudioService, 
             string viewModelName, 
             string codeSnippetsPath, 
             bool createUnitTests, 
-            IProjectService coreProjectService, 
+            string projectName, 
             IProjectItemService projectItemService, 
             Plugin plugin)
         {
@@ -169,7 +256,7 @@ namespace NinjaCoder.MvvmCross.Services
             string snippetPath = string.Format(@"{0}\Plugins.{1}.xml", codeSnippetsPath, plugin.FriendlyName);
             IProjectItemService testProjectItemService = null;
 
-            CodeSnippet codeSnippet = this.snippetService.GetSnippet(snippetPath);
+            CodeSnippet codeSnippet = this.SnippetService.GetSnippet(snippetPath);
 
             if (codeSnippet != null)
             {
@@ -178,7 +265,7 @@ namespace NinjaCoder.MvvmCross.Services
 
                 projectItemService.ImplementCodeSnippet(codeSnippet);
 
-                this.Messages.Add(plugin.FriendlyName + " plugin code added to " + viewModelName + ".cs in project " + coreProjectService.Name + ".");
+                this.Messages.Add(plugin.FriendlyName + " plugin code added to " + viewModelName + ".cs in project " + projectName + ".");
 
                 //// do we need to implement any unit tests?
                 if (createUnitTests)
@@ -222,7 +309,6 @@ namespace NinjaCoder.MvvmCross.Services
             this.AddPlugin(projectService, plugin, string.Empty, Settings.CoreTests);
 
             return base.CreateUnitTests(
-                this.snippetService, 
                 projectService, 
                 testSnippetPath, 
                 viewModelName, 
@@ -232,18 +318,21 @@ namespace NinjaCoder.MvvmCross.Services
 
         /// <summary>
         /// Adds the plugin.
-        /// </summary>)
+        /// </summary>
         /// <param name="projectService">The project service.</param>
         /// <param name="plugin">The plugin.</param>
         /// <param name="folderName">Name of the folder.</param>
         /// <param name="extensionName">Name of the extension.</param>
-        internal void AddPlugin(
+        /// <returns>True or false.</returns>
+        internal bool AddPlugin(
             IProjectService projectService,
             Plugin plugin,
             string folderName,
             string extensionName)
         {
             TraceService.WriteLine("PluginsService::AddPlugin " + plugin.FriendlyName);
+
+            bool added = false;
 
             string projectPath = projectService.GetProjectPath();
             string source = plugin.Source;
@@ -253,19 +342,27 @@ namespace NinjaCoder.MvvmCross.Services
             //// supported in the ui project.
             if (extensionName == Settings.Core)
             {
-                projectService.AddReference(
-                    "Lib", 
-                    destination, 
-                    source,
-                    this.settingsService.IncludeLibFolderInProjects);
+                //// dont need to add reference if we are going to use nuget.
+                if (this.SettingsService.UseNugetForPlugins == false)
+                {
+                    projectService.AddReference(
+                        "Lib", 
+                        destination, 
+                        source, 
+                        this.SettingsService.IncludeLibFolderInProjects);
+                }
+
+                added = true;
             }
             else if (extensionName == Settings.CoreTests)
             {
                 projectService.AddReference(
-                    "Lib", 
-                    destination, 
-                    source, 
-                    this.settingsService.IncludeLibFolderInProjects);
+                    "Lib",
+                    destination,
+                    source,
+                    this.SettingsService.IncludeLibFolderInProjects);
+
+                added = true;
             }
             else
             {
@@ -276,11 +373,11 @@ namespace NinjaCoder.MvvmCross.Services
 
                 string extensionDestination = this.GetExtensionDestination(folderName, extensionName, destination);
 
-                if (this.fileSystem.File.Exists(extensionSource))
+                if (this.FileSystem.File.Exists(extensionSource))
                 {
                     //// if the plugin is supported add in the core library.
 
-                    this.AddNonCorePlugin(
+                    added = this.AddNonCorePlugin(
                         projectService,
                         plugin,
                         source,
@@ -289,6 +386,8 @@ namespace NinjaCoder.MvvmCross.Services
                         extensionDestination);
                 }
             }
+
+            return added;
         }
 
         /// <summary>
@@ -300,7 +399,8 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="destination">The destination.</param>
         /// <param name="extensionSource">The extension source.</param>
         /// <param name="extensionDestination">The extension destination.</param>
-        internal void AddNonCorePlugin(
+        /// <returns>True or false.</returns>
+        internal bool AddNonCorePlugin(
             IProjectService projectService,
             Plugin plugin,
             string source,
@@ -310,27 +410,38 @@ namespace NinjaCoder.MvvmCross.Services
         {
             TraceService.WriteLine("PluginsService::AddNonCorePlugin " + plugin.FriendlyName);
 
+            bool added = false;
+
             //// only do if destination file doesn't exist
-            if (this.fileSystem.File.Exists(destination) == false)
+            if (this.FileSystem.File.Exists(destination) == false)
             {
-                projectService.AddReference(
-                    "Lib", 
-                    destination, 
-                    source, 
-                    this.settingsService.IncludeLibFolderInProjects);
+                if (this.SettingsService.UseNugetForPlugins == false)
+                {
+                    projectService.AddReference(
+                        "Lib", 
+                        destination, 
+                        source, 
+                        this.SettingsService.IncludeLibFolderInProjects);
+                }
             }
 
             //// only do if extensionDestination file doesn't exist
-            if (this.fileSystem.File.Exists(extensionDestination) == false)
+            if (this.FileSystem.File.Exists(extensionDestination) == false)
             {
-                projectService.AddReference(
-                    "Lib", 
-                    extensionDestination, 
-                    extensionSource,
-                    this.settingsService.IncludeLibFolderInProjects);
+                if (this.SettingsService.UseNugetForPlugins == false)
+                {
+                    projectService.AddReference(
+                        "Lib", 
+                        extensionDestination, 
+                        extensionSource, 
+                        this.SettingsService.IncludeLibFolderInProjects);
+                }
 
+                added = true;
                 this.BuildSourceFile(projectService, extensionSource, extensionDestination, plugin.FriendlyName);
             }
+
+            return added;
         }
 
         /// <summary>
@@ -401,16 +512,42 @@ namespace NinjaCoder.MvvmCross.Services
                 
                 if (projectItemService.ProjectItem != null)
                 {
-                    //// fix ups!
-
-                    projectItemService.ReplaceText("All", friendlyName);
-                    projectItemService.ReplaceText("CoreTemplates.Bootstrap", projectService.Name + ".Bootstrap");
-                    projectItemService.ReplaceText("class Plugin", "class " + friendlyName + "PluginBootstrap");
+                    this.FixUpFile(projectService, friendlyName, projectItemService);
                 }
             }
             catch (Exception exception)
             {
                 TraceService.WriteError("BuildSourceFile " + exception.Message);
+            }
+        }
+
+        /// <summary>
+        /// Fixes up file.
+        /// </summary>
+        /// <param name="projectService">The project service.</param>
+        /// <param name="friendlyName">Name of the friendly.</param>
+        /// <param name="projectItemService">The project item service.</param>
+        internal void FixUpFile(
+            IProjectService projectService, 
+            string friendlyName, 
+            IProjectItemService projectItemService)
+        {
+            TraceService.WriteLine("PluginsService::FixUpFile " + friendlyName);
+
+            projectItemService.ReplaceText("All", friendlyName);
+            projectItemService.ReplaceText("CoreTemplates.Bootstrap", projectService.Name + ".Bootstrap");
+            projectItemService.ReplaceText("class Plugin", "class " + friendlyName + "PluginBootstrap");
+
+            projectItemService.MoveUsingStatements();
+
+            if (this.SettingsService.RemoveDefaultComments)
+            {
+                projectItemService.RemoveComments();
+            }
+
+            if (this.SettingsService.RemoveDefaultFileHeaders)
+            {
+                projectItemService.RemoveHeader();
             }
         }
     }

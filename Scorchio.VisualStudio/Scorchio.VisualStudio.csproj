@@ -66,6 +66,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandManager.cs" />
+    <Compile Include="ScorchioConstants.cs" />
+    <Compile Include="Services\DTEService.cs" />
+    <Compile Include="Services\Interfaces\IDTEService.cs" />
+    <Compile Include="Services\Interfaces\ISolutionService.cs" />
+    <Compile Include="Services\SolutionService.cs" />
     <Compile Include="VSConstants.cs" />
     <Compile Include="Entities\BaseTemplateInfo.cs" />
     <Compile Include="Entities\CodeSnippet.cs" />

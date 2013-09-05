@@ -5,14 +5,13 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
-    using System.Collections.Generic;
     using EnvDTE;
-    using EnvDTE80;
-    using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
-
-    using Services;
+    using Services.Interfaces;
+    using System.Collections.Generic;
+    using System.Windows.Forms;
     using Views;
+    using Views.Interfaces;
 
     /// <summary>
     /// Defines the ApplicationController type.
@@ -20,11 +19,30 @@ namespace NinjaCoder.MvvmCross.Controllers
     public class ApplicationController : BaseController
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationController"/> class.
+        /// Initializes a new instance of the <see cref="ApplicationController" /> class.
         /// </summary>
-        public ApplicationController()
-            : base(new VisualStudioService(), new ReadMeService(), new SettingsService())
+        /// <param name="visualStudioService">The visual studio service.</param>
+        /// <param name="readMeService">The read me service.</param>
+        /// <param name="settingsService">The settings service.</param>
+        /// <param name="messageBoxService">The message box service.</param>
+        /// <param name="dialogService">The dialog service.</param>
+        /// <param name="formsService">The forms service.</param>
+        public ApplicationController(
+            IVisualStudioService visualStudioService,
+            IReadMeService readMeService,
+            ISettingsService settingsService,
+            IMessageBoxService messageBoxService,
+            IDialogService dialogService,
+            IFormsService formsService)
+            : base(
+            visualStudioService, 
+            readMeService, 
+            settingsService, 
+            messageBoxService,
+            dialogService,
+            formsService)
         {
+            TraceService.WriteLine("ApplicationController::Constructor");
         }
 
         /// <summary>
@@ -32,16 +50,31 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         public void ShowOptions()
         {
-            OptionsForm form = new OptionsForm(this.SettingsService.DisplayLogo);
+            TraceService.WriteLine("ApplicationController::ShowOptions");
 
-            form.ShowDialog();
+            IOptionsView view = this.FormsService.GetOptionsForm(this.SettingsService);
+
+            this.DialogService.ShowDialog(view as Form);
 
             //// in case any of the setting have changed to do with logging reset them!
             TraceService.Initialize(
                 this.SettingsService.LogToTrace, 
+                false,  //// log to console.
                 this.SettingsService.LogToFile, 
                 this.SettingsService.LogFilePath, 
                 this.SettingsService.DisplayErrors);
+        }
+        
+        /// <summary>
+        /// Shows the about box.
+        /// </summary>
+        public void ShowAboutBox()
+        {
+            TraceService.WriteLine("ApplicationController::ShowAboutBox");
+
+            AboutBoxForm aboutBoxForm = this.FormsService.GetAboutBoxForm();
+
+            this.DialogService.ShowDialog(aboutBoxForm);
         }
 
         /// <summary>
@@ -50,9 +83,9 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <returns>The projects.</returns>
         public IEnumerable<Project> GetProjects()
         {
-            Solution2 solution = this.VisualStudioService.DTE2.GetSolution() as Solution2;
+            TraceService.WriteLine("ApplicationController::GetProjects");
 
-            return solution.GetProjects();
+            return this.VisualStudioService.SolutionService.GetProjects();
         }
     }
 }

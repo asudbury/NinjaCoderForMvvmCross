@@ -71,7 +71,7 @@ namespace IosTemplate
         /// <param name="uiImageView">The image view.</param>
         public void Include(UIImageView uiImageView)
         {
-            uiImageView.Image = new UIImage(uiImageView.Image);
+            uiImageView.Image = new UIImage(uiImageView.Image.CIImage);
         }
 
         /// <summary>

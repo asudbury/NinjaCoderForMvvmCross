@@ -42,6 +42,7 @@ namespace DroidTemplate
         public void Include(TextView textView)
         {
             textView.TextChanged += (sender, args) => textView.Text = string.Empty + textView.Text;
+            textView.Hint = string.Empty + textView.Hint;
         }
 
         /// <summary>

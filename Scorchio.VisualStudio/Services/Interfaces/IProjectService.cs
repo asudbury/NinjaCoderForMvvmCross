@@ -63,13 +63,13 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// </summary>
         /// <returns>The project references.</returns>
         IEnumerable<Reference> GetProjectReferences();
-        
+
         /// <summary>
         /// Adds the project reference.
         /// </summary>
-        /// <param name="referencedProject">The referenced project.</param>
+        /// <param name="referencedProjectService">The referenced project service.</param>
         /// <returns>The reference.</returns>
-        Reference AddProjectReference(Project referencedProject);
+        Reference AddProjectReference(IProjectService referencedProjectService);
 
         /// <summary>
         /// Adds to folder from template.
@@ -119,5 +119,28 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// </summary>
         /// <param name="message">The message.</param>
         void WriteStatusBarMessage(string message);
+
+        /// <summary>
+        /// Gets the folder items.
+        /// </summary>
+        /// <param name="folderName">Name of the folder.</param>
+        /// <param name="withFileExtensions">if set to <c>true</c> [with file extensions].</param>
+        /// <returns>The folder items.</returns>
+        IEnumerable<string> GetFolderItems(
+            string folderName, 
+            bool withFileExtensions);
+
+        /// <summary>
+        /// Removes the reference.
+        /// </summary>
+        /// <param name="referenceName">Name of the reference.</param>
+        void RemoveReference(string referenceName);
+
+        /// <summary>
+        /// Removes the folder.
+        /// </summary>
+        /// <param name="folderName">Name of the folder.</param>
+        /// <returns>The projectItem Service.</returns>
+        ProjectItemService RemoveFolder(string folderName);
     }
 }

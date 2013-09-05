@@ -7,8 +7,9 @@ namespace NinjaCoder.MvvmCross.Translators
 {
     using System.Collections.Generic;
     using System.IO;
-
     using Entities;
+
+    using NinjaCoder.MvvmCross.Constants;
 
     /// <summary>
     /// Defines the PluginsTranslator type.
@@ -30,19 +31,34 @@ namespace NinjaCoder.MvvmCross.Translators
                 
                 foreach (string filePath in files)
                 {
-                    FileInfo fileInfo = new FileInfo(filePath);
-
-                    string name = Path.GetFileNameWithoutExtension(fileInfo.Name);
-                    
-                    plugins.Items.Add(new Plugin
-                    {
-                        FriendlyName = name.Replace("Cirrious.MvvmCross.Plugins.", string.Empty),
-                        FileName = fileInfo.Name,
-                        Source = fileInfo.FullName
-                    });
+                    plugins.Items.Add(this.GetPlugin(filePath));
                 }
 
                 return plugins;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the plugin.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <returns>The plugin.</returns>
+        public Plugin GetPlugin(string filePath)
+        {
+            FileInfo fileInfo = new FileInfo(filePath);
+
+            string name = Path.GetFileNameWithoutExtension(fileInfo.Name);
+
+            if (string.IsNullOrEmpty(name) == false)
+            {
+                return new Plugin
+                {
+                    FriendlyName = name.Replace(Settings.PluginsAssemblyPrefix, string.Empty),
+                    FileName = fileInfo.Name,
+                    Source = fileInfo.FullName
+                };
             }
 
             return null;

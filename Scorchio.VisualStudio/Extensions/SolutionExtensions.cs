@@ -5,7 +5,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio.Extensions
 {
-    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -15,11 +14,32 @@ namespace Scorchio.VisualStudio.Extensions
     using Services;
     using Project = EnvDTE.Project;
 
-    /// <summary>L
+    /// <summary>
     ///  Defines the SolutionExtensions type.
     /// </summary>
     public static class SolutionExtensions
     {
+        /// <summary>
+        /// Creates the empty solution.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="solutionPath">The solution path.</param>
+        /// <param name="solutionName">Name of the solution.</param>
+        public static void CreateEmptySolution(
+            this Solution2 instance,
+            string solutionPath,
+            string solutionName)
+        {
+            TraceService.WriteLine("SolutionExtensions::CreateEmptySolution");
+
+            if (Directory.Exists(solutionPath) == false)
+            {
+                Directory.CreateDirectory(solutionPath);
+            }
+
+            instance.Create(solutionPath, solutionName);
+        }
+
         /// <summary>
         /// Gets the directory name.
         /// </summary>
@@ -27,9 +47,9 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The Directory path.</returns>
         public static string GetDirectoryName(this Solution2 instance)
         {
-            string directoryName = string.Empty;
-
             TraceService.WriteLine("SolutionExtensions::GetDirectoryName");
+
+            string directoryName = string.Empty;
 
             if (instance.FileName != string.Empty)
             {
@@ -185,133 +205,11 @@ namespace Scorchio.VisualStudio.Extensions
             this Solution2 instance,
             string projectName)
         {
+            TraceService.WriteLine("SolutionExtensions::GetProject name=" + projectName);
+
             IEnumerable<Project> projects = instance.GetProjects();
 
             return projects.FirstOrDefault(project => project.Name == projectName);
-        }
-
-        /// <summary>
-        /// Adds the projects.
-        /// </summary>
-        /// <param name="instance">The instance.</param>
-        /// <param name="path">The path.</param>
-        /// <param name="projectsInfos">The projects infos.</param>
-        /// <param name="referenceFirstProject">if set to <c>true</c> [reference first project].</param>
-        /// <param name="includeLibFolderInProjects">if set to <c>true</c> [include lib folder in projects].</param>
-        /// <returns>The messages.</returns>
-        public static IEnumerable<string> AddProjects(
-            this Solution2 instance,
-            string path,
-            IEnumerable<ProjectTemplateInfo> projectsInfos, 
-            bool referenceFirstProject,
-            bool includeLibFolderInProjects)
-        {
-            string message = string.Format(
-                "SolutionExtensions::AddProjects project count={0} path={1}", projectsInfos.Count(), path);
-            
-            TraceService.WriteLine(message);
-
-            Project firstProject = null;
-
-            Solution solution = instance as Solution;
-
-            List<string> messages = new List<string>();
-
-            foreach (ProjectTemplateInfo projectInfo in projectsInfos)
-            {
-                try
-                {
-                    //// Project may actually already exist - if so just skip it!
-
-                    string projectPath = string.Format(@"{0}\{1}\", path, projectInfo.Name);
-
-                    if (Directory.Exists(projectPath) == false)
-                    {
-                        try
-                        {
-                            string template = instance.GetProjectTemplate(projectInfo.TemplateName);
-                            solution.AddProjectToSolution(projectPath, template, projectInfo.Name);
-                            
-                            //// remove the lib folder if that's what the developer wants to happen.
-                            //// if the develop has selected use nuget then also remove the project
-                            if (includeLibFolderInProjects == false ||
-                                projectInfo.UseNuget)
-                            {
-                                Project project = instance.GetProject(projectInfo.Name);
-
-                                if (project != null)
-                                {
-                                    ProjectItem projectItem = project.RemoveFolder("Lib");
-
-                                    //// remove the local files if we are going to use nuget.
-                                    if (projectInfo.UseNuget)
-                                    {
-                                        projectItem.DeleteFolder();
-                                    }
-                                }
-                            }
-
-                            if (projectInfo.UseNuget)
-                            {
-                                //// now execute Nuget command.
-
-                                DTE2 dte2 = instance.DTE as DTE2;
-
-                                dte2.ExecuteNugetCommand(projectInfo.NugetCommand);
-                            }
-
-                            messages.Add(projectInfo.Name + " project successfully added.");
-                        }
-                        catch (Exception exception)
-                        {
-                            string exceptionMessage = string.Format(
-                                "Unsupported project {0} not added to the solution.", projectInfo.Name);
-
-                            TraceService.WriteError(exceptionMessage + " exception=" + exception.Message);
-                            
-                            messages.Add(exceptionMessage);
-                        }
-                    }
-
-                    if (referenceFirstProject)
-                    {
-                        Project project = instance.GetProject(projectInfo.Name);
-
-                        if (project != null)
-                        {
-                            if (firstProject == null)
-                            {
-                                firstProject = project;
-                            }
-                            else
-                            {
-                                try
-                                {
-                                    project.AddProjectReference(firstProject);
-                                }
-                                catch (Exception exception)
-                                {
-                                    string exceptionMessage = "SolutionExtensions::AddProjects Error=" + exception.Message;
-
-                                    TraceService.WriteError(exceptionMessage);
-                                    messages.Add(exceptionMessage);
-                                }
-                            }
-                        }
-                    }
-                }
-                catch (FileNotFoundException exception)
-                {
-                    //// if template not found just miss it out for now.
-                    message = string.Format(
-                        "Template not found for {0} Error {1}", projectInfo.TemplateName, exception.Message);
-
-                    TraceService.WriteError(message);
-                    messages.Add(message);
-                }
-             }
-
-            return messages;
         }
 
         /// <summary>
@@ -321,7 +219,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="templateInfos">The template infos.</param>
         /// <param name="createFolder">if set to <c>true</c> [create folder].</param>
         /// <returns> The messages. </returns>
-        public static List<string> AddItemTemplateToProjects(
+        public static IEnumerable<string> AddItemTemplateToProjects(
              this Solution2 instance,
             IEnumerable<ItemTemplateInfo> templateInfos,
             bool createFolder) 
@@ -367,11 +265,99 @@ namespace Scorchio.VisualStudio.Extensions
             this Solution2 instance, 
             string folderName)
         {
+            TraceService.WriteLine("SolutionExtensions::RemoveFolder folder=" + folderName);
+
             List<Project> projects = instance.Projects.Cast<Project>().ToList();
 
             foreach (Project project in projects)
             {
                 project.RemoveFolder(folderName);
+            }
+        }
+
+        /// <summary>
+        /// Removes the comments.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        public static void RemoveFileHeaders(this Solution2 instance)
+        {
+            TraceService.WriteLine("SolutionExtensions::RemoveFileHeaders");
+
+            List<Project> projects = instance.Projects.Cast<Project>().ToList();
+
+            foreach (Project project in projects)
+            {
+                project.RemoveFileHeaders();
+            }
+        }
+
+        /// <summary>
+        /// Removes the comments.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        public static void RemoveComments(this Solution2 instance)
+        {
+            TraceService.WriteLine("SolutionExtensions::RemoveComments");
+
+            List<Project> projects = instance.Projects.Cast<Project>().ToList();
+
+            foreach (Project project in projects)
+            {
+                project.RemoveComments();
+            }
+        }
+
+        /// <summary>
+        /// Gets the solution item path.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="file">The file.</param>
+        /// <returns>
+        /// The solution item path.
+        /// </returns>
+        public static string GetSolutionItemPath(
+            this Solution2 instance,
+            string file)
+        {
+            TraceService.WriteLine("SolutionExtensions::GetSolutionItemPath file=" + file);
+
+            return instance.GetDirectoryName() + file;
+        }
+
+        /// <summary>
+        /// Creates the file.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="file">The file.</param>
+        /// <param name="contents">The contents.</param>
+        public static void CreateFile(
+            this Solution2 instance,
+            string file,
+            string contents)
+        {
+            TraceService.WriteLine("SolutionExtensions::CreateFile file=" + file);
+
+            string path = instance.GetSolutionItemPath(file);
+            instance.WriteFile(path, contents);
+        }
+
+        /// <summary>
+        /// Writes the file.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="path">The path.</param>
+        /// <param name="contents">The contents.</param>
+        public static void WriteFile(
+            this Solution2 instance,
+            string path,
+            string contents)
+        {
+            TraceService.WriteLine("SolutionExtensions::WriteFile path=" + path);
+
+            using (StreamWriter sw = new StreamWriter(path, false))
+            {
+                sw.Write(contents);
+                sw.Close();
             }
         }
     }

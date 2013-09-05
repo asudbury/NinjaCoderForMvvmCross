@@ -41,6 +41,7 @@
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.treeView1 = new System.Windows.Forms.TreeView();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,10 +63,11 @@
             this.addServicesToolStripMenuItem,
             this.addPluginsToolStripMenuItem,
             this.optionsToolStripMenuItem,
+            this.aboutToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
-            this.toolsToolStripMenuItem.Text = "Tools";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
+            this.toolsToolStripMenuItem.Text = "File";
             // 
             // addProjectsToolStripMenuItem
             // 
@@ -133,10 +135,17 @@
             // 
             // treeView1
             // 
-            this.treeView1.Location = new System.Drawing.Point(9, 53);
+            this.treeView1.Location = new System.Drawing.Point(9, 46);
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(215, 241);
             this.treeView1.TabIndex = 5;
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(189, 24);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItemClick);
             // 
             // FormMain
             // 
@@ -173,6 +182,7 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addServicesToolStripMenuItem;
         private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 

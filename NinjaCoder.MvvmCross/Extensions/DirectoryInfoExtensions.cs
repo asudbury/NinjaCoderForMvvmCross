@@ -20,7 +20,7 @@ namespace NinjaCoder.MvvmCross.Extensions
         /// <param name="instance">The instance.</param>
         /// <param name="overrideDirectory">The override directory.</param>
         /// <returns>The overridden file list.</returns>
-        public static List<FileInfo> GetOverrideFiles(
+        public static IEnumerable<FileInfo> GetOverrideFiles(
             this DirectoryInfo instance,
             DirectoryInfo overrideDirectory)
         {

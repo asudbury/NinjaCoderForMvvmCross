@@ -5,8 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Presenters
 {
-    using System.Collections.Generic;
     using Scorchio.VisualStudio.Entities;
+    using Services.Interfaces;
+    using System.Collections.Generic;
     using Views.Interfaces;
 
     /// <summary>
@@ -20,40 +21,36 @@ namespace NinjaCoder.MvvmCross.Presenters
         private readonly IServicesView view;
 
         /// <summary>
-        /// The item template infos.
+        /// The settings service.
         /// </summary>
-        private readonly List<ItemTemplateInfo> itemTemplateInfos;
-
-        /// <summary>
-        /// The display logo
-        /// </summary>
-        private readonly bool displayLogo;
+        private readonly ISettingsService settingsService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ServicesPresenter" /> class.
         /// </summary>
         /// <param name="view">The view.</param>
-        /// <param name="itemTemplateInfos">The item template infos.</param>
-        /// <param name="displayLogo">if set to <c>true</c> [display logo].</param>
+        /// <param name="settingsService">The settings service.</param>
         public ServicesPresenter(
             IServicesView view,
-            List<ItemTemplateInfo> itemTemplateInfos,
-            bool displayLogo)
+            ISettingsService settingsService)
+            
         {
             this.view = view;
-            this.itemTemplateInfos = itemTemplateInfos;
-            this.displayLogo = displayLogo;
+            this.settingsService = settingsService;
         }
 
         /// <summary>
         /// Loads this instance.
         /// </summary>
         /// <param name="viewModelNames">The view model names.</param>
-        public void Load(List<string> viewModelNames)
+        /// <param name="itemTemplateInfos">The item template infos.</param>
+        public void Load(
+            IEnumerable<string> viewModelNames,
+            IEnumerable<ItemTemplateInfo> itemTemplateInfos)
         {
-            this.view.DisplayLogo = this.displayLogo;
+            this.view.DisplayLogo = this.settingsService.DisplayLogo;
 
-            foreach (ItemTemplateInfo itemTemplateInfo in this.itemTemplateInfos)
+            foreach (ItemTemplateInfo itemTemplateInfo in itemTemplateInfos)
             {
                 this.view.AddTemplate(itemTemplateInfo);
             }

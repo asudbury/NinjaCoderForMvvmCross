@@ -16,6 +16,11 @@ namespace NinjaCoder.MvvmCross.Constants
         public const string ApplicationName = "Ninja Coder for MvvmCross";
 
         /// <summary>
+        /// The non MVVM cross solution message.
+        /// </summary>
+        public const string NonMvvmCrossSolution = "This solution is not a MvvmCross solution.";
+
+        /// <summary>
         /// The core
         /// </summary>
         public const string Core = "Core";
@@ -61,8 +66,64 @@ namespace NinjaCoder.MvvmCross.Constants
         public const string ReplaceBlankLinesRegEx = @"(?<!\r)\n";
 
         /// <summary>
-        /// The nuget command
+        /// The ninja read me file.
         /// </summary>
-        public const string NugetCommand = "Install-Package MvvmCross.HotTuna.CrossCore";
+        public const string NinjaReadMeFile = "NinjaReadMe.txt";
+
+        /// <summary>
+        /// The ninja version file.
+        /// </summary>
+        public const string NinjaVersionFile = "NinjaVersion.txt";
+
+        /// <summary>
+        /// The MVX version file.
+        /// </summary>
+        public const string MvxVersionFile = "MvxVersion.txt";
+
+        /// <summary>
+        /// The MVX WPF assembly.
+        /// </summary>
+        public const string MvxWpfAssembly = "Cirrious.CrossCore.Wpf";
+
+        /// <summary>
+        /// The nuget install package.
+        /// </summary>
+        public const string NugetInstallPackage = "Install-Package %s -FileConflictAction ignore -ProjectName";
+
+        /// <summary>
+        /// The nuget starter pack package.
+        /// </summary>
+        public const string NugetStarterPackPackage = "MvvmCross.HotTuna.StarterPack";
+
+        /// <summary>
+        /// The nuget messenger package.
+        /// </summary>
+        public const string NugetMessengerPackage = "MvvmCross.HotTuna.Plugin.Messenger";
+
+        /// <summary>
+        /// The nuget unit tests package.
+        /// </summary>
+        public const string NugetUnitTestsPackage = "MvvmCross.HotTuna.Tests";
+
+        /// <summary>
+        /// The nuget mvvm cross library.
+        /// </summary>
+        public const string NugetMvvmCrossPackage = "MvvmCross.HotTuna.MvvmCrossLibraries";
+
+        /// <summary>
+        /// The suspend re sharper command.
+        /// </summary>
+        public const string SuspendReSharperCommand = "ReSharper_Suspend";
+
+        /// <summary>
+        /// The resume re sharper command.
+        /// </summary>
+        public const string ResumeReSharperCommand = "ReSharper_Resume";
+
+        /// <summary>
+        /// The plugins assembly prefix.
+        /// </summary>
+        public const string PluginsAssemblyPrefix = "Cirrious.MvvmCross.Plugins.";
+
     }
 }

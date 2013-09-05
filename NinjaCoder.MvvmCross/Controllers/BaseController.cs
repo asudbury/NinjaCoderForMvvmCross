@@ -5,16 +5,13 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Windows.Forms;
     using Constants;
     using EnvDTE;
     using EnvDTE80;
-    using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
+    using Scorchio.VisualStudio.Services.Interfaces;
     using Services.Interfaces;
+    using System.Collections.Generic;
 
     /// <summary>
     ///  Defines the BaseController type.
@@ -32,14 +29,21 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="readMeService">The read me service.</param>
         /// <param name="settingsService">The settings service.</param>
+        /// <param name="messageBoxService">The message box service.</param>
+        /// <param name="dialogService">The dialog service.</param>
+        /// <param name="formsService">The forms service.</param>
         protected BaseController(
             IVisualStudioService visualStudioService,
             IReadMeService readMeService,
-            ISettingsService settingsService)
+            ISettingsService settingsService,
+            IMessageBoxService messageBoxService,
+            IDialogService dialogService,
+            IFormsService formsService)
         {
             //// init the tracing service first!
             TraceService.Initialize(
                 settingsService.LogToTrace,
+                false, //// log to console.
                 settingsService.LogToFile,
                 settingsService.LogFilePath,
                 settingsService.DisplayErrors);
@@ -49,6 +53,9 @@ namespace NinjaCoder.MvvmCross.Controllers
             this.VisualStudioService = visualStudioService;
             this.ReadMeService = readMeService;
             this.SettingsService = settingsService;
+            this.MessageBoxService = messageBoxService;
+            this.DialogService = dialogService;
+            this.FormsService = formsService;
         }
 
         /// <summary>
@@ -75,6 +82,21 @@ namespace NinjaCoder.MvvmCross.Controllers
         protected ISettingsService SettingsService { get; private set; }
 
         /// <summary>
+        /// Gets the message box service.
+        /// </summary>
+        protected IMessageBoxService MessageBoxService { get; private set; }
+
+        /// <summary>
+        /// Gets the dialog service.
+        /// </summary>
+        protected IDialogService DialogService { get; private set; }
+
+        /// <summary>
+        /// Gets the forms service.
+        /// </summary>
+        protected IFormsService FormsService { get; private set; }
+
+        /// <summary>
         /// Gets the read me lines.
         /// </summary>
         protected List<string> ReadMeLines
@@ -92,6 +114,54 @@ namespace NinjaCoder.MvvmCross.Controllers
         }
 
         /// <summary>
+        /// Project Item added event handler.
+        /// </summary>
+        /// <param name="projectItem">The project item.</param>
+        internal void ProjectItemsEventsItemAdded(ProjectItem projectItem)
+        {
+            string message = string.Format(
+                "BaseController::ProjectItemsEventsItemAdded file={0}",
+                projectItem.Name);
+
+            TraceService.WriteLine(message);
+
+            ProjectItemService projectItemService = new ProjectItemService(projectItem);
+
+            this.ProjectItemAdded(projectItemService);
+        }
+
+        /// <summary>
+        /// Projects the item added.
+        /// </summary>
+        /// <param name="projectItemService">The project item service.</param>
+        internal void ProjectItemAdded(IProjectItemService projectItemService)
+        {
+            TraceService.WriteLine("BaseController::ProjectItemAdded");
+
+            bool saveFile = false;
+
+            if (projectItemService.IsCSharpFile())
+            {
+                if (this.SettingsService.RemoveDefaultComments)
+                {
+                    projectItemService.RemoveComments();
+                    saveFile = true;
+                }
+
+                if (this.SettingsService.RemoveDefaultFileHeaders)
+                {
+                    projectItemService.RemoveHeader();
+                    saveFile = true;
+                }
+            }
+
+            if (saveFile)
+            {
+                this.VisualStudioService.DTEService.SaveAll();
+            }
+        }
+
+        /// <summary>
         /// Gets the read me path.
         /// </summary>
         /// <returns>The path of the ReadMe file.</returns>
@@ -99,67 +169,10 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("BaseController::GetReadMePath");
 
-            Solution2 solution3 = this.VisualStudioService.DTE2.GetSolution() as Solution2;
-
-            string path = solution3.GetDirectoryName() + @"NinjaReadMe.txt";
+            string path = this.VisualStudioService.SolutionService.GetDirectoryName() + Settings.NinjaReadMeFile;
 
             TraceService.WriteLine("BaseController::GetReadMePath path=" + path);
             return path;
-        }
-
-        /// <summary>
-        /// Gets the read ninja version path.
-        /// </summary>
-        /// <returns>The path of the Ninja Version file.</returns>
-        protected string GetNinjaVersionPath()
-        {
-            TraceService.WriteLine("BaseController::GetNinjaVersionPath");
-
-            Solution2 solution3 = this.VisualStudioService.DTE2.GetSolution() as Solution2;
-
-            string path = solution3.GetDirectoryName() + @"NinjaVersion.txt";
-
-            TraceService.WriteLine("BaseController::GetNinjaVersionPath path=" + path);
-            return path;
-        }
-
-        /// <summary>
-        /// Gets the MvvmCross version path.
-        /// </summary>
-        /// <returns>The path of the MvvmCross version file.</returns>
-        protected string GetMvvmCrossVersionPath()
-        {
-            TraceService.WriteLine("BaseController::GetMvvmCrossVersionPath");
-
-            Solution2 solution3 = this.VisualStudioService.DTE2.GetSolution() as Solution2;
-
-            string path = solution3.GetDirectoryName() + @"MvvmCrossVersion.txt";
-
-            TraceService.WriteLine("BaseController::GetMvvmCrossVersionPath path=" + path);
-            return path;
-        }
-
-        /// <summary>
-        /// Writes the status bar message.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        protected void WriteStatusBarMessage(string message)
-        {
-            this.VisualStudioService.DTE2.WriteStatusBarMessage(message);
-        }
-
-        /// <summary>
-        /// Adds the trace header.
-        /// </summary>
-        /// <param name="controller">The controller.</param>
-        /// <param name="methodName">Name of the method.</param>
-        protected void AddTraceHeader(
-            string controller,
-            string methodName)
-        {
-            TraceService.WriteLine("--------------------------------------------------------");
-            TraceService.WriteLine(controller + "::" + methodName);
-            TraceService.WriteLine("--------------------------------------------------------");
         }
 
         /// <summary>
@@ -167,34 +180,8 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         protected void ShowNotMvvmCrossSolutionMessage()
         {
-            string message = @"This solution is not a MvvmCross solution.";
-            TraceService.WriteLine(message);
-            MessageBox.Show(message, Settings.ApplicationName);
-        }
-
-        /// <summary>
-        /// Gets the view model names.
-        /// </summary>
-        /// <returns>A List of view model names.</returns>
-        protected List<string> GetViewModelNames()
-        {
-            TraceService.WriteLine("BaseController::GetViewModelNames");
-
-            List<string> viewModelNames = new List<string>();
-
-            Project coreProject = this.VisualStudioService.CoreProject;
-
-            //// look for the current view models in the project.
-            if (coreProject != null)
-            {
-                ProjectItem projectItem = coreProject.GetFolder("ViewModels");
-
-                IEnumerable<ProjectItem> projectItems = projectItem.GetSubProjectItems();
-
-                viewModelNames.AddRange(projectItems.Select(item => Path.GetFileNameWithoutExtension(item.Name)));
-            }
-
-            return viewModelNames;
+            TraceService.WriteLine(Settings.NonMvvmCrossSolution);
+            this.MessageBoxService.Show(Settings.NonMvvmCrossSolution, Settings.ApplicationName);
         }
 
         /// <summary>
@@ -202,90 +189,51 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         /// <param name="function">The function.</param>
         /// <param name="messages">The messages.</param>
+        /// <param name="nugetInProgress">if set to <c>true</c> [nuget in progress].</param>
         /// <param name="closeDocuments">if set to <c>true</c> [close documents].</param>
         /// <param name="collapseSolution">if set to <c>true</c> [collapse solution].</param>
         protected void ShowReadMe(
             string function,
             IEnumerable<string> messages,
+            bool nugetInProgress = false,
             bool closeDocuments = true,
             bool collapseSolution = true)
         {
-            TraceService.WriteLine("BaseController::ShowReadMe " + function);
+            TraceService.WriteLine("BaseController::ShowReadMe " + function + " nugetInProgress=" + nugetInProgress);
 
             //// close any open documents.
             if (closeDocuments)
             {
-                this.VisualStudioService.DTE2.CloseDocuments();
+                this.VisualStudioService.DTEService.CloseDocuments();
             }
 
             //// now collapse the solution!
             if (collapseSolution)
             {
-                this.VisualStudioService.DTE2.CollapseSolution();
+                this.VisualStudioService.DTEService.CollapseSolution();
             }
-            
-            Solution2 solution2 = this.VisualStudioService.DTE2.GetSolution() as Solution2;
 
-            string readeMePath = this.GetReadMePath();
+            string readMePath = this.GetReadMePath();
+
+            TraceService.WriteLine("BaseController::ShowReadMe path=" + readMePath);
 
             //// now construct the ReadMe.txt
             this.ReadMeLines.AddRange(messages);
-            this.ReadMeService.AddLines(readeMePath, function, this.ReadMeLines);
+            this.ReadMeService.AddLines(readMePath, function, this.ReadMeLines);
 
             //// now show the ReadMe.txt.
-            ProjectItem projectItem = solution2.AddSolutionItem("Solution Items", readeMePath);
+            IProjectItemService projectItemService = this.VisualStudioService.SolutionService.AddSolutionItem("Solution Items", readMePath);
 
-            if (projectItem != null)
+            if (projectItemService != null)
             {
-                projectItem.Open();
+                if (nugetInProgress == false)
+                {
+                    projectItemService.Open();
+                }
             }
             else
             {
-                TraceService.WriteError("BaseController::ShowReadMe Cannot open file :-" + readeMePath);
-            }
-        }
-
-        /// <summary>
-        /// Creates the ninja version file.
-        /// </summary>
-        /// <param name="version">The version.</param>
-        protected void CreateNinjaVersionFile(string version)
-        {
-            TraceService.WriteLine("BaseController::CreateNinjaVersionFile version=" + version);
-
-            string path = this.GetNinjaVersionPath();
-            
-            this.WriteVersionFile(path, version);
-        }
-
-        /// <summary>
-        /// Creates the MVVM cross version file.
-        /// </summary>
-        /// <param name="version">The version.</param>
-        protected void CreateMvvmCrossVersionFile(string version)
-        {
-            TraceService.WriteLine("BaseController::CreateMvvmCrossVersionFile version=" + version);
-
-            string path = this.GetMvvmCrossVersionPath();
-
-            this.WriteVersionFile(path, version);
-        }
-
-        /// <summary>
-        /// Writes the version file.
-        /// </summary>
-        /// <param name="path">The path.</param>
-        /// <param name="version">The version.</param>
-        internal void WriteVersionFile(
-            string path,
-            string version)
-        {
-            TraceService.WriteLine("BaseController::CreateMvvmCrossVersionFile WriteVersionFile path=" + path);
-
-            using (StreamWriter sw = new StreamWriter(path, false))
-            {
-                sw.Write(version);
-                sw.Close();
+                TraceService.WriteError("BaseController::ShowReadMe Cannot open file :-" + readMePath);
             }
         }
     }

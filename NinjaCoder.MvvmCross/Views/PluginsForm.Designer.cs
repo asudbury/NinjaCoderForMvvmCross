@@ -124,7 +124,6 @@
             // checkBoxUseNuget
             // 
             this.checkBoxUseNuget.AutoSize = true;
-            this.checkBoxUseNuget.Enabled = false;
             this.checkBoxUseNuget.Location = new System.Drawing.Point(331, 643);
             this.checkBoxUseNuget.Name = "checkBoxUseNuget";
             this.checkBoxUseNuget.Size = new System.Drawing.Size(289, 21);

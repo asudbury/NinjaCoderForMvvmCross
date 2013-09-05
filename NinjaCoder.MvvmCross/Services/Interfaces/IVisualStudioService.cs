@@ -25,29 +25,19 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         DTE2 DTE2 { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether [allow droid project].
+        /// Gets the projects.
         /// </summary>
-        bool AllowDroidProject { get; }
+        IEnumerable<Project> Projects { get; }
 
         /// <summary>
-        /// Gets a value indicating whether [allow iOS project].
+        /// Gets the DTE service.
         /// </summary>
-        bool AllowiOSProject { get; }
+        IDTEService DTEService { get; }
 
         /// <summary>
-        /// Gets a value indicating whether [allow windows phone project].
+        /// Gets the solution service.
         /// </summary>
-        bool AllowWindowsPhoneProject { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether [allow windows store project].
-        /// </summary>
-        bool AllowWindowsStoreProject { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether [allow WPF project].
-        /// </summary>
-        bool AllowWpfProject { get; }
+        ISolutionService SolutionService { get; }
 
         /// <summary>
         /// Gets a value indicating whether this instance is MVVM cross solution.
@@ -55,19 +45,9 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         bool IsMvvmCrossSolution { get; }
 
         /// <summary>
-        /// Gets the core project.
-        /// </summary>
-        Project CoreProject { get; }
-
-        /// <summary>
         /// Gets the core project service.
         /// </summary>
         IProjectService CoreProjectService { get; }
-        
-        /// <summary>
-        /// Gets the core tests project.
-        /// </summary>
-        Project CoreTestsProject { get;  }
 
         /// <summary>
         /// Gets the core tests project service.
@@ -75,19 +55,9 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         IProjectService CoreTestsProjectService { get; }
 
         /// <summary>
-        /// Gets the droid project.
-        /// </summary>
-        Project DroidProject { get; }
-
-        /// <summary>
         /// Gets the droid project service.
         /// </summary>
         IProjectService DroidProjectService { get; }
-
-        /// <summary>
-        /// Gets the i OS project.
-        /// </summary>
-        Project iOSProject { get; }
 
         /// <summary>
         /// Gets the iOS project service.
@@ -95,29 +65,14 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         IProjectService iOSProjectService { get; }
 
         /// <summary>
-        /// Gets the windows phone project.
-        /// </summary>
-        Project WindowsPhoneProject { get; }
-
-        /// <summary>
         /// Gets the windows phone project service.
         /// </summary>
         IProjectService WindowsPhoneProjectService { get; }
 
         /// <summary>
-        /// Gets the windows store project.
-        /// </summary>
-        Project WindowsStoreProject { get; }
-
-        /// <summary>
         /// Gets the windows store project service.
         /// </summary>
         IProjectService WindowsStoreProjectService { get; }
-
-        /// <summary>
-        /// Gets the WPF project.
-        /// </summary>
-        Project WpfProject { get; }
 
         /// <summary>
         /// Gets the WPF project service.
@@ -127,7 +82,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Gets the allowed project templates.
         /// </summary>
-        List<ProjectTemplateInfo> AllowedProjectTemplates { get; }
+        IEnumerable<ProjectTemplateInfo> AllowedProjectTemplates { get; }
 
         /// <summary>
         /// Gets the allowed item templates.
@@ -145,5 +100,27 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         List<ItemTemplateInfo> GetFolderTemplateInfos(
             string path,
             string destinationFolder);
+        
+        /// <summary>
+        /// Writes the status bar message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        void WriteStatusBarMessage(string message);
+
+        /// <summary>
+        /// Tidy the code up. </summary>
+        /// <param name="removeHeader">if set to <c>true</c> [remove header].</param>
+        /// <param name="removeComments">if set to <c>true</c> [remove comments].</param>
+        void CodeTidyUp(
+            bool removeHeader, 
+            bool removeComments);
+
+        /// <summary>
+        /// Gets the default name of the project.
+        /// </summary>
+        /// <returns>The default project name.</returns>
+        string GetDefaultProjectName();
+
+        IProjectService GetProjectServiceBySuffix(string suffix);
     }
 }

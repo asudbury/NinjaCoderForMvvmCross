@@ -111,6 +111,30 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{08
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugin.Email", "ItemTemplates\Core\Plugins\MvvmCross.Plugin.Email\MvvmCross.Plugin.Email.csproj", "{407BA8C5-83A4-4BB3-8D70-5127B8972157}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{2F81292D-E6C6-4867-8367-19F112E01407}"
+	ProjectSection(SolutionItems) = preProject
+		ItemTemplates\Core\Config\Plugins\Config.Plugin.Accelerometer.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.Accelerometer.xml
+		ItemTemplates\Core\Config\Plugins\Config.Plugin.Bookmarks.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.Bookmarks.xml
+		ItemTemplates\Core\Config\Plugins\Config.Plugin.Colors.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.Colors.xml
+		ItemTemplates\Core\Config\Plugins\Config.Plugin.DownloadCache.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.DownloadCache.xml
+		ItemTemplates\Core\Config\Plugins\Config.Plugin.Email.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.Email.xml
+		ItemTemplates\Core\Config\Plugins\Config.Plugin.File.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.File.xml
+		ItemTemplates\Core\Config\Plugins\Config.Plugin.Json.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.Json.xml
+		ItemTemplates\Core\Config\Plugins\Config.Plugin.Location.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.Location.xml
+		ItemTemplates\Core\Config\Plugins\Config.Plugin.Messenger.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.Messenger.xml
+		ItemTemplates\Core\Config\Plugins\Config.Plugin.Network.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.Network.xml
+		ItemTemplates\Core\Config\Plugins\Config.Plugin.PhoneCall.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.PhoneCall.xml
+		ItemTemplates\Core\Config\Plugins\Config.Plugin.PictureChooser.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.PictureChooser.xml
+		ItemTemplates\Core\Config\Plugins\Config.Plugin.ReflectionEx.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.ReflectionEx.xml
+		ItemTemplates\Core\Config\Plugins\Config.Plugin.ResourceLoader.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.ResourceLoader.xml
+		ItemTemplates\Core\Config\Plugins\Config.Plugin.Share.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.Share.xml
+		ItemTemplates\Core\Config\Plugins\Config.Plugin.SoundEffects.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.SoundEffects.xml
+		ItemTemplates\Core\Config\Plugins\Config.Plugin.SQLite.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.SQLite.xml
+		ItemTemplates\Core\Config\Plugins\Config.Plugin.ThreadUtils.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.ThreadUtils.xml
+		ItemTemplates\Core\Config\Plugins\Config.Plugin.Visibility.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.Visibility.xml
+		ItemTemplates\Core\Config\Plugins\Config.Plugin.WebBrowser.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.WebBrowser.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -964,5 +988,6 @@ Global
 		{7836EE93-6A3A-4756-BE3B-0D5FC0F1EB23} = {D28560DF-FA52-4974-9D98-C4D21691811D}
 		{2A21A7FB-5AFB-41CC-8F16-89A7876CE975} = {D28560DF-FA52-4974-9D98-C4D21691811D}
 		{084DE483-B02A-44CF-B5A7-9B7EF54D0516} = {0732EB57-4A91-473E-A1F7-E0C5D9F44A8B}
+		{2F81292D-E6C6-4867-8367-19F112E01407} = {0732EB57-4A91-473E-A1F7-E0C5D9F44A8B}
 	EndGlobalSection
 EndGlobal

@@ -5,6 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio.Extensions
 {
+    using System;
+
     using EnvDTE;
 
     /// <summary>
@@ -18,7 +20,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         public static void InsertNewLine(this EditPoint instance)
         {
-            instance.Insert("\r\n");
+            instance.Insert(Environment.NewLine);
         }
 
         /// <summary>
@@ -30,7 +32,7 @@ namespace Scorchio.VisualStudio.Extensions
             this EditPoint instance,
             string code)
         {
-            string insertCode = string.Format("            {0}\r\n", code);
+            string insertCode = string.Format("            {0}{1}", code, Environment.NewLine);
             instance.Insert(insertCode);
         }
     }

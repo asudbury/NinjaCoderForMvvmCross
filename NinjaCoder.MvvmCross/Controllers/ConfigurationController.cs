@@ -6,7 +6,6 @@
 namespace NinjaCoder.MvvmCross.Controllers
 {
     using Scorchio.VisualStudio.Services;
-    using Services;
     using Services.Interfaces;
 
     /// <summary>
@@ -24,10 +23,26 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         /// <param name="configurationService">The configuration service.</param>
         /// <param name="visualStudioService">The visual studio service.</param>
+        /// <param name="readMeService">The read me service.</param>
+        /// <param name="settingsService">The settings service.</param>
+        /// <param name="messageBoxService">The message box service.</param>
+        /// <param name="dialogService">The dialog service.</param>
+        /// <param name="formsService">The forms service.</param>
         public ConfigurationController(
             IConfigurationService configurationService,
-            IVisualStudioService visualStudioService)
-            : base(visualStudioService, new ReadMeService(), new SettingsService())
+            IVisualStudioService visualStudioService,
+            IReadMeService readMeService,
+            ISettingsService settingsService,
+            IMessageBoxService messageBoxService,
+            IDialogService dialogService,
+            IFormsService formsService)
+            : base(
+            visualStudioService, 
+            readMeService, 
+            settingsService, 
+            messageBoxService,
+            dialogService,
+            formsService)
         {
             TraceService.WriteLine("ConfigurationController::Constructor");
 

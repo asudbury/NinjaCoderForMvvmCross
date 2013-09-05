@@ -23,9 +23,9 @@ namespace NinjaCoder.MvvmCross.Services
     public class VisualStudioService : BaseService, IVisualStudioService
     {
         /// <summary>
-        /// The projects
+        /// The dte2.
         /// </summary>
-        private IEnumerable<Project> projects;
+        private DTE2 dte2;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VisualStudioService" /> class.
@@ -40,7 +40,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<Project> Projects
         {
-            get { return this.projects ?? (this.projects = this.Solution.GetProjects()); }
+            get { return this.Solution.GetProjects(); }
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace NinjaCoder.MvvmCross.Services
             {
                 if (this.dte2 == null)
                 {
-                    TraceService.WriteLine("*****MvvmCrossController Activating Visual Studio Link*****");
+                    TraceService.WriteLine("*****VisualStudioService Activating Visual Studio Link*****");
                     this.dte2 = VSActivatorService.Activate();
                 }
 
@@ -66,51 +66,27 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets the DTE service.
+        /// </summary>
+        public IDTEService DTEService
+        {
+            get { return new DTEService(this.dte2); }
+        }
+
+        /// <summary>
+        /// Gets the solution service.
+        /// </summary>
+        public ISolutionService SolutionService
+        {
+            get { return new SolutionService(this.DTE2.Solution); }
+        }
+
+        /// <summary>
         /// Gets the solution.
         /// </summary>
         public Solution2 Solution 
         {
             get { return this.DTE2.Solution as Solution2; }
-        }
-        
-        /// <summary>
-        /// Gets a value indicating whether [allow droid project].
-        /// </summary>
-        public bool AllowDroidProject
-        {
-            get { return true; }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether [allowi OS project].
-        /// </summary>
-        public bool AllowiOSProject
-        {
-            get { return true; }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether [allow windows phone project].
-        /// </summary>
-        public bool AllowWindowsPhoneProject
-        {
-            get { return true; }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether [allow windows store project].
-        /// </summary>
-        public bool AllowWindowsStoreProject
-        {
-            get { return true; }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether [allow WPF project].
-        /// </summary>
-        public bool AllowWpfProject
-        {
-            get { return true; }
         }
 
         /// <summary>
@@ -122,27 +98,15 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets the core project.
-        /// </summary>
-        public Project CoreProject
-        {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.Core)); }
-        }
-
-        /// <summary>
         /// Gets the core project service.
         /// </summary>
         public IProjectService CoreProjectService 
         { 
-            get { return new ProjectService(this.CoreProject); }
-        }
-
-        /// <summary>
-        /// Gets the core test project.
-        /// </summary>
-        public Project CoreTestsProject
-        {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.CoreTests)); }
+            get
+            {
+                Project project = this.CoreProject;
+                return project != null ? new ProjectService(project) : null;
+            }
         }
 
         /// <summary>
@@ -150,15 +114,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IProjectService CoreTestsProjectService
         {
-            get { return new ProjectService(this.CoreTestsProject); }
-        }
-
-        /// <summary>
-        /// Gets the droid project.
-        /// </summary>
-        public Project DroidProject
-        {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.Droid)); }
+            get
+            {
+                Project project = this.CoreTestsProject;
+                return project != null ? new ProjectService(project) : null;
+            }
         }
 
         /// <summary>
@@ -166,31 +126,23 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IProjectService DroidProjectService
         {
-            get { return new ProjectService(this.DroidProject); }
-        }
-
-        /// <summary>
-        /// Gets the i OS project.
-        /// </summary>
-        public Project iOSProject
-        {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.iOS)); }
+            get
+            {
+                Project project = this.DroidProject;
+                return project != null ? new ProjectService(project) : null;
+            }
         }
 
         /// <summary>
         /// Gets the iOS project service.
         /// </summary>
         public IProjectService iOSProjectService 
-        { 
-            get { return new ProjectService(this.iOSProject); }
-        }
-
-        /// <summary>
-        /// Gets the windows phone project.
-        /// </summary>
-        public Project WindowsPhoneProject 
-        { 
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.WindowsPhone)); } 
+        {
+            get
+            {
+                Project project = this.iOSProject;
+                return project != null ? new ProjectService(project) : null;
+            }
         }
 
         /// <summary>
@@ -198,31 +150,23 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IProjectService WindowsPhoneProjectService 
         {
-            get { return new ProjectService(this.WindowsPhoneProject); } 
-        }
-
-        /// <summary>
-        /// Gets the windows store project.
-        /// </summary>
-        public Project WindowsStoreProject
-        {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.WindowsStore)); }
+            get
+            {
+                Project project = this.WindowsPhoneProject;
+                return project != null ? new ProjectService(project) : null;
+            }
         }
 
         /// <summary>
         /// Gets the windows store project service.
         /// </summary>
         public IProjectService WindowsStoreProjectService 
-        { 
-            get { return new ProjectService(this.WindowsStoreProject); }
-        }
-
-        /// <summary>
-        /// Gets the WPF project.
-        /// </summary>
-        public Project WpfProject 
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.WindowsWpf)); }
+            get
+            {
+                Project project = this.WindowsStoreProject;
+                return project != null ? new ProjectService(project) : null;
+            }
         }
 
         /// <summary>
@@ -230,96 +174,129 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IProjectService WpfProjectService
         {
-            get { return new ProjectService(this.WpfProject); }
+            get
+            {
+                Project project = this.WpfProject;
+                return project != null ? new ProjectService(project) : null;
+            }
         }
-        
+
         /// <summary>
         /// Gets the allowed project templates.
         /// </summary>
-        public List<ProjectTemplateInfo> AllowedProjectTemplates
+        public IEnumerable<ProjectTemplateInfo> AllowedProjectTemplates
         {
             get
             {
                 List<ProjectTemplateInfo> projectInfos = new List<ProjectTemplateInfo>();
-                
+
                 if (this.CoreProject == null)
                 {
                     projectInfos.Add(new ProjectTemplateInfo
-                        {
-                            FriendlyName = FriendlyNames.Core,
-                            ProjectSuffix = ProjectSuffixes.Core,
-                            TemplateName = ProjectTemplates.Core,
-                            PreSelected = true,
-                            NugetCommand = Settings.NugetCommand
-                        });
+                    {
+                        FriendlyName = FriendlyNames.Core,
+                        ProjectSuffix = ProjectSuffixes.Core,
+                        TemplateName = ProjectTemplates.Core,
+                        PreSelected = true,
+                        NugetCommands = new List<string> 
+                            {
+                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetStarterPackPackage),
+                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMessengerPackage)
+                            }
+                    });
                 }
 
                 if (this.CoreTestsProject == null)
                 {
                     projectInfos.Add(new ProjectTemplateInfo
-                        {
-                            FriendlyName = FriendlyNames.CoreTests,
-                            ProjectSuffix = ProjectSuffixes.CoreTests,
-                            TemplateName = ProjectTemplates.Tests,
-                            PreSelected = true
-                        });
+                    {
+                        FriendlyName = FriendlyNames.CoreTests,
+                        ProjectSuffix = ProjectSuffixes.CoreTests,
+                        TemplateName = ProjectTemplates.Tests,
+                        PreSelected = true,
+                        NugetCommands = new List<string> 
+                            {
+                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetUnitTestsPackage),
+                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage)
+                            },
+                        NonMvxAssemblies = new List<string> { "Moq", "NUnit" }
+                    });
                 }
 
                 if (this.DroidProject == null)
                 {
                     projectInfos.Add(new ProjectTemplateInfo
-                        {
-                            FriendlyName = FriendlyNames.Droid,
-                            ProjectSuffix = ProjectSuffixes.Droid,
-                            TemplateName = ProjectTemplates.Droid,
-                            NugetCommand = Settings.NugetCommand
-                        });
+                    {
+                        FriendlyName = FriendlyNames.Droid,
+                        ProjectSuffix = ProjectSuffixes.Droid,
+                        TemplateName = ProjectTemplates.Droid,
+                        NugetCommands = new List<string> 
+                            {
+                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetStarterPackPackage),
+                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMessengerPackage)
+                            }
+                    });
                 }
 
                 if (this.iOSProject == null)
                 {
-                    projectInfos.Add( new ProjectTemplateInfo
-                        {
-                            FriendlyName = FriendlyNames.iOS,
-                            ProjectSuffix = ProjectSuffixes.iOS,
-                            TemplateName = ProjectTemplates.IOS,
-                            NugetCommand = Settings.NugetCommand
-                        });
+                    projectInfos.Add(new ProjectTemplateInfo
+                    {
+                        FriendlyName = FriendlyNames.iOS,
+                        ProjectSuffix = ProjectSuffixes.iOS,
+                        TemplateName = ProjectTemplates.IOS,
+                        NugetCommands = new List<string> 
+                            {
+                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetStarterPackPackage),
+                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMessengerPackage)
+                            }
+                    });
                 }
 
                 if (this.WindowsPhoneProject == null)
                 {
                     projectInfos.Add(new ProjectTemplateInfo
-                        {
-                            FriendlyName = FriendlyNames.WindowsPhone,
-                            ProjectSuffix = ProjectSuffixes.WindowsPhone,
-                            TemplateName = ProjectTemplates.WindowsPhone,
-                            NugetCommand = Settings.NugetCommand
-                        });
+                    {
+                        FriendlyName = FriendlyNames.WindowsPhone,
+                        ProjectSuffix = ProjectSuffixes.WindowsPhone,
+                        TemplateName = ProjectTemplates.WindowsPhone,
+                        NugetCommands = new List<string> 
+                            {
+                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetStarterPackPackage),
+                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMessengerPackage)
+                            }
+                    });
                 }
 
                 if (this.WindowsStoreProject == null)
                 {
                     projectInfos.Add(new ProjectTemplateInfo
-                        {
-                            FriendlyName = FriendlyNames.WindowsStore,
-                            ProjectSuffix = ProjectSuffixes.WindowsStore,
-                            TemplateName = ProjectTemplates.WindowsStore,
-                            NugetCommand = Settings.NugetCommand
-                        });
+                    {
+                        FriendlyName = FriendlyNames.WindowsStore,
+                        ProjectSuffix = ProjectSuffixes.WindowsStore,
+                        TemplateName = ProjectTemplates.WindowsStore,
+                        NugetCommands = new List<string> 
+                            {
+                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetStarterPackPackage),
+                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMessengerPackage)
+                            }
+                    });
                 }
 
                 if (this.WpfProject == null)
                 {
-                    projectInfos.Add( new ProjectTemplateInfo
-                        {
-                            FriendlyName = FriendlyNames.WindowsWpf,
-                            ProjectSuffix = ProjectSuffixes.WindowsWpf,
-                            TemplateName = ProjectTemplates.WindowsWPF,
-                            NugetCommand = Settings.NugetCommand
-                        });
+                    projectInfos.Add(new ProjectTemplateInfo
+                    {
+                        FriendlyName = FriendlyNames.WindowsWpf,
+                        ProjectSuffix = ProjectSuffixes.WindowsWpf,
+                        TemplateName = ProjectTemplates.WindowsWPF,
+                        NugetCommands = new List<string> 
+                            {
+                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetStarterPackPackage)
+                            }
+                    });
                 }
- 
+
                 return projectInfos;
             }
         }
@@ -397,12 +374,63 @@ namespace NinjaCoder.MvvmCross.Services
 
                 return itemTemplateInfos;
             }
-         }
+        }
 
         /// <summary>
-        /// Gets or sets the dte2.
+        /// Gets the core project.
         /// </summary>
-        private DTE2 dte2 { get; set; }
+        internal Project CoreProject
+        {
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.Core)); }
+        }
+
+        /// <summary>
+        /// Gets the core test project.
+        /// </summary>
+        internal Project CoreTestsProject
+        {
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.CoreTests)); }
+        }
+
+        /// <summary>
+        /// Gets the droid project.
+        /// </summary>
+        internal Project DroidProject
+        {
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.Droid)); }
+        }
+
+        /// <summary>
+        /// Gets the iOS project.
+        /// </summary>
+        internal Project iOSProject
+        {
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.iOS)); }
+        }
+
+        /// <summary>
+        /// Gets the windows phone project.
+        /// </summary>
+        internal Project WindowsPhoneProject
+        {
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.WindowsPhone)); }
+        }
+
+        /// <summary>
+        /// Gets the windows store project.
+        /// </summary>
+        internal Project WindowsStoreProject
+        {
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.WindowsStore)); }
+        }
+
+        /// <summary>
+        /// Gets the WPF project.
+        /// </summary>
+        internal Project WpfProject
+        {
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.WindowsWpf)); }
+        }
 
         /// <summary>
         /// Gets the folder template infos.
@@ -425,14 +453,68 @@ namespace NinjaCoder.MvvmCross.Services
                 string name = Path.GetFileNameWithoutExtension(fileInfo.Name);
 
                 itemTemplateInfos.Add(new ItemTemplateInfo
-                                          {
-                                              FriendlyName = name.Replace("MvvmCross.", string.Empty),
-                                              FileName = fileInfo.Name,
-                                              FolderName = destinationFolder
-                                          });
+                {
+                    FriendlyName = name.Replace("MvvmCross.", string.Empty),
+                    FileName = fileInfo.Name,
+                    FolderName = destinationFolder
+                });
             }
 
             return itemTemplateInfos;
+        }
+
+        /// <summary>
+        /// Writes the status bar message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        public void WriteStatusBarMessage(string message)
+        {
+            this.DTE2.WriteStatusBarMessage(message);
+        }
+
+        /// <summary>
+        /// Tidy the code up.
+        /// </summary>
+        /// <param name="removeHeader">if set to <c>true</c> [remove header].</param>
+        /// <param name="removeComments">if set to <c>true</c> [remove comments].</param>
+        public void CodeTidyUp(
+            bool removeHeader,
+            bool removeComments)
+        {
+            if (removeHeader)
+            {
+                this.SolutionService.RemoveFileHeaders();
+            }
+
+            if (removeComments)
+            {
+                this.SolutionService.RemoveComments();
+            }
+
+            this.DTEService.SaveAll();
+        }
+
+        /// <summary>
+        /// Gets the default name of the project.
+        /// </summary>
+        /// <returns>The default project name.</returns>
+        public string GetDefaultProjectName()
+        {
+            IProjectService projectService = this.CoreProjectService;
+
+            return projectService != null ? projectService.Name.Replace(ProjectSuffixes.Core, string.Empty) : string.Empty;
+        }
+        
+        /// <summary>
+        /// Gets the project service by suffix.
+        /// </summary>
+        /// <param name="suffix">The suffix.</param>
+        /// <returns>The project service.</returns>
+        public IProjectService GetProjectServiceBySuffix(string suffix)
+        {
+            Project project = this.Projects.FirstOrDefault(x => x.Name.EndsWith(suffix));
+
+            return project != null ? new ProjectService(project) : null;
         }
     }
 }

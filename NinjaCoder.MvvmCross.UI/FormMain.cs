@@ -8,10 +8,8 @@ namespace NinjaCoder.MvvmCross.UI
     using System;
     using System.Collections.Generic;
     using System.Windows.Forms;
-
-    using EnvDTE;
-
     using Controllers;
+    using EnvDTE;
 
     /// <summary>
     ///    Defines the Form1 type.
@@ -32,9 +30,7 @@ namespace NinjaCoder.MvvmCross.UI
         /// </summary>
         private void ShowProjects()
         {
-            ApplicationController controller = new ApplicationController();
-
-            IEnumerable<Project> projects = controller.GetProjects();
+            IEnumerable<Project> projects = NinjaController.GetProjects();
 
             foreach (Project project in projects)
             {
@@ -49,8 +45,7 @@ namespace NinjaCoder.MvvmCross.UI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void AddProjectsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ProjectsController controller = new ProjectsController();
-            controller.Run(); 
+            NinjaController.RunProjectsController();
             this.ShowProjects();
         }
 
@@ -61,8 +56,7 @@ namespace NinjaCoder.MvvmCross.UI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void AddViewModelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ViewModelViewsController controller = new ViewModelViewsController();
-            controller.Run(); 
+            NinjaController.RunViewModelViewsController();
         }
 
         /// <summary>
@@ -72,8 +66,7 @@ namespace NinjaCoder.MvvmCross.UI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void AddConvertersToolStripMenuItemClick(object sender, EventArgs e)
         {
-            ConvertersController controller = new ConvertersController();
-            controller.Run(); 
+            NinjaController.RunConvertersController();
         }
 
         /// <summary>
@@ -83,8 +76,7 @@ namespace NinjaCoder.MvvmCross.UI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void AddPluginsToolStripMenuItemClick(object sender, EventArgs e)
         {
-            PluginsController controller = new PluginsController();
-            controller.Run(); 
+            NinjaController.RunPluginsController();
         }
         
         /// <summary>
@@ -94,8 +86,7 @@ namespace NinjaCoder.MvvmCross.UI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void AddServicesToolStripMenuItemClick(object sender, EventArgs e)
         {
-            ServicesController controller = new ServicesController();
-            controller.Run(); 
+            NinjaController.RunServicesController();
         }
 
         /// <summary>
@@ -105,8 +96,17 @@ namespace NinjaCoder.MvvmCross.UI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void OptionsToolStripMenuItemClick(object sender, EventArgs e)
         {
-            ApplicationController controller = new ApplicationController();
-            controller.ShowOptions();
+            NinjaController.ShowOptions();
+        }
+
+        /// <summary>
+        /// Abouts the tool strip menu item click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void AboutToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            NinjaController.ShowAboutBox();
         }
 
         /// <summary>

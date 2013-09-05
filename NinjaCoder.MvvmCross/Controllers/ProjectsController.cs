@@ -5,31 +5,63 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
+    using Constants;
+    using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Services;
+    using Services.Interfaces;
     using System;
     using System.Collections.Generic;
-    using System.IO;
+    using System.Linq;
     using System.Windows.Forms;
-    using Constants;
-    using EnvDTE;
-    using EnvDTE80;
-    using Scorchio.VisualStudio.Entities;
-    using Scorchio.VisualStudio.Extensions;
-    using Scorchio.VisualStudio.Services;
-    using Services;
-    using Views;
+    using Views.Interfaces;
 
     /// <summary>
-    ///  Defines the ProjectsController type.
+    /// Defines the ProjectsController type.
     /// </summary>
     public class ProjectsController : BaseController
     {
         /// <summary>
+        /// The projects service.
+        /// </summary>
+        private readonly IProjectsService projectsService;
+
+        /// <summary>
+        /// The nuget service.
+        /// </summary>
+        private readonly INugetService nugetService;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ProjectsController" /> class.
         /// </summary>
-        public ProjectsController()
-            : base(new VisualStudioService(), new ReadMeService(), new SettingsService())
+        /// <param name="projectsService">The projects service.</param>
+        /// <param name="nugetService">The nuget service.</param>
+        /// <param name="visualStudioService">The visual studio service.</param>
+        /// <param name="readMeService">The read me service.</param>
+        /// <param name="settingsService">The settings service.</param>
+        /// <param name="messageBoxService">The message box service.</param>
+        /// <param name="dialogService">The dialog service.</param>
+        /// <param name="formsService">The forms service.</param>
+        public ProjectsController(
+            IProjectsService projectsService,
+            INugetService nugetService,
+            IVisualStudioService visualStudioService,
+            IReadMeService readMeService,
+            ISettingsService settingsService,
+            IMessageBoxService messageBoxService,
+            IDialogService dialogService,
+            IFormsService formsService)
+            : base(
+            visualStudioService, 
+            readMeService, 
+            settingsService, 
+            messageBoxService,
+            dialogService,
+            formsService)
         {
             TraceService.WriteLine("ProjectsController::Constructor");
+
+            this.projectsService = projectsService;
+            this.nugetService = nugetService;
         }
 
         /// <summary>
@@ -37,94 +69,123 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         public void Run()
         {
-            this.AddTraceHeader("ProjectsController", "Run");
+            TraceService.WriteHeader("ProjectsController::Run");
+
+            //// we open the nuget package manager console so we don't have
+            //// a wait condition later!
+            if (this.SettingsService.UseNugetForProjectTemplates)
+            {
+                this.nugetService.OpenNugetWindow(this.VisualStudioService);
+            }
 
             string defaultLocation;
-            string defaultProjectName = this.GetDefaultProjectName();
+            string defaultProjectName = this.VisualStudioService.GetDefaultProjectName();
 
             //// if this fails it will almost certainly be the COM integration with VStudio.
             try
             {
-                defaultLocation = this.VisualStudioService.DTE2.GetDefaultProjectsLocation();
+                defaultLocation = this.VisualStudioService.DTEService.GetDefaultProjectsLocation();
             }
             catch (Exception exception)
             {
-                MessageBox.Show(@"Error Communicating with Visual Studio Error:-" + exception.Message);
+                this.MessageBoxService.Show(@"Error Communicating with Visual Studio Error:-" + exception.Message, Settings.ApplicationName);
                 return;
             }
 
-            List<ProjectTemplateInfo> projectTemplateInfos = this.VisualStudioService.AllowedProjectTemplates;
+            IEnumerable<ProjectTemplateInfo> projectTemplateInfos = this.VisualStudioService.AllowedProjectTemplates;
 
-            if (projectTemplateInfos.Count > 0)
+            if (projectTemplateInfos.Any())
             {
-                SolutionOptionsForm form = new SolutionOptionsForm(
+                IProjectsView view = this.FormsService.GetSolutionOptionsForm(
+                    this.SettingsService,
                     defaultLocation, 
                     defaultProjectName, 
-                    projectTemplateInfos, 
-                    this.SettingsService.DisplayLogo,
-                    this.SettingsService.UseNugetForProjectTemplates);
+                    projectTemplateInfos);
+                
+                DialogResult result = this.DialogService.ShowDialog(view as Form);
 
-                form.ShowDialog();
-
-                if (form.Continue)
+                if (result == DialogResult.OK)
                 {
-                    this.WriteStatusBarMessage("Ninja Coder is running....");
-
-                    Solution2 solution2 = this.VisualStudioService.DTE2.GetSolution() as Solution2;
-
-                    //// create the solution if we don't have one!
-                    if (string.IsNullOrEmpty(solution2.FullName))
-                    {
-                        string solutionPath = form.Presenter.GetSolutionPath();
-
-                        if (Directory.Exists(solutionPath) == false)
-                        {
-                            Directory.CreateDirectory(solutionPath);
-                        }
-
-                        solution2.Create(solutionPath, form.ProjectName);
-                    }
-
-                    IEnumerable<string> messages = solution2.AddProjects(
-                        form.Presenter.GetSolutionPath(),
-                        form.Presenter.GetRequiredTemplates(), 
-                        true,
-                        this.SettingsService.IncludeLibFolderInProjects);
-
-                    this.WriteStatusBarMessage("Ninja Coder is updating files...");
-
-                    //// create the version files.
-                    this.CreateNinjaVersionFile(this.SettingsService.ApplicationVersion);
-                    this.CreateMvvmCrossVersionFile(this.SettingsService.MvvmCrossVersion);
-
-                    //// show the readme.
-                    this.ShowReadMe("Add Projects", messages);
-
-                    this.WriteStatusBarMessage("Ninja Coder has completed the build of the MvvmCross solution.");
+                    this.Process(
+                        view.Presenter.GetSolutionPath(),
+                        view.ProjectName, 
+                        view.Presenter.GetRequiredTemplates());
                 }
             }
             else
             {
-                MessageBox.Show(@"This solution has already been setup with the MvvmCross projects", Settings.ApplicationName);
+                this.MessageBoxService.Show(NinjaMessages.SolutionSetUp, Settings.ApplicationName);
             }
         }
-        
+
         /// <summary>
-        /// Gets the default name of the project.
+        /// Processes the specified solution path.
         /// </summary>
-        /// <returns>The default project name.</returns>
-        internal string GetDefaultProjectName()
+        /// <param name="solutionPath">The solution path.</param>
+        /// <param name="projectName">Name of the project.</param>
+        /// <param name="requireTemplates">The template infos.</param>
+        internal void Process(
+            string solutionPath,
+            string projectName,
+            IEnumerable<ProjectTemplateInfo> requireTemplates)
         {
-            Project project = this.VisualStudioService.CoreProject;
+            TraceService.WriteLine("ProjectsController::Process");
 
-            if (project != null)
+            this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NinjaIsRunning);
+
+            if (this.SettingsService.SuspendReSharperDuringBuild)
             {
-                TraceService.WriteLine("ProjectsController::GetDefaultProjectName defaultProject=" + project.Name);
-
-                return project.Name.Replace(ProjectSuffixes.Core, string.Empty);
+                this.VisualStudioService.DTEService.ExecuteCommand(Settings.SuspendReSharperCommand);
             }
 
-            return string.Empty;
+            //// create the solution if we don't have one!
+            if (string.IsNullOrEmpty(this.VisualStudioService.SolutionService.FullName))
+            {
+                this.VisualStudioService.SolutionService.CreateEmptySolution(solutionPath, projectName);
+            }
+
+            List<string> messages =
+                this.projectsService.AddProjects(
+                    this.VisualStudioService,
+                    solutionPath,
+                    requireTemplates,
+                    true,
+                    this.SettingsService.IncludeLibFolderInProjects).ToList();
+
+            this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.UpdatingFiles);
+
+            this.VisualStudioService.CodeTidyUp(
+                this.SettingsService.RemoveDefaultFileHeaders,
+                this.SettingsService.RemoveDefaultComments);
+
+            //// create the version files.
+            this.VisualStudioService.SolutionService.CreateFile(Settings.NinjaVersionFile, this.SettingsService.ApplicationVersion);
+            this.VisualStudioService.SolutionService.CreateFile(Settings.MvxVersionFile, this.SettingsService.MvvmCrossVersion);
+
+            if (this.SettingsService.UseNugetForProjectTemplates)
+            {
+                string commands = this.nugetService.GetNugetCommands(this.VisualStudioService, requireTemplates);
+
+                this.nugetService.Execute(
+                    this.VisualStudioService, 
+                    this.GetReadMePath(), 
+                    commands,
+                    this.SettingsService.SuspendReSharperDuringBuild);
+
+                this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NugetDownload);
+            }
+            else
+            {
+                this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.SolutionBuilt);
+
+                if (this.SettingsService.SuspendReSharperDuringBuild)
+                {
+                    this.VisualStudioService.DTEService.ExecuteCommand(Settings.ResumeReSharperCommand);
+                }
+            }
+
+            //// show the readme.
+            this.ShowReadMe("Add Projects", messages, this.SettingsService.UseNugetForProjectTemplates);
         }
     }
 }

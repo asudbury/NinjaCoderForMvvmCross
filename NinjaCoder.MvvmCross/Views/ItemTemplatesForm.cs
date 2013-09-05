@@ -7,7 +7,12 @@ namespace NinjaCoder.MvvmCross.Views
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Windows.Forms;
+
     using Interfaces;
+
+    using NinjaCoder.MvvmCross.Services.Interfaces;
+
     using Presenters;
     using Scorchio.VisualStudio.Entities;
 
@@ -20,14 +25,15 @@ namespace NinjaCoder.MvvmCross.Views
         /// Initializes a new instance of the <see cref="ItemTemplatesForm" /> class.
         /// </summary>
         /// <param name="itemTemplateInfos">The item template infos.</param>
+        /// <param name="settingsService">The settings service.</param>
         public ItemTemplatesForm(
-            List<ItemTemplateInfo> itemTemplateInfos,
-            bool displayLogo)
+            IEnumerable<ItemTemplateInfo> itemTemplateInfos,
+            ISettingsService settingsService)
         {
             this.InitializeComponent();
 
-            this.Presenter = new ItemTemplatesPresenter(this, itemTemplateInfos, displayLogo);
-            this.Presenter.Load();
+            this.Presenter = new ItemTemplatesPresenter(this, settingsService);
+            this.Presenter.Load(itemTemplateInfos);
         }
 
         /// <summary>
@@ -67,7 +73,7 @@ namespace NinjaCoder.MvvmCross.Views
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ButtonOKClick(object sender, System.EventArgs e)
         {
-            this.Continue = true;
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 

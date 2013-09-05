@@ -15,6 +15,9 @@ namespace NinjaCoder.MvvmCross.Views.Interfaces
         /// </summary>
         bool DisplayLogo { set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [trace output enabled].
+        /// </summary>
         bool TraceOutputEnabled { get; set; }
 
         /// <summary>
@@ -36,5 +39,30 @@ namespace NinjaCoder.MvvmCross.Views.Interfaces
         /// Gets or sets a value indicating whether [display errors].
         /// </summary>
         bool DisplayErrors { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [remove default file headers].
+        /// </summary>
+        bool RemoveDefaultFileHeaders { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [remove default comments].
+        /// </summary>
+        bool RemoveDefaultComments { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use nuget for project templates].
+        /// </summary>
+        bool UseNugetForProjectTemplates { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use nuget for plugins].
+        /// </summary>
+        bool UseNugetForPlugins { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [suspend re sharper during build].
+        /// </summary>
+        bool SuspendReSharperDuringBuild { get; set; }
     }
 }

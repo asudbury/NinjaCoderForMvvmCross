@@ -13,7 +13,7 @@ namespace Scorchio.VisualStudio.Extensions
     using EnvDTE;
     using EnvDTE80;
     using Services;
-
+    
     /// <summary> 
     ///  Defines the CodeClassExtensions type.
     /// </summary>
@@ -263,7 +263,7 @@ namespace Scorchio.VisualStudio.Extensions
             editPoint.InsertCodeLine(code);
 
             //// now update the constructor document comments.
-            string paramComment = string.Format("<param name=\"{0}\">{0}.</param>\r\n", parts[1]);
+            string paramComment = string.Format("<param name=\"{0}\">{0}.</param>{1}", parts[1], Environment.NewLine);
             string currentComment = constructor.DocComment;
 
             int index = currentComment.LastIndexOf("</summary>", StringComparison.Ordinal);
@@ -295,7 +295,7 @@ namespace Scorchio.VisualStudio.Extensions
 
             CodeVariable codeVariable = instance.AddVariable(name, type, 0, vsCMAccess.vsCMAccessPrivate, 0);
 
-            codeVariable.DocComment = "<doc><summary>\r\nBacking field for " + name + ".\r\n</summary></doc>";
+            codeVariable.DocComment = "<doc><summary>" + "\r\nBacking field for " + name + ".\r\n</summary></doc>";
             codeVariable.GetEndPoint().CreateEditPoint().InsertNewLine();
 
             if (isReadOnly)
@@ -331,7 +331,6 @@ namespace Scorchio.VisualStudio.Extensions
 
             codeVariable.DocComment = "<doc><summary>\r\nMock " + typeDescriptor + ".\r\n</summary></doc>";
             
-
             EditPoint startPoint = codeVariable.StartPoint.CreateEditPoint();
             EditPoint endPoint = codeVariable.EndPoint.CreateEditPoint();
 
@@ -344,6 +343,34 @@ namespace Scorchio.VisualStudio.Extensions
             endPoint.InsertNewLine();
 
             return codeVariable;
+        }
+
+        /// <summary>
+        /// Removes the comments.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        public static void RemoveComments(this CodeClass instance)
+        {
+            TraceService.WriteLine("CodeClassExtensions::RemoveComments");
+
+            instance.DocComment = ScorchioConstants.BlankDocComment;
+
+            //// remove function comments.
+            foreach (CodeFunction codeFunction in instance.Members.OfType<CodeFunction>())
+            {
+                codeFunction.RemoveComments(); 
+            }
+
+            //// remove variable comments.
+            foreach (CodeVariable codeVariable in instance.Members.OfType<CodeVariable>())
+            {
+                codeVariable.DocComment = ScorchioConstants.BlankDocComment;
+            }
+
+            foreach (CodeProperty codeProperty in instance.Members.OfType<CodeProperty>())
+            {
+                codeProperty.DocComment = ScorchioConstants.BlankDocComment;
+            }
         }
     }
 }

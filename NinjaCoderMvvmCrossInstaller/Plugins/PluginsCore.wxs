@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include $(sys.CURRENTDIR)\Global.wxi?>
+  <Fragment>
+    <ComponentGroup Id='ComponentGroupCorePlugins'>
+
+      <Component Id="CorePluginsComponent" 
+                 Directory="MvvmCrossAssembliesCorePlugins" 
+                 DiskId="1" 
+                 Guid="825c8b3c-e1ee-4eae-85b2-300000000001">
+
+        <RegistryKey Root="HKCU"
+                 Key="$(var.PLUGINS_REGISTRY_KEY)">
+          <RegistryValue Type="string" Name="Core Path" Value="[MvvmCrossAssembliesCorePlugins]"/>
+        </RegistryKey>
+
+        <File Id="CorePlugins1" Name="Cirrious.MvvmCross.Plugins.Accelerometer.dll"
+            Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.Accelerometer.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="CorePlugins1" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
+        </File>
+        <File Id="CorePlugins2" Name="Cirrious.MvvmCross.Plugins.Bookmarks.dll"
+          Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.Bookmarks.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="CorePlugins2" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
+        </File>
+        <File Id="CorePlugins3" Name="Cirrious.MvvmCross.Plugins.Color.dll"
+          Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.Color.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="CorePlugins3" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
+        </File>
+        <File Id="CorePlugins4" Name="Cirrious.MvvmCross.Plugins.DownloadCache.dll"
+          Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.DownloadCache.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="CorePlugins4" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
+        </File>
+        <File Id="CorePlugins5" Name="Cirrious.MvvmCross.Plugins.Email.dll"
+            Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.Email.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="CorePlugins5" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
+        </File>
+        <File Id="CorePlugins6" Name="Cirrious.MvvmCross.Plugins.File.dll"
+          Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.File.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="CorePlugins6" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
+        </File>
+        <File Id="CorePlugins7" Name="Cirrious.MvvmCross.Plugins.Json.dll"
+          Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.Json.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="CorePlugins7" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
+        </File>
+        <File Id="CorePlugins7a" Name="Cirrious.MvvmCross.Plugins.Location.dll"
+          Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.Location.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="CorePlugins7a" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
+        </File>        
+        <File Id="CorePlugins8" Name="Cirrious.MvvmCross.Plugins.Network.dll"
+          Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.Network.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="CorePlugins8" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
+        </File>
+        <File Id="CorePlugins9" Name="Cirrious.MvvmCross.Plugins.PhoneCall.dll"
+          Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.PhoneCall.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="CorePlugins9" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
+        </File>
+        <File Id="CorePlugins10" Name="Cirrious.MvvmCross.Plugins.PictureChooser.dll"
+          Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.PictureChooser.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="CorePlugins10" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
+        </File>
+        <File Id="CorePlugins11" Name="Cirrious.MvvmCross.Plugins.ReflectionEx.dll"
+          Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.ReflectionEx.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="CorePlugins11" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
+        </File>
+        <File Id="CorePlugins12" Name="Cirrious.MvvmCross.Plugins.ResourceLoader.dll"
+            Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.ResourceLoader.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="CorePlugins12" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
+        </File>
+        <File Id="CorePlugins13" Name="Cirrious.MvvmCross.Plugins.Share.dll"
+          Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.Share.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="CorePlugins13" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
+        </File>
+        <File Id="CorePlugins14" Name="Cirrious.MvvmCross.Plugins.SoundEffects.dll"
+          Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.SoundEffects.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="CorePlugins14" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
+        </File>
+        <File Id="CorePlugins15" Name="Cirrious.MvvmCross.Plugins.Sqlite.dll"
+          Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.Sqlite.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="CorePlugins15" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
+        </File>
+        <File Id="CorePlugins16" Name="Cirrious.MvvmCross.Plugins.ThreadUtils.dll"
+          Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.ThreadUtils.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="CorePlugins16" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
+        </File>
+        <File Id="CorePlugins17" Name="Cirrious.MvvmCross.Plugins.Visibility.dll"
+          Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.Visibility.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="CorePlugins17" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
+        </File>
+        <File Id="CorePlugins18" Name="Cirrious.MvvmCross.Plugins.WebBrowser.dll"
+          Source="$(var.PROJECT_TEMPLATES_CORE_LIB)\Cirrious.MvvmCross.Plugins.WebBrowser.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="CorePlugins18" DestinationDirectory="MvvmCrossAssembliesCorePlugins"/>
+        </File>
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

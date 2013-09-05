@@ -7,12 +7,9 @@ namespace Scorchio.VisualStudio.Extensions
 {
     using System;
     using System.Linq;
-
     using EnvDTE;
     using EnvDTE80;
-
     using Microsoft.VisualStudio.CommandBars;
-
     using Services;
 
     /// <summary>
@@ -52,9 +49,11 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The solution.</returns>
         public static Solution GetSolution(this DTE2 instance)
         {
+            TraceService.WriteLine("DTEExtensions::GetSolution");
+
             return instance.Solution;
         }
-
+        
         /// <summary>
         /// Gets the default projects location.
         /// </summary>
@@ -180,6 +179,8 @@ namespace Scorchio.VisualStudio.Extensions
             this DTE2 instance,
             string url)
         {
+            TraceService.WriteLine("DTEExtensions::NavigateTo");
+
             instance.ItemOperations.Navigate(url);
         }
 
@@ -192,7 +193,7 @@ namespace Scorchio.VisualStudio.Extensions
             this DTE2 instance, 
             string command)
         {
-            TraceService.WriteLine("DTEExtensions::ExecuteNugetCommand");
+            TraceService.WriteLine("DTEExtensions::ExecuteNugetCommand command=" + command);
 
             instance.ExecuteCommand("View.PackageManagerConsole  " + command);
         }
@@ -362,7 +363,23 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The item events object.</returns>
         public static ProjectItemsEvents GetCSharpProjectItemsEvents(this DTE2 instance)
         {
-            return instance.Events.GetObject("CSharpProjectItemsEvents");
+            TraceService.WriteLine("DTEExtensions::GetCSharpProjectItemsEvents");
+
+            return instance.Events.GetObject("CSharpProjectItemsEvents") as ProjectItemsEvents;
+        }
+
+        /// <summary>
+        /// Gets the project item events.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns>The item events object.</returns>
+        public static ProjectItemsEvents GetProjectItemEvents(this DTE2 instance)
+        {
+            TraceService.WriteLine("DTEExtensions::GetProjectItemEvents");
+
+            Events2 events2 = instance.Events as Events2;
+
+            return events2 != null ? events2.ProjectItemsEvents : null;
         }
     }
 }

@@ -7,8 +7,9 @@ namespace Zipper
 {
     using System;
     using System.IO;
-
-    using NinjaCoder.MvvmCross.Services;
+    using System.IO.Abstractions;
+    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using TinyIoC;
 
     /// <summary>
     /// Defines the Program type.
@@ -23,13 +24,15 @@ namespace Zipper
         {
             if (args == null)
             {
-                Console.WriteLine("args are null");
+                Console.WriteLine(@"args are null");
             }
             else
             {
                 if (args.Length == 2)
                 {
-                    ZipperService zipperService = new ZipperService();
+                    Initialize();
+
+                    IZipperService zipperService = TinyIoCContainer.Current.Resolve<IZipperService>();
 
                     //// directory where the zip files are
                     string zipFile = args[0];
@@ -45,23 +48,33 @@ namespace Zipper
 
                         if (exists)
                         {
-                            zipperService.UpdateZip(zipFile, updatesDirectory, "Lib", true, true);
+                            zipperService.UpdateZip(zipFile, updatesDirectory, "Lib", true);
                         }
                         else
                         {
-                            Console.WriteLine("Directory " + updatesDirectory + " does not exist");
+                            Console.WriteLine(@"Directory " + updatesDirectory + @" does not exist");
                         }
                     }
                     else
                     {
-                        Console.WriteLine("File " + zipFile + " does not exist");
+                        Console.WriteLine(@"File " + zipFile + @" does not exist");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("args are not valid");
+                    Console.WriteLine(@"args are not valid");
                 }
             }
+        }
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        internal static void Initialize()
+        {
+            TinyIoCContainer container = TinyIoCContainer.Current;
+            container.AutoRegister();
+            container.Register<IFileSystem>(new FileSystem());
         }
     }
 }
