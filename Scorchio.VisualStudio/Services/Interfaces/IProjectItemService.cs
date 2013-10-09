@@ -92,7 +92,10 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// Implements the code snippet.
         /// </summary>
         /// <param name="codeSnippet">The code snippet.</param>
-        void ImplementCodeSnippet(CodeSnippet codeSnippet);
+        /// <param name="formatFunctionParameters">if set to <c>true</c> [format function parameters].</param>
+        void ImplementCodeSnippet(
+            CodeSnippet codeSnippet,
+            bool formatFunctionParameters);
 
         /// <summary>
         /// Implements the unit testing code snippet.
@@ -101,11 +104,13 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// <param name="codeFile">The code file.</param>
         /// <param name="removeHeader">if set to <c>true</c> [remove header].</param>
         /// <param name="removeComments">if set to <c>true</c> [remove comments].</param>
+        /// <param name="formatFunctionParameters">if set to <c>true</c> [format function parameters].</param>
         void ImplementUnitTestingCodeSnippet(
             CodeSnippet codeSnippet, 
             string codeFile,
             bool removeHeader,
-            bool removeComments);
+            bool removeComments,
+            bool formatFunctionParameters);
 
         /// <summary>
         /// Adds the using statement.

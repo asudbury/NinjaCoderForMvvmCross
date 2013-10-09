@@ -36,6 +36,7 @@
     <Reference Include="EnvDTE80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -63,6 +64,7 @@
     <Compile Include="Constants\ProjectSuffixes.cs" />
     <Compile Include="Constants\Settings.cs" />
     <Compile Include="Constants\ProjectTemplates.cs" />
+    <Compile Include="Constants\Variables.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\ConvertersController.cs" />
     <Compile Include="Controllers\NinjaController.cs" />
@@ -74,6 +76,8 @@
     <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Entities\Plugin.cs" />
     <Compile Include="Entities\Plugins.cs" />
+    <Compile Include="Exceptions\NinjaCoderServiceException.cs" />
+    <Compile Include="Exceptions\NinjaCoderException.cs" />
     <Compile Include="Extensions\DirectoryInfoExtensions.cs" />
     <Compile Include="Extensions\Infrastructure\IoC\TinyIoC.cs" />
     <Compile Include="Presenters\BasePresenter.cs" />
@@ -114,6 +118,7 @@
     <Compile Include="Services\Interfaces\ISettingsService.cs" />
     <Compile Include="Services\Interfaces\ISnippetService.cs" />
     <Compile Include="Services\Interfaces\IUpdateVersionService.cs" />
+    <Compile Include="Services\Interfaces\IViewModelViewsService.cs" />
     <Compile Include="Services\Interfaces\IVisualStudioService.cs" />
     <Compile Include="Services\Interfaces\IZipperService.cs" />
     <Compile Include="Services\MessageBoxService.cs" />
@@ -125,12 +130,14 @@
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\SnippetService.cs" />
     <Compile Include="Services\UpdateVersionService.cs" />
+    <Compile Include="Services\ViewModelViewsService.cs" />
     <Compile Include="Services\VisualStudioService.cs" />
     <Compile Include="Services\ZipperService.cs" />
     <Compile Include="Translators\CodeConfigTranslator.cs" />
     <Compile Include="Translators\ITranslator.cs" />
     <Compile Include="Translators\PluginsTranslator.cs" />
     <Compile Include="Translators\CodeSnippetTranslator.cs" />
+    <Compile Include="Translators\PluginTranslator.cs" />
     <Compile Include="UserControls\IMvxListView.cs" />
     <Compile Include="UserControls\Logo.cs">
       <SubType>UserControl</SubType>

@@ -6,7 +6,12 @@
 namespace NinjaCoder.MvvmCross.Presenters
 {
     using System.Collections.Generic;
+    using System.Linq;
+
     using Constants;
+
+    using NinjaCoder.MvvmCross.Services.Interfaces;
+
     using Scorchio.VisualStudio.Entities;
     using Views.Interfaces;
 
@@ -21,24 +26,51 @@ namespace NinjaCoder.MvvmCross.Presenters
         private readonly IViewModelViewsView view;
 
         /// <summary>
+        /// The settings service.
+        /// </summary>
+        private readonly ISettingsService settingsService;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ViewModelViewsPresenter" /> class.
         /// </summary>
         /// <param name="view">The view.</param>
-        public ViewModelViewsPresenter(IViewModelViewsView view)
+        /// <param name="settingsService">The settings service.</param>
+        public ViewModelViewsPresenter(
+            IViewModelViewsView view,
+            ISettingsService settingsService)
         {
             this.view = view;
+            this.settingsService = settingsService;
         }
 
         /// <summary>
         /// Loads the item templates.
         /// </summary>
         /// <param name="itemTemplateInfos">The item template infos.</param>
-        public void Load(IEnumerable<ItemTemplateInfo> itemTemplateInfos)
+        /// <param name="viewModelNames">The view model names.</param>
+        public void Load(
+            IEnumerable<ItemTemplateInfo> itemTemplateInfos,
+            IEnumerable<string> viewModelNames)
         {
             foreach (ItemTemplateInfo itemTemplateInfo in itemTemplateInfos)
             {
                 this.view.AddTemplate(itemTemplateInfo);
             }
+
+            //// do we need to show the view model navigation options??
+            if (viewModelNames.ToList().Any())
+            {
+                foreach (string viewModelName in viewModelNames)
+                {
+                    this.view.AddViewModel(viewModelName);
+                }
+            }
+            else
+            {
+                this.view.ShowViewModelNavigationOptions = false;
+            }
+
+            this.view.DisplayLogo = this.settingsService.DisplayLogo;
         }
 
         /// <summary>

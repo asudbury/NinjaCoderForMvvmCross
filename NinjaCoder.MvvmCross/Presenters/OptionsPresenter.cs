@@ -49,8 +49,10 @@ namespace NinjaCoder.MvvmCross.Presenters
             this.view.DisplayErrors = this.settingsService.DisplayErrors;
             this.view.RemoveDefaultComments = this.settingsService.RemoveDefaultComments;
             this.view.RemoveDefaultFileHeaders = this.settingsService.RemoveDefaultFileHeaders;
+            this.view.FormatFunctionParameters = this.settingsService.FormatFunctionParameters;
             this.view.UseNugetForProjectTemplates = this.settingsService.UseNugetForProjectTemplates;
             this.view.UseNugetForPlugins = this.settingsService.UseNugetForPlugins;
+            this.view.UseNugetForServices = this.settingsService.UseNugetForServices;
             this.view.SuspendReSharperDuringBuild = this.settingsService.SuspendReSharperDuringBuild;
         }
 
@@ -66,8 +68,10 @@ namespace NinjaCoder.MvvmCross.Presenters
             this.settingsService.DisplayErrors = this.view.DisplayErrors;
             this.settingsService.RemoveDefaultComments = this.view.RemoveDefaultComments;
             this.settingsService.RemoveDefaultFileHeaders = this.view.RemoveDefaultFileHeaders;
+            this.settingsService.FormatFunctionParameters = this.view.FormatFunctionParameters;
             this.settingsService.UseNugetForProjectTemplates = this.view.UseNugetForProjectTemplates;
             this.settingsService.UseNugetForPlugins = this.view.UseNugetForPlugins;
+            this.settingsService.UseNugetForServices = this.view.UseNugetForServices;
             this.settingsService.SuspendReSharperDuringBuild = this.view.SuspendReSharperDuringBuild;
         }
 

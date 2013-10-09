@@ -5,14 +5,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
-    using Constants;
-    using Scorchio.VisualStudio.Entities;
-    using Scorchio.VisualStudio.Services;
-    using Services.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Forms;
+    using Constants;
+    using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Services;
+    using Services.Interfaces;
     using Views.Interfaces;
 
     /// <summary>
@@ -73,10 +73,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             //// we open the nuget package manager console so we don't have
             //// a wait condition later!
-            if (this.SettingsService.UseNugetForProjectTemplates)
-            {
-                this.nugetService.OpenNugetWindow(this.VisualStudioService);
-            }
+            this.nugetService.OpenNugetWindow(this.VisualStudioService);
 
             string defaultLocation;
             string defaultProjectName = this.VisualStudioService.GetDefaultProjectName();
@@ -96,7 +93,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             if (projectTemplateInfos.Any())
             {
-                IProjectsView view = this.FormsService.GetSolutionOptionsForm(
+                IProjectsView view = this.FormsService.GetProjectsForm(
                     this.SettingsService,
                     defaultLocation, 
                     defaultProjectName, 

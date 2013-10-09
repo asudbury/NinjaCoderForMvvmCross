@@ -82,5 +82,52 @@ namespace Scorchio.VisualStudio.Extensions
 
             instance.DocComment = ScorchioConstants.BlankDocComment;
         }
+
+        /// <summary>
+        /// Formats the parameters.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        public static void FormatParameters(this CodeFunction instance)
+        {
+            TraceService.WriteLine("CodeFunctionExtensions::FormatParameters");
+
+            int count = instance.Parameters.Count;
+
+            if (count > 1)
+            {
+                string parameters = string.Empty;
+
+                EditPoint firstParameterEditPoint = null;
+                EditPoint lastParameterEditPoint = null;
+
+                foreach (CodeParameter codeParameter in instance.Parameters)
+                {
+                    if (firstParameterEditPoint == null)
+                    {
+                        firstParameterEditPoint = codeParameter.StartPoint.CreateEditPoint();
+                    }
+
+                    //// note the 12 spaces at the start!
+                    string parameter = string.Format(
+                        "{0}            {1} {2},",
+                        Environment.NewLine,
+                        codeParameter.GetParameterType(), 
+                        codeParameter.Name);
+
+                    parameters += parameter;
+
+                    lastParameterEditPoint = codeParameter.EndPoint.CreateEditPoint();
+                }
+
+                //// remove the last comma
+                parameters = parameters.Substring(0, parameters.Length - 1);
+
+                if (firstParameterEditPoint != null)
+                {
+                    firstParameterEditPoint.ReplaceText(lastParameterEditPoint, string.Empty, 0);
+                    firstParameterEditPoint.Insert(parameters);
+                }
+            }
+        }
     }
 }

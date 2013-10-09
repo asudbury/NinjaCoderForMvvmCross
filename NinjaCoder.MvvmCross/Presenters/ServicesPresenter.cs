@@ -5,9 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Presenters
 {
+    using System.Collections.Generic;
     using Scorchio.VisualStudio.Entities;
     using Services.Interfaces;
-    using System.Collections.Generic;
     using Views.Interfaces;
 
     /// <summary>
@@ -33,7 +33,6 @@ namespace NinjaCoder.MvvmCross.Presenters
         public ServicesPresenter(
             IServicesView view,
             ISettingsService settingsService)
-            
         {
             this.view = view;
             this.settingsService = settingsService;
@@ -49,6 +48,7 @@ namespace NinjaCoder.MvvmCross.Presenters
             IEnumerable<ItemTemplateInfo> itemTemplateInfos)
         {
             this.view.DisplayLogo = this.settingsService.DisplayLogo;
+            this.view.UseNuget = this.settingsService.UseNugetForServices;
 
             foreach (ItemTemplateInfo itemTemplateInfo in itemTemplateInfos)
             {
@@ -59,6 +59,14 @@ namespace NinjaCoder.MvvmCross.Presenters
             {
                 this.view.AddViewModel(viewModelName);
             }
+        }
+
+        /// <summary>
+        /// Saves the settings.
+        /// </summary>
+        public void SaveSettings()
+        {
+            this.settingsService.UseNugetForServices = this.view.UseNuget;
         }
     }
 }

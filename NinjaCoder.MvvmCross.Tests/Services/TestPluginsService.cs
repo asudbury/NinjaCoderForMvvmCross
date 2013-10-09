@@ -167,7 +167,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
             this.service.AddPlugins(this.mockVisualStudioService.Object, plugins, "viewModelName", true);
 
             //// assert
-            mockProjectItemService.Verify(x => x.ImplementCodeSnippet(It.IsAny<CodeSnippet>()));
+            mockProjectItemService.Verify(x => x.ImplementCodeSnippet(It.IsAny<CodeSnippet>(), It.IsAny<bool>()));
         }
 
         /// <summary>
@@ -203,7 +203,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
         {
             //// arrange
 
-            Plugin plugin =  new Plugin();
+            Plugin plugin = new Plugin();
             Mock<IProjectService> mockProjectService = new Mock<IProjectService>();
 
             Mock<Project> mockProject = new Mock<Project>();

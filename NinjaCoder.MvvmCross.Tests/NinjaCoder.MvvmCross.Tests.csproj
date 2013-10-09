@@ -75,6 +75,7 @@
     <Compile Include="Infrastructure\IoC\TestTinyIoC.cs" />
     <Compile Include="Mocks\MockDirectory.cs" />
     <Compile Include="Mocks\MockDirectoryInfo.cs" />
+    <Compile Include="Mocks\MockDirectoryInfoFactory.cs" />
     <Compile Include="Mocks\MockFile.cs" />
     <Compile Include="Mocks\MockFileInfo.cs" />
     <Compile Include="Mocks\MockFileInfoBase.cs" />

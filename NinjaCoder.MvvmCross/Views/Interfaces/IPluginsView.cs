@@ -7,7 +7,7 @@ namespace NinjaCoder.MvvmCross.Views.Interfaces
 {
     using System.Collections.Generic;
 
-    using NinjaCoder.MvvmCross.Entities;
+    using Entities;
 
     /// <summary>
     /// Defines the IPluginsView type.

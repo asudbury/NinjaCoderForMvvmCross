@@ -3,12 +3,12 @@
 //    Defines the TestPluginsTranslator type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Tests.Translators
 {
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Services;
-    using NinjaCoder.MvvmCross.Translators;
+    using System.IO;
+    using Entities;
+    using MvvmCross.Services;
+    using MvvmCross.Translators;
     using NUnit.Framework;
 
     /// <summary>
@@ -23,40 +23,15 @@ namespace NinjaCoder.MvvmCross.Tests.Translators
         [Test]
         public void TestTranslator()
         {
-            PluginsTranslator translator = new PluginsTranslator();
+            PluginsTranslator translator = new PluginsTranslator(new PluginTranslator());
 
             SettingsService settingsService = new SettingsService();
             string path = settingsService.CorePluginsPath;
 
-            Plugins plugins = translator.Translate(path);
+            DirectoryInfo directoryInfo = new DirectoryInfo(path);
+            Plugins plugins = translator.Translate(directoryInfo);
 
             Assert.IsTrue(plugins.Items.Count > 0);
-        }
-
-        /// <summary>
-        /// Tests the translator directory does not exist.
-        /// </summary>
-        [Test]
-        public void TestTranslatorDirectoryDoesNotExist()
-        {
-            PluginsTranslator translator = new PluginsTranslator();
-
-            Plugins plugins = translator.Translate("path");
-
-            Assert.IsTrue(plugins == null);
-        }
-
-        /// <summary>
-        /// Tests the get plug in file does not exist.
-        /// </summary>
-        [Test]
-        public void TestGetPlugInFileDoesNotExist()
-        {
-            PluginsTranslator translator = new PluginsTranslator();
-
-            Plugin plugin = translator.GetPlugin("path");
-            
-            Assert.IsTrue(plugin == null);
         }
     }
 }

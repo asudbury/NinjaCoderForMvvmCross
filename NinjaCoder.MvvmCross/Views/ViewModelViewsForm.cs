@@ -7,9 +7,13 @@ namespace NinjaCoder.MvvmCross.Views
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Windows.Forms;
     using Interfaces;
+
+    using NinjaCoder.MvvmCross.Services.Interfaces;
+
     using Presenters;
     using Scorchio.VisualStudio.Entities;
 
@@ -19,21 +23,41 @@ namespace NinjaCoder.MvvmCross.Views
     public partial class ViewModelViewsForm : BaseView, IViewModelViewsView
     {
         /// <summary>
+        /// The current view model name.
+        /// </summary>
+        private string currentViewModelName = string.Empty;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ViewModelViewsForm" /> class.
         /// </summary>
+        /// <param name="settingsService">The settings service.</param>
         /// <param name="itemTemplateInfos">The item template infos.</param>
-        public ViewModelViewsForm(IEnumerable<ItemTemplateInfo> itemTemplateInfos)
+        /// <param name="viewModelNames">The view model names.</param>
+        public ViewModelViewsForm(
+            ISettingsService settingsService,
+            IEnumerable<ItemTemplateInfo> itemTemplateInfos,
+            IEnumerable<string> viewModelNames)
         {
             this.InitializeComponent();
 
-            this.Presenter = new ViewModelViewsPresenter(this);
-            this.Presenter.Load(itemTemplateInfos);
+            this.Presenter = new ViewModelViewsPresenter(this, settingsService);
+            this.Presenter.Load(itemTemplateInfos, viewModelNames);
+
+            this.textBoxViewModel.Focus();
         }
 
         /// <summary>
         /// Gets or sets the presenter.
         /// </summary>
         public ViewModelViewsPresenter Presenter { get; set; }
+
+        /// <summary>
+        /// Sets a value indicating whether [display logo].
+        /// </summary>
+        public bool DisplayLogo
+        {
+            set { this.SetLogoVisibility(this.logo1, value); }
+        }
 
         /// <summary>
         /// Gets or sets the name of the view model.
@@ -61,12 +85,57 @@ namespace NinjaCoder.MvvmCross.Views
         }
 
         /// <summary>
+        /// Sets a value indicating whether [show view model navigation options].
+        /// </summary>
+        public bool ShowViewModelNavigationOptions
+        {
+            set
+            {
+                this.labelInitViewModel.Visible = value;
+                this.comboBoxInitViewModel.Visible = value;
+
+                this.labelNavigateToViewModel.Visible = value;
+                this.comboBoxNavigateToViewModel.Visible = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the view model initiated from.
+        /// </summary>
+        public string ViewModelInitiatedFrom
+        {
+            get { return this.comboBoxInitViewModel.SelectedItem as string; }
+
+            set { this.comboBoxInitViewModel.SelectedText = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the view model to navigate to.
+        /// </summary>
+        public string ViewModelToNavigateTo
+        {
+            get { return this.comboBoxNavigateToViewModel.SelectedItem as string; }
+
+            set { this.comboBoxNavigateToViewModel.SelectedText = value; }
+        }
+
+        /// <summary>
         /// Adds the template.
         /// </summary>
         /// <param name="itemTemplateInfo">The item template info.</param>
         public void AddTemplate(ItemTemplateInfo itemTemplateInfo)
         {
             this.mvxListView1.AddTemplate(itemTemplateInfo);
+        }
+
+        /// <summary>
+        /// Adds the viewModel.
+        /// </summary>
+        /// <param name="viewModelName">Name of the view model.</param>
+        public void AddViewModel(string viewModelName)
+        {
+            this.comboBoxInitViewModel.Items.Add(viewModelName);
+            this.comboBoxNavigateToViewModel.Items.Add(viewModelName);
         }
 
         /// <summary>
@@ -85,7 +154,7 @@ namespace NinjaCoder.MvvmCross.Views
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void ButtonOKClick(object sender, EventArgs e)
+        private void ButtonOkClick(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(this.textBoxViewModel.Text) == false)
             {
@@ -104,18 +173,31 @@ namespace NinjaCoder.MvvmCross.Views
         }
         
         /// <summary>
-        /// Texts the box view model key down.
+        /// Texts the box view model text changed.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
-        private void TextBoxViewModelKeyDown(object sender, KeyEventArgs e)
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void TextBoxViewModelTextChanged(
+            object sender, 
+            EventArgs e)
         {
-            if (this.textBoxViewModel.Text.Length > 0)
-            {
-                int start = this.textBoxViewModel.SelectionStart;
+            //// surely a better way of doing this!
 
-                this.textBoxViewModel.Text = this.textBoxViewModel.Text.Substring(0, 1).ToUpper() + this.textBoxViewModel.Text.Substring(1);
-                this.textBoxViewModel.SelectionStart = start;
+            if (this.textBoxViewModel.Text.ToLower() != this.currentViewModelName.ToLower())
+            {
+                this.textBoxViewModel.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(this.textBoxViewModel.Text);
+
+                //// position the cursor in the correct position.
+                if (this.textBoxViewModel.Text.ToLower().Contains("viewmodel"))
+                {
+                    this.currentViewModelName = this.textBoxViewModel.Text.Replace("viewmodel", "ViewModel");
+                    this.textBoxViewModel.Text = this.currentViewModelName;
+                    this.textBoxViewModel.SelectionStart = this.textBoxViewModel.Text.Length - "ViewModel".Length;
+                }
+                else
+                {
+                    this.textBoxViewModel.SelectionStart = this.textBoxViewModel.Text.Length;
+                }
             }
         }
     }

@@ -38,13 +38,7 @@ namespace NinjaCoder.MvvmCross.Services
             : base(translator, fileSystem, settingsService, snippetService)
         {
             TraceService.WriteLine("PluginsService::Constructor");
-            this.NugetCommands = new List<string>();
         }
-
-        /// <summary>
-        /// Gets the nuget commands.
-        /// </summary>
-        public List<string> NugetCommands { get; private set; }
 
         /// <summary>
         /// Adds the plugins.
@@ -64,16 +58,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             TraceService.WriteLine("PluginsService::AddPlugins viewModelName=" + viewModelName);
 
-            //// make sure we clear ouy any nuget commands before we start adding the plugins!
-            this.NugetCommands.Clear();
-
-            //// put at the top of the stack!
-            if (this.SettingsService.UseNugetForPlugins)
-            {
-                this.Messages.Add(NinjaMessages.PluginsViaNuget);
-                this.Messages.Add(NinjaMessages.PmConsole);
-                this.Messages.Add(string.Empty);
-            }
+            this.InitNuget(NinjaMessages.PluginsViaNuget);
 
             IProjectService coreProjectService = visualStudioService.CoreProjectService;
 
@@ -186,7 +171,7 @@ namespace NinjaCoder.MvvmCross.Services
                 //// if we want to add via nuget then generate the command.
                 if (this.SettingsService.UseNugetForPlugins)
                 {
-                    this.UpdateViaNuget(projectService, plugin);
+                    this.UpdatePluginViaNuget(projectService, plugin);
                 }
 
                 this.Messages.Add(plugin.FriendlyName + " plugin added to project " + projectService.Name + ".");
@@ -196,18 +181,16 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Updates the via nuget.
+        /// Updates the plugin via nuget.
         /// </summary>
         /// <param name="projectService">The project service.</param>
         /// <param name="plugin">The plugin.</param>
         /// <returns>True if updated via nuget.</returns>
-        internal bool UpdateViaNuget(
+        internal bool UpdatePluginViaNuget(
             IProjectService projectService, 
             Plugin plugin)
         {
             TraceService.WriteLine("PluginsService::UpdateViaNuget");
-
-            bool updated = false;
 
             string path = string.Format(
                     @"{0}\Plugins\Config.Plugin.{1}.xml",
@@ -216,19 +199,7 @@ namespace NinjaCoder.MvvmCross.Services
 
             CodeConfig codeConfig = this.Translator.Translate(path);
 
-            if (codeConfig != null && string.IsNullOrEmpty(codeConfig.NugetPackage) == false)
-            {
-                string command = Settings.NugetInstallPackage.Replace("%s", codeConfig.NugetPackage);
-
-                //// need to add the project to the end of the command!
-                command += string.Format(" {0}", projectService.Name);
-
-                this.NugetCommands.Add(command);
-
-                updated = true;
-            }
-
-            return updated;
+            return this.UpdateViaNuget(projectService, codeConfig);
         }
 
         /// <summary>
@@ -263,7 +234,9 @@ namespace NinjaCoder.MvvmCross.Services
                 //// add in the reference to the plugin - doing this way means we don't need it in the xml files
                 codeSnippet.UsingStatements.Add(Path.GetFileNameWithoutExtension(plugin.FileName));
 
-                projectItemService.ImplementCodeSnippet(codeSnippet);
+                projectItemService.ImplementCodeSnippet(
+                    codeSnippet,
+                    this.SettingsService.FormatFunctionParameters);
 
                 this.Messages.Add(plugin.FriendlyName + " plugin code added to " + viewModelName + ".cs in project " + projectName + ".");
 
@@ -271,6 +244,7 @@ namespace NinjaCoder.MvvmCross.Services
                 if (createUnitTests)
                 {
                     IProjectItemService itemService = this.CreateUnitTests(
+                        visualStudioService,
                         visualStudioService.CoreTestsProjectService,
                         plugin,
                         codeSnippetsPath,
@@ -291,12 +265,14 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Creates the unit tests.
         /// </summary>
+        /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="projectService">The project service.</param>
         /// <param name="plugin">The plugin.</param>
         /// <param name="codeSnippetsPath">The code snippets path.</param>
         /// <param name="viewModelName">Name of the view model.</param>
         /// <returns>The project item service.</returns>
         internal IProjectItemService CreateUnitTests(
+            IVisualStudioService visualStudioService,
             IProjectService projectService,
             Plugin plugin,
             string codeSnippetsPath, 
@@ -309,6 +285,7 @@ namespace NinjaCoder.MvvmCross.Services
             this.AddPlugin(projectService, plugin, string.Empty, Settings.CoreTests);
 
             return base.CreateUnitTests(
+                visualStudioService,
                 projectService, 
                 testSnippetPath, 
                 viewModelName, 
@@ -340,7 +317,8 @@ namespace NinjaCoder.MvvmCross.Services
 
             //// at this moment we only want ot do the core as this plugin might not be
             //// supported in the ui project.
-            if (extensionName == Settings.Core)
+            if (extensionName == Settings.Core ||
+                extensionName == Settings.CoreTests)
             {
                 //// dont need to add reference if we are going to use nuget.
                 if (this.SettingsService.UseNugetForPlugins == false)
@@ -351,16 +329,6 @@ namespace NinjaCoder.MvvmCross.Services
                         source, 
                         this.SettingsService.IncludeLibFolderInProjects);
                 }
-
-                added = true;
-            }
-            else if (extensionName == Settings.CoreTests)
-            {
-                projectService.AddReference(
-                    "Lib",
-                    destination,
-                    source,
-                    this.SettingsService.IncludeLibFolderInProjects);
 
                 added = true;
             }
@@ -379,7 +347,7 @@ namespace NinjaCoder.MvvmCross.Services
 
                     added = this.AddNonCorePlugin(
                         projectService,
-                        plugin,
+                        plugin.FriendlyName,
                         source,
                         destination,
                         extensionSource,
@@ -394,7 +362,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// Adds the non core plugin.
         /// </summary>
         /// <param name="projectService">The project service.</param>
-        /// <param name="plugin">The plugin.</param>
+        /// <param name="friendlyName">Name of the friendly.</param>
         /// <param name="source">The source.</param>
         /// <param name="destination">The destination.</param>
         /// <param name="extensionSource">The extension source.</param>
@@ -402,13 +370,13 @@ namespace NinjaCoder.MvvmCross.Services
         /// <returns>True or false.</returns>
         internal bool AddNonCorePlugin(
             IProjectService projectService,
-            Plugin plugin,
+            string friendlyName,
             string source,
             string destination,
             string extensionSource,
             string extensionDestination)
         {
-            TraceService.WriteLine("PluginsService::AddNonCorePlugin " + plugin.FriendlyName);
+            TraceService.WriteLine("PluginsService::AddNonCorePlugin " + friendlyName);
 
             bool added = false;
 
@@ -438,7 +406,7 @@ namespace NinjaCoder.MvvmCross.Services
                 }
 
                 added = true;
-                this.BuildSourceFile(projectService, extensionSource, extensionDestination, plugin.FriendlyName);
+                this.BuildSourceFile(projectService, extensionSource, extensionDestination, friendlyName);
             }
 
             return added;

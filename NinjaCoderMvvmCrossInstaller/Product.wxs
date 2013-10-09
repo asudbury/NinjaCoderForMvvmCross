@@ -63,8 +63,23 @@
             </Directory>
           </Directory>
         </Directory>
+
+        <!-- Registering assembly in GAC -->
+        <Directory Id="GAC" Name="GAC">
+          
+          <Component Id="MvvmTemplateWizardComponent" Guid="55857611-A13E-51ED-897B-A78830F68ADC" DiskId="1">
+           
+            <File Id="MvvmTemplateWizardFile" 
+                  Name="NinjaCoder.MvvmCross.TemplateWizards.dll" 
+                  Source="$(var.SOURCE_DIR)\NinjaCoder.MvvmCross.TemplateWizards\bin\Debug\NinjaCoder.MvvmCross.TemplateWizards.dll"
+                  KeyPath="yes" 
+                  Assembly=".net"/>
+            
+          </Component>
+
+        </Directory>
         
-        <!-- Install Application files -->
+          <!-- Install Application files -->
         <Directory Id='CompanyFolder' Name="Scorchio Limited">
           <Directory Id="INSTALLLOCATION" Name="Ninja Coder for MvvmCross">
 
@@ -211,6 +226,8 @@
     
     <Feature Id="ProductFeature" Title="VSWixExtension" Level="1">
       <ComponentRef	Id="ComponentPCLSupport" />
+      <ComponentRef	Id="MvvmTemplateWizardComponent" />
+      <ComponentRef	Id="ComponentConfigPlugins" />
       <ComponentRef	Id="ComponentApplication" />
       <ComponentRef	Id="CorePluginsComponent" />
       <ComponentRef	Id="DroidPluginsComponent" />
@@ -223,11 +240,11 @@
       <ComponentRef	Id="ComponentConvertersItemTemplates" />
       <ComponentRef	Id="ComponentPluginItemTemplates" />
       <ComponentRef	Id="ComponentServicesItemTemplates" />
+      <ComponentRef	Id="CodeSnippetsComponent" />
       <ComponentRef	Id="CodeSnippetsPluginsComponent" />
       <ComponentRef	Id="CodeSnippetsServicesComponent" />
       <ComponentRef	Id="ConfigServicesComponent" />
       <ComponentRef	Id="ComponentProjectTemplates" />
-      <ComponentRef	Id="ComponentConfigPlugins" />
     </Feature>
 
     <InstallExecuteSequence>

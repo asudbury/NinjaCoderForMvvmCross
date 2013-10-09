@@ -56,10 +56,10 @@ namespace MvvmCross.LocationService.Services
         /// </summary>
         /// <param name="latitude">The latitude.</param>
         /// <param name="longitude">The longitude.</param>
-        /// <returns>
-        /// true or false.
-        /// </returns>
-        public bool TryGetLatestLocation(out double latitude, out double longitude)
+        /// <returns>true or false.</returns>
+        public bool TryGetLatestLocation(
+            out double latitude, 
+            out double longitude)
         {
             lock (this.lockObject)
             {

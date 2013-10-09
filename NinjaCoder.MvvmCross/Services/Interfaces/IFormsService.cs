@@ -6,12 +6,10 @@
 namespace NinjaCoder.MvvmCross.Services.Interfaces
 {
     using System.Collections.Generic;
-
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Views;
-    using NinjaCoder.MvvmCross.Views.Interfaces;
-
+    using Entities;
     using Scorchio.VisualStudio.Entities;
+    using Views;
+    using Views.Interfaces;
 
     /// <summary>
     ///  Defines the IFormsService type.
@@ -19,14 +17,14 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     public interface IFormsService
     {
         /// <summary>
-        /// Gets the solution options form.
+        /// Gets the projects options form.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="defaultProjectsLocation">The default projects location.</param>
         /// <param name="defaultProjectName">Default name of the project.</param>
         /// <param name="projectInfos">The project infos.</param>
         /// <returns>the solution options form.</returns>
-        IProjectsView GetSolutionOptionsForm(
+        IProjectsView GetProjectsForm(
             ISettingsService settingsService,
             string defaultProjectsLocation,
             string defaultProjectName,
@@ -35,9 +33,14 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Gets the view model options form.
         /// </summary>
+        /// <param name="settingsService">The settings service.</param>
         /// <param name="itemTemplateInfos">The item template infos.</param>
+        /// <param name="viewModelNames">The view model names.</param>
         /// <returns>The View Model Options form.</returns>
-        IViewModelViewsView GetViewModelOptionsForm(IEnumerable<ItemTemplateInfo> itemTemplateInfos);
+        IViewModelViewsView GetViewModelViewsForm(
+             ISettingsService settingsService, 
+            IEnumerable<ItemTemplateInfo> itemTemplateInfos,
+            IEnumerable<string> viewModelNames);
 
         /// <summary>
         /// Gets the plugins form.

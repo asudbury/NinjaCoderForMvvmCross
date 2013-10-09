@@ -3,8 +3,13 @@
 echo -----------------------------
 echo Project templates - Portable Libraries 
 echo -----------------------------
-copy b:\Scorchio\Projects\c#\MvvmCross-Binaries-master\MvvmCross-Binaries-master\VS2012\bin\Release\Mvx\Portable\*.*  b:\Scorchio\Projects\c#\
-NinjaCoderForMvvmCross\ProjectTemplates\CoreTemplate\Lib
+copy b:\Scorchio\Projects\c#\MvvmCross-Binaries-master\MvvmCross-Binaries-master\VS2012\bin\Release\Mvx\Portable\*.*  b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\CoreTemplate\Lib
+
+echo -----------------------------
+echo Project templates - Core Test Libraries 
+echo -----------------------------
+copy b:\Scorchio\Projects\c#\MvvmCross-Binaries-master\MvvmCross-Binaries-master\VS2012\bin\Release\Mvx\Portable\*.*  b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\CoreTestsTemplate\Lib
+copy b:\Scorchio\Projects\c#\MvvmCross-Binaries-master\MvvmCross-Binaries-master\VS2012\bin\Release\Mvx\Console\*.*  b:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\ProjectTemplates\CoreTestsTemplate\Lib
 
 echo -----------------------------
 echo Project templates - Droid Libraries

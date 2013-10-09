@@ -18,6 +18,26 @@
             Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Services\Services.LocationService.Tests.xml" Vital="yes" KeyPath="no" >
           <CopyFile Id="SnippetService1T" DestinationDirectory="CodeSnippetsServices"/>
         </File>
+
+        <File Id="SnippetService2" Name="Services.SqliteDataService.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Services\Services.SqliteDataService.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="SnippetService2" DestinationDirectory="CodeSnippetsServices"/>
+        </File>
+        
+        <File Id="SnippetService2T" Name="Services.SqliteDataService.Tests.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Services\Services.SqliteDataService.Tests.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="SnippetService2T" DestinationDirectory="CodeSnippetsServices"/>
+        </File>
+
+        <File Id="SnippetService3" Name="Services.WebRequestService.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Services\Services.WebRequestService.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="SnippetService3" DestinationDirectory="CodeSnippetsServices"/>
+        </File>
+
+        <File Id="SnippetService3T" Name="Services.WebRequestService.Tests.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\Services\Services.WebRequestService.Tests.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="SnippetService3T" DestinationDirectory="CodeSnippetsServices"/>
+        </File>
         
       </Component>
     </ComponentGroup>

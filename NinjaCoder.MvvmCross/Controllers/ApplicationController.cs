@@ -5,11 +5,11 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
+    using System.Collections.Generic;
+    using System.Windows.Forms;
     using EnvDTE;
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;
-    using System.Collections.Generic;
-    using System.Windows.Forms;
     using Views;
     using Views.Interfaces;
 

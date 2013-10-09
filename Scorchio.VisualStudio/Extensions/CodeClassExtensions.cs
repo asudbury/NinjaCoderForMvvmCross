@@ -33,13 +33,26 @@ namespace Scorchio.VisualStudio.Extensions
         }
 
         /// <summary>
+        /// Gets the variables.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns>The variables.</returns>
+        public static IEnumerable<CodeVariable> GetVariables(this CodeClass instance)
+        {
+            TraceService.WriteLine("CodeClassExtensions::GetVariables file=" + instance.Name);
+
+            return instance.Members.OfType<CodeVariable>();
+        }
+
+        /// <summary>
         /// add a default constructor.
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns>
-        /// The constructor.
-        /// </returns>
-        public static CodeFunction AddDefaultConstructor(this CodeClass instance)
+        /// <param name="moveToCorrectPosition">if set to <c>true</c> [move to correct position].</param>
+        /// <returns>The constructor.</returns>
+        public static CodeFunction AddDefaultConstructor(
+            this CodeClass instance,
+            bool moveToCorrectPosition)
         {
             TraceService.WriteLine("CodeClassExtensions::AddDefaultConstructor file=" + instance.Name);
 
@@ -56,6 +69,39 @@ namespace Scorchio.VisualStudio.Extensions
 
             codeFunction.DocComment = comment;
             
+            if (moveToCorrectPosition)
+            {
+                TraceService.WriteLine("Move to correct position");
+
+                IEnumerable<CodeVariable> variables = instance.GetVariables();
+
+                CodeVariable lastVariable = variables.LastOrDefault();
+
+                if (lastVariable != null)
+                {
+                    EditPoint startPoint = codeFunction.StartPoint.CreateEditPoint();
+                    EditPoint endPoint = codeFunction.EndPoint.CreateEditPoint();
+                    string text = startPoint.GetText(endPoint);
+
+                    //// remove current code Function text
+                    instance.RemoveMember(codeFunction);
+
+                    if (endPoint.GetText(1) == Environment.NewLine)
+                    {
+                        TraceService.WriteLine("Delete line");
+                        endPoint.Delete(1);
+                    }
+
+                    EditPoint editPoint = lastVariable.EndPoint.CreateEditPoint();
+                    editPoint.Insert(string.Format("{0}{1}{2}", Environment.NewLine, Environment.NewLine, text));
+
+                    //// we need to re find the function as we have deleted this one!
+                    codeFunction = instance.GetFunction(instance.Name);
+
+                    codeFunction.DocComment = comment;
+                }
+            }
+
             return codeFunction;
         }
 
@@ -73,15 +119,17 @@ namespace Scorchio.VisualStudio.Extensions
 
             return instance.Members.OfType<CodeFunction>().FirstOrDefault(x => x.FullName.Contains(functionName));
         }
-        
+
         /// <summary>
         /// Implements the code snippet.
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="codeSnippet">The code snippet.</param>
+        /// <param name="formatFunctionParameters">if set to <c>true</c> [format function parameters].</param>
         public static void ImplementCodeSnippet(
             this CodeClass instance,
-            CodeSnippet codeSnippet)
+            CodeSnippet codeSnippet,
+            bool formatFunctionParameters)
         {
             TraceService.WriteLine("CodeClassExtensions::ImplementCodeSnippet file" + instance.Name);
 
@@ -90,47 +138,55 @@ namespace Scorchio.VisualStudio.Extensions
                 instance.ImplementFunction(codeSnippet);
             }
 
-            if (codeSnippet.Interfaces.Count > 0)
+            if (codeSnippet.Interfaces != null &&
+                codeSnippet.Interfaces.Count > 0)
             {
                 IEnumerable<CodeFunction> constructors = instance.GetConstructors();
 
-                CodeFunction constructor = constructors.FirstOrDefault() ?? instance.AddDefaultConstructor();
+                CodeFunction constructor = constructors.FirstOrDefault() ?? instance.AddDefaultConstructor(true);
 
                 foreach (string variable in codeSnippet.Interfaces)
                 {
                     instance.ImplementInterface(constructor, variable);
                 }
-            }
 
-            foreach (string variable in codeSnippet.Variables)
-            {
-                //// split the variable string
-                string[] parts = variable.Split(' ');
-
-                //// variable could already exist!
-                try
+                if (formatFunctionParameters)
                 {
-                    instance.ImplementVariable(parts[1], parts[0], false);
-                }
-                catch (Exception exception)
-                {
-                    TraceService.WriteError("Error adding variable exception=" + exception.Message + " variable=" + parts[1]);
+                    constructor.FormatParameters();
                 }
             }
 
-            foreach (string variable in codeSnippet.MockVariables)
+            if (codeSnippet.Variables != null)
             {
-                //// split the variable string
-                string[] parts = variable.Split(' ');
-
-                //// variable could already exist!
-                try
+                foreach (string[] parts in codeSnippet.Variables
+                    .Select(variable => variable.Split(' ')))
                 {
-                    instance.ImplementMockVariable(parts[1], parts[0]);
+                    //// variable could already exist!
+                    try
+                    {
+                        instance.ImplementVariable(parts[1], parts[0], false);
+                    }
+                    catch (Exception exception)
+                    {
+                        TraceService.WriteError("Error adding variable exception=" + exception.Message + " variable=" + parts[1]);
+                    }
                 }
-                catch (Exception exception)
+            }
+
+            if (codeSnippet.MockVariables != null)
+            {
+                foreach (string[] parts in codeSnippet.MockVariables
+                    .Select(variable => variable.Split(' ')))
                 {
-                    TraceService.WriteError("Error adding mock variable exception=" + exception.Message + " variable=" + parts[1]);
+                    //// variable could already exist!
+                    try
+                    {
+                        instance.ImplementMockVariable(parts[1], parts[0]);
+                    }
+                    catch (Exception exception)
+                    {
+                        TraceService.WriteError("Error adding mock variable exception=" + exception.Message + " variable=" + parts[1]);
+                    }
                 }
             }
 
@@ -263,16 +319,21 @@ namespace Scorchio.VisualStudio.Extensions
             editPoint.InsertCodeLine(code);
 
             //// now update the constructor document comments.
-            string paramComment = string.Format("<param name=\"{0}\">{0}.</param>{1}", parts[1], Environment.NewLine);
+            string paramComment = string.Format("<param name=\"{0}\">The {0}.</param>{1}", parts[1], Environment.NewLine);
             string currentComment = constructor.DocComment;
 
             int index = currentComment.LastIndexOf("</summary>", StringComparison.Ordinal);
 
             StringBuilder sb = new StringBuilder();
 
-            sb.Append(currentComment.Substring(0, index + 10));
-            sb.Append(paramComment);
-            sb.Append(currentComment.Substring(index + 10));
+            if (index != -1)
+            {
+                sb.Append(currentComment.Substring(0, index + 10));
+                sb.Append(paramComment);
+                sb.Append(currentComment.Substring(index + 10));
+
+                TraceService.WriteLine("comment added=" + paramComment);
+            }
 
             constructor.DocComment = sb.ToString();
         }
@@ -293,7 +354,18 @@ namespace Scorchio.VisualStudio.Extensions
         {
             TraceService.WriteLine("CodeClassExtensions::ImplementVariable name=" + name + " type=" + type);
 
-            CodeVariable codeVariable = instance.AddVariable(name, type, 0, vsCMAccess.vsCMAccessPrivate, 0);
+            string variableName = name;
+
+            bool placeHolderVariable = false;
+            
+            //// are we a place holder variable (used in snippets!)
+            if (variableName.Contains("%"))
+            {
+                variableName = variableName.Replace("%", string.Empty);
+                placeHolderVariable = true;
+            }
+
+            CodeVariable codeVariable = instance.AddVariable(variableName, type, 0, vsCMAccess.vsCMAccessPrivate, 0);
 
             codeVariable.DocComment = "<doc><summary>" + "\r\nBacking field for " + name + ".\r\n</summary></doc>";
             codeVariable.GetEndPoint().CreateEditPoint().InsertNewLine();
@@ -306,6 +378,15 @@ namespace Scorchio.VisualStudio.Extensions
                 {
                     codeVariable2.ConstKind = vsCMConstKind.vsCMConstKindReadOnly;
                 }
+            }
+
+            if (placeHolderVariable)
+            {
+                EditPoint startPoint = codeVariable.StartPoint.CreateEditPoint();
+                EditPoint endPoint = codeVariable.EndPoint.CreateEditPoint();
+                string text = startPoint.GetText(endPoint);
+                string newText = text.Replace(variableName, name);
+                startPoint.ReplaceText(endPoint, newText, 0);
             }
 
             return codeVariable;
@@ -327,7 +408,7 @@ namespace Scorchio.VisualStudio.Extensions
 
             CodeVariable codeVariable = instance.AddVariable(name, type, 0, vsCMAccess.vsCMAccessPrivate, 0);
 
-            string typeDescriptor = name.Substring(4,1).ToUpper() + name.Substring(5);
+            string typeDescriptor = name.Substring(4, 1).ToUpper() + name.Substring(5);
 
             codeVariable.DocComment = "<doc><summary>\r\nMock " + typeDescriptor + ".\r\n</summary></doc>";
             

@@ -14,6 +14,26 @@
             Source="$(var.ITEM_TEMPLATES_DIR)\Core\Services\MvvmCross.LocationService\bin\Debug\ItemTemplates\CSharp\1033\MvvmCross.LocationService.zip">
           <CopyFile Id="copyService1" DestinationDirectory="ItemTemplatesMvvmCrossServices"/>
         </File>
+
+        <!--
+        <File Id="MvvmCross.Services.SqliteData"
+            Name="MvvmCross.SqliteDataService.zip"
+          Source="$(var.ITEM_TEMPLATES_DIR)\Core\Services\MvvmCross.SqliteDataService\bin\Debug\ItemTemplates\CSharp\1033\MvvmCross.SqliteDataService.zip">
+          <CopyFile Id="copyService2" DestinationDirectory="ItemTemplatesMvvmCrossServices"/>
+        </File>
+
+        <File Id="MvvmCross.Services.WebRequest"
+            Name="MvvmCross.WebRequestService.zip"
+          Source="$(var.ITEM_TEMPLATES_DIR)\Core\Services\MvvmCross.WebRequestService\bin\Debug\ItemTemplates\CSharp\1033\MvvmCross.WebRequestService.zip">
+          <CopyFile Id="copyService3" DestinationDirectory="ItemTemplatesMvvmCrossServices"/>
+        </File>
+
+        <File Id="MvvmCross.Services.DropBox"
+          Name="MvvmCross.DropBoxService.zip"
+          Source="$(var.ITEM_TEMPLATES_DIR)\Core\Services\MvvmCross.DropBoxService\bin\Debug\ItemTemplates\CSharp\1033\MvvmCross.DropBoxService.zip">
+          <CopyFile Id="copyService4" DestinationDirectory="ItemTemplatesMvvmCrossServices"/>
+        </File>-->
+        
       </Component>
     </ComponentGroup>
 	</Fragment>

@@ -61,6 +61,8 @@ namespace NinjaCoder.MvvmCross.Services
                 //// only do if the snippet contains some text :-)
                 if (fileInfoBase.Length > 0)
                 {
+                    path = this.GetSnippetPath(fileInfoBase);
+
                     return this.translator.Translate(path);
                 }
             }
@@ -77,29 +79,54 @@ namespace NinjaCoder.MvvmCross.Services
         {
             CodeSnippet codeSnippet = this.GetSnippet(path);
 
-            //// we grab the moq and currious.core files and add them to the test project.
-            //// doing this way means we don't need them in the xml files
-            string assemblies = this.settingsService.UnitTestingAssemblies;
-
-            if (string.IsNullOrEmpty(assemblies) == false)
+            if (codeSnippet != null)
             {
-                string[] parts = assemblies.Split(',');
+                //// we grab the moq and currious.core files and add them to the test project.
+                //// doing this way means we don't need them in the xml files
+                string assemblies = this.settingsService.UnitTestingAssemblies;
 
-                foreach (string part in parts)
+                if (string.IsNullOrEmpty(assemblies) == false)
                 {
-                    if (codeSnippet.UsingStatements == null)
-                    {
-                        codeSnippet.UsingStatements = new List<string>();
-                    }
+                    string[] parts = assemblies.Split(',');
 
-                    codeSnippet.UsingStatements.Add(part);
+                    foreach (string part in parts)
+                    {
+                        if (codeSnippet.UsingStatements == null)
+                        {
+                            codeSnippet.UsingStatements = new List<string>();
+                        }
+
+                        codeSnippet.UsingStatements.Add(part);
+                    }
+                }
+
+                //// add in the init method here- doing this way means we dont need it in the xml files
+                codeSnippet.TestInitMethod = this.settingsService.UnitTestingInitMethod;
+            }
+
+            return codeSnippet;
+        }
+
+        /// <summary>
+        /// Gets the snippet path (could be overridden)
+        /// </summary>
+        /// <param name="fileInfoBase">The file info base.</param>
+        /// <returns>The path (could be overridden)</returns>
+        internal string GetSnippetPath(FileInfoBase fileInfoBase)
+        {
+            string path = fileInfoBase.FullName;
+
+            if (string.IsNullOrEmpty(this.settingsService.SnippetsOverrideDirectory) == false)
+            {
+                string overridePath = this.settingsService.SnippetsOverrideDirectory + @"\" + fileInfoBase.Name;
+
+                if (this.fileSystem.File.Exists(overridePath))
+                {
+                    return overridePath;
                 }
             }
 
-            //// add in the init method here- doing this way means we dont need it in the xml files
-            codeSnippet.TestInitMethod = this.settingsService.UnitTestingInitMethod;
-
-            return codeSnippet;
+            return path;
         }
     }
 }

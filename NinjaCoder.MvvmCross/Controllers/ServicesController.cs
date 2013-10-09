@@ -5,13 +5,15 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Windows.Forms;
     using Constants;
+
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
     using Services.Interfaces;
-    using System.Collections.Generic;
-    using System.Windows.Forms;
     using Views.Interfaces;
 
     /// <summary>
@@ -25,9 +27,15 @@ namespace NinjaCoder.MvvmCross.Controllers
         private readonly IServicesService servicesService;
 
         /// <summary>
+        /// The nuget service.
+        /// </summary>
+        private readonly INugetService nugetService;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ServicesController" /> class.
         /// </summary>
         /// <param name="servicesService">The services service.</param>
+        /// <param name="nugetService">The nuget service.</param>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="readMeService">The read me service.</param>
         /// <param name="settingsService">The settings service.</param>
@@ -36,6 +44,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="formsService">The forms service.</param>
         public ServicesController(
             IServicesService servicesService,
+            INugetService nugetService,
             IVisualStudioService visualStudioService,
             IReadMeService readMeService,
             ISettingsService settingsService,
@@ -53,6 +62,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             TraceService.WriteLine("ServicesController::Constructor");
 
             this.servicesService = servicesService;
+            this.nugetService = nugetService;
         }
 
         /// <summary>
@@ -64,6 +74,11 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             if (this.VisualStudioService.IsMvvmCrossSolution)
             {
+                //// we open the nuget package manager console so we don't have
+                //// a wait condition later!
+
+                this.nugetService.OpenNugetWindow(this.VisualStudioService);
+
                 string templatesPath = this.SettingsService.ServicesTemplatesPath;
 
                 List<ItemTemplateInfo> itemTemplateInfos = this.VisualStudioService.GetFolderTemplateInfos(templatesPath, "Services");
@@ -104,6 +119,11 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             if (projectService != null)
             {
+                if (this.SettingsService.SuspendReSharperDuringBuild)
+                {
+                    this.VisualStudioService.DTEService.ExecuteCommand(Settings.SuspendReSharperCommand);
+                }
+
                 List<string> messages = this.servicesService.AddServices(
                     this.VisualStudioService,
                     templateInfos,
@@ -112,10 +132,30 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                 this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.UpdatingFiles);
 
-                //// show the readme.
-                this.ShowReadMe("Add Services", messages);
+                this.VisualStudioService.DTEService.SaveAll();
 
-                this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.ServicesCompleted);
+                if (this.servicesService.NugetCommands.Any())
+                {
+                    this.nugetService.Execute(
+                        this.VisualStudioService,
+                        this.GetReadMePath(),
+                        this.servicesService.NugetCommands,
+                        this.SettingsService.SuspendReSharperDuringBuild);
+
+                    this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NugetDownload);
+                }
+                else
+                {
+                    this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.ServicesCompleted);
+
+                    if (this.SettingsService.SuspendReSharperDuringBuild)
+                    {
+                        this.VisualStudioService.DTEService.ExecuteCommand(Settings.ResumeReSharperCommand);
+                    }
+                }
+
+                //// show the readme.
+                this.ShowReadMe("Add Services", messages, this.SettingsService.UseNugetForServices);
             }
             else
             {

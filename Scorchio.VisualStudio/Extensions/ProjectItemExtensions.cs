@@ -248,13 +248,16 @@ namespace Scorchio.VisualStudio.Extensions
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="codeSnippet">The code snippet.</param>
+        /// <param name="formatFunctionParameters">if set to <c>true</c> [format function parameters].</param>
         public static void ImplementCodeSnippet(
             this ProjectItem instance,
-            CodeSnippet codeSnippet)
+            CodeSnippet codeSnippet,
+            bool formatFunctionParameters)
         {
             TraceService.WriteLine("ProjectItemExtensions::ImplementCodeSnippet in file " + instance.Name);
 
-            if (codeSnippet.UsingStatements.Any())
+            if (codeSnippet.UsingStatements != null &&
+                codeSnippet.UsingStatements.Any())
             {
                 IEnumerable<string> statements = instance.GetUsingStatements();
 
@@ -265,11 +268,25 @@ namespace Scorchio.VisualStudio.Extensions
                     if (contains == null)
                     {
                         instance.AddUsingStatement(reference);
+
+                        TraceService.WriteLine("Using statement added " + reference);
                     }
                 }
             }
 
-            instance.GetFirstClass().ImplementCodeSnippet(codeSnippet);
+            instance.GetFirstClass().ImplementCodeSnippet(
+                codeSnippet,
+                formatFunctionParameters);
+
+            //// now apply any variable substitutions
+
+            if (codeSnippet.ReplacementVariables != null)
+            {
+                foreach (KeyValuePair<string, string> item in codeSnippet.ReplacementVariables)
+                {
+                    instance.ReplaceText(item.Key, item.Value);
+                }
+            }
         }
 
         /// <summary>
@@ -697,7 +714,7 @@ namespace Scorchio.VisualStudio.Extensions
                         }
                     }
                     while (continueLoop);
-                    }
+                }
             }
 
             //// don't forget sub items.

@@ -6,6 +6,8 @@
 namespace NinjaCoder.MvvmCross.Presenters
 {
     using System.Collections.Generic;
+    using System.Diagnostics;
+
     using Entities;
 
     using NinjaCoder.MvvmCross.Services.Interfaces;
@@ -72,6 +74,14 @@ namespace NinjaCoder.MvvmCross.Presenters
         public void SaveSettings()
         {
             this.settingsService.UseNugetForPlugins = this.view.UseNuget;
+        }
+
+        /// <summary>
+        /// Shows the MVVM cross plugins wiki page.
+        /// </summary>
+        public void ShowMvvmCrossPluginsWikiPage()
+        {
+            Process.Start(@"IEXPLORE.EXE", this.settingsService.MvvmCrossPluginsWikiPage);
         }
     }
 }

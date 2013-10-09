@@ -15,7 +15,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// The messages.
         /// </summary>
-        private readonly List<string> messages;
+        private List<string> messages;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseService" /> class.
@@ -31,6 +31,7 @@ namespace NinjaCoder.MvvmCross.Services
         protected List<string> Messages
         {
             get { return this.messages; }
+            set { this.messages = value; }
         }
     }
 }

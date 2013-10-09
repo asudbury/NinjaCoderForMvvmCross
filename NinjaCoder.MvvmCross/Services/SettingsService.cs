@@ -86,6 +86,15 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [use nuget for services].
+        /// </summary>
+        public bool UseNugetForServices
+        {
+            get { return this.GetRegistryValue("Nuget", "UseNugetForServices", "N") == "Y"; }
+            set { this.SetRegistryValue("Nuget", "UseNugetForServices", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [suspend re sharper during build].
         /// </summary>
         public bool SuspendReSharperDuringBuild
@@ -199,6 +208,64 @@ namespace NinjaCoder.MvvmCross.Services
         public string UnitTestingInitMethod
         {
             get { return this.GetRegistryValue(string.Empty, "UnitTestingInitMethod", "CreateTestableObject"); } 
+        }
+
+        /// <summary>
+        /// Gets the name of the base view model.
+        /// </summary>
+        public string BaseViewModelName
+        {
+            get { return this.GetRegistryValue(string.Empty, "BaseViewModelName", "BaseViewModel"); } 
+        }
+
+        /// <summary>
+        /// Gets the view model navigation snippet file.
+        /// </summary>
+        public string ViewModelNavigationSnippetFile
+        {
+            get { return this.GetRegistryValue(string.Empty, "ViewModelNavigationSnippetFile", this.CodeSnippetsPath + @"\ViewModelNavigation.xml"); } 
+        }
+
+        /// <summary>
+        /// Gets the snippets override directory.
+        /// </summary>
+        public string SnippetsOverrideDirectory
+        {
+            get { return this.GetRegistryValue(string.Empty, "SnippetsOverrideDirectory", string.Empty); } 
+        }
+
+        /// <summary>
+        /// Gets the config override directory.
+        /// </summary>
+        public string ConfigsOverrideDirectory
+        {
+            get { return this.GetRegistryValue(string.Empty, "ConfigsOverrideDirectory", string.Empty); } 
+        }
+
+        /// <summary>
+        /// Gets or sets a value if function parameters need formatting on to seperate lines.
+        /// </summary>
+        public bool FormatFunctionParameters
+        {
+            get { return this.GetRegistryValue("Coding Style", "FormatFunctionParameters", "N") == "Y"; }
+            set { this.SetRegistryValue("Coding Style", "FormatFunctionParameters", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [replace variables in snippets].
+        /// </summary>
+        public bool ReplaceVariablesInSnippets
+        {
+            get { return this.GetRegistryValue(string.Empty, "ReplaceVariablesInSnippets", "Y") == "Y"; }
+        }
+
+        /// <summary>
+        /// Gets or sets the MVVM cross plugins wiki page.
+        /// </summary>
+        public string MvvmCrossPluginsWikiPage
+        {
+            get { return this.GetRegistryValue(string.Empty, "MvvmCrossPluginsWikiPage", "http://github.com/MvvmCross/MvvmCross/wiki/MvvmCross-plugins#existing-mvvmcross-plugins"); }
+            set { this.SetRegistryValue(string.Empty, "MvvmCrossPluginsWikiPage", value); }
         }
 
         /// <summary>

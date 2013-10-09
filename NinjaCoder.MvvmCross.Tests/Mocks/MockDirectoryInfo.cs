@@ -3,7 +3,6 @@
 //    Defines the MockDirectoryInfo type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Tests.Mocks
 {
     using System;

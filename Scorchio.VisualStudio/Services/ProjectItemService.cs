@@ -143,9 +143,14 @@ namespace Scorchio.VisualStudio.Services
         /// Implements the code snippet.
         /// </summary>
         /// <param name="codeSnippet">The code snippet.</param>
-        public void ImplementCodeSnippet(CodeSnippet codeSnippet)
+        /// <param name="formatFunctionParameters">if set to <c>true</c> [format function parameters].</param>
+        public void ImplementCodeSnippet(
+            CodeSnippet codeSnippet,
+            bool formatFunctionParameters)
         {
-            this.projectItem.ImplementCodeSnippet(codeSnippet);
+            this.projectItem.ImplementCodeSnippet(
+                codeSnippet,
+                formatFunctionParameters);
         }
 
         /// <summary>
@@ -155,13 +160,17 @@ namespace Scorchio.VisualStudio.Services
         /// <param name="codeFile">The code file.</param>
         /// <param name="removeHeader">if set to <c>true</c> [remove header].</param>
         /// <param name="removeComments">if set to <c>true</c> [remove comments].</param>
+        /// <param name="formatFunctionParameters">if set to <c>true</c> [format function parameters].</param>
         public void ImplementUnitTestingCodeSnippet(
             CodeSnippet codeSnippet,
             string codeFile,
             bool removeHeader,
-            bool removeComments)
+            bool removeComments,
+            bool formatFunctionParameters)
         {
-            this.ImplementCodeSnippet(codeSnippet);
+            this.ImplementCodeSnippet(
+                codeSnippet,
+                formatFunctionParameters);
 
             //// add in the reference to the plugin - doing this way means we don't need it in the xml files
             codeSnippet.UsingStatements.Add(codeFile);

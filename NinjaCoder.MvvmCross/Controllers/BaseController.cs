@@ -5,13 +5,13 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
+    using System.Collections.Generic;
     using Constants;
     using EnvDTE;
     using EnvDTE80;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
     using Services.Interfaces;
-    using System.Collections.Generic;
 
     /// <summary>
     ///  Defines the BaseController type.
@@ -235,6 +235,9 @@ namespace NinjaCoder.MvvmCross.Controllers
             {
                 TraceService.WriteError("BaseController::ShowReadMe Cannot open file :-" + readMePath);
             }
+
+            //// reset the messages - if we don't do this we get the previous messages!
+            this.readmeLines = new List<string>();
         }
     }
 }

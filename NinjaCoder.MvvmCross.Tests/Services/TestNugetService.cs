@@ -69,6 +69,10 @@ namespace NinjaCoder.MvvmCross.Tests.Services
                     },
             };
 
+            Mock<IProjectService> mockProjectService = new Mock<IProjectService>();
+
+            this.mockVisualStudioService.Setup(x => x.GetProjectServiceBySuffix(It.IsAny<string>())).Returns(mockProjectService.Object);
+
             string commands = this.service.GetNugetCommands(this.mockVisualStudioService.Object, templateInfos);
 
             Assert.IsTrue(commands == "1\r\n2\r\n3\r\n4\r\n");

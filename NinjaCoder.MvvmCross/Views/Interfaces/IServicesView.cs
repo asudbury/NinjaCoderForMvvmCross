@@ -16,6 +16,11 @@ namespace NinjaCoder.MvvmCross.Views.Interfaces
         string ImplementInViewModel { get; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [use nuget].
+        /// </summary>
+        bool UseNuget { get; set; }
+
+        /// <summary>
         /// Gets a value indicating whether [include unit tests].
         /// </summary>
         bool IncludeUnitTests { get; }

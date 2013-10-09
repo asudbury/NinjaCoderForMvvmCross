@@ -17,6 +17,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Gets the nuget commands.
         /// </summary>
+        /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="templates">The templates.</param>
         /// <returns>The nuget commands.</returns>
         string GetNugetCommands(
@@ -31,6 +32,21 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
 
         /// <summary>
         /// Executes the specified commands.
+        /// </summary>
+        /// <param name="visualStudioService">The visual studio service.</param>
+        /// <param name="readMePath">The read me path.</param>
+        /// <param name="commands">The commands.</param>
+        /// <param name="resumeReSharper">if set to <c>true</c> [resume re sharper].</param>
+        /// <param name="setupEventHandlers">if set to <c>true</c> [setup event handlers].</param>
+        void Execute(
+            IVisualStudioService visualStudioService,
+            string readMePath,
+            List<string> commands,
+            bool resumeReSharper,
+            bool setupEventHandlers = true);
+
+        /// <summary>
+        /// Executes the specified visual studio service.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="readMePath">The read me path.</param>

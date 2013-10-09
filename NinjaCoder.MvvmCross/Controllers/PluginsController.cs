@@ -5,14 +5,17 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.IO.Abstractions;
+    using System.Linq;
+    using System.Windows.Forms;
     using Constants;
     using Entities;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
     using Services.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using System.Windows.Forms;
     using Translators;
     using Views.Interfaces;
 
@@ -21,6 +24,11 @@ namespace NinjaCoder.MvvmCross.Controllers
     /// </summary>
     public class PluginsController : BaseController
     {
+        /// <summary>
+        /// The file system.
+        /// </summary>
+        private readonly IFileSystem fileSystem;
+
         /// <summary>
         /// The plugins service.
         /// </summary>
@@ -34,11 +42,12 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <summary>
         /// The translator.
         /// </summary>
-        private readonly ITranslator<string, Plugins> translator;
+        private readonly ITranslator<DirectoryInfoBase, Plugins> translator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PluginsController" /> class.
         /// </summary>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="pluginsService">The plugins service.</param>
         /// <param name="nugetService">The nuget service.</param>
         /// <param name="visualStudioService">The visual studio service.</param>
@@ -49,6 +58,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="formsService">The forms service.</param>
         /// <param name="translator">The translator.</param>
         public PluginsController(
+            IFileSystem fileSystem,
             IPluginsService pluginsService,
             INugetService nugetService,
             IVisualStudioService visualStudioService,
@@ -57,7 +67,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             IMessageBoxService messageBoxService,
             IDialogService dialogService,
             IFormsService formsService,
-            ITranslator<string, Plugins> translator)
+            ITranslator<DirectoryInfoBase, Plugins> translator)
             : base(
             visualStudioService, 
             readMeService, 
@@ -68,6 +78,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("PluginsController::Constructor");
 
+            this.fileSystem = fileSystem;
             this.pluginsService = pluginsService;
             this.nugetService = nugetService;
             this.translator = translator;
@@ -82,10 +93,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             //// we open the nuget package manager console so we don't have
             //// a wait condition later!
-            if (this.SettingsService.UseNugetForPlugins)
-            {
-                this.nugetService.OpenNugetWindow(this.VisualStudioService);
-            }
+            this.nugetService.OpenNugetWindow(this.VisualStudioService);
 
             if (this.VisualStudioService.IsMvvmCrossSolution)
             {
@@ -95,7 +103,9 @@ namespace NinjaCoder.MvvmCross.Controllers
                 {
                     IEnumerable<string> viewModelNames = projectService.GetFolderItems("ViewModels", false);
 
-                    Plugins plugins = this.translator.Translate(this.SettingsService.CorePluginsPath);
+                    DirectoryInfoBase directoryInfoBase = this.fileSystem.DirectoryInfo.FromDirectoryName(this.SettingsService.CorePluginsPath);
+
+                    Plugins plugins = this.translator.Translate(directoryInfoBase);
 
                     IPluginsView view = this.FormsService.GetPluginsForm(this.SettingsService, viewModelNames, plugins);
 
@@ -148,14 +158,12 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                 this.VisualStudioService.DTEService.SaveAll();
 
-                if (this.SettingsService.UseNugetForPlugins)
+                if (this.pluginsService.NugetCommands.Any())
                 {
-                    string nugetCommands = string.Join(Environment.NewLine, this.pluginsService.NugetCommands);
-
                     this.nugetService.Execute(
                         this.VisualStudioService,
                         this.GetReadMePath(),
-                        nugetCommands,
+                        this.pluginsService.NugetCommands,
                         this.SettingsService.SuspendReSharperDuringBuild);
 
                     this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NugetDownload);

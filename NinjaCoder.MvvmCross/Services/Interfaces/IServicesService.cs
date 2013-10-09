@@ -15,6 +15,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     public interface IServicesService
     {
         /// <summary>
+        /// Gets the nuget commands.
+        /// </summary>
+        List<string> NugetCommands { get; }
+
+        /// <summary>
         /// Adds the services.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>

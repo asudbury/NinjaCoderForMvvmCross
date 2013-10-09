@@ -61,8 +61,18 @@ namespace NinjaCoder.MvvmCross.Views.Interfaces
         bool UseNugetForPlugins { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [use nuget for services].
+        /// </summary>
+        bool UseNugetForServices { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [suspend re sharper during build].
         /// </summary>
         bool SuspendReSharperDuringBuild { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [format function parameters].
+        /// </summary>
+        bool FormatFunctionParameters { get; set; }
     }
 }

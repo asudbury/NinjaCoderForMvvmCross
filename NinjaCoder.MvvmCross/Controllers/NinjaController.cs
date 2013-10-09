@@ -3,9 +3,11 @@
 //    Defines the NinjaController type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace NinjaCoder.MvvmCross.Controllers
 {
     using System.Collections.Generic;
+    using System.IO;
     using System.IO.Abstractions;
     using System.Reflection;
     using Entities;
@@ -193,7 +195,8 @@ namespace NinjaCoder.MvvmCross.Controllers
                 //// register the types that aren't auto-registered by TinyIoC.
                 container.Register<ITranslator<string, CodeConfig>>(new CodeConfigTranslator());
                 container.Register<ITranslator<string, CodeSnippet>>(new CodeSnippetTranslator());
-                container.Register<ITranslator<string, Plugins>>(new PluginsTranslator());
+                container.Register<ITranslator<FileInfoBase, Plugin>>(new PluginTranslator());
+                container.Register<ITranslator<DirectoryInfoBase, Plugins>>(new PluginsTranslator(new PluginTranslator()));
 
                 container.Register<IFileSystem>(new FileSystem());
 

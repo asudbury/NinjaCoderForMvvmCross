@@ -3,16 +3,14 @@
 //    Defines the FormsService type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
-using NinjaCoder.MvvmCross.Views.Interfaces;
-
 namespace NinjaCoder.MvvmCross.Services
 {
+    using System.Collections.Generic;
     using Entities;
     using Interfaces;
     using Scorchio.VisualStudio.Entities;
-    using System.Collections.Generic;
     using Views;
+    using Views.Interfaces;
 
     /// <summary>
     ///  Defines the FormsService type.
@@ -20,14 +18,14 @@ namespace NinjaCoder.MvvmCross.Services
     public class FormsService : IFormsService
     {
         /// <summary>
-        /// Gets the solution options form.
+        /// Gets the projects options form.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="defaultProjectsLocation">The default projects location.</param>
         /// <param name="defaultProjectName">Default name of the project.</param>
         /// <param name="projectInfos">The project infos.</param>
         /// <returns>the solution options form.</returns>
-        public IProjectsView GetSolutionOptionsForm(
+        public IProjectsView GetProjectsForm(
             ISettingsService settingsService, 
             string defaultProjectsLocation, 
             string defaultProjectName, 
@@ -43,11 +41,19 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the view model options view.
         /// </summary>
+        /// <param name="settingsService">The settings service.</param>
         /// <param name="itemTemplateInfos">The item template infos.</param>
+        /// <param name="viewModelNames">The view model names.</param>
         /// <returns>The View Model Options view.</returns>
-        public IViewModelViewsView GetViewModelOptionsForm(IEnumerable<ItemTemplateInfo> itemTemplateInfos)
+        public IViewModelViewsView GetViewModelViewsForm(
+            ISettingsService settingsService, 
+            IEnumerable<ItemTemplateInfo> itemTemplateInfos,
+            IEnumerable<string> viewModelNames)
         {
-            return new ViewModelViewsForm(itemTemplateInfos);
+            return new ViewModelViewsForm(
+                settingsService,
+                itemTemplateInfos,
+                viewModelNames);
         }
 
         /// <summary>
@@ -74,7 +80,9 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="itemTemplateInfos">The item template infos.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <returns>The item templates form.</returns>
-        public IItemTemplatesView GetItemTemplatesForm(IEnumerable<ItemTemplateInfo> itemTemplateInfos, ISettingsService settingsService)
+        public IItemTemplatesView GetItemTemplatesForm(
+            IEnumerable<ItemTemplateInfo> itemTemplateInfos, 
+            ISettingsService settingsService)
         {
             return new ItemTemplatesForm(
                 itemTemplateInfos, 

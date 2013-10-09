@@ -23,6 +23,7 @@
   <ItemGroup>
     <Compile Include="CodeSnippets\CodeSnippetsPlugins.wxs" />
     <Compile Include="CodeSnippets\CodeSnippetsServices.wxs" />
+    <Compile Include="CodeSnippets\CodeSnippets.wxs" />
     <Compile Include="Config\Plugins.wxs" />
     <Compile Include="Config\Services.wxs" />
     <Compile Include="ItemTemplates\Converters.wxs" />

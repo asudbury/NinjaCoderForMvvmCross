@@ -18,6 +18,8 @@ namespace MvvmCross.LocationService.Services
         /// <returns>
         /// true or false.
         /// </returns>
-        bool TryGetLatestLocation(out double latitude, out double longitude);
+        bool TryGetLatestLocation(
+            out double latitude, 
+            out double longitude);
     }
 }

@@ -7,10 +7,8 @@ namespace NinjaCoder.MvvmCross.Presenters
 {
     using System.Collections.Generic;
     using System.Linq;
-
-    using Services.Interfaces;
-
     using Scorchio.VisualStudio.Entities;
+    using Services.Interfaces;
     using Views.Interfaces;
     using Settings = Properties.Settings;
 
@@ -113,7 +111,9 @@ namespace NinjaCoder.MvvmCross.Presenters
         /// </summary>
         /// <param name="projectName">Name of the project.</param>
         /// <param name="projectInfo">The project info.</param>
-        internal void GetRequiredTemplate(string projectName, ProjectTemplateInfo projectInfo)
+        internal void GetRequiredTemplate(
+            string projectName, 
+            ProjectTemplateInfo projectInfo)
         {
             projectInfo.Name = projectName + projectInfo.ProjectSuffix;
             projectInfo.UseNuget = this.view.UseNuget;

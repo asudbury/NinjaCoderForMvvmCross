@@ -74,9 +74,32 @@ namespace Scorchio.VisualStudio.Entities
         public string MockConstructorCode { get; set; }
 
         /// <summary>
+        /// Gets or sets the project.
+        /// </summary>
+        [XmlElement(ElementName = "Project")]
+        public string Project { get; set; }
+
+        /// <summary>
+        /// Gets or sets the class.
+        /// </summary>
+        [XmlElement(ElementName = "Class")]
+        public string Class { get; set; }
+
+        /// <summary>
+        /// Gets or sets the method.
+        /// </summary>
+        [XmlElement(ElementName = "Method")]
+        public string Method { get; set; }
+
+        /// <summary>
         /// Gets or sets the code.
         /// </summary>
         [XmlElement(ElementName = "Code")]
         public string Code { get; set; }
+
+        /// <summary>
+        /// Gets or sets the replacement variables.
+        /// </summary>
+        public List<KeyValuePair<string, string>> ReplacementVariables { get; set; }
     }
 }

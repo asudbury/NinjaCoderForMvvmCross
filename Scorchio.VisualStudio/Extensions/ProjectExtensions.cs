@@ -468,15 +468,18 @@ namespace Scorchio.VisualStudio.Extensions
             
             ProjectItem projectItem = instance.GetFolder(folderName);
 
-            IEnumerable<ProjectItem> projectItems = projectItem.GetSubProjectItems();
+            if (projectItem != null)
+            {
+                IEnumerable<ProjectItem> projectItems = projectItem.GetSubProjectItems();
 
-            if (withFileExtensions)
-            {
-                files.AddRange(projectItems.Select(item => item.Name));
-            }
-            else
-            {
-                files.AddRange(projectItems.Select(item => Path.GetFileNameWithoutExtension(item.Name)));
+                if (withFileExtensions)
+                {
+                    files.AddRange(projectItems.Select(item => item.Name));
+                }
+                else
+                {
+                    files.AddRange(projectItems.Select(item => Path.GetFileNameWithoutExtension(item.Name)));
+                }
             }
 
             return files;

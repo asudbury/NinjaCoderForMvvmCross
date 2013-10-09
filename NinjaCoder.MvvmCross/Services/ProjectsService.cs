@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.IO.Abstractions;
     using System.Linq;
@@ -13,7 +14,6 @@ namespace NinjaCoder.MvvmCross.Services
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
-    using System;
 
     /// <summary>
     ///  Defines the ProjectsService type.
@@ -24,11 +24,6 @@ namespace NinjaCoder.MvvmCross.Services
         /// The file system.
         /// </summary>
         protected readonly IFileSystem FileSystem;
-
-        /// <summary>
-        /// The messages.
-        /// </summary>
-        private readonly List<string> messages;
 
         /// <summary>
         /// The visual studio service.
@@ -42,7 +37,6 @@ namespace NinjaCoder.MvvmCross.Services
         public ProjectsService(IFileSystem fileSystem)
         {
             this.FileSystem = fileSystem;
-            this.messages = new List<string>();
         }
 
         /// <summary>
@@ -65,19 +59,22 @@ namespace NinjaCoder.MvvmCross.Services
             
             TraceService.WriteLine(message);
 
+            //// reset the messages.
+            this.Messages = new List<string>();
+
             this.visualStudioService = visualStudioServiceInstance;
 
             IProjectService firstProjectService = null;
             
             foreach (ProjectTemplateInfo projectInfo in projectsInfos)
             {
-                //// addin the nuget messages.
+                //// add in the nuget messages.
                 if (firstProjectService == null && 
                     projectInfo.UseNuget)
                 {
-                    this.messages.Add(NinjaMessages.MvxViaNuget);
-                    this.messages.Add(NinjaMessages.PmConsole);
-                    this.messages.Add(string.Empty);
+                    this.Messages.Add(NinjaMessages.MvxViaNuget);
+                    this.Messages.Add(NinjaMessages.PmConsole);
+                    this.Messages.Add(string.Empty);
                 }
 
                 firstProjectService = this.TryToAddProject(
@@ -88,7 +85,7 @@ namespace NinjaCoder.MvvmCross.Services
                     firstProjectService);
             }
 
-            return this.messages;
+            return this.Messages;
         }
 
         /// <summary>
@@ -153,9 +150,8 @@ namespace NinjaCoder.MvvmCross.Services
                     this.DeleteLibFolder(projectInfo);
                 }
 
-                this.messages.Add(projectInfo.Name + " project successfully added.");
+                this.Messages.Add(projectInfo.Name + " project successfully added.");
             }
-
             catch (Exception exception)
             {
                 TraceService.WriteError("error adding project " + projectPath + " exception=" + exception.Message);

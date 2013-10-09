@@ -76,7 +76,7 @@
             this.textBoxProject.Size = new System.Drawing.Size(292, 22);
             this.textBoxProject.TabIndex = 4;
             this.textBoxProject.TextChanged += new System.EventHandler(this.TextBoxProjectTextChanged);
-            this.textBoxProject.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxProjectKeyDown);
+
             // 
             // label4
             // 

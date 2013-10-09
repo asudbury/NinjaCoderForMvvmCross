@@ -126,5 +126,15 @@ namespace NinjaCoder.MvvmCross.Views
         {
             this.checkBoxIncludeUnitTests.Visible = (string)this.comboBoxViewModel.SelectedItem != string.Empty;
         }
+
+        /// <summary>
+        /// Links the label link clicked.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="LinkLabelLinkClickedEventArgs"/> instance containing the event data.</param>
+        private void LinkLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Presenter.ShowMvvmCrossPluginsWikiPage();
+        }
     }
 }

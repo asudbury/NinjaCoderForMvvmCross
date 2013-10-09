@@ -6,62 +6,46 @@
 namespace NinjaCoder.MvvmCross.Translators
 {
     using System.Collections.Generic;
-    using System.IO;
-    using Entities;
+    using System.IO.Abstractions;
 
-    using NinjaCoder.MvvmCross.Constants;
+    using Entities;
 
     /// <summary>
     /// Defines the PluginsTranslator type.
     /// </summary>
-    public class PluginsTranslator : ITranslator<string, Plugins>
+    public class PluginsTranslator : ITranslator<DirectoryInfoBase, Plugins>
     {
+        /// <summary>
+        /// The translator.
+        /// </summary>
+        private readonly ITranslator<FileInfoBase, Plugin> translator;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PluginsTranslator" /> class.
+        /// </summary>
+        /// <param name="translator">The translator.</param>
+        public PluginsTranslator(ITranslator<FileInfoBase, Plugin> translator)
+        {
+            this.translator = translator;
+        }
+
         /// <summary>
         /// Translates the specified from.
         /// </summary>
         /// <param name="from">From object.</param>
         /// <returns>An instance of Plugins</returns>
-        public Plugins Translate(string @from)
+        public Plugins Translate(DirectoryInfoBase @from)
         {
-            if (Directory.Exists(from))
-            {
-                Plugins plugins = new Plugins { Items = new List<Plugin>() };
+            Plugins plugins = new Plugins { Items = new List<Plugin>() };
 
-                string[] files = Directory.GetFiles(from);
+            FileInfoBase[] files = from.GetFiles("*.*");
                 
-                foreach (string filePath in files)
-                {
-                    plugins.Items.Add(this.GetPlugin(filePath));
-                }
-
-                return plugins;
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Gets the plugin.
-        /// </summary>
-        /// <param name="filePath">The file path.</param>
-        /// <returns>The plugin.</returns>
-        public Plugin GetPlugin(string filePath)
-        {
-            FileInfo fileInfo = new FileInfo(filePath);
-
-            string name = Path.GetFileNameWithoutExtension(fileInfo.Name);
-
-            if (string.IsNullOrEmpty(name) == false)
+            foreach (FileInfoBase fileInfo in files)
             {
-                return new Plugin
-                {
-                    FriendlyName = name.Replace(Settings.PluginsAssemblyPrefix, string.Empty),
-                    FileName = fileInfo.Name,
-                    Source = fileInfo.FullName
-                };
+                plugins.Items.Add(this.translator.Translate(fileInfo));
             }
 
-            return null;
+            return plugins;
         }
     }
 }

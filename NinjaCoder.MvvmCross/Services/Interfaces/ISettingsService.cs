@@ -46,6 +46,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         bool UseNugetForPlugins { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [use nuget for services].
+        /// </summary>
+        bool UseNugetForServices { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [suspend re sharper during build].
         /// </summary>
         bool SuspendReSharperDuringBuild { get; set; }
@@ -114,5 +119,40 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets the unit testing init method.
         /// </summary>
         string UnitTestingInitMethod { get; }
-    }
+
+        /// <summary>
+        /// Gets the name of the base view model.
+        /// </summary>
+        string BaseViewModelName { get; }
+
+        /// <summary>
+        /// Gets the view model navigation snippet file.
+        /// </summary>
+        string ViewModelNavigationSnippetFile { get; }
+
+        /// <summary>
+        /// Gets the snippets override directory.
+        /// </summary>
+        string SnippetsOverrideDirectory { get; }
+
+        /// <summary>
+        /// Gets the configs override directory.
+        /// </summary>
+        string ConfigsOverrideDirectory { get; }
+
+        /// <summary>
+        /// Gets or sets a value if function parameters need formatting on to seperate lines.
+        /// </summary>
+        bool FormatFunctionParameters { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [replace variables in snippets].
+        /// </summary>
+        bool ReplaceVariablesInSnippets { get; }
+
+        /// <summary>
+        /// Gets or sets the MVVM cross plugins wiki page.
+        /// </summary>
+        string MvvmCrossPluginsWikiPage { get; set; }
+     }
 }

@@ -5,14 +5,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Windows.Forms;
     using Constants;
     using EnvDTE;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
-    using Scorchio.VisualStudio.Services.Interfaces;
     using Services.Interfaces;
-    using System.Collections.Generic;
-    using System.Windows.Forms;
     using Views.Interfaces;
 
     /// <summary>
@@ -21,8 +21,14 @@ namespace NinjaCoder.MvvmCross.Controllers
     public class ViewModelViewsController : BaseController
     {
         /// <summary>
+        /// The view model views service.
+        /// </summary>
+        private readonly IViewModelViewsService viewModelViewsService;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ViewModelViewsController" /> class.
         /// </summary>
+        /// <param name="viewModelViewsService">The view model views service.</param>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="readMeService">The read me service.</param>
         /// <param name="settingsService">The settings service.</param>
@@ -30,6 +36,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="dialogService">The dialog service.</param>
         /// <param name="formsService">The forms service.</param>
         public ViewModelViewsController(
+            IViewModelViewsService viewModelViewsService,
             IVisualStudioService visualStudioService,
             IReadMeService readMeService,
             ISettingsService settingsService,
@@ -45,6 +52,8 @@ namespace NinjaCoder.MvvmCross.Controllers
             formsService)
         {
             TraceService.WriteLine("ViewModelAndViewsController::Constructor");
+
+            this.viewModelViewsService = viewModelViewsService;
         }
 
         /// <summary>
@@ -58,13 +67,27 @@ namespace NinjaCoder.MvvmCross.Controllers
             {
                 List<ItemTemplateInfo> templateInfos = this.VisualStudioService.AllowedItemTemplates;
 
-                IViewModelViewsView view = this.FormsService.GetViewModelOptionsForm(templateInfos);
+                IEnumerable<string> viewModelNames = this.VisualStudioService.CoreProjectService.GetFolderItems("ViewModels", false);
+                
+                //// we don't want the base view model - probably a better way of doing this!
+
+                IEnumerable<string> exceptViewModelName = new List<string> { this.SettingsService.BaseViewModelName };
+
+                IViewModelViewsView view = this.FormsService.GetViewModelViewsForm(
+                    this.SettingsService,
+                    templateInfos, 
+                    viewModelNames.Except(exceptViewModelName));
 
                 DialogResult result = this.DialogService.ShowDialog(view as Form);
 
                 if (result == DialogResult.OK)
                 {
-                    this.Process(view.Presenter.GetRequiredItemTemplates(), view.ViewModelName);
+                    this.Process(
+                        view.Presenter.GetRequiredItemTemplates(), 
+                        view.ViewModelName,
+                        view.IncludeUnitTests,
+                        view.ViewModelInitiatedFrom,
+                        view.ViewModelToNavigateTo);
                 }
             }
             else
@@ -78,9 +101,15 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         /// <param name="templateInfos">The template infos.</param>
         /// <param name="viewModelName">Name of the view model.</param>
+        /// <param name="addUnitTests">if set to <c>true</c> [add unit tests].</param>
+        /// <param name="viewModelInitiateFrom">The view model initiate from.</param>
+        /// <param name="viewModelNavigateTo">The view model navigate to.</param>
         internal void Process(
             IEnumerable<ItemTemplateInfo> templateInfos, 
-            string viewModelName)
+            string viewModelName,
+            bool addUnitTests,
+            string viewModelInitiateFrom,
+            string viewModelNavigateTo)
         {
             TraceService.WriteLine("ViewModelAndViewsController::Process");
 
@@ -89,10 +118,14 @@ namespace NinjaCoder.MvvmCross.Controllers
             ProjectItemsEvents cSharpProjectItemsEvents = this.VisualStudioService.DTEService.GetCSharpProjectItemsEvents();
             cSharpProjectItemsEvents.ItemAdded += this.ProjectItemsEventsItemAdded;
 
-            IEnumerable<string> messages = this.VisualStudioService.SolutionService.AddItemTemplateToProjects(templateInfos, true);
-
-            //// we now need to amend code in the unit test file that references FirstViewModel to this ViewModel
-            this.UpdateUnitTestFile(viewModelName);
+            IEnumerable<string> messages = this.viewModelViewsService.AddViewModelAndViews(
+                this.VisualStudioService.CoreProjectService,
+                this.VisualStudioService,
+                templateInfos,
+                viewModelName,
+                addUnitTests,
+                viewModelInitiateFrom,
+                viewModelNavigateTo);
 
             cSharpProjectItemsEvents.ItemAdded -= this.ProjectItemsEventsItemAdded;
 
@@ -102,29 +135,6 @@ namespace NinjaCoder.MvvmCross.Controllers
             this.ShowReadMe("Add ViewModel and Views", messages);
 
             this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.ViewModelAndViewsCompleted);
-        }
-
-        /// <summary>
-        /// Updates the unit test file.
-        /// </summary>
-        /// <param name="viewModelName">Name of the view model.</param>
-        internal void UpdateUnitTestFile(string viewModelName)
-        {
-            TraceService.WriteLine("ViewModelAndViewsController::UpdateUnitTestFile ViewModelName=" + viewModelName);
-
-            IProjectService testProjectService = this.VisualStudioService.CoreTestsProjectService;
-
-            if (testProjectService != null)
-            {
-                IProjectItemService projectItemService = testProjectService.GetProjectItem("Test" + viewModelName);
-
-                if (projectItemService != null)
-                {
-                    projectItemService.ReplaceText("CoreTemplate.", "Core.");
-                    projectItemService.ReplaceText("FirstViewModel", viewModelName);
-                    projectItemService.ReplaceText("firstViewModel",  viewModelName.Substring(0, 1).ToLower() + viewModelName.Substring(1));
-                }
-            }
         }
     }
 }

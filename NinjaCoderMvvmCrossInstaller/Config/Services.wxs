@@ -18,6 +18,22 @@
             Source="$(var.ITEM_TEMPLATES_DIR)\Core\Config\Services\Config.LocationService.xml" Vital="yes" KeyPath="no" >
           <CopyFile Id="Config1" DestinationDirectory="ConfigServices"/>
         </File>
+
+        <File Id="Config2" Name="Config.SqliteDataService.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\Core\Config\Services\Config.SqliteDataService.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Config2" DestinationDirectory="ConfigServices"/>
+        </File>
+
+        <File Id="Config3" Name="Config.WebRequestService.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\Core\Config\Services\Config.WebRequestService.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Config3" DestinationDirectory="ConfigServices"/>
+        </File>
+
+        <File Id="Config4" Name="Config.DropBoxService.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\Core\Config\Services\Config.DropBoxService.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Config4" DestinationDirectory="ConfigServices"/>
+        </File>
+        
       </Component>
     </ComponentGroup>
 	</Fragment>

@@ -5,10 +5,17 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
+    using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.IO.Abstractions;
+    using Constants;
+    using Entities;
     using EnvDTE;
     using Interfaces;
+
+    using NinjaCoder.MvvmCross.Exceptions;
+
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
@@ -21,6 +28,21 @@ namespace NinjaCoder.MvvmCross.Services
     public class ServicesService : BaseCodeService, IServicesService
     {
         /// <summary>
+        /// The plugin translator.
+        /// </summary>
+        private readonly ITranslator<FileInfoBase, Plugin> pluginTranslator;
+
+        /// <summary>
+        /// The plugins service.
+        /// </summary>
+        private readonly IPluginsService pluginsService;
+
+        /// <summary>
+        /// The message box service.
+        /// </summary>
+        private readonly IMessageBoxService messageBoxService;
+
+        /// <summary>
         /// The template being added.
         /// </summary>
         private string templateName = string.Empty;
@@ -28,18 +50,28 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="ServicesService" /> class.
         /// </summary>
-        /// <param name="translator">The translator.</param>
+        /// <param name="pluginTranslator">The plugin translator.</param>
+        /// <param name="codeConfigTranslator">The code config translator.</param>
         /// <param name="fileSystem">The file system.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="snippetService">The snippet service.</param>
+        /// <param name="pluginsService">The plugins service.</param>
+        /// <param name="messageBoxService">The message box service.</param>
         public ServicesService(
-            ITranslator<string, CodeConfig> translator,
+            ITranslator<FileInfoBase, Plugin> pluginTranslator,
+            ITranslator<string, CodeConfig> codeConfigTranslator,
             IFileSystem fileSystem, 
             ISettingsService settingsService,
-            ISnippetService snippetService)
-            : base(translator, fileSystem, settingsService, snippetService)
+            ISnippetService snippetService,
+            IPluginsService pluginsService,
+            IMessageBoxService messageBoxService)
+            : base(codeConfigTranslator, fileSystem, settingsService, snippetService)
         {
             TraceService.WriteLine("ServicesService::Constructor");
+
+            this.pluginTranslator = pluginTranslator;
+            this.pluginsService = pluginsService;
+            this.messageBoxService = messageBoxService;
         }
 
         /// <summary>
@@ -57,7 +89,10 @@ namespace NinjaCoder.MvvmCross.Services
             bool createUnitTests)
         {
             TraceService.WriteLine("ServicesService::AddServices");
-            
+
+            //// reset the messages.
+            this.Messages = new List<string>();
+
             IProjectService coreProjectService = visualStudioService.CoreProjectService;
 
             ProjectItemsEvents cSharpProjectItemsEvents = visualStudioService.DTEService.GetCSharpProjectItemsEvents();
@@ -66,80 +101,266 @@ namespace NinjaCoder.MvvmCross.Services
             foreach (ItemTemplateInfo itemTemplateInfo in itemTemplateInfos)
             {
                 this.templateName = itemTemplateInfo.FriendlyName;
-                
-                this.AddService(coreProjectService, this.SettingsService.ConfigPath, itemTemplateInfo);
-            }
 
+                try
+                {
+                    this.AddService(
+                        visualStudioService,
+                        coreProjectService, 
+                        this.SettingsService.ConfigPath, 
+                        itemTemplateInfo);
+                }
+                catch (NinjaCoderServiceException exception)
+                {
+                   this.Messages.Add("Unable to add Services.");
+
+                   string message = string.Format(
+                        "{0} {1} {2}", 
+                        exception.NinjaMessage, 
+                        exception.FolderName, 
+                        exception.FileName);
+                   
+                   this.Messages.Add(message);
+
+                   TraceService.WriteError("ServicesService::AddServices " + message);
+                   return this.Messages;
+                }
+            }
+            
             //// do we want to implement in a view model?
             if (string.IsNullOrEmpty(viewModelName) == false)
             {
-                IProjectItemService testProjectItemService = null;
-                IProjectItemService projectItemService = coreProjectService.GetProjectItem(viewModelName);
-
-                if (projectItemService.ProjectItem != null)
-                {
-                    foreach (ItemTemplateInfo itemTemplateInfo in itemTemplateInfos)
-                    {
-                        testProjectItemService = this.CreateSnippet(
-                            visualStudioService,
-                            viewModelName,
-                            this.SettingsService.CodeSnippetsPath + @"\Services",
-                            createUnitTests,
-                            coreProjectService,
-                            projectItemService,
-                            itemTemplateInfo);
-                    }
-
-                    projectItemService.FixUsingStatements();
-
-                    //// also only do once for the unit test file.
-                    if (createUnitTests && testProjectItemService != null)
-                    {
-                        testProjectItemService.FixUsingStatements();
-                    }
-                }
+                this.AddServicesToViewModel(
+                    visualStudioService, 
+                    itemTemplateInfos, 
+                    viewModelName, 
+                    createUnitTests, 
+                    coreProjectService);
 
                 //// remove event handler.
                 cSharpProjectItemsEvents.ItemAdded -= this.ProjectItemsEventsItemAdded;
             }
 
+            //// remove the globals.
+            this.RemoveGlobals(visualStudioService);
+
             return this.Messages;
+        }
+
+        /// <summary>
+        /// Adds the services to view model.
+        /// </summary>
+        /// <param name="visualStudioService">The visual studio service.</param>
+        /// <param name="itemTemplateInfos">The item template infos.</param>
+        /// <param name="viewModelName">Name of the view model.</param>
+        /// <param name="createUnitTests">if set to <c>true</c> [create unit tests].</param>
+        /// <param name="coreProjectService">The core project service.</param>
+        internal void AddServicesToViewModel(
+            IVisualStudioService visualStudioService,
+            IEnumerable<ItemTemplateInfo> itemTemplateInfos,
+            string viewModelName,
+            bool createUnitTests,
+            IProjectService coreProjectService)
+        {
+            IProjectItemService testProjectItemService = null;
+            IProjectItemService projectItemService = coreProjectService.GetProjectItem(viewModelName);
+
+            if (projectItemService.ProjectItem != null)
+            {
+                foreach (ItemTemplateInfo itemTemplateInfo in itemTemplateInfos)
+                {
+                    testProjectItemService = this.CreateSnippet(
+                        visualStudioService,
+                        viewModelName,
+                        this.SettingsService.CodeSnippetsPath + @"\Services",
+                        createUnitTests,
+                        coreProjectService,
+                        projectItemService,
+                        itemTemplateInfo);
+                }
+
+                projectItemService.FixUsingStatements();
+
+                //// also only do once for the unit test file.
+                if (createUnitTests && testProjectItemService != null)
+                {
+                    testProjectItemService.FixUsingStatements();
+                }
+            }
         }
 
         /// <summary>
         /// Adds the service.
         /// </summary>
+        /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="projectService">The project service.</param>
         /// <param name="templatesPath">The templates path.</param>
         /// <param name="templateInfo">The template info.</param>
-        internal void AddService(
+        /// <returns>True or false.</returns>
+        internal bool AddService(
+            IVisualStudioService visualStudioService,
             IProjectService projectService,
             string templatesPath,
             ItemTemplateInfo templateInfo)
         {
             TraceService.WriteLine("ServicesService::AddServices adding from template path " + templatesPath + " template=" + templateInfo.FileName);
 
+            this.InitNuget(NinjaMessages.ServicesViaNuget);
+
             string fileName = templateInfo.FriendlyName + ".cs";
 
-            projectService.AddToFolderFromTemplate("Services", templateInfo.FileName, fileName, false);
-
-            string configFile = string.Format(@"{0}\Services\Config.{1}.xml", this.SettingsService.ConfigPath, templateInfo.FriendlyName);
-
-            if (this.FileSystem.File.Exists(configFile))
+            try
             {
-                CodeConfig codeConfig = this.Translator.Translate(configFile);
+                projectService.AddToFolderFromTemplate("Services", templateInfo.FileName, fileName, false);
 
-                if (codeConfig != null)
+                string configFile = string.Format(@"{0}\Services\Config.{1}.xml", this.SettingsService.ConfigPath, templateInfo.FriendlyName);
+
+                if (this.FileSystem.File.Exists(configFile))
                 {
-                    string sourceDirectory = this.SettingsService.CorePluginsPath;
+                    this.ProcessConfig(
+                        visualStudioService,
+                        projectService,
+                        configFile);
+                }
 
+                return true;
+            }
+            catch (Exception exception)
+            {
+                string message = "AddToFolderFromTemplate error:-" + exception.Message;
+
+                TraceService.WriteError(message);
+                this.messageBoxService.Show(message, "Ninja Code for MvvmCross - Add Service");
+
+                throw new NinjaCoderServiceException
+                {
+                    NinjaMessage = "Ninja exception :-" + message,
+                    FileName = templateInfo.FileName,
+                    FolderName = templateInfo.FolderName
+                };
+            }
+        }
+
+        /// <summary>
+        /// Processes the config.
+        /// </summary>
+        /// <param name="visualStudioService">The visual studio service.</param>
+        /// <param name="projectService">The project service.</param>
+        /// <param name="configFile">The config file.</param>
+        internal void ProcessConfig(
+            IVisualStudioService visualStudioService,
+            IProjectService projectService, 
+            string configFile)
+        {
+            TraceService.WriteLine("ServicesService::ProcessConfig");
+
+            CodeConfig codeConfig = this.Translator.Translate(configFile);
+
+            if (codeConfig != null)
+            {
+                //// do we have any dependent plugins?
+                if (codeConfig.DependentPlugins != null)
+                {
+                    foreach (string dependentPlugin in codeConfig.DependentPlugins)
+                    {
+                        List<Plugin> plugins = new List<Plugin>();
+
+                        string source = this.SettingsService.CorePluginsPath + dependentPlugin;
+
+                        //// append dll if its missing.
+                        if (source.ToLower().EndsWith(".dll") == false)
+                        {
+                            source += ".dll";
+                        }
+                        
+                        FileInfo fileInfo = new FileInfo(source);
+                        
+                        Plugin plugin = this.pluginTranslator.Translate(fileInfo);
+                        
+                        plugins.Add(plugin);
+
+                        this.pluginsService.AddPlugins(
+                            visualStudioService, 
+                            plugins, 
+                            string.Empty, 
+                            false);
+                    }
+                }
+
+                string sourceDirectory = this.SettingsService.CorePluginsPath;
+
+                //// don't need to add reference if we are going to use nuget.
+                if (this.SettingsService.UseNugetForServices == false)
+                {
                     foreach (string reference in codeConfig.References)
                     {
                         projectService.AddReference(
                             "Lib",
-                            projectService.GetProjectPath() + @"\Lib\" + reference, 
+                            projectService.GetProjectPath() + @"\Lib\" + reference,
                             sourceDirectory + @"\" + reference,
                             this.SettingsService.IncludeLibFolderInProjects);
+                    }
+                }
+
+                //// if we want to add via nuget then generate the command.
+                if (this.SettingsService.UseNugetForServices || 
+                    codeConfig.NugetInstallationMandatory == "Y")
+                {
+                    this.UpdateServiceViaNuget(projectService, codeConfig);
+                }
+
+                //// apply any code dependencies
+                this.ApplyCodeDependencies(visualStudioService, codeConfig);
+            }
+        }
+
+        /// <summary>
+        /// Applies the code dependencies.
+        /// </summary>
+        /// <param name="visualStudioService">The visual studio service.</param>
+        /// <param name="codeConfig">The code config.</param>
+        internal void ApplyCodeDependencies(
+            IVisualStudioService visualStudioService,
+            CodeConfig codeConfig)
+        {
+            TraceService.WriteLine("ServicesService::ApplyCodeDependencies");
+
+            //// apply any code dependencies
+            if (codeConfig.CodeDependencies != null)
+            {
+                foreach (CodeSnippet codeSnippet in codeConfig.CodeDependencies)
+                {
+                    //// find the project
+                    IProjectService projectService = visualStudioService.GetProjectServiceBySuffix(codeSnippet.Project);
+
+                    if (projectService != null)
+                    {
+                        //// find the class
+                        IProjectItemService projectItemService = projectService.GetProjectItem(codeSnippet.Class + ".cs");
+
+                        if (projectItemService != null)
+                        {
+                            //// find the method.
+                            CodeFunction codeFunction = projectItemService.GetFirstClass().GetFunction(codeSnippet.Method);
+
+                            if (codeFunction != null)
+                            {
+                                string code  = codeFunction.GetCode();
+
+                                if (code.Contains(codeSnippet.Code.Trim()) == false)
+                                {
+                                    codeFunction.InsertCode(codeSnippet.Code, true);
+
+                                    string message = string.Format(
+                                        "Code added to project {0} class {1} method {2}.",
+                                        projectService.Name,
+                                        codeSnippet.Class,
+                                        codeSnippet.Method);
+
+                                    this.Messages.Add(message);
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -208,7 +429,14 @@ namespace NinjaCoder.MvvmCross.Services
 
             if (codeSnippet != null)
             {
-                projectItemService.ImplementCodeSnippet(codeSnippet);
+                //// Do some variable substitution!!!!
+
+                if (this.SettingsService.ReplaceVariablesInSnippets)
+                {
+                    this.ApplyGlobals(visualStudioService, codeSnippet);
+                }
+
+                projectItemService.ImplementCodeSnippet(codeSnippet, this.SettingsService.FormatFunctionParameters);
 
                 this.Messages.Add(itemTemplateInfo.FriendlyName + " service code added to " + viewModelName + ".cs in project " + coreProjectService.Name + ".");
 
@@ -218,6 +446,7 @@ namespace NinjaCoder.MvvmCross.Services
                     string testSnippetPath = string.Format(@"{0}\Services.{1}.Tests.xml", codeSnippetsPath, itemTemplateInfo.FriendlyName);
 
                     IProjectItemService itemService = this.CreateUnitTests(
+                            visualStudioService,
                             visualStudioService.CoreTestsProjectService,
                             testSnippetPath,
                             viewModelName,
@@ -234,6 +463,21 @@ namespace NinjaCoder.MvvmCross.Services
             }
 
             return testProjectItemService;
+        }
+
+        /// <summary>
+        /// Updates the service via nuget.
+        /// </summary>
+        /// <param name="projectService">The project service.</param>
+        /// <param name="codeConfig">The code config.</param>
+        /// <returns>True if updated via nuget.</returns>
+        internal bool UpdateServiceViaNuget(
+            IProjectService projectService,
+            CodeConfig codeConfig)
+        {
+            TraceService.WriteLine("ServicesService::UpdateViaNuget");
+
+            return this.UpdateViaNuget(projectService, codeConfig);
         }
     }
 }

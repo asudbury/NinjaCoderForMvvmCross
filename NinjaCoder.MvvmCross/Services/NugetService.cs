@@ -49,11 +49,9 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the nuget commands.
         /// </summary>
-        /// <param name="visualStudioService"></param>
+        /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="templates">The templates.</param>
-        /// <returns>
-        /// The nuget commands.
-        /// </returns>
+        /// <returns>The nuget commands.</returns>
         public string GetNugetCommands(
             IVisualStudioService visualStudioService,
             IEnumerable<ProjectTemplateInfo> templates)
@@ -100,6 +98,33 @@ namespace NinjaCoder.MvvmCross.Services
 
         /// <summary>
         /// Executes the specified commands.
+        /// </summary>
+        /// <param name="visualStudioService">The visual studio service.</param>
+        /// <param name="readMePath">The read me path.</param>
+        /// <param name="commands">The commands.</param>
+        /// <param name="resumeReSharper">if set to <c>true</c> [resume re sharper].</param>
+        /// <param name="setupEventHandlers">if set to <c>true</c> [setup event handlers].</param>
+        public void Execute(
+            IVisualStudioService visualStudioService,
+            string readMePath,
+            List<string> commands,
+            bool resumeReSharper,
+            bool setupEventHandlers = true)
+        {
+            TraceService.WriteLine("NugetService::Execute");
+
+            string nugetCommands = string.Join(Environment.NewLine, commands);
+
+            this.Execute(
+                visualStudioService,
+                readMePath,
+                nugetCommands,
+                resumeReSharper,
+                setupEventHandlers);
+        }
+
+        /// <summary>
+        /// Executes the specified visual studio service.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="readMePath">The read me path.</param>
@@ -213,7 +238,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             TraceService.WriteLine("NugetService::NugetCompleted items to Delete=" + this.projectItemsToDelete.Count);
 
-            foreach (IProjectItemService projectItemService in projectItemsToDelete)
+            foreach (IProjectItemService projectItemService in this.projectItemsToDelete)
             {
                 TraceService.WriteLine("file to be deleted " + projectItemService.Name);
             }

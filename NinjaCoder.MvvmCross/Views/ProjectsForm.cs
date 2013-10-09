@@ -1,4 +1,4 @@
-﻿ // --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
 //    Defines the ProjectsForm type.
 // </summary>
@@ -7,14 +7,13 @@ namespace NinjaCoder.MvvmCross.Views
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Windows.Forms;
     using Interfaces;
-
-    using Services.Interfaces;
-
     using Presenters;
     using Scorchio.VisualStudio.Entities;
+    using Services.Interfaces;
 
     /// <summary>
     /// Defines the ProjectsForm type.
@@ -139,6 +138,8 @@ namespace NinjaCoder.MvvmCross.Views
         private void TextBoxProjectTextChanged(object sender, EventArgs e)
         {
             this.buttonOK.Enabled = this.textBoxProject.Text.Length > 0;
+            this.textBoxProject.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(this.textBoxProject.Text);
+            this.textBoxProject.SelectionStart = this.textBoxProject.Text.Length;
         }
         
         /// <summary>
@@ -178,22 +179,6 @@ namespace NinjaCoder.MvvmCross.Views
         {
             this.Close();
         }
-        
-        /// <summary>
-        /// Handles the KeyDown event of the textBoxProject control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
-        private void TextBoxProjectKeyDown(object sender, KeyEventArgs e)
-        {
-            if (this.textBoxProject.Text.Length > 0)
-            {
-                int start = this.textBoxProject.SelectionStart;
-
-                this.textBoxProject.Text = this.textBoxProject.Text.Substring(0, 1).ToUpper() + this.textBoxProject.Text.Substring(1);
-                this.textBoxProject.SelectionStart = start;
-            }
-        }
 
         /// <summary>
         /// Solutions the options form load.
@@ -204,6 +189,7 @@ namespace NinjaCoder.MvvmCross.Views
         {
             this.textBoxProject.Focus();
             this.textBoxProject.Select();
+            this.ActiveControl = this.textBoxProject;
         }
     }
 }

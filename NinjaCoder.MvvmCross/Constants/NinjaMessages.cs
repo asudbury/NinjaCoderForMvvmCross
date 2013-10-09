@@ -66,6 +66,11 @@ namespace NinjaCoder.MvvmCross.Constants
         public const string PluginsViaNuget = "You have opted to implement the plugins via Nuget.";
 
         /// <summary>
+        /// The services via nuget message.
+        /// </summary>
+        public const string ServicesViaNuget = "You have opted to implement the services (where applicable) via Nuget .";
+
+        /// <summary>
         /// The pm console message.
         /// </summary>
         public const string PmConsole = "Please check the Package Management Console for completion of Nuget integration.";

@@ -24,9 +24,29 @@ namespace Scorchio.VisualStudio.Entities
         public List<string> References { get; set; }
 
         /// <summary>
+        /// Gets or sets the nuget installation mandatory.
+        /// </summary>
+        [XmlElement(ElementName = "NugetInstallationMandatory")]
+        public string NugetInstallationMandatory { get; set; }
+
+        /// <summary>
         /// Gets or sets the nuget package.
         /// </summary>
         [XmlElement(ElementName = "NugetPackage")]
         public string NugetPackage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the dependent plugins.
+        /// </summary>
+        [XmlArray(ElementName = "DependentPlugins")]
+        [XmlArrayItem(ElementName = "DependentPlugin")]
+        public List<string> DependentPlugins { get; set; }
+
+        /// <summary>
+        /// Gets or sets the code dependencies.
+        /// </summary>
+        [XmlArray(ElementName = "CodeDependencies")]
+        [XmlArrayItem(ElementName = "CodeSnippet")]
+        public List<CodeSnippet> CodeDependencies { get; set; }
     }
 }

@@ -127,12 +127,30 @@ namespace NinjaCoder.MvvmCross.Views
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [use nuget for services].
+        /// </summary>
+        public bool UseNugetForServices
+        {
+            get { return this.checkBoxUseNugetForServices.Checked; }
+            set { this.checkBoxUseNugetForServices.Checked = value; }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [suspend re sharper during build].
         /// </summary>
         public bool SuspendReSharperDuringBuild
         {
             get { return this.checkBoxSuspendReSharper.Checked; }
             set { this.checkBoxSuspendReSharper.Checked = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [format function parameters].
+        /// </summary>
+        public bool FormatFunctionParameters 
+        {
+            get { return this.checkBoxFormatFunctionParameters.Checked; }
+            set { this.checkBoxFormatFunctionParameters.Checked = value; }
         }
 
         /// <summary>
