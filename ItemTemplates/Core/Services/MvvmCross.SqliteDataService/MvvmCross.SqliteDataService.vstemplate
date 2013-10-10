@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>MvvmCross.SqliteDataService</Name>
+    <Description>MvvmCross.SqliteDataService</Description>
+    <Icon>MvvmCross.ico</Icon>
+    <TemplateID>09ad880e-3a45-436b-be03-57e6e1d94e7b</TemplateID>
+    <ProjectType>CSharp</ProjectType>
+    <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+    <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+    <DefaultName>SqliteDataService.cs</DefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <References>
+      <Reference>
+        <Assembly>System</Assembly>
+      </Reference>
+    </References>
+    <ProjectItem TargetFileName="Services\BaseSqliteDataService.cs" ReplaceParameters="true">Services\BaseSqliteDataService.cs</ProjectItem>
+    <ProjectItem TargetFileName="Services\IBaseSqliteDataService.cs" ReplaceParameters="true">Services\IBaseSqliteDataService.cs</ProjectItem>
+    <ProjectItem TargetFileName="Services\$sqliteEntityName$DataService.cs" ReplaceParameters="true">Services\SampleDataService.cs</ProjectItem>
+    <ProjectItem TargetFileName="Services\I$sqliteEntityName$DataService.cs" ReplaceParameters="true">Services\ISampleDataService.cs</ProjectItem>
+    <ProjectItem TargetFileName="Entities\$sqliteEntityName$.cs" ReplaceParameters="true">Entities\SqliteSampleData.cs</ProjectItem>
+  </TemplateContent>
+  <WizardExtension>
+        <Assembly>NinjaCoder.MvvmCross.TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0cfd3f30dfd5b768, Custom=null</Assembly>
+        <FullClassName>NinjaCoder.MvvmCross.TemplateWizards.SqliteDataService.SqliteDataServiceWizard</FullClassName>
+    </WizardExtension>
+</VSTemplate>

@@ -1,0 +1,5 @@
+<CodeConfig>
+  <DependentPlugins>
+    <DependentPlugin>Cirrious.MvvmCross.Plugins.Network</DependentPlugin>
+  </DependentPlugins>
+</CodeConfig>

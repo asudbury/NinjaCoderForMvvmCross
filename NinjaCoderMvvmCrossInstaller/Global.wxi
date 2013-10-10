@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
 
-  <?define APPLICATION_VERSION = 2.1.0 ?>
+  <?define APPLICATION_VERSION = 2.1.1 ?>
   <?define MVVMCROSS_VERSION = 3.0.13 ?>
 
   <?define SOURCE_DIRX = "C:\Projects\c#\NinjaCoderForMvvmCross" ?>

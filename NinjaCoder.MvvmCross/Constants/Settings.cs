@@ -91,11 +91,6 @@ namespace NinjaCoder.MvvmCross.Constants
         public const string NugetInstallPackage = "Install-Package %s -FileConflictAction ignore -ProjectName";
 
         /// <summary>
-        /// The nuget starter pack package.
-        /// </summary>
-        public const string NugetStarterPackPackage = "MvvmCross.HotTuna.StarterPack";
-
-        /// <summary>
         /// The nuget messenger package.
         /// </summary>
         public const string NugetMessengerPackage = "MvvmCross.HotTuna.Plugin.Messenger";

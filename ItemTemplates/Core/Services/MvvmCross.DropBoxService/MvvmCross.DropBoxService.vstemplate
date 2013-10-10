@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>MvvmCross.DropBoxService</Name>
+    <Description>MvvmCross.DropBoxService</Description>
+    <Icon>MvvmCross.ico</Icon>
+    <TemplateID>4946cae0-493c-4609-af3e-d0c7dc833e08</TemplateID>
+    <ProjectType>CSharp</ProjectType>
+    <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+    <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+    <DefaultName>DropBoxService.cs</DefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <References>
+      <Reference>
+        <Assembly>System</Assembly>
+      </Reference>
+    </References>
+    <ProjectItem TargetFileName="Services\DropBoxService.cs">Services\DropBoxService.cs</ProjectItem>
+    <ProjectItem TargetFileName="Services\IDropBoxService.cs">Services\IDropBoxService.cs</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

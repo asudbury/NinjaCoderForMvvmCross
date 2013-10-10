@@ -19,10 +19,14 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="templates">The templates.</param>
+        /// <param name="verboseOutput">if set to <c>true</c> [verbose output].</param>
+        /// <param name="debug">if set to <c>true</c> [debug].</param>
         /// <returns>The nuget commands.</returns>
         string GetNugetCommands(
             IVisualStudioService visualStudioService,
-            IEnumerable<ProjectTemplateInfo> templates);
+            IEnumerable<ProjectTemplateInfo> templates,
+            bool verboseOutput,
+            bool debug);
 
         /// <summary>
         /// Opens the nuget window.

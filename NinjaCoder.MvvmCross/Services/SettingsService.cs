@@ -269,6 +269,33 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [verbose nuget output].
+        /// </summary>
+        public bool VerboseNugetOutput
+        {
+            get { return this.GetRegistryValue(string.Empty, "VerboseNugetOutput", "N") == "Y"; }
+            set { this.SetRegistryValue(string.Empty, "VerboseNugetOutput", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [debug nuget].
+        /// </summary>
+        public bool DebugNuget
+        {
+            get { return this.GetRegistryValue(string.Empty, "DebugNuget", "N") == "Y"; }
+            set { this.SetRegistryValue(string.Empty, "DebugNuget", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [remove assemblies if nuget used].
+        /// </summary>
+        public bool RemoveAssembliesIfNugetUsed
+        {
+            get { return this.GetRegistryValue(string.Empty, "RemoveAssembliesIfNugetUsed", "Y") == "Y"; }
+            set { this.SetRegistryValue(string.Empty, "RemoveAssembliesIfNugetUsed", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
         /// Gets the registry key.
         /// </summary>
         /// <param name="subKey">The sub key.</param>

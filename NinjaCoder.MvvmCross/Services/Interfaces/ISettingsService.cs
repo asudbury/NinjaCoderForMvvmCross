@@ -154,5 +154,20 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets or sets the MVVM cross plugins wiki page.
         /// </summary>
         string MvvmCrossPluginsWikiPage { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [verbose nuget output].
+        /// </summary>
+        bool VerboseNugetOutput { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [debug nuget].
+        /// </summary>
+        bool DebugNuget { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [remove assemblies if nuget used].
+        /// </summary>
+        bool RemoveAssembliesIfNugetUsed { get; set; }
      }
 }

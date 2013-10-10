@@ -11,7 +11,6 @@ namespace NinjaCoder.MvvmCross.Services
     using EnvDTE;
 
     using Interfaces;
-    using Scorchio.VisualStudio;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
@@ -21,16 +20,6 @@ namespace NinjaCoder.MvvmCross.Services
     /// </summary>
     public class NugetService : INugetService
     {
-        /// <summary>
-        /// The project items to delete.
-        /// </summary>
-        private readonly List<IProjectItemService> projectItemsToDelete = new List<IProjectItemService>();
-
-        /// <summary>
-        /// The project items events.
-        /// </summary>
-        private ProjectItemsEvents projectItemsEvents;
-
         /// <summary>
         /// The document events.
         /// </summary>
@@ -51,14 +40,33 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="templates">The templates.</param>
+        /// <param name="verboseOutput">if set to <c>true</c> [verbose output].</param>
+        /// <param name="debug">if set to <c>true</c> [debug].</param>
         /// <returns>The nuget commands.</returns>
         public string GetNugetCommands(
             IVisualStudioService visualStudioService,
-            IEnumerable<ProjectTemplateInfo> templates)
+            IEnumerable<ProjectTemplateInfo> templates,
+            bool verboseOutput,
+            bool debug)
         {
             TraceService.WriteLine("NugetService::ExecuteNugetCommands");
 
             string nugetCommands = string.Empty;
+
+            string verboseOption = string.Empty;
+
+            if (verboseOutput)
+            {
+                verboseOption = "-verbose";
+            }
+
+            string debugOption = string.Empty;
+
+            if (debug)
+            {
+                debugOption = "-debug";
+            }
+
 
             foreach (ProjectTemplateInfo projectTemplateInfo in templates)
             {
@@ -74,7 +82,12 @@ namespace NinjaCoder.MvvmCross.Services
                     {
                         foreach (string nugetCommand in projectTemplateInfo.NugetCommands)
                         {
-                            nugetCommands += string.Format("{0}{1}", nugetCommand, Environment.NewLine);
+                            nugetCommands += string.Format(
+                                "{0} {1} {2} {3}", 
+                                nugetCommand, 
+                                verboseOption, 
+                                debugOption, 
+                                Environment.NewLine);
                         }
                     }
                 }
@@ -161,28 +174,9 @@ namespace NinjaCoder.MvvmCross.Services
         {
             TraceService.WriteLine("NugetService::SetupEventHandlers");
 
-            this.projectItemsEvents = this.VisualStudioService.DTEService.GetProjectItemsEvents();
-            this.projectItemsEvents.ItemAdded += this.ProjectItemsEventsItemAdded;
-
             this.documentEvents = this.VisualStudioService.DTEService.GetDocumentEvents();
             
             this.documentEvents.DocumentOpened += this.DocumentEventsDocumentOpened;
-        }
-
-        /// <summary>
-        /// Projects the items events item added.
-        /// </summary>
-        /// <param name="projectItem">The project item.</param>
-        internal void ProjectItemsEventsItemAdded(ProjectItem projectItem)
-        {
-            string message = string.Format(
-                    "NugetService::ProjectItemsEventsItemAdded file={0}",
-                    projectItem.Name);
-
-            TraceService.WriteLine(message);
-
-            IProjectItemService projectItemService = new ProjectItemService(projectItem);
-            this.AddProjectItemToDeleteList(projectItemService);
         }
 
         /// <summary>
@@ -192,32 +186,8 @@ namespace NinjaCoder.MvvmCross.Services
         {
             TraceService.WriteLine("NugetService::RemoveEventHandlers");
 
-            this.projectItemsEvents.ItemAdded -= this.ProjectItemsEventsItemAdded;
-            this.documentEvents.DocumentOpened-= this.DocumentEventsDocumentOpened;
-            this.projectItemsEvents = null;
+            this.documentEvents.DocumentOpened -= this.DocumentEventsDocumentOpened;
             this.documentEvents = null;
-        }
-
-        /// <summary>
-        /// Adds the project item to delete list.
-        /// </summary>
-        /// <param name="projectItemService">The project item service.</param>
-        internal void AddProjectItemToDeleteList(IProjectItemService projectItemService)
-        {
-            //// we don't want any source file adding to the project - except the nuget config file.
-            if (projectItemService.Kind == VSConstants.VsProjectItemKindPhysicalFile &&
-                projectItemService.Name.Contains(".config") == false)
-            {
-                TraceService.WriteLine("NugetService::AddProjectItemToDeleteList name=" + projectItemService.Name);
-
-                this.projectItemsToDelete.Add(projectItemService);
-            }
-            else if (projectItemService.Kind == VSConstants.VsProjectItemKindPhysicalFolder)
-            {
-                TraceService.WriteLine("NugetService::AddProjectItemToDeleteList name=" + projectItemService.Name);
-
-                this.projectItemsToDelete.Add(projectItemService);
-            }
         }
 
         /// <summary>
@@ -227,7 +197,6 @@ namespace NinjaCoder.MvvmCross.Services
         internal void DocumentEventsDocumentOpened(Document document)
         {
             TraceService.WriteLine("NugetService::DocumentEventsDocumentOpened name" + document.FullName);
-
             this.NugetCompleted();
         }
 
@@ -236,19 +205,12 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal void NugetCompleted()
         {
-            TraceService.WriteLine("NugetService::NugetCompleted items to Delete=" + this.projectItemsToDelete.Count);
-
-            foreach (IProjectItemService projectItemService in this.projectItemsToDelete)
-            {
-                TraceService.WriteLine("file to be deleted " + projectItemService.Name);
-            }
-
+            TraceService.WriteLine("NugetService::NugetCompleted");
+            
             if (this.documentEvents != null)
             {
                 this.RemoveEventHandlers();
             }
-
-            this.RemoveProjectItems();
 
             this.FixTestProject();
 
@@ -259,31 +221,7 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Removes the project items.
-        /// </summary>
-        internal void RemoveProjectItems()
-        {
-            TraceService.WriteLine("NugetService::RemoveProjectItems");
-
-            foreach (IProjectItemService projectItemService in this.projectItemsToDelete)
-            {
-                if (projectItemService.Kind == VSConstants.VsProjectItemKindPhysicalFolder)
-                {
-                    TraceService.WriteLine("removing " + projectItemService.Name);
-                    projectItemService.Remove();
-                }
-                else
-                {
-                    TraceService.WriteLine("removing " + projectItemService.Name);
-                    projectItemService.RemoveAndDelete();
-                }
-            }
-
-            this.projectItemsToDelete.Clear();
-        }
-
-        /// <summary>
-        /// Fixes the test project - 
+        /// Fixes the test project. 
         /// At the moment we just remove the Cirrious.CrossCore.Wpf assembly.
         /// </summary>
         internal void FixTestProject()

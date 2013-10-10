@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include $(sys.CURRENTDIR)\Global.wxi?>
+  <Fragment>
+    <ComponentGroup Id='ComponentGroupCodeSnippets'>
+
+      <Component Id="CodeSnippetsComponent" 
+                 Directory="CodeSnippetsServices" 
+                 DiskId="1" 
+                 Guid="825c8b3c-e1ee-4eae-85b2-30000000000F">
+        
+        <File Id="Snippet01" Name="ViewModelNavigation.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\Core\CodeSnippets\ViewModelNavigation.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Snippet01" DestinationDirectory="CodeSnippets"/>
+        </File>
+        
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

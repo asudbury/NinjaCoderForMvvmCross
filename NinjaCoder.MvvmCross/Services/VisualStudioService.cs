@@ -200,7 +200,7 @@ namespace NinjaCoder.MvvmCross.Services
                         PreSelected = true,
                         NugetCommands = new List<string> 
                             {
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetStarterPackPackage),
+                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage),
                                 Settings.NugetInstallPackage.Replace("%s", Settings.NugetMessengerPackage)
                             }
                     });
@@ -232,7 +232,7 @@ namespace NinjaCoder.MvvmCross.Services
                         TemplateName = ProjectTemplates.Droid,
                         NugetCommands = new List<string> 
                             {
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetStarterPackPackage),
+                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage),
                                 Settings.NugetInstallPackage.Replace("%s", Settings.NugetMessengerPackage)
                             }
                     });
@@ -247,7 +247,7 @@ namespace NinjaCoder.MvvmCross.Services
                         TemplateName = ProjectTemplates.IOS,
                         NugetCommands = new List<string> 
                             {
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetStarterPackPackage),
+                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage),
                                 Settings.NugetInstallPackage.Replace("%s", Settings.NugetMessengerPackage)
                             }
                     });
@@ -262,7 +262,7 @@ namespace NinjaCoder.MvvmCross.Services
                         TemplateName = ProjectTemplates.WindowsPhone,
                         NugetCommands = new List<string> 
                             {
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetStarterPackPackage),
+                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage),
                                 Settings.NugetInstallPackage.Replace("%s", Settings.NugetMessengerPackage)
                             }
                     });
@@ -277,7 +277,7 @@ namespace NinjaCoder.MvvmCross.Services
                         TemplateName = ProjectTemplates.WindowsStore,
                         NugetCommands = new List<string> 
                             {
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetStarterPackPackage),
+                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage),
                                 Settings.NugetInstallPackage.Replace("%s", Settings.NugetMessengerPackage)
                             }
                     });
@@ -292,7 +292,7 @@ namespace NinjaCoder.MvvmCross.Services
                         TemplateName = ProjectTemplates.WindowsWPF,
                         NugetCommands = new List<string> 
                             {
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetStarterPackPackage)
+                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage)
                             }
                     });
                 }

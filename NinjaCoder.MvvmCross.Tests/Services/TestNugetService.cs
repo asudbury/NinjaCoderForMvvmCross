@@ -73,7 +73,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
 
             this.mockVisualStudioService.Setup(x => x.GetProjectServiceBySuffix(It.IsAny<string>())).Returns(mockProjectService.Object);
 
-            string commands = this.service.GetNugetCommands(this.mockVisualStudioService.Object, templateInfos);
+            string commands = this.service.GetNugetCommands(this.mockVisualStudioService.Object, templateInfos, true, true);
 
             Assert.IsTrue(commands == "1\r\n2\r\n3\r\n4\r\n");
         }
@@ -117,11 +117,8 @@ namespace NinjaCoder.MvvmCross.Tests.Services
 
             Mock<IProjectItemService> mockProjectItemService = new Mock<IProjectItemService>();
             mockProjectItemService.SetupGet(x => x.Kind).Returns(VSConstants.VsProjectItemKindPhysicalFolder);
-            this.service.AddProjectItemToDeleteList(mockProjectItemService.Object);
 
-            Mock<IProjectItemService> mockProjectItemService2 = new Mock<IProjectItemService>();
             mockProjectItemService.SetupGet(x => x.Kind).Returns(string.Empty);
-            this.service.AddProjectItemToDeleteList(mockProjectItemService2.Object);
             
             this.service.VisualStudioService = this.mockVisualStudioService.Object;
 

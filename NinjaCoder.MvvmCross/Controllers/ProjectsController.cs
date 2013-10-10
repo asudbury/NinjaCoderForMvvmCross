@@ -5,15 +5,17 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
+    using Constants;
+    using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Services;
+    using Scorchio.VisualStudio.Services.Interfaces;
+    using Services.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Forms;
-    using Constants;
-    using Scorchio.VisualStudio.Entities;
-    using Scorchio.VisualStudio.Services;
-    using Services.Interfaces;
     using Views.Interfaces;
+    using VSLangProj;
 
     /// <summary>
     /// Defines the ProjectsController type.
@@ -161,7 +163,24 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             if (this.SettingsService.UseNugetForProjectTemplates)
             {
-                string commands = this.nugetService.GetNugetCommands(this.VisualStudioService, requireTemplates);
+                //// we shouldnt have to do this!
+                //// but we have so many problems with nuget and iOS AND droid projects
+                //// we try and make it as simple as possible by removing the mvx references!
+
+                //// THIS CODE IS ALSO IN THE TEMPLATE WIZARD! - we could drop the template wizard code?
+                this.RemoveMvxReferences(this.VisualStudioService.CoreProjectService);
+                this.RemoveMvxReferences(this.VisualStudioService.CoreTestsProjectService);
+                this.RemoveMvxReferences(this.VisualStudioService.iOSProjectService);
+                this.RemoveMvxReferences(this.VisualStudioService.DroidProjectService);
+                this.RemoveMvxReferences(this.VisualStudioService.WindowsPhoneProjectService);
+                this.RemoveMvxReferences(this.VisualStudioService.WindowsStoreProjectService);
+                this.RemoveMvxReferences(this.VisualStudioService.WpfProjectService);
+
+                string commands = this.nugetService.GetNugetCommands(
+                    this.VisualStudioService, 
+                    requireTemplates, 
+                    this.SettingsService.VerboseNugetOutput, 
+                    this.SettingsService.DebugNuget);
 
                 this.nugetService.Execute(
                     this.VisualStudioService, 
@@ -183,6 +202,26 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             //// show the readme.
             this.ShowReadMe("Add Projects", messages, this.SettingsService.UseNugetForProjectTemplates);
+        }
+
+        /// <summary>
+        /// Removes the MVX references.
+        /// </summary>
+        /// <param name="projectService">The project service.</param>
+        internal void RemoveMvxReferences(IProjectService projectService)
+        {
+            if (projectService != null)
+            {
+                IEnumerable<Reference> references = projectService.GetProjectReferences();
+
+                foreach (Reference reference in references)
+                {
+                    if (reference.Name.StartsWith("Cirrious"))
+                    {
+                        reference.Remove();
+                    }
+                }
+            }
         }
     }
 }

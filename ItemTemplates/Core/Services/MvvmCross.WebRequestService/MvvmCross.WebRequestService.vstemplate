@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>MvvmCross.WebRequestService</Name>
+    <Description>MvvmCross.WebRequestService</Description>
+    <Icon>MvvmCross.ico</Icon>
+    <TemplateID>d93f6bfe-dd70-44c6-af67-fd44cb112b08</TemplateID>
+    <ProjectType>CSharp</ProjectType>
+    <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+    <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+    <DefaultName>WebRequestService.cs</DefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <References>
+      <Reference>
+        <Assembly>System</Assembly>
+      </Reference>
+    </References>
+    <ProjectItem TargetFileName="Entities\$webRequestEntityName$.cs" ReplaceParameters="true">Entities\WebRequestSampleData.cs</ProjectItem>
+
+    <ProjectItem TargetFileName="Translators\ITranslator.cs" ReplaceParameters="true">Translators\ITranslator.cs</ProjectItem>
+    <ProjectItem TargetFileName="Translators\I$webRequestEntityName$Translator.cs" ReplaceParameters="true">Translators\ISampleWebRequestTranslator.cs</ProjectItem>
+    <ProjectItem TargetFileName="Translators\$webRequestEntityName$Translator.cs" ReplaceParameters="true">Translators\SampleWebRequestTranslator.cs</ProjectItem>
+
+    <ProjectItem TargetFileName="Services\BaseWebRequestService.cs" ReplaceParameters="true">Services\BaseWebRequestService.cs</ProjectItem>
+    <ProjectItem TargetFileName="Services\$webRequestEntityName$WebRequestService.cs" ReplaceParameters="true">Services\SampleWebRequestService.cs</ProjectItem>
+    <ProjectItem TargetFileName="Services\I$webRequestEntityName$WebRequestService.cs" ReplaceParameters="true">Services\ISampleWebRequestService.cs</ProjectItem>
+
+  </TemplateContent>
+  <WizardExtension>
+    <Assembly>NinjaCoder.MvvmCross.TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0cfd3f30dfd5b768, Custom=null</Assembly>
+    <FullClassName>NinjaCoder.MvvmCross.TemplateWizards.WebRequestService.WebRequestServiceWizard</FullClassName>
+  </WizardExtension>
+</VSTemplate>
