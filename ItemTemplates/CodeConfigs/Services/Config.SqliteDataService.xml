@@ -1,0 +1,5 @@
+<CodeConfig>
+  <DependentPlugins>
+    <DependentPlugin>Cirrious.MvvmCross.Plugins.Sqlite</DependentPlugin>
+  </DependentPlugins>
+</CodeConfig>

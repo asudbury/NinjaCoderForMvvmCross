@@ -1,0 +1,51 @@
+﻿<CodeSnippet>
+  <MockVariables>
+    <MockVariable>ISettings mockSettings</MockVariable>
+  </MockVariables>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Tests AddOrUpdateSetting.
+        /// </summary>
+        [Test]
+        public void TestAddOrUpdateSetting()
+        {
+            //// arrange
+            
+            //// act
+            this.TestableObject.AddOrUpdateSetting("key", "value");
+            
+            //// assert
+        }
+		
+		/// <summary>
+        /// Tests GetSetting.
+        /// </summary>
+        [Test]
+        public void TestGetSetting()
+        {
+            //// arrange
+            
+            //// act
+            this.TestableObject.GetSetting("key");
+            
+            //// assert
+        }
+		
+		/// <summary>
+        /// Tests SaveSettings.
+        /// </summary>
+        [Test]
+        public void TestSaveSettings()
+        {
+            //// arrange
+            
+            //// act
+            this.TestableObject.SaveSettings();
+            
+            //// assert
+        }
+    ]]>
+  </Code>
+</CodeSnippet>
+

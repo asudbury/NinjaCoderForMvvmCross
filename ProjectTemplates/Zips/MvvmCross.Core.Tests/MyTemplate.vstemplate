@@ -1,0 +1,43 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>MvvmCross.Core.Tests</Name>
+    <Description>MvvmCross.Core.Tests</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>
+    </ProjectSubType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>MvvmCross.Core.Tests</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <Icon>__TemplateIcon.ico</Icon>
+    <PreviewImage>__PreviewImage.ico</PreviewImage>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="CoreTestsTemplate.csproj" File="CoreTestsTemplate.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="BaseTest.cs">BaseTest.cs</ProjectItem>
+      <Folder Name="Lib" TargetFolderName="Lib">
+        <ProjectItem ReplaceParameters="false" TargetFileName="Cirrious.CrossCore.dll">Cirrious.CrossCore.dll</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="Cirrious.MvvmCross.dll">Cirrious.MvvmCross.dll</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="Cirrious.MvvmCross.Test.Core.dll">Cirrious.MvvmCross.Test.Core.dll</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="Moq.dll">Moq.dll</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="nunit.framework.dll">nunit.framework.dll</ProjectItem>
+      </Folder>
+      <Folder Name="Mocks" TargetFolderName="Mocks">
+        <ProjectItem ReplaceParameters="true" TargetFileName="MockDispatcher.cs">MockDispatcher.cs</ProjectItem>
+      </Folder>
+      <Folder Name="Properties" TargetFolderName="Properties">
+        <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+      </Folder>
+      <ProjectItem ReplaceParameters="true" TargetFileName="TestTrace.cs">TestTrace.cs</ProjectItem>
+      <Folder Name="ViewModels" TargetFolderName="ViewModels">
+        <ProjectItem ReplaceParameters="true" TargetFileName="TestFirstViewModel.cs">TestFirstViewModel.cs</ProjectItem>
+      </Folder>
+    </Project>
+  </TemplateContent>
+      <WizardExtension>
+    <Assembly>NinjaCoder.MvvmCross.TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0cfd3f30dfd5b768, Custom=null</Assembly>
+    <FullClassName>NinjaCoder.MvvmCross.TemplateWizards.Projects.ProjectsWizard</FullClassName>
+  </WizardExtension>
+</VSTemplate>

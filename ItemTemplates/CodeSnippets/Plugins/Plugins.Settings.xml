@@ -1,0 +1,37 @@
+<CodeSnippet>
+  <Interfaces>
+    <Interface>ISettings settings</Interface>
+  </Interfaces>
+  <Code>
+		<![CDATA[
+        /// <summary>
+        /// Adds or updates a setting.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        public void AddOrUpdateSetting(
+		    string key,
+			object value)
+        {
+            this.settings.AddOrUpdateValue(key, value);
+        }
+		
+        /// <summary>
+        /// Get Setting.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        public void GetSetting(string key)
+        {
+            string setting = this.settings.GetValueOrDefault(key, "defaultValue");
+        }
+		
+		/// <summary>
+        /// Save settings.
+        /// </summary>
+        public void SaveSettings()
+        {
+            this.settings.Save();
+        }
+        ]]>
+  </Code>
+</CodeSnippet>
