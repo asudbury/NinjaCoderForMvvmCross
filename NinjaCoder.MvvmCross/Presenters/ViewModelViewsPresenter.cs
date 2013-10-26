@@ -10,7 +10,7 @@ namespace NinjaCoder.MvvmCross.Presenters
 
     using Constants;
 
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
 
     using Scorchio.VisualStudio.Entities;
     using Views.Interfaces;
@@ -52,18 +52,17 @@ namespace NinjaCoder.MvvmCross.Presenters
             IEnumerable<ItemTemplateInfo> itemTemplateInfos,
             IEnumerable<string> viewModelNames)
         {
-            foreach (ItemTemplateInfo itemTemplateInfo in itemTemplateInfos)
-            {
-                this.view.AddTemplate(itemTemplateInfo);
-            }
+            itemTemplateInfos
+                .ToList()
+                .ForEach(x => this.view.AddTemplate(x));
 
             //// do we need to show the view model navigation options??
-            if (viewModelNames.ToList().Any())
+
+            List<string> viewModels = viewModelNames.ToList();
+            
+            if (viewModels.Any())
             {
-                foreach (string viewModelName in viewModelNames)
-                {
-                    this.view.AddViewModel(viewModelName);
-                }
+                viewModels.ForEach(x => this.view.AddViewModel(x));
             }
             else
             {

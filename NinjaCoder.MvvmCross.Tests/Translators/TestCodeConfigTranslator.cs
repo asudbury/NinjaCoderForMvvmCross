@@ -26,6 +26,20 @@ namespace NinjaCoder.MvvmCross.Tests.Translators
             CodeConfig codeConfig = translator.Translate(Helper.GetTestDataPath("CodeConfig.xml"));
 
             Assert.IsTrue(codeConfig.NugetPackage != string.Empty);
+            Assert.IsTrue(codeConfig.BootstrapFileNameOverride == "CommunitySqlitePluginBootstrap.cs");
+
+            Assert.IsTrue(codeConfig.References.Count == 2);
+            Assert.IsTrue(codeConfig.References[0] == "R1");
+            Assert.IsTrue(codeConfig.References[1] == "R2");
+
+            Assert.IsTrue(codeConfig.NugetInstallationMandatory == "Y");
+
+            Assert.IsTrue(codeConfig.DependentPlugins.Count == 2);
+            Assert.IsTrue(codeConfig.DependentPlugins[0] == "Plugin1");
+            Assert.IsTrue(codeConfig.DependentPlugins[1] == "Plugin2");
+
+            Assert.IsTrue(codeConfig.CodeDependencies.Count == 1);
+            Assert.IsTrue(codeConfig.CodeDependencies[0].Class == "Class1");
         }
 
         /// <summary>

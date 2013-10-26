@@ -36,36 +36,37 @@
             this.logo1.BackColor = System.Drawing.Color.White;
             this.logo1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.logo1.Location = new System.Drawing.Point(1, -1);
-            this.logo1.Margin = new System.Windows.Forms.Padding(5);
+            this.logo1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.logo1.Name = "logo1";
-            this.logo1.Size = new System.Drawing.Size(278, 376);
+            this.logo1.Size = new System.Drawing.Size(198, 399);
             this.logo1.TabIndex = 95;
             // 
             // buttonOK
             // 
             this.buttonOK.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonOK.Location = new System.Drawing.Point(86, 388);
+            this.buttonOK.Location = new System.Drawing.Point(52, 412);
             this.buttonOK.Margin = new System.Windows.Forms.Padding(4);
             this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(100, 27);
+            this.buttonOK.Size = new System.Drawing.Size(88, 29);
             this.buttonOK.TabIndex = 96;
             this.buttonOK.Text = "&OK";
             this.buttonOK.Click += new System.EventHandler(this.ButtonOKClick);
             // 
             // AboutBoxForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(281, 430);
+            this.ClientSize = new System.Drawing.Size(200, 457);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.logo1);
+            this.Font = new System.Drawing.Font("Segoe UI", 7.8F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutBoxForm";
-            this.Padding = new System.Windows.Forms.Padding(12, 11, 12, 11);
+            this.Padding = new System.Windows.Forms.Padding(10, 12, 10, 12);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

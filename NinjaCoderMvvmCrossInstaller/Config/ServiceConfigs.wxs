@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include $(sys.CURRENTDIR)\Global.wxi?>
+  <Fragment>
+    <ComponentGroup Id='ComponentGroupConfigServices'>
+
+      <Component Id="ConfigServicesComponent" 
+                 Directory="ConfigServices" 
+                 DiskId="1" 
+                 Guid="815c8b3c-e1ee-4eae-85b2-30000000000C">
+
+        <File Name="Config.LocationService.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Services\Config.LocationService.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Config1" DestinationDirectory="ConfigServices"/>
+        </File>
+
+        <File Name="Config.SqliteDataService.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Services\Config.SqliteDataService.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Config2" DestinationDirectory="ConfigServices"/>
+        </File>
+
+        <File Name="Config.WebRequestService.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Services\Config.WebRequestService.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Config3" DestinationDirectory="ConfigServices"/>
+        </File>
+
+        <File Name="Config.DropBoxService.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Services\Config.DropBoxService.xml" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Config4" DestinationDirectory="ConfigServices"/>
+        </File>
+        
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

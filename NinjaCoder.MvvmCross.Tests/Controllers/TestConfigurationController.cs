@@ -7,6 +7,7 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
 {
     using Moq;
     using NinjaCoder.MvvmCross.Controllers;
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using NUnit.Framework;
 

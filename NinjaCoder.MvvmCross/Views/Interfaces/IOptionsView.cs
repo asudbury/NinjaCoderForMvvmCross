@@ -74,5 +74,10 @@ namespace NinjaCoder.MvvmCross.Views.Interfaces
         /// Gets or sets a value indicating whether [format function parameters].
         /// </summary>
         bool FormatFunctionParameters { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [copy assemblies to lib folder].
+        /// </summary>
+        bool CopyAssembliesToLibFolder { get; set; }
     }
 }

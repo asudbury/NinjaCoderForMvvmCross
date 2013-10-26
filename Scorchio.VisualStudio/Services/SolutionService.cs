@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio.Services
 {
+    using System;
     using System.Collections.Generic;
     using Entities;
     using EnvDTE;
@@ -43,6 +44,96 @@ namespace Scorchio.VisualStudio.Services
         public string FullName
         {
             get { return this.solution.FullName; } 
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [has globals].
+        /// </summary>
+        public bool HasGlobals
+        {
+            get { return this.Globals != null; }
+        }
+
+        /// <summary>
+        /// Gets the globals.
+        /// </summary>
+        public Globals Globals
+        {
+            get { return this.solution.Globals; }
+        }
+
+        /// <summary>
+        /// Globals the variable exists.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>True or false.</returns>
+        public bool GlobalVariableExists(string key)
+        {
+            TraceService.WriteLine("GlobalVariableExists key =" + key);
+
+            return this.solution.Globals.VariableExists[key];
+        }
+
+        /// <summary>
+        /// Gets the global variable.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>The global variable.</returns>
+        public object GetGlobalVariable(string key)
+        {
+            TraceService.WriteLine("GetGlobalVariable key =" + key);
+
+            return this.solution.Globals[key];
+        }
+
+        /// <summary>
+        /// Sets the global variable.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        public void SetGlobalVariable(
+            string key, 
+            object value)
+        {
+            TraceService.WriteLine("****SetGlobalVariable " + key + "=" + value);
+
+            this.solution.Globals[key] = value;
+        }
+
+        /// <summary>
+        /// Gets the global variables.
+        /// </summary>
+        /// <returns>The global variables.</returns>
+        public Dictionary<string, string> GetGlobalVariables()
+        {
+            TraceService.WriteLine("GetGlobalVariables");
+
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+
+            foreach (string variable in (Array)this.solution.Globals.VariableNames)
+            {
+                string value = this.solution.Globals[variable];
+
+                dictionary.Add(variable, value);
+            }
+
+            return dictionary;
+        }
+
+        /// <summary>
+        /// Removes the global variables.
+        /// </summary>
+        public void RemoveGlobalVariables()
+        {
+            TraceService.WriteLine("****RemoveGlobalVariables");
+
+            if (this.HasGlobals)
+            {
+                foreach (string variable in (Array)this.solution.Globals.VariableNames)
+                {
+                    this.solution.Globals[variable] = null;
+                }
+            }
         }
 
         /// <summary>

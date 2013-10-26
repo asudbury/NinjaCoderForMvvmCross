@@ -12,7 +12,6 @@ namespace NinjaCoder.MvvmCross.AddIn
     using Scorchio.VisualStudio;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
-    using Services;
 
     /// <summary>
     ///    Defines the Connect type.
@@ -39,9 +38,7 @@ namespace NinjaCoder.MvvmCross.AddIn
         {
             get
             {
-                SettingsService settingsService = new SettingsService();
-
-                return settingsService.ApplicationVersion;
+                return string.Empty;
             }
         }
 

@@ -179,14 +179,12 @@ namespace Scorchio.VisualStudio.Extensions
 
                 if (projectItems != null)
                 {
-                    foreach (ProjectItem projectItem in projectItems)
+                    foreach (ProjectItem projectItem in projectItems
+                        .Where(x => x.Kind == VSConstants.VsProjectItemKindSolutionItems))
                     {
-                        if (projectItem.Kind == VSConstants.VsProjectItemKindSolutionItems)
+                        if (projectItem.SubProject != null)
                         {
-                            if (projectItem.SubProject != null)
-                            {
-                                allProjects.Add(projectItem.SubProject);
-                            }
+                            allProjects.Add(projectItem.SubProject);
                         }
                     }
                 }
@@ -267,12 +265,9 @@ namespace Scorchio.VisualStudio.Extensions
         {
             TraceService.WriteLine("SolutionExtensions::RemoveFolder folder=" + folderName);
 
-            List<Project> projects = instance.Projects.Cast<Project>().ToList();
-
-            foreach (Project project in projects)
-            {
-                project.RemoveFolder(folderName);
-            }
+            instance.Projects.Cast<Project>()
+                .ToList()
+                .ForEach(x => x.RemoveFolder(folderName));
         }
 
         /// <summary>
@@ -283,12 +278,9 @@ namespace Scorchio.VisualStudio.Extensions
         {
             TraceService.WriteLine("SolutionExtensions::RemoveFileHeaders");
 
-            List<Project> projects = instance.Projects.Cast<Project>().ToList();
-
-            foreach (Project project in projects)
-            {
-                project.RemoveFileHeaders();
-            }
+            instance.Projects.Cast<Project>()
+                .ToList()
+                .ForEach(x => x.RemoveFileHeaders());
         }
 
         /// <summary>
@@ -299,12 +291,9 @@ namespace Scorchio.VisualStudio.Extensions
         {
             TraceService.WriteLine("SolutionExtensions::RemoveComments");
 
-            List<Project> projects = instance.Projects.Cast<Project>().ToList();
-
-            foreach (Project project in projects)
-            {
-                project.RemoveComments();
-            }
+            instance.Projects.Cast<Project>()
+                .ToList()
+                .ForEach(x => x.RemoveComments());
         }
 
         /// <summary>

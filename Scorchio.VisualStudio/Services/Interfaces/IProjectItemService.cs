@@ -200,5 +200,10 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// </summary>
         /// <param name="excludeFiles">The exclude files.</param>
         void DeleteFolder(IEnumerable<string> excludeFiles = null);
+
+        /// <summary>
+        /// Removes the double blank lines.
+        /// </summary>
+        void RemoveDoubleBlankLines();
     }
 }

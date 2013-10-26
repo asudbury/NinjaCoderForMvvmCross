@@ -5,9 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Presenters
 {
-    using Scorchio.VisualStudio.Entities;
-    using Services.Interfaces;
     using System.Collections.Generic;
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
+    using Scorchio.VisualStudio.Entities;
     using Views.Interfaces;
 
     /// <summary>

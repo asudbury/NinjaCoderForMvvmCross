@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SqlDataServiceView));
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxEntityName = new System.Windows.Forms.TextBox();
-            this.logo1 = new NinjaCoder.MvvmCross.TemplateWizards.UserControls.Logo();
+            this.logo1 = new NinjaCoder.MvvmCross.UserControls.Logo();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();

@@ -13,25 +13,16 @@ namespace NinjaCoder.MvvmCross.Services
     public abstract class BaseService
     {
         /// <summary>
-        /// The messages.
-        /// </summary>
-        private List<string> messages;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="BaseService" /> class.
         /// </summary>
         protected BaseService()
         {
-            this.messages = new List<string>();
+            this.Messages = new List<string>();
         }
 
         /// <summary>
-        /// Gets the messages.
+        /// Gets or sets the messages.
         /// </summary>
-        protected List<string> Messages
-        {
-            get { return this.messages; }
-            set { this.messages = value; }
-        }
+        public List<string> Messages { get; protected set; }
     }
 }

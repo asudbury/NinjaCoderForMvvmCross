@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.logo1 = new NinjaCoder.MvvmCross.TemplateWizards.UserControls.Logo();
+            this.logo1 = new NinjaCoder.MvvmCross.UserControls.Logo();
             this.TextBoxDataServiceInterface = new System.Windows.Forms.TextBox();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();

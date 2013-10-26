@@ -3,12 +3,11 @@
 //    Defines the StringExtensions type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
-using System.Globalization;
-using System.Linq;
-
 namespace NinjaCoder.MvvmCross.TemplateWizards.Extensions
 {
+    using System.Globalization;
+    using System.Linq;
+
     /// <summary>
     /// Defines the StringExtensions type.
     /// </summary>

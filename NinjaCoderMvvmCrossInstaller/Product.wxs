@@ -64,7 +64,7 @@
           </Directory>
         </Directory>
 
-        <!-- Registering assembly in GAC -->
+        <!-- Registering assemblies in GAC -->
         <Directory Id="GAC" Name="GAC">
           
           <Component Id="MvvmTemplateWizardComponent" Guid="55857611-A13E-51ED-897B-A78830F68ADC" DiskId="1">
@@ -74,9 +74,18 @@
                   Source="$(var.SOURCE_DIR)\NinjaCoder.MvvmCross.TemplateWizards\bin\Debug\NinjaCoder.MvvmCross.TemplateWizards.dll"
                   KeyPath="yes" 
                   Assembly=".net"/>
-            
+
           </Component>
 
+          <!--<Component Id="MvvmTemplateInfrastructureComponent" Guid="55857611-A13E-51ED-897B-A78830F68ADB" DiskId="1">
+
+            <File Id="MvvmTemplateInfrastructure"
+                  Name="NinjaCoder.MvvmCross.Infrastructure.dll"
+                  Source="$(var.SOURCE_DIR)\NinjaCoder.MvvmCross.Infrastructure\bin\Debug\NinjaCoder.MvvmCross.Infrastructure.dll"
+                  KeyPath="yes"
+                  Assembly=".net"/>
+          </Component>-->
+          
         </Directory>
         
           <!-- Install Application files -->
@@ -89,12 +98,22 @@
                 Key="$(var.REGISTRY_KEY)">
                 <RegistryValue Type="string" Name="Version" Value="$(var.APPLICATION_VERSION)"/>
               </RegistryKey>
-              
+
               <RegistryKey Root="HKCU"
                 Key="$(var.REGISTRY_KEY)">
-                          <RegistryValue Type="string" Name="MvvmCross Version" Value="$(var.MVVMCROSS_VERSION)"/>
+                <RegistryValue Type="string" Name="MvvmCross Version" Value="$(var.MVVMCROSS_VERSION)"/>
               </RegistryKey>
-              
+
+              <RegistryKey Root="HKCU"
+                Key="$(var.REGISTRY_KEY)">
+                <RegistryValue Type="string" Name="InstalledDateTime" Value="[Date] [Time]"/>
+              </RegistryKey>
+
+              <RegistryKey Root="HKCU"
+                Key="$(var.REGISTRY_KEY)">
+                <RegistryValue Type="string" Name="InstalledDirectory" Value="[INSTALLLOCATION]"/>
+              </RegistryKey>
+
               <File Id="EXTENSIONBINARY" Name="NinjaCoder.MvvmCross.AddIn.dll"
                     Source="$(var.SOURCE_DIR)\NinjaCoder.MvvmCross.AddIn\bin\Debug\NinjaCoder.MvvmCross.AddIn.dll" Vital="yes" KeyPath="no" >
                 <CopyFile Id="copyfile1" DestinationDirectory="INSTALLLOCATION"/>
@@ -107,17 +126,25 @@
                 Source="$(var.SOURCE_DIR)\NinjaCoder.MvvmCross.UI\bin\Debug\Scorchio.VisualStudio.dll" Vital="yes" KeyPath="no" >
                 <CopyFile Id="copyfile3" DestinationDirectory="INSTALLLOCATION"/>
               </File>
-              <File Id="MvvmCrossUI" Name="NinjaCoder.MvvmCross.UI.exe"
+
+              <!--<File Id="MvvmCrossUI" Name="NinjaCoder.MvvmCross.UI.exe"
                 Source="$(var.SOURCE_DIR)\NinjaCoder.MvvmCross.UI\bin\Debug\NinjaCoder.MvvmCross.UI.exe" Vital="yes" KeyPath="no" >
                 <CopyFile Id="copyfile4" DestinationDirectory="INSTALLLOCATION"/>
-              </File>
+              </File>-->
+
               <File Id="SystemAbstraction.IO" Name="System.IO.Abstractions.dll"
                 Source="$(var.SOURCE_DIR)\NinjaCoder.MvvmCross.UI\bin\Debug\System.IO.Abstractions.dll" Vital="yes" KeyPath="no" >
                 <CopyFile Id="copyfile5" DestinationDirectory="INSTALLLOCATION"/>
               </File>
+
+              <!--<File Id="MvvmCross.Infrastructure" Name="NinjaCoder.MvvmCross.Infrastructure.dll"
+                Source="$(var.SOURCE_DIR)\NinjaCoder.MvvmCross.Infrastructure\bin\Debug\NinjaCoder.MvvmCross.Infrastructure.dll" Vital="yes" KeyPath="no" >
+                <CopyFile Id="copyfile6" DestinationDirectory="INSTALLLOCATION"/>
+              </File>-->
+
               <File Id="FileManifest" Name="extension.vsixmanifest"
                       Source="$(var.SOURCE_DIR)\extension.vsixmanifest" Vital="yes" KeyPath="no" >
-                    <CopyFile Id="copyfileManifest" DestinationDirectory="INSTALLLOCATION"/>
+                <CopyFile Id="copyfileManifest" DestinationDirectory="INSTALLLOCATION"/>
               </File>
             </Component>
 
@@ -126,43 +153,19 @@
               <Directory Id="ConfigPlugins" Name="Plugins"/>
               <Directory Id="ConfigServices" Name="Services"/>
             </Directory>
-            
+
             <!-- Code Snippets -->
             <Directory Id="CodeSnippets" Name="CodeSnippets">
               <Directory Id="CodeSnippetsPlugins" Name="Plugins"/>
               <Directory Id="CodeSnippetsServices" Name="Services"/>
             </Directory>
-            
+
             <!-- Plugins -->
             <Directory Id="MvvmCross" Name="MvvmCross">
-              <Directory Id="MvvmCrossAssemblies" Name="Assemblies">
+              <Directory Id="MvvmCrossAssemblies" Name="Assemblies"/>
 
-                <Directory Id="MvvmCrossAssembliesCore" Name="Core">
-                  <Directory Id="MvvmCrossAssembliesCorePlugins" Name="Plugins" />
-                </Directory>
-
-                <Directory Id="MvvmCrossAssembliesDroid" Name="Droid">
-                  <Directory Id="MvvmCrossAssembliesDroidPlugins" Name="Plugins"/>
-                </Directory>
-                
-                <Directory Id="MvvmCrossAssembliesiOS" Name="iOS">
-                  <Directory Id="MvvmCrossAssembliesiOSPlugins" Name="Plugins"/>
-                </Directory>
-
-                <Directory Id="MvvmCrossAssembliesWindowsPhone" Name="WindowsPhone">
-                  <Directory Id="MvvmCrossAssembliesWindowsPhonePlugins" Name="Plugins"/>
-                </Directory>
-
-                <Directory Id="MvvmCrossAssembliesWindowsStore" Name="WindowsStore">
-                  <Directory Id="MvvmCrossAssembliesWindowsStorePlugins" Name="Plugins"/>
-                </Directory>
-                
-                <Directory Id="MvvmCrossAssembliesWpf" Name="Wpf">
-                  <Directory Id="MvvmCrossAssembliesWpfPlugins" Name="Plugins"/>
-                </Directory>
-                </Directory>
-              </Directory>
             </Directory>
+          </Directory>
         </Directory>
           
         <Directory Id="VisualStudio" Name="Microsoft Visual Studio 11.0">
@@ -227,14 +230,15 @@
     <Feature Id="ProductFeature" Title="VSWixExtension" Level="1">
       <ComponentRef	Id="ComponentPCLSupport" />
       <ComponentRef	Id="MvvmTemplateWizardComponent" />
+      <!--<ComponentRef	Id="MvvmTemplateInfrastructureComponent" />-->
       <ComponentRef	Id="ComponentConfigPlugins" />
       <ComponentRef	Id="ComponentApplication" />
-      <ComponentRef	Id="CorePluginsComponent" />
-      <ComponentRef	Id="DroidPluginsComponent" />
-      <ComponentRef	Id="iOSPluginsComponent" />
-      <ComponentRef	Id="WindowsPhonePluginsComponent" />
-      <ComponentRef	Id="WindowsStorePluginsComponent" />
-      <ComponentRef	Id="WpfPluginsComponent" />
+      <ComponentRef	Id="ComponentCoreAssemblies" />
+      <ComponentRef	Id="ComponentDroidAssemblies" />
+      <ComponentRef	Id="ComponentiOSAssemblies" />
+      <ComponentRef	Id="ComponentWindowsPhoneAssemblies" />
+      <ComponentRef	Id="ComponentWindowsStoreAssemblies" />
+      <ComponentRef	Id="ComponentWpfAssemblies" />
       <ComponentRef	Id="ComponentAddIn" />
       <ComponentRef	Id="ComponentViewModelsAndViewsTemplates" />
       <ComponentRef	Id="ComponentConvertersItemTemplates" />

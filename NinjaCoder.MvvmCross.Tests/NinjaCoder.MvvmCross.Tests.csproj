@@ -79,12 +79,15 @@
     <Compile Include="Mocks\MockFile.cs" />
     <Compile Include="Mocks\MockFileInfo.cs" />
     <Compile Include="Mocks\MockFileInfoBase.cs" />
+    <Compile Include="Mocks\MockPathBase.cs" />
     <Compile Include="Presenters\TestItemTemplatesPresenter.cs" />
     <Compile Include="Presenters\TestOptionsPresenter.cs" />
     <Compile Include="Presenters\TestPluginsPresenter.cs" />
     <Compile Include="Presenters\TestServicesPresenter.cs" />
     <Compile Include="Presenters\TestSolutionOptionsPresenter.cs" />
     <Compile Include="Presenters\TestViewModelOptionsPresenter.cs" />
+    <Compile Include="Services\TestCodeConfigService.cs" />
+    <Compile Include="Services\TestPluginService.cs" />
     <Compile Include="Services\TestConfigurationService.cs" />
     <Compile Include="Services\TestConvertersService.cs" />
     <Compile Include="Services\TestNugetService.cs" />

@@ -121,6 +121,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <returns>The default project name.</returns>
         string GetDefaultProjectName();
 
+        /// <summary>
+        /// Gets the project service by suffix.
+        /// </summary>
+        /// <param name="suffix">The suffix.</param>
+        /// <returns>The project service.</returns>
         IProjectService GetProjectServiceBySuffix(string suffix);
     }
 }

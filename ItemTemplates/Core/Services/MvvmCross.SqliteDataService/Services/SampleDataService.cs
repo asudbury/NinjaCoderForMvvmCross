@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MvvmCross.SqliteDataService.Services
 {
-    using Cirrious.MvvmCross.Plugins.Sqlite;
+    using Cirrious.MvvmCross.Community.Plugins.Sqlite;
 
     using Entities;
 

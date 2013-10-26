@@ -10,8 +10,8 @@ namespace NinjaCoder.MvvmCross.Tests.Presenters
 
     using Moq;
 
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Presenters;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
     using NinjaCoder.MvvmCross.Views.Interfaces;
     using NUnit.Framework;
 

@@ -21,22 +21,27 @@ namespace NinjaCoder.MvvmCross.Constants
         public const string NonMvvmCrossSolution = "This solution is not a MvvmCross solution.";
 
         /// <summary>
-        /// The core
+        /// The core.
         /// </summary>
         public const string Core = "Core";
 
         /// <summary>
-        /// The core tests
+        /// The core tests.
         /// </summary>
         public const string CoreTests = "Core.Tests";
 
         /// <summary>
-        /// The droid
+        /// The droid.
         /// </summary>
         public const string Droid = "Droid";
 
         /// <summary>
-        /// The iOS
+        /// The touch.
+        /// </summary>
+        public const string Touch = "Touch";
+
+        /// <summary>
+        /// The iOS.
         /// </summary>
         public const string iOS = "iOS";
 
@@ -116,9 +121,8 @@ namespace NinjaCoder.MvvmCross.Constants
         public const string ResumeReSharperCommand = "ReSharper_Resume";
 
         /// <summary>
-        /// The plugins assembly prefix.
+        /// The core plugins assembly prefix.
         /// </summary>
-        public const string PluginsAssemblyPrefix = "Cirrious.MvvmCross.Plugins.";
-
+        public const string CorePluginsAssemblyPrefix = "Cirrious.MvvmCross.Plugins";
     }
 }

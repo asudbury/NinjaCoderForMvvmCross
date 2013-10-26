@@ -8,6 +8,9 @@ namespace NinjaCoder.MvvmCross.Services
     using System.Collections.Generic;
     using Entities;
     using Interfaces;
+
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
+
     using Scorchio.VisualStudio.Entities;
     using Views;
     using Views.Interfaces;

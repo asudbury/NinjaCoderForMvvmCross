@@ -10,6 +10,9 @@ namespace NinjaCoder.MvvmCross.Controllers
     using System.Windows.Forms;
     using Constants;
     using EnvDTE;
+
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
+
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;

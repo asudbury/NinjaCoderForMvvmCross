@@ -7,8 +7,11 @@ namespace NinjaCoder.MvvmCross.Translators
 {
     using System.Collections.Generic;
     using System.IO.Abstractions;
+    using System.Linq;
 
     using Entities;
+
+    using NinjaCoder.MvvmCross.Constants;
 
     /// <summary>
     /// Defines the PluginsTranslator type.
@@ -36,14 +39,21 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <returns>An instance of Plugins</returns>
         public Plugins Translate(DirectoryInfoBase @from)
         {
-            Plugins plugins = new Plugins { Items = new List<Plugin>() };
+            //// we don't want the UI plugins (and also the messenger plugin - that will already be in the projects)
+            FileInfoBase[] files = from.GetFiles("*Plugin*")
+                .Where(x => !x.Name.Contains(Settings.Droid) && 
+                            !x.Name.Contains(Settings.Touch) &&
+                            !x.Name.Contains(Settings.WindowsPhone) &&
+                            !x.Name.Contains(Settings.WindowsStore) &&
+                            !x.Name.Contains(Settings.Wpf) &&
+                            !x.Name.Contains("Plugins.Messenger"))
+                .ToArray();
 
-            FileInfoBase[] files = from.GetFiles("*.*");
-                
-            foreach (FileInfoBase fileInfo in files)
-            {
-                plugins.Items.Add(this.translator.Translate(fileInfo));
-            }
+            //// ensure we order the plugins by friendly name.
+            List<Plugin> items = files.Select(fileInfo => this.translator.Translate(fileInfo))
+                                    .OrderBy(p => p.FriendlyName).ToList();
+
+            Plugins plugins = new Plugins { Items = items };
 
             return plugins;
         }

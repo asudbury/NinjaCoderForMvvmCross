@@ -67,10 +67,6 @@ namespace NinjaCoder.MvvmCross.Translators
                 }
             }
 
-            //// tidy up some code items.
-            codeSnippet.MockConstructorCode = this.CleanedCode(codeSnippet.MockConstructorCode);
-            codeSnippet.MockInitCode = this.GetSpacedCodeLine(this.CleanedCode(codeSnippet.MockInitCode));
-
             return codeSnippet;
         }
 
@@ -98,21 +94,6 @@ namespace NinjaCoder.MvvmCross.Translators
             }
 
             return code;
-        }
-
-        /// <summary>
-        /// Gets the spaced code line.
-        /// </summary>
-        /// <param name="code">The code.</param>
-        /// <returns>A spaced code line.</returns>
-        internal string GetSpacedCodeLine(string code)
-        {
-            if (code != null)
-            {
-                return "            " + code;
-            }
-
-            return null;
         }
     }
 }

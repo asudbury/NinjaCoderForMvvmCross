@@ -102,7 +102,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
         [Test]
         public void TestTryToAddProject()
         {
-            this.service.TryToAddProject("path", true, true, new ProjectTemplateInfo(), mockProjectService.Object);
+            this.service.TryToAddProject("path", true, new ProjectTemplateInfo(), mockProjectService.Object);
         }
     }
 }

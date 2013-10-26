@@ -11,7 +11,9 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.SqliteDataService
     using EnvDTE;
 
     using Extensions;
-    using Services;
+
+    using Scorchio.VisualStudio.Extensions;
+    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     ///  Defines the SqliteDataServiceWizard type.
@@ -31,7 +33,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.SqliteDataService
         /// <summary>
         /// Runs custom wizard logic at the beginning of a template wizard run.
         /// </summary>
-        public override void OnRunStarted()
+        protected override void OnRunStarted()
         {
             TraceService.WriteLine("SqliteDataServiceWizard::OnRunStarted");
 
@@ -59,7 +61,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.SqliteDataService
         /// </summary>
         /// <param name="filePath">The file path.</param>
         /// <returns>True or false.</returns>
-        public override bool OnShouldAddProjectItem(string filePath)
+        protected override bool OnShouldAddProjectItem(string filePath)
         {
             TraceService.WriteLine("SqliteDataServiceWizard::OnShouldAddProjectItem path=" + filePath);
 
@@ -77,7 +79,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.SqliteDataService
         /// Called when [project item finished generating].
         /// </summary>
         /// <param name="projectItem">The project item.</param>
-        public override void OnProjectItemFinishedGenerating(ProjectItem projectItem)
+        protected override void OnProjectItemFinishedGenerating(ProjectItem projectItem)
         {
             TraceService.WriteLine("SqliteDataServiceWizard::OnProjectItemFinishedGenerating");
 

@@ -7,8 +7,6 @@ namespace Scorchio.VisualStudio.Services.Interfaces
 {
     using EnvDTE;
 
-    using EnvDTE80;
-
     using Microsoft.VisualStudio.CommandBars;
 
     /// <summary>
@@ -16,6 +14,11 @@ namespace Scorchio.VisualStudio.Services.Interfaces
     /// </summary>
     public interface IDTEService
     {
+        /// <summary>
+        /// Gets the solution service.
+        /// </summary>
+        ISolutionService SolutionService { get; }
+
         /// <summary>
         /// Activates the specified instance.
         /// </summary>
@@ -38,7 +41,7 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// <summary>
         /// Gets the active project.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The active project.</returns>
         Project GetActiveProject();
         
         /// <summary>

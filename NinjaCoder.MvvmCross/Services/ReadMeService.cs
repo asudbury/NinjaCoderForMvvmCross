@@ -9,6 +9,8 @@ namespace NinjaCoder.MvvmCross.Services
     using System.Collections.Generic;
     using System.IO;
     using System.IO.Abstractions;
+    using System.Linq;
+
     using Interfaces;
     using Scorchio.VisualStudio.Services;
 
@@ -84,11 +86,8 @@ namespace NinjaCoder.MvvmCross.Services
             sw.WriteLine(this.GetSeperatorLine());
             sw.WriteLine(string.Empty);
 
-            foreach (string line in lines)
-            {
-                sw.WriteLine(line);
-            }
-
+            lines.ToList().ForEach(sw.WriteLine);
+  
             //// now write the old lines or add footer
 
             if (string.IsNullOrEmpty(currentLines) == false)
@@ -97,10 +96,7 @@ namespace NinjaCoder.MvvmCross.Services
             }
             else
             {
-                foreach (string footerLine in this.GetFooterLines())
-                {
-                    sw.WriteLine(footerLine);
-                }
+                this.GetFooterLines().ForEach(sw.WriteLine);
             }
 
             sw.Close();

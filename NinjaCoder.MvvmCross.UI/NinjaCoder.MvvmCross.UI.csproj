@@ -82,6 +82,10 @@
       <Project>{678643f4-34d9-43ac-ac1b-55fc0d58b598}</Project>
       <Name>NinjaCoder.MvvmCross</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Scorchio.VisualStudio\Scorchio.VisualStudio.csproj">
+      <Project>{012e2419-08c3-4555-af80-f101b02bbcf0}</Project>
+      <Name>Scorchio.VisualStudio</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -5,17 +5,17 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
-    using Constants;
-    using Scorchio.VisualStudio.Entities;
-    using Scorchio.VisualStudio.Services;
-    using Scorchio.VisualStudio.Services.Interfaces;
-    using Services.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Forms;
+    using Constants;
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
+    using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Services;
+    using Scorchio.VisualStudio.Services.Interfaces;
+    using Services.Interfaces;
     using Views.Interfaces;
-    using VSLangProj;
 
     /// <summary>
     /// Defines the ProjectsController type.
@@ -108,7 +108,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                     this.Process(
                         view.Presenter.GetSolutionPath(),
                         view.ProjectName, 
-                        view.Presenter.GetRequiredTemplates());
+                        view.Presenter.GetFormattedRequiredTemplates());
                 }
             }
             else
@@ -167,7 +167,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                 //// but we have so many problems with nuget and iOS AND droid projects
                 //// we try and make it as simple as possible by removing the mvx references!
 
-                //// THIS CODE IS ALSO IN THE TEMPLATE WIZARD! - we could drop the template wizard code?
+                //// THIS CODE IS ALSO IN THE TEMPLATE WIZARD! 
                 this.RemoveMvxReferences(this.VisualStudioService.CoreProjectService);
                 this.RemoveMvxReferences(this.VisualStudioService.CoreTestsProjectService);
                 this.RemoveMvxReferences(this.VisualStudioService.iOSProjectService);
@@ -177,16 +177,21 @@ namespace NinjaCoder.MvvmCross.Controllers
                 this.RemoveMvxReferences(this.VisualStudioService.WpfProjectService);
 
                 string commands = this.nugetService.GetNugetCommands(
-                    this.VisualStudioService, 
-                    requireTemplates, 
-                    this.SettingsService.VerboseNugetOutput, 
+                    this.VisualStudioService,
+                    requireTemplates,
+                    this.SettingsService.VerboseNugetOutput,
                     this.SettingsService.DebugNuget);
 
-                this.nugetService.Execute(
-                    this.VisualStudioService, 
-                    this.GetReadMePath(), 
-                    commands,
-                    this.SettingsService.SuspendReSharperDuringBuild);
+                TraceService.WriteLine("nugetCommands=" + commands);
+
+                if (this.SettingsService.ProcessNugetCommands)
+                {
+                    this.nugetService.Execute(
+                        this.VisualStudioService,
+                        this.GetReadMePath(),
+                        commands,
+                        this.SettingsService.SuspendReSharperDuringBuild);
+                }
 
                 this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NugetDownload);
             }
@@ -212,15 +217,10 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             if (projectService != null)
             {
-                IEnumerable<Reference> references = projectService.GetProjectReferences();
-
-                foreach (Reference reference in references)
-                {
-                    if (reference.Name.StartsWith("Cirrious"))
-                    {
-                        reference.Remove();
-                    }
-                }
+                projectService.GetProjectReferences()
+                    .Where(x => x.Name.StartsWith("Cirrious"))
+                    .ToList()
+                    .ForEach(x => x.Remove());
             }
         }
     }

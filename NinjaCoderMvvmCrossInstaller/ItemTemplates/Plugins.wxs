@@ -9,11 +9,11 @@
                  DiskId="1" 
                  Guid="825c8b3c-e1ee-4eae-81b2-30000000000C">
 
-        <File Id="MvvmCross.Plugin"
-            Name="MvvmCross.Plugin.zip"
+        <File Name="MvvmCross.Plugin.zip"
             Source="$(var.ITEM_TEMPLATES_DIR)\Core\Plugins\MvvmCross.Plugin\bin\Debug\ItemTemplates\CSharp\1033\MvvmCross.Plugin.zip">
           <CopyFile Id="copyPlugin1" DestinationDirectory="ItemTemplatesMvvmCrossPlugins"/>
         </File>
+
       </Component>
     </ComponentGroup>
 	</Fragment>

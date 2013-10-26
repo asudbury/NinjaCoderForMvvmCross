@@ -36,6 +36,12 @@ namespace Scorchio.VisualStudio.Entities
         public string NugetPackage { get; set; }
 
         /// <summary>
+        /// Gets or sets the bootstrap file name override.
+        /// </summary>
+        [XmlElement(ElementName = "BootstrapFileNameOverride")]
+        public string BootstrapFileNameOverride { get; set; }
+
+        /// <summary>
         /// Gets or sets the dependent plugins.
         /// </summary>
         [XmlArray(ElementName = "DependentPlugins")]

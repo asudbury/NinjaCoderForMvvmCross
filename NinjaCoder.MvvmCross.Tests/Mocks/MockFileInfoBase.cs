@@ -16,6 +16,11 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
     public class MockFileInfoBase : FileInfoBase
     {
         /// <summary>
+        /// Gets or sets the file name override.
+        /// </summary>
+        public string FileNameOverride { get; set; }
+
+        /// <summary>
         /// Gets or sets a Last Write Time Value.
         /// Used my Unit test to set Zipper Service.
         /// </summary>
@@ -118,10 +123,9 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         public override string Name
         {
-            get { return null; }
+            get { return this.FileNameOverride; }
         }
-
-
+        
         /// <summary>
         /// Gets the directory.
         /// </summary>

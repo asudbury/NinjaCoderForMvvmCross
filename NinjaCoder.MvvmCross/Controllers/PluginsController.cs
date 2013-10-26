@@ -7,12 +7,14 @@ namespace NinjaCoder.MvvmCross.Controllers
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.IO.Abstractions;
     using System.Linq;
     using System.Windows.Forms;
     using Constants;
     using Entities;
+
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
+
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
     using Services.Interfaces;
@@ -103,7 +105,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                 {
                     IEnumerable<string> viewModelNames = projectService.GetFolderItems("ViewModels", false);
 
-                    DirectoryInfoBase directoryInfoBase = this.fileSystem.DirectoryInfo.FromDirectoryName(this.SettingsService.CorePluginsPath);
+                    DirectoryInfoBase directoryInfoBase = this.fileSystem.DirectoryInfo.FromDirectoryName(this.SettingsService.MvvmCrossAssembliesPath);
 
                     Plugins plugins = this.translator.Translate(directoryInfoBase);
 
@@ -130,7 +132,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="implementInViewModel">if set to <c>true</c> [implement in view model].</param>
         /// <param name="includeUnitTests">if set to <c>true</c> [include unit tests].</param>
         internal void Process(
-            List<Plugin> plugins,
+            IEnumerable<Plugin> plugins,
             string implementInViewModel,
             bool includeUnitTests)
         {
@@ -150,21 +152,23 @@ namespace NinjaCoder.MvvmCross.Controllers
                     plugins,
                     implementInViewModel,
                     includeUnitTests);
-
-                //// needs fixing - this is when we create the constructor parameters for the unit tests.
-                this.VisualStudioService.DTEService.ReplaceText(",)", ")", false);
-
+                
                 this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.UpdatingFiles);
 
                 this.VisualStudioService.DTEService.SaveAll();
 
-                if (this.pluginsService.NugetCommands.Any())
+                IEnumerable<string> commands = plugins.SelectMany(x => x.NugetCommands);
+
+                if (commands.Any())
                 {
-                    this.nugetService.Execute(
-                        this.VisualStudioService,
-                        this.GetReadMePath(),
-                        this.pluginsService.NugetCommands,
-                        this.SettingsService.SuspendReSharperDuringBuild);
+                    if (SettingsService.ProcessNugetCommands)
+                    {
+                        this.nugetService.Execute(
+                            this.VisualStudioService,
+                            this.GetReadMePath(),
+                            commands,
+                            this.SettingsService.SuspendReSharperDuringBuild);
+                    }
 
                     this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NugetDownload);
                 }

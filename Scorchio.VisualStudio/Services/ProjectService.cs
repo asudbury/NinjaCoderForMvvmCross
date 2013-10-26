@@ -49,6 +49,18 @@ namespace Scorchio.VisualStudio.Services
         }
 
         /// <summary>
+        /// Gets the DTE service.
+        /// </summary>
+        public IDTEService DTEService
+        {
+            get
+            {
+                DTE2 dte2 = this.project.DTE as DTE2;
+                return new DTEService(dte2);
+            }
+        }
+
+        /// <summary>
         /// Gets the project path.
         /// </summary>
         /// <returns>The project path.</returns>
@@ -89,9 +101,9 @@ namespace Scorchio.VisualStudio.Services
         /// The project item.</returns>
         public IProjectItemService GetProjectItem(string fileName)
         {
-            ProjectItem item = this.project.GetProjectItem(fileName);
+            ProjectItem projectItem = this.project.GetProjectItem(fileName);
 
-            return new ProjectItemService(item);
+            return projectItem != null ? new ProjectItemService(projectItem) : null;
         }
 
         /// <summary>
@@ -101,9 +113,9 @@ namespace Scorchio.VisualStudio.Services
         /// <returns>The folder.</returns>
         public IProjectItemService GetFolder(string folderName)
         {
-            ProjectItem item = this.project.GetFolder(folderName);
+            ProjectItem projectItem = this.project.GetFolder(folderName);
 
-            return new ProjectItemService(item);
+            return projectItem != null ? new ProjectItemService(projectItem) : null;
         }
 
         /// <summary>
@@ -169,17 +181,20 @@ namespace Scorchio.VisualStudio.Services
         /// <param name="destination">The destination.</param>
         /// <param name="source">The source.</param>
         /// <param name="addFileToFolder">if set to <c>true</c> [add file to folder].</param>
+        /// <param name="copyAssembly">if set to <c>true</c> [copy assembly].</param>
         public void AddReference(
             string destinationFolder, 
             string destination, 
             string source,
-            bool addFileToFolder)
+            bool addFileToFolder,
+            bool copyAssembly)
         {
             this.project.AddReference(
                 destinationFolder,
                 destination,
                 source,
-                addFileToFolder);
+                addFileToFolder,
+                copyAssembly);
         }
 
         /// <summary>
@@ -221,6 +236,15 @@ namespace Scorchio.VisualStudio.Services
         public void RemoveReference(string referenceName)
         {
             this.project.RemoveReference(referenceName);
+        }
+
+        /// <summary>
+        /// Removes the references.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        public void RemoveReferences(string value)
+        {
+            this.project.RemoveReferences(value);
         }
 
         /// <summary>

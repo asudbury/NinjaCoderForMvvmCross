@@ -1,5 +1,0 @@
-<CodeConfig>
-  <DependentPlugins>
-    <DependentPlugin>Cirrious.MvvmCross.Plugins.Location</DependentPlugin>
-  </DependentPlugins>
-</CodeConfig>

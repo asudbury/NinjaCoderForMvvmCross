@@ -3,11 +3,10 @@
 //    Defines the NinjaController type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Controllers
 {
     using System.Collections.Generic;
-    using System.IO;
+
     using System.IO.Abstractions;
     using System.Reflection;
     using Entities;
@@ -149,11 +148,11 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <summary>
         /// Attempts to resolve a type using default options.
         /// </summary>
-        /// <typeparam name="Type">The type of the controller</typeparam>
+        /// <typeparam name="T">The type of the controller</typeparam>
         /// <param name="dte2">The dte2.</param>
         /// <returns>Instance of the controller.</returns>
-        internal static Type ResolveController<Type>(DTE2 dte2)
-            where Type : class
+        internal static T ResolveController<T>(DTE2 dte2)
+            where T : class
         {
             TraceService.WriteLine("NinjaController::Setup");
 
@@ -161,11 +160,11 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             TinyIoCContainer container = TinyIoCContainer.Current;
             
-            Type type = container.Resolve<Type>();
+            T t = container.Resolve<T>();
 
             if (dte2 != null)
             {
-                BaseController controller = type as BaseController;
+                BaseController controller = t as BaseController;
 
                 if (controller != null)
                 {
@@ -173,7 +172,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                 }
             }
 
-            return type;
+            return t;
         }
         
         /// <summary>

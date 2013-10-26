@@ -62,18 +62,6 @@ namespace Scorchio.VisualStudio.Entities
         public string TestInitMethod { get; set; }
 
         /// <summary>
-        ///  Gets or sets the mock init code.
-        /// </summary>
-        [XmlElement(ElementName = "MockInitCode")]
-        public string MockInitCode { get; set; }
-
-        /// <summary>
-        ///  Gets or sets the mock constructor code.
-        /// </summary>
-        [XmlElement(ElementName = "MockConstructorCode")]
-        public string MockConstructorCode { get; set; }
-
-        /// <summary>
         /// Gets or sets the project.
         /// </summary>
         [XmlElement(ElementName = "Project")]

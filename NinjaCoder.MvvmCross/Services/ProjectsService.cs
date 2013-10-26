@@ -80,7 +80,6 @@ namespace NinjaCoder.MvvmCross.Services
                 firstProjectService = this.TryToAddProject(
                     path, 
                     referenceFirstProject, 
-                    includeLibFolderInProjects, 
                     projectInfo, 
                     firstProjectService);
             }
@@ -93,14 +92,12 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="referenceFirstProject">if set to <c>true</c> [reference first project].</param>
-        /// <param name="includeLibFolderInProjects">if set to <c>true</c> [include lib folder in projects].</param>
         /// <param name="projectInfo">The project info.</param>
         /// <param name="firstProjectService">The first project service.</param>
         /// <returns>The project service.</returns>
         internal IProjectService TryToAddProject(
             string path,
             bool referenceFirstProject,
-            bool includeLibFolderInProjects,
             ProjectTemplateInfo projectInfo,
             IProjectService firstProjectService)
         {
@@ -112,7 +109,7 @@ namespace NinjaCoder.MvvmCross.Services
 
             if (this.FileSystem.Directory.Exists(projectPath) == false)
             {
-                this.AddProject(includeLibFolderInProjects, projectInfo, projectPath);
+                this.AddProject(projectInfo, projectPath);
             }
 
             if (referenceFirstProject)
@@ -126,11 +123,9 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Adds the project.
         /// </summary>
-        /// <param name="includeLibFolderInProjects">if set to <c>true</c> [include lib folder in projects].</param>
         /// <param name="projectInfo">The project info.</param>
         /// <param name="projectPath">The project path.</param>
         internal void AddProject(
-            bool includeLibFolderInProjects,
             ProjectTemplateInfo projectInfo,
             string projectPath)
         {
@@ -141,14 +136,6 @@ namespace NinjaCoder.MvvmCross.Services
                 string template = this.visualStudioService.SolutionService.GetProjectTemplate(projectInfo.TemplateName);
 
                 this.visualStudioService.SolutionService.AddProjectToSolution(projectPath, template, projectInfo.Name);
-
-                //// remove the lib folder if that's what the developer wants to happen.
-                //// if the develop has selected use nuget then also remove the project
-                if (includeLibFolderInProjects == false ||
-                    projectInfo.UseNuget)
-                {
-                    this.DeleteLibFolder(projectInfo);
-                }
 
                 this.Messages.Add(projectInfo.Name + " project successfully added.");
             }

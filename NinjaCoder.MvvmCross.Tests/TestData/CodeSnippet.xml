@@ -5,31 +5,28 @@
   <Interface>IUknownService</Interface>
 </Interfaces> 
 <References>
-  <Reference>ILocationService</Reference>
-  <Reference>IDropboxService</Reference>
-  <Reference>IUknownService</Reference>
+  <Reference>Ref1</Reference>
+  <Reference>Ref2</Reference>
+  <Reference>Ref3</Reference>
 </References> 
 <UsingStatements>
   <Statement>aaa.bbb.ccc</Statement>
   <Statement>bbb.bbb.ccc</Statement>
   <Statement>ccc.bbb.ccc</Statement>
 </UsingStatements>
-<Code>
-        <![CDATA[
-        /// <summary>
-        /// Composes the email.
-        /// </summary>
-        /// <param name="to">To - Who the email is going to..</param>
-        /// <param name="subject">The subject of the email.</param>
-        /// <param name="body">The body of the email.</param>
-        public void ComposeEmail(
-            string to,
-            string subject, 
-            string body)
-        {
-            IMvxComposeEmailTask task = this.GetService<IMvxComposeEmailTask>();
-            task.ComposeEmail(to, null, subject, body, false);
-        }
-        ]]>
-</Code>
+<Variables>
+  <Variable>Var1</Variable>
+  <Variable>Var2</Variable>
+</Variables>
+<MockVariables>
+  <MockVariable>Mock1</MockVariable>
+  <MockVariable>Mock2</MockVariable>
+</MockVariables>
+<TestInitMethod>TestMethod</TestInitMethod>
+<MockInitCode>InitCode</MockInitCode>
+<MockConstructorCode>Construct</MockConstructorCode>
+<Project>Adrian</Project>
+<Class>Class1</Class>
+<Method>Method3</Method>
+<Code>Code7</Code>
 </CodeSnippet>

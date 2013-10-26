@@ -11,8 +11,8 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Projects
 
     using EnvDTE;
 
-    using NinjaCoder.MvvmCross.TemplateWizards.Extensions;
-    using NinjaCoder.MvvmCross.TemplateWizards.Services;
+    using Scorchio.VisualStudio.Extensions;
+    using Scorchio.VisualStudio.Services;
 
     using VSLangProj;
 
@@ -22,6 +22,11 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Projects
     public class ProjectsWizard : BaseWizard
     {
         /// <summary>
+        /// The MvvmCross assembly prefix.
+        /// </summary>
+        private const string MvxAssemblyPrefix = "Cirrious";
+
+        /// <summary>
         /// The files to delete.
         /// </summary>
         private List<string> filesToDelete;
@@ -29,9 +34,9 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Projects
         /// <summary>
         /// Runs custom wizard logic at the beginning of a template wizard run.
         /// </summary>
-        public override void OnRunStarted()
+        protected override void OnRunStarted()
         {
-            TraceService.WriteLine("ProjectsWizard::OnRunStarted");
+            TraceService.WriteHeader("ProjectsWizard::OnRunStarted");
 
             this.filesToDelete = new List<string>();
         }
@@ -41,7 +46,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Projects
         /// </summary>
         /// <param name="filePath">The file path.</param>
         /// <returns>True or false.</returns>
-        public override bool OnShouldAddProjectItem(string filePath)
+        protected override bool OnShouldAddProjectItem(string filePath)
         {
             TraceService.WriteLine("ProjectsWizard::OnShouldAddProjectItem path=" + filePath);
 
@@ -49,8 +54,8 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Projects
             {
                 if (this.SettingsService.UseNugetForProjectTemplates)
                 {
-                    //// dont add the Mvx assemblies.
-                    if (filePath.StartsWith("Cirrious"))
+                    //// dont add the MvvmCross assemblies.
+                    if (filePath.StartsWith(MvxAssemblyPrefix))
                     {
                         TraceService.WriteLine("File to be removed path=" + filePath);
                         this.filesToDelete.Add(filePath);
@@ -65,31 +70,87 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Projects
         /// Called when [project finished generating].
         /// </summary>
         /// <param name="project">The project.</param>
-        public override void OnProjectFinishedGenerating(Project project)
+        protected override void OnProjectFinishedGenerating(Project project)
         {
             TraceService.WriteLine("ProjectsWizard::OnProjectFinishedGenerating");
 
+            //// remove the lib folder if that's what the developer wants to happen.
+            //// if the develop has selected use nuget then also remove the project
+
+            if (this.SettingsService.IncludeLibFolderInProjects == false ||
+                this.SettingsService.UseNugetForProjectTemplates)
+            {
+                project.RemoveFolder("Lib");
+            }
+
+            //// delete the mvx files if we are using nuget.
             foreach (string path in this.filesToDelete.Where(File.Exists))
             {
+                TraceService.WriteLine("DeleteFile path" + path);
                 File.Delete(path);
             }
 
-            //// now remove the references.
-            if (this.SettingsService.RemoveAssembliesIfNugetUsed)
+            //// now remove the references if we using nuget.
+            if (this.SettingsService.RemoveAssembliesIfNugetUsed &&
+                this.SettingsService.UseNugetForProjectTemplates)
             {
-                if (this.SettingsService.UseNugetForProjectTemplates)
-                {
-                    IEnumerable<Reference> references = project.GetProjectReferences();
+                TraceService.WriteLine("RemoveAssembliesIfNugetUsed");
+                TraceService.WriteLine("UseNugetForProjectTemplates");
 
-                    foreach (Reference reference in references)
-                    {
-                        if (reference.Name.StartsWith("Cirrious"))
-                        {
-                            reference.Remove();
-                        }
-                    }
-                }
+                this.RemoveMvvmCrossReferences(project);
             }
+            else if (this.SettingsService.CopyAssembliesToLibFolder == false)
+            {
+                TraceService.WriteLine("CopyAssembliesToLibFolder");
+
+                //// grab the list of mvvmcross assembly names.
+                IEnumerable<string> assembliesToAdd = this.GetAssembliesToAddList(project);
+
+                //// remove references of mvvmcross assemblies
+                this.RemoveMvvmCrossReferences(project);
+
+                //// point references back to assemblies in the ninja coder folder.
+                project.AddAssemblies(
+                    this.SettingsService.MvvmCrossAssembliesPath,
+                    assembliesToAdd);
+            }
+        }
+
+        /// <summary>
+        /// Called when [run finished].
+        /// </summary>
+        protected override void OnRunFinished()
+        {
+            TraceService.WriteHeader("ProjectsWizard::OnRunFinished");
+        }
+
+        /// <summary>
+        /// Removes the MvvmCross references.
+        /// </summary>
+        /// <param name="project">The project.</param>
+        private void RemoveMvvmCrossReferences(Project project)
+        {
+            TraceService.WriteLine("ProjectsWizard::RemoveMvvmCrossReferences");
+
+            project.GetProjectReferences()
+                .Where(x => x.Name.StartsWith(MvxAssemblyPrefix))
+                .ToList()
+                .ForEach(r => r.Remove());
+        }
+
+        /// <summary>
+        /// Assemblies to Add.
+        /// </summary>
+        /// <param name="project">The project.</param>
+        /// <returns>A list of assemblies to add to the project.</returns>
+        private IEnumerable<string> GetAssembliesToAddList(Project project)
+        {
+            TraceService.WriteLine("ProjectsWizard::GetAssembliesToAddList");
+
+            IEnumerable<Reference> references = project.GetProjectReferences()
+                .Where(x => x.Name.StartsWith(MvxAssemblyPrefix));
+
+            return references.Select(reference => reference.Name).ToList();
         }
     }
 }

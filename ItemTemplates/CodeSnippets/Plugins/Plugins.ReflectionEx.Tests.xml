@@ -1,0 +1,28 @@
+﻿<CodeSnippet>
+  <UsingStatements>
+    <Statement>System.Reflection</Statement>
+    <Statement>Cirrious.CrossCore.Platform</Statement>
+  </UsingStatements>
+  <MockVariables>
+    <MockVariable>IMvxReflectionEx mockReflectionEx</MockVariable>
+  </MockVariables>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Tests Get Reflected Assemblies Ex.
+        /// </summary>
+        [Test]
+        public void TestGetReflectedAssembliesEx()
+        {
+            //// arrange
+            Assembly assembly = Assembly.Load("x");
+
+            //// act
+            this.TestableObject.GetReflectedAssemblies(assembly);
+            
+            //// assert
+        }
+    ]]>
+  </Code>
+</CodeSnippet>
+

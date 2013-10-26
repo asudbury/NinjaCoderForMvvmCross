@@ -8,7 +8,14 @@ namespace NinjaCoder.MvvmCross.Services
     using System.Collections.Generic;
     using System.IO.Abstractions;
     using Interfaces;
+
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
+
     using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Extensions;
+    using Scorchio.VisualStudio.Services;
+    using Scorchio.VisualStudio.Services.Interfaces;
+
     using Translators;
 
     /// <summary>
@@ -106,6 +113,103 @@ namespace NinjaCoder.MvvmCross.Services
 
             return codeSnippet;
         }
+
+        /// <summary>
+        /// Applies the global variables.
+        /// </summary>
+        /// <param name="visualStudioService">The visual studio service.</param>
+        /// <param name="codeSnippet">The code snippet.</param>
+        public void ApplyGlobals(
+            IVisualStudioService visualStudioService,
+            CodeSnippet codeSnippet)
+        {
+            TraceService.WriteLine("SnippetService::ApplyGlobals");
+
+            bool hasGlobals = visualStudioService.DTEService.SolutionService.HasGlobals;
+
+            if (hasGlobals)
+            {
+                Dictionary<string, string> dictionary = visualStudioService.DTEService.SolutionService.GetGlobalVariables();
+
+                if (dictionary != null)
+                {
+                    foreach (KeyValuePair<string, string> keyValuePair in dictionary)
+                    {
+                        if (keyValuePair.Value != null)
+                        {
+                            codeSnippet.AddReplacementVariable(keyValuePair.Key, keyValuePair.Value);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creates the unit tests.
+        /// </summary>
+        /// <param name="visualStudioService">The visual studio service.</param>
+        /// <param name="projectService">The project service.</param>
+        /// <param name="codeSnippetsPath">The code snippets path.</param>
+        /// <param name="viewModelName">Name of the view model.</param>
+        /// <param name="friendlyName">Name of the friendly.</param>
+        /// <param name="usingStatement">The using statement.</param>
+        /// <returns>The project item service.</returns>
+        public IProjectItemService CreateUnitTests(
+            IVisualStudioService visualStudioService,
+            IProjectService projectService,
+            string codeSnippetsPath,
+            string viewModelName,
+            string friendlyName,
+            string usingStatement)
+        {
+            TraceService.WriteLine("SnippetService::CreateUnitTests viewModelName=" + viewModelName);
+
+            CodeSnippet codeSnippet = this.GetUnitTestingSnippet(codeSnippetsPath);
+
+            if (codeSnippet != null)
+            {
+                if (string.IsNullOrEmpty(usingStatement) == false)
+                {
+                    if (codeSnippet.UsingStatements == null)
+                    {
+                        codeSnippet.UsingStatements = new List<string>();
+                    }
+
+                    codeSnippet.UsingStatements.Add(usingStatement);
+                }
+
+                if (this.settingsService.ReplaceVariablesInSnippets)
+                {
+                    this.ApplyGlobals(visualStudioService, codeSnippet);
+                }
+
+                string fileName = "Test" + viewModelName;
+
+                //// are we going to assume that the TestViewModel source file already exists?
+                IProjectItemService projectItemService = projectService.GetProjectItem(fileName);
+
+                if (projectItemService != null)
+                {
+                    projectItemService.ImplementUnitTestingCodeSnippet(
+                        codeSnippet,
+                        viewModelName,
+                        this.settingsService.RemoveDefaultFileHeaders,
+                        this.settingsService.RemoveDefaultComments,
+                        this.settingsService.FormatFunctionParameters);
+
+                    this.Messages.Add(friendlyName + " test code added to " + fileName + ".cs in project " + projectService.Name + ".");
+
+                    return projectItemService;
+                }
+            }
+            else
+            {
+                TraceService.WriteError("SnippetService::CreateUnitTests File Not Found=" + codeSnippetsPath);
+            }
+
+            return null;
+        }
+
 
         /// <summary>
         /// Gets the snippet path (could be overridden)

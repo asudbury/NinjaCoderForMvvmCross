@@ -6,6 +6,7 @@
 namespace Scorchio.VisualStudio.Extensions
 {
     using System;
+    using System.Text.RegularExpressions;
 
     using EnvDTE;
     using Services;
@@ -121,7 +122,7 @@ namespace Scorchio.VisualStudio.Extensions
 
                 //// remove the last comma
                 parameters = parameters.Substring(0, parameters.Length - 1);
-
+                
                 if (firstParameterEditPoint != null)
                 {
                     firstParameterEditPoint.ReplaceText(lastParameterEditPoint, string.Empty, 0);

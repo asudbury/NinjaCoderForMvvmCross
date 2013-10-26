@@ -9,7 +9,9 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.WebRequestService
     using System.Windows.Forms;
     using EnvDTE;
     using Extensions;
-    using Services;
+
+    using Scorchio.VisualStudio.Extensions;
+    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     ///  Defines the WebRequestServiceWizard type.
@@ -29,7 +31,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.WebRequestService
         /// <summary>
         /// Runs custom wizard logic at the beginning of a template wizard run.
         /// </summary>
-        public override void OnRunStarted()
+        protected override void OnRunStarted()
         {
             TraceService.WriteLine("WebRequestServiceWizard::OnRunStarted");
 
@@ -64,7 +66,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.WebRequestService
         /// </summary>
         /// <param name="filePath">The file path.</param>
         /// <returns>True or false.</returns>
-        public override bool OnShouldAddProjectItem(string filePath)
+        protected override bool OnShouldAddProjectItem(string filePath)
         {
             TraceService.WriteLine("WebRequestServiceWizard::OnShouldAddProjectItem path=" + filePath);
 
@@ -82,7 +84,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.WebRequestService
         /// Called when [project item finished generating].
         /// </summary>
         /// <param name="projectItem">The project item.</param>
-        public override void OnProjectItemFinishedGenerating(ProjectItem projectItem)
+        protected override void OnProjectItemFinishedGenerating(ProjectItem projectItem)
         {
             string message = "WebRequestServiceWizard::OnProjectItemFinishedGenerating projectItem=" + projectItem.Name;
 

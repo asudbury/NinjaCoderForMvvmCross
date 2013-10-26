@@ -9,6 +9,8 @@ namespace NinjaCoder.MvvmCross.Services
     using System.IO;
     using System.IO.Abstractions;
     using System.IO.Compression;
+    using System.Linq;
+
     using Interfaces;
     using Scorchio.VisualStudio.Services;
 
@@ -67,10 +69,9 @@ namespace NinjaCoder.MvvmCross.Services
             {
                 string[] files = this.fileSystem.Directory.GetFiles(directory, "*.zip");
 
-                foreach (string file in files)
-                {
-                    this.UpdateZip(file, updatesDirectory, folderName, createLogFile);
-                }
+                files
+                    .ToList()
+                    .ForEach(x => this.UpdateZip(x, updatesDirectory, folderName, createLogFile));
             }
         }
 

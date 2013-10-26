@@ -6,6 +6,7 @@
 namespace NinjaCoder.MvvmCross.Services
 {
     using System.Collections.Generic;
+
     using Interfaces;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
@@ -32,10 +33,8 @@ namespace NinjaCoder.MvvmCross.Services
             {
                 List<string> messages = new List<string>();
 
-                foreach (ItemTemplateInfo templateInfo in templateInfos)
-                {
-                    this.AddConverter(projectService, templatesPath, messages, templateInfo);
-                }
+                templateInfos
+                    .ForEach(x => this.AddConverter(projectService, templatesPath, messages, x));
 
                 return messages;
             }

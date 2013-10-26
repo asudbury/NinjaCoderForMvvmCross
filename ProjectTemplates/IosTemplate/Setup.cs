@@ -30,7 +30,8 @@ namespace IosTemplate
         /// <returns>An instance of IMvxApplication</returns>
         protected override IMvxApplication CreateApp()
         {
-            return new Core.App();
+            return null;
+            ////return new Core.App();
         }
     }
 }

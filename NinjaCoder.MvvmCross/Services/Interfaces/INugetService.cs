@@ -15,6 +15,13 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     public interface INugetService
     {
         /// <summary>
+        /// Gets the init nuget messages.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <returns>The messages.</returns>
+        IEnumerable<string> GetInitNugetMessages(string message);
+ 
+        /// <summary>
         /// Gets the nuget commands.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
@@ -45,7 +52,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         void Execute(
             IVisualStudioService visualStudioService,
             string readMePath,
-            List<string> commands,
+            IEnumerable<string> commands,
             bool resumeReSharper,
             bool setupEventHandlers = true);
 

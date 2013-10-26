@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include $(sys.CURRENTDIR)\Global.wxi?>
+  <Fragment>
+    <ComponentGroup Id='ComponentGroupConfigPlugins'>
+
+      <Component Id="ComponentConfigPlugins" 
+                 Directory="ConfigPlugins" 
+                 DiskId="1" 
+                 Guid="815c8b3c-e1ee-4eae-85b2-30000000000D">
+
+        <File Name="Config.Plugin.Accelerometer.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.Accelerometer.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin1" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.Bookmarks.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.Bookmarks.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin2" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.Color.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.Color.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin3" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.DownloadCache.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.DownloadCache.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin4" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.Email.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.Email.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin5" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.File.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.File.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin6" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.Json.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.Json.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin7" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.Location.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.Location.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin8" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.Messenger.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.Messenger.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin9" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.Network.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.Network.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin10" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.PhoneCall.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.PhoneCall.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin11" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.PictureChooser.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.PictureChooser.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin12" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.ReflectionEx.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.ReflectionEx.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin13" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.ResourceLoader.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.ResourceLoader.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin14" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.Share.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.Share.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin15" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.SoundEffects.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.SoundEffects.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin16" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.Sqlite.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.Sqlite.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin17" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.Sqlite.WindowsPhone.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.Sqlite.WindowsPhone.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin17a" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.ThreadUtils.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.ThreadUtils.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin18" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.Visibility.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.Visibility.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin19" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.WebBrowser.xml"
+          Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.WebBrowser.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin20" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.UserInteraction.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.UserInteraction.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin21" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.Sms.xml"
+              Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.Sms.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin22" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.Settings.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.Settings.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin23" DestinationDirectory="ConfigPlugins"/>
+        </File>
+        
+        <File Name="Config.Plugin.FieldBinding.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.FieldBinding.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin24" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.JsonLocalisation.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.JsonLocalisation.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin25" DestinationDirectory="ConfigPlugins"/>
+        </File>
+
+        <File Name="Config.Plugin.MethodBinding.xml"
+            Source="$(var.ITEM_TEMPLATES_DIR)\CodeConfigs\Plugins\Config.Plugin.MethodBinding.xml" Vital="yes" KeyPath="no">
+          <CopyFile Id="ConfigPlugin26" DestinationDirectory="ConfigPlugins"/>
+        </File>
+        
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

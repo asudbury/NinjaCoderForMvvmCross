@@ -7,6 +7,7 @@ namespace NinjaCoder.MvvmCross.UI
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Windows.Forms;
     using Controllers;
     using EnvDTE;
@@ -32,10 +33,7 @@ namespace NinjaCoder.MvvmCross.UI
         {
             IEnumerable<Project> projects = NinjaController.GetProjects();
 
-            foreach (Project project in projects)
-            {
-                this.treeView1.Nodes.Add(project.Name);
-            }
+            projects.ToList().ForEach(x => this.treeView1.Nodes.Add(x.Name));
         }
 
         /// <summary>
@@ -43,7 +41,9 @@ namespace NinjaCoder.MvvmCross.UI
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void AddProjectsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddProjectsToolStripMenuItem_Click(
+            object sender, 
+            EventArgs e)
         {
             NinjaController.RunProjectsController();
             this.ShowProjects();
@@ -54,7 +54,9 @@ namespace NinjaCoder.MvvmCross.UI
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void AddViewModelToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddViewModelToolStripMenuItem_Click(
+            object sender, 
+            EventArgs e)
         {
             NinjaController.RunViewModelViewsController();
         }
@@ -64,7 +66,9 @@ namespace NinjaCoder.MvvmCross.UI
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void AddConvertersToolStripMenuItemClick(object sender, EventArgs e)
+        private void AddConvertersToolStripMenuItemClick(
+            object sender, 
+            EventArgs e)
         {
             NinjaController.RunConvertersController();
         }
@@ -74,7 +78,9 @@ namespace NinjaCoder.MvvmCross.UI
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void AddPluginsToolStripMenuItemClick(object sender, EventArgs e)
+        private void AddPluginsToolStripMenuItemClick(
+            object sender, 
+            EventArgs e)
         {
             NinjaController.RunPluginsController();
         }
@@ -84,7 +90,9 @@ namespace NinjaCoder.MvvmCross.UI
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void AddServicesToolStripMenuItemClick(object sender, EventArgs e)
+        private void AddServicesToolStripMenuItemClick(
+            object sender, 
+            EventArgs e)
         {
             NinjaController.RunServicesController();
         }
@@ -94,7 +102,9 @@ namespace NinjaCoder.MvvmCross.UI
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void OptionsToolStripMenuItemClick(object sender, EventArgs e)
+        private void OptionsToolStripMenuItemClick(
+            object sender, 
+            EventArgs e)
         {
             NinjaController.ShowOptions();
         }
@@ -104,7 +114,9 @@ namespace NinjaCoder.MvvmCross.UI
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void AboutToolStripMenuItemClick(object sender, EventArgs e)
+        private void AboutToolStripMenuItemClick(
+            object sender, 
+            EventArgs e)
         {
             NinjaController.ShowAboutBox();
         }
@@ -114,9 +126,32 @@ namespace NinjaCoder.MvvmCross.UI
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void ExitToolStripMenuItemClick(object sender, EventArgs e)
+        private void ExitToolStripMenuItemClick(
+            object sender, 
+            EventArgs e)
         {
             this.Close();
+        }
+
+        /// <summary>
+        /// Tests the tool strip menu item click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void TestToolStripMenuItemClick(
+            object sender, 
+            EventArgs e)
+        {
+            IEnumerable<Project> projects = NinjaController.GetProjects();
+
+            Project project = projects.FirstOrDefault();
+
+            if (project != null)
+            {
+                ////ProjectItem projectItem = project.ProjectItems.AddFromFile("c:\\temp\\firstviewmodel.cs");
+
+                ////projectItem.RemoveDoubleBlankLines();
+            }
         }
     }
 }

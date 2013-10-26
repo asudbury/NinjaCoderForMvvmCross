@@ -5,11 +5,11 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.UserControls
 {
-    using Entities;
-    using Scorchio.VisualStudio.Entities;
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Forms;
+    using Entities;
+    using Scorchio.VisualStudio.Entities;
 
     /// <summary>
     /// Defines the MvxListView type.
@@ -68,6 +68,15 @@ namespace NinjaCoder.MvvmCross.UserControls
                 ImageIndex = 0,
                 Tag = plugin,
             });
+        }
+
+        /// <summary>
+        /// Sets the border visibility.
+        /// </summary>
+        /// <param name="borderStyle">The border style.</param>
+        public void SetBorderVisibility(BorderStyle borderStyle)
+        {
+            this.listView.BorderStyle = borderStyle;
         }
     }
 }

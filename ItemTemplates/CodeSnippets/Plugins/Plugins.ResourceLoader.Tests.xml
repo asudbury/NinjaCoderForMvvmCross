@@ -1,0 +1,26 @@
+﻿<CodeSnippet>
+  <UsingStatements>
+    <Statement>Cirrious.CrossCore.Platform</Statement>
+  </UsingStatements>
+  <MockVariables>
+    <MockVariable>IMvxResourceLoader mockResourceLoader</MockVariable>
+  </MockVariables>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Tests Get Text Resource.
+        /// </summary>
+        [Test]
+        public void TestGetTextResource()
+        {
+            //// arrange
+            
+            //// act
+            this.TestableObject.GetTextResource("resourcePath");
+            
+            //// assert
+        }
+    ]]>
+  </Code>
+</CodeSnippet>
+

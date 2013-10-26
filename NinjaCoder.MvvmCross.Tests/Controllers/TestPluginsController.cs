@@ -13,7 +13,7 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
     using Moq;
     using NinjaCoder.MvvmCross.Controllers;
     using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Services;
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using NinjaCoder.MvvmCross.Tests.Mocks;
     using NinjaCoder.MvvmCross.Translators;
@@ -135,7 +135,7 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
             MockDirectoryInfoFactory mockDirectoryInfoFactory = new MockDirectoryInfoFactory();
             this.mockFileSystem.SetupGet(x => x.DirectoryInfo).Returns(mockDirectoryInfoFactory);
 
-            this.mockSettingsService.SetupGet(x => x.CorePluginsPath).Returns("path");
+            this.mockSettingsService.SetupGet(x => x.InstalledDirectory).Returns("path");
 
             Mock<IProjectService> mockProjectService = new Mock<IProjectService>();
 

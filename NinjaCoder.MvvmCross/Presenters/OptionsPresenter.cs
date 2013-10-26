@@ -6,7 +6,8 @@
 namespace NinjaCoder.MvvmCross.Presenters
 {
     using System.Diagnostics;
-    using Services.Interfaces;
+    using System.IO;
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
     using Views.Interfaces;
 
     /// <summary>
@@ -45,6 +46,7 @@ namespace NinjaCoder.MvvmCross.Presenters
             this.view.TraceOutputEnabled = this.settingsService.LogToTrace;
             this.view.LogToFile = this.settingsService.LogToFile;
             this.view.LogFilePath = this.settingsService.LogFilePath;
+            this.view.CopyAssembliesToLibFolder = this.settingsService.CopyAssembliesToLibFolder;
             this.view.IncludeLibFolderInProjects = this.settingsService.IncludeLibFolderInProjects;
             this.view.DisplayErrors = this.settingsService.DisplayErrors;
             this.view.RemoveDefaultComments = this.settingsService.RemoveDefaultComments;
@@ -54,6 +56,7 @@ namespace NinjaCoder.MvvmCross.Presenters
             this.view.UseNugetForPlugins = this.settingsService.UseNugetForPlugins;
             this.view.UseNugetForServices = this.settingsService.UseNugetForServices;
             this.view.SuspendReSharperDuringBuild = this.settingsService.SuspendReSharperDuringBuild;
+
         }
 
         /// <summary>
@@ -64,6 +67,7 @@ namespace NinjaCoder.MvvmCross.Presenters
             this.settingsService.LogToTrace = this.view.TraceOutputEnabled;
             this.settingsService.LogToFile = this.view.LogToFile;
             this.settingsService.LogFilePath = this.view.LogFilePath;
+            this.settingsService.CopyAssembliesToLibFolder = this.view.CopyAssembliesToLibFolder;
             this.settingsService.IncludeLibFolderInProjects = this.view.IncludeLibFolderInProjects;
             this.settingsService.DisplayErrors = this.view.DisplayErrors;
             this.settingsService.RemoveDefaultComments = this.view.RemoveDefaultComments;
@@ -80,7 +84,31 @@ namespace NinjaCoder.MvvmCross.Presenters
         /// </summary>
         public void ShowDownloadNugetPage()
         {
-           Process.Start(@"IEXPLORE.EXE", this.settingsService.DownloadNugetPage);
+           Process.Start(this.settingsService.DownloadNugetPage);
         }
+
+        /// <summary>
+        /// Clears the log.
+        /// </summary>
+        public void ClearLog()
+        {
+            if (File.Exists(this.view.LogFilePath))
+            {
+                File.Delete(this.view.LogFilePath);
+            }
+        }
+
+        /// <summary>
+        /// Views the log.
+        /// </summary>
+        public void ViewLog()
+        {
+            if (File.Exists(this.view.LogFilePath) == false)
+            {
+                File.Create(this.view.LogFilePath);
+            }
+
+            Process.Start(this.view.LogFilePath);    
+         }
     }
 }

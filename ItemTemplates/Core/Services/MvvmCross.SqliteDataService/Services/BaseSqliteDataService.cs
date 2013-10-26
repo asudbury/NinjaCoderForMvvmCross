@@ -8,7 +8,7 @@ namespace MvvmCross.SqliteDataService.Services
     using System.Collections.Generic;
     using System.Linq;
 
-    using Cirrious.MvvmCross.Plugins.Sqlite;
+    using Cirrious.MvvmCross.Community.Plugins.Sqlite;
 
     /// <summary>
     /// Defines the BaseSqliteDataService type.

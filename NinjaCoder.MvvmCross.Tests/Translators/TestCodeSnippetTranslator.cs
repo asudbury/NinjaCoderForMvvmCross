@@ -25,8 +25,34 @@ namespace NinjaCoder.MvvmCross.Tests.Translators
 
             CodeSnippet codeSnippet = translator.Translate(Helper.GetTestDataPath("CodeSnippet.xml"));
 
-            Assert.IsTrue(codeSnippet.Interfaces.Count > 0);
-            Assert.IsTrue(codeSnippet.References.Count > 0);
+            Assert.IsTrue(codeSnippet.Interfaces.Count == 3);
+            Assert.IsTrue(codeSnippet.Interfaces[0] == "ILocationService");
+            Assert.IsTrue(codeSnippet.Interfaces[1] == "IDropboxService");
+            Assert.IsTrue(codeSnippet.Interfaces[2] == "IUknownService");
+
+            Assert.IsTrue(codeSnippet.References.Count == 3);
+            Assert.IsTrue(codeSnippet.References[0] == "Ref1");
+            Assert.IsTrue(codeSnippet.References[1] == "Ref2");
+            Assert.IsTrue(codeSnippet.References[2] == "Ref3");
+
+            Assert.IsTrue(codeSnippet.UsingStatements.Count == 3);
+            Assert.IsTrue(codeSnippet.UsingStatements[0] == "aaa.bbb.ccc");
+            Assert.IsTrue(codeSnippet.UsingStatements[1] == "bbb.bbb.ccc");
+            Assert.IsTrue(codeSnippet.UsingStatements[2] == "ccc.bbb.ccc");
+
+            Assert.IsTrue(codeSnippet.Variables.Count == 2);
+            Assert.IsTrue(codeSnippet.Variables[0] == "Var1");
+            Assert.IsTrue(codeSnippet.Variables[1] == "Var2");
+
+            Assert.IsTrue(codeSnippet.MockVariables.Count == 2);
+            Assert.IsTrue(codeSnippet.MockVariables[0] == "Mock1");
+            Assert.IsTrue(codeSnippet.MockVariables[1] == "Mock2");
+
+            Assert.IsTrue(codeSnippet.TestInitMethod == "TestMethod");
+            Assert.IsTrue(codeSnippet.Project == "Adrian");
+            Assert.IsTrue(codeSnippet.Class == "Class1");
+            Assert.IsTrue(codeSnippet.Method == "Method3");
+            Assert.IsTrue(codeSnippet.Code == "Code7");
         }
         
         /// <summary>
@@ -57,19 +83,6 @@ namespace NinjaCoder.MvvmCross.Tests.Translators
             string cleanedCode = translator.CleanedCode(Code);
 
             Assert.IsTrue(cleanedCode == "hello");
-        }
-
-        /// <summary>
-        /// Tests the get spaced code line.
-        /// </summary>
-        [Test]
-        public void TestGetSpacedCodeLine()
-        {
-            CodeSnippetTranslator translator = new CodeSnippetTranslator();
-
-            string spacedCodeLine = translator.GetSpacedCodeLine("hello");
-
-            Assert.IsTrue(spacedCodeLine != "hello");
         }
     }
 }

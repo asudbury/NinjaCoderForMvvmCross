@@ -10,8 +10,8 @@ namespace NinjaCoder.MvvmCross.Tests.Presenters
     using Moq;
 
     using NinjaCoder.MvvmCross.Entities;
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Presenters;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
     using NinjaCoder.MvvmCross.Views.Interfaces;
     using NUnit.Framework;
 
@@ -65,7 +65,7 @@ namespace NinjaCoder.MvvmCross.Tests.Presenters
             this.presenter.Load(viewModelNames, plugins);
 
             this.mockView.Verify(x => x.AddViewModel(It.IsAny<string>()));
-            this.mockView.Verify(x => x.AddPlugin(It.IsAny<Plugin>()));
+            this.mockView.Verify(x => x.AddCorePlugin(It.IsAny<Plugin>()));
             this.mockView.VerifySet(x => x.DisplayLogo = true);
             this.mockView.VerifySet(x => x.UseNuget = true);
         }

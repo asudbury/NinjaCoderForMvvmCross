@@ -12,7 +12,7 @@ namespace NinjaCoder.MvvmCross.Views
 
     using Entities;
 
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
 
     using Presenters;
     using Views.Interfaces;
@@ -34,6 +34,9 @@ namespace NinjaCoder.MvvmCross.Views
             Plugins plugins)
         {
             this.InitializeComponent();
+
+            this.mvxListViewCore.SetBorderVisibility(BorderStyle.None);
+            this.mvxListViewCommunity.SetBorderVisibility(BorderStyle.None);
 
             this.Presenter = new PluginsPresenter(this, settingsService);
 
@@ -75,7 +78,11 @@ namespace NinjaCoder.MvvmCross.Views
         /// </summary>
         public List<Plugin> RequiredPlugins 
         {
-            get { return this.mvxListView1.RequiredTemplates.Cast<Plugin>().ToList(); }
+            get
+            {
+                return this.mvxListViewCore.RequiredTemplates.Cast<Plugin>()
+                    .Union(this.mvxListViewCommunity.RequiredTemplates.Cast<Plugin>()).ToList();
+            }
         }
 
         /// <summary>
@@ -87,12 +94,22 @@ namespace NinjaCoder.MvvmCross.Views
         }
 
         /// <summary>
-        /// Adds the plugin.
+        /// Adds the core plugin.
         /// </summary>
         /// <param name="plugin">The plugin.</param>
-        public void AddPlugin(Plugin plugin)
+        public void AddCorePlugin(Plugin plugin)
         {
-            this.mvxListView1.AddPlugin(plugin);
+            this.mvxListViewCore.AddPlugin(plugin);
+        }
+
+        /// <summary>
+        /// Adds the community plugin.
+        /// </summary>
+        /// <param name="plugin">The plugin.</param>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public void AddCommunityPlugin(Plugin plugin)
+        {
+            this.mvxListViewCommunity.AddPlugin(plugin);
         }
 
         /// <summary>
@@ -109,10 +126,15 @@ namespace NinjaCoder.MvvmCross.Views
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void ButtonOKClick(object sender, EventArgs e)
+        private void ButtonOKClick(
+            object sender, 
+            EventArgs e)
         {
-            this.Presenter.SaveSettings();
-            this.DialogResult = DialogResult.OK;
+            if (this.RequiredPlugins.Count > 0)
+            {
+                this.Presenter.SaveSettings();
+                this.DialogResult = DialogResult.OK;
+            }
         }
 
         /// <summary>

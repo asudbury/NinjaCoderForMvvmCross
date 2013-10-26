@@ -11,10 +11,10 @@ namespace NinjaCoder.MvvmCross.Tests.Services
     using Moq;
     using NinjaCoder.MvvmCross.Constants;
     using NinjaCoder.MvvmCross.Entities;
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Services;
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using NinjaCoder.MvvmCross.Tests.Mocks;
-    using NinjaCoder.MvvmCross.Translators;
     using NUnit.Framework;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services.Interfaces;
@@ -29,6 +29,11 @@ namespace NinjaCoder.MvvmCross.Tests.Services
         /// The service.
         /// </summary>
         private PluginsService service;
+
+        /// <summary>
+        /// The mock plugin service.
+        /// </summary>
+        private Mock<IPluginService> mockPluginService;
 
         /// <summary>
         /// The mock visual studio service.
@@ -51,6 +56,11 @@ namespace NinjaCoder.MvvmCross.Tests.Services
         private Mock<ISnippetService> mockSnippetsService;
 
         /// <summary>
+        /// The mock nuget service.
+        /// </summary>
+        private Mock<INugetService> mockNugetService;
+
+        /// <summary>
         /// The mock file.
         /// </summary>
         private MockFile mockFile;
@@ -66,34 +76,33 @@ namespace NinjaCoder.MvvmCross.Tests.Services
         private MockFileInfo mockFileInfo;
 
         /// <summary>
-        /// The mock translator.
-        /// </summary>
-        private Mock<ITranslator<string, CodeConfig>> mockTranslator;
-
-        /// <summary>
         /// Initializes this instance.
         /// </summary>
         [TestFixtureSetUp]
         public void Initialize()
         {
+            this.mockPluginService = new Mock<IPluginService>();
             this.mockVisualStudioService = new Mock<IVisualStudioService>();
             this.mockFileSystem = new Mock<IFileSystem>();
             this.mockSettingsService = new Mock<ISettingsService>();
             this.mockSnippetsService = new Mock<ISnippetService>();
+            this.mockNugetService = new Mock<INugetService>();
+
             this.mockFile = new MockFile();
             this.mockFileInfoFactory = new Mock<IFileInfoFactory>();
             this.mockFileInfo = new MockFileInfo();
-            this.mockTranslator = new Mock<ITranslator<string, CodeConfig>>();
 
             this.mockFileSystem.SetupGet(x => x.File).Returns(this.mockFile);
             this.mockFileSystem.SetupGet(x => x.FileInfo).Returns(this.mockFileInfoFactory.Object);
             this.mockFileInfoFactory.Setup(x => x.FromFileName(It.IsAny<string>())).Returns(this.mockFileInfo);
 
+            this.mockPluginService.SetupGet(x => x.Messages).Returns(new List<string>());
+
             this.service = new PluginsService(
-                this.mockFileSystem.Object, 
+                this.mockPluginService.Object,
                 this.mockSettingsService.Object,
                 this.mockSnippetsService.Object,
-                this.mockTranslator.Object);
+                this.mockNugetService.Object);
         }
 
         /// <summary>
@@ -189,105 +198,15 @@ namespace NinjaCoder.MvvmCross.Tests.Services
                mockProjectService.Object, 
                plugins, 
                string.Empty, 
-               Settings.Core);
+               Settings.Core,
+               true);
 
             //// assert
-            mockProjectService.Verify(x => x.WriteStatusBarMessage(It.IsAny<string>()));
-        }
-
-        /// <summary>
-        /// Tests the add plugin to core.
-        /// </summary>
-        [Test]
-        public void TestAddPluginToCore()
-        {
-            //// arrange
-
-            Plugin plugin = new Plugin();
-            Mock<IProjectService> mockProjectService = new Mock<IProjectService>();
-
-            Mock<Project> mockProject = new Mock<Project>();
-            mockProjectService.SetupGet(x => x.Project).Returns(mockProject.Object);
-
-            //// act
-            this.service.AddPlugin(
-               mockProjectService.Object,
-               plugin, 
-               string.Empty,
-               Settings.Core);
-
-            //// assert
-            mockProjectService.Verify(x => x.AddReference(
+            this.mockPluginService.Verify(x => x.AddProjectPlugin(
+                It.IsAny<IProjectService>(), 
                 It.IsAny<string>(), 
                 It.IsAny<string>(), 
-                It.IsAny<string>(), 
-                It.IsAny<bool>()));
-        }
-
-        /// <summary>
-        /// Tests the add plugin to non core.
-        /// </summary>
-        [Test]
-        public void TestAddPluginToNonCore()
-        {
-            //// arrange
-
-            Plugin plugin = new Plugin { Source = "Here I am" };
-
-            Mock<IProjectService> mockProjectService = new Mock<IProjectService>();
-
-            Mock<Project> mockProject = new Mock<Project>();
-            mockProjectService.SetupGet(x => x.Project).Returns(mockProject.Object);
-
-            this.mockFile.FileExists = true;
-
-            //// act
-            this.service.AddPlugin(
-               mockProjectService.Object,
-               plugin,
-               "Test.Droid",
-               Settings.Droid);
-
-            //// assert
-            mockProjectService.Verify(
-                x => x.AddReference(
-                It.IsAny<string>(),
-                It.IsAny<string>(),
-                It.IsAny<string>(),
-                It.IsAny<bool>()), 
-                Times.Never());
-        }
-
-        /// <summary>
-        /// Tests the build source file.
-        /// </summary>
-        [Test]
-        public void TestBuildSourceFile()
-        {
-            //// arrange
-            Mock<IProjectService> mockProjectService = new Mock<IProjectService>();
-            mockProjectService.SetupGet(x => x.Name).Returns("Ninja");
-
-            //// Mock the Project Service GetProjectItem.
-            Mock<IProjectItemService> mockProjectItemService = new Mock<IProjectItemService>();
-            mockProjectService.Setup(x => x.GetProjectItem(It.IsAny<string>())).Returns(mockProjectItemService.Object);
-
-            //// Mock the ProjectItem Service Get ProjectItem.
-            Mock<ProjectItem> mockProjectItem = new Mock<ProjectItem>();
-            mockProjectItemService.SetupGet(x => x.ProjectItem).Returns(mockProjectItem.Object);
-
-            //// Mock the Replace Text Function.
-            mockProjectItemService.Setup(x => x.ReplaceText(It.IsAny<string>(), It.IsAny<string>()));
-
-            //// act
-            this.service.BuildSourceFile(
-                mockProjectService.Object,
-                "extensionSource",
-                "extensionDestination",
-                "friendlyName");
-
-            //// assert
-            mockProjectItemService.Verify(x => x.ReplaceText(It.IsAny<string>(), It.IsAny<string>()));
+                It.IsAny<Plugin>()));
         }
     }
 }

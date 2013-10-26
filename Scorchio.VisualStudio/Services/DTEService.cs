@@ -39,6 +39,17 @@ namespace Scorchio.VisualStudio.Services
         }
 
         /// <summary>
+        /// Gets the solution service.
+        /// </summary>
+        public ISolutionService SolutionService
+        {
+            get
+            {
+                return new SolutionService(this.dte2.GetSolution());
+            }
+        }
+
+        /// <summary>
         /// Activates the specified instance.
         /// </summary>
         public void Activate()

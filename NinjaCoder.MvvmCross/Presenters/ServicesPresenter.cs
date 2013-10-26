@@ -6,8 +6,11 @@
 namespace NinjaCoder.MvvmCross.Presenters
 {
     using System.Collections.Generic;
+    using System.Linq;
+
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
+
     using Scorchio.VisualStudio.Entities;
-    using Services.Interfaces;
     using Views.Interfaces;
 
     /// <summary>
@@ -50,15 +53,13 @@ namespace NinjaCoder.MvvmCross.Presenters
             this.view.DisplayLogo = this.settingsService.DisplayLogo;
             this.view.UseNuget = this.settingsService.UseNugetForServices;
 
-            foreach (ItemTemplateInfo itemTemplateInfo in itemTemplateInfos)
-            {
-                this.view.AddTemplate(itemTemplateInfo);
-            }
-
-            foreach (string viewModelName in viewModelNames)
-            {
-                this.view.AddViewModel(viewModelName);
-            }
+            itemTemplateInfos
+                .ToList()
+                .ForEach(x => this.view.AddTemplate(x));
+            
+            viewModelNames
+                .ToList()
+                .ForEach(x => this.view.AddViewModel(x));
         }
 
         /// <summary>

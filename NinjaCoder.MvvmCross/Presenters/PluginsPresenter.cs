@@ -7,10 +7,11 @@ namespace NinjaCoder.MvvmCross.Presenters
 {
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Linq;
 
     using Entities;
 
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
 
     using Views.Interfaces;
 
@@ -51,21 +52,35 @@ namespace NinjaCoder.MvvmCross.Presenters
             IEnumerable<string> viewModelNames,
             IEnumerable<Plugin> plugins)
         {
-            foreach (string viewModelName in viewModelNames)
-            {
-                this.view.AddViewModel(viewModelName);
-            }
+            viewModelNames
+                .ToList()
+                .ForEach(x => this.view.AddViewModel(x));
 
             if (plugins != null)
             {
-                foreach (Plugin plugin in plugins)
-                {
-                    this.view.AddPlugin(plugin);
-                }
+                plugins
+                    .ToList()
+                    .ForEach(this.AddPlugin);
             }
 
             this.view.DisplayLogo = this.settingsService.DisplayLogo;
             this.view.UseNuget = this.settingsService.UseNugetForPlugins;
+        }
+
+        /// <summary>
+        /// Adds the plugin.
+        /// </summary>
+        /// <param name="plugin">The plugin.</param>
+        internal void AddPlugin(Plugin plugin)
+        {
+            if (plugin.IsCommunityPlugin)
+            {
+                this.view.AddCommunityPlugin(plugin);
+            }
+            else
+            {
+                this.view.AddCorePlugin(plugin);
+            }
         }
 
         /// <summary>

@@ -9,6 +9,8 @@ namespace NinjaCoder.MvvmCross.Controllers
     using Constants;
     using EnvDTE;
     using EnvDTE80;
+    using NinjaCoder.MvvmCross.Infrastructure.Extensions;
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
     using Services.Interfaces;
@@ -21,7 +23,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <summary>
         /// The readme lines
         /// </summary>
-        private List<string> readmeLines;
+        private IList<string> readmeLines;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseController" /> class.
@@ -99,7 +101,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <summary>
         /// Gets the read me lines.
         /// </summary>
-        protected List<string> ReadMeLines
+        protected IList<string> ReadMeLines
         {
             get
             {
@@ -216,9 +218,10 @@ namespace NinjaCoder.MvvmCross.Controllers
             string readMePath = this.GetReadMePath();
 
             TraceService.WriteLine("BaseController::ShowReadMe path=" + readMePath);
-
+            
             //// now construct the ReadMe.txt
             this.ReadMeLines.AddRange(messages);
+
             this.ReadMeService.AddLines(readMePath, function, this.ReadMeLines);
 
             //// now show the ReadMe.txt.

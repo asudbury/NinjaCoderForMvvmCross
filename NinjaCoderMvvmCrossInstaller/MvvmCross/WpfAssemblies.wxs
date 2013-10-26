@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include $(sys.CURRENTDIR)\Global.wxi?>
+  <Fragment>
+    <ComponentGroup Id='ComponentGroupWpf'>
+
+      <Component Id="ComponentWpfAssemblies" 
+                 Directory="MvvmCrossAssemblies" 
+                 DiskId="1" 
+                 Guid="825c8b3c-e1ee-4eae-85b2-300000000006">
+
+        <!-- WPF Assemblies-->
+        
+        <File Name="Cirrious.MvvmCross.Wpf.dll"
+          Source="$(var.PROJECT_TEMPLATES_WPF_LIB)\Cirrious.MvvmCross.Wpf.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="Wpf" DestinationDirectory="MvvmCrossAssemblies"/>
+        </File>
+
+        <!-- Plugins -->
+
+        <File  Name="Cirrious.MvvmCross.Plugins.Accelerometer.Wpf.dll"
+            Source="$(var.PROJECT_TEMPLATES_WPF_LIB)\Cirrious.MvvmCross.Plugins.Accelerometer.Wpf.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="WpfPlugins1" DestinationDirectory="MvvmCrossAssemblies"/>
+        </File>
+
+        <!--<File Name="Cirrious.MvvmCross.Plugins.Bookmarks.Wpf.dll"
+          Source="$(var.PROJECT_TEMPLATES_WPF_LIB)\Cirrious.MvvmCross.Plugins.Bookmarks.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="WpfPlugins2" DestinationDirectory="MvvmCrossAssemblies"/>
+        </File>-->
+        
+        <File Name="Cirrious.MvvmCross.Plugins.Color.Wpf.dll"
+          Source="$(var.PROJECT_TEMPLATES_WPF_LIB)\Cirrious.MvvmCross.Plugins.Color.Wpf.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="WpfPlugins3" DestinationDirectory="MvvmCrossAssemblies"/>
+        </File>
+        
+        <!--<File Name="Cirrious.MvvmCross.Plugins.DownloadCache.Wpf.dll"
+          Source="$(var.PROJECT_TEMPLATES_WPF_LIB)\Cirrious.MvvmCross.Plugins.DownloadCache.Wpf.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="WpfPlugins4" DestinationDirectory="MvvmCrossAssemblies"/>
+        </File>-->
+        
+        <File Name="Cirrious.MvvmCross.Plugins.Email.Wpf.dll"
+            Source="$(var.PROJECT_TEMPLATES_WPF_LIB)\Cirrious.MvvmCross.Plugins.Email.Wpf.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="WpfPlugins5" DestinationDirectory="MvvmCrossAssemblies"/>
+        </File>
+        
+        <File Name="Cirrious.MvvmCross.Plugins.File.Wpf.dll"
+          Source="$(var.PROJECT_TEMPLATES_WPF_LIB)\Cirrious.MvvmCross.Plugins.File.Wpf.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="WpfPlugins6" DestinationDirectory="MvvmCrossAssemblies"/>
+        </File>
+        
+        <!--<File Name="Cirrious.MvvmCross.Plugins.Json.Wpf.dll"
+          Source="$(var.PROJECT_TEMPLATES_WPF_LIB)\Cirrious.MvvmCross.Plugins.Json.Wpf.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="WpfPlugins7" DestinationDirectory="MvvmCrossAssemblies"/>
+        </File>-->
+        
+        <!--<File Name="Cirrious.MvvmCross.Plugins.Network.Wpf.dll"
+          Source="$(var.PROJECT_TEMPLATES_WPF_LIB)\Cirrious.MvvmCross.Plugins.Network.Wpf.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="WpfPlugins8" DestinationDirectory="MvvmCrossAssemblies"/>
+        </File>-->
+        
+        <!--<File Name="Cirrious.MvvmCross.Plugins.PhoneCall.Wpf.dll"
+          Source="$(var.PROJECT_TEMPLATES_WPF_LIB)\Cirrious.MvvmCross.Plugins.PhoneCall.Wpf.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="WpfPlugins9" DestinationDirectory="MvvmCrossAssemblies"/>
+        </File>-->
+        
+        <!--<File Name="Cirrious.MvvmCross.Plugins.PictureChooser.Wpf.dll"
+          Source="$(var.PROJECT_TEMPLATES_WPF_LIB)\Cirrious.MvvmCross.Plugins.PictureChooser.Wpf.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="WpfPlugins10" DestinationDirectory="MvvmCrossAssemblies"/>
+        </File>-->
+        
+        <File Name="Cirrious.MvvmCross.Plugins.ReflectionEx.Wpf.dll"
+          Source="$(var.PROJECT_TEMPLATES_WPF_LIB)\Cirrious.MvvmCross.Plugins.ReflectionEx.Wpf.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="WpfPlugins11" DestinationDirectory="MvvmCrossAssemblies"/>
+        </File>
+        
+        <File Name="Cirrious.MvvmCross.Plugins.ResourceLoader.Wpf.dll"
+            Source="$(var.PROJECT_TEMPLATES_WPF_LIB)\Cirrious.MvvmCross.Plugins.ResourceLoader.Wpf.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="WpfPlugins12" DestinationDirectory="MvvmCrossAssemblies"/>
+        </File>
+        
+        <File Name="Cirrious.MvvmCross.Plugins.Share.Wpf.dll"
+          Source="$(var.PROJECT_TEMPLATES_WPF_LIB)\Cirrious.MvvmCross.Plugins.Share.Wpf.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="WpfPlugins13" DestinationDirectory="MvvmCrossAssemblies"/>
+        </File>
+        
+        <!--<File Name="Cirrious.MvvmCross.Plugins.SoundEffects.Wpf.dll"
+          Source="$(var.PROJECT_TEMPLATES_WPF_LIB)\Cirrious.MvvmCross.Plugins.SoundEffects.Wpf.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="WpfPlugins14" DestinationDirectory="MvvmCrossAssemblies"/>
+        </File>-->
+        
+        <File Name="Cirrious.MvvmCross.Community.Plugins.Sqlite.Wpf.dll"
+          Source="$(var.PROJECT_TEMPLATES_WPF_LIB)\Cirrious.MvvmCross.Community.Plugins.Sqlite.Wpf.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="WpfPlugins15" DestinationDirectory="MvvmCrossAssemblies"/>
+        </File>
+        
+        <!--<File Name="Cirrious.MvvmCross.Plugins.ThreadUtils.Wpf.dll"
+          Source="$(var.PROJECT_TEMPLATES_WPF_LIB)\Cirrious.MvvmCross.Plugins.ThreadUtils.Wpf.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="WpfPlugins16" DestinationDirectory="MvvmCrossAssembliesWpfPlugins"/>
+        </File>-->
+        
+        <File Name="Cirrious.MvvmCross.Plugins.Visibility.Wpf.dll"
+          Source="$(var.PROJECT_TEMPLATES_WPF_LIB)\Cirrious.MvvmCross.Plugins.Visibility.Wpf.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="WpfPlugins17" DestinationDirectory="MvvmCrossAssemblies"/>
+        </File>
+        
+        <!--<File Name="Cirrious.MvvmCross.Plugins.WebBrowser.Wpf.dll"
+          Source="$(var.PROJECT_TEMPLATES_WPF_LIB)\Cirrious.MvvmCross.Plugins.WebBrowser.Wpf.dll" Vital="yes" KeyPath="no" >
+          <CopyFile Id="WpfPlugins18" DestinationDirectory="MvvmCrossAssemblies"/>
+        </File>-->
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

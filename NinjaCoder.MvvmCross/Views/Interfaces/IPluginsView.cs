@@ -40,10 +40,16 @@ namespace NinjaCoder.MvvmCross.Views.Interfaces
         bool IncludeUnitTests { get; }
 
         /// <summary>
-        /// Adds the plugin.
+        /// Adds the core plugin.
         /// </summary>
         /// <param name="plugin">The plugin.</param>
-        void AddPlugin(Plugin plugin);
+        void AddCorePlugin(Plugin plugin);
+
+        /// <summary>
+        /// Adds the community plugin.
+        /// </summary>
+        /// <param name="plugin">The plugin.</param>
+        void AddCommunityPlugin(Plugin plugin);
 
         /// <summary>
         /// Adds the viewModel.

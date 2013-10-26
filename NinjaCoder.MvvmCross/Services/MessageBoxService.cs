@@ -5,8 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
-    using Interfaces;
     using System.Windows.Forms;
+    using Interfaces;
 
     /// <summary>
     ///  Defines the MessageBoxService type.

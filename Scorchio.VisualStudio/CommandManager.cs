@@ -11,6 +11,7 @@ namespace Scorchio.VisualStudio
     using System.Reflection;
     using System.Resources;
     using System.Runtime.InteropServices;
+    using System.Security.Cryptography.X509Certificates;
 
     using Entities;
     using EnvDTE;
@@ -195,14 +196,10 @@ namespace Scorchio.VisualStudio
             if (removeMode == ext_DisconnectMode.ext_dm_HostShutdown ||
                 removeMode == ext_DisconnectMode.ext_dm_UserClosed)
             {
-                foreach (VSCommandInfo vsCommandInfo in this.commandInfos)
-                {
-                    if (vsCommandInfo.Command != null)
-                    {
-                        TraceService.WriteLine("CommandManager::OnDisconnection deleting command " + vsCommandInfo.Name);
-                        vsCommandInfo.Command.Delete();
-                    }
-                }
+                this.commandInfos
+                    .Where(x => x.Command != null)
+                    .ToList()
+                    .ForEach(x => x.Command.Delete());
             }
         }
 

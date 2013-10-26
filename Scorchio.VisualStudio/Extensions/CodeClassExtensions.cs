@@ -13,7 +13,7 @@ namespace Scorchio.VisualStudio.Extensions
     using EnvDTE;
     using EnvDTE80;
     using Services;
-    
+
     /// <summary> 
     ///  Defines the CodeClassExtensions type.
     /// </summary>
@@ -133,6 +133,46 @@ namespace Scorchio.VisualStudio.Extensions
         {
             TraceService.WriteLine("CodeClassExtensions::ImplementCodeSnippet file" + instance.Name);
 
+            if (codeSnippet.Variables != null)
+            {
+                foreach (string[] parts in codeSnippet.Variables
+                    .Select(variable => variable.Split(' ')))
+                {
+                    //// variable could already exist!
+                    try
+                    {
+                        instance.ImplementVariable(parts[1], parts[0], false);
+                    }
+                    catch (Exception exception)
+                    {
+                        TraceService.WriteError("Error adding variable exception=" + exception.Message + " variable=" + parts[1]);
+                        
+                        //// if variable already exists get out - code snippet will already have been applied.
+                        return;
+                    }
+                }
+            }
+
+            if (codeSnippet.MockVariables != null)
+            {
+                foreach (string[] parts in codeSnippet.MockVariables
+                    .Select(variable => variable.Split(' ')))
+                {
+                    //// variable could already exist!
+                    try
+                    {
+                        instance.ImplementMockVariable(parts[1], parts[0]);
+                    }
+                    catch (Exception exception)
+                    {
+                        TraceService.WriteError("Error adding mock variable exception=" + exception.Message + " variable=" + parts[1]);
+
+                        //// if variable already exists get out - code snippet will already have been applied.
+                        return;
+                    }
+                }
+            }
+
             if (string.IsNullOrEmpty(codeSnippet.Code) == false)
             {
                 instance.ImplementFunction(codeSnippet);
@@ -156,42 +196,8 @@ namespace Scorchio.VisualStudio.Extensions
                 }
             }
 
-            if (codeSnippet.Variables != null)
-            {
-                foreach (string[] parts in codeSnippet.Variables
-                    .Select(variable => variable.Split(' ')))
-                {
-                    //// variable could already exist!
-                    try
-                    {
-                        instance.ImplementVariable(parts[1], parts[0], false);
-                    }
-                    catch (Exception exception)
-                    {
-                        TraceService.WriteError("Error adding variable exception=" + exception.Message + " variable=" + parts[1]);
-                    }
-                }
-            }
-
-            if (codeSnippet.MockVariables != null)
-            {
-                foreach (string[] parts in codeSnippet.MockVariables
-                    .Select(variable => variable.Split(' ')))
-                {
-                    //// variable could already exist!
-                    try
-                    {
-                        instance.ImplementMockVariable(parts[1], parts[0]);
-                    }
-                    catch (Exception exception)
-                    {
-                        TraceService.WriteError("Error adding mock variable exception=" + exception.Message + " variable=" + parts[1]);
-                    }
-                }
-            }
-
-            if (string.IsNullOrEmpty(codeSnippet.MockInitCode) == false ||
-                string.IsNullOrEmpty(codeSnippet.MockConstructorCode) == false)
+            if (string.IsNullOrEmpty(codeSnippet.GetMockInitCode()) == false ||
+                string.IsNullOrEmpty(codeSnippet.GetMockConstructorCode()) == false)
             {
                 instance.ImplementMockCode(codeSnippet);
             }
@@ -212,12 +218,12 @@ namespace Scorchio.VisualStudio.Extensions
 
             if (codeFunction != null)
             {
-                if (string.IsNullOrEmpty(codeSnippet.MockInitCode) == false)
+                if (string.IsNullOrEmpty(codeSnippet.GetMockInitCode()) == false)
                 {
-                    codeFunction.InsertCode(codeSnippet.MockInitCode, true);
+                    codeFunction.InsertCode(codeSnippet.GetMockInitCode(), true);
                 }
 
-                if (string.IsNullOrEmpty(codeSnippet.MockConstructorCode) == false)
+                if (string.IsNullOrEmpty(codeSnippet.GetMockConstructorCode()) == false)
                 {
                     string code = codeFunction.GetCode();
 
@@ -244,7 +250,7 @@ namespace Scorchio.VisualStudio.Extensions
 
                         StringBuilder sb = new StringBuilder();
                         sb.Append(code.Substring(0, index + fileName.Length + 1));
-                        sb.Append(codeSnippet.MockConstructorCode + seperator);
+                        sb.Append(codeSnippet.GetMockConstructorCode() + seperator);
                         sb.Append(code.Substring(index + fileName.Length + 1));
 
                         codeFunction.ReplaceCode(sb.ToString());
@@ -416,7 +422,7 @@ namespace Scorchio.VisualStudio.Extensions
             EditPoint endPoint = codeVariable.EndPoint.CreateEditPoint();
 
             string text = startPoint.GetText(endPoint);
-            string newText = text.Replace(type, "Mock<" + type + ">");
+            string newText = text.Replace("private " + type, "private Mock<" + type + ">");
             startPoint.ReplaceText(endPoint, newText, 0);
 
             // get the new endpoint before inserting new line.
@@ -437,21 +443,18 @@ namespace Scorchio.VisualStudio.Extensions
             instance.DocComment = ScorchioConstants.BlankDocComment;
 
             //// remove function comments.
-            foreach (CodeFunction codeFunction in instance.Members.OfType<CodeFunction>())
-            {
-                codeFunction.RemoveComments(); 
-            }
+            instance.Members.OfType<CodeFunction>()
+                .ToList()
+                .ForEach(x => x.RemoveComments());
 
             //// remove variable comments.
-            foreach (CodeVariable codeVariable in instance.Members.OfType<CodeVariable>())
-            {
-                codeVariable.DocComment = ScorchioConstants.BlankDocComment;
-            }
+            instance.Members.OfType<CodeVariable>()
+                .ToList()
+                .ForEach(x => x.DocComment = ScorchioConstants.BlankDocComment);
 
-            foreach (CodeProperty codeProperty in instance.Members.OfType<CodeProperty>())
-            {
-                codeProperty.DocComment = ScorchioConstants.BlankDocComment;
-            }
+            instance.Members.OfType<CodeProperty>()
+                .ToList()
+                .ForEach(x => x.DocComment = ScorchioConstants.BlankDocComment);
         }
     }
 }

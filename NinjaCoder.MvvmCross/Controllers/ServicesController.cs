@@ -10,6 +10,8 @@ namespace NinjaCoder.MvvmCross.Controllers
     using System.Windows.Forms;
     using Constants;
 
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
+
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
@@ -124,7 +126,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                     this.VisualStudioService.DTEService.ExecuteCommand(Settings.SuspendReSharperCommand);
                 }
 
-                List<string> messages = this.servicesService.AddServices(
+                IList<string> messages = this.servicesService.AddServices(
                     this.VisualStudioService,
                     templateInfos,
                     implementInViewModel,
@@ -134,15 +136,16 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                 this.VisualStudioService.DTEService.SaveAll();
 
-                if (this.servicesService.NugetCommands.Any())
+                if (1 == 2)
+                ////if (this.servicesService.NugetCommands.Any())
                 {
-                    this.nugetService.Execute(
+                    /*this.nugetService.Execute(
                         this.VisualStudioService,
                         this.GetReadMePath(),
                         this.servicesService.NugetCommands,
                         this.SettingsService.SuspendReSharperDuringBuild);
 
-                    this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NugetDownload);
+                    this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NugetDownload);*/
                 }
                 else
                 {

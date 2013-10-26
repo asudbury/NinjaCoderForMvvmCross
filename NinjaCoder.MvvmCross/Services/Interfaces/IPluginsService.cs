@@ -16,11 +16,6 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     public interface IPluginsService
     {
         /// <summary>
-        /// Gets the nuget commands.
-        /// </summary>
-        List<string> NugetCommands { get; }
-            
-        /// <summary>
         /// Adds the plugins.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
@@ -43,10 +38,13 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <param name="plugins">The plugins.</param>
         /// <param name="folderName">Name of the folder.</param>
         /// <param name="extensionName">Name of the extension.</param>
-        void AddProjectPlugins(
+        /// <param name="addTemplates">if set to <c>true</c> [add templates].</param>
+        /// <returns>The added plugins.</returns>
+        IEnumerable<Plugin> AddProjectPlugins(
             IProjectService projectService,
             IEnumerable<Plugin> plugins, 
             string folderName, 
-            string extensionName);
+            string extensionName,
+            bool addTemplates);
     }
 }

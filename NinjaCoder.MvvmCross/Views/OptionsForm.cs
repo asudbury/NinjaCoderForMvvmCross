@@ -10,7 +10,7 @@ namespace NinjaCoder.MvvmCross.Views
 
     using Interfaces;
 
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
 
     using Presenters;
 
@@ -154,6 +154,14 @@ namespace NinjaCoder.MvvmCross.Views
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [copy assemblies to lib folder].
+        /// </summary>
+        public bool CopyAssembliesToLibFolder
+        {
+            get { return this.checkBoxCopyAssembliesToLibFolder.Checked; }
+            set { this.checkBoxCopyAssembliesToLibFolder.Checked = value; }
+        }
+        /// <summary>
         /// Buttons the cancel click.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -188,6 +196,30 @@ namespace NinjaCoder.MvvmCross.Views
             LinkLabelLinkClickedEventArgs e)
         {
             this.presenter.ShowDownloadNugetPage();
+        }
+
+        /// <summary>
+        /// Links the label clear log link clicked.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="LinkLabelLinkClickedEventArgs"/> instance containing the event data.</param>
+        private void LinkLabelClearLogLinkClicked(
+            object sender, 
+            LinkLabelLinkClickedEventArgs e)
+        {
+            this.presenter.ClearLog();
+        }
+
+        /// <summary>
+        /// Links the label view log link clicked.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="LinkLabelLinkClickedEventArgs"/> instance containing the event data.</param>
+        private void LinkLabelViewLogLinkClicked(
+            object sender,
+            LinkLabelLinkClickedEventArgs e)
+        {
+            this.presenter.ViewLog();
         }
     }
 }

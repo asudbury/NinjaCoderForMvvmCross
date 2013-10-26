@@ -7,8 +7,10 @@ namespace NinjaCoder.MvvmCross.Presenters
 {
     using System.Collections.Generic;
     using System.Linq;
+
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
+
     using Scorchio.VisualStudio.Entities;
-    using Services.Interfaces;
     using Views.Interfaces;
     using Settings = Properties.Settings;
 
@@ -45,6 +47,15 @@ namespace NinjaCoder.MvvmCross.Presenters
         /// </summary>
         /// <returns>The required templates.</returns>
         public IEnumerable<ProjectTemplateInfo> GetRequiredTemplates()
+        {
+            return this.view.RequiredProjects.ToList();
+        }
+
+        /// <summary>
+        /// Gets the formatted required templates.
+        /// </summary>
+        /// <returns>Formatted required templates</returns>
+        public IEnumerable<ProjectTemplateInfo> GetFormattedRequiredTemplates()
         {
             List<ProjectTemplateInfo> templateInfos = new List<ProjectTemplateInfo>();
 

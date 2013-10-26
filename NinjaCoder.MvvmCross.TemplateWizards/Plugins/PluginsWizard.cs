@@ -5,7 +5,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.TemplateWizards.Plugins
 {
-    using NinjaCoder.MvvmCross.TemplateWizards.Services;
+    using System.IO;
+
+    using EnvDTE;
+
+    using Scorchio.VisualStudio.Extensions;
+    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     ///  Defines the PluginsWizard type.
@@ -15,9 +20,9 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Plugins
         /// <summary>
         /// Runs custom wizard logic at the beginning of a template wizard run.
         /// </summary>
-        public override void OnRunStarted()
+        protected override void OnRunStarted()
         {
-            TraceService.WriteLine("PluginsWizard::OnRunStarted");
+            TraceService.WriteHeader("PluginsWizard::OnRunStarted");
         }
 
         /// <summary>
@@ -25,11 +30,70 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Plugins
         /// </summary>
         /// <param name="filePath">The file path.</param>
         /// <returns>True or false.</returns>
-        public override bool OnShouldAddProjectItem(string filePath)
+        protected override bool OnShouldAddProjectItem(string filePath)
         {
             TraceService.WriteLine("PluginsWizard::OnShouldAddProjectItem path=" + filePath);
 
-            return true;
+            Project activeProject = this.GetActiveProject();
+
+            if (activeProject != null)
+            {
+                TraceService.WriteLine("ActiveProject=" + activeProject.FullName);
+
+                string projectPath = activeProject.GetProjectPath();
+                string path = string.Format(@"{0}\{1}", projectPath, filePath);
+
+                if (File.Exists(path))
+                {
+                    TraceService.WriteLine("File already exists");
+                    return false;
+                }
+            }
+            else
+            {
+                TraceService.WriteError("Cannot determine project");
+            }
+
+            string pluginsString = this.SettingsService.PluginsToAdd;
+
+            TraceService.WriteLine("pluginsString=" + pluginsString);
+
+            if (string.IsNullOrEmpty(pluginsString) == false)
+            {
+                FileInfo fileInfo = new FileInfo(filePath);
+
+                return pluginsString.Contains(fileInfo.Name);
+            }
+
+            TraceService.WriteError("Global variable PluginsToAdd is empty not adding file.");
+            return false;
+        }
+
+        /// <summary>
+        /// Called when [project item finished generating].
+        /// </summary>
+        /// <param name="projectItem">The project item.</param>
+        protected override void OnProjectItemFinishedGenerating(ProjectItem projectItem)
+        {
+            TraceService.WriteLine("PluginsWizard::OnProjectItemFinishedGenerating name=" + projectItem.Name);
+
+            if (this.SettingsService.RemoveDefaultComments)
+            {
+                projectItem.RemoveComments();
+            }
+
+            if (this.SettingsService.RemoveDefaultFileHeaders)
+            {
+                projectItem.RemoveHeader();
+            }
+        }
+
+        /// <summary>
+        /// Called when [run finished].
+        /// </summary>
+        protected override void OnRunFinished()
+        {
+            TraceService.WriteHeader("PluginsWizard::OnRunFinished");
         }
     }
 }

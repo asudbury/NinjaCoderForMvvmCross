@@ -7,8 +7,8 @@ namespace NinjaCoder.MvvmCross.Tests.Translators
 {
     using System.IO;
     using Entities;
-    using MvvmCross.Services;
     using MvvmCross.Translators;
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NUnit.Framework;
 
     /// <summary>
@@ -26,7 +26,7 @@ namespace NinjaCoder.MvvmCross.Tests.Translators
             PluginsTranslator translator = new PluginsTranslator(new PluginTranslator());
 
             SettingsService settingsService = new SettingsService();
-            string path = settingsService.CorePluginsPath;
+            string path = settingsService.InstalledDirectory + @"Plugins\Core";
 
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             Plugins plugins = translator.Translate(directoryInfo);

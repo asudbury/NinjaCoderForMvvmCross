@@ -1,0 +1,23 @@
+﻿<CodeSnippet>
+  <MockVariables>
+    <MockVariable>IMvxThreadSleep mockThreadSleep</MockVariable>
+  </MockVariables>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Tests Get Sleep Thread.
+        /// </summary>
+        [Test]
+        public void TestGetSleepThread()
+        {
+            //// arrange
+            
+            //// act
+            this.TestableObject.GetSleepThread();
+            
+            //// assert
+        }
+    ]]>
+  </Code>
+</CodeSnippet>
+

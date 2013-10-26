@@ -7,6 +7,8 @@ namespace NinjaCoder.MvvmCross.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+
     using Constants;
     using EnvDTE;
 
@@ -29,11 +31,28 @@ namespace NinjaCoder.MvvmCross.Services
         /// Gets or sets the visual studio service.
         /// </summary>
         public IVisualStudioService VisualStudioService { get; set; }
-
+       
         /// <summary>
         /// Gets or sets a value indicating whether [resume re sharper].
         /// </summary>
-        public bool ResumeReSharper { get; set; }
+        private bool ResumeReSharper { get; set; }
+
+        /// <summary>
+        /// Gets the init nuget messages.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <returns>The messages.</returns>
+        public IEnumerable<string> GetInitNugetMessages(string message)
+        {
+            TraceService.WriteLine("NugetService::InitNugetMessages");
+
+            return new List<string>
+                        {
+                            message, 
+                            NinjaMessages.PmConsole, 
+                            string.Empty
+                        };
+        }
 
         /// <summary>
         /// Gets the nuget commands.
@@ -51,49 +70,38 @@ namespace NinjaCoder.MvvmCross.Services
         {
             TraceService.WriteLine("NugetService::ExecuteNugetCommands");
 
-            string nugetCommands = string.Empty;
+            string nugetCommandsString = string.Empty;
 
-            string verboseOption = string.Empty;
+            string verboseOption = this.GetVerboseOption(verboseOutput);
 
-            if (verboseOutput)
+            string debugOption = this.GetDebugOption(debug);
+
+            foreach (ProjectTemplateInfo projectTemplateInfo in templates
+                .Where(x => x.NugetCommands != null))
             {
-                verboseOption = "-verbose";
-            }
+                //// we need to work out if the project was successfully added to the solution
+                //// in cases where the project is not supported (SDK not installed) it will
+                //// not have been added (and therefore no nuget commands to run)
 
-            string debugOption = string.Empty;
+                IProjectService projectService = visualStudioService.GetProjectServiceBySuffix(projectTemplateInfo.ProjectSuffix);
 
-            if (debug)
-            {
-                debugOption = "-debug";
-            }
-
-
-            foreach (ProjectTemplateInfo projectTemplateInfo in templates)
-            {
-                if (projectTemplateInfo.NugetCommands != null)
+                if (projectService != null)
                 {
-                    //// we need to work out if the project was sucessfully added to the solution
-                    //// in cases where the project is not supported (SDK not installed) it will
-                    //// not have been added (and therefore no nuget commands to run)
-
-                    IProjectService projectService = visualStudioService.GetProjectServiceBySuffix(projectTemplateInfo.ProjectSuffix);
-
-                    if (projectService != null)
+                    foreach (string nugetCommand in projectTemplateInfo.NugetCommands)
                     {
-                        foreach (string nugetCommand in projectTemplateInfo.NugetCommands)
-                        {
-                            nugetCommands += string.Format(
-                                "{0} {1} {2} {3}", 
-                                nugetCommand, 
-                                verboseOption, 
-                                debugOption, 
-                                Environment.NewLine);
-                        }
+                        nugetCommandsString += string.Format(
+                            "{0} {1} {2} {3}",
+                            nugetCommand,
+                            verboseOption,
+                            debugOption,
+                            Environment.NewLine);
                     }
                 }
             }
 
-            return nugetCommands;
+            TraceService.WriteLine("commands=" + nugetCommandsString);
+
+            return nugetCommandsString;
         }
 
         /// <summary>
@@ -120,18 +128,18 @@ namespace NinjaCoder.MvvmCross.Services
         public void Execute(
             IVisualStudioService visualStudioService,
             string readMePath,
-            List<string> commands,
+            IEnumerable<string> commands,
             bool resumeReSharper,
             bool setupEventHandlers = true)
         {
             TraceService.WriteLine("NugetService::Execute");
 
-            string nugetCommands = string.Join(Environment.NewLine, commands);
+            string nugetCommandsString = string.Join(Environment.NewLine, commands);
 
             this.Execute(
                 visualStudioService,
                 readMePath,
-                nugetCommands,
+                nugetCommandsString,
                 resumeReSharper,
                 setupEventHandlers);
         }
@@ -163,7 +171,7 @@ namespace NinjaCoder.MvvmCross.Services
 
             //// add in the open readme operation - this is how we know nuget has finished!
             commands += Environment.NewLine + "$DTE.ItemOperations.OpenFile('" + readMePath + "')";
-
+            
             this.VisualStudioService.DTEService.ExecuteNugetCommand(commands);
         }
 
@@ -232,8 +240,44 @@ namespace NinjaCoder.MvvmCross.Services
 
             if (projectService != null)
             {
-                projectService.RemoveReference(Settings.MvxWpfAssembly);
+                projectService.RemoveReferences(".wpf");
+                projectService.RemoveFolder("Bootstrap");
+                projectService.RemoveFolder("ToDo-MvvmCross");
             }
+        }
+
+        /// <summary>
+        /// Gets the verbose option.
+        /// </summary>
+        /// <param name="verboseOutput">if set to <c>true</c> [verbose output].</param>
+        /// <returns>The verbose option.</returns>
+        internal string GetVerboseOption(bool verboseOutput)
+        {
+            string verboseOption = string.Empty;
+
+            if (verboseOutput)
+            {
+                verboseOption = "-verbose";
+            }
+
+            return verboseOption;
+        }
+
+        /// <summary>
+        /// Gets the debug option.
+        /// </summary>
+        /// <param name="debug">if set to <c>true</c> [debug].</param>
+        /// <returns>The debug option.</returns>
+        internal string GetDebugOption(bool debug)
+        {
+            string debugOption = string.Empty;
+
+            if (debug)
+            {
+                debugOption = "-debug";
+            }
+
+            return debugOption;
         }
     }
 }

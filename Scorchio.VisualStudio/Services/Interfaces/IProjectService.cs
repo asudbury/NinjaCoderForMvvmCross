@@ -95,7 +95,6 @@ namespace Scorchio.VisualStudio.Services.Interfaces
              string folderName,
              string fileName);
 
-
         /// <summary>
         /// Adds the reference.
         /// </summary>
@@ -103,11 +102,13 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// <param name="destination">The destination.</param>
         /// <param name="source">The source.</param>
         /// <param name="addFileToFolder">if set to <c>true</c> [add file to folder].</param>
+        /// <param name="copyAssembly">if set to <c>true</c> [copy assembly].</param>
         void AddReference(
             string destinationFolder,
             string destination,
             string source,
-            bool addFileToFolder);
+            bool addFileToFolder,
+            bool copyAssembly);
 
         /// <summary>
         /// Saves all.
@@ -135,6 +136,12 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// </summary>
         /// <param name="referenceName">Name of the reference.</param>
         void RemoveReference(string referenceName);
+
+        /// <summary>
+        /// Removes the reference.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        void RemoveReferences(string value);
 
         /// <summary>
         /// Removes the folder.

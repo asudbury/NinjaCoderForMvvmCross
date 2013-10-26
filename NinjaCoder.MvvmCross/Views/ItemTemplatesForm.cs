@@ -11,7 +11,7 @@ namespace NinjaCoder.MvvmCross.Views
 
     using Interfaces;
 
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
 
     using Presenters;
     using Scorchio.VisualStudio.Entities;
@@ -31,6 +31,8 @@ namespace NinjaCoder.MvvmCross.Views
             ISettingsService settingsService)
         {
             this.InitializeComponent();
+
+            this.mvxListView1.SetBorderVisibility(BorderStyle.None);
 
             this.Presenter = new ItemTemplatesPresenter(this, settingsService);
             this.Presenter.Load(itemTemplateInfos);

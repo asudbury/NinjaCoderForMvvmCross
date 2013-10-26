@@ -12,7 +12,7 @@ namespace Scorchio.VisualStudio.Services.Interfaces
     using Scorchio.VisualStudio.Entities;
 
     /// <summary>
-    ///  Defines the ISolutionService type.
+    /// Defines the ISolutionService type.
     /// </summary>
     public interface ISolutionService
     {
@@ -20,6 +20,45 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// Gets the full name.
         /// </summary>
         string FullName { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether [has globals].
+        /// </summary>
+        bool HasGlobals { get; }
+
+        /// <summary>
+        /// Gets the global variables.
+        /// </summary>
+        /// <returns>The global variables.</returns>
+        Dictionary<string, string> GetGlobalVariables();
+
+        /// <summary>
+        /// Globals the variable exists.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>True or false.</returns>
+        bool GlobalVariableExists(string key);
+
+        /// <summary>
+        /// Gets the global variable.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>The global variable.</returns>
+        object GetGlobalVariable(string key);
+
+        /// <summary>
+        /// Sets the global variable.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        void SetGlobalVariable(
+            string key, 
+            object value);
+
+        /// <summary>
+        /// Removes the global variables.
+        /// </summary>
+        void RemoveGlobalVariables();
 
         /// <summary>
         /// Creates the empty solution.

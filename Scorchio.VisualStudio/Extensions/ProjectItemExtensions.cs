@@ -9,6 +9,7 @@ namespace Scorchio.VisualStudio.Extensions
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+
     using Entities;
     using EnvDTE;
     using EnvDTE80;
@@ -374,6 +375,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         public static void FixUsingStatements(this ProjectItem instance)
         {
+            TraceService.WriteLine("ProjectItemExtensions::FixUsingStatements in file " + instance.Name);
+
             instance.MoveUsingStatements();
             instance.SortAndRemoveUsingStatements();
         }
@@ -433,6 +436,8 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         public static void DeleteNameSpaceUsingStatements(this ProjectItem instance)
         {
+            TraceService.WriteLine("ProjectItemExtensions::DeleteNameSpaceUsingStatements in file " + instance.Name);
+
             bool continueLoop = true;
 
             do
@@ -492,10 +497,12 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         /// <param name="text">The text.</param>
         /// <param name="replacementText">The replacement text.</param>
+        /// <param name="findOptions">The find options.</param>
         public static void ReplaceText(
             this ProjectItem instance,
             string text,
-            string replacementText)
+            string replacementText,
+            int findOptions = (int)vsFindOptions.vsFindOptionsMatchCase)
         {
             TraceService.WriteLine("ProjectItemExtensions::ReplaceText in file " + instance.Name  + " from '" + text + "' to '" + replacementText + "'");
 
@@ -507,7 +514,14 @@ namespace Scorchio.VisualStudio.Extensions
 
                 TextSelection textSelection = instance.DTE.ActiveDocument.Selection;
                 textSelection.SelectAll();
-                textSelection.ReplacePattern(text, replacementText, (int)vsFindOptions.vsFindOptionsMatchCase);
+
+                bool replaced = textSelection.ReplacePattern(text, replacementText, findOptions);
+               
+                if (replaced)
+                {
+                    TraceService.WriteLine("Replaced");
+                }
+
                 instance.Save();
             }
         }
@@ -655,19 +669,14 @@ namespace Scorchio.VisualStudio.Extensions
 
             if (instance.ProjectItems != null)
             {
-                IEnumerable<ProjectItem> csharpProjectItems = instance.GetCSharpProjectItems();
+                instance.GetCSharpProjectItems()
+                    .ToList()
+                    .ForEach(x => x.RemoveComments());
 
-                foreach (ProjectItem subProjectItem in csharpProjectItems)
-                {
-                    subProjectItem.RemoveComments();
-                }
+                instance.GetXamlProjectItems()
+                    .ToList()
+                    .ForEach(x => x.RemoveComments());
 
-                IEnumerable<ProjectItem> xamlProjectItems = instance.GetXamlProjectItems();
-
-                foreach (ProjectItem subProjectItem in xamlProjectItems)
-                {
-                    subProjectItem.RemoveComments();
-                }
             }
         }
         
@@ -748,5 +757,18 @@ namespace Scorchio.VisualStudio.Extensions
                 ////File.Delete(fileName);
             }
         }
-   }
+
+        /// <summary>
+        /// Removes the double blank lines.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        public static void RemoveDoubleBlankLines(this ProjectItem instance)
+        {
+            TraceService.WriteLine("ProjectExtensions::RemoveDoubleBlankLines");
+            
+            const string RegEx = @"^(?([^\r\n])\s)*\r?$\r?\n^(?([^\r\n])\s)*\r?$\r?\n";
+
+            instance.ReplaceText(RegEx, string.Empty, (int)vsFindOptions.vsFindOptionsRegularExpression);
+        }
+    }
 }

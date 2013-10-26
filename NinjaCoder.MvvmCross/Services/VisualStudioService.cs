@@ -446,6 +446,8 @@ namespace NinjaCoder.MvvmCross.Services
 
             string[] paths = Directory.GetFiles(path);
 
+            ////paths.ToList().ForEach();
+
             foreach (string filePath in paths)
             {
                 FileInfo fileInfo = new FileInfo(filePath);

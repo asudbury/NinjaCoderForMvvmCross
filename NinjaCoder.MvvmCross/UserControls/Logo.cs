@@ -5,8 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.UserControls
 {
-    using Services;
     using System.Windows.Forms;
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
 
     /// <summary>
     /// Defines the Logo type.
@@ -22,9 +22,11 @@ namespace NinjaCoder.MvvmCross.UserControls
 
             SettingsService settingsService = new SettingsService();
 
-            this.labelVersion.Text += " v" + settingsService.ApplicationVersion;
+            this.labelVersion.Text += " " + settingsService.ApplicationVersion;
 
             this.labelMvvmCross.Text += " v" + settingsService.MvvmCrossVersion;
+
+            this.labelBuildDateTime.Text = settingsService.BuildDateTime;
         }
     }
 }

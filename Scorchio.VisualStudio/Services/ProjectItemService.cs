@@ -334,5 +334,13 @@ namespace Scorchio.VisualStudio.Services
         {
             this.projectItem.DeleteFolder(excludeFiles);
         }
+
+        /// <summary>
+        /// Removes the double blank lines.
+        /// </summary>
+        public void RemoveDoubleBlankLines()
+        {
+            this.projectItem.RemoveDoubleBlankLines();
+        }
     }
 }

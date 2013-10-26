@@ -12,7 +12,7 @@ namespace NinjaCoder.MvvmCross.Views
     using System.Windows.Forms;
     using Interfaces;
 
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
 
     using Presenters;
     using Scorchio.VisualStudio.Entities;
@@ -39,6 +39,8 @@ namespace NinjaCoder.MvvmCross.Views
             IEnumerable<string> viewModelNames)
         {
             this.InitializeComponent();
+
+            this.mvxListView1.SetBorderVisibility(BorderStyle.None);
 
             this.Presenter = new ViewModelViewsPresenter(this, settingsService);
             this.Presenter.Load(itemTemplateInfos, viewModelNames);

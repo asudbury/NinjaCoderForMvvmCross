@@ -1,7 +1,18 @@
 <CodeConfig>
 	<NugetPackage>MvvmCross.HotTuna.Plugin.Accelerometer</NugetPackage>
+  <BootstrapFileNameOverride>CommunitySqlitePluginBootstrap.cs</BootstrapFileNameOverride>
   <References>
     <Reference>R1</Reference>
     <Reference>R2</Reference>
   </References>
+  <NugetInstallationMandatory>Y</NugetInstallationMandatory>
+  <DependentPlugins>
+    <DependentPlugin>Plugin1</DependentPlugin>
+    <DependentPlugin>Plugin2</DependentPlugin>
+  </DependentPlugins>
+  <CodeDependencies>
+    <CodeSnippet>
+      <Class>Class1</Class>
+    </CodeSnippet>
+  </CodeDependencies>
 </CodeConfig>

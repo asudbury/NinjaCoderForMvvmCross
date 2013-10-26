@@ -7,13 +7,14 @@ namespace NinjaCoder.MvvmCross.Views
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
     using System.Windows.Forms;
     using Interfaces;
+
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
+
     using Presenters;
     using Scorchio.VisualStudio.Entities;
-    using Services.Interfaces;
 
     /// <summary>
     /// Defines the ProjectsForm type.
@@ -38,6 +39,8 @@ namespace NinjaCoder.MvvmCross.Views
                 settingsService);
 
             this.InitializeComponent();
+
+            this.mvxListView1.SetBorderVisibility(BorderStyle.None);
 
             this.Presenter.Load(
                 defaultProjectsLocation,
@@ -138,7 +141,12 @@ namespace NinjaCoder.MvvmCross.Views
         private void TextBoxProjectTextChanged(object sender, EventArgs e)
         {
             this.buttonOK.Enabled = this.textBoxProject.Text.Length > 0;
-            this.textBoxProject.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(this.textBoxProject.Text);
+
+            if (this.textBoxProject.Text.Length > 0)
+            {
+                this.textBoxProject.Text = char.ToUpper(this.textBoxProject.Text[0]) + this.textBoxProject.Text.Substring(1);
+            }
+
             this.textBoxProject.SelectionStart = this.textBoxProject.Text.Length;
         }
         
@@ -147,10 +155,13 @@ namespace NinjaCoder.MvvmCross.Views
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void ButtonOKClick(object sender, EventArgs e)
+        private void ButtonOkClick(object sender, EventArgs e)
         {
-            this.Presenter.SaveSettings();
-            this.DialogResult = DialogResult.OK;
+            if (this.Presenter.GetRequiredTemplates().Any())
+            {
+                this.Presenter.SaveSettings();
+                this.DialogResult = DialogResult.OK;
+            }
         }
 
         /// <summary>

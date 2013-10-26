@@ -58,6 +58,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\NinjaCoder.MvvmCross.Infrastructure\Extensions\ListExtensions.cs">
+      <Link>Extensions\ListExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\NinjaCoder.MvvmCross.Infrastructure\Services\ISettingsService.cs">
+      <Link>Services\Interfaces\ISettingsService.cs</Link>
+    </Compile>
+    <Compile Include="..\NinjaCoder.MvvmCross.Infrastructure\Services\SettingsService.cs">
+      <Link>Services\SettingsService.cs</Link>
+    </Compile>
     <Compile Include="Constants\FriendlyNames.cs" />
     <Compile Include="Constants\ItemTemplates.cs" />
     <Compile Include="Constants\NinjaMessages.cs" />
@@ -98,24 +107,25 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Services\BaseCodeService.cs" />
     <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\CodeConfigService.cs" />
     <Compile Include="Services\ConfigurationService.cs" />
     <Compile Include="Services\ConvertersService.cs" />
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\FormsService.cs" />
     <Compile Include="Services\Interfaces\IBaseService.cs" />
+    <Compile Include="Services\Interfaces\ICodeConfigService.cs" />
     <Compile Include="Services\Interfaces\IConfigurationService.cs" />
     <Compile Include="Services\Interfaces\IConvertersService.cs" />
     <Compile Include="Services\Interfaces\IDialogService.cs" />
     <Compile Include="Services\Interfaces\IFormsService.cs" />
     <Compile Include="Services\Interfaces\IMessageBoxService.cs" />
     <Compile Include="Services\Interfaces\INugetService.cs" />
+    <Compile Include="Services\Interfaces\IPluginService.cs" />
     <Compile Include="Services\Interfaces\IPluginsService.cs" />
     <Compile Include="Services\Interfaces\IProjectsService.cs" />
     <Compile Include="Services\Interfaces\IReadMeService.cs" />
     <Compile Include="Services\Interfaces\IServicesService.cs" />
-    <Compile Include="Services\Interfaces\ISettingsService.cs" />
     <Compile Include="Services\Interfaces\ISnippetService.cs" />
     <Compile Include="Services\Interfaces\IUpdateVersionService.cs" />
     <Compile Include="Services\Interfaces\IViewModelViewsService.cs" />
@@ -123,11 +133,11 @@
     <Compile Include="Services\Interfaces\IZipperService.cs" />
     <Compile Include="Services\MessageBoxService.cs" />
     <Compile Include="Services\NugetService.cs" />
+    <Compile Include="Services\PluginService.cs" />
     <Compile Include="Services\PluginsService.cs" />
     <Compile Include="Services\ProjectsService.cs" />
     <Compile Include="Services\ReadMeService.cs" />
     <Compile Include="Services\ServicesService.cs" />
-    <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\SnippetService.cs" />
     <Compile Include="Services\UpdateVersionService.cs" />
     <Compile Include="Services\ViewModelViewsService.cs" />
@@ -252,7 +262,9 @@
     <Content Include="Lib\System.IO.Abstractions.dll" />
     <Content Include="Resources\NinjaCoder.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="obj\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

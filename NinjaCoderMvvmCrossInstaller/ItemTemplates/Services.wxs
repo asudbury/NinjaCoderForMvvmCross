@@ -9,27 +9,23 @@
                  DiskId="1" 
                  Guid="825c8b3c-e1ee-4eae-91b3-30000000000C">
 
-        <File Id="MvvmCross.Services.Location"
-            Name="MvvmCross.LocationService.zip"
+        <File Name="MvvmCross.LocationService.zip"
             Source="$(var.ITEM_TEMPLATES_DIR)\Core\Services\MvvmCross.LocationService\bin\Debug\ItemTemplates\CSharp\1033\MvvmCross.LocationService.zip">
           <CopyFile Id="copyService1" DestinationDirectory="ItemTemplatesMvvmCrossServices"/>
         </File>
 
         <!--
-        <File Id="MvvmCross.Services.SqliteData"
-            Name="MvvmCross.SqliteDataService.zip"
+        <File Name="MvvmCross.SqliteDataService.zip"
           Source="$(var.ITEM_TEMPLATES_DIR)\Core\Services\MvvmCross.SqliteDataService\bin\Debug\ItemTemplates\CSharp\1033\MvvmCross.SqliteDataService.zip">
           <CopyFile Id="copyService2" DestinationDirectory="ItemTemplatesMvvmCrossServices"/>
         </File>
 
-        <File Id="MvvmCross.Services.WebRequest"
-            Name="MvvmCross.WebRequestService.zip"
+        <File Name="MvvmCross.WebRequestService.zip"
           Source="$(var.ITEM_TEMPLATES_DIR)\Core\Services\MvvmCross.WebRequestService\bin\Debug\ItemTemplates\CSharp\1033\MvvmCross.WebRequestService.zip">
           <CopyFile Id="copyService3" DestinationDirectory="ItemTemplatesMvvmCrossServices"/>
         </File>
 
-        <File Id="MvvmCross.Services.DropBox"
-          Name="MvvmCross.DropBoxService.zip"
+        <File Name="MvvmCross.DropBoxService.zip"
           Source="$(var.ITEM_TEMPLATES_DIR)\Core\Services\MvvmCross.DropBoxService\bin\Debug\ItemTemplates\CSharp\1033\MvvmCross.DropBoxService.zip">
           <CopyFile Id="copyService4" DestinationDirectory="ItemTemplatesMvvmCrossServices"/>
         </File>-->

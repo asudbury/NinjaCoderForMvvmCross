@@ -61,11 +61,11 @@ namespace NinjaCoder.MvvmCross.Tests.Services
             {
                 new ProjectTemplateInfo
                     {
-                        NugetCommands = new List<string> { "1", "2" }
+                        NugetCommands = new List<string> { "1Command", "2Command" }
                     },
                  new ProjectTemplateInfo
                     {
-                        NugetCommands = new List<string> { "3", "4" }
+                        NugetCommands = new List<string> { "3Command", "4Command" }
                     },
             };
 
@@ -73,9 +73,12 @@ namespace NinjaCoder.MvvmCross.Tests.Services
 
             this.mockVisualStudioService.Setup(x => x.GetProjectServiceBySuffix(It.IsAny<string>())).Returns(mockProjectService.Object);
 
-            string commands = this.service.GetNugetCommands(this.mockVisualStudioService.Object, templateInfos, true, true);
+            string commands = this.service.GetNugetCommands(this.mockVisualStudioService.Object, templateInfos, false, false);
 
-            Assert.IsTrue(commands == "1\r\n2\r\n3\r\n4\r\n");
+            Assert.IsTrue(commands.Contains("1Command"));
+            Assert.IsTrue(commands.Contains("2Command"));
+            Assert.IsTrue(commands.Contains("3Command"));
+            Assert.IsTrue(commands.Contains("4Command"));
         }
 
         /// <summary>

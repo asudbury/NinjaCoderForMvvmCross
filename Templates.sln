@@ -56,98 +56,112 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{4DC2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugin", "ItemTemplates\Core\Plugins\MvvmCross.Plugin\MvvmCross.Plugin.csproj", "{2DBE39C7-8950-49F5-B24F-ADF44512CBBC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeSnippets", "CodeSnippets", "{D28560DF-FA52-4974-9D98-C4D21691811D}"
-	ProjectSection(SolutionItems) = preProject
-		ItemTemplates\Core\CodeSnippets\ViewModelNavigation.xml = ItemTemplates\Core\CodeSnippets\ViewModelNavigation.xml
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.LocationService", "ItemTemplates\Core\Services\MvvmCross.LocationService\MvvmCross.LocationService.csproj", "{BFC01E99-51CF-4E15-86A7-325AF21B36ED}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{7836EE93-6A3A-4756-BE3B-0D5FC0F1EB23}"
-	ProjectSection(SolutionItems) = preProject
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Accelerometer.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Accelerometer.Tests.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Accelerometer.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Accelerometer.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Bookmarks.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Bookmarks.Tests.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Bookmarks.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Bookmarks.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Email.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Email.Tests.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Email.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Email.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.File.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.File.Tests.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.File.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.File.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Json.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Json.Tests.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Json.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Json.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Network.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Network.Tests.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Network.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Network.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.PhoneCall.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.PhoneCall.Tests.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.PhoneCall.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.PhoneCall.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.PictureChooser.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.PictureChooser.Tests.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.PictureChooser.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.PictureChooser.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ReflectionEx.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ReflectionEx.Tests.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ReflectionEx.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ReflectionEx.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ResourceLoader.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ResourceLoader.Tests.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ResourceLoader.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ResourceLoader.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Share.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Share.Tests.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Share.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.Share.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.SoundEffects.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.SoundEffects.Tests.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.SoundEffects.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.SoundEffects.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ThreadUtils.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ThreadUtils.Tests.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ThreadUtils.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.ThreadUtils.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.WebBrowser.Tests.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.WebBrowser.Tests.xml
-		ItemTemplates\Core\CodeSnippets\Plugins\Plugins.WebBrowser.xml = ItemTemplates\Core\CodeSnippets\Plugins\Plugins.WebBrowser.xml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2A21A7FB-5AFB-41CC-8F16-89A7876CE975}"
-	ProjectSection(SolutionItems) = preProject
-		ItemTemplates\Core\CodeSnippets\Services\Services.LocationService.Tests.xml = ItemTemplates\Core\CodeSnippets\Services\Services.LocationService.Tests.xml
-		ItemTemplates\Core\CodeSnippets\Services\Services.LocationService.xml = ItemTemplates\Core\CodeSnippets\Services\Services.LocationService.xml
-		ItemTemplates\Core\CodeSnippets\Services\Services.SqliteDataService.Tests.xml = ItemTemplates\Core\CodeSnippets\Services\Services.SqliteDataService.Tests.xml
-		ItemTemplates\Core\CodeSnippets\Services\Services.SqliteDataService.xml = ItemTemplates\Core\CodeSnippets\Services\Services.SqliteDataService.xml
-		ItemTemplates\Core\CodeSnippets\Services\Services.WebRequestService.Tests.xml = ItemTemplates\Core\CodeSnippets\Services\Services.WebRequestService.Tests.xml
-		ItemTemplates\Core\CodeSnippets\Services\Services.WebRequestService.xml = ItemTemplates\Core\CodeSnippets\Services\Services.WebRequestService.xml
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.AzureMobileService", "ItemTemplates\Core\Services\MvvmCross.AzureMobileService\MvvmCross.AzureMobileService.csproj", "{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{0732EB57-4A91-473E-A1F7-E0C5D9F44A8B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{084DE483-B02A-44CF-B5A7-9B7EF54D0516}"
-	ProjectSection(SolutionItems) = preProject
-		ItemTemplates\Core\Config\Services\Config.DropBoxService.xml = ItemTemplates\Core\Config\Services\Config.DropBoxService.xml
-		ItemTemplates\Core\Config\Services\Config.LocationService.xml = ItemTemplates\Core\Config\Services\Config.LocationService.xml
-		ItemTemplates\Core\Config\Services\Config.SqliteDataService.xml = ItemTemplates\Core\Config\Services\Config.SqliteDataService.xml
-		ItemTemplates\Core\Config\Services\Config.WebRequestService.xml = ItemTemplates\Core\Config\Services\Config.WebRequestService.xml
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugin.Email", "ItemTemplates\Core\Plugins\MvvmCross.Plugin.Email\MvvmCross.Plugin.Email.csproj", "{407BA8C5-83A4-4BB3-8D70-5127B8972157}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{2F81292D-E6C6-4867-8367-19F112E01407}"
-	ProjectSection(SolutionItems) = preProject
-		ItemTemplates\Core\Config\Plugins\Config.Plugin.Accelerometer.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.Accelerometer.xml
-		ItemTemplates\Core\Config\Plugins\Config.Plugin.Bookmarks.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.Bookmarks.xml
-		ItemTemplates\Core\Config\Plugins\Config.Plugin.Colors.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.Colors.xml
-		ItemTemplates\Core\Config\Plugins\Config.Plugin.DownloadCache.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.DownloadCache.xml
-		ItemTemplates\Core\Config\Plugins\Config.Plugin.Email.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.Email.xml
-		ItemTemplates\Core\Config\Plugins\Config.Plugin.File.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.File.xml
-		ItemTemplates\Core\Config\Plugins\Config.Plugin.Json.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.Json.xml
-		ItemTemplates\Core\Config\Plugins\Config.Plugin.Location.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.Location.xml
-		ItemTemplates\Core\Config\Plugins\Config.Plugin.Messenger.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.Messenger.xml
-		ItemTemplates\Core\Config\Plugins\Config.Plugin.Network.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.Network.xml
-		ItemTemplates\Core\Config\Plugins\Config.Plugin.PhoneCall.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.PhoneCall.xml
-		ItemTemplates\Core\Config\Plugins\Config.Plugin.PictureChooser.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.PictureChooser.xml
-		ItemTemplates\Core\Config\Plugins\Config.Plugin.ReflectionEx.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.ReflectionEx.xml
-		ItemTemplates\Core\Config\Plugins\Config.Plugin.ResourceLoader.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.ResourceLoader.xml
-		ItemTemplates\Core\Config\Plugins\Config.Plugin.Share.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.Share.xml
-		ItemTemplates\Core\Config\Plugins\Config.Plugin.SoundEffects.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.SoundEffects.xml
-		ItemTemplates\Core\Config\Plugins\Config.Plugin.SQLite.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.SQLite.xml
-		ItemTemplates\Core\Config\Plugins\Config.Plugin.ThreadUtils.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.ThreadUtils.xml
-		ItemTemplates\Core\Config\Plugins\Config.Plugin.Visibility.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.Visibility.xml
-		ItemTemplates\Core\Config\Plugins\Config.Plugin.WebBrowser.xml = ItemTemplates\Core\Config\Plugins\Config.Plugin.WebBrowser.xml
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.SqliteDataService", "ItemTemplates\Core\Services\MvvmCross.SqliteDataService\MvvmCross.SqliteDataService.csproj", "{BA242239-AA2C-4E1C-9925-F63414E8D0ED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.WebRequestService", "ItemTemplates\Core\Services\MvvmCross.WebRequestService\MvvmCross.WebRequestService.csproj", "{89A7F171-849B-4DBB-BC0A-472BC04F94A2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.DropBoxService", "ItemTemplates\Core\Services\MvvmCross.DropBoxService\MvvmCross.DropBoxService.csproj", "{79B3F7C9-108E-48F2-ACC3-23888E7850EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeConfigs", "CodeConfigs", "{FAFF5BF3-2613-4B97-982C-B2F445DE8463}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{E98594D0-2590-4A94-AB2C-12030B2F5883}"
+	ProjectSection(SolutionItems) = preProject
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Accelerometer.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Accelerometer.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Bookmarks.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Bookmarks.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Color.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Color.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.DownloadCache.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.DownloadCache.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Email.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Email.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.FieldBinding.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.FieldBinding.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.File.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.File.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Json.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Json.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.JsonLocalisation.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.JsonLocalisation.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Location.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Location.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Messenger.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Messenger.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.MethodBinding.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.MethodBinding.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Network.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Network.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.PhoneCall.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.PhoneCall.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.PictureChooser.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.PictureChooser.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.ReflectionEx.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.ReflectionEx.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.ResourceLoader.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.ResourceLoader.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Settings.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Settings.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Share.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Share.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.SMS.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.SMS.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.SoundEffects.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.SoundEffects.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Sqlite.WindowsPhone.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Sqlite.WindowsPhone.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Sqlite.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Sqlite.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.ThreadUtils.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.ThreadUtils.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.UserInteraction.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.UserInteraction.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Visibility.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.Visibility.xml
+		ItemTemplates\CodeConfigs\Plugins\Config.Plugin.WebBrowser.xml = ItemTemplates\CodeConfigs\Plugins\Config.Plugin.WebBrowser.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeSnippets", "CodeSnippets", "{9791FA7D-83F2-41E9-908B-474C0920A778}"
+	ProjectSection(SolutionItems) = preProject
+		ItemTemplates\CodeSnippets\ViewModelNavigation.xml = ItemTemplates\CodeSnippets\ViewModelNavigation.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{DA663CAE-EC04-4E20-AF16-0B40F34E4381}"
+	ProjectSection(SolutionItems) = preProject
+		ItemTemplates\CodeSnippets\Plugins\Plugins.Accelerometer.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.Accelerometer.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.Accelerometer.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.Accelerometer.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.AppId.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.AppId.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.AppId.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.AppId.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.Bitmap.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.Bitmap.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.Bitmap.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.Bitmap.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.Bookmarks.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.Bookmarks.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.Bookmarks.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.Bookmarks.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.Connectivity.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.Connectivity.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.Connectivity.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.Connectivity.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.Email.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.Email.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.Email.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.Email.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.FaceTime.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.FaceTime.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.FaceTime.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.FaceTime.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.File.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.File.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.File.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.File.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.Json.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.Json.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.Json.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.Json.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.Network.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.Network.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.Network.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.Network.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.PhoneCall.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.PhoneCall.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.PhoneCall.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.PhoneCall.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.PictureChooser.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.PictureChooser.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.PictureChooser.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.PictureChooser.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.ReflectionEx.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.ReflectionEx.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.ReflectionEx.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.ReflectionEx.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.ResourceLoader.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.ResourceLoader.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.ResourceLoader.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.ResourceLoader.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.Settings.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.Settings.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.Settings.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.Settings.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.Share.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.Share.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.Share.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.Share.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.SimpleWebToken.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.SimpleWebToken.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.SimpleWebToken.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.SimpleWebToken.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.SMS.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.SMS.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.SMS.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.SMS.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.SoundEffects.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.SoundEffects.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.SoundEffects.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.SoundEffects.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.ThreadUtils.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.ThreadUtils.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.ThreadUtils.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.ThreadUtils.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.UserInteraction.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.UserInteraction.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.UserInteraction.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.UserInteraction.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.Vibration.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.Vibration.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.WebBrowser.Tests.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.WebBrowser.Tests.xml
+		ItemTemplates\CodeSnippets\Plugins\Plugins.WebBrowser.xml = ItemTemplates\CodeSnippets\Plugins\Plugins.WebBrowser.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{36FBCB67-65CB-4FBD-AC0B-B237E3C67C41}"
+	ProjectSection(SolutionItems) = preProject
+		ItemTemplates\CodeSnippets\Services\Services.LocationService.Tests.xml = ItemTemplates\CodeSnippets\Services\Services.LocationService.Tests.xml
+		ItemTemplates\CodeSnippets\Services\Services.LocationService.xml = ItemTemplates\CodeSnippets\Services\Services.LocationService.xml
+		ItemTemplates\CodeSnippets\Services\Services.SqliteDataService.Tests.xml = ItemTemplates\CodeSnippets\Services\Services.SqliteDataService.Tests.xml
+		ItemTemplates\CodeSnippets\Services\Services.SqliteDataService.xml = ItemTemplates\CodeSnippets\Services\Services.SqliteDataService.xml
+		ItemTemplates\CodeSnippets\Services\Services.WebRequestService.Tests.xml = ItemTemplates\CodeSnippets\Services\Services.WebRequestService.Tests.xml
+		ItemTemplates\CodeSnippets\Services\Services.WebRequestService.xml = ItemTemplates\CodeSnippets\Services\Services.WebRequestService.xml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -895,42 +909,6 @@ Global
 		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Release|x64.ActiveCfg = Release|Any CPU
 		{0C8D3E2B-2E0F-4AC5-B81C-DE1001F18A1D}.Release|x86.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Ad-Hoc|ARM.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Ad-Hoc|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Ad-Hoc|Mixed Platforms.Build.0 = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Ad-Hoc|x64.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Ad-Hoc|x86.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.AppStore|Any CPU.Build.0 = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.AppStore|ARM.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.AppStore|iPhone.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.AppStore|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.AppStore|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.AppStore|Mixed Platforms.Build.0 = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.AppStore|x64.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.AppStore|x86.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Release|Any CPU.Build.0 = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Release|ARM.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Release|x64.ActiveCfg = Release|Any CPU
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157}.Release|x86.ActiveCfg = Release|Any CPU
 		{BA242239-AA2C-4E1C-9925-F63414E8D0ED}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
 		{BA242239-AA2C-4E1C-9925-F63414E8D0ED}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
 		{BA242239-AA2C-4E1C-9925-F63414E8D0ED}.Ad-Hoc|ARM.ActiveCfg = Release|Any CPU
@@ -1056,11 +1034,11 @@ Global
 		{DA7991EB-F944-4279-B92A-2729B0F69F70} = {66EA15F5-7357-4BAF-ABD7-84FCE53BFEB4}
 		{78334A51-78CE-404A-B21D-9E1986205EBE} = {66EA15F5-7357-4BAF-ABD7-84FCE53BFEB4}
 		{DA7A827F-1D4A-4E6E-9365-71562047160E} = {66EA15F5-7357-4BAF-ABD7-84FCE53BFEB4}
+		{FAFF5BF3-2613-4B97-982C-B2F445DE8463} = {66EA15F5-7357-4BAF-ABD7-84FCE53BFEB4}
+		{9791FA7D-83F2-41E9-908B-474C0920A778} = {66EA15F5-7357-4BAF-ABD7-84FCE53BFEB4}
 		{57CEA34B-317D-47F2-B56A-33782CD98E2D} = {DA7A827F-1D4A-4E6E-9365-71562047160E}
 		{731EBF6A-E718-4FF2-BD11-7311C9C8EE4B} = {DA7A827F-1D4A-4E6E-9365-71562047160E}
 		{4DC2D446-8564-4C67-BEED-098990449CCA} = {DA7A827F-1D4A-4E6E-9365-71562047160E}
-		{D28560DF-FA52-4974-9D98-C4D21691811D} = {DA7A827F-1D4A-4E6E-9365-71562047160E}
-		{0732EB57-4A91-473E-A1F7-E0C5D9F44A8B} = {DA7A827F-1D4A-4E6E-9365-71562047160E}
 		{F538A86F-B05D-418E-8585-C8849998AF66} = {57CEA34B-317D-47F2-B56A-33782CD98E2D}
 		{41E99EA2-78A5-4E00-A043-CF411E5C0A4C} = {57CEA34B-317D-47F2-B56A-33782CD98E2D}
 		{0AFFF403-85DB-4314-9246-D1B3FAC590B5} = {57CEA34B-317D-47F2-B56A-33782CD98E2D}
@@ -1072,10 +1050,8 @@ Global
 		{89A7F171-849B-4DBB-BC0A-472BC04F94A2} = {731EBF6A-E718-4FF2-BD11-7311C9C8EE4B}
 		{79B3F7C9-108E-48F2-ACC3-23888E7850EE} = {731EBF6A-E718-4FF2-BD11-7311C9C8EE4B}
 		{2DBE39C7-8950-49F5-B24F-ADF44512CBBC} = {4DC2D446-8564-4C67-BEED-098990449CCA}
-		{407BA8C5-83A4-4BB3-8D70-5127B8972157} = {4DC2D446-8564-4C67-BEED-098990449CCA}
-		{7836EE93-6A3A-4756-BE3B-0D5FC0F1EB23} = {D28560DF-FA52-4974-9D98-C4D21691811D}
-		{2A21A7FB-5AFB-41CC-8F16-89A7876CE975} = {D28560DF-FA52-4974-9D98-C4D21691811D}
-		{084DE483-B02A-44CF-B5A7-9B7EF54D0516} = {0732EB57-4A91-473E-A1F7-E0C5D9F44A8B}
-		{2F81292D-E6C6-4867-8367-19F112E01407} = {0732EB57-4A91-473E-A1F7-E0C5D9F44A8B}
+		{E98594D0-2590-4A94-AB2C-12030B2F5883} = {FAFF5BF3-2613-4B97-982C-B2F445DE8463}
+		{DA663CAE-EC04-4E20-AF16-0B40F34E4381} = {9791FA7D-83F2-41E9-908B-474C0920A778}
+		{36FBCB67-65CB-4FBD-AC0B-B237E3C67C41} = {9791FA7D-83F2-41E9-908B-474C0920A778}
 	EndGlobalSection
 EndGlobal
