@@ -18,7 +18,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     /// <summary>
     ///  Defines the BaseController type.
     /// </summary>
-    public abstract class BaseController
+    internal abstract class BaseController
     {
         /// <summary>
         /// The readme lines

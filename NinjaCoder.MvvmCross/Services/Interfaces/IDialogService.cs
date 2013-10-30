@@ -10,7 +10,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     /// <summary>
     ///  Defines the IDialogService type.
     /// </summary>
-    public interface IDialogService
+    internal interface IDialogService
     {
         /// <summary>
         /// Shows the dialog.

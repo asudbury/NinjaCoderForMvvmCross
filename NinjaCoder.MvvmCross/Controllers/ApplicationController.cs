@@ -19,7 +19,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     /// <summary>
     /// Defines the ApplicationController type.
     /// </summary>
-    public class ApplicationController : BaseController
+    internal class ApplicationController : BaseController
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationController" /> class.

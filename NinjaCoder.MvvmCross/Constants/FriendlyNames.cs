@@ -8,7 +8,7 @@ namespace NinjaCoder.MvvmCross.Constants
     /// <summary>
     ///    Defines the FriendlyNames type.
     /// </summary>
-    public static class FriendlyNames
+    internal static class FriendlyNames
     {
         /// <summary>
         /// The core

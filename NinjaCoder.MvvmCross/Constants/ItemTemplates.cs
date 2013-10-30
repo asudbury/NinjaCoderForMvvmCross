@@ -8,7 +8,7 @@ namespace NinjaCoder.MvvmCross.Constants
     /// <summary>
     ///  Defines the ItemTemplates type.
     /// </summary>
-    public static class ItemTemplates
+    internal static class ItemTemplates
     {
         /// <summary>
         /// The view model

@@ -38,14 +38,18 @@
             this.mvxListViewCore = new NinjaCoder.MvvmCross.UserControls.MvxListView();
             this.checkBoxIncludeUnitTests = new System.Windows.Forms.CheckBox();
             this.checkBoxUseNuget = new System.Windows.Forms.CheckBox();
-            this.LinkLabel = new System.Windows.Forms.LinkLabel();
+            this.LinkLabelDisplayWikiPage = new System.Windows.Forms.LinkLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.mvxListViewCommunity = new NinjaCoder.MvvmCross.UserControls.MvxListView();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.mvxListViewUser = new NinjaCoder.MvvmCross.UserControls.MvxListView();
+            this.linkLabelOpenUserPluginsFolder = new System.Windows.Forms.LinkLabel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -148,25 +152,26 @@
             this.checkBoxUseNuget.Text = "Use Nuget (Internet connection required)";
             this.checkBoxUseNuget.UseVisualStyleBackColor = true;
             // 
-            // LinkLabel
+            // LinkLabelDisplayWikiPage
             // 
-            this.LinkLabel.AutoSize = true;
-            this.LinkLabel.Font = new System.Drawing.Font("Segoe UI", 7.8F);
-            this.LinkLabel.Location = new System.Drawing.Point(88, 568);
-            this.LinkLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LinkLabel.Name = "LinkLabel";
-            this.LinkLabel.Size = new System.Drawing.Size(320, 19);
-            this.LinkLabel.TabIndex = 99;
-            this.LinkLabel.TabStop = true;
-            this.LinkLabel.Text = "Click here to display MvvmCross Plugins Wiki page";
-            this.LinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelLinkClicked);
+            this.LinkLabelDisplayWikiPage.AutoSize = true;
+            this.LinkLabelDisplayWikiPage.Font = new System.Drawing.Font("Segoe UI", 7.8F);
+            this.LinkLabelDisplayWikiPage.Location = new System.Drawing.Point(185, 568);
+            this.LinkLabelDisplayWikiPage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LinkLabelDisplayWikiPage.Name = "LinkLabelDisplayWikiPage";
+            this.LinkLabelDisplayWikiPage.Size = new System.Drawing.Size(242, 19);
+            this.LinkLabelDisplayWikiPage.TabIndex = 99;
+            this.LinkLabelDisplayWikiPage.TabStop = true;
+            this.LinkLabelDisplayWikiPage.Text = "Display MvvmCross Plugins Wiki page";
+            this.LinkLabelDisplayWikiPage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelDisplayWikiPageLinkClicked);
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(224, 41);
+            this.tabControl1.Location = new System.Drawing.Point(225, 41);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -205,13 +210,45 @@
             this.mvxListViewCommunity.Size = new System.Drawing.Size(356, 367);
             this.mvxListViewCommunity.TabIndex = 91;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.linkLabelOpenUserPluginsFolder);
+            this.tabPage3.Controls.Add(this.mvxListViewUser);
+            this.tabPage3.Location = new System.Drawing.Point(4, 26);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(395, 383);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "User Plugins";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // mvxListViewUser
+            // 
+            this.mvxListViewUser.Location = new System.Drawing.Point(4, 5);
+            this.mvxListViewUser.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.mvxListViewUser.Name = "mvxListViewUser";
+            this.mvxListViewUser.Size = new System.Drawing.Size(356, 335);
+            this.mvxListViewUser.TabIndex = 92;
+            // 
+            // linkLabelOpenUserPluginsFolder
+            // 
+            this.linkLabelOpenUserPluginsFolder.AutoSize = true;
+            this.linkLabelOpenUserPluginsFolder.Font = new System.Drawing.Font("Segoe UI", 7.8F);
+            this.linkLabelOpenUserPluginsFolder.Location = new System.Drawing.Point(4, 352);
+            this.linkLabelOpenUserPluginsFolder.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.linkLabelOpenUserPluginsFolder.Name = "linkLabelOpenUserPluginsFolder";
+            this.linkLabelOpenUserPluginsFolder.Size = new System.Drawing.Size(181, 19);
+            this.linkLabelOpenUserPluginsFolder.TabIndex = 100;
+            this.linkLabelOpenUserPluginsFolder.TabStop = true;
+            this.linkLabelOpenUserPluginsFolder.Text = "Open User Plugins directory";
+            this.linkLabelOpenUserPluginsFolder.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelOpenUserPluginsFolderLinkClicked);
+            // 
             // PluginsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(653, 611);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.LinkLabel);
+            this.Controls.Add(this.LinkLabelDisplayWikiPage);
             this.Controls.Add(this.checkBoxUseNuget);
             this.Controls.Add(this.checkBoxIncludeUnitTests);
             this.Controls.Add(this.label1);
@@ -230,6 +267,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -246,10 +285,13 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkBoxIncludeUnitTests;
         private System.Windows.Forms.CheckBox checkBoxUseNuget;
-        private System.Windows.Forms.LinkLabel LinkLabel;
+        private System.Windows.Forms.LinkLabel LinkLabelDisplayWikiPage;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private UserControls.MvxListView mvxListViewCommunity;
+        private System.Windows.Forms.TabPage tabPage3;
+        private UserControls.MvxListView mvxListViewUser;
+        private System.Windows.Forms.LinkLabel linkLabelOpenUserPluginsFolder;
     }
 }

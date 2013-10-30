@@ -12,7 +12,7 @@ namespace NinjaCoder.MvvmCross.Extensions
     /// <summary>
     ///  Defines the DirectoryInfoExtensions type.
     /// </summary>
-    public static class DirectoryInfoExtensions
+    internal static class DirectoryInfoExtensions
     {
         /// <summary>
         /// Gets the override files.

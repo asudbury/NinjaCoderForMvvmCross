@@ -20,7 +20,7 @@ namespace NinjaCoder.MvvmCross.Services
     /// <summary>
     /// Defines the VisualStudioService type.
     /// </summary>
-    public class VisualStudioService : BaseService, IVisualStudioService
+    internal class VisualStudioService : BaseService, IVisualStudioService
     {
         /// <summary>
         /// The dte2.

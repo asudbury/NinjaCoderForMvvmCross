@@ -5,7 +5,10 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Tests.Translators
 {
+    using System;
     using System.IO;
+    using System.IO.Abstractions;
+
     using Entities;
     using MvvmCross.Translators;
     using NinjaCoder.MvvmCross.Infrastructure.Services;
@@ -23,13 +26,16 @@ namespace NinjaCoder.MvvmCross.Tests.Translators
         [Test]
         public void TestTranslator()
         {
-            PluginsTranslator translator = new PluginsTranslator(new PluginTranslator());
+            PluginsTranslator translator = new PluginsTranslator(new PluginTranslator(new SettingsService()));
 
             SettingsService settingsService = new SettingsService();
-            string path = settingsService.InstalledDirectory + @"Plugins\Core";
 
-            DirectoryInfo directoryInfo = new DirectoryInfo(path);
-            Plugins plugins = translator.Translate(directoryInfo);
+            DirectoryInfoBase directoryInfo1 = new DirectoryInfo(settingsService.MvvmCrossAssembliesPath);
+            DirectoryInfoBase directoryInfo2 = new DirectoryInfo(settingsService.MvvmCrossAssembliesOverrideDirectory);
+
+            Tuple<DirectoryInfoBase, DirectoryInfoBase> directories = new Tuple<DirectoryInfoBase, DirectoryInfoBase>(directoryInfo1, directoryInfo2);
+
+            Plugins plugins = translator.Translate(directories);
 
             Assert.IsTrue(plugins.Items.Count > 0);
         }

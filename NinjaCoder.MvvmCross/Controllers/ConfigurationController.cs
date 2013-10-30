@@ -13,7 +13,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     /// <summary>
     /// Defines the ConfigurationController type.
     /// </summary>
-    public class ConfigurationController : BaseController
+    internal class ConfigurationController : BaseController
     {
         /// <summary>
         /// The configuration service.

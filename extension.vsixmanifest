@@ -6,7 +6,7 @@
   <Identifier Id="AB2BD8EF-571C-47dc-87D2-6CC966FC1346">
     <Name>Ninja Coder for MvvmCross</Name>
     <Author>Scorchio Limited</Author>
-    <Version>1.2.1</Version>
+    <Version>2.3.0</Version>
     <Description xml:space="preserve">Ninja Coder for MvvmCross.</Description>
     <Locale>1033</Locale>
     <InstalledByMsi>true</InstalledByMsi>

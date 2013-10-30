@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Tests.Controllers
 {
+    using System.IO.Abstractions;
     using System.Runtime.InteropServices;
 
     using Castle.DynamicProxy.Generators;
@@ -81,6 +82,11 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
         private Mock<IFormsService> mockFormsService;
 
         /// <summary>
+        /// The mock file system.
+        /// </summary>
+        private Mock<IFileSystem> mockFileSystem;
+
+        /// <summary>
         /// Initializes this instance.
         /// </summary>
         [TestFixtureSetUp]
@@ -96,6 +102,7 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
             this.mockMessageBoxService = new Mock<IMessageBoxService>();
             this.mockDialogService = new Mock<IDialogService>();
             this.mockFormsService = new Mock<IFormsService>();
+            this.mockFileSystem = new Mock<IFileSystem>();
 
             this.controller = new ProjectsController(
                 this.mockProjectsService.Object,
@@ -105,7 +112,8 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
                 this.mockSettingsService.Object,
                 this.mockMessageBoxService.Object,
                 this.mockDialogService.Object,
-                this.mockFormsService.Object);
+                this.mockFormsService.Object,
+                this.mockFileSystem.Object);
 
             //// setup the project service and core project once!
             this.mockProjectService = new Mock<IProjectService>();

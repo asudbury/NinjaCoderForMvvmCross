@@ -30,13 +30,14 @@ namespace Scorchio.VisualStudio.Extensions
             TraceService.WriteLine("CodeFunctionExtensions::InsertCode codeFunction=" + instance.Name);
 
             EditPoint editPoint = atTheStart ? 
-                instance.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint() : 
+                instance.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint() :
                 instance.GetEndPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
 
             if (code.EndsWith(Environment.NewLine) == false)
             {
                 code += Environment.NewLine;
             }
+
             editPoint.Insert(code);
         }
 

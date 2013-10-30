@@ -18,7 +18,7 @@ namespace NinjaCoder.MvvmCross.Services
     /// <summary>
     ///  Defines the ProjectsService type.
     /// </summary>
-    public class ProjectsService : BaseService, IProjectsService
+    internal class ProjectsService : BaseService, IProjectsService
     {
         /// <summary>
         /// The file system.

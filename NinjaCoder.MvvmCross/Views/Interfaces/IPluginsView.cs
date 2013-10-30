@@ -32,7 +32,7 @@ namespace NinjaCoder.MvvmCross.Views.Interfaces
         /// <summary>
         /// Gets the required templates.
         /// </summary>
-        List<Plugin> RequiredPlugins { get; }
+        IEnumerable<Plugin> RequiredPlugins { get; }
 
         /// <summary>
         /// Gets a value indicating whether [include unit tests].
@@ -50,6 +50,12 @@ namespace NinjaCoder.MvvmCross.Views.Interfaces
         /// </summary>
         /// <param name="plugin">The plugin.</param>
         void AddCommunityPlugin(Plugin plugin);
+
+        /// <summary>
+        /// Adds the user plugin.
+        /// </summary>
+        /// <param name="plugin">The plugin.</param>
+        void AddUserPlugin(Plugin plugin);
 
         /// <summary>
         /// Adds the viewModel.

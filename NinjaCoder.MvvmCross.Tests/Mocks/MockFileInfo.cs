@@ -16,6 +16,16 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
     public class MockFileInfo : FileInfoBase
     {
         /// <summary>
+        /// Gets or sets a value indicating whether [file exists].
+        /// </summary>
+        public bool FileExists { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the file.
+        /// </summary>
+        public string FileName { get; set; }
+
+        /// <summary>
         /// Gets or sets the attributes.
         /// </summary>
         public override FileAttributes Attributes
@@ -47,7 +57,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         public override bool Exists
         {
-            get { return true; }
+            get { return this.FileExists; }
         }
 
         /// <summary>
@@ -63,7 +73,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         public override string FullName
         {
-            get { return null; }
+            get { return this.FileName; }
         }
 
         /// <summary>

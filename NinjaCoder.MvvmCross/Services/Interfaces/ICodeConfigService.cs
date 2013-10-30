@@ -13,7 +13,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     /// <summary>
     ///  Defines the ICodeConfigService type.
     /// </summary>
-    public interface ICodeConfigService
+    internal interface ICodeConfigService
     {
         /// <summary>
         /// Processes the code config.

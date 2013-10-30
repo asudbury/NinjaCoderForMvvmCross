@@ -23,6 +23,9 @@ namespace NinjaCoder.MvvmCross.UI
         public FormMain()
         {
             this.InitializeComponent();
+
+            NinjaController.RunConfigurationController();
+
             this.ShowProjects();
         }
 
@@ -41,7 +44,7 @@ namespace NinjaCoder.MvvmCross.UI
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void AddProjectsToolStripMenuItem_Click(
+        private void AddProjectsToolStripMenuItemClick(
             object sender, 
             EventArgs e)
         {
@@ -54,7 +57,7 @@ namespace NinjaCoder.MvvmCross.UI
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void AddViewModelToolStripMenuItem_Click(
+        private void AddViewModelToolStripMenuItemClick(
             object sender, 
             EventArgs e)
         {
@@ -131,27 +134,6 @@ namespace NinjaCoder.MvvmCross.UI
             EventArgs e)
         {
             this.Close();
-        }
-
-        /// <summary>
-        /// Tests the tool strip menu item click.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void TestToolStripMenuItemClick(
-            object sender, 
-            EventArgs e)
-        {
-            IEnumerable<Project> projects = NinjaController.GetProjects();
-
-            Project project = projects.FirstOrDefault();
-
-            if (project != null)
-            {
-                ////ProjectItem projectItem = project.ProjectItems.AddFromFile("c:\\temp\\firstviewmodel.cs");
-
-                ////projectItem.RemoveDoubleBlankLines();
-            }
         }
     }
 }

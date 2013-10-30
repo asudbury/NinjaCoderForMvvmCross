@@ -37,6 +37,7 @@ namespace NinjaCoder.MvvmCross.Views
 
             this.mvxListViewCore.SetBorderVisibility(BorderStyle.None);
             this.mvxListViewCommunity.SetBorderVisibility(BorderStyle.None);
+            this.mvxListViewUser.SetBorderVisibility(BorderStyle.None);
 
             this.Presenter = new PluginsPresenter(this, settingsService);
 
@@ -76,12 +77,13 @@ namespace NinjaCoder.MvvmCross.Views
         /// <summary>
         /// Gets the required templates.
         /// </summary>
-        public List<Plugin> RequiredPlugins 
+        public IEnumerable<Plugin> RequiredPlugins 
         {
             get
             {
                 return this.mvxListViewCore.RequiredTemplates.Cast<Plugin>()
-                    .Union(this.mvxListViewCommunity.RequiredTemplates.Cast<Plugin>()).ToList();
+                    .Union(this.mvxListViewCommunity.RequiredTemplates.Cast<Plugin>()
+                    .Union(this.mvxListViewUser.RequiredTemplates.Cast<Plugin>()));
             }
         }
 
@@ -106,10 +108,18 @@ namespace NinjaCoder.MvvmCross.Views
         /// Adds the community plugin.
         /// </summary>
         /// <param name="plugin">The plugin.</param>
-        /// <exception cref="System.NotImplementedException"></exception>
         public void AddCommunityPlugin(Plugin plugin)
         {
             this.mvxListViewCommunity.AddPlugin(plugin);
+        }
+
+        /// <summary>
+        /// Adds the user plugin.
+        /// </summary>
+        /// <param name="plugin">The plugin.</param>
+        public void AddUserPlugin(Plugin plugin)
+        {
+            this.mvxListViewUser.AddPlugin(plugin);
         }
 
         /// <summary>
@@ -130,7 +140,7 @@ namespace NinjaCoder.MvvmCross.Views
             object sender, 
             EventArgs e)
         {
-            if (this.RequiredPlugins.Count > 0)
+            if (this.RequiredPlugins.Any())
             {
                 this.Presenter.SaveSettings();
                 this.DialogResult = DialogResult.OK;
@@ -150,13 +160,27 @@ namespace NinjaCoder.MvvmCross.Views
         }
 
         /// <summary>
-        /// Links the label link clicked.
+        /// Links the label display wiki page link clicked.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="LinkLabelLinkClickedEventArgs"/> instance containing the event data.</param>
-        private void LinkLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkLabelDisplayWikiPageLinkClicked(
+            object sender, 
+            LinkLabelLinkClickedEventArgs e)
         {
             this.Presenter.ShowMvvmCrossPluginsWikiPage();
+        }
+
+        /// <summary>
+        /// Links the label open user plugins folder link clicked.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="LinkLabelLinkClickedEventArgs"/> instance containing the event data.</param>
+        private void LinkLabelOpenUserPluginsFolderLinkClicked(
+            object sender, 
+            LinkLabelLinkClickedEventArgs e)
+        {
+            this.Presenter.OpenUserPluginsFolder();
         }
     }
 }

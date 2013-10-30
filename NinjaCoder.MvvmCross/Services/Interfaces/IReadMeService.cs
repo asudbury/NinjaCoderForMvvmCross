@@ -10,7 +10,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     /// <summary>
     ///  Defines the IReadMeService type.
     /// </summary>
-    public interface IReadMeService
+    internal interface IReadMeService
     {
         /// <summary>
         /// Initializes this instance.

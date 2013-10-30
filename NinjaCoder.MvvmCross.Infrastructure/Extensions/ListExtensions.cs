@@ -10,7 +10,7 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Extensions
     /// <summary>
     ///  Defines the ListExtensions type.
     /// </summary>
-    public static class ListExtensions
+    internal static class ListExtensions
     {
         /// <summary>
         /// Adds the range.

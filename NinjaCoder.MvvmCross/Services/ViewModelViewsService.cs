@@ -19,7 +19,7 @@ namespace NinjaCoder.MvvmCross.Services
     /// <summary>
     ///  Defines the ViewModelViewsService type.
     /// </summary>
-    public class ViewModelViewsService : BaseService, IViewModelViewsService
+    internal class ViewModelViewsService : BaseService, IViewModelViewsService
     {
         /// <summary>
         /// The snippet service.

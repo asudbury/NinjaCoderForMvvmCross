@@ -204,5 +204,10 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
         /// Gets a value indicating whether [process nuget commands].
         /// </summary>
         bool ProcessNugetCommands { get; }
+
+        /// <summary>
+        /// Gets or sets the MVVM cross assemblies override directory.
+        /// </summary>
+        string MvvmCrossAssembliesOverrideDirectory { get; set; }
      }
 }

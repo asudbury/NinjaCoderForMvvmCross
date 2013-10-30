@@ -194,6 +194,7 @@
             this.MinimizeBox = false;
             this.Name = "ProjectsForm";
             this.Text = "Ninja - Add Projects";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProjectsFormFormClosing);
             this.Load += new System.EventHandler(this.SolutionOptionsFormLoad);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

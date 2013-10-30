@@ -8,7 +8,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     /// <summary>
     ///  Defines the IMessageBoxService type.
     /// </summary>
-    public interface IMessageBoxService
+    internal interface IMessageBoxService
     {
         /// <summary>
         /// Shows the specified text.

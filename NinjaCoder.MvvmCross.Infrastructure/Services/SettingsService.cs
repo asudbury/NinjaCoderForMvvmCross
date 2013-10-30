@@ -341,6 +341,27 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
         }
 
         /// <summary>
+        /// Gets or sets the MVVM cross assemblies override directory.
+        /// </summary>
+        public string MvvmCrossAssembliesOverrideDirectory
+        {
+            get
+            {
+                string defaultValue = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + 
+                                      @"\Ninja Coder for MvvmCross" + 
+                                      @"\MvvmCross" + 
+                                      @"\Assemblies";
+
+                return this.GetRegistryValue(string.Empty, "MvvmCrossAssembliesOverrideDirectory", defaultValue);
+            }
+
+            set
+            {
+                this.SetRegistryValue(string.Empty, "MvvmCrossAssembliesOverrideDirectory", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the active project.
         /// </summary>
         public string ActiveProject

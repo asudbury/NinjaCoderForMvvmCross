@@ -13,7 +13,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     /// <summary>
     /// Defines the IPluginsService type.
     /// </summary>
-    public interface IPluginsService
+    internal interface IPluginsService
     {
         /// <summary>
         /// Adds the plugins.

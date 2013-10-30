@@ -167,30 +167,9 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The projects.</returns>
         public static IEnumerable<Project> GetProjects(this Solution2 instance)
         {
-            TraceService.WriteLine("SolutionExtensions::GetProjects");
+            ////TraceService.WriteLine("SolutionExtensions::GetProjects");
 
-            List<Project> projects = instance.Projects.Cast<Project>().ToList();
-
-            List<Project> allProjects = new List<Project>(projects);
-
-            foreach (Project project in projects)
-            {
-                IEnumerable<ProjectItem> projectItems = project.GetProjectItems();
-
-                if (projectItems != null)
-                {
-                    foreach (ProjectItem projectItem in projectItems
-                        .Where(x => x.Kind == VSConstants.VsProjectItemKindSolutionItems))
-                    {
-                        if (projectItem.SubProject != null)
-                        {
-                            allProjects.Add(projectItem.SubProject);
-                        }
-                    }
-                }
-            }
-
-            return allProjects;
+            return instance.Projects.Cast<Project>().ToList();
         }
 
         /// <summary>
@@ -226,11 +205,13 @@ namespace Scorchio.VisualStudio.Extensions
 
             IEnumerable<Project> projects = instance.GetProjects();
 
-            TraceService.WriteError("AddItemTemplateToProjects project count=" + projects.Count());
+            IEnumerable<Project> projectItems = projects as Project[] ?? projects.ToArray();
+
+            TraceService.WriteError("AddItemTemplateToProjects project count=" + projectItems.Count());
 
             foreach (ItemTemplateInfo info in templateInfos)
             {
-                Project project = projects.FirstOrDefault(x => x.Name.EndsWith(info.ProjectSuffix));
+                Project project = projectItems.FirstOrDefault(x => x.Name.EndsWith(info.ProjectSuffix));
 
                 if (project != null)
                 {
@@ -241,10 +222,9 @@ namespace Scorchio.VisualStudio.Extensions
                 {
                     TraceService.WriteError("AddItemTemplateToProjects cannot find project " + info.ProjectSuffix);
 
-                    foreach (Project projectItem in projects)
+                    foreach (string projectName in projectItems
+                        .Select(projectItem => projectItem.Name))
                     {
-                        string projectName = projectItem.Name;
-
                         TraceService.WriteError("AddItemTemplateToProjects project " + projectName);
                         messages.Add(info.FileName + " added to " + projectName + " project.");
                     }

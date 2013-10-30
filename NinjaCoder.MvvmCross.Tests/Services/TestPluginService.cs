@@ -39,11 +39,6 @@ namespace NinjaCoder.MvvmCross.Tests.Services
         private Mock<ISettingsService> mockSettingsService;
 
         /// <summary>
-        /// The mock snippets service.
-        /// </summary>
-        private Mock<ISnippetService> mockSnippetsService;
-
-        /// <summary>
         /// The mock file.
         /// </summary>
         private MockFile mockFile;
@@ -71,7 +66,6 @@ namespace NinjaCoder.MvvmCross.Tests.Services
         {
             this.mockFileSystem = new Mock<IFileSystem>();
             this.mockSettingsService = new Mock<ISettingsService>();
-            this.mockSnippetsService = new Mock<ISnippetService>();
             this.mockFile = new MockFile();
             this.mockFileInfoFactory = new Mock<IFileInfoFactory>();
             this.mockFileInfo = new MockFileInfo();
@@ -163,6 +157,56 @@ namespace NinjaCoder.MvvmCross.Tests.Services
             string path = this.service.GetPluginPath("WindowsPhone", "plugin.dll");
 
             Assert.IsTrue(path == "plugin.WindowsPhone.dll");
+        }
+
+        /// <summary>
+        /// Tests the get source path.
+        /// </summary>
+        [Test]
+        public void TestGetSourcePath()
+        {
+            SettingsService settingsService = new SettingsService();
+
+            Plugin plugin = new Plugin
+                                {
+                                    Source = settingsService.MvvmCrossAssembliesPath + @"\Cirrious.MvvmCross.Plugins.Accelerometer.dll",
+                                    FileName = @"\Cirrious.MvvmCross.Plugins.Accelerometer.dll"
+                                };
+
+            this.mockSettingsService.SetupGet(x => x.MvvmCrossAssembliesOverrideDirectory)
+                .Returns(settingsService.MvvmCrossAssembliesOverrideDirectory);
+
+            this.mockFileInfo.FileExists = false;
+
+            string path = this.service.GetSourcePath(plugin, "wpf");
+
+            Assert.IsTrue(path == @"C:\Program Files (x86)\Scorchio Limited\Ninja Coder for MvvmCross\MvvmCross\Assemblies\\Cirrious.MvvmCross.Plugins.Accelerometer.wpf.dll");
+        }
+
+        /// <summary>
+        /// Tests the get source path - user plugin.
+        /// </summary>
+        [Test]
+        public void TestGetSourcePathUserPlugin()
+        {
+            SettingsService settingsService = new SettingsService();
+
+            Plugin plugin = new Plugin
+            {
+                Source = settingsService.MvvmCrossAssembliesPath + @"\Cirrious.MvvmCross.Plugins.Accelerometer.dll",
+                FileName = @"\Cirrious.MvvmCross.Plugins.Accelerometer.dll"
+            };
+
+            this.mockSettingsService.SetupGet(x => x.MvvmCrossAssembliesOverrideDirectory)
+                .Returns(settingsService.MvvmCrossAssembliesOverrideDirectory);
+
+            this.mockFileInfo.FileName = "adrian.wpf";
+
+            this.mockFileInfo.FileExists = true;
+
+            string path = this.service.GetSourcePath(plugin, "wpf");
+
+            Assert.IsTrue(path == @"adrian.wpf");
         }
     }
 }

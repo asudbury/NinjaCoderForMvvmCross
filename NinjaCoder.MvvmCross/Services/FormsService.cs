@@ -6,6 +6,8 @@
 namespace NinjaCoder.MvvmCross.Services
 {
     using System.Collections.Generic;
+    using System.IO.Abstractions;
+
     using Entities;
     using Interfaces;
 
@@ -24,18 +26,23 @@ namespace NinjaCoder.MvvmCross.Services
         /// Gets the projects options form.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="defaultProjectsLocation">The default projects location.</param>
         /// <param name="defaultProjectName">Default name of the project.</param>
         /// <param name="projectInfos">The project infos.</param>
-        /// <returns>the solution options form.</returns>
+        /// <returns>
+        /// the solution options form.
+        /// </returns>
         public IProjectsView GetProjectsForm(
             ISettingsService settingsService, 
+            IFileSystem fileSystem,
             string defaultProjectsLocation, 
             string defaultProjectName, 
             IEnumerable<ProjectTemplateInfo> projectInfos)
         {
             return new ProjectsForm(
                 settingsService, 
+                fileSystem,
                 defaultProjectsLocation,
                 defaultProjectName,
                 projectInfos);

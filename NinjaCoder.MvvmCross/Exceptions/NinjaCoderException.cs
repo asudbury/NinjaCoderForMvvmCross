@@ -10,7 +10,7 @@ namespace NinjaCoder.MvvmCross.Exceptions
     /// <summary>
     ///  Defines the NinjaCoderException type.
     /// </summary>
-    public class NinjaCoderException : Exception
+    internal class NinjaCoderException : Exception
     {
         /// <summary>
         /// Gets or sets the ninja message.

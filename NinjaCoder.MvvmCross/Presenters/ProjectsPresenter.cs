@@ -6,6 +6,8 @@
 namespace NinjaCoder.MvvmCross.Presenters
 {
     using System.Collections.Generic;
+    using System.IO;
+    using System.IO.Abstractions;
     using System.Linq;
 
     using NinjaCoder.MvvmCross.Infrastructure.Services;
@@ -30,16 +32,24 @@ namespace NinjaCoder.MvvmCross.Presenters
         private readonly ISettingsService settingsService;
 
         /// <summary>
+        /// The file system.
+        /// </summary>
+        private readonly IFileSystem fileSystem;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ProjectsPresenter" /> class.
         /// </summary>
         /// <param name="view">The view.</param>
         /// <param name="settingsService">The settings service.</param>
+        /// <param name="fileSystem">The file system.</param>
         public ProjectsPresenter(
             IProjectsView view,
-            ISettingsService settingsService)
+            ISettingsService settingsService,
+            IFileSystem fileSystem)
         {
             this.view = view;
             this.settingsService = settingsService;
+            this.fileSystem = fileSystem;
         }
 
         /// <summary>
@@ -115,6 +125,17 @@ namespace NinjaCoder.MvvmCross.Presenters
             Settings.Default.Save();
 
             this.settingsService.UseNugetForProjectTemplates = this.view.UseNuget;
+        }
+
+        /// <summary>
+        /// Doeses the directory already exist.
+        /// </summary>
+        /// <returns>True or false.</returns>
+        public bool DoesDirectoryAlreadyExist()
+        {
+            string solutionsPath = this.GetSolutionPath();
+
+            return this.fileSystem.Directory.Exists(solutionsPath);
         }
 
         /// <summary>

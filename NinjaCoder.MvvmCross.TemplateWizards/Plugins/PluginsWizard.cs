@@ -65,7 +65,6 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Plugins
                 return pluginsString.Contains(fileInfo.Name);
             }
 
-            TraceService.WriteError("Global variable PluginsToAdd is empty not adding file.");
             return false;
         }
 

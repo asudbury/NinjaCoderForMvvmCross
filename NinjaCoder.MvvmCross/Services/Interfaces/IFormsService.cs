@@ -6,6 +6,8 @@
 namespace NinjaCoder.MvvmCross.Services.Interfaces
 {
     using System.Collections.Generic;
+    using System.IO.Abstractions;
+
     using Entities;
 
     using NinjaCoder.MvvmCross.Infrastructure.Services;
@@ -17,18 +19,22 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     /// <summary>
     ///  Defines the IFormsService type.
     /// </summary>
-    public interface IFormsService
+    internal interface IFormsService
     {
         /// <summary>
         /// Gets the projects options form.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="defaultProjectsLocation">The default projects location.</param>
         /// <param name="defaultProjectName">Default name of the project.</param>
         /// <param name="projectInfos">The project infos.</param>
-        /// <returns>the solution options form.</returns>
+        /// <returns>
+        /// the solution options form.
+        /// </returns>
         IProjectsView GetProjectsForm(
             ISettingsService settingsService,
+            IFileSystem fileSystem,
             string defaultProjectsLocation,
             string defaultProjectName,
             IEnumerable<ProjectTemplateInfo> projectInfos);

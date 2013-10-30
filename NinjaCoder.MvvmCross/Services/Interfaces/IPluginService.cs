@@ -14,7 +14,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     /// <summary>
     ///  Defines the IPluginService type.
     /// </summary>
-    public interface IPluginService
+    internal interface IPluginService
     {
         /// <summary>
         /// Gets the messages.

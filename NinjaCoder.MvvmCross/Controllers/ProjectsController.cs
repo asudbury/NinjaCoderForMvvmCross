@@ -7,6 +7,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 {
     using System;
     using System.Collections.Generic;
+    using System.IO.Abstractions;
     using System.Linq;
     using System.Windows.Forms;
     using Constants;
@@ -20,7 +21,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     /// <summary>
     /// Defines the ProjectsController type.
     /// </summary>
-    public class ProjectsController : BaseController
+    internal class ProjectsController : BaseController
     {
         /// <summary>
         /// The projects service.
@@ -31,6 +32,8 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// The nuget service.
         /// </summary>
         private readonly INugetService nugetService;
+
+        private readonly IFileSystem fileSystem;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectsController" /> class.
@@ -43,6 +46,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="messageBoxService">The message box service.</param>
         /// <param name="dialogService">The dialog service.</param>
         /// <param name="formsService">The forms service.</param>
+        /// <param name="fileSystem">The file system.</param>
         public ProjectsController(
             IProjectsService projectsService,
             INugetService nugetService,
@@ -51,7 +55,8 @@ namespace NinjaCoder.MvvmCross.Controllers
             ISettingsService settingsService,
             IMessageBoxService messageBoxService,
             IDialogService dialogService,
-            IFormsService formsService)
+            IFormsService formsService,
+            IFileSystem fileSystem)
             : base(
             visualStudioService, 
             readMeService, 
@@ -64,6 +69,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             this.projectsService = projectsService;
             this.nugetService = nugetService;
+            this.fileSystem = fileSystem;
         }
 
         /// <summary>
@@ -93,13 +99,16 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             IEnumerable<ProjectTemplateInfo> projectTemplateInfos = this.VisualStudioService.AllowedProjectTemplates;
 
-            if (projectTemplateInfos.Any())
+            IEnumerable<ProjectTemplateInfo> templateInfos = projectTemplateInfos as ProjectTemplateInfo[] ?? projectTemplateInfos.ToArray();
+
+            if (templateInfos.Any())
             {
                 IProjectsView view = this.FormsService.GetProjectsForm(
                     this.SettingsService,
+                    this.fileSystem,
                     defaultLocation, 
                     defaultProjectName, 
-                    projectTemplateInfos);
+                    templateInfos);
                 
                 DialogResult result = this.DialogService.ShowDialog(view as Form);
 

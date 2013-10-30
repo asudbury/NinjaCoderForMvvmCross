@@ -63,7 +63,8 @@ namespace Scorchio.VisualStudio.Extensions
         {
             Properties properties = instance.Properties["Environment", "ProjectsAndSolution"];
 
-            foreach (Property property in properties.Cast<Property>()
+            foreach (Property property in properties
+                .Cast<Property>()
                 .Where(property => property.Name == "ProjectsLocation"))
             {
                 return property.Value.ToString();
@@ -128,7 +129,7 @@ namespace Scorchio.VisualStudio.Extensions
 
             foreach (Document document in documents)
             {
-                document.Close(vsSaveChanges.vsSaveChangesYes);    
+                document.Close(vsSaveChanges.vsSaveChangesYes);
             }
         }
 

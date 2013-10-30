@@ -7,6 +7,7 @@ namespace NinjaCoder.MvvmCross.Views
 {
     using System;
     using System.Collections.Generic;
+    using System.IO.Abstractions;
     using System.Linq;
     using System.Windows.Forms;
     using Interfaces;
@@ -22,21 +23,29 @@ namespace NinjaCoder.MvvmCross.Views
     public partial class ProjectsForm : BaseView, IProjectsView
     {
         /// <summary>
+        /// The can unload.
+        /// </summary>
+        private bool canUnload = true;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ProjectsForm" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
+        /// <param name="fileSystem">The file system.</param>
         /// <param name="defaultProjectsLocation">The default projects location.</param>
         /// <param name="defaultProjectName">Default name of the project.</param>
         /// <param name="projectInfos">The project infos.</param>
         public ProjectsForm(
             ISettingsService settingsService,
+            IFileSystem fileSystem,
             string defaultProjectsLocation,
             string defaultProjectName,
             IEnumerable<ProjectTemplateInfo> projectInfos)
         {
             this.Presenter = new ProjectsPresenter(
-                this, 
-                settingsService);
+                this,
+                settingsService,
+                fileSystem);
 
             this.InitializeComponent();
 
@@ -85,7 +94,7 @@ namespace NinjaCoder.MvvmCross.Views
                 if (path.EndsWith(@"\") == false)
                 {
                     path = string.Format(@"{0}\", path);
-                }   
+                }
 
                 return path;
             }
@@ -157,10 +166,21 @@ namespace NinjaCoder.MvvmCross.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void ButtonOkClick(object sender, EventArgs e)
         {
+            this.canUnload = true;
+
             if (this.Presenter.GetRequiredTemplates().Any())
             {
-                this.Presenter.SaveSettings();
-                this.DialogResult = DialogResult.OK;
+                if (this.textBoxProject.ReadOnly == false &&
+                    this.Presenter.DoesDirectoryAlreadyExist())
+                {
+                    canUnload = false;
+                    MessageBox.Show(Constants.Settings.DirectoryExists, Constants.Settings.ApplicationName);
+                }
+                else
+                {
+                    this.Presenter.SaveSettings();
+                    this.DialogResult = DialogResult.OK;
+                }
             }
         }
 
@@ -188,6 +208,7 @@ namespace NinjaCoder.MvvmCross.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void ButtonCancelClick(object sender, EventArgs e)
         {
+            canUnload = true;
             this.Close();
         }
 
@@ -201,6 +222,21 @@ namespace NinjaCoder.MvvmCross.Views
             this.textBoxProject.Focus();
             this.textBoxProject.Select();
             this.ActiveControl = this.textBoxProject;
+        }
+
+        /// <summary>
+        /// Projectses the form form closing.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="FormClosingEventArgs"/> instance containing the event data.</param>
+        private void ProjectsFormFormClosing(
+            object sender, 
+            FormClosingEventArgs e)
+        {
+            if (canUnload == false)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

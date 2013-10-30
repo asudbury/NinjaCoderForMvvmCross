@@ -17,7 +17,7 @@ namespace NinjaCoder.MvvmCross.Services
     /// <summary>
     /// Defines the ReadMeService type.
     /// </summary>
-    public class ReadMeService : BaseService, IReadMeService
+    internal class ReadMeService : BaseService, IReadMeService
     {
         /// <summary>
         /// The file system.

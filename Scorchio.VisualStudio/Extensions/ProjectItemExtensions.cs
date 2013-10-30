@@ -126,9 +126,7 @@ namespace Scorchio.VisualStudio.Extensions
         {
             TraceService.WriteLine("ProjectItemExtensions::GetFirstNameSpace file=" + instance.Name);
 
-            IEnumerable<CodeNamespace> codeNamespaces = instance.FileCodeModel.CodeElements.OfType<CodeNamespace>();
-            
-            return codeNamespaces.FirstOrDefault();
+            return instance.FileCodeModel.CodeElements.OfType<CodeNamespace>().FirstOrDefault();
         }
 
         /// <summary>
@@ -153,17 +151,7 @@ namespace Scorchio.VisualStudio.Extensions
 
             if (codeNamespace != null)
             {
-                foreach (CodeElement codeElement in codeNamespace.Children)
-                {
-                    if (codeElement.Kind == vsCMElement.vsCMElementClass)
-                    {
-                        return codeElement as CodeClass;
-                    }
-                }
-            }
-            else
-            {
-                TraceService.WriteError("ProjectItemExtensions::GetFirstClass cannot find namespace");
+                return codeNamespace.Children.OfType<CodeClass>().FirstOrDefault();
             }
 
             return null;
@@ -178,9 +166,7 @@ namespace Scorchio.VisualStudio.Extensions
         {
             TraceService.WriteLine("ProjectItemExtensions::GetFirstInterface");
 
-            IEnumerable<CodeInterface> codeInterfaces = instance.FileCodeModel.CodeElements.OfType<CodeInterface>();
-
-            return codeInterfaces.FirstOrDefault();
+            return instance.FileCodeModel.CodeElements.OfType<CodeInterface>().FirstOrDefault();
         }
 
         /// <summary>

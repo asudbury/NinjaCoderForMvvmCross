@@ -21,7 +21,7 @@ namespace NinjaCoder.MvvmCross.Services
     /// <summary>
     ///  Defines the SnippetService type.
     /// </summary>
-    public class SnippetService : BaseService, ISnippetService
+    internal class SnippetService : BaseService, ISnippetService
     {
         /// <summary>
         /// The settings service.

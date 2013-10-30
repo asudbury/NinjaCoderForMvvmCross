@@ -26,7 +26,7 @@ namespace NinjaCoder.MvvmCross.Services
     /// <summary>
     ///  Defines the ServicesService type.
     /// </summary>
-    public class ServicesService : BaseService, IServicesService
+    internal class ServicesService : BaseService, IServicesService
     {
         /// <summary>
         /// The plugin translator.

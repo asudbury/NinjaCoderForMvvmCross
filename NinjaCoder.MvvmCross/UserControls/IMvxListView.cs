@@ -13,7 +13,7 @@ namespace NinjaCoder.MvvmCross.UserControls
     /// <summary>
     ///  Defines the IMvxListView type.
     /// </summary>
-    public interface IMvxListView
+    internal interface IMvxListView
     {
         /// <summary>
         /// Gets the required templates.

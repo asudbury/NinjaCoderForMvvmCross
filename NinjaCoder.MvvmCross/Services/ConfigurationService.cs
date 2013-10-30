@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+﻿ // --------------------------------------------------------------------------------------------------------------------
 // <summary>
 //    Defines the ConfigurationService type.
 // </summary>
@@ -15,7 +15,7 @@ namespace NinjaCoder.MvvmCross.Services
     /// <summary>
     /// Defines the ConfigurationService type.
     /// </summary>
-    public class ConfigurationService : BaseService, IConfigurationService
+    internal class ConfigurationService : BaseService, IConfigurationService
     {
         /// <summary>
         /// The file system.
@@ -44,14 +44,9 @@ namespace NinjaCoder.MvvmCross.Services
 
             string parentPath = this.CreateDirectoryIfNotExist(myDocumentsPath, Settings.ApplicationName);
             this.CreateDirectoryIfNotExist(parentPath, "CodeSnippets");
+
             string mvvmCrossPath = this.CreateDirectoryIfNotExist(parentPath, "MvvmCross");
-            string assembliesPath = this.CreateDirectoryIfNotExist(mvvmCrossPath, "Assemblies");
-            this.CreatePluginsDirectoryIfNotExist(assembliesPath, Settings.Core);
-            this.CreatePluginsDirectoryIfNotExist(assembliesPath, Settings.Droid);
-            this.CreatePluginsDirectoryIfNotExist(assembliesPath, Settings.iOS);
-            this.CreatePluginsDirectoryIfNotExist(assembliesPath, Settings.WindowsPhone);
-            this.CreatePluginsDirectoryIfNotExist(assembliesPath, Settings.WindowsStore);
-            this.CreatePluginsDirectoryIfNotExist(assembliesPath, Settings.Wpf);
+            this.CreateDirectoryIfNotExist(mvvmCrossPath, "Assemblies");
         }
 
         /// <summary>
@@ -68,7 +63,7 @@ namespace NinjaCoder.MvvmCross.Services
 
             string path = string.Format(@"{0}\{1}", parentPath, directoryName);
 
-            if (this.fileSystem.Directory.Exists(path))
+            if (this.fileSystem.Directory.Exists(path) == false)
             {
                 try
                 {

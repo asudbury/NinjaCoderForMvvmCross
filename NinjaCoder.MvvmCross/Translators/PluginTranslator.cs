@@ -11,12 +11,27 @@ namespace NinjaCoder.MvvmCross.Translators
 
     using NinjaCoder.MvvmCross.Constants;
     using NinjaCoder.MvvmCross.Entities;
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
 
     /// <summary>
     ///  Defines the PluginTranslator type.
     /// </summary>
-    public class PluginTranslator : ITranslator<FileInfoBase, Plugin>
+    internal class PluginTranslator : ITranslator<FileInfoBase, Plugin>
     {
+        /// <summary>
+        /// The settings service.
+        /// </summary>
+        private readonly ISettingsService settingsService;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PluginTranslator" /> class.
+        /// </summary>
+        /// <param name="settingsService">The settings service.</param>
+        public PluginTranslator(ISettingsService settingsService)
+        {
+            this.settingsService = settingsService;
+        }
+
         /// <summary>
         /// Translates the object.
         /// </summary>
@@ -33,7 +48,8 @@ namespace NinjaCoder.MvvmCross.Translators
                     FriendlyName = this.GetFriendlyName(name),
                     FileName = from.Name,
                     Source = from.FullName,
-                    IsCommunityPlugin = this.IsCommunityPlugin(from.Name)
+                    IsCommunityPlugin = this.IsCommunityPlugin(from),
+                    IsUserPlugin = this.IsUserPlugin(from)
                 };
             }
 
@@ -56,7 +72,6 @@ namespace NinjaCoder.MvvmCross.Translators
                 //// uppercase first character.
                 friendlyName = name.Substring(index + 8, 1).ToUpper() + name.Substring(index + 9);
             }
-
             else
             {
                 index = name.IndexOf("Plugin", StringComparison.OrdinalIgnoreCase);
@@ -74,11 +89,26 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <summary>
         /// Determines whether [is community plugin] [the specified name].
         /// </summary>
-        /// <param name="name">The name.</param>
+        /// <param name="fileInfoBase">The file info base.</param>
         /// <returns>True or false.</returns>
-        internal bool IsCommunityPlugin(string name)
+        internal bool IsCommunityPlugin(FileInfoBase fileInfoBase)
         {
-            return name.StartsWith(Settings.CorePluginsAssemblyPrefix) == false;
+            if (this.IsUserPlugin(fileInfoBase) == false)
+            {
+                return fileInfoBase.Name.StartsWith(Settings.CorePluginsAssemblyPrefix) == false;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Determines whether [is user plugin] [the specified name].
+        /// </summary>
+        /// <param name="fileInfoBase">The file info base.</param>
+        /// <returns>True or false.</returns>
+        internal bool IsUserPlugin(FileInfoBase fileInfoBase)
+        {
+            return fileInfoBase.FullName.Contains(this.settingsService.MvvmCrossAssembliesOverrideDirectory);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     /// <summary>
     /// Defines the ConvertersController type.
     /// </summary>
-    public class ConvertersController : BaseController
+    internal class ConvertersController : BaseController
     {
         /// <summary>
         /// The converter service.

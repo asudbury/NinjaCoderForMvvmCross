@@ -8,7 +8,7 @@ namespace NinjaCoder.MvvmCross.Constants
     /// <summary>
     /// Defines the Messages type.
     /// </summary>
-    public static class NinjaMessages
+    internal static class NinjaMessages
     {
         /// <summary>
         /// The ninja is running message.

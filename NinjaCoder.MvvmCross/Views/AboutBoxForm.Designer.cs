@@ -70,7 +70,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Ninja Coder for MvvmCross - About";
+            this.Text = "Ninja - About";
             this.ResumeLayout(false);
 
         }

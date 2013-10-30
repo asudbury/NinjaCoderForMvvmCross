@@ -21,7 +21,7 @@ namespace NinjaCoder.MvvmCross.Services
     /// <summary>
     /// Defines the PluginsService type.
     /// </summary>
-    public class PluginsService : BaseService, IPluginsService
+    internal class PluginsService : BaseService, IPluginsService
     {
         /// <summary>
         /// The plugin service.
@@ -259,7 +259,6 @@ namespace NinjaCoder.MvvmCross.Services
                     {
                         testProjectItemService.FixUsingStatements();
                     }
-
                     else
                     {
                         testProjectItemService.MoveUsingStatements();

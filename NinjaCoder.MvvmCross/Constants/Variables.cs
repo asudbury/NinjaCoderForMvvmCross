@@ -9,7 +9,7 @@ namespace NinjaCoder.MvvmCross.Constants
     /// <summary>
     ///  Defines the Variables type.
     /// </summary>
-    public static class Variables
+    internal static class Variables
     {
         /// <summary>
         /// The view model name.
@@ -25,6 +25,5 @@ namespace NinjaCoder.MvvmCross.Constants
         /// The command name instance.
         /// </summary>
         public const string CommandNameInstance = "%CommandNameInstance%";
-
     }
 }

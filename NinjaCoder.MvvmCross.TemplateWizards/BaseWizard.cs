@@ -76,7 +76,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards
         /// <param name="filePath">The path to the project item.</param>
         public bool ShouldAddProjectItem(string filePath)
         {
-            TraceService.WriteLine("BaseWizard::ShouldAddProjectItem");
+            ////TraceService.WriteLine("BaseWizard::ShouldAddProjectItem");
 
             return this.OnShouldAddProjectItem(filePath);
         }
@@ -171,11 +171,9 @@ namespace NinjaCoder.MvvmCross.TemplateWizards
         /// <returns>The active project if it has been set.</returns>
         protected Project GetActiveProject()
         {
-            TraceService.WriteLine("BaseWizard::GetActiveProject");
-
             string activeProjectKey = this.SettingsService.ActiveProject;
-                
-            TraceService.WriteLine("Active project key=" + activeProjectKey);
+
+            TraceService.WriteLine("BaseWizard::GetActiveProject Active project key=" + activeProjectKey);
 
            if (string.IsNullOrEmpty(activeProjectKey) == false)
            {

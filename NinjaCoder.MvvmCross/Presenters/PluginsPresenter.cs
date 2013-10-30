@@ -68,22 +68,6 @@ namespace NinjaCoder.MvvmCross.Presenters
         }
 
         /// <summary>
-        /// Adds the plugin.
-        /// </summary>
-        /// <param name="plugin">The plugin.</param>
-        internal void AddPlugin(Plugin plugin)
-        {
-            if (plugin.IsCommunityPlugin)
-            {
-                this.view.AddCommunityPlugin(plugin);
-            }
-            else
-            {
-                this.view.AddCorePlugin(plugin);
-            }
-        }
-
-        /// <summary>
         /// Saves the settings.
         /// </summary>
         public void SaveSettings()
@@ -97,6 +81,34 @@ namespace NinjaCoder.MvvmCross.Presenters
         public void ShowMvvmCrossPluginsWikiPage()
         {
             Process.Start(@"IEXPLORE.EXE", this.settingsService.MvvmCrossPluginsWikiPage);
+        }
+
+        /// <summary>
+        /// Opens the user plugins folder.
+        /// </summary>
+        public void OpenUserPluginsFolder()
+        {
+            Process.Start(this.settingsService.MvvmCrossAssembliesOverrideDirectory);
+        }
+
+        /// <summary>
+        /// Adds the plugin.
+        /// </summary>
+        /// <param name="plugin">The plugin.</param>
+        internal void AddPlugin(Plugin plugin)
+        {
+            if (plugin.IsUserPlugin)
+            {
+                this.view.AddUserPlugin(plugin);
+            }
+            else if (plugin.IsCommunityPlugin)
+            {
+                this.view.AddCommunityPlugin(plugin);
+            }
+            else
+            {
+                this.view.AddCorePlugin(plugin);
+            }
         }
     }
 }

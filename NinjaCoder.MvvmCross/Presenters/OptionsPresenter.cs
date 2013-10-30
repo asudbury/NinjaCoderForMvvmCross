@@ -13,7 +13,7 @@ namespace NinjaCoder.MvvmCross.Presenters
     /// <summary>
     ///    Defines the OptionsPresenter type.
     /// </summary>
-    public class OptionsPresenter : BasePresenter
+    internal class OptionsPresenter : BasePresenter
     {
         /// <summary>
         /// The view.

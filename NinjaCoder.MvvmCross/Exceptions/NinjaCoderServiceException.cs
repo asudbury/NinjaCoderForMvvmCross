@@ -8,7 +8,7 @@ namespace NinjaCoder.MvvmCross.Exceptions
     /// <summary>
     ///  Defines the NinjaCoderServiceException type.
     /// </summary>
-    public class NinjaCoderServiceException : NinjaCoderException
+    internal class NinjaCoderServiceException : NinjaCoderException
     {
         /// <summary>
         /// Gets or sets the name of the folder.

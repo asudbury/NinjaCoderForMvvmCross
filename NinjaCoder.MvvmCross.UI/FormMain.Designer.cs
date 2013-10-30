@@ -42,7 +42,6 @@
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.treeView1 = new System.Windows.Forms.TreeView();
-            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,8 +64,7 @@
             this.addPluginsToolStripMenuItem,
             this.optionsToolStripMenuItem,
             this.aboutToolStripMenuItem,
-            this.exitToolStripMenuItem,
-            this.testToolStripMenuItem});
+            this.exitToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
             this.toolsToolStripMenuItem.Text = "File";
@@ -76,14 +74,14 @@
             this.addProjectsToolStripMenuItem.Name = "addProjectsToolStripMenuItem";
             this.addProjectsToolStripMenuItem.Size = new System.Drawing.Size(189, 24);
             this.addProjectsToolStripMenuItem.Text = "Add Projects";
-            this.addProjectsToolStripMenuItem.Click += new System.EventHandler(this.AddProjectsToolStripMenuItem_Click);
+            this.addProjectsToolStripMenuItem.Click += new System.EventHandler(this.AddProjectsToolStripMenuItemClick);
             // 
             // addViewModelToolStripMenuItem
             // 
             this.addViewModelToolStripMenuItem.Name = "addViewModelToolStripMenuItem";
             this.addViewModelToolStripMenuItem.Size = new System.Drawing.Size(189, 24);
             this.addViewModelToolStripMenuItem.Text = "Add View Model";
-            this.addViewModelToolStripMenuItem.Click += new System.EventHandler(this.AddViewModelToolStripMenuItem_Click);
+            this.addViewModelToolStripMenuItem.Click += new System.EventHandler(this.AddViewModelToolStripMenuItemClick);
             // 
             // addConvertersToolStripMenuItem
             // 
@@ -149,13 +147,6 @@
             this.treeView1.Size = new System.Drawing.Size(215, 241);
             this.treeView1.TabIndex = 5;
             // 
-            // testToolStripMenuItem
-            // 
-            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(189, 24);
-            this.testToolStripMenuItem.Text = "Test";
-            this.testToolStripMenuItem.Click += new System.EventHandler(this.TestToolStripMenuItemClick);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -169,7 +160,7 @@
             this.MainMenuStrip = this.menuStrip;
             this.MaximizeBox = false;
             this.Name = "FormMain";
-            this.Text = "Ninja Coder for MvvmCross ";
+            this.Text = "Ninja Coder for MvvmCross";
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);

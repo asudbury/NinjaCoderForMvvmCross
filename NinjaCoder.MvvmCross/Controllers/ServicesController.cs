@@ -21,7 +21,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     /// <summary>
     /// Defines the ServicesController type.
     /// </summary>
-    public class ServicesController : BaseController
+    internal class ServicesController : BaseController
     {
         /// <summary>
         /// The services service.

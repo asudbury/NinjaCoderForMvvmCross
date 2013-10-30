@@ -21,7 +21,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     /// <summary>
     /// Defines the ViewModelViewsController type.
     /// </summary>
-    public class ViewModelViewsController : BaseController
+    internal class ViewModelViewsController : BaseController
     {
         /// <summary>
         /// The view model views service.

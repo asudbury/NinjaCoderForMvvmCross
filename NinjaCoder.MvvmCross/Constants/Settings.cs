@@ -8,7 +8,7 @@ namespace NinjaCoder.MvvmCross.Constants
     /// <summary>
     /// Defines the Settings type.
     /// </summary>
-    public static class Settings
+    internal static class Settings
     {
         /// <summary>
         /// The application name.
@@ -85,12 +85,7 @@ namespace NinjaCoder.MvvmCross.Constants
         /// </summary>
         public const string MvxVersionFile = "MvxVersion.txt";
 
-        /// <summary>
-        /// The MVX WPF assembly.
-        /// </summary>
-        public const string MvxWpfAssembly = "Cirrious.CrossCore.Wpf";
-
-        /// <summary>
+ /// <summary>
         /// The nuget install package.
         /// </summary>
         public const string NugetInstallPackage = "Install-Package %s -FileConflictAction ignore -ProjectName";
@@ -124,5 +119,16 @@ namespace NinjaCoder.MvvmCross.Constants
         /// The core plugins assembly prefix.
         /// </summary>
         public const string CorePluginsAssemblyPrefix = "Cirrious.MvvmCross.Plugins";
+
+        /// <summary>
+        /// The messenge plugin suffix.
+        /// </summary>
+        public const string MessengePluginSuffix = "Plugins.Messenger";
+
+        /// <summary>
+        /// The directory exists.
+        /// </summary>
+        public const string DirectoryExists = "The directory is not empty please select another one.";
+
     }
 }

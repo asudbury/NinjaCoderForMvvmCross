@@ -15,7 +15,7 @@ namespace NinjaCoder.MvvmCross.Services
     /// <summary>
     ///  Defines the ConvertersService type.
     /// </summary>
-    public class ConvertersService : BaseService, IConvertersService
+    internal class ConvertersService : BaseService, IConvertersService
     {
         /// <summary>
         /// Adds the converters.

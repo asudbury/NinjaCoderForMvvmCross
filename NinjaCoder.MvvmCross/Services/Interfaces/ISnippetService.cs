@@ -11,7 +11,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     /// <summary>
     ///  Defines the ISnippetService type.
     /// </summary>
-    public interface ISnippetService
+    internal interface ISnippetService
     {
         /// <summary>
         /// Gets the snippet.

@@ -6,6 +6,7 @@
 namespace NinjaCoder.MvvmCross.Tests.Presenters
 {
     using System.Collections.Generic;
+    using System.IO.Abstractions;
 
     using Moq;
 
@@ -38,6 +39,11 @@ namespace NinjaCoder.MvvmCross.Tests.Presenters
         private Mock<ISettingsService> mockSettingsService;
 
         /// <summary>
+        /// The mock file system.
+        /// </summary>
+        private Mock<IFileSystem> mockFileSystem;
+
+        /// <summary>
         /// Initializes this instance.
         /// </summary>
         [TestFixtureSetUp]
@@ -45,10 +51,12 @@ namespace NinjaCoder.MvvmCross.Tests.Presenters
         {
             this.mockView = new Mock<IProjectsView>();
             this.mockSettingsService = new Mock<ISettingsService>();
-
+            this.mockFileSystem = new Mock<IFileSystem>();
+            
             this.presenter = new ProjectsPresenter(
                 this.mockView.Object,
-                this.mockSettingsService.Object);
+                this.mockSettingsService.Object,
+                this.mockFileSystem.Object);
         }
 
         /// <summary>

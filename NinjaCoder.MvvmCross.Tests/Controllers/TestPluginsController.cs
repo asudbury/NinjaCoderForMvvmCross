@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Tests.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.IO.Abstractions;
     using System.Runtime.InteropServices;
@@ -80,7 +81,7 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
         /// <summary>
         /// The mock translator.
         /// </summary>
-        private Mock<ITranslator<DirectoryInfoBase, Plugins>> mockTranslator;
+        private Mock<ITranslator<Tuple<DirectoryInfoBase, DirectoryInfoBase>, Plugins>> mockTranslator;
 
         /// <summary>
         /// Initializes this instance.
@@ -99,7 +100,7 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
             this.mockMessageBoxService = new Mock<IMessageBoxService>();
             this.mockDialogService = new Mock<IDialogService>();
             this.mockFormsService = new Mock<IFormsService>();
-            this.mockTranslator = new Mock<ITranslator<DirectoryInfoBase, Plugins>>();
+            this.mockTranslator = new Mock<ITranslator<Tuple<DirectoryInfoBase, DirectoryInfoBase>, Plugins>>();
             
             this.controller = new PluginsController(
                 this.mockFileSystem.Object,

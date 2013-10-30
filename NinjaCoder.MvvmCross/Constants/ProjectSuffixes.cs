@@ -8,7 +8,7 @@ namespace NinjaCoder.MvvmCross.Constants
     /// <summary>
     /// Defines the Project Suffixes type.
     /// </summary>
-    public static class ProjectSuffixes
+    internal static class ProjectSuffixes
     {
         /// <summary>
         /// The core

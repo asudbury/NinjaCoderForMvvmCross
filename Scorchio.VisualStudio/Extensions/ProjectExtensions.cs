@@ -9,6 +9,8 @@ namespace Scorchio.VisualStudio.Extensions
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Security.Cryptography.X509Certificates;
+
     using EnvDTE;
     using EnvDTE80;
     using Services;
@@ -323,6 +325,7 @@ namespace Scorchio.VisualStudio.Extensions
             bool copyAssembly)
         {
             TraceService.WriteLine("ProjectExtensions::AddReference project=" + instance.Name);
+            TraceService.WriteLine("Source=" + source);
 
             Reference reference = null;
 
@@ -376,7 +379,6 @@ namespace Scorchio.VisualStudio.Extensions
                 {
                     //// reference the source and dont copy the file!
                     reference = instance.AddReference(source);
-                    
                 }
             }
 
@@ -394,6 +396,7 @@ namespace Scorchio.VisualStudio.Extensions
             string path)
         {
             TraceService.WriteLine("ProjectExtensions::AddReference project=" + instance.Name + " path=" + path);
+            TraceService.WriteLine("Path=" + path);
 
             Reference reference = null;
 
@@ -428,7 +431,7 @@ namespace Scorchio.VisualStudio.Extensions
             {
                 foreach (ProjectItem projectItem in projectItems
                     .Where(projectItem => projectItem.Kind == VSConstants.VsProjectItemKindPhysicalFolder)
-                    .Where(projectItem => String.Equals(projectItem.Name, folderName, StringComparison.CurrentCultureIgnoreCase)))
+                    .Where(projectItem => string.Equals(projectItem.Name, folderName, StringComparison.CurrentCultureIgnoreCase)))
                 {
                     removedProjectItem = projectItem;
                     projectItem.Remove();
@@ -477,7 +480,7 @@ namespace Scorchio.VisualStudio.Extensions
             string folderName,
             bool withFileExtensions)
         {
-            TraceService.WriteLine("ProjectExtensions::GetFolderItems project=" + instance.Name);
+            TraceService.WriteLine("ProjectExtensions::GetFolderItems project=" + instance.Name + " Folder=" + folderName);
 
             List<string> files = new List<string>();
             

@@ -17,7 +17,7 @@ namespace NinjaCoder.MvvmCross.Services
     /// <summary>
     /// Defines the PluginService type.
     /// </summary>
-    public class PluginService : BaseService, IPluginService
+    internal class PluginService : BaseService, IPluginService
     {
         /// <summary>
         /// The file system.
@@ -98,7 +98,7 @@ namespace NinjaCoder.MvvmCross.Services
                 //// now if we are not the core project we need to add the platform specific assemblies
                 //// and the bootstrap item templates!
 
-                string extensionSource = this.GetPluginPath(extensionName, source);
+                string extensionSource = this.GetSourcePath(plugin, extensionName);
 
                 string extensionDestination = this.GetPluginPath(extensionName, destination);
 
@@ -334,6 +334,33 @@ namespace NinjaCoder.MvvmCross.Services
             string path)
         {
             return path.Replace(".dll", string.Format(".{0}.dll", extensionName));
+        }
+
+        /// <summary>
+        /// Gets the source path.
+        /// </summary>
+        /// <param name="plugin">The plugin.</param>
+        /// <param name="extensionName">Name of the extension.</param>
+        /// <returns>The plugin path.</returns>
+        internal string GetSourcePath(
+            Plugin plugin, 
+            string extensionName)
+        {
+            //// here we are look to see if the user has overridden the file in their own directory.
+
+            string userDirectory = this.settingsService.MvvmCrossAssembliesOverrideDirectory;
+
+            string userFilePath = this.GetPluginPath(extensionName, userDirectory + "\\" + plugin.FileName);
+
+            FileInfoBase userFileInfoBase = this.fileSystem.FileInfo.FromFileName(userFilePath);
+
+            string coreDirectory = this.settingsService.MvvmCrossAssembliesPath;
+
+            FileInfoBase coreFileInfoBase = this.fileSystem.FileInfo.FromFileName(coreDirectory + "\\" + plugin.FileName);
+
+            return userFileInfoBase.Exists ?
+                userFileInfoBase.FullName :
+                this.GetPluginPath(extensionName, coreFileInfoBase.FullName);
         }
     }
 }

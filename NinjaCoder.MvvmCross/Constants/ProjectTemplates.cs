@@ -8,7 +8,7 @@ namespace NinjaCoder.MvvmCross.Constants
     /// <summary>
     /// Defines the ProjectTemplates type.
     /// </summary>
-    public static class ProjectTemplates
+    internal static class ProjectTemplates
     {
         /// <summary>
         /// The core

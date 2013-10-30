@@ -24,7 +24,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     /// <summary>
     /// Defines the PluginsController type.
     /// </summary>
-    public class PluginsController : BaseController
+    internal class PluginsController : BaseController
     {
         /// <summary>
         /// The file system.
@@ -44,7 +44,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <summary>
         /// The translator.
         /// </summary>
-        private readonly ITranslator<DirectoryInfoBase, Plugins> translator;
+        private readonly ITranslator<Tuple<DirectoryInfoBase, DirectoryInfoBase>, Plugins> translator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PluginsController" /> class.
@@ -69,7 +69,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             IMessageBoxService messageBoxService,
             IDialogService dialogService,
             IFormsService formsService,
-            ITranslator<DirectoryInfoBase, Plugins> translator)
+            ITranslator<Tuple<DirectoryInfoBase, DirectoryInfoBase>, Plugins> translator)
             : base(
             visualStudioService, 
             readMeService, 
@@ -105,9 +105,12 @@ namespace NinjaCoder.MvvmCross.Controllers
                 {
                     IEnumerable<string> viewModelNames = projectService.GetFolderItems("ViewModels", false);
 
-                    DirectoryInfoBase directoryInfoBase = this.fileSystem.DirectoryInfo.FromDirectoryName(this.SettingsService.MvvmCrossAssembliesPath);
+                    DirectoryInfoBase directoryInfoBase1 = this.fileSystem.DirectoryInfo.FromDirectoryName(this.SettingsService.MvvmCrossAssembliesPath);
+                    DirectoryInfoBase directoryInfoBase2 = this.fileSystem.DirectoryInfo.FromDirectoryName(this.SettingsService.MvvmCrossAssembliesOverrideDirectory);
 
-                    Plugins plugins = this.translator.Translate(directoryInfoBase);
+                    Tuple<DirectoryInfoBase, DirectoryInfoBase> directories = new Tuple<DirectoryInfoBase, DirectoryInfoBase>(directoryInfoBase1, directoryInfoBase2);
+
+                    Plugins plugins = this.translator.Translate(directories);
 
                     IPluginsView view = this.FormsService.GetPluginsForm(this.SettingsService, viewModelNames, plugins);
 

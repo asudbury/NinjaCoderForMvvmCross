@@ -25,31 +25,31 @@ namespace NinjaCoder.MvvmCross.Entities
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
-        [DataMember]
         public string FriendlyName { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the file.
         /// </summary>
-        [DataMember]
         public string FileName { get; set; }
 
         /// <summary>
         /// Gets or sets the source.
         /// </summary>
-        [DataMember]
         public string Source { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [is community plugin].
         /// </summary>
-        [DataMember]
         public bool IsCommunityPlugin { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [is user plugin].
+        /// </summary>
+        public bool IsUserPlugin { get; set; }
 
         /// <summary>
         /// Gets or sets the nuget commands.
         /// </summary>
-        [IgnoreDataMember]
         public List<string> NugetCommands { get; set; }
     }
 }

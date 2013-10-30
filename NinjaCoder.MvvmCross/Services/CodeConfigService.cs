@@ -22,7 +22,7 @@ namespace NinjaCoder.MvvmCross.Services
     /// <summary>
     ///  Defines the CodeConfigService type.
     /// </summary>
-    public class CodeConfigService : ICodeConfigService
+    internal class CodeConfigService : ICodeConfigService
     {
         /// <summary>
         /// The file system.

@@ -90,9 +90,9 @@
             this.checkBoxUseNugetForPlugins.Location = new System.Drawing.Point(10, 62);
             this.checkBoxUseNugetForPlugins.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxUseNugetForPlugins.Name = "checkBoxUseNugetForPlugins";
-            this.checkBoxUseNugetForPlugins.Size = new System.Drawing.Size(165, 23);
+            this.checkBoxUseNugetForPlugins.Size = new System.Drawing.Size(281, 23);
             this.checkBoxUseNugetForPlugins.TabIndex = 16;
-            this.checkBoxUseNugetForPlugins.Text = "Use Nuget for Plugins";
+            this.checkBoxUseNugetForPlugins.Text = "Use Nuget for Plugins (Where applicable)";
             this.checkBoxUseNugetForPlugins.UseVisualStyleBackColor = true;
             // 
             // checkBoxUseNugetForProjectTemplates
@@ -101,9 +101,9 @@
             this.checkBoxUseNugetForProjectTemplates.Location = new System.Drawing.Point(10, 35);
             this.checkBoxUseNugetForProjectTemplates.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxUseNugetForProjectTemplates.Name = "checkBoxUseNugetForProjectTemplates";
-            this.checkBoxUseNugetForProjectTemplates.Size = new System.Drawing.Size(229, 23);
+            this.checkBoxUseNugetForProjectTemplates.Size = new System.Drawing.Size(169, 23);
             this.checkBoxUseNugetForProjectTemplates.TabIndex = 14;
-            this.checkBoxUseNugetForProjectTemplates.Text = "Use Nuget for Project Templates";
+            this.checkBoxUseNugetForProjectTemplates.Text = "Use Nuget for Projects";
             this.checkBoxUseNugetForProjectTemplates.UseVisualStyleBackColor = true;
             // 
             // checkBoxRemoveCodeComments
@@ -370,7 +370,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "OptionsForm";
-            this.Text = "Ninja Coder for MvvmCross - Options";
+            this.Text = "Ninja - Options";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

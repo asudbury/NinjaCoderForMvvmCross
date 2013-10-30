@@ -12,7 +12,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     /// <summary>
     /// Defines the INugetService type.
     /// </summary>
-    public interface INugetService
+    internal interface INugetService
     {
         /// <summary>
         /// Gets the init nuget messages.

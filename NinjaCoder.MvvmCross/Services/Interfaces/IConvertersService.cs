@@ -13,7 +13,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     /// <summary>
     ///  Defines the IConvertersService type.
     /// </summary>
-    public interface IConvertersService
+    internal interface IConvertersService
     {
         /// <summary>
         /// Adds the converters.
