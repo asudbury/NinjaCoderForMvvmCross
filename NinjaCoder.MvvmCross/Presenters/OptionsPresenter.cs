@@ -108,7 +108,7 @@ namespace NinjaCoder.MvvmCross.Presenters
                 File.Create(this.view.LogFilePath);
             }
 
-            Process.Start(this.view.LogFilePath);    
+            Process.Start(this.view.LogFilePath);
          }
     }
 }
