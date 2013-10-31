@@ -1,4 +1,0 @@
-<CodeConfig>
-  <NugetPackage>MvvmCross.Community.Plugin.Sqlite</NugetPackage>
-  <BootstrapFileNameOverride>CommunitySqlitePluginBootstrap.cs</BootstrapFileNameOverride>
-</CodeConfig>
