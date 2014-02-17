@@ -5,12 +5,22 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
+    using System;
     using System.Collections.Generic;
+    using System.Globalization;
+    using System.Windows;
+
     using Constants;
     using EnvDTE;
     using EnvDTE80;
-    using NinjaCoder.MvvmCross.Infrastructure.Extensions;
+
+    using MahApps.Metro;
+
     using NinjaCoder.MvvmCross.Infrastructure.Services;
+
+    using Scorchio.Infrastructure.Extensions;
+    using Scorchio.Infrastructure.Services;
+    using Scorchio.Infrastructure.Wpf.Views;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
     using Services.Interfaces;
@@ -28,20 +38,21 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseController" /> class.
         /// </summary>
+        /// <param name="configurationService">The configuration service.</param>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="readMeService">The read me service.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="messageBoxService">The message box service.</param>
-        /// <param name="dialogService">The dialog service.</param>
-        /// <param name="formsService">The forms service.</param>
+        /// <param name="resolverService">The resolver service.</param>
         protected BaseController(
+            IConfigurationService configurationService,
             IVisualStudioService visualStudioService,
             IReadMeService readMeService,
             ISettingsService settingsService,
             IMessageBoxService messageBoxService,
-            IDialogService dialogService,
-            IFormsService formsService)
+            IResolverService resolverService)
         {
+
             //// init the tracing service first!
             TraceService.Initialize(
                 settingsService.LogToTrace,
@@ -50,14 +61,16 @@ namespace NinjaCoder.MvvmCross.Controllers
                 settingsService.LogFilePath,
                 settingsService.DisplayErrors);
 
+            configurationService.CreateUserDirectories();
+
             TraceService.WriteLine("BaseController::Constructor");
 
+            this.ConfigurationService = configurationService;
             this.VisualStudioService = visualStudioService;
             this.ReadMeService = readMeService;
             this.SettingsService = settingsService;
             this.MessageBoxService = messageBoxService;
-            this.DialogService = dialogService;
-            this.FormsService = formsService;
+            this.ResolverService = resolverService;
         }
 
         /// <summary>
@@ -67,6 +80,11 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             set { this.VisualStudioService.DTE2 = value; }
         }
+
+        /// <summary>
+        /// The configuration service.
+        /// </summary>
+        protected IConfigurationService ConfigurationService { get; private set; }
 
         /// <summary>
         /// Gets the visual studio service.
@@ -89,14 +107,9 @@ namespace NinjaCoder.MvvmCross.Controllers
         protected IMessageBoxService MessageBoxService { get; private set; }
 
         /// <summary>
-        /// Gets the dialog service.
+        /// Gets the resolver service.
         /// </summary>
-        protected IDialogService DialogService { get; private set; }
-
-        /// <summary>
-        /// Gets the forms service.
-        /// </summary>
-        protected IFormsService FormsService { get; private set; }
+        protected IResolverService ResolverService { get; private set; }
 
         /// <summary>
         /// Gets the read me lines.
@@ -113,6 +126,14 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                 return this.readmeLines;
             }
+        }
+
+        /// <summary>
+        /// Gets the current theme.
+        /// </summary>
+        protected Theme CurrentTheme
+        {
+            get { return this.SettingsService.Theme == "Dark" ? Theme.Dark : Theme.Light; }
         }
 
         /// <summary>
@@ -164,6 +185,33 @@ namespace NinjaCoder.MvvmCross.Controllers
         }
 
         /// <summary>
+        /// Shows the dialog.
+        /// </summary>
+        /// <typeparam name="TViewModel">The type of the view model.</typeparam>
+        /// <param name="themedDialog">The themed dialog.</param>
+        /// <returns>The view model.</returns>
+        protected TViewModel ShowDialog<TViewModel>(IThemedDialog themedDialog) 
+            where TViewModel : class
+        {
+            //// set the visual studio version number
+            this.SettingsService.VisualStudioVersion = this.VisualStudioService.DTE2.Version;
+
+            themedDialog.SetLanguageDictionary(this.GetLanguageDictionary());
+
+            TViewModel viewModel = this.ResolverService.Resolve<TViewModel>();
+
+            themedDialog.DataContext = viewModel;
+
+            themedDialog.ChangeTheme(
+                this.CurrentTheme, 
+                this.SettingsService.ThemeColor);
+
+            themedDialog.ShowDialog();
+
+            return viewModel;
+        }
+
+        /// <summary>
         /// Gets the read me path.
         /// </summary>
         /// <returns>The path of the ReadMe file.</returns>
@@ -183,7 +231,13 @@ namespace NinjaCoder.MvvmCross.Controllers
         protected void ShowNotMvvmCrossSolutionMessage()
         {
             TraceService.WriteLine(Settings.NonMvvmCrossSolution);
-            this.MessageBoxService.Show(Settings.NonMvvmCrossSolution, Settings.ApplicationName);
+
+            this.MessageBoxService.Show(
+                Settings.NonMvvmCrossSolution, 
+                Settings.ApplicationName,
+                this.SettingsService.BetaTesting,
+                this.CurrentTheme,
+                this.SettingsService.ThemeColor);
         }
 
         /// <summary>
@@ -203,44 +257,97 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("BaseController::ShowReadMe " + function + " nugetInProgress=" + nugetInProgress);
 
-            //// close any open documents.
-            if (closeDocuments)
-            {
-                this.VisualStudioService.DTEService.CloseDocuments();
-            }
-
-            //// now collapse the solution!
-            if (collapseSolution)
-            {
-                this.VisualStudioService.DTEService.CollapseSolution();
-            }
-
-            string readMePath = this.GetReadMePath();
-
-            TraceService.WriteLine("BaseController::ShowReadMe path=" + readMePath);
+            //// never quite got to the bottom this but sometimes closing documents/collapsing the solution fails.
+            //// this isnt that important - but we need to show the readme file - so catch the error.
             
-            //// now construct the ReadMe.txt
-            this.ReadMeLines.AddRange(messages);
-
-            this.ReadMeService.AddLines(readMePath, function, this.ReadMeLines);
-
-            //// now show the ReadMe.txt.
-            IProjectItemService projectItemService = this.VisualStudioService.SolutionService.AddSolutionItem("Solution Items", readMePath);
-
-            if (projectItemService != null)
+            try
             {
-                if (nugetInProgress == false)
+                //// close any open documents.
+                if (closeDocuments)
                 {
-                    projectItemService.Open();
+                    this.VisualStudioService.DTEService.CloseDocuments();
+                }
+
+                //// now collapse the solution!
+                if (collapseSolution)
+                {
+                    this.VisualStudioService.DTEService.CollapseSolution();
                 }
             }
-            else
+            catch (Exception exception)
             {
-                TraceService.WriteError("BaseController::ShowReadMe Cannot open file :-" + readMePath);
+                TraceService.WriteError("Error closing documents/solution exception=" + exception.Message);
             }
 
-            //// reset the messages - if we don't do this we get the previous messages!
-            this.readmeLines = new List<string>();
+            try
+            {
+                string readMePath = this.GetReadMePath();
+
+                TraceService.WriteLine("BaseController::ShowReadMe path=" + readMePath);
+            
+                //// now construct the ReadMe.txt
+                this.ReadMeLines.AddRange(messages);
+
+                this.ReadMeService.AddLines(readMePath, function, this.ReadMeLines);
+
+                //// now show the ReadMe.txt.
+                IProjectItemService projectItemService = this.VisualStudioService.SolutionService.AddSolutionItem("Solution Items", readMePath);
+
+                if (projectItemService != null)
+                {
+                    if (nugetInProgress == false)
+                    {
+                        projectItemService.Open();
+                    }
+                }
+                else
+                {
+                    TraceService.WriteError("BaseController::ShowReadMe Cannot open file :-" + readMePath);
+                }
+
+                //// reset the messages - if we don't do this we get the previous messages!
+                this.readmeLines = new List<string>();
+            }
+            catch (Exception exception)
+            {
+                TraceService.WriteError("BaseController::ShowReadMe Showing ReadMe Error :-" + exception.Message);
+            }
+        }
+
+        /// <summary>
+        /// Gets the language dictionary.
+        /// </summary>
+        protected ResourceDictionary GetLanguageDictionary()
+        {
+            TraceService.WriteLine("BaseController::GetLanguageDictionary");
+
+            ResourceDictionary resourceDictionary = new ResourceDictionary();
+
+            const string ResourcesBaseUrl = "/NinjaCoder.MvvmCross;component/Resources/";
+            
+            string currentCulture = CultureInfo.CurrentCulture.ToString();
+
+            string overrideCulture = this.SettingsService.LanguageOverride;
+
+            //// look for an override.
+            if (overrideCulture != "Current Culture")
+            {
+                currentCulture = overrideCulture;
+            }
+
+            switch (currentCulture)
+            {
+                case "fr-CA":
+                case "French" :
+                    resourceDictionary.Source = new Uri(ResourcesBaseUrl + "StringResources.fr-CA.xaml", UriKind.RelativeOrAbsolute);
+                    break;
+
+                default:
+                    resourceDictionary.Source = new Uri(ResourcesBaseUrl + "StringResources.xaml", UriKind.RelativeOrAbsolute);
+                    break;
+            }
+
+            return resourceDictionary;
         }
     }
 }

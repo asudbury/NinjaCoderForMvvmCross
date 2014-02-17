@@ -13,6 +13,8 @@ namespace NinjaCoder.MvvmCross.Translators
     using NinjaCoder.MvvmCross.Entities;
     using NinjaCoder.MvvmCross.Infrastructure.Services;
 
+    using Scorchio.Infrastructure.Translators;
+
     /// <summary>
     ///  Defines the PluginTranslator type.
     /// </summary>
@@ -108,7 +110,12 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <returns>True or false.</returns>
         internal bool IsUserPlugin(FileInfoBase fileInfoBase)
         {
-            return fileInfoBase.FullName.Contains(this.settingsService.MvvmCrossAssembliesOverrideDirectory);
+            if (this.settingsService.UserPluginsPath != string.Empty)
+            {
+                return fileInfoBase.FullName.Contains(this.settingsService.UserPluginsPath);
+            }
+
+            return false;
         }
     }
 }

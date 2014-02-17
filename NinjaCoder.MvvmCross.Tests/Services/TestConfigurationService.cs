@@ -7,6 +7,8 @@ namespace NinjaCoder.MvvmCross.Tests.Services
 {
     using System.IO.Abstractions;
     using Moq;
+
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Services;
     using NinjaCoder.MvvmCross.Tests.Mocks;
     using NUnit.Framework;
@@ -28,18 +30,26 @@ namespace NinjaCoder.MvvmCross.Tests.Services
         private Mock<IFileSystem> mockFileSystem;
 
         /// <summary>
+        /// The mock setting service.
+        /// </summary>
+        private Mock<ISettingsService> mockSettingService;
+
+        /// <summary>
         /// Initializes this instance.
         /// </summary>
         [TestFixtureSetUp]
         public void Initialize()
         {
             this.mockFileSystem = new Mock<IFileSystem>();
+            this.mockSettingService = new Mock<ISettingsService>();
 
             MockDirectory mockDirectory = new MockDirectory { DirectoryExists = true };
 
             this.mockFileSystem.SetupGet(x => x.Directory).Returns(mockDirectory);
 
-            this.service = new ConfigurationService(this.mockFileSystem.Object);
+            this.service = new ConfigurationService(
+                this.mockFileSystem.Object,
+                this.mockSettingService.Object);
         }
 
         /// <summary>

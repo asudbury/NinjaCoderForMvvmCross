@@ -74,14 +74,19 @@
             Shows the options.
             </summary>
         </member>
-        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.ShowHelp">
-            <summary>
-            Shows help.
-            </summary>
-        </member>
         <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.ShowAbout">
             <summary>
             Shows about.
+            </summary>
+        </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.ViewLogFile">
+            <summary>
+            Views the log file.
+            </summary>
+        </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.ClearLogFile">
+            <summary>
+            Clears the log file.
             </summary>
         </member>
         <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.AddMenuItem(Scorchio.VisualStudio.Entities.VSCommandInfo)">
@@ -89,11 +94,6 @@
             Add item to the menu.
             </summary>
             <param name="vsCommandInfo">The command info.</param>
-        </member>
-        <member name="P:NinjaCoder.MvvmCross.AddIn.Connect.ApplicationVersion">
-            <summary>
-            Gets the application version.
-            </summary>
         </member>
     </members>
 </doc>

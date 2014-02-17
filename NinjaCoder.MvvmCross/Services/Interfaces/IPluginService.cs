@@ -14,7 +14,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     /// <summary>
     ///  Defines the IPluginService type.
     /// </summary>
-    internal interface IPluginService
+    public interface IPluginService
     {
         /// <summary>
         /// Gets the messages.
@@ -26,13 +26,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// </summary>
         /// <param name="projectService">The project service.</param>
         /// <param name="plugin">The plugin.</param>
-        /// <param name="folderName">Name of the folder.</param>
         /// <param name="extensionName">Name of the extension.</param>
         /// <returns>True or false.</returns>
         bool AddPlugin(
             IProjectService projectService, 
             Plugin plugin, 
-            string folderName, 
             string extensionName);
 
         /// <summary>
@@ -53,7 +51,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Adds the ui plugin.
         /// </summary>
         /// <param name="projectService">The project service.</param>
-        /// <param name="friendlyName">Name of the friendly.</param>
+        /// <param name="plugin">The plugin.</param>
         /// <param name="source">The source.</param>
         /// <param name="destination">The destination.</param>
         /// <param name="extensionSource">The extension source.</param>
@@ -62,7 +60,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <returns>True or false.</returns>
         bool AddUIPlugin(
             IProjectService projectService,
-            string friendlyName,
+            Plugin plugin,
             string source,
             string destination,
             string extensionSource,

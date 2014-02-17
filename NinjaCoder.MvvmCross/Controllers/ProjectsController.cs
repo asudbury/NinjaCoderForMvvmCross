@@ -5,18 +5,23 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
-    using System;
     using System.Collections.Generic;
-    using System.IO.Abstractions;
     using System.Linq;
-    using System.Windows.Forms;
+    using System.Xml.Linq;
+
     using Constants;
+
+    using NinjaCoder.MvvmCross.Factories.Interfaces;
     using NinjaCoder.MvvmCross.Infrastructure.Services;
+    using NinjaCoder.MvvmCross.ViewModels;
+    using NinjaCoder.MvvmCross.Views;
+
+    using Scorchio.Infrastructure.Services;
+    using Scorchio.Infrastructure.Services.Testing.Interfaces;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
     using Services.Interfaces;
-    using Views.Interfaces;
 
     /// <summary>
     /// Defines the ProjectsController type.
@@ -33,43 +38,62 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         private readonly INugetService nugetService;
 
-        private readonly IFileSystem fileSystem;
+        /// <summary>
+        /// The view model views service.
+        /// </summary>
+        private readonly IViewModelViewsService viewModelViewsService;
+
+        /// <summary>
+        /// The view model and views factory.
+        /// </summary>
+        private readonly IViewModelAndViewsFactory viewModelAndViewsFactory;
+
+        /// <summary>
+        /// The mocking service.
+        /// </summary>
+        private readonly IMockingService mockingService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectsController" /> class.
         /// </summary>
+        /// <param name="configurationService">The configuration service.</param>
         /// <param name="projectsService">The projects service.</param>
         /// <param name="nugetService">The nuget service.</param>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="readMeService">The read me service.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="messageBoxService">The message box service.</param>
-        /// <param name="dialogService">The dialog service.</param>
-        /// <param name="formsService">The forms service.</param>
-        /// <param name="fileSystem">The file system.</param>
+        /// <param name="mockingServiceFactory">The mocking service factory.</param>
+        /// <param name="resolverService">The resolver service.</param>
+        /// <param name="viewModelViewsService">The view model views service.</param>
+        /// <param name="viewModelAndViewsFactory">The view model and views factory.</param>
         public ProjectsController(
+            IConfigurationService configurationService,
             IProjectsService projectsService,
             INugetService nugetService,
             IVisualStudioService visualStudioService,
             IReadMeService readMeService,
             ISettingsService settingsService,
             IMessageBoxService messageBoxService,
-            IDialogService dialogService,
-            IFormsService formsService,
-            IFileSystem fileSystem)
+            IMockingServiceFactory mockingServiceFactory,
+            IResolverService resolverService,
+            IViewModelViewsService viewModelViewsService,
+            IViewModelAndViewsFactory viewModelAndViewsFactory)
             : base(
-            visualStudioService, 
-            readMeService, 
-            settingsService, 
+            configurationService,
+            visualStudioService,
+            readMeService,
+            settingsService,
             messageBoxService,
-            dialogService,
-            formsService)
+            resolverService)
         {
             TraceService.WriteLine("ProjectsController::Constructor");
 
             this.projectsService = projectsService;
             this.nugetService = nugetService;
-            this.fileSystem = fileSystem;
+            this.viewModelViewsService = viewModelViewsService;
+            this.viewModelAndViewsFactory = viewModelAndViewsFactory;
+            this.mockingService = mockingServiceFactory.GetMockingService();
         }
 
         /// <summary>
@@ -83,46 +107,14 @@ namespace NinjaCoder.MvvmCross.Controllers
             //// a wait condition later!
             this.nugetService.OpenNugetWindow(this.VisualStudioService);
 
-            string defaultLocation;
-            string defaultProjectName = this.VisualStudioService.GetDefaultProjectName();
+            ProjectsViewModel viewModel = this.ShowDialog<ProjectsViewModel>(new ProjectsView());
 
-            //// if this fails it will almost certainly be the COM integration with VStudio.
-            try
+            if (viewModel.Continue)
             {
-                defaultLocation = this.VisualStudioService.DTEService.GetDefaultProjectsLocation();
-            }
-            catch (Exception exception)
-            {
-                this.MessageBoxService.Show(@"Error Communicating with Visual Studio Error:-" + exception.Message, Settings.ApplicationName);
-                return;
-            }
-
-            IEnumerable<ProjectTemplateInfo> projectTemplateInfos = this.VisualStudioService.AllowedProjectTemplates;
-
-            IEnumerable<ProjectTemplateInfo> templateInfos = projectTemplateInfos as ProjectTemplateInfo[] ?? projectTemplateInfos.ToArray();
-
-            if (templateInfos.Any())
-            {
-                IProjectsView view = this.FormsService.GetProjectsForm(
-                    this.SettingsService,
-                    this.fileSystem,
-                    defaultLocation, 
-                    defaultProjectName, 
-                    templateInfos);
-                
-                DialogResult result = this.DialogService.ShowDialog(view as Form);
-
-                if (result == DialogResult.OK)
-                {
-                    this.Process(
-                        view.Presenter.GetSolutionPath(),
-                        view.ProjectName, 
-                        view.Presenter.GetFormattedRequiredTemplates());
-                }
-            }
-            else
-            {
-                this.MessageBoxService.Show(NinjaMessages.SolutionSetUp, Settings.ApplicationName);
+                this.Process(
+                    viewModel.GetSolutionPath(),
+                    viewModel.Project,
+                    viewModel.GetFormattedRequiredTemplates());
             }
         }
 
@@ -157,8 +149,52 @@ namespace NinjaCoder.MvvmCross.Controllers
                     this.VisualStudioService,
                     solutionPath,
                     requireTemplates,
+                    true).ToList();
+
+            //// not sure if this is the correct place to do this!
+            IProjectService testProjectService = this.VisualStudioService.CoreTestsProjectService;
+
+            if (testProjectService != null)
+            {
+                this.mockingService.UpdateProjectReferences(testProjectService);
+            }
+
+            //// there is a bug in the xamarin iOS code that means it doesnt apply a couple of xml elements
+            //// in the info.plist - here we fix that issue.
+
+            IProjectService iosProjectService = this.VisualStudioService.iOSProjectService;
+
+            if (iosProjectService != null)
+            {
+                IProjectItemService projectItemService = iosProjectService.GetProjectItem("Info.plist");
+
+                if (projectItemService != null)
+                {
+                    this.FixInfoPlist(projectItemService, iosProjectService.Name);
+                }
+            }
+
+            //// now we need to call the add viewmodel and views process
+
+            if (this.SettingsService.AddViewModelAndViews)
+            {
+                this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.AddingViewModelAndViews);
+
+                IEnumerable<ItemTemplateInfo> itemTemplateInfos =
+                    this.viewModelAndViewsFactory.GetRequiredViewModelAndViews(
+                        "FirstViewModel",
+                        this.viewModelAndViewsFactory.AllowedUIViews,
+                        true);
+
+                this.viewModelViewsService.AddViewModelAndViews(
+                    this.VisualStudioService.CoreProjectService,
+                    this.VisualStudioService,
+                    itemTemplateInfos,
+                    "FirstViewModel",
                     true,
-                    this.SettingsService.IncludeLibFolderInProjects).ToList();
+                    null,
+                    null);
+            }
 
             this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.UpdatingFiles);
 
@@ -189,7 +225,8 @@ namespace NinjaCoder.MvvmCross.Controllers
                     this.VisualStudioService,
                     requireTemplates,
                     this.SettingsService.VerboseNugetOutput,
-                    this.SettingsService.DebugNuget);
+                    this.SettingsService.DebugNuget,
+                    this.SettingsService.UsePreReleaseNugetPackages);
 
                 TraceService.WriteLine("nugetCommands=" + commands);
 
@@ -226,10 +263,62 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             if (projectService != null)
             {
+                TraceService.WriteLine("ProjectsController::RemoveMvxReferences Project=" + projectService.Name);
+
                 projectService.GetProjectReferences()
                     .Where(x => x.Name.StartsWith("Cirrious"))
                     .ToList()
                     .ForEach(x => x.Remove());
+            }
+        }
+
+        /// <summary>
+        /// Fixes the info plist.
+        /// </summary>
+        /// <param name="projectItemService">The project item service.</param>
+        /// <param name="projectName">Name of the project.</param>
+        internal void FixInfoPlist(
+            IProjectItemService projectItemService,
+            string projectName)
+        {
+            TraceService.WriteLine("ProjectsController::FixInfoPlist Project=" + projectName);
+
+            XDocument doc = XDocument.Load(projectItemService.FileName);
+
+            if (doc.Root != null)
+            {
+                XElement element = doc.Root.Element("dict");
+
+                if (element != null)
+                {
+                    //// first look for the elements
+
+                    XElement childElement = element.Elements("key").FirstOrDefault(x => x.Value == "CFBundleDisplayName");
+                    
+                    if (childElement == null)
+                    {
+                        element.Add(new XElement("key", "CFBundleDisplayName"));
+                        element.Add(new XElement("string", projectName));
+                    }
+
+                    childElement = element.Elements("key").FirstOrDefault(x => x.Value == "CFBundleVersion");
+
+                    if (childElement == null)
+                    {
+                        element.Add(new XElement("key", "CFBundleVersion"));
+                        element.Add(new XElement("string", "1.0"));
+                    }
+
+                    childElement = element.Elements("key").FirstOrDefault(x => x.Value == "CFBundleIdentifier");
+
+                    if (childElement == null)
+                    {
+                        element.Add(new XElement("key", "CFBundleIdentifier"));
+                        element.Add(new XElement("string", "1"));
+                    }
+                }
+
+                doc.Save(projectItemService.FileName);
             }
         }
     }

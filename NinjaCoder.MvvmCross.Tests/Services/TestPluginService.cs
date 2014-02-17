@@ -10,9 +10,9 @@ namespace NinjaCoder.MvvmCross.Tests.Services
     using Moq;
     using NinjaCoder.MvvmCross.Constants;
     using NinjaCoder.MvvmCross.Entities;
+    using NinjaCoder.MvvmCross.Factories.Interfaces;
     using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Services;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
     using NinjaCoder.MvvmCross.Tests.Mocks;
     using NUnit.Framework;
     using Scorchio.VisualStudio.Services.Interfaces;
@@ -54,9 +54,9 @@ namespace NinjaCoder.MvvmCross.Tests.Services
         private MockFileInfo mockFileInfo;
 
         /// <summary>
-        /// The mock translator.
+        /// The mock code config factory.
         /// </summary>
-        private Mock<ICodeConfigService> mockCodeConfigService;
+        private Mock<ICodeConfigFactory> mockCodeConfigFactory;
         
         /// <summary>
         /// Initializes this instance.
@@ -69,7 +69,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
             this.mockFile = new MockFile();
             this.mockFileInfoFactory = new Mock<IFileInfoFactory>();
             this.mockFileInfo = new MockFileInfo();
-            this.mockCodeConfigService = new Mock<ICodeConfigService>();
+            this.mockCodeConfigFactory = new Mock<ICodeConfigFactory>();
 
             this.mockFileSystem.SetupGet(x => x.File).Returns(this.mockFile);
             this.mockFileSystem.SetupGet(x => x.FileInfo).Returns(this.mockFileInfoFactory.Object);
@@ -78,7 +78,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
             this.service = new PluginService(
                 this.mockFileSystem.Object, 
                 this.mockSettingsService.Object,
-                this.mockCodeConfigService.Object);
+                this.mockCodeConfigFactory.Object);
         }
 
         /// <summary>
@@ -99,7 +99,6 @@ namespace NinjaCoder.MvvmCross.Tests.Services
             this.service.AddPlugin(
                mockProjectService.Object,
                plugin, 
-               string.Empty,
                Settings.Core);
 
             //// assert
@@ -131,7 +130,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
             //// act
             this.service.AddUIPlugin(
                 mockProjectService.Object,
-                "friendlyName",
+                new Plugin(), 
                 "source",
                 "destination",
                 "extensionSource",
@@ -157,56 +156,6 @@ namespace NinjaCoder.MvvmCross.Tests.Services
             string path = this.service.GetPluginPath("WindowsPhone", "plugin.dll");
 
             Assert.IsTrue(path == "plugin.WindowsPhone.dll");
-        }
-
-        /// <summary>
-        /// Tests the get source path.
-        /// </summary>
-        [Test]
-        public void TestGetSourcePath()
-        {
-            SettingsService settingsService = new SettingsService();
-
-            Plugin plugin = new Plugin
-                                {
-                                    Source = settingsService.MvvmCrossAssembliesPath + @"\Cirrious.MvvmCross.Plugins.Accelerometer.dll",
-                                    FileName = @"\Cirrious.MvvmCross.Plugins.Accelerometer.dll"
-                                };
-
-            this.mockSettingsService.SetupGet(x => x.MvvmCrossAssembliesOverrideDirectory)
-                .Returns(settingsService.MvvmCrossAssembliesOverrideDirectory);
-
-            this.mockFileInfo.FileExists = false;
-
-            string path = this.service.GetSourcePath(plugin, "wpf");
-
-            Assert.IsTrue(path == @"C:\Program Files (x86)\Scorchio Limited\Ninja Coder for MvvmCross\MvvmCross\Assemblies\\Cirrious.MvvmCross.Plugins.Accelerometer.wpf.dll");
-        }
-
-        /// <summary>
-        /// Tests the get source path - user plugin.
-        /// </summary>
-        [Test]
-        public void TestGetSourcePathUserPlugin()
-        {
-            SettingsService settingsService = new SettingsService();
-
-            Plugin plugin = new Plugin
-            {
-                Source = settingsService.MvvmCrossAssembliesPath + @"\Cirrious.MvvmCross.Plugins.Accelerometer.dll",
-                FileName = @"\Cirrious.MvvmCross.Plugins.Accelerometer.dll"
-            };
-
-            this.mockSettingsService.SetupGet(x => x.MvvmCrossAssembliesOverrideDirectory)
-                .Returns(settingsService.MvvmCrossAssembliesOverrideDirectory);
-
-            this.mockFileInfo.FileName = "adrian.wpf";
-
-            this.mockFileInfo.FileExists = true;
-
-            string path = this.service.GetSourcePath(plugin, "wpf");
-
-            Assert.IsTrue(path == @"adrian.wpf");
         }
     }
 }

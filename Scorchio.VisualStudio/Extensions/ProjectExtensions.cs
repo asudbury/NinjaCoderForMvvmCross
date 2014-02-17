@@ -9,7 +9,6 @@ namespace Scorchio.VisualStudio.Extensions
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Security.Cryptography.X509Certificates;
 
     using EnvDTE;
     using EnvDTE80;
@@ -222,41 +221,17 @@ namespace Scorchio.VisualStudio.Extensions
         /// Adds to folder from template.
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <param name="folderName">Name of the folder.</param>
         /// <param name="templateName">Name of the template.</param>
         /// <param name="fileName">Name of the file.</param>
-        /// <param name="createFolder">if set to <c>true</c> [create folder].</param>
         /// <returns>True or False.</returns>
         public static bool AddToFolderFromTemplate(
             this Project instance,
-            string folderName,
             string templateName,
-            string fileName,
-            bool createFolder)
+            string fileName)
         {
-            TraceService.WriteLine("ProjectExtensions::AddToFolderFromTemplate project=" + instance.Name);
+            TraceService.WriteLine("ProjectExtensions::AddToFolderFromTemplate project=" + instance.Name + " templateName=" + templateName + " fileName=" + fileName);
 
-            string path = instance.Properties.Item("FullPath").Value;
             ProjectItems projectItems = instance.ProjectItems;
-
-            //// this supports passing of folder name - currently used by viewmodels and views.
-            //// may not be required if we refactor the item templates to embed the directory.
-            if (createFolder)
-            {
-                ProjectItem folderProjectItem = instance.ProjectItems
-                    .Cast<ProjectItem>()
-                    .FirstOrDefault(projectItem => projectItem.Name == folderName);
-
-                //// if the folder doesn't exist create it.
-                if (folderProjectItem == null)
-                {
-                    folderProjectItem = instance.ProjectItems.AddFolder(folderName);
-                }
-
-                projectItems = folderProjectItem.ProjectItems;
-
-                path = folderProjectItem.Properties.Item("FullPath").Value;
-            }
 
             Solution2 solution = instance.DTE.Solution as Solution2;
 
@@ -264,12 +239,7 @@ namespace Scorchio.VisualStudio.Extensions
 
             if (templatePath != null)
             {
-                string filePath = string.Format(@"{0}\{1}\{2}", path, folderName, fileName);
-
-                if (File.Exists(filePath) == false)
-                {
-                    projectItems.AddFromTemplate(templatePath, fileName);
-                }
+                projectItems.AddFromTemplate(templatePath, fileName);
 
                 return true;
             }
@@ -363,12 +333,6 @@ namespace Scorchio.VisualStudio.Extensions
                     }
                 }
 
-                //// add the lib folder to the project!
-                if (addFileToFolder)
-                {
-                    instance.AddToFolderFromFile(destinationFolder, destination);
-                }
-
                 //// copy the assembly to the lib folder!
                 if (copyAssembly)
                 {
@@ -379,6 +343,12 @@ namespace Scorchio.VisualStudio.Extensions
                 {
                     //// reference the source and dont copy the file!
                     reference = instance.AddReference(source);
+                }
+
+                //// add the lib folder to the project! 
+                if (addFileToFolder)
+                {
+                    instance.AddToFolderFromFile(destinationFolder, destination);
                 }
             }
 
@@ -395,7 +365,7 @@ namespace Scorchio.VisualStudio.Extensions
             this Project instance,
             string path)
         {
-            TraceService.WriteLine("ProjectExtensions::AddReference project=" + instance.Name + " path=" + path);
+            TraceService.WriteLine("ProjectExtensions::AddReference project=" + instance.Name);
             TraceService.WriteLine("Path=" + path);
 
             Reference reference = null;
@@ -520,13 +490,21 @@ namespace Scorchio.VisualStudio.Extensions
                 assembliesPath,
                 assembly)))
             {
-                TraceService.WriteLine("path=" + path);
-
                 if (File.Exists(path))
                 {
                     instance.AddReference(path);
                 }
             }
+        }
+
+        /// <summary>
+        /// Determines whether [has nuget packages] [the specified instance].
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns>True or false.</returns>
+        public static bool HasNugetPackages(this Project instance)
+        {
+            return instance.GetProjectItems().FirstOrDefault(x => x.Name == "packages.config") != null;
         }
     }
 }

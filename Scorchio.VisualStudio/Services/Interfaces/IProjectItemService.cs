@@ -22,6 +22,11 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         string Name { get; }
 
         /// <summary>
+        /// Gets the name of the file.
+        /// </summary>
+        string FileName { get; }
+
+        /// <summary>
         /// Gets the kind.
         /// </summary>
         string Kind { get; }
@@ -205,5 +210,13 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// Removes the double blank lines.
         /// </summary>
         void RemoveDoubleBlankLines();
+
+        /// <summary>
+        /// Gets the folder.
+        /// </summary>
+        /// <returns>The folder name.</returns>
+        string GetFolder();
+
+        IProjectService ContainingProjectService { get; }
     }
 }

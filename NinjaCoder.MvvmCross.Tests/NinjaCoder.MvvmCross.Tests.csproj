@@ -38,11 +38,6 @@
     <Reference Include="envdte, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
-    <Reference Include="EnvDTE80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>..\..\..\..\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\PublicAssemblies\EnvDTE80.dll</HintPath>
-    </Reference>
     <Reference Include="Moq, Version=4.0.10827.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\Moq.dll</HintPath>
@@ -56,8 +51,6 @@
       <HintPath>Lib\System.IO.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.Compression" />
-    <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -69,10 +62,13 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Controllers\TestPluginsController.cs" />
-    <Compile Include="Controllers\TestConfigurationController.cs" />
     <Compile Include="Controllers\TestProjectsController.cs" />
+    <Compile Include="Factories\TestCodeConfigFactory.cs" />
+    <Compile Include="Factories\TestCodeSnippetFactory.cs" />
+    <Compile Include="Factories\TestMockingServiceFactory.cs" />
+    <Compile Include="Factories\TestPluginFactory.cs" />
+    <Compile Include="Factories\TestTestingServiceFactory.cs" />
     <Compile Include="Helper.cs" />
-    <Compile Include="Infrastructure\IoC\TestTinyIoC.cs" />
     <Compile Include="Mocks\MockDirectory.cs" />
     <Compile Include="Mocks\MockDirectoryInfo.cs" />
     <Compile Include="Mocks\MockDirectoryInfoFactory.cs" />
@@ -80,12 +76,7 @@
     <Compile Include="Mocks\MockFileInfo.cs" />
     <Compile Include="Mocks\MockFileInfoBase.cs" />
     <Compile Include="Mocks\MockPathBase.cs" />
-    <Compile Include="Presenters\TestItemTemplatesPresenter.cs" />
-    <Compile Include="Presenters\TestOptionsPresenter.cs" />
-    <Compile Include="Presenters\TestPluginsPresenter.cs" />
-    <Compile Include="Presenters\TestServicesPresenter.cs" />
-    <Compile Include="Presenters\TestSolutionOptionsPresenter.cs" />
-    <Compile Include="Presenters\TestViewModelOptionsPresenter.cs" />
+    <Compile Include="Services\TestApplicationService.cs" />
     <Compile Include="Services\TestCodeConfigService.cs" />
     <Compile Include="Services\TestPluginService.cs" />
     <Compile Include="Services\TestConfigurationService.cs" />
@@ -94,6 +85,7 @@
     <Compile Include="Services\TestPluginsService.cs" />
     <Compile Include="Services\TestProjectsService.cs" />
     <Compile Include="Services\TestReadMeService.cs" />
+    <Compile Include="Services\TestServicesService.cs" />
     <Compile Include="Services\TestSnippetService.cs" />
     <Compile Include="Services\TestUpdateVersionService.cs" />
     <Compile Include="Services\TestZipperService.cs" />
@@ -107,6 +99,10 @@
       <Project>{678643f4-34d9-43ac-ac1b-55fc0d58b598}</Project>
       <Name>NinjaCoder.MvvmCross</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Scorchio.Infrastructure\Scorchio.Infrastructure.csproj">
+      <Project>{8788b9f4-d0b8-406b-b0bc-dbb581b453cc}</Project>
+      <Name>Scorchio.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Scorchio.VisualStudio\Scorchio.VisualStudio.csproj">
       <Project>{012e2419-08c3-4555-af80-f101b02bbcf0}</Project>
       <Name>Scorchio.VisualStudio</Name>
@@ -114,9 +110,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Lib\Moq.dll" />
-    <Content Include="Lib\nunit.framework.dll" />
-    <Content Include="Lib\System.IO.Abstractions.dll" />
+    <None Include="Lib\Moq.dll" />
+    <None Include="Lib\nunit.framework.dll" />
+    <None Include="Lib\System.IO.Abstractions.dll" />
     <Content Include="TestData\CodeSnippet.xml" />
     <Content Include="TestData\CodeConfig.xml" />
   </ItemGroup>

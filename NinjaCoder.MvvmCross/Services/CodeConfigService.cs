@@ -12,7 +12,6 @@ namespace NinjaCoder.MvvmCross.Services
     using NinjaCoder.MvvmCross.Constants;
     using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Services.Interfaces;
-    using NinjaCoder.MvvmCross.Translators;
 
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Extensions;
@@ -35,44 +34,32 @@ namespace NinjaCoder.MvvmCross.Services
         private readonly ISettingsService settingsService;
 
         /// <summary>
-        /// The translator.
-        /// </summary>
-        private readonly ITranslator<string, CodeConfig> translator;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="CodeConfigService" /> class.
         /// </summary>
         /// <param name="fileSystem">The file system.</param>
         /// <param name="settingsService">The settings service.</param>
-        /// <param name="translator">The translator.</param>
         public CodeConfigService(
             IFileSystem fileSystem,
-            ISettingsService settingsService,
-            ITranslator<string, CodeConfig> translator)
+            ISettingsService settingsService)
         {
             this.fileSystem = fileSystem;
             this.settingsService = settingsService;
-            this.translator = translator;
         }
 
         /// <summary>
         /// Processes the code config.
         /// </summary>
         /// <param name="projectService">The project service.</param>
-        /// <param name="friendlyName">Name of the friendly.</param>
+        /// <param name="codeConfig">The code config.</param>
         /// <param name="extensionSource">The extension source.</param>
         /// <param name="extensionDestination">The extension destination.</param>
-        /// <returns>The code config.</returns>
-        public CodeConfig ProcessCodeConfig(
+        public void ProcessCodeConfig(
             IProjectService projectService,
-            string friendlyName,
+            CodeConfig codeConfig,
             string extensionSource,
             string extensionDestination)
         {
-            TraceService.WriteLine("CodeConfigService::ProcessCodeConfig " + friendlyName);
-
-            //// grab the code config if it exists and process it.
-            CodeConfig codeConfig = this.GetUICodeConfig(projectService, friendlyName);
+            TraceService.WriteLine("CodeConfigService::ProcessCodeConfig");
 
             if (codeConfig != null)
             {
@@ -82,79 +69,15 @@ namespace NinjaCoder.MvvmCross.Services
                     string sourceDirectory = this.fileSystem.Path.GetDirectoryName(extensionSource);
                     string destinationDirectory = this.fileSystem.Path.GetDirectoryName(extensionDestination);
 
-                    if (codeConfig.References != null)
-                    {
-                        codeConfig.References.ForEach(
-                            x => projectService.AddReference(
-                                "Lib",
-                                destinationDirectory + @"\" + x,
-                                sourceDirectory + @"\" + x,
-                                this.settingsService.IncludeLibFolderInProjects,
-                                this.settingsService.CopyAssembliesToLibFolder));
-                    }
+                    codeConfig.References.ForEach(
+                        x => projectService.AddReference(
+                            "Lib",
+                            destinationDirectory + @"\" + x,
+                            sourceDirectory + @"\" + x,
+                            this.settingsService.IncludeLibFolderInProjects,
+                            this.settingsService.CopyAssembliesToLibFolder));
                 }
             }
-
-            return codeConfig;
-        }
-
-        /// <summary>
-        /// Gets the code config from path.
-        /// </summary>
-        /// <param name="path">The path.</param>
-        /// <returns>The code config.</returns>
-        public CodeConfig GetCodeConfigFromPath(string path)
-        {
-            return this.translator.Translate(path);
-        }
-
-        /// <summary>
-        /// Gets the config.
-        /// </summary>
-        /// <param name="projectService">The project service.</param>
-        /// <param name="friendlyName">Name of the friendly.</param>
-        /// <param name="useProjectExtension">if set to <c>true</c> [use project extension].</param>
-        /// <returns>The code config.</returns>
-        public CodeConfig GetCodeConfig(
-            IProjectService projectService,
-            string friendlyName,
-            bool useProjectExtension)
-        {
-            TraceService.WriteLine("CodeConfigService::GetConfig friendlyName=" + friendlyName);
-
-            string projectExtension = string.Empty;
-
-            //// look for ui config files!
-            if (useProjectExtension &&
-                projectService.Name.ToLower().Contains("core") == false)
-            {
-                projectExtension = "." + projectService.Name.Split('.')[1];
-            }
-
-            string path = string.Format(
-                    @"{0}\Plugins\Config.Plugin.{1}{2}.xml",
-                    this.settingsService.ConfigPath,
-                    friendlyName,
-                    projectExtension);
-
-            TraceService.WriteLine("path=" + path);
-
-            return this.translator.Translate(path);
-        }
-
-        /// <summary>
-        /// Gets the UI code config.
-        /// </summary>
-        /// <param name="projectService">The project service.</param>
-        /// <param name="friendlyName">Name of the friendly.</param>
-        /// <returns>The code config.</returns>
-        public CodeConfig GetUICodeConfig(
-            IProjectService projectService, 
-            string friendlyName)
-        {
-            TraceService.WriteLine("CodeConfigService::GetUICodeConfig friendlyName=" + friendlyName);
-
-            return this.GetCodeConfig(projectService, friendlyName, true);
         }
 
         /// <summary>
@@ -261,19 +184,16 @@ namespace NinjaCoder.MvvmCross.Services
         public IEnumerable<string> ApplyCodeDependencies(
             IVisualStudioService visualStudioService, CodeConfig codeConfig)
         {
-            TraceService.WriteLine("ServicesService::ApplyCodeDependencies");
+            TraceService.WriteLine("CodeConfigService::ApplyCodeDependencies");
 
             List<string> messages = new List<string>();
 
             //// apply any code dependencies
-            if (codeConfig.CodeDependencies != null)
+            foreach (CodeSnippet codeSnippet in codeConfig.CodeDependencies)
             {
-                foreach (CodeSnippet codeSnippet in codeConfig.CodeDependencies)
-                {
-                    IEnumerable<string> snippetMessages = this.ApplyCodeSnippet(visualStudioService, codeSnippet);
+                IEnumerable<string> snippetMessages = this.ApplyCodeSnippet(visualStudioService, codeSnippet);
 
-                    messages.AddRange(snippetMessages);
-                }
+                messages.AddRange(snippetMessages);
             }
 
             return messages;
@@ -289,6 +209,8 @@ namespace NinjaCoder.MvvmCross.Services
             IVisualStudioService visualStudioService, 
             CodeSnippet codeSnippet)
         {
+            TraceService.WriteLine("CodeConfigService::ApplyCodeSnippet");
+
             List<string> messages = new List<string>();
 
             //// find the project

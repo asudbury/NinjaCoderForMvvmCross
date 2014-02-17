@@ -11,9 +11,10 @@ namespace NinjaCoder.MvvmCross.Tests.Services
     using System.IO.Compression;
 
     using Moq;
-    using NinjaCoder.MvvmCross.Services;
     using NinjaCoder.MvvmCross.Tests.Mocks;
     using NUnit.Framework;
+
+    using Scorchio.Infrastructure.Services;
 
     /// <summary>
     ///  Defines the TestZipperService type.

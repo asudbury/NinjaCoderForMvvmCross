@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio.Extensions
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -194,20 +195,18 @@ namespace Scorchio.VisualStudio.Extensions
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="templateInfos">The template infos.</param>
-        /// <param name="createFolder">if set to <c>true</c> [create folder].</param>
-        /// <returns> The messages. </returns>
+        /// <returns>The messages.</returns>
         public static IEnumerable<string> AddItemTemplateToProjects(
              this Solution2 instance,
-            IEnumerable<ItemTemplateInfo> templateInfos,
-            bool createFolder) 
+            IEnumerable<ItemTemplateInfo> templateInfos) 
         {
+            TraceService.WriteLine("SolutionExtensions::AddItemTemplateToProjects");
+
             List<string> messages = new List<string>();
 
             IEnumerable<Project> projects = instance.GetProjects();
 
             IEnumerable<Project> projectItems = projects as Project[] ?? projects.ToArray();
-
-            TraceService.WriteError("AddItemTemplateToProjects project count=" + projectItems.Count());
 
             foreach (ItemTemplateInfo info in templateInfos)
             {
@@ -215,8 +214,20 @@ namespace Scorchio.VisualStudio.Extensions
 
                 if (project != null)
                 {
-                    project.AddToFolderFromTemplate(info.FolderName, info.TemplateName, info.FileName, createFolder);
-                    messages.Add(info.FolderName + @"\" + info.FileName + ".cs added to " + project.Name + " project.");
+                    string context =  " project=" + project.Name + " template=" + info.TemplateName + " fileName=" + info.FileName;
+
+                    TraceService.WriteLine("AddItemTemplateToProjects"  + context);
+
+                    try
+                    {
+                        project.AddToFolderFromTemplate(info.TemplateName, info.FileName);
+                        messages.Add(info.FileName + " added to " + project.Name + " project.");
+                    }
+
+                    catch (Exception exception)
+                    {
+                        TraceService.WriteError( context + " exception=" + exception.Message);
+                    }
                 }
                 else
                 {

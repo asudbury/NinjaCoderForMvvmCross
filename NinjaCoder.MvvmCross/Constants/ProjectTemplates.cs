@@ -16,9 +16,14 @@ namespace NinjaCoder.MvvmCross.Constants
         public const string Core = "MvvmCross." + Settings.Core + ".zip";
 
         /// <summary>
-        /// The tests
+        /// The nunit tests
         /// </summary>
-        public const string Tests = "MvvmCross." + Settings.Core + ".Tests.zip";
+        public const string NUnitTests = "MvvmCross." + Settings.Core + ".NUnit.Tests.zip";
+
+        /// <summary>
+        /// The mstest tests
+        /// </summary>
+        public const string MsTestTests = "MvvmCross." + Settings.Core + ".MSTest.Tests.zip";
 
         /// <summary>
         /// The iOS

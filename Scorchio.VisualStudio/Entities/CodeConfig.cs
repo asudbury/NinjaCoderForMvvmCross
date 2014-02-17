@@ -13,9 +13,19 @@ namespace Scorchio.VisualStudio.Entities
     /// Defines the CodeConfig type.
     /// </summary>
     [Serializable]
-    [XmlRoot(ElementName = "CodeConfig", Namespace = "")]
+    [XmlRoot(ElementName = "CodeConfig")]
     public class CodeConfig 
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeConfig" /> class.
+        /// </summary>
+        public CodeConfig()
+        {
+            this.References = new List<string>();
+            this.DependentPlugins = new List<string>();
+            this.CodeDependencies = new List<CodeSnippet>();
+        }
+
         /// <summary>
         /// Gets or sets the references.
         /// </summary>

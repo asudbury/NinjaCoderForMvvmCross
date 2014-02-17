@@ -8,6 +8,8 @@ namespace NinjaCoder.MvvmCross.Translators
     using System.IO;
     using System.Xml;
     using System.Xml.Serialization;
+
+    using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Entities;
 
     /// <summary>

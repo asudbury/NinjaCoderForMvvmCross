@@ -10,6 +10,9 @@ namespace NinjaCoder.MvvmCross.Services
 
     using Constants;
     using Interfaces;
+
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
+
     using Scorchio.VisualStudio.Services;
 
     /// <summary>
@@ -23,14 +26,24 @@ namespace NinjaCoder.MvvmCross.Services
         private readonly IFileSystem fileSystem;
 
         /// <summary>
+        /// The settings service.
+        /// </summary>
+        private readonly ISettingsService settingsService;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ConfigurationService" /> class.
         /// </summary>
         /// <param name="fileSystem">The file system.</param>
-        public ConfigurationService(IFileSystem fileSystem)
+        /// <param name="settingsService">The settings service.</param>
+        public ConfigurationService(
+            IFileSystem fileSystem,
+            ISettingsService settingsService
+        )
         {
             TraceService.WriteLine("ConfigurationService::Constructor");
 
             this.fileSystem = fileSystem;
+            this.settingsService = settingsService;
         }
 
         /// <summary>
@@ -40,13 +53,37 @@ namespace NinjaCoder.MvvmCross.Services
         {
             TraceService.WriteLine("ConfigurationService::CreateUserDirectories");
 
-            string myDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            //// we only need to do the once!
+            if (this.settingsService.DefaultUsersPathsSet == false)
+            {
+                string myDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-            string parentPath = this.CreateDirectoryIfNotExist(myDocumentsPath, Settings.ApplicationName);
-            this.CreateDirectoryIfNotExist(parentPath, "CodeSnippets");
+                string applicationPath = this.CreateDirectoryIfNotExist(myDocumentsPath, Settings.ApplicationName);
 
-            string mvvmCrossPath = this.CreateDirectoryIfNotExist(parentPath, "MvvmCross");
-            this.CreateDirectoryIfNotExist(mvvmCrossPath, "Assemblies");
+                string path = this.CreateDirectoryIfNotExist(applicationPath, @"Plugins\");
+                this.settingsService.DefaultUserPluginsPath = path;
+
+                path = this.CreateDirectoryIfNotExist(applicationPath, @"Services\");
+                this.settingsService.DefaultUserServicesPath = path;
+                
+                string parentPath = this.CreateDirectoryIfNotExist(applicationPath, @"CodeSnippets\");
+
+                path = this.CreateDirectoryIfNotExist(parentPath, @"Plugins\");
+                this.settingsService.DefaultUserCodeSnippetsPluginsPath = path;
+
+                path = this.CreateDirectoryIfNotExist(parentPath, @"Services\");
+                this.settingsService.DefaultUserCodeSnippetsServicesPath = path;
+                
+                parentPath = this.CreateDirectoryIfNotExist(applicationPath, @"Config\");
+
+                path = this.CreateDirectoryIfNotExist(parentPath, @"Plugins\");
+                this.settingsService.DefaultUserCodeConfigPluginsPath = path;
+
+                path = this.CreateDirectoryIfNotExist(parentPath, @"Services\");
+                this.settingsService.DefaultUserCodeConfigServicesPath = path;
+
+                this.settingsService.DefaultUsersPathsSet = true;
+            }
         }
 
         /// <summary>
@@ -59,9 +96,14 @@ namespace NinjaCoder.MvvmCross.Services
             string parentPath,
             string directoryName)
         {
-            TraceService.WriteLine("ConfigurationService::CreateDirectoryIfNotExist directoryName=" + directoryName);
+            if (parentPath.EndsWith(@"\"))
+            {
+                parentPath = parentPath.Remove(parentPath.Length-1);
+            }
 
             string path = string.Format(@"{0}\{1}", parentPath, directoryName);
+
+            TraceService.WriteLine("ConfigurationService::CreateDirectoryIfNotExist path=" + path);
 
             if (this.fileSystem.Directory.Exists(path) == false)
             {
@@ -76,22 +118,6 @@ namespace NinjaCoder.MvvmCross.Services
             }
 
             return path;
-        }
-
-        /// <summary>
-        /// Creates the plugins directory if not exist.
-        /// </summary>
-        /// <param name="parentPath">The parent path.</param>
-        /// <param name="directoryName">Name of the directory.</param>
-        /// <returns>The new directory path.</returns>
-        internal string CreatePluginsDirectoryIfNotExist(
-            string parentPath,
-            string directoryName)
-        {
-            TraceService.WriteLine("ConfigurationService::CreatePluginsDirectoryIfNotExist directoryName=" + directoryName);
-
-            string path = this.CreateDirectoryIfNotExist(parentPath, directoryName);
-            return this.CreateDirectoryIfNotExist(path, "Plugins");
         }
     }
 }

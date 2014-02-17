@@ -61,11 +61,6 @@ namespace NinjaCoder.MvvmCross.Constants
         public const string Wpf = "Wpf";
 
         /// <summary>
-        /// The default path
-        /// </summary>
-        public const string DefaultPath = "DefaultPath";
-
-        /// <summary>
         /// The replace blank lines reg ex
         /// </summary>
         public const string ReplaceBlankLinesRegEx = @"(?<!\r)\n";
@@ -130,5 +125,14 @@ namespace NinjaCoder.MvvmCross.Constants
         /// </summary>
         public const string DirectoryExists = "The directory is not empty please select another one.";
 
+        /// <summary>
+        /// The view model exists.
+        /// </summary>
+        public const string ViewModelExists = "The view model already exists, please select another one.";
+
+        /// <summary>
+        /// The base view model name.
+        /// </summary>
+        public const string BaseViewModelName = "BaseViewModel";
     }
 }

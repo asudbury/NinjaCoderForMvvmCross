@@ -5,7 +5,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Tests.Controllers
 {
-    using System.IO.Abstractions;
     using System.Runtime.InteropServices;
 
     using Castle.DynamicProxy.Generators;
@@ -14,10 +13,12 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
 
     using Moq;
     using NinjaCoder.MvvmCross.Controllers;
+    using NinjaCoder.MvvmCross.Factories.Interfaces;
     using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using NUnit.Framework;
 
+    using Scorchio.Infrastructure.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
 
     /// <summary>
@@ -30,6 +31,11 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
         /// The controller.
         /// </summary>
         private ProjectsController controller;
+
+        /// <summary>
+        /// The mock configuration service.
+        /// </summary>
+        private Mock<IConfigurationService> mockConfigurationService;
 
         /// <summary>
         /// The mock projects service.
@@ -67,25 +73,30 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
         private Mock<Project> mockProject;
 
         /// <summary>
+        /// The mocking service factory.
+        /// </summary>
+        private Mock<IMockingServiceFactory> mockingServiceFactory;
+
+        /// <summary>
         /// The mock message box service.
         /// </summary>
         private Mock<IMessageBoxService> mockMessageBoxService;
 
         /// <summary>
-        /// The mock dialog service.
+        /// The mock resolver service.
         /// </summary>
-        private Mock<IDialogService> mockDialogService;
+        private Mock<IResolverService> mockResolverService;
 
         /// <summary>
-        /// The mock forms service.
+        /// The mock view model views service.
         /// </summary>
-        private Mock<IFormsService> mockFormsService;
+        private Mock<IViewModelViewsService> mockViewModelViewsService;
 
         /// <summary>
-        /// The mock file system.
+        /// The mock view model and views factory.
         /// </summary>
-        private Mock<IFileSystem> mockFileSystem;
-
+        private Mock<IViewModelAndViewsFactory> mockViewModelAndViewsFactory;
+        
         /// <summary>
         /// Initializes this instance.
         /// </summary>
@@ -94,26 +105,32 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
         {
             AttributesToAvoidReplicating.Add<TypeIdentifierAttribute>();
 
+            this.mockConfigurationService = new Mock<IConfigurationService>();
             this.mockProjectsService = new Mock<IProjectsService>();
             this.mockNugetService = new Mock<INugetService>();
             this.mockVisualStudioService = new Mock<IVisualStudioService>();
             this.mockReadMeService = new Mock<IReadMeService>();
             this.mockSettingsService = new Mock<ISettingsService>();
             this.mockMessageBoxService = new Mock<IMessageBoxService>();
-            this.mockDialogService = new Mock<IDialogService>();
-            this.mockFormsService = new Mock<IFormsService>();
-            this.mockFileSystem = new Mock<IFileSystem>();
+            this.mockingServiceFactory = new Mock<IMockingServiceFactory>();
+            this.mockViewModelViewsService = new Mock<IViewModelViewsService>();
+            this.mockViewModelAndViewsFactory = new Mock<IViewModelAndViewsFactory>();
+
+            this.mockResolverService = new Mock<IResolverService>();
+
 
             this.controller = new ProjectsController(
+                this.mockConfigurationService.Object,
                 this.mockProjectsService.Object,
                 this.mockNugetService.Object,
                 this.mockVisualStudioService.Object,
                 this.mockReadMeService.Object,
                 this.mockSettingsService.Object,
                 this.mockMessageBoxService.Object,
-                this.mockDialogService.Object,
-                this.mockFormsService.Object,
-                this.mockFileSystem.Object);
+                this.mockingServiceFactory.Object,
+                this.mockResolverService.Object,
+                this.mockViewModelViewsService.Object,
+                this.mockViewModelAndViewsFactory.Object);
 
             //// setup the project service and core project once!
             this.mockProjectService = new Mock<IProjectService>();
@@ -138,6 +155,18 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
             mockDTEService.Setup(x => x.GetDefaultProjectsLocation()).Returns(@"c:\temp\");
 
             this.controller.Run();
+        }
+
+        /// <summary>
+        /// Tests the fix info plist.
+        /// </summary>
+        [Test]
+        public void TestFixInfoPlist()
+        {
+            Mock<IProjectItemService> mockProjectItemService = new Mock<IProjectItemService>();
+            mockProjectItemService.Setup(x => x.FileName).Returns(@"B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\NinjaCoder.MvvmCross.Tests\TestData\info.plist");
+            
+            this.controller.FixInfoPlist(mockProjectItemService.Object, "Adrian.iOS");
         }
     }
 }

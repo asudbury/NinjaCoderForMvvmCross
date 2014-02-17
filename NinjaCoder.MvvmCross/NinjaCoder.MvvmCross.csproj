@@ -36,31 +36,33 @@
     <Reference Include="EnvDTE80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="MahApps.Metro, Version=0.0.0.999, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\MahApps.Metro.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Abstractions, Version=1.4.0.64, Culture=neutral, PublicKeyToken=d480b5b72fb413da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\System.IO.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml.Serialization" />
     <Reference Include="VSLangProj, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\..\..\..\Program Files (x86)\Common Files\microsoft shared\MSEnv\PublicAssemblies\VSLangProj.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\NinjaCoder.MvvmCross.Infrastructure\Extensions\ListExtensions.cs">
-      <Link>Extensions\ListExtensions.cs</Link>
-    </Compile>
     <Compile Include="..\NinjaCoder.MvvmCross.Infrastructure\Services\ISettingsService.cs">
       <Link>Services\Interfaces\ISettingsService.cs</Link>
     </Compile>
@@ -68,11 +70,13 @@
       <Link>Services\SettingsService.cs</Link>
     </Compile>
     <Compile Include="Constants\FriendlyNames.cs" />
-    <Compile Include="Constants\ItemTemplates.cs" />
+    <Compile Include="Constants\LanguageConstants.cs" />
     <Compile Include="Constants\NinjaMessages.cs" />
+    <Compile Include="Constants\NugetConstants.cs" />
     <Compile Include="Constants\ProjectSuffixes.cs" />
     <Compile Include="Constants\Settings.cs" />
     <Compile Include="Constants\ProjectTemplates.cs" />
+    <Compile Include="Constants\Themes.cs" />
     <Compile Include="Constants\Variables.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\ConvertersController.cs" />
@@ -82,189 +86,238 @@
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\ViewModelViewsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\ConfigurationController.cs" />
     <Compile Include="Entities\Plugin.cs" />
     <Compile Include="Entities\Plugins.cs" />
     <Compile Include="Exceptions\NinjaCoderServiceException.cs" />
     <Compile Include="Exceptions\NinjaCoderException.cs" />
-    <Compile Include="Extensions\DirectoryInfoExtensions.cs" />
-    <Compile Include="Extensions\Infrastructure\IoC\TinyIoC.cs" />
-    <Compile Include="Presenters\BasePresenter.cs" />
-    <Compile Include="Presenters\ItemTemplatesPresenter.cs" />
-    <Compile Include="Presenters\OptionsPresenter.cs" />
-    <Compile Include="Presenters\PluginsPresenter.cs" />
-    <Compile Include="Presenters\ServicesPresenter.cs" />
-    <Compile Include="Presenters\ProjectsPresenter.cs" />
-    <Compile Include="Presenters\ViewModelViewsPresenter.cs" />
+    <Compile Include="Extensions\IoC\TinyIoC.cs" />
+    <Compile Include="Factories\CodeConfigFactory.cs" />
+    <Compile Include="Factories\CodeSnippetFactory.cs" />
+    <Compile Include="Factories\Interfaces\ICodeConfigFactory.cs" />
+    <Compile Include="Factories\Interfaces\ICodeSnippetFactory.cs" />
+    <Compile Include="Factories\Interfaces\ILanguageFactory.cs" />
+    <Compile Include="Factories\Interfaces\IMockingServiceFactory.cs" />
+    <Compile Include="Factories\Interfaces\IPluginFactory.cs" />
+    <Compile Include="Factories\Interfaces\IProjectFactory.cs" />
+    <Compile Include="Factories\Interfaces\ITestingServiceFactory.cs" />
+    <Compile Include="Factories\Interfaces\IViewModelAndViewsFactory.cs" />
+    <Compile Include="Factories\LanguageFactory.cs" />
+    <Compile Include="Factories\MockingServiceFactory.cs" />
+    <Compile Include="Factories\PluginFactory.cs" />
+    <Compile Include="Factories\ProjectFactory.cs" />
+    <Compile Include="Factories\TestingServiceFactory.cs" />
+    <Compile Include="Factories\ViewModelAndViewsFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Settings1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
+    <Compile Include="Services\ApplicationService.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\CodeConfigService.cs" />
     <Compile Include="Services\ConfigurationService.cs" />
     <Compile Include="Services\ConvertersService.cs" />
-    <Compile Include="Services\DialogService.cs" />
-    <Compile Include="Services\FormsService.cs" />
-    <Compile Include="Services\Interfaces\IBaseService.cs" />
+    <Compile Include="Services\Interfaces\IApplicationService.cs" />
     <Compile Include="Services\Interfaces\ICodeConfigService.cs" />
+    <Compile Include="Services\Interfaces\ICodeSnippetService.cs" />
     <Compile Include="Services\Interfaces\IConfigurationService.cs" />
     <Compile Include="Services\Interfaces\IConvertersService.cs" />
-    <Compile Include="Services\Interfaces\IDialogService.cs" />
-    <Compile Include="Services\Interfaces\IFormsService.cs" />
-    <Compile Include="Services\Interfaces\IMessageBoxService.cs" />
     <Compile Include="Services\Interfaces\INugetService.cs" />
     <Compile Include="Services\Interfaces\IPluginService.cs" />
     <Compile Include="Services\Interfaces\IPluginsService.cs" />
     <Compile Include="Services\Interfaces\IProjectsService.cs" />
     <Compile Include="Services\Interfaces\IReadMeService.cs" />
+    <Compile Include="Services\Interfaces\IRegisterService.cs" />
+    <Compile Include="Services\Interfaces\IResolverService.cs" />
     <Compile Include="Services\Interfaces\IServicesService.cs" />
-    <Compile Include="Services\Interfaces\ISnippetService.cs" />
     <Compile Include="Services\Interfaces\IUpdateVersionService.cs" />
     <Compile Include="Services\Interfaces\IViewModelViewsService.cs" />
     <Compile Include="Services\Interfaces\IVisualStudioService.cs" />
-    <Compile Include="Services\Interfaces\IZipperService.cs" />
-    <Compile Include="Services\MessageBoxService.cs" />
     <Compile Include="Services\NugetService.cs" />
     <Compile Include="Services\PluginService.cs" />
     <Compile Include="Services\PluginsService.cs" />
     <Compile Include="Services\ProjectsService.cs" />
     <Compile Include="Services\ReadMeService.cs" />
+    <Compile Include="Services\RegisterService.cs" />
+    <Compile Include="Services\ResolverService.cs" />
     <Compile Include="Services\ServicesService.cs" />
-    <Compile Include="Services\SnippetService.cs" />
+    <Compile Include="Services\CodeSnippetService.cs" />
     <Compile Include="Services\UpdateVersionService.cs" />
     <Compile Include="Services\ViewModelViewsService.cs" />
     <Compile Include="Services\VisualStudioService.cs" />
-    <Compile Include="Services\ZipperService.cs" />
     <Compile Include="Translators\CodeConfigTranslator.cs" />
-    <Compile Include="Translators\ITranslator.cs" />
     <Compile Include="Translators\PluginsTranslator.cs" />
     <Compile Include="Translators\CodeSnippetTranslator.cs" />
     <Compile Include="Translators\PluginTranslator.cs" />
-    <Compile Include="UserControls\IMvxListView.cs" />
-    <Compile Include="UserControls\Logo.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="UserControls\Options\BaseUserControl.cs" />
+    <Compile Include="UserControls\Options\BuildUserControl.xaml.cs">
+      <DependentUpon>BuildUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Logo.Designer.cs">
-      <DependentUpon>Logo.cs</DependentUpon>
+    <Compile Include="UserControls\Options\CodingStyleUserControl.xaml.cs">
+      <DependentUpon>CodingStyleUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\MvxListView.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="UserControls\Options\NugetUserControl.xaml.cs">
+      <DependentUpon>NugetUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\MvxListView.Designer.cs">
-      <DependentUpon>MvxListView.cs</DependentUpon>
+    <Compile Include="UserControls\Options\PluginsUserControl.xaml.cs">
+      <DependentUpon>PluginsUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AboutBoxForm.cs">
-      <SubType>Form</SubType>
+    <Compile Include="UserControls\Options\ProjectsUserControl.xaml.cs">
+      <DependentUpon>ProjectsUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AboutBoxForm.Designer.cs">
-      <DependentUpon>AboutBoxForm.cs</DependentUpon>
+    <Compile Include="UserControls\Options\TracingUserControl.xaml.cs">
+      <DependentUpon>TracingUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\BaseView.cs">
-      <SubType>Form</SubType>
+    <Compile Include="UserControls\Options\VisualUserControl.xaml.cs">
+      <DependentUpon>VisualUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Interfaces\IPluginsView.cs" />
-    <Compile Include="Views\Interfaces\IServicesView.cs" />
-    <Compile Include="Views\ItemTemplatesForm.cs">
-      <SubType>Form</SubType>
+    <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\ConvertersViewModel.cs" />
+    <Compile Include="ViewModels\DownloadViewModel.cs" />
+    <Compile Include="ViewModels\Options\BuildViewModel.cs" />
+    <Compile Include="ViewModels\Options\CodingStyleViewModel.cs" />
+    <Compile Include="ViewModels\Options\NugetViewModel.cs" />
+    <Compile Include="ViewModels\Options\OptionsViewModel.cs" />
+    <Compile Include="ViewModels\Options\PluginsViewModel.cs" />
+    <Compile Include="ViewModels\Options\ProjectsViewModel.cs" />
+    <Compile Include="ViewModels\Options\TracingViewModel.cs" />
+    <Compile Include="ViewModels\Options\VisualViewModel.cs" />
+    <Compile Include="ViewModels\PluginsViewModel.cs" />
+    <Compile Include="ViewModels\ProjectsViewModel.cs" />
+    <Compile Include="ViewModels\ServicesViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelViewsViewModel.cs" />
+    <Compile Include="Views\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ItemTemplatesForm.Designer.cs">
-      <DependentUpon>ItemTemplatesForm.cs</DependentUpon>
+    <Compile Include="Views\BaseView.cs" />
+    <Compile Include="Views\ConvertersView.xaml.cs">
+      <DependentUpon>ConvertersView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Interfaces\IItemTemplatesView.cs" />
-    <Compile Include="Views\Interfaces\IOptionsView.cs" />
-    <Compile Include="Views\Interfaces\IProjectsView.cs" />
-    <Compile Include="Views\Interfaces\IViewModelViewsView.cs" />
-    <Compile Include="Views\OptionsForm.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Views\DownloadView.xaml.cs">
+      <DependentUpon>DownloadView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OptionsForm.designer.cs">
-      <DependentUpon>OptionsForm.cs</DependentUpon>
+    <Compile Include="Views\OptionsView.xaml.cs">
+      <DependentUpon>OptionsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PluginsForm.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Views\PluginsView.xaml.cs">
+      <DependentUpon>PluginsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PluginsForm.Designer.cs">
-      <DependentUpon>PluginsForm.cs</DependentUpon>
+    <Compile Include="Views\ProjectsView.xaml.cs">
+      <DependentUpon>ProjectsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ServicesForm.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Views\ServicesView.xaml.cs">
+      <DependentUpon>ServicesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ServicesForm.Designer.cs">
-      <DependentUpon>ServicesForm.cs</DependentUpon>
+    <Compile Include="Views\ViewModelViewsView.xaml.cs">
+      <DependentUpon>ViewModelViewsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ProjectsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\ProjectsForm.Designer.cs">
-      <DependentUpon>ProjectsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ViewModelViewsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\ViewModelViewsForm.Designer.cs">
-      <DependentUpon>ViewModelViewsForm.cs</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\Logo.resx">
-      <DependentUpon>Logo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\MvxListView.resx">
-      <DependentUpon>MvxListView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\AboutBoxForm.resx">
-      <DependentUpon>AboutBoxForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\ItemTemplatesForm.resx">
-      <DependentUpon>ItemTemplatesForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\OptionsForm.resx">
-      <DependentUpon>OptionsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\PluginsForm.resx">
-      <DependentUpon>PluginsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\ServicesForm.resx">
-      <DependentUpon>ServicesForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\ProjectsForm.resx">
-      <DependentUpon>ProjectsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\ViewModelViewsForm.resx">
-      <DependentUpon>ViewModelViewsForm.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Scorchio.Infrastructure\Scorchio.Infrastructure.csproj">
+      <Project>{8788b9f4-d0b8-406b-b0bc-dbb581b453cc}</Project>
+      <Name>Scorchio.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Scorchio.VisualStudio\Scorchio.VisualStudio.csproj">
       <Project>{012e2419-08c3-4555-af80-f101b02bbcf0}</Project>
       <Name>Scorchio.VisualStudio</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Lib\System.IO.Abstractions.dll" />
-    <Content Include="Resources\NinjaCoder.ico" />
+    <None Include="Lib\MahApps.Metro.dll" />
+    <None Include="Lib\System.IO.Abstractions.dll" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="obj\" />
-    <Folder Include="ViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Resources\App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Language.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\StringResources.fr-CA.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\StringResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Options\BuildUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Options\CodingStyleUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Options\NugetUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Options\PluginsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Options\ProjectsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Options\TracingUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Options\VisualUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConvertersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DownloadView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OptionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PluginsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProjectsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ServicesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Themes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewModelViewsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

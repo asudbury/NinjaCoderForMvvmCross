@@ -37,7 +37,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.SqliteDataService
         {
             TraceService.WriteLine("SqliteDataServiceWizard::OnRunStarted");
 
-            SqlDataServiceView view = new SqlDataServiceView(this.SettingsService.DisplayLogo);
+            SqlDataServiceView view = new SqlDataServiceView();
             view.ShowDialog();
 
             this.dialogResult = view.DialogResult;

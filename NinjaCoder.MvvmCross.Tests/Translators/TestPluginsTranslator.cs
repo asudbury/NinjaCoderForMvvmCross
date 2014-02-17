@@ -31,7 +31,7 @@ namespace NinjaCoder.MvvmCross.Tests.Translators
             SettingsService settingsService = new SettingsService();
 
             DirectoryInfoBase directoryInfo1 = new DirectoryInfo(settingsService.MvvmCrossAssembliesPath);
-            DirectoryInfoBase directoryInfo2 = new DirectoryInfo(settingsService.MvvmCrossAssembliesOverrideDirectory);
+            DirectoryInfoBase directoryInfo2 = new DirectoryInfo(settingsService.UserPluginsPath);
 
             Tuple<DirectoryInfoBase, DirectoryInfoBase> directories = new Tuple<DirectoryInfoBase, DirectoryInfoBase>(directoryInfo1, directoryInfo2);
 

@@ -161,7 +161,7 @@ namespace Scorchio.VisualStudio.Extensions
                     //// variable could already exist!
                     try
                     {
-                        instance.ImplementMockVariable(parts[1], parts[0]);
+                        instance.ImplementMockVariable(parts[1], parts[0], codeSnippet.MockingVariableDeclaration);
                     }
                     catch (Exception exception)
                     {
@@ -404,11 +404,13 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         /// <param name="name">The name.</param>
         /// <param name="type">The type.</param>
+        /// <param name="mockVariableDeclaration">The mock variable declaration.</param>
         /// <returns>The code variable.</returns>
         public static CodeVariable ImplementMockVariable(
             this CodeClass instance,
             string name,
-            string type)
+            string type,
+            string mockVariableDeclaration)
         {
             TraceService.WriteLine("CodeClassExtensions::ImplementMockVariable file=" + instance.Name);
 
@@ -418,12 +420,19 @@ namespace Scorchio.VisualStudio.Extensions
 
             codeVariable.DocComment = "<doc><summary>\r\nMock " + typeDescriptor + ".\r\n</summary></doc>";
             
+
             EditPoint startPoint = codeVariable.StartPoint.CreateEditPoint();
             EditPoint endPoint = codeVariable.EndPoint.CreateEditPoint();
 
-            string text = startPoint.GetText(endPoint);
-            string newText = text.Replace("private " + type, "private Mock<" + type + ">");
-            startPoint.ReplaceText(endPoint, newText, 0);
+            //// if we are Moq then we change the variable declaration.
+            if (string.IsNullOrEmpty(mockVariableDeclaration) == false)
+            {
+                string substitution = mockVariableDeclaration.Replace("%TYPE%", type);
+
+                string text = startPoint.GetText(endPoint);
+                string newText = text.Replace("private " + type, "private " + substitution);
+                startPoint.ReplaceText(endPoint, newText, 0);
+            }
 
             // get the new endpoint before inserting new line.
             endPoint = codeVariable.EndPoint.CreateEditPoint();

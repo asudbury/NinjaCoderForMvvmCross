@@ -16,11 +16,6 @@ namespace Scorchio.VisualStudio
         public const string BlankDocComment = "<doc></doc>";
 
         /// <summary>
-        /// Visual Studio 2012.
-        /// </summary>
-        public const string VisualStudio2012 = "VisualStudio.DTE.11.0";
-
-        /// <summary>
         /// Visual Studio default.
         /// </summary>
         public const string VisualStudio = "VisualStudio.DTE";

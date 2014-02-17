@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.logo1 = new NinjaCoder.MvvmCross.UserControls.Logo();
             this.TextBoxDataServiceInterface = new System.Windows.Forms.TextBox();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -40,16 +39,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.checkBoxUseIEnumerable = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
-            // 
-            // logo1
-            // 
-            this.logo1.BackColor = System.Drawing.Color.White;
-            this.logo1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.logo1.Location = new System.Drawing.Point(13, 13);
-            this.logo1.Margin = new System.Windows.Forms.Padding(4);
-            this.logo1.Name = "logo1";
-            this.logo1.Size = new System.Drawing.Size(273, 428);
-            this.logo1.TabIndex = 12;
+
             // 
             // TextBoxDataServiceInterface
             // 
@@ -170,7 +160,6 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBoxEntityName);
-            this.Controls.Add(this.logo1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "WebRequestServiceView";
@@ -183,7 +172,6 @@
 
         #endregion
 
-        private UserControls.Logo logo1;
         private System.Windows.Forms.TextBox TextBoxDataServiceInterface;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;

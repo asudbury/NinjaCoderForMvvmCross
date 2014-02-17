@@ -12,7 +12,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     /// <summary>
     ///  Defines the IServicesService type.
     /// </summary>
-    internal interface IServicesService
+    public interface IServicesService
     {
         /// <summary>
         /// Adds the services.

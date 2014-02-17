@@ -50,7 +50,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards
             WizardRunKind runKind, 
             object[] customParams)
         {
-            TraceService.WriteLine("BaseWizard::RunStarted");
+            ////TraceService.WriteLine("BaseWizard::RunStarted");
 
             this.SettingsService = new SettingsService();
 
@@ -86,7 +86,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards
         /// </summary>
         public void RunFinished()
         {
-            TraceService.WriteLine("BaseWizard::RunFinished");
+            ////TraceService.WriteLine("BaseWizard::RunFinished");
 
             if (this.SettingsService.ProcessTemplateWizards)
             {
@@ -100,7 +100,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards
         /// <param name="projectItem">The project item that will be opened.</param>
         public void BeforeOpeningFile(ProjectItem projectItem)
         {
-            TraceService.WriteLine("BaseWizard::BeforeOpeningFile projectItem=" + projectItem.Name);
+            ////TraceService.WriteLine("BaseWizard::BeforeOpeningFile projectItem=" + projectItem.Name);
 
             if (this.SettingsService.ProcessTemplateWizards)
             {
@@ -114,7 +114,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards
         /// <param name="projectItem">The project item that finished generating.</param>
         public void ProjectItemFinishedGenerating(ProjectItem projectItem)
         {
-            TraceService.WriteLine("BaseWizard::ProjectItemFinishedGenerating projectItem=" + projectItem.Name);
+            ////TraceService.WriteLine("BaseWizard::ProjectItemFinishedGenerating projectItem=" + projectItem.Name);
 
             if (this.SettingsService.ProcessTemplateWizards)
             {
@@ -128,7 +128,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards
         /// <param name="project">The project that finished generating.</param>
         public void ProjectFinishedGenerating(Project project)
         {
-            TraceService.WriteLine("BaseWizard::ProjectFinishedGenerating project=" + project.Name);
+            ////TraceService.WriteLine("BaseWizard::ProjectFinishedGenerating project=" + project.Name);
 
             if (this.SettingsService.ProcessTemplateWizards)
             {
@@ -160,7 +160,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards
             string key, 
             string value)
         {
-           TraceService.WriteLine("BaseWizard::AddGlobal key=" + key + " value=" + value);
+           ////TraceService.WriteLine("BaseWizard::AddGlobal key=" + key + " value=" + value);
 
             this.Dte.Solution.Globals[key] = value;
         }
@@ -173,7 +173,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards
         {
             string activeProjectKey = this.SettingsService.ActiveProject;
 
-            TraceService.WriteLine("BaseWizard::GetActiveProject Active project key=" + activeProjectKey);
+            ////TraceService.WriteLine("BaseWizard::GetActiveProject Active project key=" + activeProjectKey);
 
            if (string.IsNullOrEmpty(activeProjectKey) == false)
            {
@@ -241,7 +241,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards
         /// <returns>True or false.</returns>
         protected bool DoesFileExist(string path)
         {
-            TraceService.WriteLine("BaseWizard::DoesFileExist path=" + path);
+            ////TraceService.WriteLine("BaseWizard::DoesFileExist path=" + path);
 
             Solution2 solution2 = this.Dte.Solution as Solution2;
 

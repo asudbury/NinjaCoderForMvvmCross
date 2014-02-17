@@ -5,12 +5,10 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio.Extensions
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
     using Scorchio.VisualStudio.Entities;
-    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     ///  Defines the CodeSnippetsExtensions type.
@@ -31,14 +29,7 @@ namespace Scorchio.VisualStudio.Extensions
                 foreach (string[] parts in instance.MockVariables
                     .Select(variable => variable.Split(' ')))
                 {
-                    try
-                    {
-                        code = GetSpacedCodeLine(string.Format("this.{0} = new Mock<{1}>();", parts[1], parts[0]));
-                    }
-                    catch (Exception exception)
-                    {
-                        TraceService.WriteError("Error GetMockInitCode exception=" + exception.Message + " variable=" + parts[1]);
-                    }
+                    code = GetSpacedCodeLine(string.Format("this.{0} = {2}<{1}>();", parts[1], parts[0], instance.MockInitCode));
                 }
             }
 
@@ -60,13 +51,13 @@ namespace Scorchio.VisualStudio.Extensions
                 foreach (string[] parts in instance.MockVariables
                     .Select(variable => variable.Split(' ')))
                 {
-                    try
+                    if (string.IsNullOrEmpty(instance.MockConstructorCode) == false)
                     {
-                        code = string.Format("this.{0}.Object", parts[1]);
+                        code = string.Format("this.{0}{1}", parts[1], instance.MockConstructorCode);
                     }
-                    catch (Exception exception)
+                    else
                     {
-                        TraceService.WriteError("Error GetMockConstructorCode exception=" + exception.Message + " variable=" + parts[1]);
+                        code = string.Format("this.{0}", parts[1]);
                     }
                 }
             }

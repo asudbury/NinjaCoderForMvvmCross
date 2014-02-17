@@ -117,7 +117,9 @@ namespace Scorchio.VisualStudio.Services
         /// <param name="message">The message.</param>
         public static void WriteError(string message)
         {
-            string timedMessage = GetTimedMessage("**ERROR**", message);
+            WriteLine("--------------------------------------------------------");
+
+            string timedMessage = GetTimedMessage("** ERROR **", message);
 
             if (LogToTrace)
             {
@@ -138,6 +140,8 @@ namespace Scorchio.VisualStudio.Services
             {
                 MessageBox.Show(message, "Ninja Coder for MvvmCross");
             }
+
+            WriteLine("--------------------------------------------------------");
         }
 
         /// <summary>

@@ -10,15 +10,23 @@ namespace NinjaCoder.MvvmCross.Controllers
 
     using System.IO.Abstractions;
     using System.Reflection;
-    using Entities;
+
     using EnvDTE;
     using EnvDTE80;
 
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
+    using MahApps.Metro;
 
+    using NinjaCoder.MvvmCross.Entities;
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
+    using NinjaCoder.MvvmCross.Services;
+
+    using Scorchio.Infrastructure.Entities;
+    using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
+
     using TinyIoC;
+
     using Translators;
 
     /// <summary>
@@ -32,16 +40,14 @@ namespace NinjaCoder.MvvmCross.Controllers
         private static bool initialized;
 
         /// <summary>
-        /// Runs the configuration controller.
+        /// Startups this instance.
         /// </summary>
-        /// <param name="dte2">The dte2.</param>
-        public static void RunConfigurationController(DTE2 dte2 = null)
+        public static void Startup()
         {
-            TraceService.WriteLine("NinjaController::RunProjectsController");
-
-            ConfigurationController controller = ResolveController<ConfigurationController>(dte2);
-
-            controller.Run();
+            TraceService.WriteLine("NinjaController::Startup");
+            
+            ResolveController<ApplicationController>(null)
+                .CheckForUpdatesIfReady();
         }
 
         /// <summary>
@@ -52,9 +58,8 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("NinjaController::RunProjectsController");
 
-            ProjectsController controller = ResolveController<ProjectsController>(dte2);
-
-            controller.Run();
+            ResolveController<ProjectsController>(dte2)
+                .Run();
         }
 
         /// <summary>
@@ -65,9 +70,8 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("NinjaController::RunViewModelViewsController");
 
-            ViewModelViewsController controller = ResolveController<ViewModelViewsController>(dte2);
-
-            controller.Run();
+            ResolveController<ViewModelViewsController>(dte2)
+                .Run();
         }
 
         /// <summary>
@@ -78,9 +82,8 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("NinjaController::RunPluginsController");
 
-            PluginsController controller = ResolveController<PluginsController>(dte2);
-
-            controller.Run();
+            ResolveController<PluginsController>(dte2)
+                .Run();
         }
 
         /// <summary>
@@ -91,9 +94,8 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("NinjaController::RunServicesController");
 
-            ServicesController controller = ResolveController<ServicesController>(dte2);
-
-            controller.Run();
+            ResolveController<ServicesController>(dte2)
+                .Run();
         }
 
         /// <summary>
@@ -104,9 +106,8 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("NinjaController::RunConvertersController");
 
-            ConvertersController controller = ResolveController<ConvertersController>(dte2);
-
-            controller.Run();
+            ResolveController<ConvertersController>(dte2)
+                .Run();
         }
 
         /// <summary>
@@ -117,9 +118,8 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("NinjaController::ShowOptions");
 
-            ApplicationController controller = ResolveController<ApplicationController>(dte2);
-
-            controller.ShowOptions();
+            ResolveController<ApplicationController>(dte2)
+                .ShowOptions();
         }
 
         /// <summary>
@@ -130,9 +130,8 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("NinjaController::ShowAboutBox");
 
-            ApplicationController controller = ResolveController<ApplicationController>(dte2);
-
-            controller.ShowAboutBox();
+            ResolveController<ApplicationController>(dte2)
+                .ShowAboutBox();
         }
 
         /// <summary>
@@ -144,9 +143,30 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("NinjaController::GetProjects");
 
-            ApplicationController controller = ResolveController<ApplicationController>(dte2);
+            return ResolveController<ApplicationController>(dte2)
+                .GetProjects();
+        }
+        
+        /// <summary>
+        /// Views the log file.
+        /// </summary>
+        public static void ViewLogFile()
+        {
+            TraceService.WriteLine("NinjaController::ViewLogFile");
 
-            return controller.GetProjects();
+            ResolveController<ApplicationController>(null)
+                .ViewLogFile();
+        }
+
+        /// <summary>
+        /// Clears the log file.
+        /// </summary>
+        public static void ClearLogFile()
+        {
+            TraceService.WriteLine("NinjaController::ClearLogFile");
+
+            ResolveController<ApplicationController>(null)
+                .ClearLogFile();
         }
 
         /// <summary>
@@ -158,13 +178,13 @@ namespace NinjaCoder.MvvmCross.Controllers
         internal static T ResolveController<T>(DTE2 dte2)
             where T : class
         {
-            TraceService.WriteLine("NinjaController::Setup");
+            TraceService.WriteLine("NinjaController::ResolveController");
 
             Initialize();
 
-            TinyIoCContainer container = TinyIoCContainer.Current;
-            
-            T t = container.Resolve<T>();
+            ResolverService resolverService = new ResolverService();
+
+            T t = resolverService.Resolve<T>();
 
             if (dte2 != null)
             {
@@ -172,6 +192,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                 if (controller != null)
                 {
+                    TraceService.WriteLine("**Setting DTE2**");
                     controller.DTE2 = dte2;
                 }
             }
@@ -186,25 +207,63 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("NinjaController::Initialize");
 
-            if (initialized == false)
+            try
             {
-                TinyIoCContainer container = TinyIoCContainer.Current;
-                
-                //// only auto register classes in this assembly.
-                container.AutoRegister(Assembly.GetExecutingAssembly());
+                if (initialized == false)
+                {
+                    TraceService.WriteLine("NinjaController::Initialize AutoRegister");
 
-                TraceService.WriteLine("NinjaController::Initialize AutoRegistered IoC");
+                    //// only auto register classes in this assembly.
+                    TinyIoCContainer container = TinyIoCContainer.Current;
 
-                //// register the types that aren't auto-registered by TinyIoC.
-                container.Register<ITranslator<string, CodeConfig>>(new CodeConfigTranslator());
-                container.Register<ITranslator<string, CodeSnippet>>(new CodeSnippetTranslator());
-                container.Register<ITranslator<FileInfoBase, Plugin>>(new PluginTranslator(new SettingsService()));
-                
-                container.Register<ITranslator<Tuple<DirectoryInfoBase,DirectoryInfoBase>, Plugins>>(new PluginsTranslator(new PluginTranslator(new SettingsService())));
+                    string location = Assembly.GetExecutingAssembly().Location;
 
-                container.Register<IFileSystem>(new FileSystem());
+                    PathBase pathBase = new PathWrapper();
+                    string directory = pathBase.GetDirectoryName(location);
 
-                initialized = true;
+                    TraceService.WriteLine("NinjaController::Initialize NinjaCoder.MvvmCross.dll");
+
+                    string path = directory + @"\NinjaCoder.MvvmCross.dll";
+
+                    //// NinjaCoder for MvvmCross interfaces.
+                    container.AutoRegister(Assembly.LoadFrom(path));
+
+                    //// we only want one instance of the VisualStudio class
+                    container.Register<VisualStudioService>().AsSingleton();
+                    
+                    //// register the types that aren't auto-registered by TinyIoC.
+                    container.Register<ITranslator<string, CodeConfig>>(new CodeConfigTranslator());
+                    container.Register<ITranslator<string, CodeSnippet>>(new CodeSnippetTranslator());
+                    container.Register<ITranslator<FileInfoBase, Plugin>>(new PluginTranslator(new SettingsService()));
+                    container.Register<ITranslator<Tuple<DirectoryInfoBase, DirectoryInfoBase>, Plugins>>(new PluginsTranslator(new PluginTranslator(new SettingsService())));
+
+                    //// file io abstraction
+                    container.Register<IFileSystem>(new FileSystem());
+
+                    TraceService.WriteLine("NinjaController::Initialize Scorchio.Infrastructure.dll");
+
+                    path = directory + @"\Scorchio.Infrastructure.dll";
+
+                    //// Scorchio.Infrastructure interfaces.
+                    container.AutoRegister(Assembly.LoadFrom(path));
+
+                    //// register the types that aren't auto-registered by TinyIoC.
+                    container.Register<ITranslator<IList<Accent>, IEnumerable<AccentColor>>>(new AccentTranslator());
+
+                    TraceService.WriteLine("NinjaController::Initialize Scorchio.VisualStudio.dll");
+
+                    path = directory + @"\Scorchio.VisualStudio.dll";
+
+                    //// Scorchio.Infrastructure interfaces.
+                    container.AutoRegister(Assembly.LoadFrom(path));
+                }
+
+                TraceService.WriteLine("NinjaController::Initialize end");
+            }
+
+            catch (Exception exception)
+            {
+                TraceService.WriteError("Exception=" + exception);
             }
         }
     }

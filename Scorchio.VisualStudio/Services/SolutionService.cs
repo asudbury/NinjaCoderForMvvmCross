@@ -243,13 +243,11 @@ namespace Scorchio.VisualStudio.Services
         /// Adds the item template to project.
         /// </summary>
         /// <param name="templateInfos">The template infos.</param>
-        /// <param name="createFolder">if set to <c>true</c> [create folder].</param>
-        /// <returns> The messages. </returns>
+        /// <returns>The messages.</returns>
         public IEnumerable<string> AddItemTemplateToProjects(
-            IEnumerable<ItemTemplateInfo> templateInfos, 
-            bool createFolder)
+            IEnumerable<ItemTemplateInfo> templateInfos)
         {
-            return this.solution2.AddItemTemplateToProjects(templateInfos, createFolder);
+            return this.solution2.AddItemTemplateToProjects(templateInfos);
         }
 
         /// <summary>

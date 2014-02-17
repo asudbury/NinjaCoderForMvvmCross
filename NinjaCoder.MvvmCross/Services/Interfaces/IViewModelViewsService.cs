@@ -13,7 +13,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     /// <summary>
     ///  Defines the IViewModelViewsService type.
     /// </summary>
-    internal interface IViewModelViewsService
+    public interface IViewModelViewsService
     {
         /// <summary>
         /// Adds the view model and views.

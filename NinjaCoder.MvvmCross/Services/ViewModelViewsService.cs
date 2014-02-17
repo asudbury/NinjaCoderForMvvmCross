@@ -8,9 +8,12 @@ namespace NinjaCoder.MvvmCross.Services
     using System.Collections.Generic;
 
     using NinjaCoder.MvvmCross.Constants;
+    using NinjaCoder.MvvmCross.Factories.Interfaces;
     using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Services.Interfaces;
 
+    using Scorchio.Infrastructure.Extensions;
+    using Scorchio.Infrastructure.Services.Testing.Interfaces;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
@@ -22,14 +25,19 @@ namespace NinjaCoder.MvvmCross.Services
     internal class ViewModelViewsService : BaseService, IViewModelViewsService
     {
         /// <summary>
-        /// The snippet service.
+        /// The code snippet factory.
         /// </summary>
-        private readonly ISnippetService snippetService;
+        private readonly ICodeSnippetFactory codeSnippetFactory;
 
         /// <summary>
         /// The settings service.
         /// </summary>
         private readonly ISettingsService settingsService;
+
+        /// <summary>
+        /// The testing service.
+        /// </summary>
+        private readonly ITestingService testingService;
 
         /// <summary>
         /// The core project service.
@@ -39,16 +47,19 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewModelViewsService" /> class.
         /// </summary>
-        /// <param name="snippetService">The snippet service.</param>
+        /// <param name="codeSnippetFactory">The code snippet factory.</param>
         /// <param name="settingsService">The settings service.</param>
+        /// <param name="testingServiceFactory">The testing service factory.</param>
         public ViewModelViewsService(
-            ISnippetService snippetService,
-            ISettingsService settingsService)
+            ICodeSnippetFactory codeSnippetFactory,
+            ISettingsService settingsService,
+            ITestingServiceFactory testingServiceFactory)
         {
             TraceService.WriteLine("ViewModelViewsService::Constructor");
 
-            this.snippetService = snippetService;
+            this.codeSnippetFactory = codeSnippetFactory;
             this.settingsService = settingsService;
+            this.testingService = testingServiceFactory.GetTestingService();
         }
 
         /// <summary>
@@ -71,11 +82,11 @@ namespace NinjaCoder.MvvmCross.Services
             string viewModelInitiateFrom,
             string viewModelNavigateTo)
         {
-            TraceService.WriteLine("ViewModelViewsService::Process");
+            TraceService.WriteLine("ViewModelViewsService::AddViewModelAndViews");
 
             this.projectService = coreProjectService;
 
-            IEnumerable<string> messages = visualStudioService.SolutionService.AddItemTemplateToProjects(templateInfos, true);
+             IEnumerable<string> messages = visualStudioService.SolutionService.AddItemTemplateToProjects(templateInfos);
 
             //// we now need to amend code in the unit test file that references FirstViewModel to this ViewModel
 
@@ -109,7 +120,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <returns>The code snippet.</returns>
         internal CodeSnippet GetCodeSnippet()
         {
-            return this.snippetService.GetSnippet(this.settingsService.ViewModelNavigationSnippetFile);
+            return this.codeSnippetFactory.GetSnippet(this.settingsService.ViewModelNavigationSnippetFile);
         }
 
         /// <summary>
@@ -183,9 +194,16 @@ namespace NinjaCoder.MvvmCross.Services
 
                 if (projectItemService != null)
                 {
-                    projectItemService.ReplaceText("CoreTemplate.", "Core.");
-                    projectItemService.ReplaceText("FirstViewModel", viewModelName);
-                    projectItemService.ReplaceText("firstViewModel", viewModelName.Substring(0, 1).ToLower() + viewModelName.Substring(1));
+                    this.testingService.UpdateTestClassAttribute(projectItemService);
+                    this.testingService.UpdateTestMethodAttribute(projectItemService);
+
+                    List<KeyValuePair<string, string>> replacementVariables = new List<KeyValuePair<string, string>>
+                        {
+                            new KeyValuePair<string, string>("FirstViewModel", viewModelName),
+                            new KeyValuePair<string, string>("firstViewModel", viewModelName.LowerCaseFirstCharacter())
+                        };
+
+                    this.testingService.UpdateFile(projectItemService, replacementVariables);
                 }
             }
         }

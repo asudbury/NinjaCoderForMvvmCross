@@ -12,7 +12,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     /// <summary>
     /// Defines the INugetService type.
     /// </summary>
-    internal interface INugetService
+    public interface INugetService
     {
         /// <summary>
         /// Gets the init nuget messages.
@@ -20,7 +20,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <param name="message">The message.</param>
         /// <returns>The messages.</returns>
         IEnumerable<string> GetInitNugetMessages(string message);
- 
+
         /// <summary>
         /// Gets the nuget commands.
         /// </summary>
@@ -28,12 +28,14 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <param name="templates">The templates.</param>
         /// <param name="verboseOutput">if set to <c>true</c> [verbose output].</param>
         /// <param name="debug">if set to <c>true</c> [debug].</param>
+        /// <param name="usePreRelease">if set to <c>true</c> [use pre release].</param>
         /// <returns>The nuget commands.</returns>
         string GetNugetCommands(
             IVisualStudioService visualStudioService,
             IEnumerable<ProjectTemplateInfo> templates,
             bool verboseOutput,
-            bool debug);
+            bool debug,
+            bool usePreRelease);
 
         /// <summary>
         /// Opens the nuget window.

@@ -18,6 +18,14 @@ namespace Scorchio.VisualStudio.Entities
     public class CodeSnippet
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="CodeSnippet" /> class.
+        /// </summary>
+        public CodeSnippet()
+        {
+            this.UsingStatements = new List<string>();
+        }
+
+        /// <summary>
         /// Gets or sets the references.
         /// </summary>
         [XmlArray(ElementName = "References")]
@@ -89,5 +97,20 @@ namespace Scorchio.VisualStudio.Entities
         /// Gets or sets the replacement variables.
         /// </summary>
         public List<KeyValuePair<string, string>> ReplacementVariables { get; set; }
+
+        /// <summary>
+        /// Gets or sets the mocking variable declaration.
+        /// </summary>
+        public string MockingVariableDeclaration { get; set; }
+
+        /// <summary>
+        /// Gets or sets the mock constructor code.
+        /// </summary>
+        public string MockConstructorCode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the mock init code.
+        /// </summary>
+        public string MockInitCode { get; set; }
     }
 }

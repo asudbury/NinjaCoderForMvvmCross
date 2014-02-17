@@ -35,7 +35,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.WebRequestService
         {
             TraceService.WriteLine("WebRequestServiceWizard::OnRunStarted");
 
-            WebRequestServiceView view = new WebRequestServiceView(this.SettingsService.DisplayLogo);
+            WebRequestServiceView view = new WebRequestServiceView();
             view.ShowDialog();
 
             this.dialogResult = view.DialogResult;

@@ -14,6 +14,8 @@ namespace NinjaCoder.MvvmCross.Translators
 
     using NinjaCoder.MvvmCross.Constants;
 
+    using Scorchio.Infrastructure.Translators;
+
     /// <summary>
     /// Defines the PluginsTranslator type.
     /// </summary>
@@ -44,7 +46,7 @@ namespace NinjaCoder.MvvmCross.Translators
 
             IEnumerable<FileInfoBase> files1 = this.GetFiles(@from.Item1);
 
-            if (@from.Item2.Exists)
+            if (@from.Item2 != null)
             {
                 //// merge the files if we have some overrides.
                 IEnumerable<FileInfoBase> files2 = this.GetFiles(@from.Item2);

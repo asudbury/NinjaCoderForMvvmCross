@@ -7,16 +7,18 @@ namespace NinjaCoder.MvvmCross.Controllers
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Windows.Forms;
+
     using Constants;
 
     using NinjaCoder.MvvmCross.Infrastructure.Services;
+    using NinjaCoder.MvvmCross.ViewModels;
+    using NinjaCoder.MvvmCross.Views;
 
+    using Scorchio.Infrastructure.Services;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
     using Services.Interfaces;
-    using Views.Interfaces;
 
     /// <summary>
     /// Defines the ServicesController type.
@@ -36,30 +38,30 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="ServicesController" /> class.
         /// </summary>
+        /// <param name="configurationService">The configuration service.</param>
         /// <param name="servicesService">The services service.</param>
         /// <param name="nugetService">The nuget service.</param>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="readMeService">The read me service.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="messageBoxService">The message box service.</param>
-        /// <param name="dialogService">The dialog service.</param>
-        /// <param name="formsService">The forms service.</param>
+        /// <param name="resolverService">The resolver service.</param>
         public ServicesController(
+            IConfigurationService configurationService,
             IServicesService servicesService,
             INugetService nugetService,
             IVisualStudioService visualStudioService,
             IReadMeService readMeService,
             ISettingsService settingsService,
             IMessageBoxService messageBoxService,
-            IDialogService dialogService,
-            IFormsService formsService)
+            IResolverService resolverService)
             : base(
+            configurationService,
             visualStudioService, 
             readMeService, 
             settingsService, 
             messageBoxService,
-            dialogService,
-            formsService)
+            resolverService)
         {
             TraceService.WriteLine("ServicesController::Constructor");
 
@@ -74,26 +76,20 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteHeader("ServicesController::Run");
 
+            //// we open the nuget package manager console so we don't have
+            //// a wait condition later!
+            this.nugetService.OpenNugetWindow(this.VisualStudioService);
+
             if (this.VisualStudioService.IsMvvmCrossSolution)
             {
-                //// we open the nuget package manager console so we don't have
-                //// a wait condition later!
+                ServicesViewModel viewModel = this.ShowDialog<ServicesViewModel>(new ServicesView());
 
-                this.nugetService.OpenNugetWindow(this.VisualStudioService);
-
-                string templatesPath = this.SettingsService.ServicesTemplatesPath;
-
-                List<ItemTemplateInfo> itemTemplateInfos = this.VisualStudioService.GetFolderTemplateInfos(templatesPath, "Services");
-
-                IEnumerable<string> viewModelNames = this.VisualStudioService.CoreProjectService.GetFolderItems("ViewModels", false);
-
-                IServicesView view = this.FormsService.GetServicesForm(viewModelNames, itemTemplateInfos, this.SettingsService);
-
-                DialogResult result = this.DialogService.ShowDialog(view as Form);
-                
-                if (result == DialogResult.OK)
+                if (viewModel.Continue)
                 {
-                    this.Process(view.RequiredTemplates, view.ImplementInViewModel, view.IncludeUnitTests);
+                    this.Process(
+                        viewModel.GetRequiredServices(), 
+                        viewModel.ImplementInViewModel, 
+                        viewModel.IncludeUnitTests);
                 }
             }
             else
@@ -136,16 +132,18 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                 this.VisualStudioService.DTEService.SaveAll();
 
-                if (1 == 2)
-                ////if (this.servicesService.NugetCommands.Any())
+                //// currently we arent supporting services via nuget!
+                IEnumerable<string> commands = new List<string>();
+
+                if (commands.Any())
                 {
-                    /*this.nugetService.Execute(
+                    this.nugetService.Execute(
                         this.VisualStudioService,
                         this.GetReadMePath(),
-                        this.servicesService.NugetCommands,
+                        commands,
                         this.SettingsService.SuspendReSharperDuringBuild);
 
-                    this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NugetDownload);*/
+                    this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NugetDownload);
                 }
                 else
                 {

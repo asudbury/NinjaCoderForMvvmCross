@@ -36,7 +36,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Projects
         /// </summary>
         protected override void OnRunStarted()
         {
-            TraceService.WriteHeader("ProjectsWizard::OnRunStarted");
+            TraceService.WriteHeader("ProjectsWizard::OnRunStarted project=" + this.SettingsService.ActiveProject);
 
             this.filesToDelete = new List<string>();
         }
@@ -72,7 +72,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Projects
         /// <param name="project">The project.</param>
         protected override void OnProjectFinishedGenerating(Project project)
         {
-            TraceService.WriteLine("ProjectsWizard::OnProjectFinishedGenerating");
+            TraceService.WriteLine("ProjectsWizard::OnProjectFinishedGenerating project=" + project.Name);
 
             //// remove the lib folder if that's what the developer wants to happen.
             //// if the develop has selected use nuget then also remove the project
@@ -121,7 +121,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Projects
         /// </summary>
         protected override void OnRunFinished()
         {
-            TraceService.WriteHeader("ProjectsWizard::OnRunFinished");
+            TraceService.WriteHeader("ProjectsWizard::OnRunFinished project=" + this.SettingsService.ActiveProject);
         }
 
         /// <summary>

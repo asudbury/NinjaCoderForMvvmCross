@@ -11,7 +11,6 @@ namespace Scorchio.VisualStudio
     using System.Reflection;
     using System.Resources;
     using System.Runtime.InteropServices;
-    using System.Security.Cryptography.X509Certificates;
 
     using Entities;
     using EnvDTE;
@@ -257,7 +256,7 @@ namespace Scorchio.VisualStudio
             }
             catch (Exception exception)
             {
-                TraceService.WriteError("CommandManager::QueryStatus exception=" + exception.Message);
+                TraceService.WriteLine("CommandManager::QueryStatus exception=" + exception.Message);
             }
         }
 
@@ -276,7 +275,7 @@ namespace Scorchio.VisualStudio
             ref object variantOut, 
             ref bool handled)
         {
-            TraceService.WriteLine("CommandManager::Exec commandName=" + commandName);  
+            TraceService.WriteLine("CommandManager::Exec commandName=" + commandName);
 
             if (executeOption != vsCommandExecOption.vsCommandExecOptionDoDefault)
             {
@@ -309,7 +308,7 @@ namespace Scorchio.VisualStudio
             try
             {
                 Commands2 commands = (Commands2)this.VSInstance.ApplicationObject.Commands;
-                object[] context = new object[] { };
+                object[] context = { };
 
                 TraceService.WriteLine("CommandManager::AddMenuItem Adding command name=" + vsCommandInfo.Name);
 
@@ -342,7 +341,7 @@ namespace Scorchio.VisualStudio
                 //// already exists. If so there is no need to recreate the command and we can 
                 //// safely ignore the exception.
 
-                TraceService.WriteError("CommandManager::AddMenuItem ArgumentException");
+                TraceService.WriteLine("CommandManager::AddMenuItem ArgumentException");
                 TraceService.WriteLine("commandName=" + vsCommandInfo.Name);
                 TraceService.WriteLine("message=" + exception.Message);
                 TraceService.WriteLine("parameterName=" + exception.ParamName);

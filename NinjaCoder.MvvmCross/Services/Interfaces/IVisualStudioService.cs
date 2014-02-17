@@ -80,26 +80,18 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         IProjectService WpfProjectService { get; }
 
         /// <summary>
-        /// Gets the allowed project templates.
+        /// Gets the allowed converters.
         /// </summary>
-        IEnumerable<ProjectTemplateInfo> AllowedProjectTemplates { get; }
-
-        /// <summary>
-        /// Gets the allowed item templates.
-        /// </summary>
-        List<ItemTemplateInfo> AllowedItemTemplates { get; }
+        /// <param name="templatesPath">The templates path.</param>
+        /// <returns>The allowed converters.</returns>
+        IEnumerable<ItemTemplateInfo> GetAllowedConverters(string templatesPath);
 
         /// <summary>
         /// Gets the folder template infos.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <param name="destinationFolder">The destination folder.</param>
-        /// <returns>
-        /// The template Infos.
-        /// </returns>
-        List<ItemTemplateInfo> GetFolderTemplateInfos(
-            string path,
-            string destinationFolder);
+        /// <returns>The template Infos.</returns>
+        List<ItemTemplateInfo> GetFolderTemplateInfos(string path);
         
         /// <summary>
         /// Writes the status bar message.
@@ -127,5 +119,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <param name="suffix">The suffix.</param>
         /// <returns>The project service.</returns>
         IProjectService GetProjectServiceBySuffix(string suffix);
+
+        /// <summary>
+        /// Gets the public view model names.
+        /// </summary>
+        /// <returns>The public view model names.</returns>
+        IEnumerable<string> GetPublicViewModelNames();
     }
 }

@@ -8,10 +8,15 @@ namespace NinjaCoder.MvvmCross.Services
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+
     using Constants;
     using EnvDTE;
     using EnvDTE80;
     using Interfaces;
+
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
+
+    using Scorchio.VisualStudio;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
@@ -52,8 +57,13 @@ namespace NinjaCoder.MvvmCross.Services
             {
                 if (this.dte2 == null)
                 {
-                    TraceService.WriteLine("*****VisualStudioService Activating Visual Studio Link*****");
-                    this.dte2 = VSActivatorService.Activate();
+                    TraceService.WriteHeader("VisualStudioService Activating Visual Studio Link");
+
+                    SettingsService settingsService = new SettingsService();
+
+                    string objectName = ScorchioConstants.VisualStudio + "." + settingsService.VisualStudioVersion;
+
+                    this.DTE2 = VSActivatorService.Activate(objectName);
                 }
 
                 return this.dte2;
@@ -70,7 +80,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IDTEService DTEService
         {
-            get { return new DTEService(this.dte2); }
+            get { return new DTEService(this.DTE2); }
         }
 
         /// <summary>
@@ -182,201 +192,6 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets the allowed project templates.
-        /// </summary>
-        public IEnumerable<ProjectTemplateInfo> AllowedProjectTemplates
-        {
-            get
-            {
-                List<ProjectTemplateInfo> projectInfos = new List<ProjectTemplateInfo>();
-
-                if (this.CoreProject == null)
-                {
-                    projectInfos.Add(new ProjectTemplateInfo
-                    {
-                        FriendlyName = FriendlyNames.Core,
-                        ProjectSuffix = ProjectSuffixes.Core,
-                        TemplateName = ProjectTemplates.Core,
-                        PreSelected = true,
-                        NugetCommands = new List<string> 
-                            {
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage),
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMessengerPackage)
-                            }
-                    });
-                }
-
-                if (this.CoreTestsProject == null)
-                {
-                    projectInfos.Add(new ProjectTemplateInfo
-                    {
-                        FriendlyName = FriendlyNames.CoreTests,
-                        ProjectSuffix = ProjectSuffixes.CoreTests,
-                        TemplateName = ProjectTemplates.Tests,
-                        PreSelected = true,
-                        NugetCommands = new List<string> 
-                            {
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetUnitTestsPackage),
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage)
-                            },
-                        NonMvxAssemblies = new List<string> { "Moq", "NUnit" }
-                    });
-                }
-
-                if (this.DroidProject == null)
-                {
-                    projectInfos.Add(new ProjectTemplateInfo
-                    {
-                        FriendlyName = FriendlyNames.Droid,
-                        ProjectSuffix = ProjectSuffixes.Droid,
-                        TemplateName = ProjectTemplates.Droid,
-                        NugetCommands = new List<string> 
-                            {
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage),
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMessengerPackage)
-                            }
-                    });
-                }
-
-                if (this.iOSProject == null)
-                {
-                    projectInfos.Add(new ProjectTemplateInfo
-                    {
-                        FriendlyName = FriendlyNames.iOS,
-                        ProjectSuffix = ProjectSuffixes.iOS,
-                        TemplateName = ProjectTemplates.IOS,
-                        NugetCommands = new List<string> 
-                            {
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage),
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMessengerPackage)
-                            }
-                    });
-                }
-
-                if (this.WindowsPhoneProject == null)
-                {
-                    projectInfos.Add(new ProjectTemplateInfo
-                    {
-                        FriendlyName = FriendlyNames.WindowsPhone,
-                        ProjectSuffix = ProjectSuffixes.WindowsPhone,
-                        TemplateName = ProjectTemplates.WindowsPhone,
-                        NugetCommands = new List<string> 
-                            {
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage),
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMessengerPackage)
-                            }
-                    });
-                }
-
-                if (this.WindowsStoreProject == null)
-                {
-                    projectInfos.Add(new ProjectTemplateInfo
-                    {
-                        FriendlyName = FriendlyNames.WindowsStore,
-                        ProjectSuffix = ProjectSuffixes.WindowsStore,
-                        TemplateName = ProjectTemplates.WindowsStore,
-                        NugetCommands = new List<string> 
-                            {
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage),
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMessengerPackage)
-                            }
-                    });
-                }
-
-                if (this.WpfProject == null)
-                {
-                    projectInfos.Add(new ProjectTemplateInfo
-                    {
-                        FriendlyName = FriendlyNames.WindowsWpf,
-                        ProjectSuffix = ProjectSuffixes.WindowsWpf,
-                        TemplateName = ProjectTemplates.WindowsWPF,
-                        NugetCommands = new List<string> 
-                            {
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage)
-                            }
-                    });
-                }
-
-                return projectInfos;
-            }
-        }
-
-        /// <summary>
-        /// Gets the allowed item templates.
-        /// </summary>
-        public List<ItemTemplateInfo> AllowedItemTemplates
-        {
-            get
-            {
-                const string FolderName = "Views";
-
-                List<ItemTemplateInfo> itemTemplateInfos = new List<ItemTemplateInfo>();
-
-                if (this.iOSProject != null)
-                {
-                    itemTemplateInfos.Add(new ItemTemplateInfo
-                    {
-                        FriendlyName = FriendlyNames.iOS,
-                        ProjectSuffix = ProjectSuffixes.iOS,
-                        FolderName = FolderName,
-                        TemplateName = ItemTemplates.Views.IOS,
-                        PreSelected = true
-                    });
-                }
-
-                if (this.DroidProject != null)
-                {
-                    itemTemplateInfos.Add(new ItemTemplateInfo
-                    {
-                        FriendlyName = FriendlyNames.Droid,
-                        ProjectSuffix = ProjectSuffixes.Droid,
-                        FolderName = FolderName,
-                        TemplateName = ItemTemplates.Views.Droid,
-                        PreSelected = true
-                    });
-                }
-
-                if (this.WindowsPhoneProject != null)
-                {
-                    itemTemplateInfos.Add(new ItemTemplateInfo
-                    {
-                        FriendlyName = FriendlyNames.WindowsPhone,
-                        ProjectSuffix = ProjectSuffixes.WindowsPhone,
-                        FolderName = FolderName,
-                        TemplateName = ItemTemplates.Views.WindowsPhone,
-                        PreSelected = true
-                    });
-                }
-
-                if (this.WindowsStoreProject != null)
-                {
-                    itemTemplateInfos.Add(new ItemTemplateInfo
-                    {
-                        FriendlyName = FriendlyNames.WindowsStore,
-                        ProjectSuffix = ProjectSuffixes.WindowsStore,
-                        FolderName = FolderName,
-                        TemplateName = ItemTemplates.Views.WindowsStore,
-                        PreSelected = true
-                    });
-                }
-
-                if (this.WpfProject != null)
-                {
-                    itemTemplateInfos.Add(new ItemTemplateInfo
-                    {
-                        FriendlyName = FriendlyNames.WindowsWpf,
-                        ProjectSuffix = ProjectSuffixes.WindowsWpf,
-                        FolderName = FolderName,
-                        TemplateName = ItemTemplates.Views.WindowsWPF,
-                        PreSelected = true
-                    });
-                }
-
-                return itemTemplateInfos;
-            }
-        }
-
-        /// <summary>
         /// Gets the core project.
         /// </summary>
         internal Project CoreProject
@@ -432,21 +247,47 @@ namespace NinjaCoder.MvvmCross.Services
             get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.WindowsWpf)); }
         }
 
+ 
+        /// <summary>
+        /// Gets the allowed converters.
+        /// </summary>
+        /// <param name="templatesPath">The templates path.</param>
+        /// <returns>The allowed converters.</returns>
+        public IEnumerable<ItemTemplateInfo> GetAllowedConverters(string templatesPath)
+        {
+            List<ItemTemplateInfo> templateInfos = this.GetFolderTemplateInfos(templatesPath);
+
+            //// now check to see if currently in the project!!
+
+            IProjectService coreProjectService = this.CoreProjectService;
+
+            if (coreProjectService != null)
+            {
+                IEnumerable<string> folderItems = coreProjectService.GetFolderItems("Converters", false);
+
+                foreach (ItemTemplateInfo item in folderItems
+                    .Select(folderItem => templateInfos
+                    .FirstOrDefault(x => x.FriendlyName.Contains(folderItem)))
+                    .Where(item => item != null))
+                {
+                    //// remove if already in the project!
+                    templateInfos.Remove(item);
+                }
+            }
+
+            return templateInfos;
+        }
+
         /// <summary>
         /// Gets the folder template infos.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <param name="destinationFolder">The destination folder.</param>
         /// <returns>The template Infos.</returns>
-        public List<ItemTemplateInfo> GetFolderTemplateInfos(
-            string path,
-            string destinationFolder)
+        public List<ItemTemplateInfo> GetFolderTemplateInfos(string path)
         {
             List<ItemTemplateInfo> itemTemplateInfos = new List<ItemTemplateInfo>();
 
             string[] paths = Directory.GetFiles(path);
-
-            ////paths.ToList().ForEach();
 
             foreach (string filePath in paths)
             {
@@ -458,7 +299,6 @@ namespace NinjaCoder.MvvmCross.Services
                 {
                     FriendlyName = name.Replace("MvvmCross.", string.Empty),
                     FileName = fileInfo.Name,
-                    FolderName = destinationFolder
                 });
             }
 
@@ -517,6 +357,23 @@ namespace NinjaCoder.MvvmCross.Services
             Project project = this.Projects.FirstOrDefault(x => x.Name.EndsWith(suffix));
 
             return project != null ? new ProjectService(project) : null;
+        }
+
+        /// <summary>
+        /// Gets the public view model names.
+        /// </summary>
+        /// <returns>The public view model names.</returns>
+        public IEnumerable<string> GetPublicViewModelNames()
+        {
+            if (this.CoreProjectService != null)
+            {
+                IEnumerable<string> viewModelNames = this.CoreProjectService.GetFolderItems("ViewModels", false);
+
+                //// exclude the base view model.
+                return viewModelNames.ToList().Except(new List<string> { Settings.BaseViewModelName });
+            }
+
+            return null;
         }
     }
 }

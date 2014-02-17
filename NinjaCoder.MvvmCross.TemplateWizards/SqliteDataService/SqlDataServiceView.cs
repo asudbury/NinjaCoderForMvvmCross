@@ -22,12 +22,10 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.SqliteDataService
         /// <summary>
         /// Initializes a new instance of the <see cref="SqlDataServiceView" /> class.
         /// </summary>
-        /// <param name="displayLogo">if set to <c>true</c> [display logo].</param>
-        public SqlDataServiceView(bool displayLogo)
+        public SqlDataServiceView()
         {
             this.InitializeComponent();
             this.DialogResult = DialogResult.None;
-            this.SetLogoVisibility(this.logo1, displayLogo);
         }
 
         /// <summary>

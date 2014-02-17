@@ -74,16 +74,12 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// <summary>
         /// Adds to folder from template.
         /// </summary>
-        /// <param name="folderName">Name of the folder.</param>
         /// <param name="templateName">Name of the template.</param>
         /// <param name="fileName">Name of the file.</param>
-        /// <param name="createFolder">if set to <c>true</c> [create folder].</param>
         /// <returns>True or False.</returns>
         bool AddToFolderFromTemplate(
-            string folderName,
             string templateName,
-            string fileName,
-            bool createFolder);
+            string fileName);
 
         /// <summary>
         /// Adds to folder from file.
@@ -148,6 +144,21 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// </summary>
         /// <param name="folderName">Name of the folder.</param>
         /// <returns>The projectItem Service.</returns>
-        ProjectItemService RemoveFolder(string folderName);
+        IProjectItemService RemoveFolder(string folderName);
+
+        /// <summary>
+        /// Removes the folder item.
+        /// </summary>
+        /// <param name="folderName">Name of the folder.</param>
+        /// <param name="itemName">Name of the item.</param>
+        void RemoveFolderItem(
+            string folderName, 
+            string itemName);
+
+        /// <summary>
+        /// Determines whether [has nuget packages].
+        /// </summary>
+        /// <returns>True or false</returns>
+        bool HasNugetPackages();
     }
 }

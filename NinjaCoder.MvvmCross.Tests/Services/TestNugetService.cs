@@ -73,7 +73,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
 
             this.mockVisualStudioService.Setup(x => x.GetProjectServiceBySuffix(It.IsAny<string>())).Returns(mockProjectService.Object);
 
-            string commands = this.service.GetNugetCommands(this.mockVisualStudioService.Object, templateInfos, false, false);
+            string commands = this.service.GetNugetCommands(this.mockVisualStudioService.Object, templateInfos, false, false,false);
 
             Assert.IsTrue(commands.Contains("1Command"));
             Assert.IsTrue(commands.Contains("2Command"));

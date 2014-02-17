@@ -9,7 +9,6 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
     using System.Collections.Generic;
     using System.IO.Abstractions;
     using System.Runtime.InteropServices;
-    using System.Windows.Forms;
     using Castle.DynamicProxy.Generators;
     using Moq;
     using NinjaCoder.MvvmCross.Controllers;
@@ -17,9 +16,10 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
     using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using NinjaCoder.MvvmCross.Tests.Mocks;
-    using NinjaCoder.MvvmCross.Translators;
-    using NinjaCoder.MvvmCross.Views;
     using NUnit.Framework;
+
+    using Scorchio.Infrastructure.Services;
+    using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Services.Interfaces;
 
     /// <summary>
@@ -69,16 +69,6 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
         private Mock<IMessageBoxService> mockMessageBoxService;
 
         /// <summary>
-        /// The mock dialog service.
-        /// </summary>
-        private Mock<IDialogService> mockDialogService;
-
-        /// <summary>
-        /// The mock forms service.
-        /// </summary>
-        private Mock<IFormsService> mockFormsService;
-
-        /// <summary>
         /// The mock translator.
         /// </summary>
         private Mock<ITranslator<Tuple<DirectoryInfoBase, DirectoryInfoBase>, Plugins>> mockTranslator;
@@ -98,11 +88,9 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
             this.mockReadMeService = new Mock<IReadMeService>();
             this.mockSettingsService = new Mock<ISettingsService>();
             this.mockMessageBoxService = new Mock<IMessageBoxService>();
-            this.mockDialogService = new Mock<IDialogService>();
-            this.mockFormsService = new Mock<IFormsService>();
             this.mockTranslator = new Mock<ITranslator<Tuple<DirectoryInfoBase, DirectoryInfoBase>, Plugins>>();
             
-            this.controller = new PluginsController(
+            /*this.controller = new PluginsController(
                 this.mockFileSystem.Object,
                 this.mockPluginsService.Object,
                 this.mockNugetService.Object,
@@ -110,9 +98,7 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
                 this.mockReadMeService.Object,
                 this.mockSettingsService.Object,
                 this.mockMessageBoxService.Object,
-                this.mockDialogService.Object,
-                this.mockFormsService.Object,
-                this.mockTranslator.Object);
+                this.mockTranslator.Object);*/
         }
 
         /// <summary>
@@ -124,14 +110,16 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
             this.mockSettingsService.SetupGet(x => x.UseNugetForPlugins).Returns(true);
             this.mockVisualStudioService.SetupGet(x => x.IsMvvmCrossSolution).Returns(true);
 
-            PluginsForm pluginsForm = new PluginsForm(new SettingsService(), new List<string>(),  new Plugins());
-
+            /*PluginsForm pluginsForm = new PluginsForm(new SettingsService(), new List<string>(),  new Plugins());
+            */
+            /*
             this.mockFormsService.Setup(x => x.GetPluginsForm(
                 It.IsAny<ISettingsService>(),
                 It.IsAny<IEnumerable<string>>(), 
                 It.IsAny<Plugins>())).Returns(pluginsForm);
 
             this.mockDialogService.Setup(x => x.ShowDialog(It.IsAny<Form>())).Returns(DialogResult.OK);
+            */
 
             MockDirectoryInfoFactory mockDirectoryInfoFactory = new MockDirectoryInfoFactory();
             this.mockFileSystem.SetupGet(x => x.DirectoryInfo).Returns(mockDirectoryInfoFactory);

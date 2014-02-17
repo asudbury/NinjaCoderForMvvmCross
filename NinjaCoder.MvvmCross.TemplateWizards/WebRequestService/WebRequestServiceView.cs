@@ -22,12 +22,9 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.WebRequestService
         /// <summary>
         /// Initializes a new instance of the <see cref="WebRequestServiceView" /> class.
         /// </summary>
-        /// <param name="displayLogo">if set to <c>true</c> [display logo].</param>
-        public WebRequestServiceView(bool displayLogo)
+        public WebRequestServiceView()
         {
             this.InitializeComponent();
-            this.DialogResult = DialogResult.None;
-            this.SetLogoVisibility(this.logo1, displayLogo);
         }
 
         /// <summary>

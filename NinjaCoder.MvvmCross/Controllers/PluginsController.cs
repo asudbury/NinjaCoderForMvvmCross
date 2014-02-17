@@ -7,30 +7,23 @@ namespace NinjaCoder.MvvmCross.Controllers
 {
     using System;
     using System.Collections.Generic;
-    using System.IO.Abstractions;
     using System.Linq;
-    using System.Windows.Forms;
     using Constants;
-    using Entities;
 
+    using NinjaCoder.MvvmCross.Entities;
     using NinjaCoder.MvvmCross.Infrastructure.Services;
+    using NinjaCoder.MvvmCross.ViewModels;
+    using NinjaCoder.MvvmCross.Views;
 
+    using Scorchio.Infrastructure.Services;
     using Scorchio.VisualStudio.Services;
-    using Scorchio.VisualStudio.Services.Interfaces;
     using Services.Interfaces;
-    using Translators;
-    using Views.Interfaces;
 
     /// <summary>
     /// Defines the PluginsController type.
     /// </summary>
     internal class PluginsController : BaseController
     {
-        /// <summary>
-        /// The file system.
-        /// </summary>
-        private readonly IFileSystem fileSystem;
-
         /// <summary>
         /// The plugins service.
         /// </summary>
@@ -42,48 +35,37 @@ namespace NinjaCoder.MvvmCross.Controllers
         private readonly INugetService nugetService;
 
         /// <summary>
-        /// The translator.
-        /// </summary>
-        private readonly ITranslator<Tuple<DirectoryInfoBase, DirectoryInfoBase>, Plugins> translator;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="PluginsController" /> class.
         /// </summary>
-        /// <param name="fileSystem">The file system.</param>
+        /// <param name="configurationService">The configuration service.</param>
         /// <param name="pluginsService">The plugins service.</param>
         /// <param name="nugetService">The nuget service.</param>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="readMeService">The read me service.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="messageBoxService">The message box service.</param>
-        /// <param name="dialogService">The dialog service.</param>
-        /// <param name="formsService">The forms service.</param>
-        /// <param name="translator">The translator.</param>
+        /// <param name="resolverService">The resolver service.</param>
         public PluginsController(
-            IFileSystem fileSystem,
+            IConfigurationService configurationService,
             IPluginsService pluginsService,
             INugetService nugetService,
             IVisualStudioService visualStudioService,
             IReadMeService readMeService,
             ISettingsService settingsService,
             IMessageBoxService messageBoxService,
-            IDialogService dialogService,
-            IFormsService formsService,
-            ITranslator<Tuple<DirectoryInfoBase, DirectoryInfoBase>, Plugins> translator)
+            IResolverService resolverService)
             : base(
+            configurationService,
             visualStudioService, 
             readMeService, 
             settingsService, 
             messageBoxService,
-            dialogService,
-            formsService)
+            resolverService)
         {
             TraceService.WriteLine("PluginsController::Constructor");
 
-            this.fileSystem = fileSystem;
             this.pluginsService = pluginsService;
             this.nugetService = nugetService;
-            this.translator = translator;
         }
 
         /// <summary>
@@ -99,26 +81,18 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             if (this.VisualStudioService.IsMvvmCrossSolution)
             {
-                IProjectService projectService = this.VisualStudioService.CoreProjectService;
+                PluginsViewModel viewModel = this.ShowDialog<PluginsViewModel>(new PluginsView());
 
-                if (projectService != null)
+                if (viewModel.Continue)
                 {
-                    IEnumerable<string> viewModelNames = projectService.GetFolderItems("ViewModels", false);
+                    IEnumerable<Plugin> plugins = viewModel.GetRequiredPlugins();
 
-                    DirectoryInfoBase directoryInfoBase1 = this.fileSystem.DirectoryInfo.FromDirectoryName(this.SettingsService.MvvmCrossAssembliesPath);
-                    DirectoryInfoBase directoryInfoBase2 = this.fileSystem.DirectoryInfo.FromDirectoryName(this.SettingsService.MvvmCrossAssembliesOverrideDirectory);
-
-                    Tuple<DirectoryInfoBase, DirectoryInfoBase> directories = new Tuple<DirectoryInfoBase, DirectoryInfoBase>(directoryInfoBase1, directoryInfoBase2);
-
-                    Plugins plugins = this.translator.Translate(directories);
-
-                    IPluginsView view = this.FormsService.GetPluginsForm(this.SettingsService, viewModelNames, plugins);
-
-                    DialogResult result = this.DialogService.ShowDialog(view as Form);
-
-                    if (result == DialogResult.OK)
+                    if (plugins.Any())
                     {
-                        this.Process(view.RequiredPlugins, view.ImplementInViewModel, view.IncludeUnitTests);
+                        this.Process(
+                            plugins, 
+                            viewModel.ImplementInViewModel, 
+                            viewModel.IncludeUnitTests);
                     }
                 }
             }
@@ -154,13 +128,14 @@ namespace NinjaCoder.MvvmCross.Controllers
                     this.VisualStudioService,
                     plugins,
                     implementInViewModel,
-                    includeUnitTests);
+                    includeUnitTests,
+                    this.SettingsService.UseNugetForPlugins);
                 
                 this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.UpdatingFiles);
 
                 this.VisualStudioService.DTEService.SaveAll();
 
-                IEnumerable<string> commands = plugins.SelectMany(x => x.NugetCommands);
+                IEnumerable<string> commands = plugins.SelectMany(x => x.NugetCommands).ToList();
 
                 if (commands.Any())
                 {

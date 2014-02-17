@@ -40,6 +40,17 @@ namespace Scorchio.VisualStudio.Services
         }
 
         /// <summary>
+        /// Gets the name of the file.
+        /// </summary>
+        public string FileName
+        {
+            get
+            {
+                return this.ProjectItem.FileNames[0];
+            }
+        }
+
+        /// <summary>
         /// Gets the kind.
         /// </summary>
         public string Kind
@@ -341,6 +352,26 @@ namespace Scorchio.VisualStudio.Services
         public void RemoveDoubleBlankLines()
         {
             this.projectItem.RemoveDoubleBlankLines();
+        }
+
+        /// <summary>
+        /// Gets the folder.
+        /// </summary>
+        /// <returns>The folder name.</returns>
+        public string GetFolder()
+        {
+            return this.projectItem.GetFolder();
+        }
+
+        /// <summary>
+        /// Gets the containing project service.
+        /// </summary>
+        /// <value>
+        /// The containing project service.
+        /// </value>
+        public IProjectService ContainingProjectService
+        {
+            get { return new ProjectService(this.projectItem.ContainingProject); }
         }
     }
 }

@@ -141,22 +141,16 @@ namespace Scorchio.VisualStudio.Services
         /// <summary>
         /// Adds to folder from template.
         /// </summary>
-        /// <param name="folderName">Name of the folder.</param>
         /// <param name="templateName">Name of the template.</param>
         /// <param name="fileName">Name of the file.</param>
-        /// <param name="createFolder">if set to <c>true</c> [create folder].</param>
-        /// <returns> True or False.</returns>
+        /// <returns>True or False.</returns>
         public bool AddToFolderFromTemplate(
-            string folderName, 
             string templateName, 
-            string fileName, 
-            bool createFolder)
+            string fileName)
         {
             return this.project.AddToFolderFromTemplate(
-                folderName,
                 templateName,
-                fileName,
-                createFolder);
+                fileName);
         }
 
         /// <summary>
@@ -252,11 +246,44 @@ namespace Scorchio.VisualStudio.Services
         /// </summary>
         /// <param name="folderName">Name of the folder.</param>
         /// <returns>The projectItem Service.</returns>
-        public ProjectItemService RemoveFolder(string folderName)
+        public IProjectItemService RemoveFolder(string folderName)
         {
             ProjectItem projectItem = this.project.RemoveFolder(folderName);
 
             return projectItem != null ? new ProjectItemService(projectItem) : null;
+        }
+
+        /// <summary>
+        /// Removes the folder item.
+        /// </summary>
+        /// <param name="folderName">Name of the folder.</param>
+        /// <param name="itemName">Name of the item.</param>
+        public void RemoveFolderItem(
+            string folderName, 
+            string itemName)
+        {
+            IProjectItemService projectItemService = this.GetFolder(folderName);
+
+            if (projectItemService != null)
+            {
+                IEnumerable<ProjectItem> projectItems = projectItemService.GetSubProjectItems();
+
+                ProjectItem projectItem = projectItems.FirstOrDefault(x => x.Name.Contains(itemName));
+
+                if (projectItem != null)
+                {
+                    projectItem.RemoveAndDelete();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Determines whether [has nuget packages].
+        /// </summary>
+        /// <returns>True or false</returns>
+        public bool HasNugetPackages()
+        {
+            return this.project.HasNugetPackages();
         }
     }
 }

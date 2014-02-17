@@ -75,5 +75,9 @@ namespace NinjaCoder.MvvmCross.Constants
         /// </summary>
         public const string PmConsole = "Please check the Package Management Console for completion of Nuget integration.";
 
+        /// <summary>
+        /// The adding view model and views.
+        /// </summary>
+        public const string AddingViewModelAndViews = "Adding ViewModel and Views.";
     }
 }

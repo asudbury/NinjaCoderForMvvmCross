@@ -61,12 +61,14 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="templates">The templates.</param>
         /// <param name="verboseOutput">if set to <c>true</c> [verbose output].</param>
         /// <param name="debug">if set to <c>true</c> [debug].</param>
+        /// <param name="usePreRelease">if set to <c>true</c> [use pre release].</param>
         /// <returns>The nuget commands.</returns>
         public string GetNugetCommands(
             IVisualStudioService visualStudioService,
             IEnumerable<ProjectTemplateInfo> templates,
             bool verboseOutput,
-            bool debug)
+            bool debug,
+            bool usePreRelease)
         {
             TraceService.WriteLine("NugetService::ExecuteNugetCommands");
 
@@ -75,6 +77,8 @@ namespace NinjaCoder.MvvmCross.Services
             string verboseOption = this.GetVerboseOption(verboseOutput);
 
             string debugOption = this.GetDebugOption(debug);
+
+            string preReleaseOption = this.GetPreReleaseOption(usePreRelease);
 
             foreach (ProjectTemplateInfo projectTemplateInfo in templates
                 .Where(x => x.NugetCommands != null))
@@ -90,10 +94,11 @@ namespace NinjaCoder.MvvmCross.Services
                     foreach (string nugetCommand in projectTemplateInfo.NugetCommands)
                     {
                         nugetCommandsString += string.Format(
-                            "{0} {1} {2} {3}",
+                            "{0} {1} {2} {3} {4}",
                             nugetCommand,
                             verboseOption,
                             debugOption,
+                            preReleaseOption,
                             Environment.NewLine);
                     }
                 }
@@ -230,7 +235,7 @@ namespace NinjaCoder.MvvmCross.Services
 
         /// <summary>
         /// Fixes the test project. 
-        /// At the moment we just remove the Cirrious.CrossCore.Wpf assembly.
+        /// At the moment we  remove the *.Wpf assemblies.
         /// </summary>
         internal void FixTestProject()
         {
@@ -253,6 +258,8 @@ namespace NinjaCoder.MvvmCross.Services
         /// <returns>The verbose option.</returns>
         internal string GetVerboseOption(bool verboseOutput)
         {
+            TraceService.WriteLine("NugetService::GetVerboseOption");
+
             string verboseOption = string.Empty;
 
             if (verboseOutput)
@@ -270,6 +277,8 @@ namespace NinjaCoder.MvvmCross.Services
         /// <returns>The debug option.</returns>
         internal string GetDebugOption(bool debug)
         {
+            TraceService.WriteLine("NugetService::GetDebugOption");
+
             string debugOption = string.Empty;
 
             if (debug)
@@ -278,6 +287,25 @@ namespace NinjaCoder.MvvmCross.Services
             }
 
             return debugOption;
+        }
+
+        /// <summary>
+        /// Gets the debug option.
+        /// </summary>
+        /// <param name="preReleaseOption">if set to <c>true</c> [pre release option].</param>
+        /// <returns>The pre release option.</returns>
+        internal string GetPreReleaseOption(bool preReleaseOption)
+        {
+            TraceService.WriteLine("NugetService::GetPreReleaseOption");
+
+            string preRelease = string.Empty;
+
+            if (preReleaseOption)
+            {
+                preRelease = NugetConstants.UsePreReleaseOption;
+            }
+
+            return preRelease;
         }
     }
 }

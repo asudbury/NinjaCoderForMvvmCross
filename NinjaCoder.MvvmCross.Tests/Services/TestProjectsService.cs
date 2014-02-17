@@ -8,6 +8,8 @@ namespace NinjaCoder.MvvmCross.Tests.Services
     using System.Collections.Generic;
     using System.IO.Abstractions;
     using Moq;
+
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Services;
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using NinjaCoder.MvvmCross.Tests.Mocks;
@@ -25,6 +27,11 @@ namespace NinjaCoder.MvvmCross.Tests.Services
         /// The service.
         /// </summary>
         private ProjectsService service;
+
+        /// <summary>
+        /// The mock settings service.
+        /// </summary>
+        private Mock<ISettingsService> mockSettingsService;
 
         /// <summary>
         /// The mock file system.
@@ -52,6 +59,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
         [TestFixtureSetUp]
         public void Initialize()
         {
+            this.mockSettingsService = new Mock<ISettingsService>();
             this.mockFileSystem = new Mock<IFileSystem>();
             this.mockVisualStudioService = new Mock<IVisualStudioService>();
             this.mockSolutionService = new Mock<ISolutionService>();
@@ -63,7 +71,9 @@ namespace NinjaCoder.MvvmCross.Tests.Services
             
             this.mockSolutionService.Setup(x => x.GetProjectService(It.IsAny<string>())).Returns(this.mockProjectService.Object);
             
-            this.service = new ProjectsService(this.mockFileSystem.Object);
+            this.service = new ProjectsService(
+                this.mockSettingsService.Object,
+                this.mockFileSystem.Object);
         }
 
         /// <summary>
@@ -85,7 +95,6 @@ namespace NinjaCoder.MvvmCross.Tests.Services
                 this.mockVisualStudioService.Object,
                 "path", 
                 infos,
-                true,
                 true);
 
             //// check we have added the project to the solution.

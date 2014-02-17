@@ -12,7 +12,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     /// <summary>
     ///  Defines the IProjectsService type.
     /// </summary>
-    internal interface IProjectsService
+    public interface IProjectsService
     {
         /// <summary>
         /// Adds the projects.
@@ -21,13 +21,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <param name="path">The path.</param>
         /// <param name="projectsInfos">The projects infos.</param>
         /// <param name="referenceFirstProject">if set to <c>true</c> [reference first project].</param>
-        /// <param name="includeLibFolderInProjects">if set to <c>true</c> [include lib folder in projects].</param>
         /// <returns>The messages.</returns>
         IEnumerable<string> AddProjects(
             IVisualStudioService visualStudioServiceInstance,
             string path,
             IEnumerable<ProjectTemplateInfo> projectsInfos,
-            bool referenceFirstProject,
-            bool includeLibFolderInProjects);
+            bool referenceFirstProject);
     }
 }

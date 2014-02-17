@@ -12,8 +12,8 @@ namespace NinjaCoder.MvvmCross.Tests.Services
     using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Services;
     using NinjaCoder.MvvmCross.Tests.Mocks;
-    using NinjaCoder.MvvmCross.Translators;
     using NUnit.Framework;
+
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services.Interfaces;
 
@@ -38,11 +38,6 @@ namespace NinjaCoder.MvvmCross.Tests.Services
         /// </summary>
         private Mock<ISettingsService> mockSettingsService;
         
-        /// <summary>
-        /// The mock translator.
-        /// </summary>
-        private Mock<ITranslator<string, CodeConfig>> mockTranslator;
-
         /// <summary>
         /// The mock file.
         /// </summary>
@@ -69,7 +64,6 @@ namespace NinjaCoder.MvvmCross.Tests.Services
             this.mockFile = new MockFile();
             this.mockFileInfoFactory = new Mock<IFileInfoFactory>();
             this.mockFileInfo = new MockFileInfo();
-            this.mockTranslator = new Mock<ITranslator<string, CodeConfig>>();
 
             this.mockFileSystem.SetupGet(x => x.File).Returns(this.mockFile);
             this.mockFileSystem.SetupGet(x => x.FileInfo).Returns(this.mockFileInfoFactory.Object);
@@ -77,8 +71,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
 
             this.service = new CodeConfigService(
                 this.mockFileSystem.Object,
-                this.mockSettingsService.Object,
-                this.mockTranslator.Object);
+                this.mockSettingsService.Object);
         }
 
         /// <summary>
@@ -99,15 +92,13 @@ namespace NinjaCoder.MvvmCross.Tests.Services
                 References = new List<string> { "test" }
             };
 
-            this.mockTranslator.Setup(x => x.Translate(It.IsAny<string>())).Returns(codeConfig);
-
             MockPathBase mockPathBase = new MockPathBase();
 
             this.mockFileSystem.SetupGet(x => x.Path).Returns(mockPathBase);
 
             this.mockSettingsService.SetupGet(x => x.UseNugetForPlugins).Returns(false);
 
-            this.service.ProcessCodeConfig(mockProjectService.Object, "SQLite", "source", "destination");
+            /*this.service.ProcessCodeConfig(mockProjectService.Object, "SQLite", "source", "destination");
 
             mockProjectService.Verify(
                 x => x.AddReference(
@@ -115,7 +106,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
                 It.IsAny<string>(),
                 It.IsAny<string>(),
                 It.IsAny<bool>(),
-                It.IsAny<bool>()));
+                It.IsAny<bool>()));*/
         }
 
         /// <summary>
@@ -183,33 +174,6 @@ namespace NinjaCoder.MvvmCross.Tests.Services
 
             Assert.IsTrue(supported);
         }
-
-        /// <summary>
-        /// Tests the get code config from a file.
-        /// </summary>
-        [Test]
-        public void TestGetCodeConfigFromPath()
-        {
-            this.mockTranslator.SetupGet(x => x.Translate(It.IsAny<string>()));
-            
-            this.service.GetCodeConfigFromPath("path");
-
-            this.mockTranslator.Verify(x => x.Translate(It.IsAny<string>()));
-        }
-
-        /// <summary>
-        /// Tests the ge project code config.
-        /// </summary>
-        [Test]
-        public void TestGeProjectCodeConfig()
-        {
-            this.mockTranslator.SetupGet(x => x.Translate(It.IsAny<string>()));
-            
-            this.service.GetCodeConfigFromPath("path");
-
-            this.mockTranslator.Verify(x => x.Translate(It.IsAny<string>()));
-        }
-
         
         /// <summary>
         /// Tests the name of the get bootstrap file.

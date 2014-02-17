@@ -8,7 +8,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     /// <summary>
     ///  Defines the IUpdateVersionService type.
     /// </summary>
-    internal interface IUpdateVersionService
+    public interface IUpdateVersionService
     {
         /// <summary>
         /// Runs the specified file name.

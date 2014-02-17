@@ -15,21 +15,13 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
     /// </summary>
     public class SettingsService : ISettingsService
     {
-        /// <summary> 
-        /// Gets a value indicating whether [display logo].
-        /// </summary>
-        public bool DisplayLogo
-        {
-            get { return this.GetRegistryValue(string.Empty, "DisplayLogo", "Y") == "Y"; }
-        }
-
         /// <summary>
         /// Gets or sets a value indicating whether [log to trace].
         /// </summary>
         public bool LogToTrace
         {
-            get { return this.GetRegistryValue(string.Empty, "LogToTrace", "N") == "Y"; }
-            set { this.SetRegistryValue(string.Empty, "LogToTrace", value ? "Y" : "N"); }
+            get { return this.GetRegistryValue("Tracing", "LogToTrace", "N") == "Y"; }
+            set { this.SetRegistryValue("Tracing", "LogToTrace", value ? "Y" : "N"); }
         }
 
         /// <summary>
@@ -37,8 +29,8 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
         /// </summary>
         public bool LogToFile
         {
-            get { return this.GetRegistryValue(string.Empty, "LogToFile", "N") == "Y"; }
-            set { this.SetRegistryValue(string.Empty, "LogToFile", value ? "Y" : "N"); }
+            get { return this.GetRegistryValue("Tracing", "LogToFile", "N") == "Y"; }
+            set { this.SetRegistryValue("Tracing", "LogToFile", value ? "Y" : "N"); }
         }
 
         /// <summary>
@@ -46,8 +38,8 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
         /// </summary>
         public string LogFilePath 
         {
-            get { return this.GetRegistryValue(string.Empty, "LogFilePath", Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\ninja-coder-for-mvvmcross.log"); }
-            set { this.SetRegistryValue(string.Empty, "LogFilePath", value); }
+            get { return this.GetRegistryValue("Tracing", "LogFilePath", Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\ninja-coder-for-mvvmcross.log"); }
+            set { this.SetRegistryValue("Tracing", "LogFilePath", value); }
         }
 
         /// <summary>
@@ -55,8 +47,8 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
         /// </summary>
         public bool IncludeLibFolderInProjects
         {
-            get { return this.GetRegistryValue("Coding Style", "IncludeLibFolderInProjects", "N") == "Y"; }
-            set { this.SetRegistryValue("Coding Style", "IncludeLibFolderInProjects", value ? "Y" : "N"); }
+            get { return this.GetRegistryValue("Build", "IncludeLibFolderInProjects", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "IncludeLibFolderInProjects", value ? "Y" : "N"); }
         }
 
         /// <summary>
@@ -91,8 +83,8 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
         /// </summary>
         public bool SuspendReSharperDuringBuild
         {
-            get { return this.GetRegistryValue("Nuget", "SuspendReSharperDuringBuild", "N") == "Y"; }
-            set { this.SetRegistryValue("Nuget", "SuspendReSharperDuringBuild", value ? "Y" : "N"); }
+            get { return this.GetRegistryValue("Build", "SuspendReSharperDuringBuild", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "SuspendReSharperDuringBuild", value ? "Y" : "N"); }
         }
 
         /// <summary>
@@ -100,8 +92,8 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
         /// </summary>
         public bool DisplayErrors
         {
-            get { return this.GetRegistryValue(string.Empty, "DisplayErrors", "N") == "Y"; }
-            set { this.SetRegistryValue(string.Empty, "DisplayErrors", value ? "Y" : "N"); }
+            get { return this.GetRegistryValue("Tracing", "DisplayErrors", "N") == "Y"; }
+            set { this.SetRegistryValue("Tracing", "DisplayErrors", value ? "Y" : "N"); }
         }
 
         /// <summary>
@@ -147,6 +139,38 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
         }
 
         /// <summary>
+        /// Gets the plugins code snippets path.
+        /// </summary>
+        public string PluginsCodeSnippetsPath
+        {
+            get { return this.InstalledDirectory + @"CodeSnippets\Plugins\"; }
+        }
+
+        /// <summary>
+        /// Gets the services code snippets path.
+        /// </summary>
+        public string ServicesCodeSnippetsPath
+        {
+            get { return this.InstalledDirectory + @"CodeSnippets\Services\"; }
+        }
+
+        /// <summary>
+        /// Gets the plugins config path.
+        /// </summary>
+        public string PluginsConfigPath
+        {
+            get { return this.InstalledDirectory + @"Config\Plugins\"; }
+        }
+
+        /// <summary>
+        /// Gets the services config path.
+        /// </summary>
+        public string ServicesConfigPath
+        {
+            get { return this.InstalledDirectory + @"Config\Services\"; }
+        }
+
+        /// <summary>
         /// Gets the MVVM cross assemblies path.
         /// </summary>
         public string MvvmCrossAssembliesPath
@@ -179,19 +203,11 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
         }
 
         /// <summary>
-        /// Gets the download nuget page.
-        /// </summary>
-        public string DownloadNugetPage
-        {
-            get { return "http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c"; }
-        }
-
-        /// <summary>
         /// Gets the unit testing assemblies.
         /// </summary>
         public string UnitTestingAssemblies
         {
-            get { return this.GetRegistryValue(string.Empty, "UnitTestingAssemblies", "Moq,Cirrious.CrossCore"); } 
+            get { return this.GetRegistryValue(string.Empty, "UnitTestingAssemblies", "Cirrious.CrossCore"); } 
         }
 
         /// <summary>
@@ -203,35 +219,11 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
         }
 
         /// <summary>
-        /// Gets the name of the base view model.
-        /// </summary>
-        public string BaseViewModelName
-        {
-            get { return this.GetRegistryValue(string.Empty, "BaseViewModelName", "BaseViewModel"); } 
-        }
-
-        /// <summary>
         /// Gets the view model navigation snippet file.
         /// </summary>
         public string ViewModelNavigationSnippetFile
         {
             get { return this.GetRegistryValue(string.Empty, "ViewModelNavigationSnippetFile", this.CodeSnippetsPath + @"\ViewModelNavigation.xml"); } 
-        }
-
-        /// <summary>
-        /// Gets the snippets override directory.
-        /// </summary>
-        public string SnippetsOverrideDirectory
-        {
-            get { return this.GetRegistryValue(string.Empty, "SnippetsOverrideDirectory", string.Empty); } 
-        }
-
-        /// <summary>
-        /// Gets the config override directory.
-        /// </summary>
-        public string ConfigsOverrideDirectory
-        {
-            get { return this.GetRegistryValue(string.Empty, "ConfigsOverrideDirectory", string.Empty); } 
         }
 
         /// <summary>
@@ -320,8 +312,8 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
         /// </summary>
         public bool CopyAssembliesToLibFolder
         {
-            get { return this.GetRegistryValue("Coding Style", "CopyAssembliesToLibFolder", "N") == "Y"; }
-            set { this.SetRegistryValue("Coding Style", "CopyAssembliesToLibFolder", value ? "Y" : "N"); }
+            get { return this.GetRegistryValue("Build", "CopyAssembliesToLibFolder", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "CopyAssembliesToLibFolder", value ? "Y" : "N"); }
         }
 
         /// <summary>
@@ -329,7 +321,7 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
         /// </summary>
         public bool ProcessTemplateWizards
         {
-            get { return this.GetRegistryValue(string.Empty, "ProcessTemplateWizards", "Y") == "Y"; }
+            get { return this.GetRegistryValue("Internals", "ProcessTemplateWizards", "Y") == "Y"; }
         }
 
         /// <summary>
@@ -337,28 +329,323 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
         /// </summary>
         public bool ProcessNugetCommands
         {
-            get { return this.GetRegistryValue(string.Empty, "ProcessNugetCommands", "Y") == "Y"; }
+            get { return this.GetRegistryValue("Internals", "ProcessNugetCommands", "Y") == "Y"; }
         }
 
         /// <summary>
-        /// Gets or sets the MVVM cross assemblies override directory.
+        /// Gets a value indicating whether [beta testing].
         /// </summary>
-        public string MvvmCrossAssembliesOverrideDirectory
+        public bool BetaTesting
         {
-            get
-            {
-                string defaultValue = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + 
-                                      @"\Ninja Coder for MvvmCross" + 
-                                      @"\MvvmCross" + 
-                                      @"\Assemblies";
+            get { return this.GetRegistryValue("Internals", "BetaTesting", "N") == "Y"; }
+        }
 
-                return this.GetRegistryValue(string.Empty, "MvvmCrossAssembliesOverrideDirectory", defaultValue);
-            }
+        /// <summary>
+        /// Gets or sets the default projects path.
+        /// </summary>
+        public string DefaultProjectsPath
+        {
+            get { return this.GetRegistryValue(string.Empty, "DefaultProjectsPath", string.Empty); }
+            set { this.SetRegistryValue(string.Empty, "DefaultProjectsPath", value); }
+        }
 
-            set
-            {
-                this.SetRegistryValue(string.Empty, "MvvmCrossAssembliesOverrideDirectory", value);
-            }
+        /// <summary>
+        /// Gets or sets the theme.
+        /// </summary>
+        public string Theme
+        {
+            get { return this.GetRegistryValue("Visual", "Theme", "Light"); }
+            set { this.SetRegistryValue("Visual", "Theme", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the color of the theme.
+        /// </summary>
+        public string ThemeColor
+        {
+            get { return this.GetRegistryValue("Visual", "ThemeColor", "Blue"); }
+            set { this.SetRegistryValue("Visual", "ThemeColor", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the testing framework.
+        /// </summary>
+        public string TestingFramework
+        {
+            get { return this.GetRegistryValue("Projects", "TestingFramework", "NUnit"); }
+            set { this.SetRegistryValue("Projects", "TestingFramework", value); }
+        }
+
+        public string MockingFramework
+        {
+            get { return this.GetRegistryValue("Projects", "MockingFramework", "Moq"); }
+            set { this.SetRegistryValue("Projects", "MockingFramework", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the default users paths set.
+        /// </summary>
+        public bool DefaultUsersPathsSet
+        {
+            get { return this.GetRegistryValue(string.Empty, "DefaultUsersPathsSet", "N") == "Y"; }
+            set { this.SetRegistryValue(string.Empty, "DefaultUsersPathsSet", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets the default user plugins path.
+        /// </summary>
+        public string DefaultUserPluginsPath
+        {
+            get { return this.GetRegistryValue("Plugins", "DefaultUserPluginsPath", string.Empty); }
+            set { this.SetRegistryValue("Plugins", "DefaultUserPluginsPath", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the default user services path.
+        /// </summary>
+        public string DefaultUserServicesPath
+        {
+            get { return this.GetRegistryValue("Services", "DefaultUserServicesPath", string.Empty); }
+            set { this.SetRegistryValue("Services", "DefaultUserServicesPath", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the default user code snippets plugins path.
+        /// </summary>
+        public string DefaultUserCodeSnippetsPluginsPath
+        {
+            get { return this.GetRegistryValue("Plugins", "DefaultUserCodeSnippetsPluginsPath", string.Empty); }
+            set { this.SetRegistryValue("Plugins", "DefaultUserCodeSnippetsPluginsPath", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the default user code snippets services path.
+        /// </summary>
+        public string DefaultUserCodeSnippetsServicesPath
+        {
+            get { return this.GetRegistryValue("Services", "DefaultUserCodeSnippetsServicesPath", string.Empty); }
+            set { this.SetRegistryValue("Services", "DefaultUserCodeSnippetsServicesPath", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the default user code config plugins path.
+        /// </summary>
+        public string DefaultUserCodeConfigPluginsPath
+        {
+            get { return this.GetRegistryValue("Plugins", "DefaultUserCodeConfigPluginsPath", string.Empty); }
+            set { this.SetRegistryValue("Plugins", "DefaultUserCodeConfigPluginsPath", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the default user code config services path.
+        /// </summary>
+        public string DefaultUserCodeConfigServicesPath
+        {
+            get { return this.GetRegistryValue("Services", "DefaultUserCodeConfigServicesPath", string.Empty); }
+            set { this.SetRegistryValue("Services", "DefaultUserCodeConfigServicesPath", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the user plugins path.
+        /// </summary>
+        public string UserPluginsPath
+        {
+            get { return this.GetRegistryValue("Plugins", "UserPluginsPath", this.DefaultUserPluginsPath); }
+            set { this.SetRegistryValue("Plugins", "UserPluginsPath", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the user services path.
+        /// </summary>
+        public string UserServicesPath
+        {
+            get { return this.GetRegistryValue("Services", "UserServicesPath", this.DefaultUserServicesPath); }
+            set { this.SetRegistryValue("Services", "UserServicesPath", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the user code snippets plugins path.
+        /// </summary>
+        public string UserCodeSnippetsPluginsPath
+        {
+            get { return this.GetRegistryValue("Plugins", "UserCodeSnippetsPluginsPath", this.DefaultUserCodeSnippetsPluginsPath); }
+            set { this.SetRegistryValue("Plugins", "UserCodeSnippetsPluginsPath", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the user code snippets services path.
+        /// </summary>
+        public string UserCodeSnippetsServicesPath
+        {
+            get { return this.GetRegistryValue("Services", "UserCodeSnippetsServicesPath", this.DefaultUserCodeSnippetsServicesPath); }
+            set { this.SetRegistryValue("Services", "UserCodeSnippetsServicesPath", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the user code config plugins path.
+        /// </summary>
+        public string UserCodeConfigPluginsPath
+        {
+            get { return this.GetRegistryValue("Plugins", "UserCodeConfigPluginsPath", this.DefaultUserCodeConfigPluginsPath); }
+            set { this.SetRegistryValue("Plugins", "UserCodeConfigPluginsPath", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the user code config services path.
+        /// </summary>
+        public string UserCodeConfigServicesPath
+        {
+            get { return this.GetRegistryValue("Services", "UserCodeConfigServicesPath", this.DefaultUserCodeConfigServicesPath); }
+            set { this.SetRegistryValue("Services", "UserCodeConfigServicesPath", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use pre release nuget packages].
+        /// </summary>
+        public bool UsePreReleaseNugetPackages 
+        {
+            get { return this.GetRegistryValue("Nuget", "UsePreReleaseNugetPackages", "N") == "Y"; }
+            set { this.SetRegistryValue("Nuget", "UsePreReleaseNugetPackages", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets the type of the selected view.
+        /// </summary>
+        public string SelectedViewType
+        {
+            get { return this.GetRegistryValue("Internals", "SelectedViewType", "SampleData"); }
+            set { this.SetRegistryValue("Internals", "SelectedViewType", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the selected view prefix.
+        /// </summary>
+        public string SelectedViewPrefix
+        {
+            get { return this.GetRegistryValue("Internals", "SelectedViewPrefix", string.Empty); }
+            set { this.SetRegistryValue("Internals", "SelectedViewPrefix", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the PCL profile.
+        /// </summary>
+        public string PCLProfile
+        {
+            get { return this.GetRegistryValue("Projects", "PCLProfile", "158"); }
+            set { this.SetRegistryValue("Projects", "PCLProfile", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the windows phone version.
+        /// </summary>
+        public string WindowsPhoneBuildVersion
+        {
+            get { return this.GetRegistryValue("Projects", "WindowsPhoneBuildVersion", "8"); }
+            set { this.SetRegistryValue("Projects", "WindowsPhoneBuildVersion", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the ios version.
+        /// </summary>
+        public string iOSBuildVersion
+        {
+            get { return this.GetRegistryValue("Projects", "WindowsPhoneBuildVersion", "7"); }
+            set { this.SetRegistryValue("Projects", "WindowsPhoneBuildVersion", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the Language override.
+        /// </summary>
+        public string LanguageOverride
+        {
+            get { return this.GetRegistryValue("Visual", "LanguageOverride", "Current Culture"); }
+            set { this.SetRegistryValue("Visual", "LanguageOverride", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the visual studio version.
+        /// </summary>
+        public string VisualStudioVersion
+        {
+            get { return this.GetRegistryValue("Internals", "VisualStudioVersion", "11.0"); }
+            set { this.SetRegistryValue("Internals", "VisualStudioVersion", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [show view log file on visual studio menu].
+        /// </summary>
+        public bool ShowViewLogFileOnVisualStudioMenu
+        {
+            get { return this.GetRegistryValue("Internals", "ShowViewLogFileOnVisualStudioMenu", "N") == "Y"; }
+            set { this.SetRegistryValue("Internals", "ShowViewLogFileOnVisualStudioMenu", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [show clear log file on visual studio menu].
+        /// </summary>
+        public bool ShowClearLogFileOnVisualStudioMenu
+        {
+            get { return this.GetRegistryValue("Internals", "ShowClearLogFileOnVisualStudioMenu", "N") == "Y"; }
+            set { this.SetRegistryValue("Internals", "ShowClearLogFileOnVisualStudioMenu", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [check for updates].
+        /// </summary>
+        public bool CheckForUpdates
+        {
+            get { return this.GetRegistryValue("Internals", "CheckForUpdates", "Y") == "Y"; }
+            set { this.SetRegistryValue("Internals", "CheckForUpdates", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets the last checked for update date time.
+        /// </summary>
+        public string LastCheckedForUpdateDateTime
+        {
+            get { return this.GetRegistryValue("Internals", "LastCheckedForUpdateDateTime", string.Empty); }
+            set { this.SetRegistryValue("Internals", "LastCheckedForUpdateDateTime", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the latest version on gallery.
+        /// </summary>
+        public string LatestVersionOnGallery
+        {
+            get { return this.GetRegistryValue("Internals", "LatestVersionOnGallery", string.Empty); }
+            set { this.SetRegistryValue("Internals", "LatestVersionOnGallery", value); }
+        }
+
+        /// <summary>
+        /// Gets the gallery id.
+        /// </summary>
+        public string GalleryId
+        {
+            get { return this.GetRegistryValue("Internals", "GalleryId", "AB2BD8EF-571C-47dc-87D2-6CC966FC1346"); }
+        }
+
+        /// <summary>
+        /// Gets the ninja coder download URL.
+        /// </summary>
+        public string NinjaCoderDownloadUrl
+        {
+            get { return this.GetRegistryValue("Internals", "NinjaCoderDownloadUrl", "http://visualstudiogallery.msdn.microsoft.com/618b51f0-6de8-4f85-95ce-a50c658c7767"); }
+        }
+
+        /// <summary>
+        /// Gets the update checker path.
+        /// </summary>
+        public string UpdateCheckerPath
+        { 
+            get { return this.InstalledDirectory + "NinjaCoder.MvvmCross.UpdateChecker.exe"; }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [add view model and views].
+        /// </summary>
+        public bool AddViewModelAndViews
+        {
+            get { return this.GetRegistryValue("Internals", "AddViewModelAndViews", "Y") == "Y"; }
         }
 
         /// <summary>
@@ -470,7 +757,12 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
         /// <returns>The Item templates path.</returns>
         internal string GetItemTemplatesPath()
         {
-            return Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\Microsoft Visual Studio 11.0\Common7\IDE\ItemTemplates\CSharp\MvvmCross";
+            string visualStudioFolder = "Microsoft Visual Studio " + this.VisualStudioVersion;
+
+            return string.Format(
+                @"{0}\{1}\Common7\IDE\ItemTemplates\CSharp\MvvmCross", 
+                Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), 
+                visualStudioFolder);
         }
     }
 }

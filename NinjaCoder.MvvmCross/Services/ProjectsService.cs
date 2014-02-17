@@ -11,6 +11,9 @@ namespace NinjaCoder.MvvmCross.Services
     using System.Linq;
     using Constants;
     using Interfaces;
+
+    using NinjaCoder.MvvmCross.Infrastructure.Services;
+
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
@@ -20,6 +23,11 @@ namespace NinjaCoder.MvvmCross.Services
     /// </summary>
     internal class ProjectsService : BaseService, IProjectsService
     {
+        /// <summary>
+        /// The settings service.
+        /// </summary>
+        private readonly ISettingsService settingsService;
+
         /// <summary>
         /// The file system.
         /// </summary>
@@ -33,9 +41,13 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectsService" /> class.
         /// </summary>
+        /// <param name="settingsService">The settings service.</param>
         /// <param name="fileSystem">The file system.</param>
-        public ProjectsService(IFileSystem fileSystem)
+        public ProjectsService(
+            ISettingsService settingsService,
+            IFileSystem fileSystem)
         {
+            this.settingsService = settingsService;
             this.FileSystem = fileSystem;
         }
 
@@ -46,16 +58,16 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="path">The path.</param>
         /// <param name="projectsInfos">The projects infos.</param>
         /// <param name="referenceFirstProject">if set to <c>true</c> [reference first project].</param>
-        /// <param name="includeLibFolderInProjects">if set to <c>true</c> [include lib folder in projects].</param>
         /// <returns>The messages.</returns>
         public IEnumerable<string> AddProjects(
             IVisualStudioService visualStudioServiceInstance,
             string path, 
             IEnumerable<ProjectTemplateInfo> projectsInfos, 
-            bool referenceFirstProject, 
-            bool includeLibFolderInProjects)
+            bool referenceFirstProject)
         {
-            string message = string.Format("ProjectsService::AddProjects project count={0} path={1}", projectsInfos.Count(), path);
+            IEnumerable<ProjectTemplateInfo> projectTemplateInfos = projectsInfos as ProjectTemplateInfo[] ?? projectsInfos.ToArray();
+
+            string message = string.Format("ProjectsService::AddProjects project count={0} path={1}", projectTemplateInfos.Count(), path);
             
             TraceService.WriteLine(message);
 
@@ -66,7 +78,7 @@ namespace NinjaCoder.MvvmCross.Services
 
             IProjectService firstProjectService = null;
             
-            foreach (ProjectTemplateInfo projectInfo in projectsInfos)
+            foreach (ProjectTemplateInfo projectInfo in projectTemplateInfos)
             {
                 //// add in the nuget messages.
                 if (firstProjectService == null && 
@@ -76,6 +88,8 @@ namespace NinjaCoder.MvvmCross.Services
                     this.Messages.Add(NinjaMessages.PmConsole);
                     this.Messages.Add(string.Empty);
                 }
+
+                this.settingsService.ActiveProject = projectInfo.FriendlyName;
 
                 firstProjectService = this.TryToAddProject(
                     path, 
@@ -101,7 +115,7 @@ namespace NinjaCoder.MvvmCross.Services
             ProjectTemplateInfo projectInfo,
             IProjectService firstProjectService)
         {
-            TraceService.WriteLine("ProjectsService::TryToAddProject");
+            TraceService.WriteLine("ProjectsService::TryToAddProject  project=" + projectInfo.Name);
 
             //// Project may actually already exist - if so just skip it!
 
@@ -129,11 +143,13 @@ namespace NinjaCoder.MvvmCross.Services
             ProjectTemplateInfo projectInfo,
             string projectPath)
         {
-            TraceService.WriteLine("ProjectsService::AddProject");
+            TraceService.WriteLine("ProjectsService::AddProject project=" + projectInfo.Name);
 
             try
             {
                 string template = this.visualStudioService.SolutionService.GetProjectTemplate(projectInfo.TemplateName);
+
+                TraceService.WriteLine("Template=" + template);
 
                 this.visualStudioService.SolutionService.AddProjectToSolution(projectPath, template, projectInfo.Name);
 
@@ -155,7 +171,7 @@ namespace NinjaCoder.MvvmCross.Services
             ProjectTemplateInfo projectInfo, 
             IProjectService firstProjectService)
         {
-            TraceService.WriteLine("ProjectsService::ReferenceFirstProject");
+            TraceService.WriteLine("ProjectsService::ReferenceFirstProject project=" + projectInfo.Name);
 
             IProjectService projectService = this.visualStudioService.SolutionService.GetProjectService(projectInfo.Name);
 
@@ -180,9 +196,9 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="projectInfo">The project info.</param>
         internal void DeleteLibFolder(ProjectTemplateInfo projectInfo)
         {
-            TraceService.WriteLine("ProjectsService::DeleteLibFolder");
+            TraceService.WriteLine("ProjectsService::DeleteLibFolder project=" + projectInfo.Name);
 
-            IProjectService projectService = this.visualStudioService.SolutionService.GetProjectService((projectInfo.Name));
+            IProjectService projectService = this.visualStudioService.SolutionService.GetProjectService(projectInfo.Name);
 
             if (projectService != null)
             {

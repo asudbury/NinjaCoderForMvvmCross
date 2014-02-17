@@ -17,19 +17,22 @@ namespace Scorchio.VisualStudio.Services
         /// <summary>
         /// Activates this instance.
         /// </summary>
+        /// <param name="objectName">Name of the object.</param>
         /// <returns>An instance of Visual Studio.</returns>
-        public static DTE2 Activate()
+        public static DTE2 Activate(string objectName)
         {
             DTE2 dte2;
 
             try
             {
-                TraceService.WriteLine("VSActivatorService::Activate " + ScorchioConstants.VisualStudio2012);
-                dte2 = (DTE2)System.Runtime.InteropServices.Marshal.GetActiveObject(ScorchioConstants.VisualStudio2012);
+                TraceService.WriteLine("VSActivatorService::Activate " + objectName);
+                dte2 = (DTE2)System.Runtime.InteropServices.Marshal.GetActiveObject(objectName);
 
             }
-            catch (Exception)
+            catch (Exception exception)
             {
+                TraceService.WriteError(exception.Message);
+
                 TraceService.WriteLine("VSActivatorService::Activate " + ScorchioConstants.VisualStudio);
                 dte2 = (DTE2)System.Runtime.InteropServices.Marshal.GetActiveObject(ScorchioConstants.VisualStudio);
             }

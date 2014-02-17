@@ -13,50 +13,20 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     /// <summary>
     ///  Defines the ICodeConfigService type.
     /// </summary>
-    internal interface ICodeConfigService
+    public interface ICodeConfigService
     {
         /// <summary>
         /// Processes the code config.
         /// </summary>
         /// <param name="projectService">The project service.</param>
-        /// <param name="friendlyName">Name of the friendly.</param>
+        /// <param name="codeConfig">The code config.</param>
         /// <param name="extensionSource">The extension source.</param>
         /// <param name="extensionDestination">The extension destination.</param>
-        /// <returns>The code config.</returns>
-        CodeConfig ProcessCodeConfig(
+        void ProcessCodeConfig(
             IProjectService projectService, 
-            string friendlyName, 
+            CodeConfig codeConfig,
             string extensionSource, 
             string extensionDestination);
-
-        /// <summary>
-        /// Gets the code config.
-        /// </summary>
-        /// <param name="path">The path.</param>
-        /// <returns>The code config.</returns>
-        CodeConfig GetCodeConfigFromPath(string path);
-
-        /// <summary>
-        /// Gets the code config.
-        /// </summary>
-        /// <param name="projectService">The project service.</param>
-        /// <param name="friendlyName">Name of the friendly.</param>
-        /// <param name="useProjectExtension">if set to <c>true</c> [use project extension].</param>
-        /// <returns>The code config.</returns>
-        CodeConfig GetCodeConfig(
-            IProjectService projectService, 
-            string friendlyName, 
-            bool useProjectExtension);
-
-        /// <summary>
-        /// Gets the ui code config.
-        /// </summary>
-        /// <param name="projectService">The project service.</param>
-        /// <param name="friendlyName">Name of the friendly.</param>
-        /// <returns>The code config.</returns>
-        CodeConfig GetUICodeConfig(
-            IProjectService projectService, 
-            string friendlyName);
 
         /// <summary>
         /// Gets the nuget command.

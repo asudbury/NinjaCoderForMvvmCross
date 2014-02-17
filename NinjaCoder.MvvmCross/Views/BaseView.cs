@@ -5,33 +5,38 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Views
 {
-    using System.Windows.Forms;
+    using System.Windows;
+
+    using MahApps.Metro;
+    using MahApps.Metro.Controls;
+
+    using Scorchio.Infrastructure.Extensions;
+    using Scorchio.Infrastructure.Wpf.Views;
 
     /// <summary>
     /// Defines the BaseView type.
     /// </summary>
-    public class BaseView : Form
+    public class BaseView : MetroWindow, IThemedDialog
     {
         /// <summary>
-        /// Sets the logo visibility.
+        /// Changes the theme.
         /// </summary>
-        /// <param name="logoControl">The logo control.</param>
-        /// <param name="visibility">if set to <c>true</c> [visibility].</param>
-        protected void SetLogoVisibility(
-            Control logoControl, 
-            bool visibility)
+        /// <param name="theme">The theme.</param>
+        /// <param name="themeColor">Color of the theme.</param>
+        public void ChangeTheme(
+            Theme theme,
+            string themeColor)
         {
-            logoControl.Visible = visibility;
-
-            if (visibility == false)
-            {
-                this.Width = this.Width - logoControl.Width;
-
-                foreach (Control control in this.Controls)
-                {
-                    control.Left = control.Left - logoControl.Width;
-                }
-            }
+            ThemeManagerExtensions.ChangeTheme(this, theme, themeColor);
         }
-}
+
+        /// <summary>
+        /// Sets the language dictionary.
+        /// </summary>
+        /// <param name="resourceDictionary">The resource dictionary.</param>
+        public void SetLanguageDictionary(ResourceDictionary resourceDictionary)
+        {
+            this.Resources.SetLanguageDictionary(resourceDictionary);
+        }
+    }
 }

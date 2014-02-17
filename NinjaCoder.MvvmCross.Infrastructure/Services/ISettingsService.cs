@@ -11,11 +11,6 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
     public interface ISettingsService
     {
         /// <summary>
-        /// Gets a value indicating whether [display logo].
-        /// </summary>
-        bool DisplayLogo { get; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether [log to trace].
         /// </summary>
         bool LogToTrace { get; set; }
@@ -86,6 +81,26 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
         string CodeSnippetsPath { get; }
 
         /// <summary>
+        /// Gets the plugins code snippets path.
+        /// </summary>
+        string PluginsCodeSnippetsPath { get; }
+
+        /// <summary>
+        /// Gets the services code snippets path.
+        /// </summary>
+        string ServicesCodeSnippetsPath { get; }
+
+        /// <summary>
+        /// Gets the plugins config path.
+        /// </summary>
+        string PluginsConfigPath { get; }
+
+        /// <summary>
+        /// Gets the services config path.
+        /// </summary>
+        string ServicesConfigPath { get; }
+
+        /// <summary>
         /// Gets the MVVM cross assemblies path.
         /// </summary>
         string MvvmCrossAssembliesPath { get; }
@@ -106,11 +121,6 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
         string MvvmCrossVersion { get; }
 
         /// <summary>
-        /// Gets the download nuget page.
-        /// </summary>
-        string DownloadNugetPage { get; }
-
-        /// <summary>
         /// Gets the unit testing assemblies.
         /// </summary>
         string UnitTestingAssemblies { get; }
@@ -121,24 +131,9 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
         string UnitTestingInitMethod { get; }
 
         /// <summary>
-        /// Gets the name of the base view model.
-        /// </summary>
-        string BaseViewModelName { get; }
-
-        /// <summary>
         /// Gets the view model navigation snippet file.
         /// </summary>
         string ViewModelNavigationSnippetFile { get; }
-
-        /// <summary>
-        /// Gets the snippets override directory.
-        /// </summary>
-        string SnippetsOverrideDirectory { get; }
-
-        /// <summary>
-        /// Gets the configs override directory.
-        /// </summary>
-        string ConfigsOverrideDirectory { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [format function parameters].
@@ -206,8 +201,183 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
         bool ProcessNugetCommands { get; }
 
         /// <summary>
-        /// Gets or sets the MVVM cross assemblies override directory.
+        /// Gets a value indicating whether [beta testing].
         /// </summary>
-        string MvvmCrossAssembliesOverrideDirectory { get; set; }
-     }
+        bool BetaTesting { get; }
+
+        /// <summary>
+        /// Gets or sets the default projects path.
+        /// </summary>
+        string DefaultProjectsPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the theme.
+        /// </summary>
+        string Theme { get; set; }
+
+        /// <summary>
+        /// Gets or sets the color of the theme.
+        /// </summary>
+        string ThemeColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the testing framework.
+        /// </summary>
+        string TestingFramework { get; set; }
+
+        /// <summary>
+        /// Gets or sets the mocking framework.
+        /// </summary>
+        string MockingFramework { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default users paths set.
+        /// </summary>
+        bool DefaultUsersPathsSet { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default user plugins path.
+        /// </summary>
+        string DefaultUserPluginsPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default user services path.
+        /// </summary>
+        string DefaultUserServicesPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default user code snippets plugins path.
+        /// </summary>
+        string DefaultUserCodeSnippetsPluginsPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default user code snippets services path.
+        /// </summary>
+        string DefaultUserCodeSnippetsServicesPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default user code config plugins path.
+        /// </summary>
+        string DefaultUserCodeConfigPluginsPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default user code config services path.
+        /// </summary>
+        string DefaultUserCodeConfigServicesPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user plugins path.
+        /// </summary>
+        string UserPluginsPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user services path.
+        /// </summary>
+        string UserServicesPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user code snippets plugins path.
+        /// </summary>
+        string UserCodeSnippetsPluginsPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user code snippets services path.
+        /// </summary>
+        string UserCodeSnippetsServicesPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user code config plugins path.
+        /// </summary>
+        string UserCodeConfigPluginsPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user code config services path.
+        /// </summary>
+        string UserCodeConfigServicesPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use pre release nuget packages].
+        /// </summary>
+        bool UsePreReleaseNugetPackages { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the selected view.
+        /// </summary>
+        string SelectedViewType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the selected view prefix.
+        /// </summary>
+        string SelectedViewPrefix { get; set; }
+
+        /// <summary>
+        /// Gets or sets the PCL profile.
+        /// </summary>
+        string PCLProfile { get; set; }
+
+        /// <summary>
+        /// Gets or sets the windows phone version.
+        /// </summary>
+        string WindowsPhoneBuildVersion { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ios version.
+        /// </summary>
+        string iOSBuildVersion { get; set; }
+
+        /// <summary>
+        /// Gets or sets the langugage override.
+        /// </summary>
+        string LanguageOverride { get; set; }
+
+        /// <summary>
+        /// Gets or sets the visual studio version.
+        /// </summary>
+        string VisualStudioVersion { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [show view log file on visual studio menu].
+        /// </summary>
+        bool ShowViewLogFileOnVisualStudioMenu { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [show clear log file on visual studio menu].
+        /// </summary>
+        bool ShowClearLogFileOnVisualStudioMenu { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [check for updates].
+        /// </summary>
+        bool CheckForUpdates { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last checked for update date time.
+        /// </summary>
+        string LastCheckedForUpdateDateTime { get; set; }
+
+        /// <summary>
+        /// Gets or sets the latest version on gallery.
+        /// </summary>
+        string LatestVersionOnGallery { get; set; }
+
+        /// <summary>
+        /// Gets the gallery id.
+        /// </summary>
+        string GalleryId { get; }
+
+        /// <summary>
+        /// Gets the ninja coder download URL.
+        /// </summary>
+        string NinjaCoderDownloadUrl { get; }
+
+        /// <summary>
+        /// Gets the update checker path.
+        /// </summary>
+        string UpdateCheckerPath { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether [add view model and views].
+        /// </summary>
+        bool AddViewModelAndViews { get; }
+    }
 }

@@ -740,7 +740,7 @@ namespace Scorchio.VisualStudio.Extensions
             if (File.Exists(fileName))
             {
                 TraceService.WriteLine("ProjectExtensions::RemoveAndDelete fileName=" + fileName);
-                ////File.Delete(fileName);
+                File.Delete(fileName);
             }
         }
 
@@ -755,6 +755,23 @@ namespace Scorchio.VisualStudio.Extensions
             const string RegEx = @"^(?([^\r\n])\s)*\r?$\r?\n^(?([^\r\n])\s)*\r?$\r?\n";
 
             instance.ReplaceText(RegEx, string.Empty, (int)vsFindOptions.vsFindOptionsRegularExpression);
+        }
+
+        /// <summary>
+        /// Delete the file contents.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        public static void DeleteFileContents(this ProjectItem instance)
+        {
+            TraceService.WriteLine("ProjectExtensions::DeleteFileContents");
+
+            Document document = instance.Document;
+
+            TextDocument textDoc = (TextDocument)document.Object("TextDocument");
+
+            EditPoint editPoint = textDoc.StartPoint.CreateEditPoint();
+            EditPoint endPoint = textDoc.EndPoint.CreateEditPoint();
+            editPoint.Delete(endPoint);
         }
     }
 }

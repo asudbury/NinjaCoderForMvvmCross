@@ -11,6 +11,8 @@ namespace NinjaCoder.MvvmCross.Translators
     using System.Xml;
     using System.Xml.Serialization;
     using Constants;
+
+    using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Entities;
 
     /// <summary>

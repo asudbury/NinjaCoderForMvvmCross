@@ -29,6 +29,8 @@ namespace NinjaCoder.MvvmCross.Services
             string templatesPath,
             List<ItemTemplateInfo> templateInfos)
         {
+            TraceService.WriteLine("ConvertersService::AddConverters");
+
             if (projectService != null)
             {
                 List<string> messages = new List<string>();
@@ -60,7 +62,7 @@ namespace NinjaCoder.MvvmCross.Services
 
             string fileName = templateInfo.FriendlyName + ".cs";
 
-            projectService.AddToFolderFromTemplate("Converters", templateInfo.FileName, fileName, false);
+            projectService.AddToFolderFromTemplate(templateInfo.FileName, fileName);
 
             IProjectItemService projectItemService = projectService.GetProjectItem(fileName);
 

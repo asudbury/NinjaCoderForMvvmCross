@@ -6,8 +6,10 @@
 namespace NinjaCoder.MvvmCross.Services
 {
     using System.IO.Abstractions;
+
     using NinjaCoder.MvvmCross.Constants;
     using NinjaCoder.MvvmCross.Entities;
+    using NinjaCoder.MvvmCross.Factories.Interfaces;
     using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using Scorchio.VisualStudio.Entities;
@@ -25,9 +27,14 @@ namespace NinjaCoder.MvvmCross.Services
         private readonly IFileSystem fileSystem;
 
         /// <summary>
-        /// The settings service,
+        /// The settings service.
         /// </summary>
         private readonly ISettingsService settingsService;
+        
+        /// <summary>
+        /// The code config factory.
+        /// </summary>
+        private readonly ICodeConfigFactory codeConfigFactory;
 
         /// <summary>
         /// The code config service.
@@ -39,17 +46,19 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         /// <param name="fileSystem">The file system.</param>
         /// <param name="settingsService">The settings service.</param>
-        /// <param name="codeConfigService">The code config service.</param>
+        /// <param name="codeConfigFactory">The code config factory.</param>
         public PluginService(
             IFileSystem fileSystem,
             ISettingsService settingsService,
-            ICodeConfigService codeConfigService)
+            ICodeConfigFactory codeConfigFactory)
         {
             TraceService.WriteLine("PluginService::Constructor");
 
             this.fileSystem = fileSystem;
             this.settingsService = settingsService;
-            this.codeConfigService = codeConfigService;
+            this.codeConfigFactory = codeConfigFactory;
+
+            this.codeConfigService = codeConfigFactory.GetCodeConfigService();
         }
 
         /// <summary>
@@ -57,13 +66,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         /// <param name="projectService">The project service.</param>
         /// <param name="plugin">The plugin.</param>
-        /// <param name="folderName">Name of the folder.</param>
         /// <param name="extensionName">Name of the extension.</param>
         /// <returns>True or false.</returns>
         public bool AddPlugin(
             IProjectService projectService,
             Plugin plugin,
-            string folderName,
             string extensionName)
         {
             TraceService.WriteLine("PluginService::AddPlugin " + plugin.FriendlyName);
@@ -74,12 +81,22 @@ namespace NinjaCoder.MvvmCross.Services
             string source = plugin.Source;
             string destination = string.Format(@"{0}\Lib\{1}", projectPath, plugin.FileName);
 
-            CodeConfig codeConfig = this.codeConfigService.GetCodeConfig(projectService, plugin.FriendlyName, false);
+            CodeConfig codeConfig = this.codeConfigFactory.GetPluginConfig(plugin);
+
+            //// TOOD : Is this is in the wrong place? move it?
+            if (extensionName == Settings.Core)
+            {
+                this.codeConfigService.ProcessCodeConfig(
+                    projectService, 
+                    codeConfig, 
+                    source, 
+                    destination);
+            }
 
             //// we need to work out if the user has requested that the plugin is added from nuget
             //// and also if the plugin can be added from nuget - currently not all can!
             bool addPluginFromLocalDisk = this.codeConfigService.UseLocalDiskCopy(codeConfig);
-
+            
             //// at this moment we only want ot do the core as this plugin might not be
             //// supported in the ui project.
             if (extensionName == Settings.Core ||
@@ -98,7 +115,7 @@ namespace NinjaCoder.MvvmCross.Services
                 //// now if we are not the core project we need to add the platform specific assemblies
                 //// and the bootstrap item templates!
 
-                string extensionSource = this.GetSourcePath(plugin, extensionName);
+                string extensionSource = this.GetPluginPath(extensionName, plugin.Source);
 
                 string extensionDestination = this.GetPluginPath(extensionName, destination);
 
@@ -108,7 +125,7 @@ namespace NinjaCoder.MvvmCross.Services
 
                     added = this.AddUIPlugin(
                         projectService,
-                        plugin.FriendlyName,
+                        plugin,
                         source,
                         destination,
                         extensionSource,
@@ -141,17 +158,22 @@ namespace NinjaCoder.MvvmCross.Services
             string message = string.Format("Ninja Coder is adding {0} plugin to {1} project.", plugin.FriendlyName, projectService.Name);
             projectService.WriteStatusBarMessage(message);
 
-            bool added = this.AddPlugin(projectService, plugin, folderName, extensionName);
+            bool added = this.AddPlugin(projectService, plugin, extensionName);
 
             if (added)
             {
                 //// if we want to add via nuget then generate the command.
                 if (this.settingsService.UseNugetForPlugins)
                 {
-                    string command = this.GetProjectNugetCommand(projectService, plugin.FriendlyName);
+                    string command = this.GetProjectNugetCommand(projectService, plugin);
 
                     if (string.IsNullOrEmpty(command) == false)
                     {
+                        if (this.settingsService.UsePreReleaseNugetPackages)
+                        {
+                            command += " " + NugetConstants.UsePreReleaseOption;
+                        }
+
                         plugin.NugetCommands.Add(command);
                     }
                 }
@@ -166,29 +188,41 @@ namespace NinjaCoder.MvvmCross.Services
         /// Adds the non core plugin.
         /// </summary>
         /// <param name="projectService">The project service.</param>
-        /// <param name="friendlyName">Name of the friendly.</param>
+        /// <param name="plugin">The plugin.</param>
         /// <param name="source">The source.</param>
         /// <param name="destination">The destination.</param>
         /// <param name="extensionSource">The extension source.</param>
         /// <param name="extensionDestination">The extension destination.</param>
         /// <param name="addPluginFromLocalDisk">if set to <c>true</c> [add plugin from local disk].</param>
-        /// <returns>True or false.</returns>
+        /// <returns>
+        /// True or false.
+        /// </returns>
         public bool AddUIPlugin(
             IProjectService projectService,
-            string friendlyName,
+            Plugin plugin,
             string source,
             string destination,
             string extensionSource,
             string extensionDestination,
             bool addPluginFromLocalDisk)
         {
-            TraceService.WriteLine("PluginService::AddUIPlugin " + friendlyName);
+            TraceService.WriteLine("PluginService::AddUIPlugin plugin=" + plugin.FriendlyName);
 
             bool added = false;
 
+            string[] projectNameParts = projectService.Name.Split('.');
+
+            //// we need to look for the ui specific config file,
+            Plugin uiPlugin = new Plugin
+                              {
+                                  FriendlyName = plugin.FriendlyName + "." + projectNameParts[1]
+                              };
+
+            CodeConfig codeConfig = this.codeConfigFactory.GetPluginConfig(uiPlugin);
+
             this.codeConfigService.ProcessCodeConfig(
                 projectService, 
-                friendlyName, 
+                codeConfig, 
                 extensionSource, 
                 extensionDestination);
 
@@ -223,7 +257,7 @@ namespace NinjaCoder.MvvmCross.Services
 
                 this.RequestBootstrapFile(
                     projectService, 
-                    friendlyName);
+                    plugin);
             }
 
             return added;
@@ -247,6 +281,8 @@ namespace NinjaCoder.MvvmCross.Services
             string destination,
             string source)
         {
+            TraceService.WriteLine("PluginService::AddCorePlugin plugin=" + plugin.FriendlyName);
+
             //// inform the user that we cant install from nuget.
             if (this.codeConfigService.NugetRequestedAndNotSupported(codeConfig))
             {
@@ -277,15 +313,15 @@ namespace NinjaCoder.MvvmCross.Services
         /// Updates the plugin via nuget.
         /// </summary>
         /// <param name="projectService">The project service.</param>
-        /// <param name="friendlyName">Name of the friendly.</param>
+        /// <param name="plugin">The plugin.</param>
         /// <returns>True if updated via nuget.</returns>
         internal string GetProjectNugetCommand(
             IProjectService projectService,
-            string friendlyName)
+            Plugin plugin)
         {
-            TraceService.WriteLine("PluginService::UpdateViaNuget friendlyName=" + friendlyName);
+            TraceService.WriteLine("PluginService::UpdateViaNuget plugin=" + plugin.FriendlyName);
 
-            CodeConfig codeConfig = this.codeConfigService.GetCodeConfig(projectService, friendlyName, false);
+            CodeConfig codeConfig = this.codeConfigFactory.GetPluginConfig(plugin);
 
             return this.codeConfigService.GetProjectNugetCommand(codeConfig, projectService);
         }
@@ -294,16 +330,16 @@ namespace NinjaCoder.MvvmCross.Services
         /// Requests the bootstrap file.
         /// </summary>
         /// <param name="projectService">The project service.</param>
-        /// <param name="friendlyName">Name of the friendly.</param>
+        /// <param name="plugin">The plugin.</param>
         internal void RequestBootstrapFile(
             IProjectService projectService,
-            string friendlyName)
+            Plugin plugin)
         {
-            TraceService.WriteLine("PluginService::RequestBootstrapFile name=" + friendlyName);
+            TraceService.WriteLine("PluginService::RequestBootstrapFile plugin=" + plugin.FriendlyName);
 
-            CodeConfig codeConfig = this.codeConfigService.GetCodeConfig(projectService, friendlyName, false);
+            CodeConfig codeConfig = this.codeConfigFactory.GetPluginConfig(plugin);
 
-            string bootstrapFileName = this.codeConfigService.GetBootstrapFileName(codeConfig, friendlyName);
+            string bootstrapFileName = this.codeConfigService.GetBootstrapFileName(codeConfig, plugin.FriendlyName);
 
             //// check if the file already exists
 
@@ -334,33 +370,6 @@ namespace NinjaCoder.MvvmCross.Services
             string path)
         {
             return path.Replace(".dll", string.Format(".{0}.dll", extensionName));
-        }
-
-        /// <summary>
-        /// Gets the source path.
-        /// </summary>
-        /// <param name="plugin">The plugin.</param>
-        /// <param name="extensionName">Name of the extension.</param>
-        /// <returns>The plugin path.</returns>
-        internal string GetSourcePath(
-            Plugin plugin, 
-            string extensionName)
-        {
-            //// here we are look to see if the user has overridden the file in their own directory.
-
-            string userDirectory = this.settingsService.MvvmCrossAssembliesOverrideDirectory;
-
-            string userFilePath = this.GetPluginPath(extensionName, userDirectory + "\\" + plugin.FileName);
-
-            FileInfoBase userFileInfoBase = this.fileSystem.FileInfo.FromFileName(userFilePath);
-
-            string coreDirectory = this.settingsService.MvvmCrossAssembliesPath;
-
-            FileInfoBase coreFileInfoBase = this.fileSystem.FileInfo.FromFileName(coreDirectory + "\\" + plugin.FileName);
-
-            return userFileInfoBase.Exists ?
-                userFileInfoBase.FullName :
-                this.GetPluginPath(extensionName, coreFileInfoBase.FullName);
         }
     }
 }
