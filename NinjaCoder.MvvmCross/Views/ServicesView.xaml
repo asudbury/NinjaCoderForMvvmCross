@@ -1,0 +1,73 @@
+﻿<views:BaseView x:Class="NinjaCoder.MvvmCross.Views.ServicesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:conv="clr-namespace:Scorchio.Infrastructure.Wpf.Converters;assembly=Scorchio.Infrastructure"
+             xmlns:wpf="clr-namespace:Scorchio.Infrastructure.Wpf;assembly=Scorchio.Infrastructure"
+              xmlns:userControls="clr-namespace:Scorchio.Infrastructure.Wpf.UserControls;assembly=Scorchio.Infrastructure"
+             xmlns:views="clr-namespace:NinjaCoder.MvvmCross.Views"
+             Title="{DynamicResource NinjaAddServices}" 
+             TitleCaps="False"
+             wpf:DialogCloser.DialogResult="{Binding DialogResult}"
+             Height="510" 
+             Width="300" 
+             BorderThickness="1" 
+             WindowStartupLocation="CenterScreen"
+             BorderBrush="{DynamicResource AccentColorBrush}"
+             ShowMinButton="False"
+             ShowMaxRestoreButton="False">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Resources\App.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <conv:StringToVisibilityConverter x:Key="stringToVisibilityConverter"/>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <StackPanel 
+        Orientation="Vertical" 
+        FocusManager.FocusedElement="{Binding ElementName=Project}"
+        Margin="10">
+
+        <StackPanel Orientation="Horizontal" Margin="10,0,0,0"/>
+
+        <CheckBox 
+            Content="{DynamicResource UseNuget}" 
+            IsChecked="{Binding UseNuget, Mode=TwoWay}"
+            Margin="10"/>
+
+        <TextBlock Text="{DynamicResource ViewModelServices}" Margin="10,0,0,3"/>
+
+        <ComboBox Margin="10,0,0,10" Width="250"
+                    HorizontalAlignment="Left"
+                    ItemsSource="{Binding Path=ViewModelNames}" 
+                    SelectedItem="{Binding Path=ImplementInViewModel}"/>
+        <CheckBox 
+            Content="{DynamicResource ViewModelUnitTests}" 
+            IsChecked="{Binding Path=IncludeUnitTests}"
+            Visibility="{Binding ImplementInViewModel, Converter={StaticResource stringToVisibilityConverter}}"
+            Margin="10"/>
+
+        <userControls:PickListView 
+            GroupBoxTitle="{DynamicResource Services}"
+            DataContext="{Binding Services}"
+            Height="290"/>
+
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button 
+                Command="{Binding OkCommand}"
+                Content="{DynamicResource Ok}" 
+                IsDefault="True"
+                IsEnabled="{Binding IsOKCommandEnabled}"
+                Margin="0,10,5,10" 
+                Width="70"/>
+            <Button 
+                Command="{Binding CancelCommand}"
+                Content="{DynamicResource Cancel}" 
+                IsCancel="True"
+                Margin="0,10,10,10" 
+                Width="70" />
+        </StackPanel>
+
+    </StackPanel>
+</views:BaseView>

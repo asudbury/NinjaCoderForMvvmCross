@@ -1,0 +1,55 @@
+﻿<controls:MetroWindow x:Class="NinjaCoder.MvvmCross.UI.MainWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:wpf="clr-namespace:Scorchio.Infrastructure.Wpf;assembly=Scorchio.Infrastructure"
+             Title="NinjaCode for MvvmCross UI" 
+             TitleCaps="False"
+             Height="350" 
+             Width="300" 
+             BorderThickness="1" 
+             WindowStartupLocation="CenterScreen"
+             BorderBrush="{DynamicResource AccentColorBrush}"
+             wpf:DialogCloser.DialogResult="{Binding DialogResult}"
+             ShowMinButton="False"
+             ShowMaxRestoreButton="False">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="ListViewHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <StackPanel Margin="10">
+
+        <Menu Background="WhiteSmoke">
+            <MenuItem Header="File">
+                <MenuItem Header="Add Projects" Command="{Binding AddProjectsCommand}"></MenuItem>
+                <MenuItem Header="Add View Model and Views" Command="{Binding AddViewModelAndViewCommand}"></MenuItem>
+                <MenuItem Header="Add Converters" Command="{Binding AddConvertersCommand}"></MenuItem>
+                <MenuItem Header="Add Services" Command="{Binding AddServicesCommand}"></MenuItem>
+                <MenuItem Header="Add Plugins" Command="{Binding AddPluginsCommand}"></MenuItem>
+                <Separator/>
+                <MenuItem Header="View Log" Command="{Binding ViewLogCommand}"></MenuItem>
+                <MenuItem Header="Clear Log" Command="{Binding ClearLogCommand}"></MenuItem>
+                <Separator/>
+                <MenuItem Header="Options" Command="{Binding OptionsCommand}"></MenuItem>
+                <MenuItem Header="About" Command="{Binding AboutCommand}"></MenuItem>
+                <MenuItem Header="Exit" Command="{Binding ExitCommand}"></MenuItem>
+            </MenuItem>
+        </Menu>
+
+        <ListView ItemsSource="{Binding Projects}" BorderThickness="0">
+            <ListView.View>
+                <GridView ColumnHeaderContainerStyle="{StaticResource ListViewHeaderStyle}">
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}"  />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+    </StackPanel>
+</controls:MetroWindow>

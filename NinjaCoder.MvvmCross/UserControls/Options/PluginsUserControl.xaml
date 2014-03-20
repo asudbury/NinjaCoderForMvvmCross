@@ -1,0 +1,27 @@
+﻿<options:BaseUserControl x:Class="NinjaCoder.MvvmCross.UserControls.Options.PluginsUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:userControls="clr-namespace:Scorchio.Infrastructure.Wpf.UserControls;assembly=Scorchio.Infrastructure"
+             xmlns:resources="clr-namespace:Scorchio.Infrastructure.Wpf.Resources;assembly=Scorchio.Infrastructure"
+             xmlns:options="clr-namespace:NinjaCoder.MvvmCross.UserControls.Options">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <resources:SharedResourceDictionary Source="..\..\Resources\App.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel Orientation="Vertical" Margin="10,10,0,0">
+        <userControls:DirectoryPickerView 
+            Margin="3,0,0,10"
+            DataContext="{Binding UserPluginsDirectoryViewModel}"/>
+
+        <userControls:DirectoryPickerView 
+            Margin="3,0,0,10"
+            DataContext="{Binding UserPluginsSnippetsDirectoryViewModel}"/>
+
+        <userControls:DirectoryPickerView 
+            Margin="3,0,0,0"
+            DataContext="{Binding UserPluginsConfigDirectoryViewModel}"/>
+    </StackPanel>
+</options:BaseUserControl>
