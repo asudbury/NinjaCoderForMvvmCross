@@ -122,12 +122,14 @@ namespace NinjaCoder.MvvmCross.Factories
         /// </summary>
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="requiredUIViews">The required UI views.</param>
-        /// <param name="includeUnitTests">if set to <c>true</c> [include unit tests].</param>
-        /// <returns>The required template.</returns>
+        /// <param name="solutionAlreadyCreated">if set to <c>true</c> [solution already created].</param>
+        /// <returns>
+        /// The required template.
+        /// </returns>
         public IEnumerable<ItemTemplateInfo> GetRequiredViewModelAndViews(
             string viewModelName,
             IEnumerable<ItemTemplateInfo> requiredUIViews,
-            bool includeUnitTests)
+            bool solutionAlreadyCreated)
         {
             const string ViewModelSuffix = "ViewModel";
 
@@ -135,14 +137,17 @@ namespace NinjaCoder.MvvmCross.Factories
 
             //// first add the view model
 
-            ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
+            if (solutionAlreadyCreated == false)
             {
-                ProjectSuffix = ProjectSuffixes.Core,
-                TemplateName = this.GetViewModelTemplate(),
-                FileName = viewModelName + ".cs",
-            };
+                ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
+                {
+                    ProjectSuffix = ProjectSuffixes.Core,
+                    TemplateName = this.GetViewModelTemplate(),
+                    FileName = viewModelName + ".cs",
+                };
 
-            itemTemplateInfos.Add(viewModelTemplateInfo);
+                itemTemplateInfos.Add(viewModelTemplateInfo);
+            }
 
             string viewName = viewModelName.Remove(viewModelName.Length - ViewModelSuffix.Length) + "View.cs";
 
@@ -155,9 +160,9 @@ namespace NinjaCoder.MvvmCross.Factories
 
             //// do we require a Test ViewModel?
 
-            if (includeUnitTests)
+            if (solutionAlreadyCreated == false)
             {
-                viewModelTemplateInfo = new ItemTemplateInfo
+                ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
                 {
                     ProjectSuffix = ProjectSuffixes.CoreTests,
                     TemplateName = this.GetTestViewModelTemplate(),

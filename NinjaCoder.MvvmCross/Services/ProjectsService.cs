@@ -58,12 +58,16 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="path">The path.</param>
         /// <param name="projectsInfos">The projects infos.</param>
         /// <param name="referenceFirstProject">if set to <c>true</c> [reference first project].</param>
-        /// <returns>The messages.</returns>
+        /// <param name="solutionAlreadyCreated">if set to <c>true</c> [solution already created].</param>
+        /// <returns>
+        /// The messages.
+        /// </returns>
         public IEnumerable<string> AddProjects(
             IVisualStudioService visualStudioServiceInstance,
             string path, 
             IEnumerable<ProjectTemplateInfo> projectsInfos, 
-            bool referenceFirstProject)
+            bool referenceFirstProject,
+            bool solutionAlreadyCreated)
         {
             IEnumerable<ProjectTemplateInfo> projectTemplateInfos = projectsInfos as ProjectTemplateInfo[] ?? projectsInfos.ToArray();
 
@@ -77,7 +81,12 @@ namespace NinjaCoder.MvvmCross.Services
             this.visualStudioService = visualStudioServiceInstance;
 
             IProjectService firstProjectService = null;
-            
+
+            if (solutionAlreadyCreated)
+            {
+                firstProjectService = visualStudioServiceInstance.CoreProjectService;
+            }
+
             foreach (ProjectTemplateInfo projectInfo in projectTemplateInfos)
             {
                 //// add in the nuget messages.
@@ -91,11 +100,16 @@ namespace NinjaCoder.MvvmCross.Services
 
                 this.settingsService.ActiveProject = projectInfo.FriendlyName;
 
-                firstProjectService = this.TryToAddProject(
+                IProjectService projectService = this.TryToAddProject(
                     path, 
                     referenceFirstProject, 
                     projectInfo, 
                     firstProjectService);
+
+                if (solutionAlreadyCreated == false)
+                {
+                    firstProjectService = projectService;
+                }
             }
 
             return this.Messages;
@@ -143,7 +157,7 @@ namespace NinjaCoder.MvvmCross.Services
             ProjectTemplateInfo projectInfo,
             string projectPath)
         {
-            TraceService.WriteLine("ProjectsService::AddProject project=" + projectInfo.Name);
+            TraceService.WriteLine("ProjectsService::AddProject project=" + projectInfo.Name + " templateName=" + projectInfo.TemplateName);
 
             try
             {
@@ -157,7 +171,7 @@ namespace NinjaCoder.MvvmCross.Services
             }
             catch (Exception exception)
             {
-                TraceService.WriteError("error adding project " + projectPath + " exception=" + exception.Message);
+                TraceService.WriteError("error adding project " + projectPath + " exception=" + exception.Message + " templateName=" + projectInfo.TemplateName);
             }
         }
 

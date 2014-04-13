@@ -7,6 +7,8 @@ namespace Scorchio.VisualStudio.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
+
     using Entities;
     using EnvDTE;
     using EnvDTE80;
@@ -155,6 +157,17 @@ namespace Scorchio.VisualStudio.Services
         public string GetDirectoryName()
         {
             return this.solution2.GetDirectoryName();
+        }
+
+        /// <summary>
+        /// Gets the name of the parent directory.
+        /// </summary>
+        /// <returns>
+        /// The Parent Directory path.
+        /// </returns>
+        public string GetParentDirectoryName()
+        {
+            return Directory.GetParent(Directory.GetParent(Path.GetDirectoryName(this.solution2.FullName)).FullName).FullName;
         }
 
         /// <summary>

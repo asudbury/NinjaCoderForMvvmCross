@@ -106,7 +106,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             //// we open the nuget package manager console so we don't have
             //// a wait condition later!
             this.nugetService.OpenNugetWindow(this.VisualStudioService);
-
+            
             ProjectsViewModel viewModel = this.ShowDialog<ProjectsViewModel>(new ProjectsView());
 
             if (viewModel.Continue)
@@ -133,29 +133,41 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NinjaIsRunning);
 
+            bool solutionAlreadyCreated = !string.IsNullOrEmpty(this.VisualStudioService.SolutionService.FullName);
+            
             if (this.SettingsService.SuspendReSharperDuringBuild)
             {
+                TraceService.WriteLine("SuspendResharper");
+
                 this.VisualStudioService.DTEService.ExecuteCommand(Settings.SuspendReSharperCommand);
             }
 
             //// create the solution if we don't have one!
-            if (string.IsNullOrEmpty(this.VisualStudioService.SolutionService.FullName))
+            if (solutionAlreadyCreated == false)
             {
+                TraceService.WriteLine("CreateEmptySolution");
+
                 this.VisualStudioService.SolutionService.CreateEmptySolution(solutionPath, projectName);
             }
+
+            TraceService.WriteLine("AddProjects");
 
             List<string> messages =
                 this.projectsService.AddProjects(
                     this.VisualStudioService,
                     solutionPath,
                     requireTemplates,
-                    true).ToList();
+                    true,
+                    solutionAlreadyCreated).ToList();
 
             //// not sure if this is the correct place to do this!
             IProjectService testProjectService = this.VisualStudioService.CoreTestsProjectService;
 
-            if (testProjectService != null)
+            if (testProjectService != null && 
+                solutionAlreadyCreated == false)
             {
+                TraceService.WriteLine("UpdateProjectReferences"); 
+
                 this.mockingService.UpdateProjectReferences(testProjectService);
             }
 
@@ -166,11 +178,20 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             if (iosProjectService != null)
             {
-                IProjectItemService projectItemService = iosProjectService.GetProjectItem("Info.plist");
+                //// first check its in the new projects being added!
 
-                if (projectItemService != null)
+                ProjectTemplateInfo projectTemplateInfo = requireTemplates.FirstOrDefault(x => x.ProjectSuffix == ProjectSuffixes.iOS);
+
+                if (projectTemplateInfo != null)
                 {
-                    this.FixInfoPlist(projectItemService, iosProjectService.Name);
+                    IProjectItemService projectItemService = iosProjectService.GetProjectItem("Info.plist");
+
+                    if (projectItemService != null)
+                    {
+                        TraceService.WriteLine("FixInfoPlist");
+
+                        this.FixInfoPlist(projectItemService, iosProjectService.Name);
+                    }
                 }
             }
 
@@ -180,11 +201,15 @@ namespace NinjaCoder.MvvmCross.Controllers
             {
                 this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.AddingViewModelAndViews);
 
+                TraceService.WriteLine("GetRequiredViewModelAndViews");
+
                 IEnumerable<ItemTemplateInfo> itemTemplateInfos =
                     this.viewModelAndViewsFactory.GetRequiredViewModelAndViews(
                         "FirstViewModel",
                         this.viewModelAndViewsFactory.AllowedUIViews,
-                        true);
+                        solutionAlreadyCreated);
+
+                TraceService.WriteLine("AddViewModelAndViews");
 
                 this.viewModelViewsService.AddViewModelAndViews(
                     this.VisualStudioService.CoreProjectService,
@@ -198,9 +223,13 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.UpdatingFiles);
 
+            TraceService.WriteLine("CodeTidyUp");
+
             this.VisualStudioService.CodeTidyUp(
                 this.SettingsService.RemoveDefaultFileHeaders,
                 this.SettingsService.RemoveDefaultComments);
+
+            TraceService.WriteLine("CreateFileVersions");
 
             //// create the version files.
             this.VisualStudioService.SolutionService.CreateFile(Settings.NinjaVersionFile, this.SettingsService.ApplicationVersion);
@@ -208,18 +237,42 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             if (this.SettingsService.UseNugetForProjectTemplates)
             {
+                TraceService.WriteLine("UseNugetForProjectTemplates");
+
                 //// we shouldnt have to do this!
                 //// but we have so many problems with nuget and iOS AND droid projects
                 //// we try and make it as simple as possible by removing the mvx references!
 
                 //// THIS CODE IS ALSO IN THE TEMPLATE WIZARD! 
-                this.RemoveMvxReferences(this.VisualStudioService.CoreProjectService);
-                this.RemoveMvxReferences(this.VisualStudioService.CoreTestsProjectService);
-                this.RemoveMvxReferences(this.VisualStudioService.iOSProjectService);
-                this.RemoveMvxReferences(this.VisualStudioService.DroidProjectService);
-                this.RemoveMvxReferences(this.VisualStudioService.WindowsPhoneProjectService);
-                this.RemoveMvxReferences(this.VisualStudioService.WindowsStoreProjectService);
-                this.RemoveMvxReferences(this.VisualStudioService.WpfProjectService);
+                this.RemoveMvxReferences(
+                    this.VisualStudioService.CoreProjectService,
+                    requireTemplates.FirstOrDefault(x => x.ProjectSuffix == ProjectSuffixes.Core));
+
+                this.RemoveMvxReferences(
+                    this.VisualStudioService.CoreTestsProjectService,
+                    requireTemplates.FirstOrDefault(x => x.ProjectSuffix == ProjectSuffixes.CoreTests));
+
+                this.RemoveMvxReferences(
+                    this.VisualStudioService.iOSProjectService,
+                    requireTemplates.FirstOrDefault(x => x.ProjectSuffix == ProjectSuffixes.iOS));
+
+                this.RemoveMvxReferences(
+                    this.VisualStudioService.DroidProjectService,
+                    requireTemplates.FirstOrDefault(x => x.ProjectSuffix == ProjectSuffixes.Droid));
+
+                this.RemoveMvxReferences(
+                    this.VisualStudioService.WindowsPhoneProjectService,
+                    requireTemplates.FirstOrDefault(x => x.ProjectSuffix == ProjectSuffixes.WindowsPhone));
+
+                this.RemoveMvxReferences(
+                    this.VisualStudioService.WindowsStoreProjectService,
+                    requireTemplates.FirstOrDefault(x => x.ProjectSuffix == ProjectSuffixes.WindowsStore));
+
+                this.RemoveMvxReferences(
+                    this.VisualStudioService.WpfProjectService,
+                    requireTemplates.FirstOrDefault(x => x.ProjectSuffix == ProjectSuffixes.WindowsWpf));
+
+                TraceService.WriteLine("GetNugetCommands");
 
                 string commands = this.nugetService.GetNugetCommands(
                     this.VisualStudioService,
@@ -232,6 +285,8 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                 if (this.SettingsService.ProcessNugetCommands)
                 {
+                    TraceService.WriteLine("ProcessNugetCommands");
+
                     this.nugetService.Execute(
                         this.VisualStudioService,
                         this.GetReadMePath(),
@@ -247,9 +302,13 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                 if (this.SettingsService.SuspendReSharperDuringBuild)
                 {
+                    TraceService.WriteLine("ResumeReSharperCommand");
+
                     this.VisualStudioService.DTEService.ExecuteCommand(Settings.ResumeReSharperCommand);
                 }
             }
+
+            TraceService.WriteLine("ShowReadMe");
 
             //// show the readme.
             this.ShowReadMe("Add Projects", messages, this.SettingsService.UseNugetForProjectTemplates);
@@ -259,9 +318,13 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// Removes the MVX references.
         /// </summary>
         /// <param name="projectService">The project service.</param>
-        internal void RemoveMvxReferences(IProjectService projectService)
+        /// <param name="projectTemplateInfo">The project template information.</param>
+        internal void RemoveMvxReferences(
+            IProjectService projectService,
+            ProjectTemplateInfo projectTemplateInfo)
         {
-            if (projectService != null)
+            if (projectService != null && 
+                projectTemplateInfo != null)
             {
                 TraceService.WriteLine("ProjectsController::RemoveMvxReferences Project=" + projectService.Name);
 

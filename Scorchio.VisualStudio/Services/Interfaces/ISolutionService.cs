@@ -76,6 +76,12 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         string GetDirectoryName();
 
         /// <summary>
+        /// Gets the name of the parent directory.
+        /// </summary>
+        /// <returns>The Parent Directory path.</returns>
+        string GetParentDirectoryName();
+
+        /// <summary>
         /// Gets the project template.
         /// </summary>
         /// <param name="templateName">ProjectName of the template.</param>

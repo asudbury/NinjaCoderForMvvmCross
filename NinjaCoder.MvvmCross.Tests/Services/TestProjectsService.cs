@@ -95,7 +95,8 @@ namespace NinjaCoder.MvvmCross.Tests.Services
                 this.mockVisualStudioService.Object,
                 "path", 
                 infos,
-                true);
+                true,
+                false);
 
             //// check we have added the project to the solution.
             this.mockSolutionService.Verify(

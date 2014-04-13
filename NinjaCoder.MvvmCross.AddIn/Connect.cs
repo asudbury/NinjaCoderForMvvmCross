@@ -34,7 +34,7 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// <summary>
         /// Starts up.
         /// </summary>
-        public override void StartUp()
+        protected override void StartUp()
         {
             TraceService.WriteLine("Connect::StartUp");
         }
@@ -42,7 +42,7 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// <summary>
         /// UIs the setup.
         /// </summary>
-        public override void UISetup()
+        protected override void UISetup()
         {
             TraceService.WriteLine("Connect::UISetup");
         }
@@ -50,7 +50,7 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// <summary>
         /// After the start up.
         /// </summary>
-        public override void AfterStartUp()
+        protected override void AfterStartUp()
         {
             TraceService.WriteLine("Connect::AfterStartUp");
         }
@@ -58,7 +58,7 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// <summary>
         /// Initializes this instance.
         /// </summary>
-        public override void Initialize()
+        protected override void Initialize()
         {
             TraceService.WriteLine("Connect::Initialize");
 

@@ -54,6 +54,8 @@ namespace NinjaCoder.MvvmCross.Services
             string appVersion,
             string mvxVersion)
         {
+            TraceService.WriteLine("ReadMeService::Initialize");
+
             this.applicationVersion = appVersion;
             this.mmvmCrossVersion = mvxVersion;
         }
@@ -69,6 +71,8 @@ namespace NinjaCoder.MvvmCross.Services
             string functionName,
             IEnumerable<string> lines)
         {
+            TraceService.WriteLine("ReadMeService::AddLines");
+
             string currentLines = string.Empty;
 
             if (this.fileSystem.File.Exists(filePath))

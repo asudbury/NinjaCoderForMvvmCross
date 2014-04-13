@@ -44,12 +44,12 @@ namespace Scorchio.VisualStudio
         /// <summary>
         /// Gets the visual studio instance.
         /// </summary>
-        public VSInstance VSInstance { get; private set; }
+        protected VSInstance VSInstance { get; set; }
 
         /// <summary>
         /// Gets the AddInInstance.
         /// </summary>
-        public AddIn AddInInstance { get; private set; }
+        protected AddIn AddInInstance { get; set; }
 
         /// <summary>
         /// Sets the resource assembly.
@@ -117,7 +117,7 @@ namespace Scorchio.VisualStudio
         /// <summary>
         /// UIs the setup.
         /// </summary>
-        public virtual void UISetup()
+        protected virtual void UISetup()
         {
             TraceService.WriteLine("CommandManager::UISetup");
         }
@@ -125,7 +125,7 @@ namespace Scorchio.VisualStudio
         /// <summary>
         /// Starts up.
         /// </summary>
-        public virtual void StartUp()
+        protected virtual void StartUp()
         {
             TraceService.WriteLine("CommandManager::StartUp");
         }
@@ -133,7 +133,7 @@ namespace Scorchio.VisualStudio
         /// <summary>
         /// After the start up.
         /// </summary>
-        public virtual void AfterStartUp()
+        protected virtual void AfterStartUp()
         {
             TraceService.WriteLine("CommandManager::AfterStartUp");
         }
@@ -141,7 +141,7 @@ namespace Scorchio.VisualStudio
         /// <summary>
         /// Initializes this instance.
         /// </summary>
-        public virtual void Initialize()
+        protected virtual void Initialize()
         {
             TraceService.WriteLine("CommandManager::Initialize");
         }
@@ -151,7 +151,7 @@ namespace Scorchio.VisualStudio
         /// </summary>
         /// <param name="commandName">Name of the command.</param>
         /// <returns>The command bar.</returns>
-        public CommandBar AddCommandBar(string commandName)
+        protected CommandBar AddCommandBar(string commandName)
         {
             TraceService.WriteLine("CommandManager::AddCommandBar commandName=" + commandName);
 

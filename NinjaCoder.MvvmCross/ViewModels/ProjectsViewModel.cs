@@ -100,6 +100,7 @@ namespace NinjaCoder.MvvmCross.ViewModels
         public ProjectsViewModel(
             IVisualStudioService visualStudioService,
             ISettingsService settingsService,
+            ////ISolutionService solutionService,
             IProjectFactory projectFactory,
             IFileSystem fileSystem,
             IMessageBoxService messageBoxService,
@@ -132,7 +133,17 @@ namespace NinjaCoder.MvvmCross.ViewModels
             //// if we are already in the solution disable project name and path.
             this.solutionAlreadyCreated = this.Project.Length > 0;
 
-            this.Path = string.IsNullOrEmpty(defaultPath) == false ? defaultPath : visualStudioService.DTEService.GetDefaultProjectsLocation();
+            if (this.solutionAlreadyCreated)
+            {
+                this.Path = visualStudioService.SolutionService.GetParentDirectoryName();
+            }
+
+            else
+            {
+                this.Path = string.IsNullOrEmpty(defaultPath) == false
+                                ? defaultPath
+                                : visualStudioService.DTEService.GetDefaultProjectsLocation();
+            }
 
             this.useNuget = this.settingsService.UseNugetForProjectTemplates;
 
@@ -315,7 +326,11 @@ namespace NinjaCoder.MvvmCross.ViewModels
             else
             {
                 this.settingsService.UseNugetForProjectTemplates = this.useNuget;
-                this.settingsService.DefaultProjectsPath = this.Path;
+
+                if (this.solutionAlreadyCreated == false)
+                {
+                    this.settingsService.DefaultProjectsPath = this.Path;
+                }
 
                 this.settingsService.SelectedViewType = this.selectedViewType ?? "SampleData";
                 this.settingsService.SelectedViewPrefix = "First";

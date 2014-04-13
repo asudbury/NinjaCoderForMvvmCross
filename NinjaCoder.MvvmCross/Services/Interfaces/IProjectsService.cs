@@ -21,11 +21,15 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <param name="path">The path.</param>
         /// <param name="projectsInfos">The projects infos.</param>
         /// <param name="referenceFirstProject">if set to <c>true</c> [reference first project].</param>
-        /// <returns>The messages.</returns>
+        /// <param name="solutionAlreadyCreated">if set to <c>true</c> [solution already created].</param>
+        /// <returns>
+        /// The messages.
+        /// </returns>
         IEnumerable<string> AddProjects(
             IVisualStudioService visualStudioServiceInstance,
             string path,
             IEnumerable<ProjectTemplateInfo> projectsInfos,
-            bool referenceFirstProject);
+            bool referenceFirstProject,
+            bool solutionAlreadyCreated);
     }
 }

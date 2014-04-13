@@ -30,11 +30,13 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// </summary>
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="requiredUIViews">The required UI views.</param>
-        /// <param name="includeUnitTests">if set to <c>true</c> [include unit tests].</param>
-        /// <returns>The required template.</returns>
+        /// <param name="solutionAlreadyCreated">if set to <c>true</c> [solution already created].</param>
+        /// <returns>
+        /// The required template.
+        /// </returns>
         IEnumerable<ItemTemplateInfo> GetRequiredViewModelAndViews(
             string viewModelName,
             IEnumerable<ItemTemplateInfo> requiredUIViews,
-            bool includeUnitTests);
+            bool solutionAlreadyCreated);
     }
 }
