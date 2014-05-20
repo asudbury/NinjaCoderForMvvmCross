@@ -122,14 +122,14 @@ namespace NinjaCoder.MvvmCross.Factories
         /// </summary>
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="requiredUIViews">The required UI views.</param>
-        /// <param name="solutionAlreadyCreated">if set to <c>true</c> [solution already created].</param>
+        /// <param name="unitTestsRequired">if set to <c>true</c> [unit tests required].</param>
         /// <returns>
         /// The required template.
         /// </returns>
         public IEnumerable<ItemTemplateInfo> GetRequiredViewModelAndViews(
             string viewModelName,
             IEnumerable<ItemTemplateInfo> requiredUIViews,
-            bool solutionAlreadyCreated)
+            bool unitTestsRequired)
         {
             const string ViewModelSuffix = "ViewModel";
 
@@ -137,17 +137,14 @@ namespace NinjaCoder.MvvmCross.Factories
 
             //// first add the view model
 
-            if (solutionAlreadyCreated == false)
+            ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
             {
-                ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
-                {
-                    ProjectSuffix = ProjectSuffixes.Core,
-                    TemplateName = this.GetViewModelTemplate(),
-                    FileName = viewModelName + ".cs",
-                };
+                ProjectSuffix = ProjectSuffixes.Core,
+                TemplateName = this.GetViewModelTemplate(),
+                FileName = viewModelName + ".cs",
+            };
 
-                itemTemplateInfos.Add(viewModelTemplateInfo);
-            }
+            itemTemplateInfos.Add(viewModelTemplateInfo);
 
             string viewName = viewModelName.Remove(viewModelName.Length - ViewModelSuffix.Length) + "View.cs";
 
@@ -160,14 +157,14 @@ namespace NinjaCoder.MvvmCross.Factories
 
             //// do we require a Test ViewModel?
 
-            if (solutionAlreadyCreated == false)
+            if (unitTestsRequired)
             {
-                ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
-                {
-                    ProjectSuffix = ProjectSuffixes.CoreTests,
-                    TemplateName = this.GetTestViewModelTemplate(),
-                    FileName = "Test" + viewModelName + ".cs",
-                };
+                viewModelTemplateInfo = new ItemTemplateInfo
+                                            {
+                                                ProjectSuffix = ProjectSuffixes.CoreTests,
+                                                TemplateName = this.GetTestViewModelTemplate(),
+                                                FileName = "Test" + viewModelName + ".cs",
+                                            };
 
                 itemTemplateInfos.Add(viewModelTemplateInfo);
             }
