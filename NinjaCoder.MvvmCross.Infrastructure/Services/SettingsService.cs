@@ -531,7 +531,7 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
         /// </summary>
         public string PCLProfile
         {
-            get { return this.GetRegistryValue("Projects", "PCLProfile", "158"); }
+            get { return this.GetRegistryValue("Projects", "PCLProfile", "78"); }
             set { this.SetRegistryValue("Projects", "PCLProfile", value); }
         }
 
@@ -549,8 +549,8 @@ namespace NinjaCoder.MvvmCross.Infrastructure.Services
         /// </summary>
         public string iOSBuildVersion
         {
-            get { return this.GetRegistryValue("Projects", "WindowsPhoneBuildVersion", "7"); }
-            set { this.SetRegistryValue("Projects", "WindowsPhoneBuildVersion", value); }
+            get { return this.GetRegistryValue("Projects", "iOSPhoneBuildVersion", "8"); }
+            set { this.SetRegistryValue("Projects", "iOSPhoneBuildVersion", value); }
         }
 
         /// <summary>
