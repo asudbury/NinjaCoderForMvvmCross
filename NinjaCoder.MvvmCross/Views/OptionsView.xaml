@@ -77,18 +77,6 @@
                         LanguageDictionary="{Binding LanguageDictionary}"/>
                 </GroupBox>
             </TabItem>
-            <TabItem Header="{DynamicResource Nuget}">
-                <GroupBox Height="{StaticResource TabHeight}">
-                    <GroupBox.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{DynamicResource Nuget}" Foreground="White" />
-                        </DataTemplate>
-                    </GroupBox.HeaderTemplate>
-                    <options:NugetUserControl 
-                        DataContext="{Binding NugetViewModel}" 
-                        LanguageDictionary="{Binding LanguageDictionary}"/>
-                 </GroupBox>
-            </TabItem>
             <TabItem Header="{DynamicResource Visual}">
                 <GroupBox Height="{StaticResource TabHeight}">
                     <GroupBox.HeaderTemplate>

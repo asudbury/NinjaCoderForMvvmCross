@@ -1,0 +1,118 @@
+﻿<UserControl x:Class="Scorchio.Infrastructure.Wpf.UserControls.WizardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Scorchio.Infrastructure.Wpf.Converters">
+    <UserControl.Resources>
+
+
+        <!-- HEADERED CONTENT CONTROL STYLE -->
+        <Style TargetType="{x:Type HeaderedContentControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type HeaderedContentControl}">
+                        <StackPanel Margin="2,0">
+                            <Grid Margin="1,1,1,12">
+                                <ContentPresenter ContentSource="Header"
+                                                  TextBlock.FontSize="20"                                                  
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center" />
+                            </Grid>
+                            <Grid>
+                                <ContentPresenter ContentSource="Content" />
+                            </Grid>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+    </UserControl.Resources>
+
+    <Grid Margin="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+
+        <!-- current step -->
+        <Border Grid.Column="0"
+                Grid.Row="0" 
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center">
+            <!--When "content" is set, that sets the DataContext of this element-->
+            <HeaderedContentControl Content="{Binding Path=CurrentLinkedListStep.Value.ViewModel}"
+                                    Header="{Binding Path=CurrentLinkedListStep.Value.ViewModel.DisplayName}">
+                <HeaderedContentControl.Resources>
+                    <local:WizardStepConverter x:Key="stepTemplateConverter" />
+                </HeaderedContentControl.Resources>
+                <ContentControl.Style>
+                    <Style BasedOn="{StaticResource {x:Type HeaderedContentControl}}"
+                           TargetType="HeaderedContentControl">
+                        <!--This "watches" the value of CurrentLinkedListStep and updates the template (current step xaml) when it changes.
+                            So totally and completely seems like it needs a DataTrigger or an EventTrigger, no?
+                            Path when referenced this way (by finding ancestor) must include "DataContext"-->
+                        <Setter Property="ContentTemplate"
+                                Value="{Binding Path=DataContext.CurrentLinkedListStep.Value, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Converter={StaticResource stepTemplateConverter}}" />
+                    </Style>
+                </ContentControl.Style>
+            </HeaderedContentControl>
+        </Border>
+
+        <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Height="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="10"/>
+        
+        <Border Grid.Column="0"
+                Grid.Row="2"
+                Grid.ColumnSpan="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- NAVIGATION BUTTONS -->
+                <Grid Grid.Column="2"
+                      Grid.IsSharedSizeScope="True"
+                      HorizontalAlignment="Right">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition SharedSizeGroup="Buttons" />
+                        <ColumnDefinition SharedSizeGroup="Buttons" />
+                        <ColumnDefinition SharedSizeGroup="Buttons" />
+                        <ColumnDefinition Width="11" />
+                        <ColumnDefinition SharedSizeGroup="Buttons" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0"
+                            Grid.Row="0"
+                            Command="{Binding Path=MovePreviousCommand}"
+                            IsEnabled="{Binding Path=MovePreviousCommandEnabled}"
+                            Content="&lt; Previous"
+                            Margin="4,0,0,5"
+                            Width="80"/>
+                    <Button Grid.Column="1"
+                            Command="{Binding Path=MoveNextCommand}"
+                            IsEnabled="{Binding Path=MoveNextCommandEnabled}"
+                            Content="Next &gt;"
+                            Margin="4,0,0,5"
+                            Width="80"/>
+                    <Button Grid.Column="2"
+                            Command="{Binding Path=FinishCommand}"
+                            IsEnabled="{Binding Path=FinishCommandEnabled}"
+                            Content="Finish"
+                            Margin="4,0,0,5"
+                            Width="80"/>
+                    <Button Grid.Column="4"
+                            Grid.Row="0"
+                            Command="{Binding Path=CancelCommand}"
+                            Content="Cancel"
+                            Margin="4,0,10,5"
+                            Width="80"/>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

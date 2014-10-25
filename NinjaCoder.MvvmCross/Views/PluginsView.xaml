@@ -16,7 +16,7 @@
              BorderThickness="1" 
              BorderBrush="{DynamicResource AccentColorBrush}"
              Height="655" 
-             Width="400">
+             Width="500">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -28,13 +28,8 @@
     </Window.Resources>
     <StackPanel Orientation="Vertical" Margin="10">
 
-        <CheckBox 
-            Content="{DynamicResource UseNuget}" 
-            IsChecked="{Binding UseNuget, Mode=TwoWay}"
-            Margin="10"/>
-
         <TextBlock Text="{DynamicResource ViewModelImplementPlugins}" Margin="10,0,0,3"/>
-        
+
         <ComboBox Margin="10,0,0,0" Width="250"
                     HorizontalAlignment="Left"
                     ItemsSource="{Binding Path=ViewModelNames}" 

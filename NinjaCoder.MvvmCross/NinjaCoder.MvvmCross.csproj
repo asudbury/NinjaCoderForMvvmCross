@@ -38,18 +38,21 @@
     </Reference>
     <Reference Include="MahApps.Metro, Version=0.0.0.999, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Lib\MahApps.Metro.dll</HintPath>
+      <HintPath>..\Lib\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Abstractions, Version=1.4.0.64, Culture=neutral, PublicKeyToken=d480b5b72fb413da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Lib\System.IO.Abstractions.dll</HintPath>
+      <HintPath>..\Lib\System.IO.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
@@ -63,50 +66,59 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\NinjaCoder.MvvmCross.Infrastructure\Services\ISettingsService.cs">
-      <Link>Services\Interfaces\ISettingsService.cs</Link>
-    </Compile>
-    <Compile Include="..\NinjaCoder.MvvmCross.Infrastructure\Services\SettingsService.cs">
-      <Link>Services\SettingsService.cs</Link>
-    </Compile>
-    <Compile Include="Constants\FriendlyNames.cs" />
-    <Compile Include="Constants\LanguageConstants.cs" />
     <Compile Include="Constants\NinjaMessages.cs" />
-    <Compile Include="Constants\NugetConstants.cs" />
-    <Compile Include="Constants\ProjectSuffixes.cs" />
     <Compile Include="Constants\Settings.cs" />
-    <Compile Include="Constants\ProjectTemplates.cs" />
     <Compile Include="Constants\Themes.cs" />
     <Compile Include="Constants\Variables.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
-    <Compile Include="Controllers\ConvertersController.cs" />
     <Compile Include="Controllers\NinjaController.cs" />
     <Compile Include="Controllers\PluginsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
-    <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\ViewModelViewsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Entities\Plugin.cs" />
     <Compile Include="Entities\Plugins.cs" />
+    <Compile Include="Entities\View.cs" />
+    <Compile Include="Entities\FrameworkType.cs" />
+    <Compile Include="Entities\MvvmCrossProjectTemplate.cs" />
+    <Compile Include="Entities\MvvmCrossAndXmarinFormsProjectTemplates.cs" />
+    <Compile Include="Entities\ProjectSuffix.cs" />
+    <Compile Include="Entities\ProjectType.cs" />
+    <Compile Include="Entities\XamarinFormsProjectTemplate.cs" />
     <Compile Include="Exceptions\NinjaCoderServiceException.cs" />
     <Compile Include="Exceptions\NinjaCoderException.cs" />
     <Compile Include="Extensions\IoC\TinyIoC.cs" />
+    <Compile Include="Extensions\PluginExtensions.cs" />
     <Compile Include="Factories\CodeConfigFactory.cs" />
     <Compile Include="Factories\CodeSnippetFactory.cs" />
+    <Compile Include="Factories\FrameworkFactory.cs" />
     <Compile Include="Factories\Interfaces\ICodeConfigFactory.cs" />
     <Compile Include="Factories\Interfaces\ICodeSnippetFactory.cs" />
+    <Compile Include="Factories\Interfaces\IFrameworkFactory.cs" />
     <Compile Include="Factories\Interfaces\ILanguageFactory.cs" />
     <Compile Include="Factories\Interfaces\IMockingServiceFactory.cs" />
+    <Compile Include="Factories\Interfaces\IMvvmCrossAndXamarinFormsProjectFactory.cs" />
+    <Compile Include="Factories\Interfaces\IMvvmCrossViewFactory.cs" />
+    <Compile Include="Factories\Interfaces\IXamarinFormsProjectFactory.cs" />
+    <Compile Include="Factories\Interfaces\IMvvmCrossProjectFactory.cs" />
     <Compile Include="Factories\Interfaces\IPluginFactory.cs" />
     <Compile Include="Factories\Interfaces\IProjectFactory.cs" />
     <Compile Include="Factories\Interfaces\ITestingServiceFactory.cs" />
     <Compile Include="Factories\Interfaces\IViewModelAndViewsFactory.cs" />
+    <Compile Include="Factories\Interfaces\IXamarinLayoutFactory.cs" />
+    <Compile Include="Factories\Interfaces\IXamarinPageFactory.cs" />
     <Compile Include="Factories\LanguageFactory.cs" />
     <Compile Include="Factories\MockingServiceFactory.cs" />
+    <Compile Include="Factories\MvvmCrossAndXamarinFormsProjectFactory.cs" />
+    <Compile Include="Factories\MvvmCrossProjectFactory.cs" />
+    <Compile Include="Factories\MvvmCrossViewFactory.cs" />
     <Compile Include="Factories\PluginFactory.cs" />
     <Compile Include="Factories\ProjectFactory.cs" />
     <Compile Include="Factories\TestingServiceFactory.cs" />
     <Compile Include="Factories\ViewModelAndViewsFactory.cs" />
+    <Compile Include="Factories\XamarinFormsProjectFactory.cs" />
+    <Compile Include="Factories\XamarinLayoutFactory.cs" />
+    <Compile Include="Factories\XamarinPageFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -117,12 +129,11 @@
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\CodeConfigService.cs" />
     <Compile Include="Services\ConfigurationService.cs" />
-    <Compile Include="Services\ConvertersService.cs" />
     <Compile Include="Services\Interfaces\IApplicationService.cs" />
     <Compile Include="Services\Interfaces\ICodeConfigService.cs" />
     <Compile Include="Services\Interfaces\ICodeSnippetService.cs" />
     <Compile Include="Services\Interfaces\IConfigurationService.cs" />
-    <Compile Include="Services\Interfaces\IConvertersService.cs" />
+    <Compile Include="Services\Interfaces\INugetCommandsService.cs" />
     <Compile Include="Services\Interfaces\INugetService.cs" />
     <Compile Include="Services\Interfaces\IPluginService.cs" />
     <Compile Include="Services\Interfaces\IPluginsService.cs" />
@@ -130,10 +141,11 @@
     <Compile Include="Services\Interfaces\IReadMeService.cs" />
     <Compile Include="Services\Interfaces\IRegisterService.cs" />
     <Compile Include="Services\Interfaces\IResolverService.cs" />
-    <Compile Include="Services\Interfaces\IServicesService.cs" />
+    <Compile Include="Services\Interfaces\ISettingsService.cs" />
     <Compile Include="Services\Interfaces\IUpdateVersionService.cs" />
     <Compile Include="Services\Interfaces\IViewModelViewsService.cs" />
     <Compile Include="Services\Interfaces\IVisualStudioService.cs" />
+    <Compile Include="Services\NugetCommandsService.cs" />
     <Compile Include="Services\NugetService.cs" />
     <Compile Include="Services\PluginService.cs" />
     <Compile Include="Services\PluginsService.cs" />
@@ -141,8 +153,8 @@
     <Compile Include="Services\ReadMeService.cs" />
     <Compile Include="Services\RegisterService.cs" />
     <Compile Include="Services\ResolverService.cs" />
-    <Compile Include="Services\ServicesService.cs" />
     <Compile Include="Services\CodeSnippetService.cs" />
+    <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\UpdateVersionService.cs" />
     <Compile Include="Services\ViewModelViewsService.cs" />
     <Compile Include="Services\VisualStudioService.cs" />
@@ -150,15 +162,30 @@
     <Compile Include="Translators\PluginsTranslator.cs" />
     <Compile Include="Translators\CodeSnippetTranslator.cs" />
     <Compile Include="Translators\PluginTranslator.cs" />
-    <Compile Include="UserControls\Options\BaseUserControl.cs" />
+    <Compile Include="UserControls\AddProjects\FinishedControl.xaml.cs">
+      <DependentUpon>FinishedControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AddProjects\FrameworkSelectorControl.xaml.cs">
+      <DependentUpon>FrameworkSelectorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AddProjects\LayoutSelectorControl.xaml.cs">
+      <DependentUpon>LayoutSelectorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AddProjects\PageSelectorControl.xaml.cs">
+      <DependentUpon>PageSelectorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AddProjects\ProjectsControl.xaml.cs">
+      <DependentUpon>ProjectsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AddViews\ViewsControl.xaml.cs">
+      <DependentUpon>ViewsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\BaseUserControl.cs" />
     <Compile Include="UserControls\Options\BuildUserControl.xaml.cs">
       <DependentUpon>BuildUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Options\CodingStyleUserControl.xaml.cs">
       <DependentUpon>CodingStyleUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\Options\NugetUserControl.xaml.cs">
-      <DependentUpon>NugetUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Options\PluginsUserControl.xaml.cs">
       <DependentUpon>PluginsUserControl.xaml</DependentUpon>
@@ -173,28 +200,28 @@
       <DependentUpon>VisualUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AboutViewModel.cs" />
-    <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\ConvertersViewModel.cs" />
+    <Compile Include="ViewModels\AddProjects\FinishedViewModel.cs" />
+    <Compile Include="ViewModels\AddProjects\FrameworkSelectorViewModel.cs" />
+    <Compile Include="ViewModels\AddProjects\ProjectsViewModel.cs" />
+    <Compile Include="ViewModels\AddProjects\ProjectsWizardViewModel.cs" />
+    <Compile Include="ViewModels\AddProjects\ViewsViewModel.cs" />
+    <Compile Include="ViewModels\NinjaBaseViewModel.cs" />
     <Compile Include="ViewModels\DownloadViewModel.cs" />
     <Compile Include="ViewModels\Options\BuildViewModel.cs" />
     <Compile Include="ViewModels\Options\CodingStyleViewModel.cs" />
-    <Compile Include="ViewModels\Options\NugetViewModel.cs" />
     <Compile Include="ViewModels\Options\OptionsViewModel.cs" />
     <Compile Include="ViewModels\Options\PluginsViewModel.cs" />
     <Compile Include="ViewModels\Options\ProjectsViewModel.cs" />
     <Compile Include="ViewModels\Options\TracingViewModel.cs" />
     <Compile Include="ViewModels\Options\VisualViewModel.cs" />
     <Compile Include="ViewModels\PluginsViewModel.cs" />
-    <Compile Include="ViewModels\ProjectsViewModel.cs" />
+    <Compile Include="ViewModels\ProjectsViewModel2.cs" />
     <Compile Include="ViewModels\ServicesViewModel.cs" />
     <Compile Include="ViewModels\ViewModelViewsViewModel.cs" />
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BaseView.cs" />
-    <Compile Include="Views\ConvertersView.xaml.cs">
-      <DependentUpon>ConvertersView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\DownloadView.xaml.cs">
       <DependentUpon>DownloadView.xaml</DependentUpon>
     </Compile>
@@ -204,8 +231,8 @@
     <Compile Include="Views\PluginsView.xaml.cs">
       <DependentUpon>PluginsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ProjectsView.xaml.cs">
-      <DependentUpon>ProjectsView.xaml</DependentUpon>
+    <Compile Include="Views\ProjectsView2.xaml.cs">
+      <DependentUpon>ProjectsView2.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ServicesView.xaml.cs">
       <DependentUpon>ServicesView.xaml</DependentUpon>
@@ -231,11 +258,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Lib\MahApps.Metro.dll" />
-    <None Include="Lib\System.IO.Abstractions.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="obj\" />
+    <Folder Include="UserControls\AddPlugins\" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Resources\App.xaml">
@@ -254,15 +278,35 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\AddProjects\FinishedControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AddProjects\FrameworkSelectorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AddProjects\LayoutSelectorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AddProjects\PageSelectorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AddProjects\ProjectsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AddViews\ViewsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControls\Options\BuildUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Options\CodingStyleUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\Options\NugetUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -286,10 +330,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ConvertersView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\DownloadView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -302,7 +342,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ProjectsView.xaml">
+    <Page Include="Views\ProjectsView2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -318,6 +358,30 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Xamarin\AbsoluteLayout.png" />
+    <Resource Include="Resources\Xamarin\CarouselPage.png" />
+    <Resource Include="Resources\Xamarin\ContentPage.png" />
+    <Resource Include="Resources\Xamarin\ContentView.png" />
+    <Resource Include="Resources\Xamarin\Frame.png" />
+    <Resource Include="Resources\Xamarin\GridLayout.png" />
+    <Resource Include="Resources\Xamarin\MasterDetailPage.png" />
+    <Resource Include="Resources\Xamarin\NavigationPage.png" />
+    <Resource Include="Resources\Xamarin\RelativeLayout.png" />
+    <Resource Include="Resources\Xamarin\ScrollView.png" />
+    <Resource Include="Resources\Xamarin\StackLayout.png" />
+    <Resource Include="Resources\Xamarin\TabbedPage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Delete.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\dialog.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\bottom.png" />
+    <Resource Include="Resources\lefthand.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

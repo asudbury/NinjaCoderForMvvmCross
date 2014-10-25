@@ -5,18 +5,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
+    using Interfaces;
+    using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Services;
+    using Scorchio.VisualStudio.Services.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.IO.Abstractions;
     using System.Linq;
-    using Constants;
-    using Interfaces;
-
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-
-    using Scorchio.VisualStudio.Entities;
-    using Scorchio.VisualStudio.Services;
-    using Scorchio.VisualStudio.Services.Interfaces;
 
     /// <summary>
     ///  Defines the ProjectsService type.
@@ -57,7 +53,6 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="visualStudioServiceInstance">The visual studio service.</param>
         /// <param name="path">The path.</param>
         /// <param name="projectsInfos">The projects infos.</param>
-        /// <param name="referenceFirstProject">if set to <c>true</c> [reference first project].</param>
         /// <param name="solutionAlreadyCreated">if set to <c>true</c> [solution already created].</param>
         /// <returns>
         /// The messages.
@@ -66,7 +61,6 @@ namespace NinjaCoder.MvvmCross.Services
             IVisualStudioService visualStudioServiceInstance,
             string path, 
             IEnumerable<ProjectTemplateInfo> projectsInfos, 
-            bool referenceFirstProject,
             bool solutionAlreadyCreated)
         {
             IEnumerable<ProjectTemplateInfo> projectTemplateInfos = projectsInfos as ProjectTemplateInfo[] ?? projectsInfos.ToArray();
@@ -76,40 +70,13 @@ namespace NinjaCoder.MvvmCross.Services
             TraceService.WriteLine(message);
 
             //// reset the messages.
-            this.Messages = new List<string>();
+            this.Messages = new List<string> { this.settingsService.FrameworkType + " framework selected." };
 
             this.visualStudioService = visualStudioServiceInstance;
-
-            IProjectService firstProjectService = null;
-
-            if (solutionAlreadyCreated)
-            {
-                firstProjectService = visualStudioServiceInstance.CoreProjectService;
-            }
-
+            
             foreach (ProjectTemplateInfo projectInfo in projectTemplateInfos)
             {
-                //// add in the nuget messages.
-                if (firstProjectService == null && 
-                    projectInfo.UseNuget)
-                {
-                    this.Messages.Add(NinjaMessages.MvxViaNuget);
-                    this.Messages.Add(NinjaMessages.PmConsole);
-                    this.Messages.Add(string.Empty);
-                }
-
-                this.settingsService.ActiveProject = projectInfo.FriendlyName;
-
-                IProjectService projectService = this.TryToAddProject(
-                    path, 
-                    referenceFirstProject, 
-                    projectInfo, 
-                    firstProjectService);
-
-                if (solutionAlreadyCreated == false)
-                {
-                    firstProjectService = projectService;
-                }
+                this.AddProject(path, projectInfo);
             }
 
             return this.Messages;
@@ -119,15 +86,52 @@ namespace NinjaCoder.MvvmCross.Services
         /// Adds the project.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <param name="referenceFirstProject">if set to <c>true</c> [reference first project].</param>
-        /// <param name="projectInfo">The project info.</param>
-        /// <param name="firstProjectService">The first project service.</param>
-        /// <returns>The project service.</returns>
-        internal IProjectService TryToAddProject(
+        /// <param name="projectInfo">The project information.</param>
+        internal void AddProject(
             string path,
-            bool referenceFirstProject,
-            ProjectTemplateInfo projectInfo,
-            IProjectService firstProjectService)
+            ProjectTemplateInfo projectInfo)
+        {
+            string message = string.Format("ProjectsService::AddProject project {0}", projectInfo.Name);
+
+            TraceService.WriteLine(message);
+            
+            this.settingsService.ActiveProject = projectInfo.FriendlyName;
+
+            this.TryToAddProject(path, projectInfo);
+
+            //// add reference to core project
+
+            IProjectService coreProjectService = this.visualStudioService.CoreProjectService;
+
+            IProjectService projectService = this.visualStudioService.GetProjectServiceBySuffix(projectInfo.ProjectSuffix);
+
+            if (coreProjectService != null && 
+                projectService != null && 
+                projectInfo.ReferenceCoreProject)
+            {
+                projectService.AddProjectReference(coreProjectService);
+            }
+
+            //// now add references to xamarin forms if required.
+
+            IProjectService formsProjectService = this.visualStudioService.FormsProjectService;
+
+            if (formsProjectService != null && 
+                projectService != null && 
+                projectInfo.ReferenceXamarinFormsProject)
+            {
+                projectService.AddProjectReference(formsProjectService);
+            }
+        }
+
+        /// <summary>
+        /// Adds the project.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="projectInfo">The project info.</param>
+        internal void TryToAddProject(
+            string path,
+            ProjectTemplateInfo projectInfo)
         {
             TraceService.WriteLine("ProjectsService::TryToAddProject  project=" + projectInfo.Name);
 
@@ -140,12 +144,10 @@ namespace NinjaCoder.MvvmCross.Services
                 this.AddProject(projectInfo, projectPath);
             }
 
-            if (referenceFirstProject)
+            else
             {
-                firstProjectService = this.ReferenceFirstProject(projectInfo, firstProjectService);
+                TraceService.WriteError("Directory " + projectPath + " not empty");
             }
-
-            return firstProjectService;
         }
 
         /// <summary>
@@ -167,62 +169,11 @@ namespace NinjaCoder.MvvmCross.Services
 
                 this.visualStudioService.SolutionService.AddProjectToSolution(projectPath, template, projectInfo.Name);
 
-                this.Messages.Add(projectInfo.Name + " project successfully added.");
+                this.Messages.Add(projectInfo.Name + " project successfully added.  (template=" + projectInfo.TemplateName + ")");
             }
             catch (Exception exception)
             {
                 TraceService.WriteError("error adding project " + projectPath + " exception=" + exception.Message + " templateName=" + projectInfo.TemplateName);
-            }
-        }
-
-        /// <summary>
-        /// References the first project.
-        /// </summary>
-        /// <param name="projectInfo">The project info.</param>
-        /// <param name="firstProjectService">The first project service.</param>
-        /// <returns>The project.</returns>
-        internal IProjectService ReferenceFirstProject(
-            ProjectTemplateInfo projectInfo, 
-            IProjectService firstProjectService)
-        {
-            TraceService.WriteLine("ProjectsService::ReferenceFirstProject project=" + projectInfo.Name);
-
-            IProjectService projectService = this.visualStudioService.SolutionService.GetProjectService(projectInfo.Name);
-
-            if (projectService != null)
-            {
-                if (firstProjectService == null)
-                {
-                    firstProjectService = projectService;
-                }
-                else
-                {
-                    projectService.AddProjectReference(firstProjectService);
-                }
-            }
-
-            return firstProjectService;
-        }
-
-        /// <summary>
-        /// Deletes the lib folder.
-        /// </summary>
-        /// <param name="projectInfo">The project info.</param>
-        internal void DeleteLibFolder(ProjectTemplateInfo projectInfo)
-        {
-            TraceService.WriteLine("ProjectsService::DeleteLibFolder project=" + projectInfo.Name);
-
-            IProjectService projectService = this.visualStudioService.SolutionService.GetProjectService(projectInfo.Name);
-
-            if (projectService != null)
-            {
-                IProjectItemService projectItemService = projectService.RemoveFolder("Lib");
-
-                //// remove the local files if we are going to use nuget.
-                if (projectInfo.UseNuget)
-                {
-                    projectItemService.DeleteFolder(projectInfo.NonMvxAssemblies);
-                }
             }
         }
     }

@@ -5,25 +5,23 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels
 {
+    using Entities;
+    using Factories.Interfaces;
+
+    using Scorchio.Infrastructure.Wpf;
+    using Scorchio.Infrastructure.Wpf.ViewModels;
+    using Scorchio.VisualStudio.Services;
+    using Services.Interfaces;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Linq;
     using System.Windows.Input;
 
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-
-    using Scorchio.Infrastructure.Wpf;
-    using Scorchio.Infrastructure.Wpf.ViewModels;
-    using Scorchio.VisualStudio.Services;
-
     /// <summary>
     ///  Defines the PluginsViewModel type.
     /// </summary>
-    public class PluginsViewModel : BaseViewModel
+    public class PluginsViewModel : NinjaBaseViewModel
     {
         /// <summary>
         /// The settings service.
@@ -59,7 +57,7 @@ namespace NinjaCoder.MvvmCross.ViewModels
         /// The view model names.
         /// </summary>
         private IEnumerable<string> viewModelNames;
-        
+
         /// <summary>
         /// The implement in view model
         /// </summary>
@@ -93,14 +91,6 @@ namespace NinjaCoder.MvvmCross.ViewModels
             this.communityPlugins = this.GetPlugins(allPlugins, true, false);
             this.userPlugins = this.GetPlugins(allPlugins, false, true);
 
-            this.useNuget = this.settingsService.UseNugetForPlugins;
-
-            //// we override if we can work out this project is built from nuget.
-
-            bool hasNugetPackages = visualStudioService.CoreProjectService.HasNugetPackages();
-
-            this.useNuget = hasNugetPackages;
-            
             TraceService.WriteLine("PluginsViewModel::Constructor End");
         }
 
@@ -197,20 +187,11 @@ namespace NinjaCoder.MvvmCross.ViewModels
         }
 
         /// <summary>
-        /// Called when ok button pressed.
-        /// </summary>
-        public override void OnOk()
-        {
-            this.settingsService.UseNugetForPlugins = this.UseNuget;
-            base.OnOk();
-        }
-
-        /// <summary>
         /// Displays the wiki page.
         /// </summary>
         internal void DisplayWikiPage()
         {
-            Process.Start(this.settingsService.MvvmCrossPluginsWikiPage); 
+            Process.Start(this.settingsService.MvvmCrossPluginsWikiPage);
         }
 
         /// <summary>
@@ -230,14 +211,14 @@ namespace NinjaCoder.MvvmCross.ViewModels
         /// <returns>The view Models.</returns>
         internal ObservableCollection<SelectableItemViewModel<Plugin>> GetPlugins(
             Plugins plugins,
-            bool includeCommunityPlugins, 
+            bool includeCommunityPlugins,
             bool includeUserPlugins)
         {
             ObservableCollection<SelectableItemViewModel<Plugin>> viewModels = new ObservableCollection<SelectableItemViewModel<Plugin>>();
 
             foreach (SelectableItemViewModel<Plugin> viewModel in from plugin in plugins.Items
                                                                   where plugin.IsCommunityPlugin == includeCommunityPlugins &&
-                                                                        plugin.IsUserPlugin == includeUserPlugins 
+                                                                        plugin.IsUserPlugin == includeUserPlugins
                                                                   select new SelectableItemViewModel<Plugin>(plugin))
             {
                 viewModels.Add(viewModel);

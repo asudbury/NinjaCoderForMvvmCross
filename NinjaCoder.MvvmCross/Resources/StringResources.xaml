@@ -21,6 +21,7 @@
     <system:String x:Key="FormatFunctionParametersOnToNewLines">Format Function parameters on to new lines</system:String>                   
     <system:String x:Key="IncludeLibFolderInProjects">Include Lib folders in projects</system:String>
     <system:String x:Key="Language">Language</system:String>
+    <system:String x:Key="LayoutType">Layout type</system:String>
     <system:String x:Key="MvvmCrossVersion">MvvmCross Version</system:String>
     <system:String x:Key="NinjaAddConverters">Ninja | Add Converters</system:String>
     <system:String x:Key="NinjaAddProjects">Ninja | Add Projects</system:String>
@@ -29,12 +30,14 @@
     <system:String x:Key="NinjaNewVersion">Ninja | New Version</system:String>
     <system:String x:Key="NinjaOptions">Ninja | Options</system:String>
     <system:String x:Key="NinjaPlugins">Ninja | Plugins</system:String>
+    <system:String x:Key="NinjaSelectFramework">Ninja | Select Framework</system:String>
     <system:String x:Key="NinjaCoderForMvvmCross">Ninja Coder for MvvmCross</system:String>
     <system:String x:Key="Nuget">Nuget</system:String>
     <system:String x:Key="NugetInternetConnection">(Nuget integration requires internet connection)</system:String>
     <system:String x:Key="Ok">OK</system:String>
     <system:String x:Key="Open">Open</system:String>
     <system:String x:Key="OpenUserPluginsFolder">Open User Plugins folder</system:String>
+    <system:String x:Key="PageType">Page type</system:String>
     <system:String x:Key="Path">Path</system:String>
     <system:String x:Key="Plugins">Plugins</system:String>
     <system:String x:Key="Project">Project</system:String>
@@ -42,14 +45,10 @@
     <system:String x:Key="RemoveCodeComments">Remove code comments</system:String>
     <system:String x:Key="RemoveFileHeaders">Remove file headers</system:String>
     <system:String x:Key="Services">Services</system:String>
-    <system:String x:Key="SuspendReSharperDuringBuild">Suspend ReSharper during build</system:String>
     <system:String x:Key="Theme">Theme</system:String>
     <system:String x:Key="ThemeColor">Theme color</system:String>
     <system:String x:Key="TraceOutputEnabled">Trace output enabled</system:String>
     <system:String x:Key="Tracing">Tracing</system:String>
-    <system:String x:Key="UseNugetForProjects">Use Nuget for Projects</system:String>
-    <system:String x:Key="UseNugetForPlugins">Use Nuget for Plugins (Where applicable)</system:String>
-    <system:String x:Key="UseNugetForServices">Use Nuget for Services (Where applicable)</system:String>
     <system:String x:Key="UserPluginsConfigDirectory">User Plugins Config directory</system:String>
     <system:String x:Key="UserPluginsDirectory">User Plugins directory</system:String>
     <system:String x:Key="UserPluginsSnippetsDirectory">User Plugins Snippets directory</system:String>

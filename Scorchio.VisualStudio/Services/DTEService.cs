@@ -43,10 +43,7 @@ namespace Scorchio.VisualStudio.Services
         /// </summary>
         public ISolutionService SolutionService
         {
-            get
-            {
-                return new SolutionService(this.dte2.GetSolution());
-            }
+            get { return new SolutionService(this.dte2.GetSolution()); }
         }
 
         /// <summary>
@@ -274,6 +271,15 @@ namespace Scorchio.VisualStudio.Services
         public DocumentEvents GetDocumentEvents()
         {
             return this.dte2.Events.DocumentEvents;
+        }
+
+        /// <summary>
+        /// Opens the file.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        public void OpenFile(string path)
+        {
+            this.dte2.ItemOperations.OpenFile(path);
         }
     }
 }

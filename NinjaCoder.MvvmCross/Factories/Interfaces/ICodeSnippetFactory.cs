@@ -5,8 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories.Interfaces
 {
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Entities;
+    using Services.Interfaces;
 
     using Scorchio.VisualStudio.Entities;
 

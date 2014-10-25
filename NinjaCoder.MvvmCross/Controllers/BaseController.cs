@@ -5,25 +5,21 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Windows;
-
     using Constants;
     using EnvDTE;
     using EnvDTE80;
 
     using MahApps.Metro;
-
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Wpf.Views;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
     using Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Windows;
 
     /// <summary>
     ///  Defines the BaseController type.
@@ -40,17 +36,17 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         /// <param name="configurationService">The configuration service.</param>
         /// <param name="visualStudioService">The visual studio service.</param>
-        /// <param name="readMeService">The read me service.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="messageBoxService">The message box service.</param>
         /// <param name="resolverService">The resolver service.</param>
+        /// <param name="readMeService">The read me service.</param>
         protected BaseController(
             IConfigurationService configurationService,
             IVisualStudioService visualStudioService,
-            IReadMeService readMeService,
             ISettingsService settingsService,
             IMessageBoxService messageBoxService,
-            IResolverService resolverService)
+            IResolverService resolverService,
+            IReadMeService readMeService)
         {
 
             //// init the tracing service first!
@@ -67,10 +63,10 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             this.ConfigurationService = configurationService;
             this.VisualStudioService = visualStudioService;
-            this.ReadMeService = readMeService;
             this.SettingsService = settingsService;
             this.MessageBoxService = messageBoxService;
             this.ResolverService = resolverService;
+            this.ReadMeService = readMeService;
         }
 
         /// <summary>
@@ -92,11 +88,6 @@ namespace NinjaCoder.MvvmCross.Controllers
         protected IVisualStudioService VisualStudioService { get; private set; }
 
         /// <summary>
-        /// Gets the read me service.
-        /// </summary>
-        protected IReadMeService ReadMeService { get; private set; }
-
-        /// <summary>
         /// Gets the settings service.
         /// </summary>
         protected ISettingsService SettingsService { get; private set; }
@@ -112,6 +103,11 @@ namespace NinjaCoder.MvvmCross.Controllers
         protected IResolverService ResolverService { get; private set; }
 
         /// <summary>
+        /// Gets the readme service.
+        /// </summary>
+        protected IReadMeService ReadMeService { get; private set; }
+
+        /// <summary>
         /// Gets the read me lines.
         /// </summary>
         protected IList<string> ReadMeLines
@@ -120,7 +116,6 @@ namespace NinjaCoder.MvvmCross.Controllers
             {
                 if (this.readmeLines == null)
                 {
-                    this.ReadMeService.Initialize(this.SettingsService.ApplicationVersion, this.SettingsService.MvvmCrossVersion);
                     this.readmeLines = new List<string>();
                 }
 
@@ -210,7 +205,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             return viewModel;
         }
-
+        
         /// <summary>
         /// Gets the read me path.
         /// </summary>
@@ -224,7 +219,6 @@ namespace NinjaCoder.MvvmCross.Controllers
             TraceService.WriteLine("BaseController::GetReadMePath path=" + path);
             return path;
         }
-
         /// <summary>
         /// Shows the not MVVM cross solution message.
         /// </summary>
@@ -245,17 +239,15 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         /// <param name="function">The function.</param>
         /// <param name="messages">The messages.</param>
-        /// <param name="nugetInProgress">if set to <c>true</c> [nuget in progress].</param>
         /// <param name="closeDocuments">if set to <c>true</c> [close documents].</param>
         /// <param name="collapseSolution">if set to <c>true</c> [collapse solution].</param>
         protected void ShowReadMe(
             string function,
             IEnumerable<string> messages,
-            bool nugetInProgress = false,
             bool closeDocuments = true,
             bool collapseSolution = true)
         {
-            TraceService.WriteLine("BaseController::ShowReadMe " + function + " nugetInProgress=" + nugetInProgress);
+            TraceService.WriteLine("BaseController::ShowReadMe " + function);
 
             //// never quite got to the bottom this but sometimes closing documents/collapsing the solution fails.
             //// this isnt that important - but we need to show the readme file - so catch the error.
@@ -284,26 +276,13 @@ namespace NinjaCoder.MvvmCross.Controllers
                 string readMePath = this.GetReadMePath();
 
                 TraceService.WriteLine("BaseController::ShowReadMe path=" + readMePath);
-            
+
                 //// now construct the ReadMe.txt
                 this.ReadMeLines.AddRange(messages);
-
+                
                 this.ReadMeService.AddLines(readMePath, function, this.ReadMeLines);
 
-                //// now show the ReadMe.txt.
-                IProjectItemService projectItemService = this.VisualStudioService.SolutionService.AddSolutionItem("Solution Items", readMePath);
-
-                if (projectItemService != null)
-                {
-                    if (nugetInProgress == false)
-                    {
-                        projectItemService.Open();
-                    }
-                }
-                else
-                {
-                    TraceService.WriteError("BaseController::ShowReadMe Cannot open file :-" + readMePath);
-                }
+                this.VisualStudioService.DTEService.OpenFile(readMePath);
 
                 //// reset the messages - if we don't do this we get the previous messages!
                 this.readmeLines = new List<string>();
@@ -312,6 +291,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             {
                 TraceService.WriteError("BaseController::ShowReadMe Showing ReadMe Error :-" + exception.Message);
             }
+
         }
 
         /// <summary>

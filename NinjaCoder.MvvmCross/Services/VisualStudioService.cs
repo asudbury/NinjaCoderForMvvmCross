@@ -5,22 +5,23 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-
     using Constants;
     using EnvDTE;
     using EnvDTE80;
+
     using Interfaces;
 
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
+    using NinjaCoder.MvvmCross.Entities;
 
+    using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
 
     /// <summary>
     /// Defines the VisualStudioService type.
@@ -191,12 +192,22 @@ namespace NinjaCoder.MvvmCross.Services
             }
         }
 
+
+        public IProjectService FormsProjectService
+        {
+            get
+            {
+                Project project = this.FormsProject;
+                return project != null ? new ProjectService(project) : null;
+            }
+        }
+
         /// <summary>
         /// Gets the core project.
         /// </summary>
         internal Project CoreProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.Core)); }
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.Core.GetDescription())); }
         }
 
         /// <summary>
@@ -204,7 +215,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal Project CoreTestsProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.CoreTests)); }
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.CoreTests.GetDescription())); }
         }
 
         /// <summary>
@@ -212,7 +223,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal Project DroidProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.Droid)); }
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.Droid.GetDescription())); }
         }
 
         /// <summary>
@@ -220,7 +231,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal Project iOSProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.iOS)); }
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.iOS.GetDescription())); }
         }
 
         /// <summary>
@@ -228,7 +239,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal Project WindowsPhoneProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.WindowsPhone)); }
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.WindowsPhone.GetDescription())); }
         }
 
         /// <summary>
@@ -236,7 +247,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal Project WindowsStoreProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.WindowsStore)); }
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.WindowsStore.GetDescription())); }
         }
 
         /// <summary>
@@ -244,10 +255,18 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal Project WpfProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffixes.WindowsWpf)); }
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.Wpf.GetDescription())); }
         }
 
- 
+
+        /// <summary>
+        /// Gets the forms project.
+        /// </summary>
+        internal Project FormsProject
+        {
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.Forms.GetDescription())); }
+        }
+
         /// <summary>
         /// Gets the allowed converters.
         /// </summary>
@@ -344,7 +363,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             IProjectService projectService = this.CoreProjectService;
 
-            return projectService != null ? projectService.Name.Replace(ProjectSuffixes.Core, string.Empty) : string.Empty;
+            return projectService != null ? projectService.Name.Replace(ProjectSuffix.Core.GetDescription(), string.Empty) : string.Empty;
         }
         
         /// <summary>

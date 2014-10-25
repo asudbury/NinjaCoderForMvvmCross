@@ -6,9 +6,10 @@
 namespace NinjaCoder.MvvmCross.AddIn
 {
     using Controllers;
+
     using Microsoft.VisualStudio.CommandBars;
 
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
+    using NinjaCoder.MvvmCross.Services;
 
     using Scorchio.VisualStudio;
     using Scorchio.VisualStudio.Entities;
@@ -62,6 +63,10 @@ namespace NinjaCoder.MvvmCross.AddIn
         {
             TraceService.WriteLine("Connect::Initialize");
 
+            ////this.ListAllCommands();
+
+            ////this.DeleteCommand("Ninja Coder for MvvmCross");
+
             this.AddCommands();
         }
 
@@ -72,6 +77,21 @@ namespace NinjaCoder.MvvmCross.AddIn
         {
             TraceService.WriteLine("Connect::AddCommands");
 
+            /*CommandBar commandBar = this.AddCommandBar("Ninja Coder for MvvmCross and Xamarin Forms");
+
+            VSCommandInfo commandInfo = new VSCommandInfo
+            {
+                AddIn = this.AddInInstance,
+                Name = "NinjaCoderforMvvmCrossAddProjects",
+                ButtonText = "Add Projects",
+                Tooltip = "Ninja Coder for MvvmCross and Xamarin Forms Add Projects",
+                Action = this.BuildProjects,
+                ParentCommand = commandBar,
+                BitmapResourceId = 0,
+            };
+
+            this.AddMenuItem(commandInfo);*/
+
             CommandBar commandBar = this.AddCommandBar("Ninja Coder for MvvmCross");
 
             VSCommandInfo commandInfo = new VSCommandInfo
@@ -79,7 +99,7 @@ namespace NinjaCoder.MvvmCross.AddIn
                 AddIn = this.AddInInstance,
                 Name = "NinjaCoderforMvvmCrossAddProjects",
                 ButtonText = "Add Projects",
-                Tooltip = "Ninja Coder for MvvmCross Add Projects",
+                Tooltip = "Ninja Coder for MvvmCross",
                 Action = this.BuildProjects,
                 ParentCommand = commandBar,
                 BitmapResourceId = 0,
@@ -125,26 +145,13 @@ namespace NinjaCoder.MvvmCross.AddIn
             };
 
             this.AddMenuItem(commandInfo);*/
-            
-            commandInfo = new VSCommandInfo
-            {
-                AddIn = this.AddInInstance,
-                Name = "NinjaCoderforMvvmCrossAddConverters",
-                ButtonText = "Add Converters",
-                Tooltip = "Ninja Coder for MvvmCross Add Converters",
-                Action = this.AddConverters,
-                ParentCommand = commandBar,
-                BitmapResourceId = 0,
-            };
-
-            this.AddMenuItem(commandInfo);
 
             commandInfo = new VSCommandInfo
             {
                 AddIn = this.AddInInstance,
                 Name = "NinjaCoderforMvvmCrossOptions",
                 ButtonText = "Options",
-                Tooltip = "Ninja Coder for MvvmCross Options",
+                Tooltip = "Ninja Coder for MvvmCross and Xamarin Forms Options",
                 Action = this.ShowOptions,
                 ParentCommand = commandBar,
                 BitmapResourceId = 0
@@ -161,7 +168,7 @@ namespace NinjaCoder.MvvmCross.AddIn
                     AddIn = this.AddInInstance,
                     Name = "NinjaCoderforMvvmCrossViewLogFile",
                     ButtonText = "View Log File",
-                    Tooltip = "Ninja Coder for MvvmCross View Log File",
+                    Tooltip = "Ninja Coder for MvvmCross View and Xamarin Forms Log File",
                     Action = this.ViewLogFile,
                     ParentCommand = commandBar,
                     BitmapResourceId = 0
@@ -177,7 +184,7 @@ namespace NinjaCoder.MvvmCross.AddIn
                     AddIn = this.AddInInstance,
                     Name = "NinjaCoderforMvvmCrossClearLogFile",
                     ButtonText = "Clear Log File",
-                    Tooltip = "Ninja Coder for MvvmCross Clear Log File",
+                    Tooltip = "Ninja Coder for MvvmCross and Xamarin Forms Clear Log File",
                     Action = this.ClearLogFile,
                     ParentCommand = commandBar,
                     BitmapResourceId = 0
@@ -191,7 +198,7 @@ namespace NinjaCoder.MvvmCross.AddIn
                 AddIn = this.AddInInstance,
                 Name = "NinjaCoderforMvvmCrossAbout",
                 ButtonText = "About",
-                Tooltip = "Ninja Coder for MvvmCross About",
+                Tooltip = "Ninja Coder for MvvmCross and Xamarin Forms About",
                 Action = this.ShowAbout,
                 ParentCommand = commandBar,
                 BitmapResourceId = 0
@@ -209,7 +216,7 @@ namespace NinjaCoder.MvvmCross.AddIn
         {
             TraceService.WriteLine("Connect::BuildProjects");
 
-            NinjaController.RunProjectsController(this.VSInstance.ApplicationObject);
+            NinjaController.RunProjectsController(this.VsInstance.ApplicationObject);
         }
 
         /// <summary>
@@ -219,7 +226,7 @@ namespace NinjaCoder.MvvmCross.AddIn
         {
             TraceService.WriteLine("Connect::AddViewModelAndViews");
 
-            NinjaController.RunViewModelViewsController(this.VSInstance.ApplicationObject);
+            NinjaController.RunViewModelViewsController(this.VsInstance.ApplicationObject);
         }
 
         /// <summary>
@@ -229,27 +236,7 @@ namespace NinjaCoder.MvvmCross.AddIn
         {
             TraceService.WriteLine("Connect::AddPlugins");
 
-            NinjaController.RunPluginsController(this.VSInstance.ApplicationObject);
-        }
-
-        /// <summary>
-        /// Adds the services.
-        /// </summary>
-        internal void AddServices()
-        {
-            TraceService.WriteLine("Connect::AddServices");
-
-            NinjaController.RunServicesController(this.VSInstance.ApplicationObject);
-        }
-
-        /// <summary>
-        /// Adds the converters.
-        /// </summary>
-        internal void AddConverters()
-        {
-            TraceService.WriteLine("Connect::AddConverters");
-
-            NinjaController.RunConvertersController(this.VSInstance.ApplicationObject);
+            NinjaController.RunPluginsController(this.VsInstance.ApplicationObject);
         }
 
         /// <summary>
@@ -259,7 +246,7 @@ namespace NinjaCoder.MvvmCross.AddIn
         {
             TraceService.WriteLine("Connect::ShowOptions");
 
-            NinjaController.ShowOptions(this.VSInstance.ApplicationObject);
+            NinjaController.ShowOptions(this.VsInstance.ApplicationObject);
         }
 
         /// <summary>
@@ -269,7 +256,7 @@ namespace NinjaCoder.MvvmCross.AddIn
         {
             TraceService.WriteLine("Connect::ShowAbout");
 
-            NinjaController.ShowAboutBox(this.VSInstance.ApplicationObject);
+            NinjaController.ShowAboutBox(this.VsInstance.ApplicationObject);
         }
 
         /// <summary>

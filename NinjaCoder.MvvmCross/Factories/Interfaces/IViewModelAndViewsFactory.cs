@@ -5,9 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories.Interfaces
 {
-    using System.Collections.Generic;
-
+    using Entities;
     using Scorchio.VisualStudio.Entities;
+    using System.Collections.Generic;
 
     /// <summary>
     ///  Defines the IViewModelAndViewsFactory type.
@@ -24,15 +24,17 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// </summary>
         /// <returns>The available view types.</returns>
         IEnumerable<string> GetAvailableViewTypes();
-
+        
         /// <summary>
         /// Gets the required view model and views.
         /// </summary>
+        /// <param name="view">The view.</param>
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="requiredUIViews">The required UI views.</param>
         /// <param name="unitTestsRequired">if set to <c>true</c> [unit tests required].</param>
         /// <returns></returns>
         IEnumerable<ItemTemplateInfo> GetRequiredViewModelAndViews(
+            View view,
             string viewModelName,
             IEnumerable<ItemTemplateInfo> requiredUIViews,
             bool unitTestsRequired);

@@ -42,7 +42,7 @@
     </Reference>
     <Reference Include="MahApps.Metro, Version=0.0.0.999, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Lib\MahApps.Metro.dll</HintPath>
+      <HintPath>..\Lib\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -113,9 +113,6 @@
       <Project>{8788b9f4-d0b8-406b-b0bc-dbb581b453cc}</Project>
       <Name>Scorchio.Infrastructure</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Lib\MahApps.Metro.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

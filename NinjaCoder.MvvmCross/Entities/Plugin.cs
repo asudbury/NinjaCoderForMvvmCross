@@ -20,6 +20,7 @@ namespace NinjaCoder.MvvmCross.Entities
         public Plugin()
         {
             this.NugetCommands = new List<string>();
+            this.Platforms = new List<string>();
         }
 
         /// <summary>
@@ -48,8 +49,18 @@ namespace NinjaCoder.MvvmCross.Entities
         public bool IsUserPlugin { get; set; }
 
         /// <summary>
+        /// Gets or sets the using statement.
+        /// </summary>
+        public string UsingStatement { get; set; }
+
+        /// <summary>
         /// Gets or sets the nuget commands.
         /// </summary>
-        public List<string> NugetCommands { get; set; }
+        public IEnumerable<string> NugetCommands { get; set; }
+
+        /// <summary>
+        /// Gets or sets the platforms.
+        /// </summary>
+        public IEnumerable<string> Platforms { get; set; }
     }
 }

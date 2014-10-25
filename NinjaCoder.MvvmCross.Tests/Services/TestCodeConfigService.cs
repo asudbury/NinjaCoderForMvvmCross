@@ -5,17 +5,17 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Tests.Services
 {
-    using System.Collections.Generic;
-    using System.IO.Abstractions;
-
+    using Mocks;
     using Moq;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-    using NinjaCoder.MvvmCross.Services;
-    using NinjaCoder.MvvmCross.Tests.Mocks;
-    using NUnit.Framework;
+    using MvvmCross.Services;
 
+    using NinjaCoder.MvvmCross.Services.Interfaces;
+
+    using NUnit.Framework;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services.Interfaces;
+    using System.Collections.Generic;
+    using System.IO.Abstractions;
 
     /// <summary>
     ///  Defines the TestCodeConfigService type.
@@ -69,9 +69,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
             this.mockFileSystem.SetupGet(x => x.FileInfo).Returns(this.mockFileInfoFactory.Object);
             this.mockFileInfoFactory.Setup(x => x.FromFileName(It.IsAny<string>())).Returns(this.mockFileInfo);
 
-            this.service = new CodeConfigService(
-                this.mockFileSystem.Object,
-                this.mockSettingsService.Object);
+            this.service = new CodeConfigService();
         }
 
         /// <summary>
@@ -96,7 +94,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
 
             this.mockFileSystem.SetupGet(x => x.Path).Returns(mockPathBase);
 
-            this.mockSettingsService.SetupGet(x => x.UseNugetForPlugins).Returns(false);
+            ////this.mockSettingsService.SetupGet(x => x.UseNugetForPlugins).Returns(false);
 
             /*this.service.ProcessCodeConfig(mockProjectService.Object, "SQLite", "source", "destination");
 
@@ -109,72 +107,6 @@ namespace NinjaCoder.MvvmCross.Tests.Services
                 It.IsAny<bool>()));*/
         }
 
-        /// <summary>
-        /// Tests the use local disk copy when nuget requested.
-        /// </summary>
-        [Test]
-        public void TestUseLocalDiskCopyWhenNugetRequested()
-        {
-            this.mockSettingsService.SetupGet(x => x.UseNugetForPlugins).Returns(true);
-
-            CodeConfig codeConfig = new CodeConfig();
-
-            bool useLocalCopy = this.service.UseLocalDiskCopy(codeConfig);
-
-            Assert.IsTrue(useLocalCopy);
-        }
-
-        /// <summary>
-        /// Tests the use local disk copy should be false.
-        /// </summary>
-        [Test]
-        public void TestUseLocalDiskCopyShouldBeFalse()
-        {
-            this.mockSettingsService.SetupGet(x => x.UseNugetForPlugins).Returns(true);
-
-            CodeConfig codeConfig = new CodeConfig
-                                        {
-                                            NugetPackage = "nugetPackage"
-                                        };
-
-            bool useLocalCopy = this.service.UseLocalDiskCopy(codeConfig);
-
-            Assert.IsTrue(!useLocalCopy);
-        }
-
-        /// <summary>
-        /// Tests the nuget requested and not supported false.
-        /// </summary>
-        [Test]
-        public void TestNugetRequestedAndNotSupportedFalse()
-        {
-            this.mockSettingsService.SetupGet(x => x.UseNugetForPlugins).Returns(true);
-
-            CodeConfig codeConfig = new CodeConfig
-            {
-                NugetPackage = "nugetPackage"
-            };
-
-            bool supported = this.service.NugetRequestedAndNotSupported(codeConfig);
-
-            Assert.IsTrue(!supported);
-        }
-
-        /// <summary>
-        /// Tests the nuget requested and supported true.
-        /// </summary>
-        [Test]
-        public void TestNugetRequestedAndNotSupportedTrue()
-        {
-            this.mockSettingsService.SetupGet(x => x.UseNugetForPlugins).Returns(true);
-
-            CodeConfig codeConfig = new CodeConfig();
-
-            bool supported = this.service.NugetRequestedAndNotSupported(codeConfig);
-
-            Assert.IsTrue(supported);
-        }
-        
         /// <summary>
         /// Tests the name of the get bootstrap file.
         /// </summary>

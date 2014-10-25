@@ -5,14 +5,11 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services.Interfaces
 {
-    using System.Collections.Generic;
-
     using EnvDTE;
-
     using EnvDTE80;
-
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services.Interfaces;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Defines the IVisualStudioService type.
@@ -78,6 +75,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets the WPF project service.
         /// </summary>
         IProjectService WpfProjectService { get; }
+
+        /// <summary>
+        /// Gets the forms project service.
+        /// </summary>
+        IProjectService FormsProjectService { get;  }
 
         /// <summary>
         /// Gets the allowed converters.

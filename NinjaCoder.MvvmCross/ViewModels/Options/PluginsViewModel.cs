@@ -7,12 +7,12 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
 {
     using System.Windows;
 
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
+    using NinjaCoder.MvvmCross.Services.Interfaces;
 
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Wpf.ViewModels;
 
-    using BaseViewModel = NinjaCoder.MvvmCross.ViewModels.BaseViewModel;
+    using BaseViewModel = NinjaCoder.MvvmCross.ViewModels.NinjaBaseViewModel;
 
     /// <summary>
     ///  Defines the PluginsViewModel type.

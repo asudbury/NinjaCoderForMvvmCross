@@ -97,14 +97,10 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// <param name="destinationFolder">The destination folder.</param>
         /// <param name="destination">The destination.</param>
         /// <param name="source">The source.</param>
-        /// <param name="addFileToFolder">if set to <c>true</c> [add file to folder].</param>
-        /// <param name="copyAssembly">if set to <c>true</c> [copy assembly].</param>
         void AddReference(
             string destinationFolder,
             string destination,
-            string source,
-            bool addFileToFolder,
-            bool copyAssembly);
+            string source);
 
         /// <summary>
         /// Saves all.
@@ -156,9 +152,25 @@ namespace Scorchio.VisualStudio.Services.Interfaces
             string itemName);
 
         /// <summary>
-        /// Determines whether [has nuget packages].
+        /// Gets the sub projects.
         /// </summary>
-        /// <returns>True or false</returns>
-        bool HasNugetPackages();
+        /// <returns></returns>
+        IEnumerable<IProjectService> GetSubProjects();
+
+        /// <summary>
+        /// Gets the sub folders.
+        /// </summary>
+        /// <param name="folderName">Name of the folder.</param>
+        /// <returns></returns>
+        IEnumerable<IProjectItemService> GetSubFolders(string folderName);
+
+        IEnumerable<IProjectItemService> GetFolderProjectItems();
+
+        /// <summary>
+        /// Gets the folder or create.
+        /// </summary>
+        /// <param name="folderName">Name of the folder.</param>
+        /// <returns></returns>
+        IProjectItemService GetFolderOrCreate(string folderName);
     }
 }

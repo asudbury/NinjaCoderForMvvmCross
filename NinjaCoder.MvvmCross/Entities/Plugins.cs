@@ -18,6 +18,6 @@ namespace NinjaCoder.MvvmCross.Entities
         /// Gets or sets the plugins.
         /// </summary>
         [DataMember(Name = "Plugins")]
-        public List<Plugin> Items { get; set; }
+        public IEnumerable<Plugin> Items { get; set; }
     }
 }

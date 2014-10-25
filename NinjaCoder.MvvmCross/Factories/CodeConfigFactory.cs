@@ -5,16 +5,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories
 {
-    using System.IO.Abstractions;
+    using Entities;
 
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-
+    using Interfaces;
     using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
+    using Services.Interfaces;
+    using System.IO.Abstractions;
 
     /// <summary>
     ///  Defines the CodeConfigFactory type.

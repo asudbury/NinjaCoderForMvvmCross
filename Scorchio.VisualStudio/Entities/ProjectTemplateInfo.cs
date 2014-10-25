@@ -18,18 +18,19 @@ namespace Scorchio.VisualStudio.Entities
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to use nuget.
-        /// </summary>
-        public bool UseNuget { get; set; }
-
-        /// <summary>
         /// Gets or sets the nuget commands.
         /// </summary>
-        public List<string> NugetCommands { get; set; }
+        public IEnumerable<string> NugetCommands { get; set; }
+        
+        /// <summary>
+        /// Gets or sets a value indicating whether [reference xamarin forms project].
+        /// </summary>
+
+        public bool ReferenceXamarinFormsProject { get; set; }
 
         /// <summary>
-        /// Gets or sets the non MVX assemblies.
+        /// Gets or sets a value indicating whether [reference core project].
         /// </summary>
-        public IEnumerable<string> NonMvxAssemblies { get; set; }
+        public bool ReferenceCoreProject { get; set; }
     }
 }

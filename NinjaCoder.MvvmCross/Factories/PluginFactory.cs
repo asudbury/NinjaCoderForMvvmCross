@@ -5,17 +5,15 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories
 {
-    using System;
-    using System.IO.Abstractions;
-    using System.Linq;
+    using Entities;
 
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-
+    using Interfaces;
     using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Services;
+    using Services.Interfaces;
+    using System.Collections.Generic;
+    using System.IO.Abstractions;
+    using System.Linq;
 
     /// <summary>
     ///  Defines the PluginFactory type.
@@ -40,7 +38,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <summary>
         /// The pluginsTranslator.
         /// </summary>
-        private readonly ITranslator<Tuple<DirectoryInfoBase, DirectoryInfoBase>, Plugins> pluginsTranslator;
+        private readonly ITranslator<IEnumerable<DirectoryInfoBase>, Plugins> pluginsTranslator;
 
         /// <summary>
         /// The plugin translator
@@ -59,7 +57,7 @@ namespace NinjaCoder.MvvmCross.Factories
             IPluginsService pluginsService,
             IFileSystem fileSystem,
             ISettingsService settingsService,
-            ITranslator<Tuple<DirectoryInfoBase, DirectoryInfoBase>, Plugins> pluginsTranslator,
+            ITranslator<IEnumerable<DirectoryInfoBase>, Plugins> pluginsTranslator,
             ITranslator<FileInfoBase, Plugin> pluginTranslator)
         {
             TraceService.WriteLine("PluginFactory::Constructor");
@@ -88,7 +86,9 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             TraceService.WriteLine("PluginFactory::GetPlugins");
 
-            return this.pluginsTranslator.Translate(this.GetDirectories());
+            IEnumerable<DirectoryInfoBase> directories = this.GetDirectories();
+
+            return this.pluginsTranslator.Translate(directories);
         }
 
         /// <summary>
@@ -100,22 +100,20 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             TraceService.WriteLine("PluginFactory::GetPluginByFriendlyName name=" + name);
 
-            Tuple<DirectoryInfoBase, DirectoryInfoBase> directories = this.GetDirectories();
-
             FileInfoBase fileInfoBase = null;
 
-            //// first check the users directory.
-            if (directories.Item2 != null)
-            {
-                fileInfoBase = directories.Item2.GetFiles()
-                                 .FirstOrDefault(x => x.Name.Contains(name));
-            }
+            IEnumerable<DirectoryInfoBase> directories =  this.GetDirectories();
 
-            //// now the core directory.
-            if (fileInfoBase == null)
+            foreach (DirectoryInfoBase directoryInfoBase in directories.Reverse())
             {
-                fileInfoBase = directories.Item1.GetFiles()
-                                 .FirstOrDefault(x => x.Name.Contains(name));
+                fileInfoBase = directoryInfoBase
+                    .GetFiles() 
+                    .FirstOrDefault(x => x.Name.Contains(name));
+
+                if (fileInfoBase != null)
+                {
+                    break;
+                }
             }
 
             return fileInfoBase != null ? this.pluginTranslator.Translate(fileInfoBase) : null;
@@ -125,22 +123,25 @@ namespace NinjaCoder.MvvmCross.Factories
         /// Gets the directories.
         /// </summary>
         /// <returns>The directories.</returns>
-        internal Tuple<DirectoryInfoBase, DirectoryInfoBase> GetDirectories()
+        internal IEnumerable<DirectoryInfoBase> GetDirectories()
         {
             TraceService.WriteLine("PluginFactory::GetDirectories");
 
-            DirectoryInfoBase directoryInfoBase1 = fileSystem.DirectoryInfo.FromDirectoryName(this.settingsService.MvvmCrossAssembliesPath);
+            List<DirectoryInfoBase> directories = new List<DirectoryInfoBase>
+                                                      {
+                                                          this.fileSystem.DirectoryInfo.FromDirectoryName(this.settingsService.PluginsConfigPath),
+                                                          this.fileSystem.DirectoryInfo.FromDirectoryName(this.settingsService.PluginsConfigPath + @"Community\")
+                                                      };
 
             string userPluginsPath = this.settingsService.UserPluginsPath;
-            DirectoryInfoBase directoryInfoBase2 = null;
 
             //// check user plugins directory actually exists.
             if (fileSystem.Directory.Exists(userPluginsPath))
             {
-                directoryInfoBase2 = fileSystem.DirectoryInfo.FromDirectoryName(userPluginsPath);
+                directories.Add(this.fileSystem.DirectoryInfo.FromDirectoryName(userPluginsPath));
             }
 
-            return new Tuple<DirectoryInfoBase, DirectoryInfoBase>(directoryInfoBase1, directoryInfoBase2);
+            return directories;
         }
     }
 }

@@ -5,19 +5,17 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
-    using System.Collections.Generic;
+    using Constants;
+    using Factories.Interfaces;
 
-    using NinjaCoder.MvvmCross.Constants;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-
+    using Interfaces;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Services.Testing.Interfaces;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
+    using System.Collections.Generic;
 
     /// <summary>
     ///  Defines the ViewModelViewsService type.

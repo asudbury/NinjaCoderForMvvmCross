@@ -8,11 +8,10 @@ namespace NinjaCoder.MvvmCross.Tests.Services
     using System.IO.Abstractions;
     using EnvDTE;
     using Moq;
-    using NinjaCoder.MvvmCross.Constants;
     using NinjaCoder.MvvmCross.Entities;
     using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Services;
+    using NinjaCoder.MvvmCross.Services.Interfaces;
     using NinjaCoder.MvvmCross.Tests.Mocks;
     using NUnit.Framework;
     using Scorchio.VisualStudio.Services.Interfaces;
@@ -75,10 +74,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
             this.mockFileSystem.SetupGet(x => x.FileInfo).Returns(this.mockFileInfoFactory.Object);
             this.mockFileInfoFactory.Setup(x => x.FromFileName(It.IsAny<string>())).Returns(this.mockFileInfo);
 
-            this.service = new PluginService(
-                this.mockFileSystem.Object, 
-                this.mockSettingsService.Object,
-                this.mockCodeConfigFactory.Object);
+            this.service = new PluginService(this.mockSettingsService.Object);
         }
 
         /// <summary>
@@ -96,66 +92,12 @@ namespace NinjaCoder.MvvmCross.Tests.Services
             mockProjectService.SetupGet(x => x.Project).Returns(mockProject.Object);
 
             //// act
-            this.service.AddPlugin(
-               mockProjectService.Object,
-               plugin, 
-               Settings.Core);
 
             //// assert
             mockProjectService.Verify(x => x.AddReference(
                 It.IsAny<string>(), 
                 It.IsAny<string>(), 
-                It.IsAny<string>(), 
-                It.IsAny<bool>(),
-                It.IsAny<bool>()));
-        }
-
-        /// <summary>
-        /// Tests the add UI plugin.
-        /// </summary>
-        [Test]
-        public void TestAddUIPlugin()
-        {
-            //// arrange
-
-            Mock<IProjectService> mockProjectService = new Mock<IProjectService>();
-
-            Mock<Project> mockProject = new Mock<Project>();
-            mockProjectService.SetupGet(x => x.Project).Returns(mockProject.Object);
-
-            this.mockFile.FileExists = false;
-
-            mockProjectService.SetupGet(x => x.Name).Returns("core");
-
-            //// act
-            this.service.AddUIPlugin(
-                mockProjectService.Object,
-                new Plugin(), 
-                "source",
-                "destination",
-                "extensionSource",
-                "extensionDestination",
-                true);
-
-            //// assert
-            mockProjectService.Verify(
-                x => x.AddReference(
-                It.IsAny<string>(),
-                It.IsAny<string>(),
-                It.IsAny<string>(),
-                It.IsAny<bool>(),
-                It.IsAny<bool>()));
-        }
-
-        /// <summary>
-        /// Tests the get plugin path.
-        /// </summary>
-        [Test]
-        public void TestGetPluginPath()
-        {
-            string path = this.service.GetPluginPath("WindowsPhone", "plugin.dll");
-
-            Assert.IsTrue(path == "plugin.WindowsPhone.dll");
+                It.IsAny<string>()));
         }
     }
 }

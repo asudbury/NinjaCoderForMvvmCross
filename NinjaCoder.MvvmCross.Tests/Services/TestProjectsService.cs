@@ -9,7 +9,6 @@ namespace NinjaCoder.MvvmCross.Tests.Services
     using System.IO.Abstractions;
     using Moq;
 
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Services;
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using NinjaCoder.MvvmCross.Tests.Mocks;
@@ -95,7 +94,6 @@ namespace NinjaCoder.MvvmCross.Tests.Services
                 this.mockVisualStudioService.Object,
                 "path", 
                 infos,
-                true,
                 false);
 
             //// check we have added the project to the solution.
@@ -112,7 +110,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
         [Test]
         public void TestTryToAddProject()
         {
-            this.service.TryToAddProject("path", true, new ProjectTemplateInfo(), mockProjectService.Object);
+            this.service.TryToAddProject("path", new ProjectTemplateInfo());
         }
     }
 }

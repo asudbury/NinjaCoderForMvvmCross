@@ -30,8 +30,6 @@
             <MenuItem Header="File">
                 <MenuItem Header="Add Projects" Command="{Binding AddProjectsCommand}"></MenuItem>
                 <MenuItem Header="Add View Model and Views" Command="{Binding AddViewModelAndViewCommand}"></MenuItem>
-                <MenuItem Header="Add Converters" Command="{Binding AddConvertersCommand}"></MenuItem>
-                <MenuItem Header="Add Services" Command="{Binding AddServicesCommand}"></MenuItem>
                 <MenuItem Header="Add Plugins" Command="{Binding AddPluginsCommand}"></MenuItem>
                 <Separator/>
                 <MenuItem Header="View Log" Command="{Binding ViewLogCommand}"></MenuItem>

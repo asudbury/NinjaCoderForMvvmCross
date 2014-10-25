@@ -174,21 +174,15 @@ namespace Scorchio.VisualStudio.Services
         /// <param name="destinationFolder">The destination folder.</param>
         /// <param name="destination">The destination.</param>
         /// <param name="source">The source.</param>
-        /// <param name="addFileToFolder">if set to <c>true</c> [add file to folder].</param>
-        /// <param name="copyAssembly">if set to <c>true</c> [copy assembly].</param>
         public void AddReference(
             string destinationFolder, 
             string destination, 
-            string source,
-            bool addFileToFolder,
-            bool copyAssembly)
+            string source)
         {
             this.project.AddReference(
                 destinationFolder,
                 destination,
-                source,
-                addFileToFolder,
-                copyAssembly);
+                source);
         }
 
         /// <summary>
@@ -278,12 +272,53 @@ namespace Scorchio.VisualStudio.Services
         }
 
         /// <summary>
-        /// Determines whether [has nuget packages].
+        /// Gets the sub projects.
         /// </summary>
-        /// <returns>True or false</returns>
-        public bool HasNugetPackages()
+        /// <returns></returns>
+        public IEnumerable<IProjectService> GetSubProjects()
         {
-            return this.project.HasNugetPackages();
+            IEnumerable<Project> items = this.project.GetSubProjects();
+
+            return items.Select(projectItem => new ProjectService(projectItem))
+                .Cast<IProjectService>().ToList();
+        }
+
+        /// <summary>
+        /// Gets the sub folders.
+        /// </summary>
+        /// <param name="folderName">Name of the folder.</param>
+        /// <returns></returns>
+        public IEnumerable<IProjectItemService> GetSubFolders(string folderName)
+        {
+            IEnumerable<ProjectItem> items = this.project.GetSubFolders(folderName);
+
+            return items.Select(projectItem => new ProjectItemService(projectItem))
+                .Cast<IProjectItemService>().ToList();
+        }
+
+        /// <summary>
+        /// Gets the folder project items.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<IProjectItemService> GetFolderProjectItems()
+        {
+            IEnumerable<ProjectItem> items = this.project.ProjectItems.Cast<ProjectItem>()
+                .Where(x => x.Kind == VSConstants.VsProjectItemKindPhysicalFolder);
+
+            return items.Select(projectItem => new ProjectItemService(projectItem))
+                    .Cast<IProjectItemService>().ToList();
+        }
+
+        /// <summary>
+        /// Gets the folder or create.
+        /// </summary>
+        /// <param name="folderName">Name of the folder.</param>
+        /// <returns></returns>
+        public IProjectItemService GetFolderOrCreate(string folderName)
+        {
+            ProjectItem projectItem = this.project.GetFolder(folderName) ?? this.project.ProjectItems.AddFolder(folderName);
+
+            return new ProjectItemService(projectItem);
         }
     }
 }

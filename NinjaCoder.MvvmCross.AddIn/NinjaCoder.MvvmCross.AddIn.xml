@@ -59,16 +59,6 @@
             Add the plugins.
             </summary>
         </member>
-        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.AddServices">
-            <summary>
-            Adds the services.
-            </summary>
-        </member>
-        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.AddConverters">
-            <summary>
-            Adds the converters.
-            </summary>
-        </member>
         <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.ShowOptions">
             <summary>
             Shows the options.

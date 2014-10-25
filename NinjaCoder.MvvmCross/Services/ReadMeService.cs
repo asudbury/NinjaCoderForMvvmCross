@@ -5,14 +5,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
+    using Interfaces;
+
+    using Scorchio.VisualStudio.Services;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.IO.Abstractions;
     using System.Linq;
-
-    using Interfaces;
-    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     /// Defines the ReadMeService type.
@@ -25,39 +25,23 @@ namespace NinjaCoder.MvvmCross.Services
         private readonly IFileSystem fileSystem;
 
         /// <summary>
-        /// The application version.
+        /// The settings service.
         /// </summary>
-        private string applicationVersion;
-
-        /// <summary>
-        /// The MMVM cross version.
-        /// </summary>
-        private string mmvmCrossVersion;
+        private readonly ISettingsService settingsService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReadMeService" /> class.
         /// </summary>
         /// <param name="fileSystem">The file system.</param>
-        public ReadMeService(IFileSystem fileSystem)
+        /// <param name="settingsService">The settings service.</param>
+        public ReadMeService(
+            IFileSystem fileSystem,
+            ISettingsService settingsService)
         {
             TraceService.WriteLine("ReadMeService::Constructor");
 
             this.fileSystem = fileSystem;
-        }
-
-        /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        /// <param name="appVersion">The app version.</param>
-        /// <param name="mvxVersion">The MVX version.</param>
-        public void Initialize(
-            string appVersion,
-            string mvxVersion)
-        {
-            TraceService.WriteLine("ReadMeService::Initialize");
-
-            this.applicationVersion = appVersion;
-            this.mmvmCrossVersion = mvxVersion;
+            this.settingsService = settingsService;
         }
 
         /// <summary>
@@ -77,7 +61,13 @@ namespace NinjaCoder.MvvmCross.Services
 
             if (this.fileSystem.File.Exists(filePath))
             {
-                currentLines = File.ReadAllText(filePath);
+                currentLines = this.fileSystem.File.ReadAllText(filePath);
+            }
+
+            else
+            {
+                Stream stream = this.fileSystem.File.Create(filePath);
+                stream.Close();
             }
 
             //// first write the new lines
@@ -116,8 +106,7 @@ namespace NinjaCoder.MvvmCross.Services
             {
                 string.Empty,
                 this.GetSeperatorLine(),
-                "Ninja Coder for MvvmCross v" + this.applicationVersion,
-                "Built with MvvmCross v" + this.mmvmCrossVersion,
+                "Ninja Coder for MvvmCross v" + this.settingsService.ApplicationVersion,
                 this.GetSeperatorLine(),
                 string.Empty,
                 "All feedback welcome - get in touch with the email or twitter address below.",

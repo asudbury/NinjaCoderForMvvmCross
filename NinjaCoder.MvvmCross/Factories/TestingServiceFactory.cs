@@ -5,15 +5,15 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories
 {
-    using System.Collections.Generic;
+    using Interfaces;
 
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
+    using NinjaCoder.MvvmCross.Services.Interfaces;
 
     using Scorchio.Infrastructure.Constants;
     using Scorchio.Infrastructure.Services.Testing;
     using Scorchio.Infrastructure.Services.Testing.Interfaces;
     using Scorchio.VisualStudio.Services;
+    using System.Collections.Generic;
 
     /// <summary>
     ///  Defines the TestingServiceFactory type.

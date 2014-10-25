@@ -67,6 +67,7 @@
     <Compile Include="CommandManager.cs" />
     <Compile Include="Extensions\CodeParameterExtensions.cs" />
     <Compile Include="Extensions\CodeSnippetsExtensions.cs" />
+    <Compile Include="Extensions\UIHierarchyExtensions.cs" />
     <Compile Include="ScorchioConstants.cs" />
     <Compile Include="Services\DTEService.cs" />
     <Compile Include="Services\Interfaces\IDTEService.cs" />

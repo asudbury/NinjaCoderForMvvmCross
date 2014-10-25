@@ -9,12 +9,12 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
     using System.Windows;
 
     using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
+    using NinjaCoder.MvvmCross.Services.Interfaces;
 
     /// <summary>
     ///  Defines the ProjectsViewModel type.
     /// </summary>
-    public class ProjectsViewModel : BaseViewModel
+    public class ProjectsViewModel : NinjaBaseViewModel
     {
         /// <summary>
         /// The testing service factory
@@ -92,7 +92,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         private string selectedViewType;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseViewModel" /> class.
+        /// Initializes a new instance of the <see cref="NinjaBaseViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="testingServiceFactory">The testing service factory.</param>

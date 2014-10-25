@@ -5,10 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories.Interfaces
 {
-    using System.Collections.Generic;
-
-    using Scorchio.Infrastructure.Services.Testing;
     using Scorchio.Infrastructure.Services.Testing.Interfaces;
+    using System.Collections.Generic;
 
     /// <summary>
     ///  Defines the IMockingServiceFactory type.

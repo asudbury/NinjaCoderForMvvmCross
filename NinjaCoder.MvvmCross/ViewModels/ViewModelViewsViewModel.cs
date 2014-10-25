@@ -5,25 +5,23 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels
 {
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
-
-    using NinjaCoder.MvvmCross.Constants;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Constants;
+    using Factories.Interfaces;
 
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Wpf.ViewModels;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services.Interfaces;
+    using Services.Interfaces;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
 
     /// <summary>
     /// Defines the ViewModelViewsViewModel type.
     /// </summary>
-    internal class ViewModelViewsViewModel : BaseViewModel
+    internal class ViewModelViewsViewModel : NinjaBaseViewModel
     {
         /// <summary>
         /// The visual studio service.
@@ -204,6 +202,7 @@ namespace NinjaCoder.MvvmCross.ViewModels
                     .Select(view => view.Item).ToList();
 
                 return this.viewModelAndViewsFactory.GetRequiredViewModelAndViews(
+                    null,
                     this.ViewModelName,
                     requiredUIViews,
                     this.IncludeUnitTests);

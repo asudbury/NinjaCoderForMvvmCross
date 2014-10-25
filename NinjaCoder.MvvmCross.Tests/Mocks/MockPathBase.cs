@@ -167,10 +167,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         public override char AltDirectorySeparatorChar
         {
-            get
-            {
-                return '\0';
-            }
+            get { return '\0'; }
         }
 
         /// <summary>
@@ -178,10 +175,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         public override char DirectorySeparatorChar
         {
-            get
-            {
-                return '\0';
-            }
+            get { return '\0'; }
         }
 
         /// <summary>
@@ -189,10 +183,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         public override char[] InvalidPathChars
         {
-            get
-            {
-                return new char[] { };
-            }
+            get { return new char[] { }; }
         }
 
         /// <summary>
@@ -200,10 +191,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         public override char PathSeparator
         {
-            get
-            {
-                return '\0';
-            }
+            get { return '\0'; }
         }
 
         /// <summary>
@@ -211,10 +199,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         public override char VolumeSeparatorChar
         {
-            get
-            {
-                return '\0';
-            }
+            get { return '\0'; }
         }
     }
 }

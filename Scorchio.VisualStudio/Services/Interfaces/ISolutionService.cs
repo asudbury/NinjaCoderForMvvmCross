@@ -100,10 +100,7 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// </summary>
         /// <param name="solutionFolder">The solution folder.</param>
         /// <param name="path">The path.</param>
-        /// <returns>
-        /// The project item service..
-        /// </returns>
-        IProjectItemService AddSolutionItem(
+        void AddSolutionItem(
             string solutionFolder, 
             string path);
 
@@ -192,5 +189,11 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// <param name="path">The path.</param>
         /// <returns>The project item service.</returns>
         IProjectItemService GetProjectItemService(string path);
+
+        /// <summary>
+        /// Opens the file.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        void OpenFile(string path);
     }
 }

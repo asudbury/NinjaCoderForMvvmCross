@@ -5,15 +5,15 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories
 {
-    using System.Collections.Generic;
-
-    using NinjaCoder.MvvmCross.Constants;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-
-    using Scorchio.Infrastructure.Constants;
+    using Interfaces;
+    using NinjaCoder.MvvmCross.Entities;
+    using NinjaCoder.MvvmCross.UserControls.AddViews;
+    using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Entities;
+    using Services.Interfaces;
+    using System.Collections.Generic;
+    using UserControls.AddProjects;
+    using ViewModels.AddProjects;
 
     /// <summary>
     ///  Defines the ProjectFactory type.
@@ -21,160 +21,75 @@ namespace NinjaCoder.MvvmCross.Factories
     public class ProjectFactory : IProjectFactory
     {
         /// <summary>
-        /// The visual studio service.
+        /// The resolver service.
         /// </summary>
-        private readonly IVisualStudioService visualStudioService;
-
-        /// <summary>
-        /// The settings service.
-        /// </summary>
-        private readonly ISettingsService settingsService;
+        private readonly IResolverService resolverService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectFactory" /> class.
         /// </summary>
-        /// <param name="visualStudioService">The visual studio service.</param>
-        /// <param name="settingsService">The settings service.</param>
-        public ProjectFactory(
-            IVisualStudioService visualStudioService,
-            ISettingsService settingsService)
+        /// <param name="resolverService">The resolver service.</param>
+        public ProjectFactory(IResolverService resolverService)
         {
-            this.visualStudioService = visualStudioService;
-            this.settingsService = settingsService;
+            this.resolverService = resolverService;
         }
 
         /// <summary>
         /// Gets the allowed projects.
         /// </summary>
-        /// <returns>The allowed projects.</returns>
-        public IEnumerable<ProjectTemplateInfo> GetAllowedProjects()
+        /// <param name="frameworkType">Type of the framework.</param>
+        /// <returns>
+        /// The allowed projects.
+        /// </returns>
+        public IEnumerable<ProjectTemplateInfo> GetAllowedProjects(FrameworkType frameworkType)
         {
-            List<ProjectTemplateInfo> projectInfos = new List<ProjectTemplateInfo>();
-
-            if (this.visualStudioService.CoreProjectService == null)
+            switch (frameworkType)
             {
-                projectInfos.Add(new ProjectTemplateInfo
-                {
-                    FriendlyName = FriendlyNames.Core + " (Profile " + this.settingsService.PCLProfile + ")",
-                    ProjectSuffix = ProjectSuffixes.Core,
-                    TemplateName = ProjectTemplates.Core,
-                    PreSelected = true,
-                    NugetCommands = new List<string> 
-                            {
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage),
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMessengerPackage)
-                            }
-                });
+                case FrameworkType.MvvmCross:
+                    return this.resolverService.Resolve<IMvvmCrossProjectFactory>().GetAllowedProjects();
+
+                case FrameworkType.XamarinForms:
+                    return this.resolverService.Resolve<XamarinFormsProjectFactory>().GetAllowedProjects();
+
+                default:
+                    return this.resolverService.Resolve<MvvmCrossAndXamarinFormsProjectFactory>().GetAllowedProjects();
             }
+        }
 
-            if (this.visualStudioService.CoreTestsProjectService == null)
+        /// <summary>
+        /// Gets the wizards steps.
+        /// </summary>
+        /// <returns>
+        /// The wizard steps.
+        /// </returns>
+        public List<WizardStepViewModel> GetWizardsSteps()
+        {
+            List<WizardStepViewModel> wizardSteps = new List<WizardStepViewModel>
             {
-                string testingFrameWork = this.settingsService.TestingFramework;
-                string mockingFrameWork = this.settingsService.MockingFramework;
-
-                string friendlyName = FriendlyNames.CoreTests + " (" + testingFrameWork + " and " + mockingFrameWork + ")";
-                string templateName = ProjectTemplates.NUnitTests;
-
-                if (testingFrameWork == TestingConstants.MsTest.Name)
+                new WizardStepViewModel
                 {
-                    templateName = ProjectTemplates.MsTestTests;
+                    ViewModel = this.resolverService.Resolve<FrameworkSelectorViewModel>(),
+                    ViewType = typeof (FrameworkSelectorControl)
+                },
+                new WizardStepViewModel
+                {
+                    ViewModel = this.resolverService.Resolve<ProjectsViewModel>(),
+                    ViewType = typeof (ProjectsControl)
+                },
+                new WizardStepViewModel
+                {
+                    ViewModel = this.resolverService.Resolve<ViewsViewModel>(),
+                    ViewType = typeof (ViewsControl)
+                },
+
+                new WizardStepViewModel
+                {
+                    ViewModel = this.resolverService.Resolve<FinishedViewModel>(),
+                    ViewType = typeof (FinishedControl)
                 }
+            };
 
-                projectInfos.Add(new ProjectTemplateInfo
-                {
-                    FriendlyName = friendlyName,
-                    ProjectSuffix = ProjectSuffixes.CoreTests,
-                    TemplateName = templateName,
-                    PreSelected = true,
-                    NugetCommands = new List<string> 
-                            {
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetUnitTestsPackage),
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage)
-                            },
-                    NonMvxAssemblies = new List<string> 
-                    { 
-                        "Moq",
-                        "NUnit",
-                        "Rhino.Mocks"
-                    }
-                });
-            }
-
-            if (this.visualStudioService.DroidProjectService == null)
-            {
-                projectInfos.Add(new ProjectTemplateInfo
-                {
-                    FriendlyName = FriendlyNames.Droid,
-                    ProjectSuffix = ProjectSuffixes.Droid,
-                    TemplateName = ProjectTemplates.Droid,
-                    NugetCommands = new List<string> 
-                            {
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage),
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMessengerPackage)
-                            }
-                });
-            }
-
-            if (this.visualStudioService.iOSProjectService == null)
-            {
-                projectInfos.Add(new ProjectTemplateInfo
-                {
-                    FriendlyName = FriendlyNames.iOS + this.settingsService.iOSBuildVersion,
-                    ProjectSuffix = ProjectSuffixes.iOS,
-                    TemplateName = ProjectTemplates.IOS,
-                    NugetCommands = new List<string> 
-                            {
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage),
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMessengerPackage)
-                            }
-                });
-            }
-
-            if (this.visualStudioService.WindowsPhoneProjectService == null)
-            {
-                projectInfos.Add(new ProjectTemplateInfo
-                {
-                    FriendlyName = FriendlyNames.WindowsPhone + this.settingsService.WindowsPhoneBuildVersion,
-                    ProjectSuffix = ProjectSuffixes.WindowsPhone,
-                    TemplateName = ProjectTemplates.WindowsPhone,
-                    NugetCommands = new List<string> 
-                            {
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage),
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMessengerPackage)
-                            }
-                });
-            }
-
-            if (this.visualStudioService.WindowsStoreProjectService == null)
-            {
-                projectInfos.Add(new ProjectTemplateInfo
-                {
-                    FriendlyName = FriendlyNames.WindowsStore,
-                    ProjectSuffix = ProjectSuffixes.WindowsStore,
-                    TemplateName = ProjectTemplates.WindowsStore,
-                    NugetCommands = new List<string> 
-                            {
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage),
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMessengerPackage)
-                            }
-                });
-            }
-
-            if (this.visualStudioService.WpfProjectService == null)
-            {
-                projectInfos.Add(new ProjectTemplateInfo
-                {
-                    FriendlyName = FriendlyNames.WindowsWpf,
-                    ProjectSuffix = ProjectSuffixes.WindowsWpf,
-                    TemplateName = ProjectTemplates.WindowsWPF,
-                    NugetCommands = new List<string> 
-                            {
-                                Settings.NugetInstallPackage.Replace("%s", Settings.NugetMvvmCrossPackage)
-                            }
-                });
-            }
-
-            return projectInfos;
+            return wizardSteps;
         }
     }
 }

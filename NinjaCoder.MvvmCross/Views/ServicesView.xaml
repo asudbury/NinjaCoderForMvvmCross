@@ -31,11 +31,6 @@
 
         <StackPanel Orientation="Horizontal" Margin="10,0,0,0"/>
 
-        <CheckBox 
-            Content="{DynamicResource UseNuget}" 
-            IsChecked="{Binding UseNuget, Mode=TwoWay}"
-            Margin="10"/>
-
         <TextBlock Text="{DynamicResource ViewModelServices}" Margin="10,0,0,3"/>
 
         <ComboBox Margin="10,0,0,10" Width="250"

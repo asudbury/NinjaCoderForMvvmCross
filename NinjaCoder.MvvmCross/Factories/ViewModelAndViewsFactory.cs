@@ -5,14 +5,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories
 {
-    using System.Collections.Generic;
+    using Entities;
 
-    using NinjaCoder.MvvmCross.Constants;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Interfaces;
 
+    using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Entities;
+    using Services.Interfaces;
+    using System.Collections.Generic;
 
     /// <summary>
     ///  Defines the ViewModelAndViewsFactory type.
@@ -55,8 +55,8 @@ namespace NinjaCoder.MvvmCross.Factories
                 {
                     itemTemplateInfos.Add(new ItemTemplateInfo
                     {
-                        FriendlyName = FriendlyNames.iOS,
-                        ProjectSuffix = ProjectSuffixes.iOS,
+                        FriendlyName = ProjectType.iOS.GetDescription(),
+                        ProjectSuffix = ProjectSuffix.iOS.GetDescription(),
                         PreSelected = true
                     });
                 }
@@ -65,8 +65,8 @@ namespace NinjaCoder.MvvmCross.Factories
                 {
                     itemTemplateInfos.Add(new ItemTemplateInfo
                     {
-                        FriendlyName = FriendlyNames.Droid,
-                        ProjectSuffix = ProjectSuffixes.Droid,
+                        FriendlyName = ProjectType.Droid.GetDescription(),
+                        ProjectSuffix = ProjectSuffix.Droid.GetDescription(),
                         PreSelected = true
                     });
                 }
@@ -75,8 +75,8 @@ namespace NinjaCoder.MvvmCross.Factories
                 {
                     itemTemplateInfos.Add(new ItemTemplateInfo
                     {
-                        FriendlyName = FriendlyNames.WindowsPhone,
-                        ProjectSuffix = ProjectSuffixes.WindowsPhone,
+                        FriendlyName = ProjectType.WindowsPhone.GetDescription(),
+                        ProjectSuffix = ProjectSuffix.WindowsPhone.GetDescription(),
                         PreSelected = true
                     });
                 }
@@ -85,8 +85,8 @@ namespace NinjaCoder.MvvmCross.Factories
                 {
                     itemTemplateInfos.Add(new ItemTemplateInfo
                     {
-                        FriendlyName = FriendlyNames.WindowsStore,
-                        ProjectSuffix = ProjectSuffixes.WindowsStore,
+                        FriendlyName = ProjectType.WindowsStore.GetDescription(),
+                        ProjectSuffix = ProjectSuffix.WindowsStore.GetDescription(),
                         PreSelected = true
                     });
                 }
@@ -95,8 +95,8 @@ namespace NinjaCoder.MvvmCross.Factories
                 {
                     itemTemplateInfos.Add(new ItemTemplateInfo
                     {
-                        FriendlyName = FriendlyNames.WindowsWpf,
-                        ProjectSuffix = ProjectSuffixes.WindowsWpf,
+                        FriendlyName = ProjectType.WindowsWpf.GetDescription(),
+                        ProjectSuffix = ProjectSuffix.Wpf.GetDescription(),
                         PreSelected = true
                     });
                 }
@@ -113,13 +113,16 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             return new List<string>
             {
-                "Blank", "SampleData", "Web"
+                "Blank", 
+                "SampleData", 
+                "Web"
             };
         }
 
         /// <summary>
         /// Gets the required templates.
         /// </summary>
+        /// <param name="view">The view.</param>
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="requiredUIViews">The required UI views.</param>
         /// <param name="unitTestsRequired">if set to <c>true</c> [unit tests required].</param>
@@ -127,6 +130,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// The required template.
         /// </returns>
         public IEnumerable<ItemTemplateInfo> GetRequiredViewModelAndViews(
+            View view,
             string viewModelName,
             IEnumerable<ItemTemplateInfo> requiredUIViews,
             bool unitTestsRequired)
@@ -137,31 +141,57 @@ namespace NinjaCoder.MvvmCross.Factories
 
             //// first add the view model
 
-            ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
+            if (this.settingsService.FrameworkType == FrameworkType.MvvmCross)
             {
-                ProjectSuffix = ProjectSuffixes.Core,
-                TemplateName = this.GetViewModelTemplate(),
-                FileName = viewModelName + ".cs",
-            };
+                ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
+                {
+                    ProjectSuffix = ProjectSuffix.Core.GetDescription(),
+                    TemplateName = this.GetViewModelTemplate(),
+                    FileName = viewModelName + ".cs",
+                };
 
-            itemTemplateInfos.Add(viewModelTemplateInfo);
+                itemTemplateInfos.Add(viewModelTemplateInfo);
 
-            string viewName = viewModelName.Remove(viewModelName.Length - ViewModelSuffix.Length) + "View.cs";
+                string viewName = viewModelName.Remove(viewModelName.Length - ViewModelSuffix.Length) + "View.cs";
 
-            foreach (ItemTemplateInfo itemTemplateInfo in requiredUIViews)
+                foreach (ItemTemplateInfo itemTemplateInfo in requiredUIViews)
+                {
+                    itemTemplateInfo.TemplateName = this.GetViewTemplate(itemTemplateInfo.ProjectSuffix);
+                    itemTemplateInfo.FileName = viewName;
+                    itemTemplateInfos.Add(itemTemplateInfo);
+                }                
+            }
+            
+            else if (this.settingsService.FrameworkType == FrameworkType.XamarinForms)
             {
-                itemTemplateInfo.TemplateName = this.GetViewTemplate(itemTemplateInfo.ProjectSuffix);
-                itemTemplateInfo.FileName = viewName;
-                itemTemplateInfos.Add(itemTemplateInfo);
+                ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
+                {
+                    ProjectSuffix = ProjectSuffix.Core.GetDescription(),
+                    TemplateName = this.GetViewModelTemplate(),
+                    FileName = viewModelName + ".cs",
+                };
+
+                itemTemplateInfos.Add(viewModelTemplateInfo);
+
+                string viewName = viewModelName.Remove(viewModelName.Length - ViewModelSuffix.Length) + "View.cs";
+
+                ItemTemplateInfo viewTemplateInfo = new ItemTemplateInfo
+                {
+                    ProjectSuffix = ProjectSuffix.Forms.GetDescription(),
+                    TemplateName = this.GetViewModelTemplate(),
+                    FileName = viewName,
+                };
+
+                itemTemplateInfos.Add(viewTemplateInfo);
             }
 
             //// do we require a Test ViewModel?
 
             if (unitTestsRequired)
             {
-                viewModelTemplateInfo = new ItemTemplateInfo
+                ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
                                             {
-                                                ProjectSuffix = ProjectSuffixes.CoreTests,
+                                                ProjectSuffix = ProjectSuffix.CoreTests.GetDescription(),
                                                 TemplateName = this.GetTestViewModelTemplate(),
                                                 FileName = "Test" + viewModelName + ".cs",
                                             };

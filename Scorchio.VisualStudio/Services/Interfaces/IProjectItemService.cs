@@ -217,6 +217,36 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// <returns>The folder name.</returns>
         string GetFolder();
 
+        /// <summary>
+        /// Gets the containing project service.
+        /// </summary>
         IProjectService ContainingProjectService { get; }
+
+        /// <summary>
+        /// Gets the folder project items.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<IProjectItemService> GetFolderProjectItems();
+
+        /// <summary>
+        /// Gets the folder.
+        /// </summary>
+        /// <param name="folderName">Name of the folder.</param>
+        /// <returns></returns>
+        IProjectItemService GetFolder(string folderName);
+
+        /// <summary>
+        /// Gets the folder or create.
+        /// </summary>
+        /// <param name="folderName">Name of the folder.</param>
+        /// <returns></returns>
+        IProjectItemService GetFolderOrCreate(string folderName);
+
+        /// <summary>
+        /// Gets the project item.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
+        IProjectItemService GetProjectItem(string name);
     }
 }

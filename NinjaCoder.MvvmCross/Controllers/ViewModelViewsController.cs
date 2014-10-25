@@ -5,18 +5,16 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
-    using System.Collections.Generic;
     using Constants;
     using EnvDTE;
-
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-    using NinjaCoder.MvvmCross.ViewModels;
-    using NinjaCoder.MvvmCross.Views;
 
     using Scorchio.Infrastructure.Services;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;
+    using System.Collections.Generic;
+    using ViewModels;
+    using Views;
 
     /// <summary>
     /// Defines the ViewModelViewsController type.
@@ -34,25 +32,25 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="configurationService">The configuration service.</param>
         /// <param name="viewModelViewsService">The view model views service.</param>
         /// <param name="visualStudioService">The visual studio service.</param>
-        /// <param name="readMeService">The read me service.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="messageBoxService">The message box service.</param>
         /// <param name="resolverService">The resolver service.</param>
+        /// <param name="readMeService">The read me service.</param>
         public ViewModelViewsController(
             IConfigurationService configurationService,
             IViewModelViewsService viewModelViewsService,
             IVisualStudioService visualStudioService,
-            IReadMeService readMeService,
             ISettingsService settingsService,
             IMessageBoxService messageBoxService,
-            IResolverService resolverService)
+            IResolverService resolverService,
+            IReadMeService readMeService)
             : base(
             configurationService,
             visualStudioService,
-            readMeService,
             settingsService,
             messageBoxService,
-            resolverService)
+            resolverService,
+            readMeService)
         {
             TraceService.WriteLine("ViewModelAndViewsController::Constructor");
 

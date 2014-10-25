@@ -11,7 +11,7 @@ namespace NinjaCoder.MvvmCross.Tests.Factories
     using Moq;
 
     using NinjaCoder.MvvmCross.Factories;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
+    using NinjaCoder.MvvmCross.Services.Interfaces;
 
     using NUnit.Framework;
 

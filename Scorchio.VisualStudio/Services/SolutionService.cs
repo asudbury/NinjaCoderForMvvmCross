@@ -195,16 +195,13 @@ namespace Scorchio.VisualStudio.Services
         /// </summary>
         /// <param name="solutionFolder">The solution folder.</param>
         /// <param name="path">The path.</param>
-        /// <returns>
-        /// The project item.
-        /// </returns>
-        public IProjectItemService AddSolutionItem(
+        public void AddSolutionItem(
             string solutionFolder, 
             string path)
         {
-            ProjectItem projectItem = this.solution2.AddSolutionItem(solutionFolder, path);
+            TraceService.WriteLine("****AddSolutionItem");
 
-            return projectItem != null ? new ProjectItemService(projectItem) : null;
+          this.solution2.AddSolutionItem(solutionFolder, path);
         }
 
         /// <summary>
@@ -342,6 +339,15 @@ namespace Scorchio.VisualStudio.Services
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Opens the file.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        public void OpenFile(string path)
+        {
+            this.solution2.Open(path);
         }
     }
 }

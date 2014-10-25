@@ -5,15 +5,17 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Translators
 {
-    using System;
-    using System.IO;
-    using System.IO.Abstractions;
+    using Entities;
 
-    using NinjaCoder.MvvmCross.Constants;
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
+    using NinjaCoder.MvvmCross.Services.Interfaces;
 
     using Scorchio.Infrastructure.Translators;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.IO.Abstractions;
+    using System.Linq;
+    using System.Xml.Linq;
 
     /// <summary>
     ///  Defines the PluginTranslator type.
@@ -45,14 +47,23 @@ namespace NinjaCoder.MvvmCross.Translators
 
             if (string.IsNullOrEmpty(name) == false)
             {
+                XDocument doc = XDocument.Load(@from.FullName);
+
+                IEnumerable<string> nugetCommands = this.GetNugetCommands(doc);
+                IEnumerable<string> platforms = this.GetPlatforms(doc);
+                string usingStatement = this.GetUsingStatement(doc);
+
                 return new Plugin
-                {
-                    FriendlyName = this.GetFriendlyName(name),
-                    FileName = from.Name,
-                    Source = from.FullName,
-                    IsCommunityPlugin = this.IsCommunityPlugin(from),
-                    IsUserPlugin = this.IsUserPlugin(from)
-                };
+                           {
+                               FriendlyName = this.GetFriendlyName(name),
+                               FileName = from.Name,
+                               Source = from.FullName,
+                               IsCommunityPlugin = this.IsCommunityPlugin(from),
+                               IsUserPlugin = this.IsUserPlugin(from),
+                               UsingStatement = usingStatement,
+                               NugetCommands = nugetCommands,
+                               Platforms = platforms
+                           };
             }
 
             return null;
@@ -95,12 +106,7 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <returns>True or false.</returns>
         internal bool IsCommunityPlugin(FileInfoBase fileInfoBase)
         {
-            if (this.IsUserPlugin(fileInfoBase) == false)
-            {
-                return fileInfoBase.Name.StartsWith(Settings.CorePluginsAssemblyPrefix) == false;
-            }
-
-            return false;
+            return this.IsUserPlugin(fileInfoBase) == false && fileInfoBase.FullName.Contains("Community");
         }
 
         /// <summary>
@@ -110,12 +116,52 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <returns>True or false.</returns>
         internal bool IsUserPlugin(FileInfoBase fileInfoBase)
         {
-            if (this.settingsService.UserPluginsPath != string.Empty)
+            return this.settingsService.UserPluginsPath != string.Empty && fileInfoBase.FullName.Contains(this.settingsService.UserPluginsPath);
+        }
+
+        /// <summary>
+        /// Gets the using statement.
+        /// </summary>
+        /// <param name="doc">The document.</param>
+        /// <returns></returns>
+        internal string GetUsingStatement(XDocument doc)
+        {
+            XElement element = doc.Root.Element("UsingStatement");
+
+            return element != null ? element.Value : string.Empty;
+        }
+
+        /// <summary>
+        /// Gets the nuget commands.
+        /// </summary>
+        /// <param name="doc">The document.</param>
+        /// <returns></returns>
+        internal IEnumerable<string> GetNugetCommands(XDocument doc)
+        {
+            IEnumerable<XElement> elements = doc.Root.Elements("NugetPackage");
+
+            return elements.Select(element => element.Value).ToList();
+        }
+
+        /// <summary>
+        /// Gets the platforms.
+        /// </summary>
+        /// <param name="doc">The document.</param>
+        /// <returns>
+        /// The suported platforms.
+        /// </returns>
+        internal IEnumerable<string> GetPlatforms(XDocument doc)
+        {
+            XElement platformsElement = doc.Root.Element("Platforms");
+
+            if (platformsElement != null)
             {
-                return fileInfoBase.FullName.Contains(this.settingsService.UserPluginsPath);
+                IEnumerable<XElement> elements = platformsElement.Elements("Platform");
+
+                return elements.Select(element => element.Value).ToList();
             }
 
-            return false;
+            return new List<string>();
         }
     }
 }

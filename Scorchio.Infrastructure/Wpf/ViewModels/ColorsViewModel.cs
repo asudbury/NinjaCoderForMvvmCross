@@ -7,9 +7,9 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels
 {
     using System;
     using System.Collections.Generic;
+    using Infrastructure.Entities;
 
-    using Scorchio.Infrastructure.Entities;
-    using Scorchio.Infrastructure.EventArguments;
+    using EventArguments;
 
     /// <summary>
     /// Defines the ColorsViewModel type.

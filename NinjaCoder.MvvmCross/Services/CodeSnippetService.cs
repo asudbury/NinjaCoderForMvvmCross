@@ -5,19 +5,16 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
-    using System.Collections.Generic;
-    using System.Linq;
+    using Factories.Interfaces;
 
     using Interfaces;
-
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-
     using Scorchio.Infrastructure.Services.Testing.Interfaces;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     ///  Defines the CodeSnippetService type.

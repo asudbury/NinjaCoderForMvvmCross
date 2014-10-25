@@ -9,7 +9,7 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels
     using System.Diagnostics;
     using System.Windows.Input;
 
-    using Scorchio.Infrastructure.Services;
+    using Services;
 
     /// <summary>
     ///  Defines the DirectoryPickerViewModel type.

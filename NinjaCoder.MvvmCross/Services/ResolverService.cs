@@ -5,8 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-
+    using Interfaces;
     using TinyIoC;
 
     /// <summary>

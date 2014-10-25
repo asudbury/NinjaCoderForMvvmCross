@@ -9,7 +9,7 @@ namespace NinjaCoder.MvvmCross.UpdateChecker
     using System.Collections.Generic;
     using System.Globalization;
 
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
+    using NinjaCoder.MvvmCross.Services;
     using NinjaCoder.MvvmCross.UpdateChecker.VisualStudioGalleryService;
 
     using Scorchio.VisualStudio.Services;

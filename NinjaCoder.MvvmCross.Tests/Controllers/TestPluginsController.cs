@@ -13,7 +13,6 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
     using Moq;
     using NinjaCoder.MvvmCross.Controllers;
     using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using NinjaCoder.MvvmCross.Tests.Mocks;
     using NUnit.Framework;
@@ -54,11 +53,6 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
         private Mock<IVisualStudioService> mockVisualStudioService;
 
         /// <summary>
-        /// The mock read me service.
-        /// </summary>
-        private Mock<IReadMeService> mockReadMeService;
-
-        /// <summary>
         /// The mock settings service.
         /// </summary>
         private Mock<ISettingsService> mockSettingsService;
@@ -85,7 +79,6 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
             this.mockPluginsService = new Mock<IPluginsService>();
             this.mockNugetService = new Mock<INugetService>();
             this.mockVisualStudioService = new Mock<IVisualStudioService>();
-            this.mockReadMeService = new Mock<IReadMeService>();
             this.mockSettingsService = new Mock<ISettingsService>();
             this.mockMessageBoxService = new Mock<IMessageBoxService>();
             this.mockTranslator = new Mock<ITranslator<Tuple<DirectoryInfoBase, DirectoryInfoBase>, Plugins>>();
@@ -107,7 +100,6 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
         [Test]
         public void TestRun()
         {
-            this.mockSettingsService.SetupGet(x => x.UseNugetForPlugins).Returns(true);
             this.mockVisualStudioService.SetupGet(x => x.IsMvvmCrossSolution).Returns(true);
 
             /*PluginsForm pluginsForm = new PluginsForm(new SettingsService(), new List<string>(),  new Plugins());

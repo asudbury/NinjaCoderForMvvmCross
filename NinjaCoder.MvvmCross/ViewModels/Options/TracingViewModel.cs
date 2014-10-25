@@ -8,7 +8,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
     using System.Windows;
     using System.Windows.Input;
 
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Services.Interfaces;
 
     using Scorchio.Infrastructure.Services;
@@ -17,7 +16,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
     /// <summary>
     ///  Defines the TracingViewModel type.
     /// </summary>
-    public class TracingViewModel : BaseViewModel
+    public class TracingViewModel : NinjaBaseViewModel
     {
         /// <summary>
         /// The application service.

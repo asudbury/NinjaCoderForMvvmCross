@@ -25,11 +25,7 @@
     <system:String x:Key="Projects">Projets</system:String>
     <system:String x:Key="RemoveFileHeaders">Supprimer les en-têtes de fichiers</system:String>
     <system:String x:Key="Services">Services</system:String>
-    <system:String x:Key="SuspendReSharperDuringBuild">Suspendre ReSharper lors de la construction</system:String>
     <system:String x:Key="Tracing">Traçant</system:String>
-    <system:String x:Key="UseNugetForProjects">Utiliser Nuget pour les Projets</system:String>
-    <system:String x:Key="UseNugetForPlugins">Utiliser Nuget pour Plugins (Le cas echeant)</system:String>
-    <system:String x:Key="UseNugetForServices">Utiliser Nuget pour Services (Le cas echeant)</system:String>
     <system:String x:Key="UserPluginsConfigDirectory">Utilisateur Plugins Config annuaire</system:String>
     <system:String x:Key="UserPluginsDirectory">Utilisateur Plugins annuaire</system:String>
     <system:String x:Key="UserPluginsSnippetsDirectory">Utilisateur Plugins Extraits annuaire</system:String>

@@ -4,19 +4,13 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
-    using System.Collections.Generic;
-    using System.IO.Abstractions;
-
     using EnvDTE;
-
-    using NinjaCoder.MvvmCross.Constants;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-
+    using Interfaces;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
+    using System.Collections.Generic;
 
     /// <summary>
     ///  Defines the CodeConfigService type.
@@ -24,60 +18,11 @@ namespace NinjaCoder.MvvmCross.Services
     internal class CodeConfigService : ICodeConfigService
     {
         /// <summary>
-        /// The file system.
-        /// </summary>
-        private readonly IFileSystem fileSystem;
-
-        /// <summary>
-        /// The settings service.
-        /// </summary>
-        private readonly ISettingsService settingsService;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="CodeConfigService" /> class.
         /// </summary>
-        /// <param name="fileSystem">The file system.</param>
-        /// <param name="settingsService">The settings service.</param>
-        public CodeConfigService(
-            IFileSystem fileSystem,
-            ISettingsService settingsService)
+        public CodeConfigService()
         {
-            this.fileSystem = fileSystem;
-            this.settingsService = settingsService;
-        }
-
-        /// <summary>
-        /// Processes the code config.
-        /// </summary>
-        /// <param name="projectService">The project service.</param>
-        /// <param name="codeConfig">The code config.</param>
-        /// <param name="extensionSource">The extension source.</param>
-        /// <param name="extensionDestination">The extension destination.</param>
-        public void ProcessCodeConfig(
-            IProjectService projectService,
-            CodeConfig codeConfig,
-            string extensionSource,
-            string extensionDestination)
-        {
-            TraceService.WriteLine("CodeConfigService::ProcessCodeConfig");
-
-            if (codeConfig != null)
-            {
-                //// process it if we are using local disk copy.
-                if (this.UseLocalDiskCopy(codeConfig))
-                {
-                    string sourceDirectory = this.fileSystem.Path.GetDirectoryName(extensionSource);
-                    string destinationDirectory = this.fileSystem.Path.GetDirectoryName(extensionDestination);
-
-                    codeConfig.References.ForEach(
-                        x => projectService.AddReference(
-                            "Lib",
-                            destinationDirectory + @"\" + x,
-                            sourceDirectory + @"\" + x,
-                            this.settingsService.IncludeLibFolderInProjects,
-                            this.settingsService.CopyAssembliesToLibFolder));
-                }
-            }
+            TraceService.WriteLine("CodeConfigService::Constructor");
         }
 
         /// <summary>
@@ -116,7 +61,7 @@ namespace NinjaCoder.MvvmCross.Services
 
             if (string.IsNullOrEmpty(nugetCommand) == false)
             {
-                command = Settings.NugetInstallPackage.Replace("%s", nugetCommand);
+                command = NugetCommandsService.NugetInstallPackage.Replace("%s", nugetCommand);
 
                 //// need to add the project to the end of the command!
                 command += string.Format(" {0}", projectService.Name);
@@ -125,28 +70,6 @@ namespace NinjaCoder.MvvmCross.Services
             }
 
             return command;
-        }
-
-        /// <summary>
-        /// Uses the local disk copy.
-        /// </summary>
-        /// <param name="codeConfig">The code config.</param>
-        /// <returns>True or false.</returns>
-        public bool UseLocalDiskCopy(CodeConfig codeConfig)
-        {
-            return this.settingsService.UseNugetForPlugins == false ||
-                   string.IsNullOrEmpty(this.GetNugetCommand(codeConfig));
-        }
-
-        /// <summary>
-        /// Nuget has been requested and is not supported.
-        /// </summary>
-        /// <param name="codeConfig">The code config.</param>
-        /// <returns>True or false.</returns>
-        public bool NugetRequestedAndNotSupported(CodeConfig codeConfig)
-        {
-            return this.settingsService.UseNugetForPlugins && 
-                   string.IsNullOrEmpty(this.GetNugetCommand(codeConfig));
         }
 
         /// <summary>

@@ -8,8 +8,9 @@ namespace NinjaCoder.MvvmCross.Tests.Services
     using System.IO.Abstractions;
 
     using Moq;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
+
     using NinjaCoder.MvvmCross.Services;
+    using NinjaCoder.MvvmCross.Services.Interfaces;
     using NinjaCoder.MvvmCross.Tests.Mocks;
 
     using NUnit.Framework;
@@ -72,7 +73,6 @@ namespace NinjaCoder.MvvmCross.Tests.Services
         [Test]
         public void TestIsUpdateAvailableTrue()
         {
-            this.mockSettingsService.SetupGet(x => x.MvvmCrossVersion).Returns("1.0.0");
             this.mockSettingsService.SetupGet(x => x.LatestVersionOnGallery).Returns("1.0.1");
 
             bool available = this.service.IsUpdateAvailable();
@@ -86,7 +86,6 @@ namespace NinjaCoder.MvvmCross.Tests.Services
         [Test]
         public void TestIsUpdateAvailableFalse()
         {
-            this.mockSettingsService.SetupGet(x => x.MvvmCrossVersion).Returns("1.0.1");
             this.mockSettingsService.SetupGet(x => x.LatestVersionOnGallery).Returns("1.0.0");
 
             bool available = this.service.IsUpdateAvailable();

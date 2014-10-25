@@ -7,12 +7,12 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
 {
     using System.Windows;
 
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
+    using NinjaCoder.MvvmCross.Services.Interfaces;
 
     /// <summary>
     ///  Defines the CodingStyleViewModel type.
     /// </summary>
-    public class CodingStyleViewModel : BaseViewModel
+    public class CodingStyleViewModel : NinjaBaseViewModel
     {
         /// <summary>
         /// The remove default file headers.
@@ -30,7 +30,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         private bool formatFunctionParameters;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseViewModel" /> class.
+        /// Initializes a new instance of the <see cref="NinjaBaseViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
         public CodingStyleViewModel(ISettingsService settingsService)

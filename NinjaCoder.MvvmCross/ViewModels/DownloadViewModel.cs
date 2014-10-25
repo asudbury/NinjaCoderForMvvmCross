@@ -5,17 +5,16 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels
 {
-    using System.Diagnostics;
-    using System.Windows.Input;
-
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
+    using NinjaCoder.MvvmCross.Services.Interfaces;
 
     using Scorchio.Infrastructure.Wpf;
+    using System.Diagnostics;
+    using System.Windows.Input;
 
     /// <summary>
     /// Defines the DownloadViewModel type.
     /// </summary>
-    internal class DownloadViewModel : BaseViewModel
+    internal class DownloadViewModel : NinjaBaseViewModel
     {
         /// <summary>
         /// The check for updates.

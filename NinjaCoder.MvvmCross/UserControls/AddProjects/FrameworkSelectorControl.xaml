@@ -1,0 +1,75 @@
+﻿<userControls:BaseUserControl x:Class="NinjaCoder.MvvmCross.UserControls.AddProjects.FrameworkSelectorControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:userControls="clr-namespace:NinjaCoder.MvvmCross.UserControls">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\..\Resources\App.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
+            <Separator Margin="5"/>
+
+            <Label Height="30">Select the best framework to suit your needs :-</Label>
+                <RadioButton Content="No framework (not available in this version)" Margin="10" IsChecked="{Binding Path=NoFramework, Mode=TwoWay}" IsEnabled="False"></RadioButton>
+                <RadioButton Content="MvvmCross only" Margin="10" IsChecked="{Binding Path=MvvmCross, Mode=TwoWay}"></RadioButton>
+                <RadioButton Content="Xamarin Forms only (not available in this version)" Margin="10" IsChecked="{Binding Path=XamarinForms, Mode=TwoWay}" IsEnabled="False"></RadioButton>
+                <RadioButton Content="MvvmCross and Xamarin Forms (not available in this version)" Margin="10" IsChecked="{Binding Path=MvvmCrossXamarinForms, Mode=TwoWay}" IsEnabled="False"></RadioButton>
+
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
+
+            <Separator Margin="5"/>
+
+            <Label>The solution will target :-</Label>
+            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center">
+                    <LineBreak />
+                    <Bold>
+                        Profile 78
+                    </Bold>
+                    <LineBreak />
+                    <LineBreak />
+                    .Net Framework 4.5
+                    <LineBreak />
+                    Windows 8
+                    <LineBreak />
+                    Windows Phone Silverlight 8
+                    <LineBreak />
+                    Xamarin.Android
+                    <LineBreak />
+                    Xamarin.iOS (Classic)
+            </TextBlock>
+
+
+            <TextBlock Margin="5" HorizontalAlignment="Right" Visibility="Hidden">
+            <Hyperlink Command="{Binding ChangeProfilePageCommand}">
+                <TextBlock Text="Change Profile" />
+            </Hyperlink>
+        </TextBlock>
+            <Separator Margin="5" FontWeight="Normal"/>
+            
+        </StackPanel>
+
+
+        <Image Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/bottom.png" Grid.Column="1" Grid.Row="2" />
+
+            <Image Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/lefthand.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Top" />
+
+    </Grid>
+
+</userControls:BaseUserControl>

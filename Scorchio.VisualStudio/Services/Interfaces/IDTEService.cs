@@ -172,5 +172,11 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// </summary>
         /// <returns>the document events.</returns>
         DocumentEvents GetDocumentEvents();
+
+        /// <summary>
+        /// Opens the file.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        void OpenFile(string path);
     }
 }

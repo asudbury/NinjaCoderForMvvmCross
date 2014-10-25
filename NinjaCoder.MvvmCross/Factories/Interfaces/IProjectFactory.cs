@@ -3,11 +3,14 @@
 //    Defines the IProjectFactory type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace NinjaCoder.MvvmCross.Factories.Interfaces
 {
-    using System.Collections.Generic;
+    using NinjaCoder.MvvmCross.Entities;
 
+    using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Entities;
+    using System.Collections.Generic;
 
     /// <summary>
     ///  Defines the IProjectFactory type.
@@ -17,7 +20,18 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// <summary>
         /// Gets the allowed projects.
         /// </summary>
-        /// <returns>The allowed projects.</returns>
-        IEnumerable<ProjectTemplateInfo> GetAllowedProjects();
+        /// <param name="frameworkType">Type of the framework.</param>
+        /// <returns>
+        /// The allowed projects.
+        /// </returns>
+        IEnumerable<ProjectTemplateInfo> GetAllowedProjects(FrameworkType frameworkType);
+
+        /// <summary>
+        /// Gets the wizards steps.
+        /// </summary>
+        /// <returns>
+        /// The wizard steps.
+        /// </returns>
+        List<WizardStepViewModel> GetWizardsSteps();
     }
 }

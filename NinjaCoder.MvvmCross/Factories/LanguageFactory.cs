@@ -5,9 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories
 {
+    using Interfaces;
     using System.Collections.Generic;
-
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
 
     /// <summary>
     ///  Defines the LanguageFactory type.

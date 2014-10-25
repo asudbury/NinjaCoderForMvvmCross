@@ -5,16 +5,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Tests.Services
 {
-    using System.Collections.Generic;
-
     using Moq;
     using MvvmCross.Services;
     using MvvmCross.Services.Interfaces;
     using NUnit.Framework;
-
     using Scorchio.VisualStudio;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services.Interfaces;
+    using System.Collections.Generic;
 
     /// <summary>
     ///  Defines the TestNugetService type.
@@ -73,7 +71,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
 
             this.mockVisualStudioService.Setup(x => x.GetProjectServiceBySuffix(It.IsAny<string>())).Returns(mockProjectService.Object);
 
-            string commands = this.service.GetNugetCommands(this.mockVisualStudioService.Object, templateInfos, false, false,false);
+            string commands = this.service.GetNugetCommands(this.mockVisualStudioService.Object, templateInfos);
 
             Assert.IsTrue(commands.Contains("1Command"));
             Assert.IsTrue(commands.Contains("2Command"));
@@ -101,9 +99,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
             this.service.Execute(
                 this.mockVisualStudioService.Object,
                 string.Empty,
-                string.Empty, 
-                false,
-                false);
+                string.Empty);
 
             this.mockDTEService.Verify(x => x.ExecuteNugetCommand(It.IsAny<string>()));
         }

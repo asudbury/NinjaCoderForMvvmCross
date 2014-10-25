@@ -6,6 +6,8 @@
 namespace Scorchio.VisualStudio.Services
 {
     using System.Collections.Generic;
+    using System.Linq;
+
     using Entities;
     using EnvDTE;
     using EnvDTE80;
@@ -44,10 +46,7 @@ namespace Scorchio.VisualStudio.Services
         /// </summary>
         public string FileName
         {
-            get
-            {
-                return this.ProjectItem.FileNames[0];
-            }
+            get { return this.ProjectItem.FileNames[0]; }
         }
 
         /// <summary>
@@ -372,6 +371,48 @@ namespace Scorchio.VisualStudio.Services
         public IProjectService ContainingProjectService
         {
             get { return new ProjectService(this.projectItem.ContainingProject); }
+        }
+
+        /// <summary>
+        /// Gets the folder project items.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<IProjectItemService> GetFolderProjectItems()
+        {
+            IEnumerable<ProjectItem> items = this.projectItem.GetFolderProjectItems();
+
+            return items.Select(item => new ProjectItemService(projectItem))
+                .Cast<IProjectItemService>().ToList();
+        }
+
+        /// <summary>
+        /// Gets the folder.
+        /// </summary>
+        /// <param name="folderName">Name of the folder.</param>
+        /// <returns></returns>
+        public IProjectItemService GetFolder(string folderName)
+        {
+            return new ProjectItemService(this.projectItem.GetFolder(folderName));
+        }
+
+        /// <summary>
+        /// Gets the folder or create.
+        /// </summary>
+        /// <param name="folderName">Name of the folder.</param>
+        /// <returns></returns>
+        public IProjectItemService GetFolderOrCreate(string folderName)
+        {
+            return new ProjectItemService(this.projectItem.GetFolderOrCreate(folderName));
+        }
+
+        /// <summary>
+        /// Gets the project item.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
+        public IProjectItemService GetProjectItem(string name)
+        {
+            return new ProjectItemService(this.projectItem.GetProjectItem(name));
         }
     }
 }

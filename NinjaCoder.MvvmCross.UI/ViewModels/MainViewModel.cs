@@ -10,7 +10,7 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
 
     using EnvDTE;
 
-    using NinjaCoder.MvvmCross.Controllers;
+    using Controllers;
 
     using Scorchio.Infrastructure.Wpf;
     using Scorchio.Infrastructure.Wpf.ViewModels;
@@ -32,7 +32,14 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         {
             NinjaController.Startup();
 
-           this.projects = NinjaController.GetProjects();
+            try
+            {
+                this.projects = NinjaController.GetProjects();
+            }
+
+            catch
+            {
+            }
         }
 
         /// <summary>
@@ -58,22 +65,6 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         public ICommand AddViewModelAndViewCommand
         {
             get { return new RelayCommand(this.AddViewModelAndView); }
-        }
-
-        /// <summary>
-        /// Gets the add converters command.
-        /// </summary>
-        public ICommand AddConvertersCommand
-        {
-            get { return new RelayCommand(this.AddConverters); }
-        }
-
-        /// <summary>
-        /// Gets the add services command.
-        /// </summary>
-        public ICommand AddServicesCommand
-        {
-            get { return new RelayCommand(this.AddServices); }
         }
 
         /// <summary>
@@ -139,22 +130,6 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         internal void AddViewModelAndView()
         {
             NinjaController.RunViewModelViewsController();
-        }
-
-        /// <summary>
-        /// Adds the converters.
-        /// </summary>
-        internal void AddConverters()
-        {
-            NinjaController.RunConvertersController();
-        }
-
-        /// <summary>
-        /// Adds the services.
-        /// </summary>
-        internal void AddServices()
-        {
-            NinjaController.RunServicesController();
         }
 
         /// <summary>

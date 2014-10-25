@@ -7,12 +7,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
 {
     using System.Windows;
 
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Services.Interfaces;
 
     using Scorchio.VisualStudio.Services;
 
-    using BaseViewModel = NinjaCoder.MvvmCross.ViewModels.BaseViewModel;
+    using BaseViewModel = NinjaCoder.MvvmCross.ViewModels.NinjaBaseViewModel;
 
     /// <summary>
     ///  Defines the OptionsViewModel type.
@@ -40,7 +39,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.BuildViewModel = resolverService.Resolve<BuildViewModel>();
             this.ProjectsViewModel = resolverService.Resolve<ProjectsViewModel>();
             this.CodingStyleViewModel = resolverService.Resolve<CodingStyleViewModel>();
-            this.NugetViewModel = resolverService.Resolve<NugetViewModel>();
             this.VisualViewModel = resolverService.Resolve<VisualViewModel>();
             this.PluginsViewModel = resolverService.Resolve<PluginsViewModel>();
         }
@@ -71,11 +69,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         public PluginsViewModel PluginsViewModel { get; private set; }
         
         /// <summary>
-        /// Gets the nuget view model.
-        /// </summary>
-        public NugetViewModel NugetViewModel { get; private set; }
-
-        /// <summary>
         /// Gets the visual view model.
         /// </summary>
         public VisualViewModel VisualViewModel { get; private set; }
@@ -98,7 +91,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
                 this.TracingViewModel.LanguageDictionary = value;
                 this.ProjectsViewModel.LanguageDictionary = value;
                 this.CodingStyleViewModel.LanguageDictionary = value;
-                this.NugetViewModel.LanguageDictionary = value;
             }
         }
 
@@ -120,7 +112,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.BuildViewModel.Save();
             this.ProjectsViewModel.Save();
             this.CodingStyleViewModel.Save();
-            this.NugetViewModel.Save();
             this.VisualViewModel.Save();
             this.PluginsViewModel.Save();
         }

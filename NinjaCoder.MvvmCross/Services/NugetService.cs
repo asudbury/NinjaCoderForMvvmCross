@@ -1,21 +1,21 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+﻿ // --------------------------------------------------------------------------------------------------------------------
 // <summary>
 //    Defines the NugetService type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using Constants;
     using EnvDTE;
-
     using Interfaces;
+
+    using NinjaCoder.MvvmCross.Constants;
+
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     
     /// <summary>
     /// Defines the NugetService type.
@@ -31,25 +31,19 @@ namespace NinjaCoder.MvvmCross.Services
         /// Gets or sets the visual studio service.
         /// </summary>
         public IVisualStudioService VisualStudioService { get; set; }
-       
-        /// <summary>
-        /// Gets or sets a value indicating whether [resume re sharper].
-        /// </summary>
-        private bool ResumeReSharper { get; set; }
 
         /// <summary>
         /// Gets the init nuget messages.
         /// </summary>
-        /// <param name="message">The message.</param>
-        /// <returns>The messages.</returns>
-        public IEnumerable<string> GetInitNugetMessages(string message)
+        /// <returns>
+        /// The messages.
+        /// </returns>
+        public IEnumerable<string> GetInitNugetMessages()
         {
             TraceService.WriteLine("NugetService::InitNugetMessages");
 
             return new List<string>
                         {
-                            message, 
-                            NinjaMessages.PmConsole, 
                             string.Empty
                         };
         }
@@ -59,26 +53,16 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="templates">The templates.</param>
-        /// <param name="verboseOutput">if set to <c>true</c> [verbose output].</param>
-        /// <param name="debug">if set to <c>true</c> [debug].</param>
-        /// <param name="usePreRelease">if set to <c>true</c> [use pre release].</param>
-        /// <returns>The nuget commands.</returns>
+        /// <returns>
+        /// The nuget commands.
+        /// </returns>
         public string GetNugetCommands(
             IVisualStudioService visualStudioService,
-            IEnumerable<ProjectTemplateInfo> templates,
-            bool verboseOutput,
-            bool debug,
-            bool usePreRelease)
+            IEnumerable<ProjectTemplateInfo> templates)
         {
             TraceService.WriteLine("NugetService::ExecuteNugetCommands");
 
             string nugetCommandsString = string.Empty;
-
-            string verboseOption = this.GetVerboseOption(verboseOutput);
-
-            string debugOption = this.GetDebugOption(debug);
-
-            string preReleaseOption = this.GetPreReleaseOption(usePreRelease);
 
             foreach (ProjectTemplateInfo projectTemplateInfo in templates
                 .Where(x => x.NugetCommands != null))
@@ -94,11 +78,9 @@ namespace NinjaCoder.MvvmCross.Services
                     foreach (string nugetCommand in projectTemplateInfo.NugetCommands)
                     {
                         nugetCommandsString += string.Format(
-                            "{0} {1} {2} {3} {4}",
+                            "{0} {1} {2}",
                             nugetCommand,
-                            verboseOption,
-                            debugOption,
-                            preReleaseOption,
+                            projectTemplateInfo.Name,
                             Environment.NewLine);
                     }
                 }
@@ -128,14 +110,10 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="readMePath">The read me path.</param>
         /// <param name="commands">The commands.</param>
-        /// <param name="resumeReSharper">if set to <c>true</c> [resume re sharper].</param>
-        /// <param name="setupEventHandlers">if set to <c>true</c> [setup event handlers].</param>
         public void Execute(
             IVisualStudioService visualStudioService,
             string readMePath,
-            IEnumerable<string> commands,
-            bool resumeReSharper,
-            bool setupEventHandlers = true)
+            IEnumerable<string> commands)
         {
             TraceService.WriteLine("NugetService::Execute");
 
@@ -144,9 +122,7 @@ namespace NinjaCoder.MvvmCross.Services
             this.Execute(
                 visualStudioService,
                 readMePath,
-                nugetCommandsString,
-                resumeReSharper,
-                setupEventHandlers);
+                nugetCommandsString);
         }
 
         /// <summary>
@@ -155,28 +131,19 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="readMePath">The read me path.</param>
         /// <param name="commands">The commands.</param>
-        /// <param name="resumeReSharper">if set to <c>true</c> [resume re sharper].</param>
-        /// <param name="setupEventHandlers">if set to <c>true</c> [setup event handlers].</param>
-        public void Execute(
+        public void  Execute(
             IVisualStudioService visualStudioService,
             string readMePath,
-            string commands,
-            bool resumeReSharper,
-            bool setupEventHandlers = true)
+            string commands)
         {
             TraceService.WriteLine("NugetService::Execute");
 
             this.VisualStudioService = visualStudioService;
-            this.ResumeReSharper = resumeReSharper;
 
-            if (setupEventHandlers)
-            {
-                this.SetupEventHandlers();
-            }
+            this.SetupEventHandlers();
 
-            //// add in the open readme operation - this is how we know nuget has finished!
             commands += Environment.NewLine + "$DTE.ItemOperations.OpenFile('" + readMePath + "')";
-            
+
             this.VisualStudioService.DTEService.ExecuteNugetCommand(commands);
         }
 
@@ -210,7 +177,17 @@ namespace NinjaCoder.MvvmCross.Services
         internal void DocumentEventsDocumentOpened(Document document)
         {
             TraceService.WriteLine("NugetService::DocumentEventsDocumentOpened name" + document.FullName);
-            this.NugetCompleted();
+
+            if (document.FullName.Contains(Settings.NinjaReadMeFile))
+            {
+                this.NugetCompleted();
+            }
+
+            else 
+            {
+                //// dont show the nsubstitue readme.
+                document.ActiveWindow.Close();
+            }
         }
 
         /// <summary>
@@ -227,10 +204,7 @@ namespace NinjaCoder.MvvmCross.Services
 
             this.FixTestProject();
 
-            if (this.ResumeReSharper)
-            {
-                this.VisualStudioService.DTEService.ExecuteCommand(Settings.ResumeReSharperCommand);
-            }
+            this.VisualStudioService.DTEService.CollapseSolution();
         }
 
         /// <summary>
@@ -249,63 +223,6 @@ namespace NinjaCoder.MvvmCross.Services
                 projectService.RemoveFolder("Bootstrap");
                 projectService.RemoveFolder("ToDo-MvvmCross");
             }
-        }
-
-        /// <summary>
-        /// Gets the verbose option.
-        /// </summary>
-        /// <param name="verboseOutput">if set to <c>true</c> [verbose output].</param>
-        /// <returns>The verbose option.</returns>
-        internal string GetVerboseOption(bool verboseOutput)
-        {
-            TraceService.WriteLine("NugetService::GetVerboseOption");
-
-            string verboseOption = string.Empty;
-
-            if (verboseOutput)
-            {
-                verboseOption = "-verbose";
-            }
-
-            return verboseOption;
-        }
-
-        /// <summary>
-        /// Gets the debug option.
-        /// </summary>
-        /// <param name="debug">if set to <c>true</c> [debug].</param>
-        /// <returns>The debug option.</returns>
-        internal string GetDebugOption(bool debug)
-        {
-            TraceService.WriteLine("NugetService::GetDebugOption");
-
-            string debugOption = string.Empty;
-
-            if (debug)
-            {
-                debugOption = "-debug";
-            }
-
-            return debugOption;
-        }
-
-        /// <summary>
-        /// Gets the debug option.
-        /// </summary>
-        /// <param name="preReleaseOption">if set to <c>true</c> [pre release option].</param>
-        /// <returns>The pre release option.</returns>
-        internal string GetPreReleaseOption(bool preReleaseOption)
-        {
-            TraceService.WriteLine("NugetService::GetPreReleaseOption");
-
-            string preRelease = string.Empty;
-
-            if (preReleaseOption)
-            {
-                preRelease = NugetConstants.UsePreReleaseOption;
-            }
-
-            return preRelease;
         }
     }
 }

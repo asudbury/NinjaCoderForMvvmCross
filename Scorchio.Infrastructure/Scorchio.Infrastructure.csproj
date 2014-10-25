@@ -54,9 +54,13 @@
   <ItemGroup>
     <Compile Include="Constants\TestingConstants.cs" />
     <Compile Include="Entities\AccentColor.cs" />
+    <Compile Include="Entities\ImageItemWithDescription.cs" />
+    <Compile Include="Entities\ImageItem.cs" />
+    <Compile Include="EventArguments\ImageChangedEventArgs.cs" />
     <Compile Include="EventArguments\ColorChangedEventArgs.cs" />
     <Compile Include="EventArguments\ThemeChangedEventArgs.cs" />
     <Compile Include="Extensions\DirectoryInfoExtensions.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\ResourceDictionaryExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
@@ -100,7 +104,9 @@
     <Compile Include="Wpf\Converters\ResourceFromKeyConverter.cs" />
     <Compile Include="Wpf\Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Wpf\Converters\InverseBooleanConverter.cs" />
+    <Compile Include="Wpf\Converters\WizardStepConverter.cs" />
     <Compile Include="Wpf\DialogCloser.cs" />
+    <Compile Include="Wpf\RelayParameterCommand.cs" />
     <Compile Include="Wpf\RelayCommand.cs" />
     <Compile Include="Wpf\Resources\SharedResourceDictionary.cs" />
     <Compile Include="Wpf\UserControls\ColorComboBoxView.xaml.cs">
@@ -109,14 +115,31 @@
     <Compile Include="Wpf\UserControls\DirectoryPickerView.xaml.cs">
       <DependentUpon>DirectoryPickerView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Wpf\UserControls\ImagePickerWithDescriptionView.xaml.cs">
+      <DependentUpon>ImagePickerWithDescriptionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf\UserControls\ImagePickerView.xaml.cs">
+      <DependentUpon>ImagePickerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Wpf\UserControls\PickListView.xaml.cs">
       <DependentUpon>PickListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Wpf\UserControls\WizardView.xaml.cs">
+      <DependentUpon>WizardView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Wpf\ViewModels\BaseDialogViewModel.cs" />
     <Compile Include="Wpf\ViewModels\BaseViewModel.cs" />
+    <Compile Include="Wpf\ViewModels\ImagePickerViewModel.cs" />
     <Compile Include="Wpf\ViewModels\ColorsViewModel.cs" />
     <Compile Include="Wpf\ViewModels\DirectoryPickerViewModel.cs" />
+    <Compile Include="Wpf\ViewModels\Wizard\IProvideViewType.cs" />
+    <Compile Include="Wpf\ViewModels\Wizard\IWizardViewModel.cs" />
     <Compile Include="Wpf\ViewModels\SelectableItemViewModel.cs" />
+    <Compile Include="Wpf\ViewModels\Wizard\RouteModifier.cs" />
+    <Compile Include="Wpf\ViewModels\Wizard\WizardStepManager.cs" />
+    <Compile Include="Wpf\ViewModels\Wizard\WizardStepViewModel.cs" />
+    <Compile Include="Wpf\ViewModels\Wizard\BaseWizardStepViewModel.cs" />
+    <Compile Include="Wpf\ViewModels\Wizard\WizardViewModel.cs" />
     <Compile Include="Wpf\Views\IDialog.cs" />
     <Compile Include="Wpf\Views\IThemedDialog.cs" />
     <Compile Include="Wpf\Views\MessageBoxView.xaml.cs">
@@ -141,9 +164,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Wpf\UserControls\ImagePickerWithDescriptionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Wpf\UserControls\ImagePickerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Wpf\UserControls\PickListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Wpf\UserControls\WizardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Wpf\Views\MessageBoxView.xaml">
       <SubType>Designer</SubType>
@@ -160,7 +195,9 @@
       <Name>Scorchio.VisualStudio</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Wpf\Entities\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

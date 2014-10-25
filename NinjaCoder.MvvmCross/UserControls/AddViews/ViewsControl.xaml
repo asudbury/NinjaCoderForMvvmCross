@@ -1,0 +1,176 @@
+﻿<UserControl x:Class="NinjaCoder.MvvmCross.UserControls.AddViews.ViewsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:userControls="clr-namespace:Scorchio.Infrastructure.Wpf.UserControls;assembly=Scorchio.Infrastructure"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             x:Name="MyControl">
+    <UserControl.Resources>
+        <Style TargetType="DataGridCell">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+    </UserControl.Resources>
+
+        <StackPanel>
+        <Separator Margin="10"/>
+
+        <StackPanel Visibility="{Binding ShowGrid, Converter={StaticResource BoolToVisibility}, FallbackValue=Hidden}">
+
+            <Label Height="30">Here you can change the characteristics of the ViewModels and views.</Label>
+
+            <Label Height="30">To add additional ViewModels and assocaited views click 'Add'.</Label>
+
+            <Grid Margin="10">
+                    <DataGrid AutoGenerateColumns="False" 
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="True"
+                              HorizontalContentAlignment="Center"
+                              AlternatingRowBackground="WhiteSmoke"
+                              RowBackground="White"
+                              SelectionMode="Single"
+                              SelectionUnit="Cell"
+                              ItemsSource="{Binding Views,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        
+                    <DataGrid.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Background" Value="White" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="true">
+                                    <Setter Property="Background" Value="White" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+
+                    </DataGrid.CellStyle>
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}">
+                            
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="Margin" Value="5" />
+                                </Style>
+                                </DataGridTextColumn.ElementStyle>
+
+                        </DataGridTextColumn>
+
+                        <DataGridTemplateColumn Header="Framework">
+
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox 
+                                        SelectedItem="{Binding Framework}"
+                                        ItemsSource="{Binding Path=DataContext.Frameworks, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"></ComboBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Page Type">
+
+                            <DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="Margin" Value="5" />
+                                </Style>
+                            </DataGridTemplateColumn.CellStyle>
+                            
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <Hyperlink Command="{Binding DataContext.ChoosePageTypeCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                   CommandParameter="{Binding Name}">
+                                             <TextBlock Text="{Binding PageType}" />
+                                        </Hyperlink>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Layout">
+
+                            <DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="Margin" Value="5" />
+                                </Style>
+                            </DataGridTemplateColumn.CellStyle>
+                            
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <Hyperlink Command="{Binding DataContext.ChooseLayoutTypeCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                   CommandParameter="{Binding Name}">
+                                             <TextBlock Text="{Binding LayoutType}" />
+                                        </Hyperlink>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="">
+
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <Button Command="{Binding DataContext.DeleteViewCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                   CommandParameter="{Binding Name}">
+                                             <Image Source="../../Resources/Delete.ico" Height="16" ToolTip="Delete ViewModel and Views"/>
+                                        </Button>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                        
+                    </DataGrid>
+                </Grid>
+
+            <Separator Margin="10"/>
+
+            <Button Content="Add" Width="70" Command="{Binding Path=AddCommand}"></Button>
+
+        </StackPanel>
+
+        <StackPanel Visibility="{Binding ShowMvxPages, Converter={StaticResource BoolToVisibility}, FallbackValue=Hidden}">
+
+            <Label Height="30">Select View type and click 'Next' to continue.</Label>
+
+            <userControls:ImagePickerWithDescriptionView DataContext="{Binding MvxViews}"></userControls:ImagePickerWithDescriptionView>
+
+        </StackPanel>
+            
+        <StackPanel Visibility="{Binding ShowXFPages, Converter={StaticResource BoolToVisibility}, FallbackValue=Hidden}">
+
+            <Label Height="30">Select Page type and click 'Next' to continue.</Label>
+
+            <userControls:ImagePickerWithDescriptionView DataContext="{Binding Pages}"></userControls:ImagePickerWithDescriptionView>
+
+        </StackPanel>
+
+        <StackPanel Visibility="{Binding ShowLayouts, Converter={StaticResource BoolToVisibility}, FallbackValue=Hidden}">
+
+            <Label Height="30">Select Layout and click 'Next' to continue.</Label>
+
+            <userControls:ImagePickerWithDescriptionView DataContext="{Binding Layouts}"></userControls:ImagePickerWithDescriptionView>
+
+        </StackPanel>
+            
+    </StackPanel>
+
+    </UserControl>

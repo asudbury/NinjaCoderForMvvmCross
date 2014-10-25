@@ -14,7 +14,6 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
     using Moq;
     using NinjaCoder.MvvmCross.Controllers;
     using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using NUnit.Framework;
 
@@ -53,11 +52,6 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
         private Mock<IVisualStudioService> mockVisualStudioService;
 
         /// <summary>
-        /// The mock read me service.
-        /// </summary>
-        private Mock<IReadMeService> mockReadMeService;
-
-        /// <summary>
         /// The mock settings service.
         /// </summary>
         private Mock<ISettingsService> mockSettingsService;
@@ -93,6 +87,11 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
         private Mock<IViewModelViewsService> mockViewModelViewsService;
 
         /// <summary>
+        /// The mock read me service.
+        /// </summary>
+        private Mock<IReadMeService> mockReadMeService;
+
+        /// <summary>
         /// The mock view model and views factory.
         /// </summary>
         private Mock<IViewModelAndViewsFactory> mockViewModelAndViewsFactory;
@@ -109,7 +108,6 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
             this.mockProjectsService = new Mock<IProjectsService>();
             this.mockNugetService = new Mock<INugetService>();
             this.mockVisualStudioService = new Mock<IVisualStudioService>();
-            this.mockReadMeService = new Mock<IReadMeService>();
             this.mockSettingsService = new Mock<ISettingsService>();
             this.mockMessageBoxService = new Mock<IMessageBoxService>();
             this.mockingServiceFactory = new Mock<IMockingServiceFactory>();
@@ -118,19 +116,19 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
 
             this.mockResolverService = new Mock<IResolverService>();
 
-
+            this.mockReadMeService = new Mock<IReadMeService>();
             this.controller = new ProjectsController(
                 this.mockConfigurationService.Object,
                 this.mockProjectsService.Object,
                 this.mockNugetService.Object,
                 this.mockVisualStudioService.Object,
-                this.mockReadMeService.Object,
                 this.mockSettingsService.Object,
                 this.mockMessageBoxService.Object,
                 this.mockingServiceFactory.Object,
                 this.mockResolverService.Object,
                 this.mockViewModelViewsService.Object,
-                this.mockViewModelAndViewsFactory.Object);
+                this.mockViewModelAndViewsFactory.Object,
+                this.mockReadMeService.Object);
 
             //// setup the project service and core project once!
             this.mockProjectService = new Mock<IProjectService>();
@@ -166,7 +164,7 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
             Mock<IProjectItemService> mockProjectItemService = new Mock<IProjectItemService>();
             mockProjectItemService.Setup(x => x.FileName).Returns(@"B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\NinjaCoder.MvvmCross.Tests\TestData\info.plist");
             
-            this.controller.FixInfoPlist(mockProjectItemService.Object, "Adrian.iOS");
+            ////this.controller.FixInfoPlist(mockProjectItemService.Object);
         }
     }
 }

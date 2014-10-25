@@ -5,20 +5,17 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels
 {
+    using Scorchio.Infrastructure.Wpf.ViewModels;
+    using Scorchio.VisualStudio.Entities;
+    using Services.Interfaces;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
 
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-
-    using Scorchio.Infrastructure.Wpf.ViewModels;
-    using Scorchio.VisualStudio.Entities;
-
     /// <summary>
     ///  Defines the ServicesViewModel type.
     /// </summary>
-    public class ServicesViewModel : BaseViewModel
+    public class ServicesViewModel : NinjaBaseViewModel
     {
         /// <summary>
         /// The settings service.
@@ -29,11 +26,6 @@ namespace NinjaCoder.MvvmCross.ViewModels
         /// The visual studio service.
         /// </summary>
         private readonly IVisualStudioService visualStudioService;
-
-        /// <summary>
-        /// The use nuget.
-        /// </summary>
-        private bool useNuget;
 
         /// <summary>
         /// The view model names.
@@ -75,23 +67,6 @@ namespace NinjaCoder.MvvmCross.ViewModels
             
             itemTemplateInfos
                 .ForEach(x => this.services.Add(new SelectableItemViewModel<ItemTemplateInfo>(x)));
-
-            this.useNuget = this.settingsService.UseNugetForServices;
-
-            //// we override if we can work out this project is built from nuget.
-
-            bool hasNugetPackages = visualStudioService.CoreProjectService.HasNugetPackages();
-
-            this.useNuget = hasNugetPackages;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether to use nuget.
-        /// </summary>
-        public bool UseNuget
-        {
-            get { return this.useNuget; }
-            set { this.SetProperty(ref this.useNuget, value); }
         }
 
         /// <summary>
@@ -123,15 +98,6 @@ namespace NinjaCoder.MvvmCross.ViewModels
         public ObservableCollection<SelectableItemViewModel<ItemTemplateInfo>> Services
         {
             get { return this.services; }
-        }
-
-        /// <summary>
-        /// Called when ok button pressed.
-        /// </summary>
-        public override void OnOk()
-        {
-            this.settingsService.UseNugetForServices = this.UseNuget;
-            base.OnOk();
         }
 
         /// <summary>

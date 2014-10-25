@@ -5,10 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services.Interfaces
 {
-    using System.Collections.Generic;
-
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services.Interfaces;
+    using System.Collections.Generic;
 
     /// <summary>
     ///  Defines the IViewModelViewsService type.

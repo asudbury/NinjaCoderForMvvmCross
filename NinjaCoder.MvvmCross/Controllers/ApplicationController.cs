@@ -5,24 +5,20 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
-    using System.Collections.Generic;
-    using System.Windows;
-
     using EnvDTE;
 
     using MahApps.Metro;
-
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-    using NinjaCoder.MvvmCross.ViewModels;
-    using NinjaCoder.MvvmCross.ViewModels.Options;
-    using NinjaCoder.MvvmCross.Views;
-
     using Scorchio.Infrastructure.Entities;
     using Scorchio.Infrastructure.EventArguments;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;
+    using System.Collections.Generic;
+    using System.Windows;
+    using ViewModels;
+    using ViewModels.Options;
+    using Views;
 
     /// <summary>
     /// Defines the ApplicationController type.
@@ -45,27 +41,27 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="applicationService">The application service.</param>
         /// <param name="configurationService">The configuration service.</param>
         /// <param name="visualStudioService">The visual studio service.</param>
-        /// <param name="readMeService">The read me service.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="messageBoxService">The message box service.</param>
         /// <param name="resolverService">The resolver service.</param>
         /// <param name="translator">The translator.</param>
+        /// <param name="readMeService">The read me service.</param>
         public ApplicationController(
             IApplicationService applicationService,
             IConfigurationService configurationService,
             IVisualStudioService visualStudioService,
-            IReadMeService readMeService,
             ISettingsService settingsService,
             IMessageBoxService messageBoxService,
             IResolverService resolverService,
-            ITranslator<IList<Accent>, IEnumerable<AccentColor>> translator)
+            ITranslator<IList<Accent>, IEnumerable<AccentColor>> translator,
+            IReadMeService readMeService)
             : base(
             configurationService,
             visualStudioService,
-            readMeService,
             settingsService,
             messageBoxService,
-            resolverService)
+            resolverService,
+            readMeService)
         {
             TraceService.WriteLine("ApplicationController::Constructor");
 

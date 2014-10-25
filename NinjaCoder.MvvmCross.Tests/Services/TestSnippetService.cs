@@ -10,7 +10,6 @@ namespace NinjaCoder.MvvmCross.Tests.Services
     using Moq;
 
     using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Services;
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using NinjaCoder.MvvmCross.Tests.Mocks;

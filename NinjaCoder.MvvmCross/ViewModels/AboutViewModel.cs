@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels
 {
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
+    using NinjaCoder.MvvmCross.Services.Interfaces;
 
     /// <summary>
     ///  Defines the AboutViewModel type.
@@ -32,14 +32,6 @@ namespace NinjaCoder.MvvmCross.ViewModels
         public string Version
         {
             get { return this.settingsService.ApplicationVersion; }
-        }
-
-        /// <summary>
-        /// Gets the MVVM cross version.
-        /// </summary>
-        public string MvvmCrossVersion
-        {
-            get { return this.settingsService.MvvmCrossVersion; }
         }
 
         /// <summary>

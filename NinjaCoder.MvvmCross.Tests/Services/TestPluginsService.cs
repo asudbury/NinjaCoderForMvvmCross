@@ -5,23 +5,20 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Tests.Services
 {
-    using System.Collections;
+    using Constants;
+    using Entities;
+    using EnvDTE;
+
+    using Mocks;
+    using Moq;
+    using MvvmCross.Factories.Interfaces;
+    using MvvmCross.Services;
+    using MvvmCross.Services.Interfaces;
+    using NUnit.Framework;
+    using Scorchio.VisualStudio.Services.Interfaces;
     using System.Collections.Generic;
     using System.IO.Abstractions;
     using System.Linq;
-
-    using EnvDTE;
-    using Moq;
-    using NinjaCoder.MvvmCross.Constants;
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-    using NinjaCoder.MvvmCross.Services;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-    using NinjaCoder.MvvmCross.Tests.Mocks;
-    using NUnit.Framework;
-    using Scorchio.VisualStudio.Entities;
-    using Scorchio.VisualStudio.Services.Interfaces;
 
     /// <summary>
     /// Defines the TestPluginsService type.
@@ -103,12 +100,9 @@ namespace NinjaCoder.MvvmCross.Tests.Services
             this.mockTestingServiceFactory = new Mock<ITestingServiceFactory>();
             this.mockCodeSnippetFactory = new Mock<ICodeSnippetFactory>();
 
-
             this.mockFileSystem.SetupGet(x => x.File).Returns(this.mockFile);
             this.mockFileSystem.SetupGet(x => x.FileInfo).Returns(this.mockFileInfoFactory.Object);
             this.mockFileInfoFactory.Setup(x => x.FromFileName(It.IsAny<string>())).Returns(this.mockFileInfo);
-
-            this.mockPluginService.SetupGet(x => x.Messages).Returns(new List<string>());
 
             this.service = new PluginsService(
                 this.mockPluginService.Object,
@@ -175,15 +169,15 @@ namespace NinjaCoder.MvvmCross.Tests.Services
 
             this.mockFile.FileExists = true;
 
-            this.mockSettingsService.SetupGet(x => x.UseNugetForPlugins).Returns(true);
+            ////this.mockSettingsService.SetupGet(x => x.UseNugetForPlugins).Returns(true);
             
             //// act
-            IEnumerable<string> messages  = this.service.AddPlugins(
+            /*IEnumerable<string> messages  = this.service.AddPlugins(
                 this.mockVisualStudioService.Object, 
                 plugins, 
                 null, 
                 true, 
-                false);
+                false);*/
 
             //// assert
         }
@@ -202,26 +196,15 @@ namespace NinjaCoder.MvvmCross.Tests.Services
             Mock<Project> mockProject = new Mock<Project>();
             mockProjectService.SetupGet(x => x.Project).Returns(mockProject.Object);
 
-            this.mockPluginService.Setup(x => x.AddProjectPlugin(
-                        It.IsAny<IProjectService>(),
-                        It.IsAny<string>(),
-                        It.IsAny<string>(),
-                        It.IsAny<Plugin>()))
-                        .Returns(true);
-
             //// act
             IEnumerable<Plugin> addedPlugins = this.service.AddProjectPlugins(
                mockProjectService.Object, 
                plugins, 
-               string.Empty, 
-               Settings.Core,
                true);
 
             //// assert
             this.mockPluginService.Verify(x => x.AddProjectPlugin(
                 It.IsAny<IProjectService>(), 
-                It.IsAny<string>(), 
-                It.IsAny<string>(), 
                 It.IsAny<Plugin>()));
 
             Assert.IsTrue(addedPlugins.Any());

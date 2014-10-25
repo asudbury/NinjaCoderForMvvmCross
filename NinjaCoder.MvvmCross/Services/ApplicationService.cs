@@ -5,15 +5,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
+    using Interfaces;
+    using Scorchio.VisualStudio.Services;
     using System;
     using System.Diagnostics;
     using System.IO;
     using System.IO.Abstractions;
-
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-
-    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     /// Defines the ApplicationService type.
@@ -121,7 +118,7 @@ namespace NinjaCoder.MvvmCross.Services
                 File.Create(logFilePath);
             }
 
-            System.Diagnostics.Process.Start(logFilePath);
+            Process.Start(logFilePath);
         }
 
         /// <summary>

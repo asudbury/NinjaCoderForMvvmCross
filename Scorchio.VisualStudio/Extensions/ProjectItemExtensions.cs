@@ -51,7 +51,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The project items.</returns>
         public static IEnumerable<ProjectItem> GetXamlProjectItems(this ProjectItem instance)
         {
-            TraceService.WriteLine("ProjectExtensions::GetCSharpProjectItems project=" + instance.Name);
+            TraceService.WriteLine("ProjectItemExtensions::GetCSharpProjectItems project=" + instance.Name);
 
             return instance.ProjectItems.Cast<ProjectItem>().Where(x => x.Name.EndsWith(".xaml")).ToList();
         }
@@ -639,7 +639,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         public static void RemoveComments(this ProjectItem instance)
         {
-            TraceService.WriteLine("ProjectExtensions::RemoveComments");
+            TraceService.WriteLine("ProjectItemExtensions::RemoveComments");
 
             if (instance.IsCSharpFile())
             {
@@ -672,7 +672,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         public static void RemoveHeader(this ProjectItem instance)
         {
-            TraceService.WriteLine("ProjectExtensions::RemoveHeader");
+            TraceService.WriteLine("ProjectItemExtensions::RemoveHeader");
 
             if (instance.IsCSharpFile())
             {
@@ -731,7 +731,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         public static void RemoveAndDelete(this ProjectItem instance)
         {
-            TraceService.WriteLine("ProjectExtensions::RemoveAndDelete");
+            TraceService.WriteLine("ProjectItemExtensions::RemoveAndDelete");
 
             instance.Remove();
 
@@ -739,7 +739,7 @@ namespace Scorchio.VisualStudio.Extensions
 
             if (File.Exists(fileName))
             {
-                TraceService.WriteLine("ProjectExtensions::RemoveAndDelete fileName=" + fileName);
+                TraceService.WriteLine("ProjectItemExtensions::RemoveAndDelete fileName=" + fileName);
                 File.Delete(fileName);
             }
         }
@@ -750,7 +750,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         public static void RemoveDoubleBlankLines(this ProjectItem instance)
         {
-            TraceService.WriteLine("ProjectExtensions::RemoveDoubleBlankLines");
+            TraceService.WriteLine("ProjectItemExtensions::RemoveDoubleBlankLines");
             
             const string RegEx = @"^(?([^\r\n])\s)*\r?$\r?\n^(?([^\r\n])\s)*\r?$\r?\n";
 
@@ -763,7 +763,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         public static void DeleteFileContents(this ProjectItem instance)
         {
-            TraceService.WriteLine("ProjectExtensions::DeleteFileContents");
+            TraceService.WriteLine("ProjectItemExtensions::DeleteFileContents");
 
             Document document = instance.Document;
 
@@ -772,6 +772,82 @@ namespace Scorchio.VisualStudio.Extensions
             EditPoint editPoint = textDoc.StartPoint.CreateEditPoint();
             EditPoint endPoint = textDoc.EndPoint.CreateEditPoint();
             editPoint.Delete(endPoint);
+        }
+
+        /// <summary>
+        /// Gets the folder project items.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns></returns>
+        public static IEnumerable<ProjectItem> GetFolderProjectItems(this ProjectItem instance)
+        {
+            TraceService.WriteLine("ProjectItemExtensions::GetFolderProjectItems");
+
+            return instance.ProjectItems.Cast<ProjectItem>()
+                .Where(x => x.Kind == VSConstants.VsProjectItemKindPhysicalFolder);
+        }
+
+        /// <summary>
+        /// Gets the folder.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="folderName">Name of the folder.</param>
+        /// <returns></returns>
+        public static ProjectItem GetFolder(
+            this ProjectItem instance, 
+            string folderName)
+        {
+            TraceService.WriteLine("ProjectItemExtensions::GetFolder");
+
+            IEnumerable<ProjectItem> items = GetFolderProjectItems(instance);
+
+            return items.FirstOrDefault(x => x.Name == folderName);
+        }
+
+        /// <summary>
+        /// Gets the folder or create.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="folderName">Name of the folder.</param>
+        /// <returns></returns>
+        public static ProjectItem GetFolderOrCreate(
+            this ProjectItem instance, 
+            string folderName)
+        {
+            TraceService.WriteLine("ProjectItemExtensions::GetFolderOrCreate");
+
+            ProjectItem projectItem = GetFolder(instance, folderName) ?? instance.ProjectItems.AddFolder(folderName);
+
+            return projectItem;
+        }
+
+        /// <summary>
+        /// Gets the project item.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
+        public static ProjectItem GetProjectItem(
+            this ProjectItem instance,
+            string name)
+        {
+            TraceService.WriteLine("ProjectItemExtensions::GetProjectItem");
+
+            foreach (ProjectItem projectItem in instance.ProjectItems.Cast<ProjectItem>())
+            {
+                if (projectItem.Name.StartsWith(name))
+                {
+                    return projectItem;
+                }
+
+                foreach (ProjectItem subProjectItem in projectItem.ProjectItems.Cast<ProjectItem>()
+                    .Where(subProjectItem => subProjectItem.Name.StartsWith(name)))
+                {
+                    return subProjectItem;
+                }
+            }
+
+            return null;
         }
     }
 }

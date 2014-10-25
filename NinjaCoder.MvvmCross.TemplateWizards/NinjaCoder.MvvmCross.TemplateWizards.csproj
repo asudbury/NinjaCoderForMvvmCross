@@ -56,12 +56,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\NinjaCoder.MvvmCross.Infrastructure\Services\ISettingsService.cs">
-      <Link>Services\ISettingsService.cs</Link>
-    </Compile>
-    <Compile Include="..\NinjaCoder.MvvmCross.Infrastructure\Services\SettingsService.cs">
-      <Link>Services\SettingsService.cs</Link>
-    </Compile>
     <Compile Include="..\Scorchio.VisualStudio\Entities\BaseTemplateInfo.cs">
       <Link>Entities\BaseTemplateInfo.cs</Link>
     </Compile>
@@ -115,32 +109,11 @@
     <Compile Include="Plugins\PluginsWizard.cs" />
     <Compile Include="Projects\ProjectsWizard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqliteDataService\SqlDataServiceView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SqliteDataService\SqlDataServiceView.Designer.cs">
-      <DependentUpon>SqlDataServiceView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SqliteDataService\SqliteDataServiceWizard.cs" />
+    <Compile Include="Services\SettingsService.cs" />
     <Compile Include="ViewModelsAndViews\ViewModelsAndViewsWizard.cs" />
-    <Compile Include="WebRequestService\WebRequestServiceView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WebRequestService\WebRequestServiceView.Designer.cs">
-      <DependentUpon>WebRequestServiceView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WebRequestService\WebRequestServiceWizard.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NinjaCoder.MvvmCross.TemplateWizards.snk" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="SqliteDataService\SqlDataServiceView.resx">
-      <DependentUpon>SqlDataServiceView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WebRequestService\WebRequestServiceView.resx">
-      <DependentUpon>WebRequestServiceView.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\NinjaCoder.ico" />

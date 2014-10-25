@@ -5,20 +5,16 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Tests.Factories
 {
-    using System;
-    using System.IO.Abstractions;
-
     using Moq;
-
     using NinjaCoder.MvvmCross.Entities;
     using NinjaCoder.MvvmCross.Factories;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using NinjaCoder.MvvmCross.Tests.Mocks;
-
     using NUnit.Framework;
-
     using Scorchio.Infrastructure.Translators;
+    using System;
+    using System.Collections.Generic;
+    using System.IO.Abstractions;
 
     /// <summary>
     ///  Defines the TestPluginFactory type.
@@ -49,7 +45,7 @@ namespace NinjaCoder.MvvmCross.Tests.Factories
         /// <summary>
         /// The mock plugins translator.
         /// </summary>
-        private Mock<ITranslator<Tuple<DirectoryInfoBase, DirectoryInfoBase>, Plugins>> mockPluginsTranslator;
+        private Mock<ITranslator<IEnumerable<DirectoryInfoBase>, Plugins>> mockPluginsTranslator;
 
         /// <summary>
         /// The mock plugin translator.
@@ -65,7 +61,7 @@ namespace NinjaCoder.MvvmCross.Tests.Factories
             this.mockPluginsService = new Mock<IPluginsService>();
             this.mockFileSystem = new Mock<IFileSystem>();
             this.mockSettingsService = new Mock<ISettingsService>();
-            this.mockPluginsTranslator = new Mock<ITranslator<Tuple<DirectoryInfoBase, DirectoryInfoBase>, Plugins>>();
+            this.mockPluginsTranslator = new Mock<ITranslator<IEnumerable<DirectoryInfoBase>, Plugins>>();
             this.mockPluginTranslator = new Mock<ITranslator<FileInfoBase, Plugin>>();
 
             MockDirectoryInfoFactory mockDirectoryInfoFactory = new MockDirectoryInfoFactory();
@@ -109,15 +105,6 @@ namespace NinjaCoder.MvvmCross.Tests.Factories
         public void TestGetPluginByName()
         {
             Plugin plugin = this.factory.GetPluginByName("name");
-        }
-
-        /// <summary>
-        /// Tests the get directories.
-        /// </summary>
-        [Test]
-        public void TestGetDirectories()
-        {
-            Tuple<DirectoryInfoBase, DirectoryInfoBase> directories = this.factory.GetDirectories();
         }
     }
 }

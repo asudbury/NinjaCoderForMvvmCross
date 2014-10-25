@@ -382,5 +382,83 @@ namespace Scorchio.VisualStudio.Extensions
 
             return events2 != null ? events2.ProjectItemsEvents : null;
         }
+
+        /// <summary>
+        /// Gets the output window.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns></returns>
+        public static OutputWindow GetOutputWindow(this DTE2 instance)
+        {
+            Window window = instance.Windows.Item(VSConstants.VsWindowKindOutput);
+            return (OutputWindow)window.Object;
+        }
+
+        /// <summary>
+        /// Gets the output window pane.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="windowName">Name of the window.</param>
+        /// <returns></returns>
+        public static OutputWindowPane GetOutputWindowPane(
+            this DTE2 instance,
+            string windowName)
+        {
+            OutputWindow outputWindow = instance.GetOutputWindow();
+
+            for (uint i = 1; i <= outputWindow.OutputWindowPanes.Count; i++)
+            {
+                if (outputWindow.OutputWindowPanes.Item(i).Name.Equals(windowName, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    return outputWindow.OutputWindowPanes.Item(i);
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Outputs the message.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="windowName">Name of the window.</param>
+        /// <param name="message">The message.</param>
+        public static void OutputMessage(
+            this DTE2 instance,
+            string windowName,
+            string message)
+        {
+            try
+            {
+                OutputWindowPane outputWindowPane = instance.GetOutputWindowPane(windowName);
+
+                if (outputWindowPane == null)
+                {
+                    outputWindowPane = instance.GetOutputWindow().OutputWindowPanes.Add(windowName);
+                }
+
+                outputWindowPane.OutputString(message);
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        /// <summary>
+        /// Shows the output window pane.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="windowName">Name of the window.</param>
+        public static void ShowOutputWindowPane(
+            this DTE2 instance,
+            string windowName)
+        {
+            OutputWindowPane outputWindowPane = instance.GetOutputWindowPane(windowName);
+
+            if (outputWindowPane != null)
+            {
+                outputWindowPane.Activate();
+            }
+        }
     }
 }

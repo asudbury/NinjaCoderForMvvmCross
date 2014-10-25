@@ -119,7 +119,12 @@ namespace Scorchio.VisualStudio.Extensions
         {
             TraceService.WriteLine("SolutionExtensions::GetProjectItemTemplate templateName=" + templateName);
 
-            return instance.GetProjectItemTemplate(templateName, "CSharp");
+            string templatePath = instance.GetProjectItemTemplate(templateName, "CSharp");
+
+            TraceService.WriteLine("TemplatePath=" +  templatePath);
+
+            return templatePath;
+
         }
 
         /// <summary>
@@ -138,7 +143,14 @@ namespace Scorchio.VisualStudio.Extensions
         {
             TraceService.WriteLine("SolutionExtensions::AddSolutionItem path=" + path);
 
-            Project project = instance.GetProject(solutionFolder) ?? instance.AddSolutionFolder(solutionFolder);
+            Project project = instance.GetProject(solutionFolder);
+
+            if (project == null)
+            {
+                TraceService.WriteLine("project is null");
+
+                project = instance.AddSolutionFolder(solutionFolder);
+            }
 
             return project.ProjectItems.AddFromFile(path);
         }
@@ -183,9 +195,11 @@ namespace Scorchio.VisualStudio.Extensions
             this Solution2 instance,
             string projectName)
         {
-            TraceService.WriteLine("SolutionExtensions::GetProject name=" + projectName);
+            ////TraceService.WriteLine("SolutionExtensions::GetProject name=" + projectName);
 
             IEnumerable<Project> projects = instance.GetProjects();
+
+            ////TraceService.WriteLine("return project name=" + projectName);
 
             return projects.FirstOrDefault(project => project.Name == projectName);
         }
@@ -197,7 +211,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="templateInfos">The template infos.</param>
         /// <returns>The messages.</returns>
         public static IEnumerable<string> AddItemTemplateToProjects(
-             this Solution2 instance,
+            this Solution2 instance,
             IEnumerable<ItemTemplateInfo> templateInfos) 
         {
             TraceService.WriteLine("SolutionExtensions::AddItemTemplateToProjects");

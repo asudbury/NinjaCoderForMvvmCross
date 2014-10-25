@@ -12,7 +12,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards
     using EnvDTE80;
     using Microsoft.VisualStudio.TemplateWizard;
 
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
+    using NinjaCoder.MvvmCross.TemplateWizards.Services;
 
     using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
@@ -88,7 +88,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards
         {
             ////TraceService.WriteLine("BaseWizard::RunFinished");
 
-            if (this.SettingsService.ProcessTemplateWizards)
+            if (this.SettingsService.ProcessWizard)
             {
                 this.OnRunFinished();
             }
@@ -102,7 +102,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards
         {
             ////TraceService.WriteLine("BaseWizard::BeforeOpeningFile projectItem=" + projectItem.Name);
 
-            if (this.SettingsService.ProcessTemplateWizards)
+            if (this.SettingsService.ProcessWizard)
             {
                 this.OnBeforeOpeningFile(projectItem);
             }
@@ -116,7 +116,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards
         {
             ////TraceService.WriteLine("BaseWizard::ProjectItemFinishedGenerating projectItem=" + projectItem.Name);
 
-            if (this.SettingsService.ProcessTemplateWizards)
+            if (this.SettingsService.ProcessWizard)
             {
                 this.OnProjectItemFinishedGenerating(projectItem);
             }
@@ -130,7 +130,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards
         {
             ////TraceService.WriteLine("BaseWizard::ProjectFinishedGenerating project=" + project.Name);
 
-            if (this.SettingsService.ProcessTemplateWizards)
+            if (this.SettingsService.ProcessWizard)
             {
                 this.OnProjectFinishedGenerating(project);
             }

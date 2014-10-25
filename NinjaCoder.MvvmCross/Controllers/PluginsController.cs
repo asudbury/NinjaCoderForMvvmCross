@@ -5,19 +5,18 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Constants;
-
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-    using NinjaCoder.MvvmCross.ViewModels;
-    using NinjaCoder.MvvmCross.Views;
+    using Entities;
+    using Extensions;
 
     using Scorchio.Infrastructure.Services;
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using ViewModels;
+    using Views;
 
     /// <summary>
     /// Defines the PluginsController type.
@@ -41,26 +40,26 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="pluginsService">The plugins service.</param>
         /// <param name="nugetService">The nuget service.</param>
         /// <param name="visualStudioService">The visual studio service.</param>
-        /// <param name="readMeService">The read me service.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="messageBoxService">The message box service.</param>
         /// <param name="resolverService">The resolver service.</param>
+        /// <param name="readMeService">The read me service.</param>
         public PluginsController(
             IConfigurationService configurationService,
             IPluginsService pluginsService,
             INugetService nugetService,
             IVisualStudioService visualStudioService,
-            IReadMeService readMeService,
             ISettingsService settingsService,
             IMessageBoxService messageBoxService,
-            IResolverService resolverService)
+            IResolverService resolverService,
+            IReadMeService readMeService)
             : base(
             configurationService,
             visualStudioService, 
-            readMeService, 
             settingsService, 
             messageBoxService,
-            resolverService)
+            resolverService,
+            readMeService)
         {
             TraceService.WriteLine("PluginsController::Constructor");
 
@@ -119,23 +118,17 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             try
             {
-                if (this.SettingsService.SuspendReSharperDuringBuild)
-                {
-                    this.VisualStudioService.DTEService.ExecuteCommand(Settings.SuspendReSharperCommand);
-                }
-
                 IEnumerable<string> messages = this.pluginsService.AddPlugins(
                     this.VisualStudioService,
                     plugins,
                     implementInViewModel,
-                    includeUnitTests,
-                    this.SettingsService.UseNugetForPlugins);
+                    includeUnitTests);
                 
                 this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.UpdatingFiles);
 
                 this.VisualStudioService.DTEService.SaveAll();
 
-                IEnumerable<string> commands = plugins.SelectMany(x => x.NugetCommands).ToList();
+                List<string> commands = plugins.Select(plugin => plugin.GetNugetCommandStrings(this.VisualStudioService)).ToList();
 
                 if (commands.Any())
                 {
@@ -144,24 +137,14 @@ namespace NinjaCoder.MvvmCross.Controllers
                         this.nugetService.Execute(
                             this.VisualStudioService,
                             this.GetReadMePath(),
-                            commands,
-                            this.SettingsService.SuspendReSharperDuringBuild);
+                            commands);
                     }
 
                     this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NugetDownload);
                 }
-                else
-                {
-                    this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.PluginsCompleted);
-
-                    if (this.SettingsService.SuspendReSharperDuringBuild)
-                    {
-                        this.VisualStudioService.DTEService.ExecuteCommand(Settings.ResumeReSharperCommand);
-                    }
-                }
 
                 //// show the readme.
-                this.ShowReadMe("Add Plugins", messages, this.SettingsService.UseNugetForPlugins);
+                this.ShowReadMe("Add Plugins", messages);
             }
             catch (Exception exception)
             {

@@ -5,15 +5,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
+    using Constants;
+
+    using Interfaces;
+    using Scorchio.VisualStudio.Services;
     using System;
     using System.IO.Abstractions;
-
-    using Constants;
-    using Interfaces;
-
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-
-    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     /// Defines the ConfigurationService type.
@@ -37,8 +34,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="settingsService">The settings service.</param>
         public ConfigurationService(
             IFileSystem fileSystem,
-            ISettingsService settingsService
-        )
+            ISettingsService settingsService)
         {
             TraceService.WriteLine("ConfigurationService::Constructor");
 

@@ -13,14 +13,14 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
     using MahApps.Metro;
 
     using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
+    using NinjaCoder.MvvmCross.Services.Interfaces;
 
     using Scorchio.Infrastructure.Entities;
     using Scorchio.Infrastructure.EventArguments;
     using Scorchio.Infrastructure.Factories;
     using Scorchio.Infrastructure.Wpf.ViewModels;
 
-    using BaseViewModel = NinjaCoder.MvvmCross.ViewModels.BaseViewModel;
+    using BaseViewModel = NinjaCoder.MvvmCross.ViewModels.NinjaBaseViewModel;
 
     /// <summary>
     ///  Defines the VisualViewModel type.

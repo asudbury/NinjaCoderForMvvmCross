@@ -93,9 +93,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NinjaCoder.MvvmCross.Infrastructure\NinjaCoder.MvvmCross.Infrastructure.csproj">
-      <Project>{cd244791-5c33-465b-a096-8850908ff5fc}</Project>
-      <Name>NinjaCoder.MvvmCross.Infrastructure</Name>
+    <ProjectReference Include="..\NinjaCoder.MvvmCross\NinjaCoder.MvvmCross.csproj">
+      <Project>{678643f4-34d9-43ac-ac1b-55fc0d58b598}</Project>
+      <Name>NinjaCoder.MvvmCross</Name>
     </ProjectReference>
     <ProjectReference Include="..\Scorchio.VisualStudio\Scorchio.VisualStudio.csproj">
       <Project>{012e2419-08c3-4555-af80-f101b02bbcf0}</Project>

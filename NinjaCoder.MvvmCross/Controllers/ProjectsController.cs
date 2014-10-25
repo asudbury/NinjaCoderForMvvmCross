@@ -5,23 +5,26 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Xml.Linq;
-
     using Constants;
+    using Entities;
+    using Factories.Interfaces;
 
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-    using NinjaCoder.MvvmCross.ViewModels;
-    using NinjaCoder.MvvmCross.Views;
-
+    using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Services.Testing.Interfaces;
+    using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
     using Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Xml.Linq;
+    using ViewModels;
+    using ViewModels.AddProjects;
+    using Views;
 
     /// <summary>
     /// Defines the ProjectsController type.
@@ -49,6 +52,11 @@ namespace NinjaCoder.MvvmCross.Controllers
         private readonly IViewModelAndViewsFactory viewModelAndViewsFactory;
 
         /// <summary>
+        /// The read me service.
+        /// </summary>
+        private readonly IReadMeService readMeService;
+
+        /// <summary>
         /// The mocking service.
         /// </summary>
         private readonly IMockingService mockingService;
@@ -60,32 +68,32 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="projectsService">The projects service.</param>
         /// <param name="nugetService">The nuget service.</param>
         /// <param name="visualStudioService">The visual studio service.</param>
-        /// <param name="readMeService">The read me service.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="messageBoxService">The message box service.</param>
         /// <param name="mockingServiceFactory">The mocking service factory.</param>
         /// <param name="resolverService">The resolver service.</param>
         /// <param name="viewModelViewsService">The view model views service.</param>
         /// <param name="viewModelAndViewsFactory">The view model and views factory.</param>
+        /// <param name="readMeService">The read me service.</param>
         public ProjectsController(
             IConfigurationService configurationService,
             IProjectsService projectsService,
             INugetService nugetService,
             IVisualStudioService visualStudioService,
-            IReadMeService readMeService,
             ISettingsService settingsService,
             IMessageBoxService messageBoxService,
             IMockingServiceFactory mockingServiceFactory,
             IResolverService resolverService,
             IViewModelViewsService viewModelViewsService,
-            IViewModelAndViewsFactory viewModelAndViewsFactory)
+            IViewModelAndViewsFactory viewModelAndViewsFactory,
+            IReadMeService readMeService)
             : base(
             configurationService,
             visualStudioService,
-            readMeService,
             settingsService,
             messageBoxService,
-            resolverService)
+            resolverService,
+            readMeService)
         {
             TraceService.WriteLine("ProjectsController::Constructor");
 
@@ -93,6 +101,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             this.nugetService = nugetService;
             this.viewModelViewsService = viewModelViewsService;
             this.viewModelAndViewsFactory = viewModelAndViewsFactory;
+            this.readMeService = readMeService;
             this.mockingService = mockingServiceFactory.GetMockingService();
         }
 
@@ -102,52 +111,59 @@ namespace NinjaCoder.MvvmCross.Controllers
         public void Run()
         {
             TraceService.WriteHeader("ProjectsController::Run");
-
+          
             //// we open the nuget package manager console so we don't have
             //// a wait condition later!
-            this.nugetService.OpenNugetWindow(this.VisualStudioService);
             
-            ProjectsViewModel viewModel = this.ShowDialog<ProjectsViewModel>(new ProjectsView());
+            this.nugetService.OpenNugetWindow(this.VisualStudioService);
 
-            if (viewModel.Continue)
+            ProjectsViewModel2 viewModel2 = this.ShowDialog<ProjectsViewModel2>(new ProjectsView2());
+
+            if (viewModel2.Continue)
             {
-                this.Process(
-                    viewModel.GetSolutionPath(),
-                    viewModel.Project,
-                    viewModel.GetFormattedRequiredTemplates());
+                //// this is all a bit ugly!!!
+                
+                WizardStepViewModel wizardStepViewModel = viewModel2.ProjectsWizardViewModel.Steps
+                                                            .FirstOrDefault(x => x.ViewModel.ToString().Contains("ProjectsViewModel"));
+
+                if (wizardStepViewModel != null)
+                {
+                    ProjectsViewModel projectsViewModel = (ProjectsViewModel)wizardStepViewModel.ViewModel;
+
+                    wizardStepViewModel = viewModel2.ProjectsWizardViewModel.Steps
+                                            .FirstOrDefault(x => x.ViewModel.ToString().Contains("ViewsViewModel"));
+
+                    if (wizardStepViewModel != null)
+                    {
+                        ViewsViewModel viewsViewModel = (ViewsViewModel)wizardStepViewModel.ViewModel;
+
+                        this.Process(projectsViewModel, viewsViewModel);
+                    }
+                }
             }
         }
 
         /// <summary>
         /// Processes the specified solution path.
         /// </summary>
-        /// <param name="solutionPath">The solution path.</param>
-        /// <param name="projectName">Name of the project.</param>
-        /// <param name="requireTemplates">The template infos.</param>
+        /// <param name="projectsViewModel">The projects view model.</param>
+        /// <param name="viewsViewModel">The views view model.</param>
         internal void Process(
-            string solutionPath,
-            string projectName,
-            IEnumerable<ProjectTemplateInfo> requireTemplates)
+            ProjectsViewModel projectsViewModel,
+            ViewsViewModel viewsViewModel)
         {
             TraceService.WriteLine("ProjectsController::Process");
 
             this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NinjaIsRunning);
 
             bool solutionAlreadyCreated = !string.IsNullOrEmpty(this.VisualStudioService.SolutionService.FullName);
-            
-            if (this.SettingsService.SuspendReSharperDuringBuild)
-            {
-                TraceService.WriteLine("SuspendResharper");
-
-                this.VisualStudioService.DTEService.ExecuteCommand(Settings.SuspendReSharperCommand);
-            }
 
             //// create the solution if we don't have one!
             if (solutionAlreadyCreated == false)
             {
                 TraceService.WriteLine("CreateEmptySolution");
 
-                this.VisualStudioService.SolutionService.CreateEmptySolution(solutionPath, projectName);
+                this.VisualStudioService.SolutionService.CreateEmptySolution(projectsViewModel.GetSolutionPath(), projectsViewModel.Project);
             }
 
             TraceService.WriteLine("AddProjects");
@@ -155,10 +171,11 @@ namespace NinjaCoder.MvvmCross.Controllers
             List<string> messages =
                 this.projectsService.AddProjects(
                     this.VisualStudioService,
-                    solutionPath,
-                    requireTemplates,
-                    true,
+                    projectsViewModel.GetSolutionPath(),
+                    projectsViewModel.GetFormattedRequiredTemplates(),
                     solutionAlreadyCreated).ToList();
+
+            this.VisualStudioService.DTE2.OutputMessage(Settings.ApplicationName, string.Join(Environment.NewLine, messages));
 
             //// not sure if this is the correct place to do this!
             IProjectService testProjectService = this.VisualStudioService.CoreTestsProjectService;
@@ -174,51 +191,49 @@ namespace NinjaCoder.MvvmCross.Controllers
             //// there is a bug in the xamarin iOS code that means it doesnt apply a couple of xml elements
             //// in the info.plist - here we fix that issue.
 
-            IProjectService iosProjectService = this.VisualStudioService.iOSProjectService;
-
-            if (iosProjectService != null)
+            if (this.SettingsService.FixInfoPlist)
             {
-                //// first check its in the new projects being added!
-
-                ProjectTemplateInfo projectTemplateInfo = requireTemplates.FirstOrDefault(x => x.ProjectSuffix == ProjectSuffixes.iOS);
-
-                if (projectTemplateInfo != null)
-                {
-                    IProjectItemService projectItemService = iosProjectService.GetProjectItem("Info.plist");
-
-                    if (projectItemService != null)
-                    {
-                        TraceService.WriteLine("FixInfoPlist");
-
-                        this.FixInfoPlist(projectItemService, iosProjectService.Name);
-                    }
-                }
+                this.FixInfoPlist(projectsViewModel);
             }
 
             //// now we need to call the add viewmodel and views process
+            //// if the developer has requested it.
 
-            if (this.SettingsService.AddViewModelAndViews)
+            TraceService.WriteLine("AddViewModelAndViews");
+
+            //// for now lets just set the view type to sample data
+            this.SettingsService.SelectedViewType = "SampleData";
+
+            if (this.SettingsService.ProcessViewModelAndViews)
             {
                 this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.AddingViewModelAndViews);
 
-                TraceService.WriteLine("GetRequiredViewModelAndViews");
+                foreach (View view in viewsViewModel.Views)
+                {
+                    string viewModelName = view.Name + "ViewModel";
 
-                IEnumerable<ItemTemplateInfo> itemTemplateInfos =
-                    this.viewModelAndViewsFactory.GetRequiredViewModelAndViews(
-                        "FirstViewModel",
-                        this.viewModelAndViewsFactory.AllowedUIViews,
-                        solutionAlreadyCreated);
+                    TraceService.WriteLine("GetRequiredViewModelAndViews");
 
-                TraceService.WriteLine("AddViewModelAndViews");
+                    IEnumerable<ItemTemplateInfo> itemTemplateInfos =
+                        this.viewModelAndViewsFactory.GetRequiredViewModelAndViews(
+                            view,
+                            viewModelName,
+                            this.viewModelAndViewsFactory.AllowedUIViews,
+                            solutionAlreadyCreated);
 
-                this.viewModelViewsService.AddViewModelAndViews(
-                    this.VisualStudioService.CoreProjectService,
-                    this.VisualStudioService,
-                    itemTemplateInfos,
-                    "FirstViewModel",
-                    true,
-                    null,
-                    null);
+                    TraceService.WriteLine("AddViewModelAndViews " + viewModelName);
+
+                    IEnumerable<string> viewModelMessages = this.viewModelViewsService.AddViewModelAndViews(
+                        this.VisualStudioService.CoreProjectService,
+                        this.VisualStudioService,
+                        itemTemplateInfos,
+                        viewModelName,
+                        true,
+                        null,
+                        null);
+
+                    messages.AddRange(viewModelMessages);
+                }
             }
 
             this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.UpdatingFiles);
@@ -229,159 +244,100 @@ namespace NinjaCoder.MvvmCross.Controllers
                 this.SettingsService.RemoveDefaultFileHeaders,
                 this.SettingsService.RemoveDefaultComments);
 
-            TraceService.WriteLine("CreateFileVersions");
+            TraceService.WriteLine("CreateReadMe");
 
-            //// create the version files.
-            this.VisualStudioService.SolutionService.CreateFile(Settings.NinjaVersionFile, this.SettingsService.ApplicationVersion);
-            this.VisualStudioService.SolutionService.CreateFile(Settings.MvxVersionFile, this.SettingsService.MvvmCrossVersion);
+            this.readMeService.AddLines(
+                this.GetReadMePath(),
+                "Add Projects",
+                messages);
+            
+            TraceService.WriteLine("GetNugetCommands");
+                
+            string commands = this.nugetService.GetNugetCommands(
+                this.VisualStudioService,
+                    projectsViewModel.GetFormattedRequiredTemplates());
 
-            if (this.SettingsService.UseNugetForProjectTemplates)
+            
+            TraceService.WriteLine("nugetCommands=" + commands);
+
+            if (this.SettingsService.ProcessNugetCommands)
             {
-                TraceService.WriteLine("UseNugetForProjectTemplates");
+                TraceService.WriteLine("ProcessNugetCommands");
 
-                //// we shouldnt have to do this!
-                //// but we have so many problems with nuget and iOS AND droid projects
-                //// we try and make it as simple as possible by removing the mvx references!
-
-                //// THIS CODE IS ALSO IN THE TEMPLATE WIZARD! 
-                this.RemoveMvxReferences(
-                    this.VisualStudioService.CoreProjectService,
-                    requireTemplates.FirstOrDefault(x => x.ProjectSuffix == ProjectSuffixes.Core));
-
-                this.RemoveMvxReferences(
-                    this.VisualStudioService.CoreTestsProjectService,
-                    requireTemplates.FirstOrDefault(x => x.ProjectSuffix == ProjectSuffixes.CoreTests));
-
-                this.RemoveMvxReferences(
-                    this.VisualStudioService.iOSProjectService,
-                    requireTemplates.FirstOrDefault(x => x.ProjectSuffix == ProjectSuffixes.iOS));
-
-                this.RemoveMvxReferences(
-                    this.VisualStudioService.DroidProjectService,
-                    requireTemplates.FirstOrDefault(x => x.ProjectSuffix == ProjectSuffixes.Droid));
-
-                this.RemoveMvxReferences(
-                    this.VisualStudioService.WindowsPhoneProjectService,
-                    requireTemplates.FirstOrDefault(x => x.ProjectSuffix == ProjectSuffixes.WindowsPhone));
-
-                this.RemoveMvxReferences(
-                    this.VisualStudioService.WindowsStoreProjectService,
-                    requireTemplates.FirstOrDefault(x => x.ProjectSuffix == ProjectSuffixes.WindowsStore));
-
-                this.RemoveMvxReferences(
-                    this.VisualStudioService.WpfProjectService,
-                    requireTemplates.FirstOrDefault(x => x.ProjectSuffix == ProjectSuffixes.WindowsWpf));
-
-                TraceService.WriteLine("GetNugetCommands");
-
-                string commands = this.nugetService.GetNugetCommands(
+                this.nugetService.Execute(
                     this.VisualStudioService,
-                    requireTemplates,
-                    this.SettingsService.VerboseNugetOutput,
-                    this.SettingsService.DebugNuget,
-                    this.SettingsService.UsePreReleaseNugetPackages);
-
-                TraceService.WriteLine("nugetCommands=" + commands);
-
-                if (this.SettingsService.ProcessNugetCommands)
-                {
-                    TraceService.WriteLine("ProcessNugetCommands");
-
-                    this.nugetService.Execute(
-                        this.VisualStudioService,
-                        this.GetReadMePath(),
-                        commands,
-                        this.SettingsService.SuspendReSharperDuringBuild);
-                }
-
-                this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NugetDownload);
-            }
-            else
-            {
-                this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.SolutionBuilt);
-
-                if (this.SettingsService.SuspendReSharperDuringBuild)
-                {
-                    TraceService.WriteLine("ResumeReSharperCommand");
-
-                    this.VisualStudioService.DTEService.ExecuteCommand(Settings.ResumeReSharperCommand);
-                }
+                    this.GetReadMePath(),
+                    commands);
             }
 
-            TraceService.WriteLine("ShowReadMe");
-
-            //// show the readme.
-            this.ShowReadMe("Add Projects", messages, this.SettingsService.UseNugetForProjectTemplates);
+            this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NugetDownload);
         }
 
         /// <summary>
-        /// Removes the MVX references.
+        /// Fixes the information plist.
         /// </summary>
-        /// <param name="projectService">The project service.</param>
-        /// <param name="projectTemplateInfo">The project template information.</param>
-        internal void RemoveMvxReferences(
-            IProjectService projectService,
-            ProjectTemplateInfo projectTemplateInfo)
+        /// <param name="projectsViewModel">The projects view model.</param>
+        private void FixInfoPlist(ProjectsViewModel projectsViewModel)
         {
-            if (projectService != null && 
-                projectTemplateInfo != null)
+            TraceService.WriteLine("ProjectsController::FixInfoPlist");
+
+            IProjectService iosProjectService = this.VisualStudioService.iOSProjectService;
+
+            if (iosProjectService != null)
             {
-                TraceService.WriteLine("ProjectsController::RemoveMvxReferences Project=" + projectService.Name);
+                //// first check its in the new projects being added!
 
-                projectService.GetProjectReferences()
-                    .Where(x => x.Name.StartsWith("Cirrious"))
-                    .ToList()
-                    .ForEach(x => x.Remove());
-            }
-        }
+                ProjectTemplateInfo projectTemplateInfo =
+                    projectsViewModel.GetFormattedRequiredTemplates()
+                        .FirstOrDefault(x => x.ProjectSuffix == ProjectSuffix.iOS.GetDescription());
 
-        /// <summary>
-        /// Fixes the info plist.
-        /// </summary>
-        /// <param name="projectItemService">The project item service.</param>
-        /// <param name="projectName">Name of the project.</param>
-        internal void FixInfoPlist(
-            IProjectItemService projectItemService,
-            string projectName)
-        {
-            TraceService.WriteLine("ProjectsController::FixInfoPlist Project=" + projectName);
-
-            XDocument doc = XDocument.Load(projectItemService.FileName);
-
-            if (doc.Root != null)
-            {
-                XElement element = doc.Root.Element("dict");
-
-                if (element != null)
+                if (projectTemplateInfo != null)
                 {
-                    //// first look for the elements
+                    IProjectItemService projectItemService = iosProjectService.GetProjectItem("Info.plist");
 
-                    XElement childElement = element.Elements("key").FirstOrDefault(x => x.Value == "CFBundleDisplayName");
-                    
-                    if (childElement == null)
+                    if (projectItemService != null)
                     {
-                        element.Add(new XElement("key", "CFBundleDisplayName"));
-                        element.Add(new XElement("string", projectName));
-                    }
+                        TraceService.WriteLine("FixInfoPlist");
 
-                    childElement = element.Elements("key").FirstOrDefault(x => x.Value == "CFBundleVersion");
+                        XDocument doc = XDocument.Load(projectItemService.FileName);
 
-                    if (childElement == null)
-                    {
-                        element.Add(new XElement("key", "CFBundleVersion"));
-                        element.Add(new XElement("string", "1.0"));
-                    }
+                        if (doc.Root != null)
+                        {
+                            XElement element = doc.Root.Element("dict");
 
-                    childElement = element.Elements("key").FirstOrDefault(x => x.Value == "CFBundleIdentifier");
+                            if (element != null)
+                            {
+                                //// first look for the elements
 
-                    if (childElement == null)
-                    {
-                        element.Add(new XElement("key", "CFBundleIdentifier"));
-                        element.Add(new XElement("string", "1"));
+                                XElement childElement = element.Elements("key").FirstOrDefault(x => x.Value == "CFBundleDisplayName");
+
+                                if (childElement == null)
+                                {
+                                    element.Add(new XElement("key", "CFBundleDisplayName"));
+                                    element.Add(new XElement("string", iosProjectService.Name));
+                                }
+
+                                childElement = element.Elements("key").FirstOrDefault(x => x.Value == "CFBundleVersion");
+
+                                if (childElement == null)
+                                {
+                                    element.Add(new XElement("key", "CFBundleVersion"));
+                                    element.Add(new XElement("string", "1.0"));
+                                }
+
+                                childElement = element.Elements("key").FirstOrDefault(x => x.Value == "CFBundleIdentifier");
+
+                                if (childElement == null)
+                                {
+                                    element.Add(new XElement("key", "CFBundleIdentifier"));
+                                    element.Add(new XElement("string", "1"));
+                                }
+                            }
+
+                            doc.Save(projectItemService.FileName);
+                        }
                     }
                 }
-
-                doc.Save(projectItemService.FileName);
             }
         }
     }

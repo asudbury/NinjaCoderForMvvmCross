@@ -5,28 +5,21 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-
-    using System.IO.Abstractions;
-    using System.Reflection;
-
+    using Entities;
     using EnvDTE;
     using EnvDTE80;
 
     using MahApps.Metro;
-
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Infrastructure.Services;
-    using NinjaCoder.MvvmCross.Services;
-
     using Scorchio.Infrastructure.Entities;
     using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
-
+    using Services;
+    using System;
+    using System.Collections.Generic;
+    using System.IO.Abstractions;
+    using System.Reflection;
     using TinyIoC;
-
     using Translators;
 
     /// <summary>
@@ -85,31 +78,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             ResolveController<PluginsController>(dte2)
                 .Run();
         }
-
-        /// <summary>
-        /// Runs the services controller.
-        /// </summary>
-        /// <param name="dte2">The dte2.</param>
-        public static void RunServicesController(DTE2 dte2 = null)
-        {
-            TraceService.WriteLine("NinjaController::RunServicesController");
-
-            ResolveController<ServicesController>(dte2)
-                .Run();
-        }
-
-        /// <summary>
-        /// Runs the converters controller.
-        /// </summary>
-        /// <param name="dte2">The dte2.</param>
-        public static void RunConvertersController(DTE2 dte2 = null)
-        {
-            TraceService.WriteLine("NinjaController::RunConvertersController");
-
-            ResolveController<ConvertersController>(dte2)
-                .Run();
-        }
-
+        
         /// <summary>
         /// Shows the options.
         /// </summary>
@@ -235,7 +204,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                     container.Register<ITranslator<string, CodeConfig>>(new CodeConfigTranslator());
                     container.Register<ITranslator<string, CodeSnippet>>(new CodeSnippetTranslator());
                     container.Register<ITranslator<FileInfoBase, Plugin>>(new PluginTranslator(new SettingsService()));
-                    container.Register<ITranslator<Tuple<DirectoryInfoBase, DirectoryInfoBase>, Plugins>>(new PluginsTranslator(new PluginTranslator(new SettingsService())));
+                    container.Register<ITranslator<IEnumerable<DirectoryInfoBase>, Plugins>>(new PluginsTranslator(new PluginTranslator(new SettingsService())));
 
                     //// file io abstraction
                     container.Register<IFileSystem>(new FileSystem());
@@ -256,6 +225,8 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                     //// Scorchio.Infrastructure interfaces.
                     container.AutoRegister(Assembly.LoadFrom(path));
+
+                    initialized = true;
                 }
 
                 TraceService.WriteLine("NinjaController::Initialize end");

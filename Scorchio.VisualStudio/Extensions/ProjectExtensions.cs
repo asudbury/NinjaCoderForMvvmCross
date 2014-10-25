@@ -12,6 +12,7 @@ namespace Scorchio.VisualStudio.Extensions
 
     using EnvDTE;
     using EnvDTE80;
+
     using Services;
 
     using VSLangProj;
@@ -28,6 +29,30 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The project path.</returns>
         public static string GetProjectPath(this Project instance)
         {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             string path = string.Empty;
 
             try
@@ -283,16 +308,14 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="destinationFolder">The destination folder.</param>
         /// <param name="destination">The destination.</param>
         /// <param name="source">The source.</param>
-        /// <param name="addFileToFolder">if set to <c>true</c> [add file to folder].</param>
-        /// <param name="copyAssembly">if set to <c>true</c> [copy assembly].</param>
-        /// <returns>The Reference.</returns>
+        /// <returns>
+        /// The Reference.
+        /// </returns>
         public static Reference AddReference(
             this Project instance,
             string destinationFolder,
             string destination,
-            string source,
-            bool addFileToFolder,
-            bool copyAssembly)
+            string source)
         {
             TraceService.WriteLine("ProjectExtensions::AddReference project=" + instance.Name);
             TraceService.WriteLine("Source=" + source);
@@ -333,23 +356,8 @@ namespace Scorchio.VisualStudio.Extensions
                     }
                 }
 
-                //// copy the assembly to the lib folder!
-                if (copyAssembly)
-                {
-                    File.Copy(source, destination, true);
-                    reference = instance.AddReference(destination);
-                }
-                else
-                {
-                    //// reference the source and dont copy the file!
-                    reference = instance.AddReference(source);
-                }
-
-                //// add the lib folder to the project! 
-                if (addFileToFolder)
-                {
-                    instance.AddToFolderFromFile(destinationFolder, destination);
-                }
+                //// reference the source and dont copy the file!
+                reference = instance.AddReference(source);
             }
 
             return reference;
@@ -504,7 +512,87 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>True or false.</returns>
         public static bool HasNugetPackages(this Project instance)
         {
+            TraceService.WriteLine("ProjectExtensions::HasNugetPackages");
+
+
             return instance.GetProjectItems().FirstOrDefault(x => x.Name == "packages.config") != null;
+        }
+
+        
+        /// <summary>
+        /// Gets the sub projects.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns></returns>
+        public static IEnumerable<Project> GetSubProjects(this Project instance)
+        {
+            TraceService.WriteLine("ProjectExtensions::GetSubProjects");
+
+            List<Project> subProjects = new List<Project>();
+
+            if (instance.ProjectItems != null)
+            {
+                subProjects.AddRange(from ProjectItem projectItem in instance.ProjectItems 
+                                     where projectItem.SubProject != null 
+                                     select projectItem.SubProject);
+            }
+
+            return subProjects.OrderBy(x => x.Name);
+        }
+
+        /// <summary>
+        /// Gets the sub folders.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="folderName">Name of the folder.</param>
+        /// <returns></returns>
+        public static IEnumerable<ProjectItem> GetSubFolders(
+            this Project instance,
+            string folderName)
+        {
+            TraceService.WriteLine("ProjectExtensions::GetSubFolders folderName=" + folderName);
+            
+            List<ProjectItem> folders = new List<ProjectItem>();
+
+            ProjectItem folderItem = instance.GetFolder(folderName);
+
+            if (folderItem != null)
+            {
+                folders.AddRange(folderItem.ProjectItems.Cast<ProjectItem>()
+                    .Where(projectItem => projectItem.Kind == VSConstants.VsProjectItemKindPhysicalFolder));
+
+                ////folders.Sort();
+            }
+
+            return folders;
+        }
+
+        /// <summary>
+        /// Gets the folder project items.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns></returns>
+        public static IEnumerable<ProjectItem> GetFolderProjectItems(this Project instance)
+        {
+            TraceService.WriteLine("ProjectExtensions::GetFolderProjectItems");
+
+            return instance.ProjectItems.Cast<ProjectItem>()
+                .Where(x => x.Kind == VSConstants.VsProjectItemKindPhysicalFolder);
+        }
+
+        /// <summary>
+        /// Gets the folder or create.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="folderName">Name of the folder.</param>
+        /// <returns></returns>
+        public static ProjectItem GetFolderOrCreate(this Project instance, string folderName)
+        {
+            TraceService.WriteLine("ProjectExtensions::GetFolderOrCreate folderName=" + folderName);
+
+            ProjectItem projectItem = GetFolder(instance, folderName) ?? instance.ProjectItems.AddFolder(folderName);
+
+            return projectItem;
         }
     }
 }
