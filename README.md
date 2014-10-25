@@ -12,3 +12,9 @@ For more information, see:
 For installation, see:
 
 - http://visualstudiogallery.msdn.microsoft.com/618b51f0-6de8-4f85-95ce-a50c658c7767
+ 
+
+For the templates for the Ninja see:
+
+- https://github.com/asudbury/Ninja4MvxTemplates
+
