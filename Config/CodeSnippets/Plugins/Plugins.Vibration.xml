@@ -1,0 +1,17 @@
+﻿<CodeSnippet>
+  <Interfaces>
+    <Interface>IVibrate vibrate</Interface>
+  </Interfaces>
+  <Code>
+		<![CDATA[
+        /// <summary>
+        /// Vibrate.
+        /// </summary>
+        public void Vibrate()
+        {
+            this.vibrate.Shake();
+        }
+        ]]>
+  </Code>
+</CodeSnippet>
+

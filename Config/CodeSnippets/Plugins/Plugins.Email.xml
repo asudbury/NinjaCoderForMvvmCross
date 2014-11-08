@@ -1,0 +1,23 @@
+﻿<CodeSnippet>
+  <Interfaces>
+    <Interface>IMvxComposeEmailTask composeEmailTask</Interface>
+  </Interfaces>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Composes the email.
+        /// </summary>
+        /// <param name="to">To - Who the email is going to..</param>
+        /// <param name="subject">The subject of the email.</param>
+        /// <param name="body">The body of the email.</param>
+        public void ComposeEmail(
+            string to,
+            string subject, 
+            string body)
+        {
+            this.composeEmailTask.ComposeEmail(to, null, subject, body, false);
+        }
+        ]]>
+  </Code>
+</CodeSnippet>
+

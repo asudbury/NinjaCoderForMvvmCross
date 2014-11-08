@@ -1,0 +1,23 @@
+﻿<CodeSnippet>
+  <MockVariables>
+    <MockVariable>IMvxComposeEmailTask mockComposeEmailTask</MockVariable>
+  </MockVariables>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Tests the Composes the email.
+        /// </summary>
+        [Test]
+        public void TestComposeEmail()
+        {
+            //// arrange
+            
+            //// act
+            this.TestableObject.ComposeEmail("to", "subject", "body");
+            
+            //// assert
+        }
+    ]]>
+  </Code>
+</CodeSnippet>
+

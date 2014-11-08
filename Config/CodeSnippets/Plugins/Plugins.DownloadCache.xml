@@ -1,0 +1,19 @@
+﻿<CodeSnippet>
+  <Interfaces>
+    <Interface>IMvxFileStore fileStore</Interface>
+  </Interfaces>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Writes a file.
+        /// </summary>
+        public void WriteFile(
+			string path,
+			byte[] bytes)
+        {
+           return this.fileStore.WriteFile(path, bytes);
+        }
+        ]]>
+  </Code>
+</CodeSnippet>
+

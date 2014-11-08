@@ -1,0 +1,20 @@
+<CodeSnippet>
+  <Interfaces>
+    <Interface>ISmsTask smsTask</Interface>
+  </Interfaces>
+  <Code>
+		<![CDATA[
+        /// <summary>
+        /// Send a SMS message.
+        /// </summary>
+        /// <param name="phoneNumber">The phone number.</param>
+        /// <param name="message">The message.</param>
+        public void SendSms(
+		    string phoneNumber,
+			string message)
+        {
+            this.smsTask.SendSMS(message, phoneNumber);
+        }
+        ]]>
+  </Code>
+</CodeSnippet>

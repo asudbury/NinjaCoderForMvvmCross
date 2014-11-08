@@ -1,0 +1,23 @@
+﻿<CodeSnippet>
+  <MockVariables>
+    <MockVariable>IMvxFileStore mockFileStore</MockVariable>
+  </MockVariables>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Test the Write File.
+        /// </summary>
+        [Test]
+        public void TestWriteFile()
+        {
+            //// arrange
+
+            //// act
+            this.TestableObject.WriteFile("path", new byte[]);
+            
+            //// assert
+        }
+    ]]>
+  </Code>
+</CodeSnippet>
+

@@ -1,0 +1,23 @@
+﻿<CodeSnippet>
+  <MockVariables>
+    <MockVariable>IMvxFileStore mockFileStore</MockVariable>
+  </MockVariables>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Tests Read File.
+        /// </summary>
+        [Test]
+        public void TestReadFile()
+        {
+            //// arrange
+            
+            //// act
+            this.TestableObject.ReadFile("path");
+            
+            //// assert
+        }
+    ]]>
+  </Code>
+</CodeSnippet>
+

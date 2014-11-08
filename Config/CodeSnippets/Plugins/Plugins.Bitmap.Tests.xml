@@ -1,0 +1,23 @@
+﻿<CodeSnippet>
+  <MockVariables>
+    <MockVariable>IMvxBitmapFactory mockBitmapFactory</MockVariable>
+  </MockVariables>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Test Create Bitmap.
+        /// </summary>
+        [Test]
+        public void TestCreateBitmap()
+        {
+            //// arrange
+
+            //// act
+            this.TestableObject.CreateBitmap();
+            
+            //// assert
+        }
+    ]]>
+  </Code>
+</CodeSnippet>
+

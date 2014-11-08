@@ -1,0 +1,21 @@
+﻿<CodeSnippet>
+  <UsingStatements>
+    <Statement>Cirrious.CrossCore.UI</Statement>
+  </UsingStatements>
+  <Interfaces>
+    <Interface>IMvxNativeColor nativeColor</Interface>
+  </Interfaces>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Gets color.
+        /// </summary>
+        /// <returns>The color.</returns>
+        public object GetColor(MvxColor color)
+        {
+           return this.nativeColor.ToNative(color);
+        }
+        ]]>
+  </Code>
+</CodeSnippet>
+

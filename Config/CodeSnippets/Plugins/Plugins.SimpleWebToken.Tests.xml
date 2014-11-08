@@ -1,0 +1,40 @@
+﻿<CodeSnippet>
+  <UsingStatements>
+    <Statement>Cheesebaron.MvxPlugins.SimpleWebToken.Interfaces</Statement>
+  </UsingStatements>
+  <MockVariables>
+    <MockVariable>ISimpleWebToken mockSimpleWebToken</MockVariable>
+  </MockVariables>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Tests Create Token.
+        /// </summary>
+        [Test]
+        public void TestCreateToken()
+        {
+            //// arrange
+            
+            //// act
+            this.TestableObject.CreateToken();
+            
+            //// assert
+        }
+		
+		/// <summary>
+        /// Tests Validate Signature.
+        /// </summary>
+        [Test]
+        public void TestValidateSignature()
+        {
+            //// arrange
+            
+            //// act
+            this.TestableObject.ValidateSignature();
+            
+            //// assert
+        }
+    ]]>
+  </Code>
+</CodeSnippet>
+

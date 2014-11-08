@@ -1,0 +1,22 @@
+﻿<CodeSnippet>
+  <UsingStatements>
+    <Statement>Cirrious.CrossCore.Platform</Statement>
+  </UsingStatements>
+  <Interfaces>
+    <Interface>IMvxResourceLoader resourceLoader</Interface>
+  </Interfaces>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Gets the text resource.
+        /// </summary>
+        /// <param name="resourcePath">The resource path.</param>
+        /// <returns>The text resource</returns>
+        public string GetTextResource(string resourcePath)
+        {
+            return this.resourceLoader.GetTextResource(resourcePath);
+        }
+        ]]>
+  </Code>
+</CodeSnippet>
+

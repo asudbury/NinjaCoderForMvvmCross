@@ -1,0 +1,26 @@
+﻿<CodeSnippet>
+  <UsingStatements>
+    <Statement>Cirrious.CrossCore.UI</Statement>
+  </UsingStatements>
+  <MockVariables>
+    <MockVariable>IMvxNativeColor mockColor</MockVariable>
+  </MockVariables>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Test the Get Color.
+        /// </summary>
+        [Test]
+        public void TestGetColor()
+        {
+            //// arrange
+
+            //// act
+            this.firstViewModel.GetColor(new MvxColor(0,0,0));
+            
+            //// assert
+        }
+    ]]>
+  </Code>
+</CodeSnippet>
+

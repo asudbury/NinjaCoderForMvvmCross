@@ -1,0 +1,27 @@
+﻿<CodeSnippet>
+  <MockVariables>
+    <MockVariable>IMvxCombinedPictureChooserTask mockPictureChooserTask</MockVariable>
+  </MockVariables>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Tests Choose or Take Picture.
+        /// </summary>
+        [Test]
+        public void TestChooseOrTakePicture()
+        {
+            //// arrange
+            
+            //// act
+            /*this.TestableObject.ChooseOrTakePicture(
+               maxPixelDimension, 
+               percentQuality, 
+               "pictureAvailable", 
+               "assumeCancelled");*/
+            
+            //// assert
+        }
+    ]]>
+  </Code>
+</CodeSnippet>
+
