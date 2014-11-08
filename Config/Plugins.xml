@@ -1,0 +1,479 @@
+<Plugins>
+
+<Plugin>
+  <Name>Accelerometer</Name>
+  <NugetPackage>MvvmCross.HotTuna.Plugin.Accelerometer</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.Accelerometer</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>Bookmarks</Name>
+  <NugetPackage>MvvmCross.HotTuna.Plugin.Bookmarks</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.Bookmarks</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>Color</Name>
+  <NugetPackage>MvvmCross.HotTuna.Plugin.Color</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.UI</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>DownloadCache</Name>
+  <NugetPackage>MvvmCross.HotTuna.Plugin.DownloadCache</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.DownloadCache</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>Email</Name>
+  <NugetPackage>MvvmCross.HotTuna.Plugin.Email</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.Email</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>FieldBinding</Name>
+  <NugetPackage>MvvmCross.HotTuna.Plugin.FieldBinding</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.FieldBinding</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>File</Name>
+  <NugetPackage>MvvmCross.HotTuna.Plugin.File</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.File</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+    <Name>Json</Name>
+    <NugetPackage>MvvmCross.HotTuna.Plugin.Json</NugetPackage>
+    <UsingStatement>Cirrious.MvvmCross.Plugins.Json</UsingStatement>
+    <Platforms>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+      <Platform>WindowsStore</Platform>
+      <Platform>Wpf</Platform>
+    </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>JsonLocalisation</Name>
+  <NugetPackage>MvvmCross.HotTuna.Plugin.JsonLocalisation</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.JsonLocalisation</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>Location</Name>
+  <NugetPackage>MvvmCross.HotTuna.Plugin.Location</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.Location</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>Messenger</Name>
+  <NugetPackage>MvvmCross.HotTuna.Plugin.Messenger</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.Messenger</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>MethodBinding</Name>
+  <NugetPackage>MvvmCross.HotTuna.Plugin.MethodBinding</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.MethodBinding</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>Network</Name>
+  <NugetPackage>MvvmCross.HotTuna.Plugin.Network</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.Network</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>PhoneCall</Name>
+  <NugetPackage>MvvmCross.HotTuna.Plugin.PhoneCall</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.PhoneCall</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>PictureChooser</Name>
+  <NugetPackage>MvvmCross.HotTuna.Plugin.PictureChooser</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.PictureChooser</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>ReflectionEx</Name>
+  <NugetPackage>MvvmCross.HotTuna.Plugin.ReflectionEx</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.ReflectionEx</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>ResourceLoader</Name>
+  <NugetPackage>MvvmCross.HotTuna.Plugin.ResourceLoader</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.ResourceLoader</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>Settings</Name>
+  <NugetPackage>MvvmCross.Plugins.Settings</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.Settings</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>Share</Name>
+  <NugetPackage>MvvmCross.HotTuna.Plugin.Share</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.Share</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>SoundEffects</Name>
+  <NugetPackage>MvvmCross.HotTuna.Plugin.SoundEffects</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.SoundEffects</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>ThreadUtils</Name>
+  <NugetPackage>MvvmCross.HotTuna.Plugin.ThreadUtils</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.ThreadUtils</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+    <Name>Visibility</Name>
+    <NugetPackage>MvvmCross.HotTuna.Plugin.Visibility</NugetPackage>
+    <UsingStatement>Cirrious.MvvmCross.Plugins.Visibility</UsingStatement>
+    <Platforms>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+      <Platform>WindowsStore</Platform>
+      <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>WebBrowser</Name>
+  <NugetPackage>MvvmCross.HotTuna.Plugin.WebBrowser</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.WebBrowser</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+</Plugin>
+
+<Plugin>
+  <Name>ModernHttpClient</Name>
+  <NugetPackage>EShyMedia.MvvmCross.Plugins.ModernHttpClient</NugetPackage>
+  <BootstrapFileNameOverride>ModernHttpClientPluginBootstrap.cs</BootstrapFileNameOverride>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+  <CommunityPlugin>Y</CommunityPlugin>
+</Plugin>
+
+<Plugin>
+  <Name>Sms</Name>
+  <NugetPackage>Cheesebaron.MvvmCross.Plugins.Sms</NugetPackage>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+  <CommunityPlugin>Y</CommunityPlugin>
+</Plugin>
+
+<Plugin>
+  <Name>Sqlite</Name>
+  <NugetPackage>MvvmCross.Community.Plugin.Sqlite</NugetPackage>
+  <UsingStatement>Cirrious.MvvmCross.Plugins.Sqlite</UsingStatement>
+  <BootstrapFileNameOverride>CommunitySqlitePluginBootstrap.cs</BootstrapFileNameOverride>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+  <CommunityPlugin>Y</CommunityPlugin>
+</Plugin>
+
+<Plugin>
+  <Name>UserInteraction</Name>
+  <NugetPackage>Chance.MvvmCross.Plugins.UserInteraction</NugetPackage>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+    <Platform>WindowsStore</Platform>
+    <Platform>Wpf</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>MvvmCross</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+  <CommunityPlugin>Y</CommunityPlugin>
+</Plugin>
+
+<Plugin>
+  <Name>Xamarin.Forms.Labs</Name>
+  <NugetPackage>Xamarin.Forms.Labs</NugetPackage>
+  <UsingStatement>Xamarin.Forms.Labs</UsingStatement>
+  <Platforms>
+    <Platform>iOS</Platform>
+    <Platform>Droid</Platform>
+    <Platform>WindowsPhone</Platform>
+  </Platforms>
+  <Frameworks>
+	<Framework>Xamarin Forms</Framework>
+	<Framework>MvvmCross and Xamarin Forms</Framework>
+  </Frameworks>
+  <CommunityPlugin>Y</CommunityPlugin>
+</Plugin>
+
+</Plugins>
