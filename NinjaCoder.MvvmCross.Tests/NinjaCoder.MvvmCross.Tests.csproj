@@ -80,7 +80,6 @@
     <Compile Include="Services\TestApplicationService.cs" />
     <Compile Include="Services\TestCodeConfigService.cs" />
     <Compile Include="Services\TestPluginService.cs" />
-    <Compile Include="Services\TestConfigurationService.cs" />
     <Compile Include="Services\TestNugetService.cs" />
     <Compile Include="Services\TestPluginsService.cs" />
     <Compile Include="Services\TestProjectsService.cs" />

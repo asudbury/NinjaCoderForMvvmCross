@@ -24,12 +24,6 @@ namespace Scorchio.Infrastructure.Services.Testing.Interfaces
         string MockingAssemblyReference { get; }
 
         /// <summary>
-        /// Updates the project references.
-        /// </summary>
-        /// <param name="projectService">The project service.</param>
-        void UpdateProjectReferences(IProjectService projectService);
-
-        /// <summary>
         /// Injects the mocking details.
         /// </summary>
         /// <param name="codeSnippet">The code snippet.</param>

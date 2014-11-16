@@ -138,7 +138,7 @@ namespace Scorchio.VisualStudio.Services
 
             if (DisplayErrors)
             {
-                MessageBox.Show(message, "Ninja Coder for MvvmCross");
+                MessageBox.Show(message, "Ninja Coder for MvvmCross and Xamarin Forms");
             }
 
             WriteLine("--------------------------------------------------------");

@@ -13,7 +13,7 @@ namespace Scorchio.Infrastructure.Services.Testing
     /// <summary>
     ///  Defines the NSubstituteMockingService type.
     /// </summary>
-    public class NSubstituteMockingService : BaseMockingService, IMockingService
+    public class NSubstituteMockingService : IMockingService
     {
         /// <summary>
         /// The nsubstitute

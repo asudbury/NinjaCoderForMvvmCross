@@ -119,7 +119,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
         public void TestAddPlugins()
         {
             //// arrange
-
+            /*
             List<Plugin> plugins = new List<Plugin>
                                        {
                                            new Plugin
@@ -179,7 +179,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
                 true, 
                 false);*/
 
-            //// assert
+            //// assert*/
         }
 
         /// <summary>

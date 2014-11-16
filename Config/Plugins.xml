@@ -460,20 +460,4 @@
   <CommunityPlugin>Y</CommunityPlugin>
 </Plugin>
 
-<Plugin>
-  <Name>Xamarin.Forms.Labs</Name>
-  <NugetPackage>Xamarin.Forms.Labs</NugetPackage>
-  <UsingStatement>Xamarin.Forms.Labs</UsingStatement>
-  <Platforms>
-    <Platform>iOS</Platform>
-    <Platform>Droid</Platform>
-    <Platform>WindowsPhone</Platform>
-  </Platforms>
-  <Frameworks>
-	<Framework>Xamarin Forms</Framework>
-	<Framework>MvvmCross and Xamarin Forms</Framework>
-  </Frameworks>
-  <CommunityPlugin>Y</CommunityPlugin>
-</Plugin>
-
 </Plugins>

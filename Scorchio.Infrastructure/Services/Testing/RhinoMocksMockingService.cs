@@ -13,7 +13,7 @@ namespace Scorchio.Infrastructure.Services.Testing
     /// <summary>
     ///  Defines the RhinoMocksMockingService type.
     /// </summary>
-    public class RhinoMocksMockingService : BaseMockingService, IMockingService
+    public class RhinoMocksMockingService : IMockingService
     {
         /// <summary>
         /// Gets the name.

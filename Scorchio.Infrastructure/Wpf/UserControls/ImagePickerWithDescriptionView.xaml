@@ -7,9 +7,8 @@
         <DataTemplate x:Key="Template">
             <StackPanel>
                 <Image Source="{Binding ImageUrl}" Margin="8,8,8,8" Height="150" Width="150" />
-                <RadioButton Content="{Binding Name}" GroupName="Options" HorizontalAlignment="Center" IsChecked="{Binding Selected}"></RadioButton>
+                <RadioButton Content="{Binding Name}" GroupName="Options" HorizontalAlignment="Center" IsChecked="{Binding Path=Selected, Mode=TwoWay}"></RadioButton>
                 <TextBlock HorizontalAlignment="Center" Text="{Binding Description}" Margin="5"></TextBlock>
-
             </StackPanel>
         </DataTemplate>
 

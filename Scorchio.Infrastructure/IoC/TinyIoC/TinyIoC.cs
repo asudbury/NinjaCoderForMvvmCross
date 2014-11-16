@@ -2645,7 +2645,7 @@ namespace TinyIoC
             foreach (var check in ignoreChecks)
             {
                 if (check(type))
-                    return true;
+                     return true;
             }
 
             return false;
@@ -2655,11 +2655,9 @@ namespace TinyIoC
         {
             Register<TinyIoCContainer>(this);
 
-#if TINYMESSENGER
             // Only register the TinyMessenger singleton if we are the root container
             if (_Parent == null)
                 Register<TinyMessenger.ITinyMessengerHub, TinyMessenger.TinyMessengerHub>();
-#endif
         }
 
         private ObjectFactoryBase GetCurrentFactory(TypeRegistration registration)

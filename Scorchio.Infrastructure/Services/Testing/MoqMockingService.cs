@@ -13,7 +13,7 @@ namespace Scorchio.Infrastructure.Services.Testing
     /// <summary>
     ///  Defines the MoqMockingService type.
     /// </summary>
-    public class MoqMockingService : BaseMockingService, IMockingService
+    public class MoqMockingService : IMockingService
     {
         /// <summary>
         /// The moq.

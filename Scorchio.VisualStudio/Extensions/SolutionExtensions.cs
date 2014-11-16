@@ -228,19 +228,20 @@ namespace Scorchio.VisualStudio.Extensions
 
                 if (project != null)
                 {
-                    string context =  " project=" + project.Name + " template=" + info.TemplateName + " fileName=" + info.FileName;
+                    string context =  project.Name + "  (template=" + info.TemplateName + ") fileName=" + info.FileName;
 
                     TraceService.WriteLine("AddItemTemplateToProjects"  + context);
 
                     try
                     {
                         project.AddToFolderFromTemplate(info.TemplateName, info.FileName);
-                        messages.Add(info.FileName + " added to " + project.Name + " project.");
+                        messages.Add(info.FileName + " added to " + project.Name + " project (template=" + info.TemplateName + ")");
                     }
 
                     catch (Exception exception)
                     {
-                        TraceService.WriteError( context + " exception=" + exception.Message);
+                        TraceService.WriteError(context + " exception=" + exception.Message);
+                        messages.Add(context + " exception=" + exception.Message);
                     }
                 }
                 else
@@ -251,7 +252,7 @@ namespace Scorchio.VisualStudio.Extensions
                         .Select(projectItem => projectItem.Name))
                     {
                         TraceService.WriteError("AddItemTemplateToProjects project " + projectName);
-                        messages.Add(info.FileName + " added to " + projectName + " project.");
+                        messages.Add(info.FileName + " added to " + projectName + " project (template=" + info.TemplateName + ")");
                     }
                 }
             }

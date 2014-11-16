@@ -47,6 +47,7 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.XML" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -62,11 +63,14 @@
     <Compile Include="Extensions\DirectoryInfoExtensions.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\ResourceDictionaryExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\ThemeManagerExtensions.cs" />
     <Compile Include="Factories\IThemeFactory.cs" />
     <Compile Include="Factories\ThemeFactory.cs" />
+    <Compile Include="IoC\TinyIoC\TinyIoC.cs" />
+    <Compile Include="IoC\TinyIoC\TinyMessenger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -85,7 +89,6 @@
     <Compile Include="Services\IMessageBoxService.cs" />
     <Compile Include="Services\IZipperService.cs" />
     <Compile Include="Services\MessageBoxService.cs" />
-    <Compile Include="Services\Testing\BaseMockingService.cs" />
     <Compile Include="Services\Testing\BaseTestingService.cs" />
     <Compile Include="Services\Testing\Interfaces\IMockingService.cs" />
     <Compile Include="Services\Testing\Interfaces\ITestingService.cs" />

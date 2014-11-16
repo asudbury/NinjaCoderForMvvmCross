@@ -32,11 +32,6 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
         private ProjectsController controller;
 
         /// <summary>
-        /// The mock configuration service.
-        /// </summary>
-        private Mock<IConfigurationService> mockConfigurationService;
-
-        /// <summary>
         /// The mock projects service.
         /// </summary>
         private Mock<IProjectsService> mockProjectsService;
@@ -102,9 +97,9 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
         [TestFixtureSetUp]
         public void Initialize()
         {
+            /*
             AttributesToAvoidReplicating.Add<TypeIdentifierAttribute>();
 
-            this.mockConfigurationService = new Mock<IConfigurationService>();
             this.mockProjectsService = new Mock<IProjectsService>();
             this.mockNugetService = new Mock<INugetService>();
             this.mockVisualStudioService = new Mock<IVisualStudioService>();
@@ -118,7 +113,6 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
 
             this.mockReadMeService = new Mock<IReadMeService>();
             this.controller = new ProjectsController(
-                this.mockConfigurationService.Object,
                 this.mockProjectsService.Object,
                 this.mockNugetService.Object,
                 this.mockVisualStudioService.Object,
@@ -138,7 +132,7 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
 
             this.mockProjectService.SetupGet(x => x.Name).Returns("Hello.Core");
 
-            this.mockVisualStudioService.SetupGet(x => x.CoreProjectService).Returns(this.mockProjectService.Object);
+            this.mockVisualStudioService.SetupGet(x => x.CoreProjectService).Returns(this.mockProjectService.Object);*/
         }
 
         /// <summary>

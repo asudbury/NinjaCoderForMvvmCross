@@ -19,6 +19,104 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaCoder.MvvmCross.UI", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaCoder.MvvmCross.UpdateChecker", "NinjaCoder.MvvmCross.UpdateChecker\NinjaCoder.MvvmCross.UpdateChecker.csproj", "{68179A9A-9E34-4B94-9240-84E9DF04C809}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{D8877B22-87DF-4D49-917C-AEB6EC4CDBEA}"
+	ProjectSection(SolutionItems) = preProject
+		Config\NugetServices.xml = Config\NugetServices.xml
+		Config\Plugins.xml = Config\Plugins.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeSnippets", "CodeSnippets", "{090C89C7-94C7-4F18-A81A-FB35605C9EAA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{AB0A8FF3-1853-4ED8-9AEF-D1B355C9C249}"
+	ProjectSection(SolutionItems) = preProject
+		Config\CodeSnippets\Plugins\Plugins.Accelerometer.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Accelerometer.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.Accelerometer.xml = Config\CodeSnippets\Plugins\Plugins.Accelerometer.xml
+		Config\CodeSnippets\Plugins\Plugins.AppId.Tests.xml = Config\CodeSnippets\Plugins\Plugins.AppId.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.AppId.xml = Config\CodeSnippets\Plugins\Plugins.AppId.xml
+		Config\CodeSnippets\Plugins\Plugins.Bitmap.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Bitmap.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.Bitmap.xml = Config\CodeSnippets\Plugins\Plugins.Bitmap.xml
+		Config\CodeSnippets\Plugins\Plugins.Bookmarks.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Bookmarks.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.Bookmarks.xml = Config\CodeSnippets\Plugins\Plugins.Bookmarks.xml
+		Config\CodeSnippets\Plugins\Plugins.Color.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Color.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.Color.xml = Config\CodeSnippets\Plugins\Plugins.Color.xml
+		Config\CodeSnippets\Plugins\Plugins.Connectivity.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Connectivity.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.Connectivity.xml = Config\CodeSnippets\Plugins\Plugins.Connectivity.xml
+		Config\CodeSnippets\Plugins\Plugins.DownloadCache.Tests.xml = Config\CodeSnippets\Plugins\Plugins.DownloadCache.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.DownloadCache.xml = Config\CodeSnippets\Plugins\Plugins.DownloadCache.xml
+		Config\CodeSnippets\Plugins\Plugins.Email.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Email.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.Email.xml = Config\CodeSnippets\Plugins\Plugins.Email.xml
+		Config\CodeSnippets\Plugins\Plugins.FaceTime.Tests.xml = Config\CodeSnippets\Plugins\Plugins.FaceTime.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.FaceTime.xml = Config\CodeSnippets\Plugins\Plugins.FaceTime.xml
+		Config\CodeSnippets\Plugins\Plugins.FieldBinding.xml = Config\CodeSnippets\Plugins\Plugins.FieldBinding.xml
+		Config\CodeSnippets\Plugins\Plugins.File.Tests.xml = Config\CodeSnippets\Plugins\Plugins.File.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.File.xml = Config\CodeSnippets\Plugins\Plugins.File.xml
+		Config\CodeSnippets\Plugins\Plugins.Json.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Json.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.Json.xml = Config\CodeSnippets\Plugins\Plugins.Json.xml
+		Config\CodeSnippets\Plugins\Plugins.Network.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Network.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.Network.xml = Config\CodeSnippets\Plugins\Plugins.Network.xml
+		Config\CodeSnippets\Plugins\Plugins.PhoneCall.Tests.xml = Config\CodeSnippets\Plugins\Plugins.PhoneCall.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.PhoneCall.xml = Config\CodeSnippets\Plugins\Plugins.PhoneCall.xml
+		Config\CodeSnippets\Plugins\Plugins.PictureChooser.Tests.xml = Config\CodeSnippets\Plugins\Plugins.PictureChooser.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.PictureChooser.xml = Config\CodeSnippets\Plugins\Plugins.PictureChooser.xml
+		Config\CodeSnippets\Plugins\Plugins.ReflectionEx.Tests.xml = Config\CodeSnippets\Plugins\Plugins.ReflectionEx.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.ReflectionEx.xml = Config\CodeSnippets\Plugins\Plugins.ReflectionEx.xml
+		Config\CodeSnippets\Plugins\Plugins.ResourceLoader.Tests.xml = Config\CodeSnippets\Plugins\Plugins.ResourceLoader.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.ResourceLoader.xml = Config\CodeSnippets\Plugins\Plugins.ResourceLoader.xml
+		Config\CodeSnippets\Plugins\Plugins.Settings.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Settings.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.Settings.xml = Config\CodeSnippets\Plugins\Plugins.Settings.xml
+		Config\CodeSnippets\Plugins\Plugins.Share.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Share.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.Share.xml = Config\CodeSnippets\Plugins\Plugins.Share.xml
+		Config\CodeSnippets\Plugins\Plugins.SimpleWebToken.Tests.xml = Config\CodeSnippets\Plugins\Plugins.SimpleWebToken.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.SimpleWebToken.xml = Config\CodeSnippets\Plugins\Plugins.SimpleWebToken.xml
+		Config\CodeSnippets\Plugins\Plugins.SMS.Tests.xml = Config\CodeSnippets\Plugins\Plugins.SMS.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.SMS.xml = Config\CodeSnippets\Plugins\Plugins.SMS.xml
+		Config\CodeSnippets\Plugins\Plugins.SoundEffects.Tests.xml = Config\CodeSnippets\Plugins\Plugins.SoundEffects.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.SoundEffects.xml = Config\CodeSnippets\Plugins\Plugins.SoundEffects.xml
+		Config\CodeSnippets\Plugins\Plugins.ThreadUtils.Tests.xml = Config\CodeSnippets\Plugins\Plugins.ThreadUtils.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.ThreadUtils.xml = Config\CodeSnippets\Plugins\Plugins.ThreadUtils.xml
+		Config\CodeSnippets\Plugins\Plugins.UserInteraction.Tests.xml = Config\CodeSnippets\Plugins\Plugins.UserInteraction.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.UserInteraction.xml = Config\CodeSnippets\Plugins\Plugins.UserInteraction.xml
+		Config\CodeSnippets\Plugins\Plugins.Vibration.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Vibration.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.Vibration.xml = Config\CodeSnippets\Plugins\Plugins.Vibration.xml
+		Config\CodeSnippets\Plugins\Plugins.WebBrowser.Tests.xml = Config\CodeSnippets\Plugins\Plugins.WebBrowser.Tests.xml
+		Config\CodeSnippets\Plugins\Plugins.WebBrowser.xml = Config\CodeSnippets\Plugins\Plugins.WebBrowser.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuSpec", "NuSpec", "{6487A2BF-47FE-41C6-9B7F-D33363630C95}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\Scorchio.NinjaCoder.MvvmCross.Tests.1.0.0.nuspec = NuSpec\Scorchio.NinjaCoder.MvvmCross.Tests.1.0.0.nuspec
+		NuSpec\Scorchio.NinjaCoder.NoFramework.1.0.0.nuspec = NuSpec\Scorchio.NinjaCoder.NoFramework.1.0.0.nuspec
+		NuSpec\Scorchio.NinjaCoder.Xamarin.Forms.1.0.0.nuspec = NuSpec\Scorchio.NinjaCoder.Xamarin.Forms.1.0.0.nuspec
+		NuSpec\Scorchio.NinjaCoder.Xamarin.Forms.Core.1.0.0.nuspec = NuSpec\Scorchio.NinjaCoder.Xamarin.Forms.Core.1.0.0.nuspec
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreContent", "CoreContent", "{E76B8226-5817-4860-98EC-CC1C86C6A553}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\CoreContent\FormsBaseViewModel.cs.pp = NuSpec\CoreContent\FormsBaseViewModel.cs.pp
+		NuSpec\CoreContent\FormsHelper.cs.pp = NuSpec\CoreContent\FormsHelper.cs.pp
+		NuSpec\CoreContent\XamarinFormsSchema.xsd = NuSpec\CoreContent\XamarinFormsSchema.xsd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DroidContent", "DroidContent", "{27ACB350-F997-4C86-8627-1E992EC96D77}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\DroidContent\FormsMainActivity.cs.pp = NuSpec\DroidContent\FormsMainActivity.cs.pp
+		NuSpec\DroidContent\NoFrameWorkMainActivity.cs.pp = NuSpec\DroidContent\NoFrameWorkMainActivity.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iOSContent", "iOSContent", "{2A3020F4-39C2-4D09-BEC0-720FCAC574A9}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\iOSContent\FormsAppDelegate.cs.pp = NuSpec\iOSContent\FormsAppDelegate.cs.pp
+		NuSpec\iOSContent\NoFramewworkAppDelegate.cs.pp = NuSpec\iOSContent\NoFramewworkAppDelegate.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsPhoneContent", "WindowsPhoneContent", "{1482A166-AD47-4788-A0FA-A805008B1BC1}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\WindowsPhoneContent\FormsMainPage.xaml.cs.pp = NuSpec\WindowsPhoneContent\FormsMainPage.xaml.cs.pp
+		NuSpec\WindowsPhoneContent\FormsMainPage.xaml.pp = NuSpec\WindowsPhoneContent\FormsMainPage.xaml.pp
+		NuSpec\WindowsPhoneContent\NoFrameworkApp.xaml.cs.pp = NuSpec\WindowsPhoneContent\NoFrameworkApp.xaml.cs.pp
+		NuSpec\WindowsPhoneContent\NoFrameworkApp.xaml.pp = NuSpec\WindowsPhoneContent\NoFrameworkApp.xaml.pp
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -579,5 +677,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{090C89C7-94C7-4F18-A81A-FB35605C9EAA} = {D8877B22-87DF-4D49-917C-AEB6EC4CDBEA}
+		{AB0A8FF3-1853-4ED8-9AEF-D1B355C9C249} = {090C89C7-94C7-4F18-A81A-FB35605C9EAA}
+		{E76B8226-5817-4860-98EC-CC1C86C6A553} = {6487A2BF-47FE-41C6-9B7F-D33363630C95}
+		{27ACB350-F997-4C86-8627-1E992EC96D77} = {6487A2BF-47FE-41C6-9B7F-D33363630C95}
+		{2A3020F4-39C2-4D09-BEC0-720FCAC574A9} = {6487A2BF-47FE-41C6-9B7F-D33363630C95}
+		{1482A166-AD47-4788-A0FA-A805008B1BC1} = {6487A2BF-47FE-41C6-9B7F-D33363630C95}
 	EndGlobalSection
 EndGlobal

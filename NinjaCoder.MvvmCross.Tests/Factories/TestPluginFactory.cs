@@ -12,8 +12,6 @@ namespace NinjaCoder.MvvmCross.Tests.Factories
     using NinjaCoder.MvvmCross.Tests.Mocks;
     using NUnit.Framework;
     using Scorchio.Infrastructure.Translators;
-    using System;
-    using System.Collections.Generic;
     using System.IO.Abstractions;
 
     /// <summary>
@@ -33,11 +31,6 @@ namespace NinjaCoder.MvvmCross.Tests.Factories
         private Mock<IPluginsService> mockPluginsService;
 
         /// <summary>
-        /// The mock file system.
-        /// </summary>
-        private Mock<IFileSystem> mockFileSystem;
-
-        /// <summary>
         /// The mock settings service.
         /// </summary>
         private Mock<ISettingsService> mockSettingsService;
@@ -45,7 +38,7 @@ namespace NinjaCoder.MvvmCross.Tests.Factories
         /// <summary>
         /// The mock plugins translator.
         /// </summary>
-        private Mock<ITranslator<IEnumerable<DirectoryInfoBase>, Plugins>> mockPluginsTranslator;
+        private Mock<ITranslator<string, Plugins>> mockPluginsTranslator;
 
         /// <summary>
         /// The mock plugin translator.
@@ -58,24 +51,18 @@ namespace NinjaCoder.MvvmCross.Tests.Factories
         [TestFixtureSetUp]
         public void Initialize()
         {
+            /*
             this.mockPluginsService = new Mock<IPluginsService>();
-            this.mockFileSystem = new Mock<IFileSystem>();
             this.mockSettingsService = new Mock<ISettingsService>();
-            this.mockPluginsTranslator = new Mock<ITranslator<IEnumerable<DirectoryInfoBase>, Plugins>>();
+            this.mockPluginsTranslator = new Mock<ITranslator<string, Plugins>>();
             this.mockPluginTranslator = new Mock<ITranslator<FileInfoBase, Plugin>>();
 
-            MockDirectoryInfoFactory mockDirectoryInfoFactory = new MockDirectoryInfoFactory();
-            this.mockFileSystem.SetupGet(x => x.DirectoryInfo).Returns(mockDirectoryInfoFactory);
-
             MockDirectory mockDirectory = new MockDirectory { DirectoryExists = true };
-            this.mockFileSystem.SetupGet(x => x.Directory).Returns(mockDirectory);
             
             this.factory = new PluginFactory(
                 this.mockPluginsService.Object,
-                this.mockFileSystem.Object,
                 this.mockSettingsService.Object,
-                this.mockPluginsTranslator.Object,
-                this.mockPluginTranslator.Object);
+                this.mockPluginsTranslator.Object);*/
         }
 
         /// <summary>
@@ -96,15 +83,6 @@ namespace NinjaCoder.MvvmCross.Tests.Factories
         public void TestGetPlugins()
         {
             Plugins plugins = this.factory.GetPlugins();
-        }
-
-        /// <summary>
-        /// Tests the name of the get plugin by.
-        /// </summary>
-        [Test]
-        public void TestGetPluginByName()
-        {
-            Plugin plugin = this.factory.GetPluginByName("name");
         }
     }
 }
