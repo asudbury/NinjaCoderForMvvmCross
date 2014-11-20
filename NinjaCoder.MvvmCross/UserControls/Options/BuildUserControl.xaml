@@ -12,8 +12,20 @@
     </UserControl.Resources>
     <StackPanel Margin="10">
         <CheckBox 
+            Content="Use Local Config Uris for Plugins and Nuget Packages" 
+            Margin="10"
+            IsChecked="{Binding UseLocalUris}"/>
+        <CheckBox 
             Content="{DynamicResource CheckForNinjaCoderUpdates}" 
             Margin="10"
             IsChecked="{Binding CheckForUpdates}"/>
+        <CheckBox 
+            Content="Output Nuget commands to Read Me file" 
+            Margin="10"
+            IsChecked="{Binding OutputNugetCommandsToReadMe}"/>
+        <CheckBox 
+            Content="Output Errors to Read Me file" 
+            Margin="10"
+            IsChecked="{Binding OutputErrorsToReadMe}"/>
     </StackPanel>
 </userControls:BaseUserControl>

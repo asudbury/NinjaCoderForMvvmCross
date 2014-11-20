@@ -5,6 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
+    using System.Xml.Linq;
+
     using Entities;
     using EnvDTE;
     using EnvDTE80;
@@ -203,8 +205,8 @@ namespace NinjaCoder.MvvmCross.Controllers
                     //// register the types that aren't auto-registered by TinyIoC.
                     container.Register<ITranslator<string, CodeConfig>>(new CodeConfigTranslator());
                     container.Register<ITranslator<string, CodeSnippet>>(new CodeSnippetTranslator());
-                    container.Register<ITranslator<FileInfoBase, Plugin>>(new PluginTranslator(new SettingsService()));
-                    container.Register<ITranslator<IEnumerable<DirectoryInfoBase>, Plugins>>(new PluginsTranslator(new PluginTranslator(new SettingsService())));
+                    container.Register<ITranslator<XElement, Plugin>>(new PluginTranslator());
+                    container.Register<ITranslator<string, Plugins>>(new PluginsTranslator(new PluginTranslator()));
 
                     //// file io abstraction
                     container.Register<IFileSystem>(new FileSystem());

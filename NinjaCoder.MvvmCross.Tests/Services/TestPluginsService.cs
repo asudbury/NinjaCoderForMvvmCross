@@ -197,7 +197,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
             mockProjectService.SetupGet(x => x.Project).Returns(mockProject.Object);
 
             //// act
-            IEnumerable<Plugin> addedPlugins = this.service.AddProjectPlugins(
+            this.service.AddProjectPlugins(
                mockProjectService.Object, 
                plugins, 
                true);
@@ -206,8 +206,6 @@ namespace NinjaCoder.MvvmCross.Tests.Services
             this.mockPluginService.Verify(x => x.AddProjectPlugin(
                 It.IsAny<IProjectService>(), 
                 It.IsAny<Plugin>()));
-
-            Assert.IsTrue(addedPlugins.Any());
         }
     }
 }

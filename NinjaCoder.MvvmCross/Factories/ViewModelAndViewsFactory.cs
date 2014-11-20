@@ -11,6 +11,8 @@ namespace NinjaCoder.MvvmCross.Factories
 
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Services;
+
     using Services.Interfaces;
     using System.Collections.Generic;
 
@@ -126,6 +128,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="requiredUIViews">The required UI views.</param>
         /// <param name="unitTestsRequired">if set to <c>true</c> [unit tests required].</param>
+        /// <param name="overwriteCurrentFiles">if set to <c>true</c> [overwrite current files].</param>
         /// <returns>
         /// The required template.
         /// </returns>
@@ -133,20 +136,26 @@ namespace NinjaCoder.MvvmCross.Factories
             View view,
             string viewModelName,
             IEnumerable<ItemTemplateInfo> requiredUIViews,
-            bool unitTestsRequired)
+            bool unitTestsRequired,
+            bool overwriteCurrentFiles)
         {
+            TraceService.WriteLine("ViewModelAndViewsFactory::GetRequiredViewModelAndViews");
+
             const string ViewModelSuffix = "ViewModel";
 
             List<ItemTemplateInfo> itemTemplateInfos = new List<ItemTemplateInfo>();
 
             //// first add the view model
 
-            if (this.settingsService.FrameworkType == FrameworkType.MvvmCross)
+            if (view.Framework == FrameworkType.MvvmCross.GetDescription())
             {
                 ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
                 {
                     ProjectSuffix = ProjectSuffix.Core.GetDescription(),
-                    TemplateName = this.GetViewModelTemplate(),
+
+                    TemplateName = this.GetViewModelTemplate(
+                        FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), 
+                        view.PageType),
                     FileName = viewModelName + ".cs",
                 };
 
@@ -156,18 +165,23 @@ namespace NinjaCoder.MvvmCross.Factories
 
                 foreach (ItemTemplateInfo itemTemplateInfo in requiredUIViews)
                 {
-                    itemTemplateInfo.TemplateName = this.GetViewTemplate(itemTemplateInfo.ProjectSuffix);
+                    itemTemplateInfo.TemplateName = this.GetViewTemplate(
+                        FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), 
+                        itemTemplateInfo.ProjectSuffix, 
+                        view.PageType);
                     itemTemplateInfo.FileName = viewName;
                     itemTemplateInfos.Add(itemTemplateInfo);
                 }                
             }
             
-            else if (this.settingsService.FrameworkType == FrameworkType.XamarinForms)
+            else if (view.Framework == FrameworkType.XamarinForms.GetDescription())
             {
                 ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
                 {
                     ProjectSuffix = ProjectSuffix.Core.GetDescription(),
-                    TemplateName = this.GetViewModelTemplate(),
+                    TemplateName = this.GetViewModelTemplate(
+                        FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework),
+                        view.PageType),
                     FileName = viewModelName + ".cs",
                 };
 
@@ -177,8 +191,11 @@ namespace NinjaCoder.MvvmCross.Factories
 
                 ItemTemplateInfo viewTemplateInfo = new ItemTemplateInfo
                 {
-                    ProjectSuffix = ProjectSuffix.Forms.GetDescription(),
-                    TemplateName = this.GetViewModelTemplate(),
+                    ProjectSuffix = ProjectSuffix.XamarinForms.GetDescription(),
+                    TemplateName = this.GetViewTemplate(
+                        FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework),
+                        string.Empty, 
+                        view.PageType),
                     FileName = viewName,
                 };
 
@@ -192,7 +209,9 @@ namespace NinjaCoder.MvvmCross.Factories
                 ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
                                             {
                                                 ProjectSuffix = ProjectSuffix.CoreTests.GetDescription(),
-                                                TemplateName = this.GetTestViewModelTemplate(),
+                                                TemplateName = this.GetTestViewModelTemplate(
+                                                    FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework),    
+                                                    view.PageType),
                                                 FileName = "Test" + viewModelName + ".cs",
                                             };
 
@@ -205,37 +224,66 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <summary>
         /// Gets the view model template.
         /// </summary>
-        /// <returns>The View Model Template.</returns>
-        internal string GetViewModelTemplate()
+        /// <param name="frameworkType">Type of the framework.</param>
+        /// <param name="pageType">Type of the page.</param>
+        /// <returns>
+        /// The View Model Template.
+        /// </returns>
+        internal string GetViewModelTemplate(
+            FrameworkType frameworkType,
+            string pageType)
         {
+            if (frameworkType == FrameworkType.XamarinForms)
+            {
+                return string.Format("MvvmCross.ViewModel.Blank.zip");
+            }
+
             return string.Format(
                 "MvvmCross.ViewModel.{0}.zip",
-                this.settingsService.SelectedViewType);
+                pageType);
         }
 
         /// <summary>
         /// Gets the test view model template.
         /// </summary>
-        /// <returns>The Test View Model Template.</returns>
-        internal string GetTestViewModelTemplate()
+        /// <param name="frameworkType">Type of the framework.</param>
+        /// <param name="pageType">Type of the page.</param>
+        /// <returns>
+        /// The Test View Model Template.
+        /// </returns>
+        internal string GetTestViewModelTemplate(
+            FrameworkType frameworkType,
+            string pageType)
         {
             return string.Format(
                 "MvvmCross.{0}.TestViewModel.{1}.zip",
                 this.settingsService.TestingFramework,
-                this.settingsService.SelectedViewType);
+                pageType);
         }
 
         /// <summary>
         /// Gets the view template.
         /// </summary>
+        /// <param name="frameworkType">Type of the framework.</param>
         /// <param name="type">The type.</param>
-        /// <returns>The View Template.</returns>
-        internal string GetViewTemplate(string type)
+        /// <param name="pageType">Type of the page.</param>
+        /// <returns>
+        /// The View Template.
+        /// </returns>
+        internal string GetViewTemplate(
+            FrameworkType frameworkType,
+            string type,
+            string pageType)
         {
+            if (frameworkType == FrameworkType.XamarinForms)
+            {
+                return "Xamarin.Forms.View.Blank.zip";
+            }
+
             return string.Format(
                 "MvvmCross{0}.View.{1}.zip",
                 type,
-                this.settingsService.SelectedViewType);
+                pageType);
         }
 
     }

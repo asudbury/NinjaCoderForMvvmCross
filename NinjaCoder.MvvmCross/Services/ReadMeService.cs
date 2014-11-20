@@ -55,7 +55,7 @@ namespace NinjaCoder.MvvmCross.Services
             string functionName,
             IEnumerable<string> lines)
         {
-            TraceService.WriteLine("ReadMeService::AddLines");
+            TraceService.WriteLine("ReadMeService::AddLines functionName=" + functionName);
 
             string currentLines = string.Empty;
 
@@ -102,18 +102,19 @@ namespace NinjaCoder.MvvmCross.Services
         /// <returns>The footer text.</returns>
         internal List<string> GetFooterLines()
         {
+            TraceService.WriteLine("ReadMeService::GetFooterLines");
+
             return new List<string>
             {
                 string.Empty,
                 this.GetSeperatorLine(),
-                "Ninja Coder for MvvmCross v" + this.settingsService.ApplicationVersion,
+                "Ninja Coder for MvvmCross and Xamarin Forms v" + this.settingsService.ApplicationVersion,
                 this.GetSeperatorLine(),
                 string.Empty,
-                "All feedback welcome - get in touch with the email or twitter address below.",
+                "All feedback welcome, please get in touch via twitter.",
                 string.Empty,
                 "Thanks",
                 string.Empty,
-                "asudbury@scorchio.org",
                 "@asudbury"
             };
         }

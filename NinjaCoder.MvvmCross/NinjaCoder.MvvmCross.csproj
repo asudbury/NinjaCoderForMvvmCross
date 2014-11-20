@@ -76,6 +76,7 @@
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\ViewModelViewsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Entities\ProjectTemplate.cs" />
     <Compile Include="Entities\Plugin.cs" />
     <Compile Include="Entities\Plugins.cs" />
     <Compile Include="Entities\View.cs" />
@@ -84,11 +85,10 @@
     <Compile Include="Entities\MvvmCrossAndXmarinFormsProjectTemplates.cs" />
     <Compile Include="Entities\ProjectSuffix.cs" />
     <Compile Include="Entities\ProjectType.cs" />
-    <Compile Include="Entities\XamarinFormsProjectTemplate.cs" />
     <Compile Include="Exceptions\NinjaCoderServiceException.cs" />
     <Compile Include="Exceptions\NinjaCoderException.cs" />
-    <Compile Include="Extensions\IoC\TinyIoC.cs" />
     <Compile Include="Extensions\PluginExtensions.cs" />
+    <Compile Include="Factories\BaseProjectFactory.cs" />
     <Compile Include="Factories\CodeConfigFactory.cs" />
     <Compile Include="Factories\CodeSnippetFactory.cs" />
     <Compile Include="Factories\FrameworkFactory.cs" />
@@ -98,6 +98,7 @@
     <Compile Include="Factories\Interfaces\ILanguageFactory.cs" />
     <Compile Include="Factories\Interfaces\IMockingServiceFactory.cs" />
     <Compile Include="Factories\Interfaces\IMvvmCrossAndXamarinFormsProjectFactory.cs" />
+    <Compile Include="Factories\Interfaces\INoFrameworkProjectFactory.cs" />
     <Compile Include="Factories\Interfaces\IMvvmCrossViewFactory.cs" />
     <Compile Include="Factories\Interfaces\IXamarinFormsProjectFactory.cs" />
     <Compile Include="Factories\Interfaces\IMvvmCrossProjectFactory.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Factories\LanguageFactory.cs" />
     <Compile Include="Factories\MockingServiceFactory.cs" />
     <Compile Include="Factories\MvvmCrossAndXamarinFormsProjectFactory.cs" />
+    <Compile Include="Factories\NoFrameworkProjectFactory.cs" />
     <Compile Include="Factories\MvvmCrossProjectFactory.cs" />
     <Compile Include="Factories\MvvmCrossViewFactory.cs" />
     <Compile Include="Factories\PluginFactory.cs" />
@@ -128,11 +130,9 @@
     <Compile Include="Services\ApplicationService.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\CodeConfigService.cs" />
-    <Compile Include="Services\ConfigurationService.cs" />
     <Compile Include="Services\Interfaces\IApplicationService.cs" />
     <Compile Include="Services\Interfaces\ICodeConfigService.cs" />
     <Compile Include="Services\Interfaces\ICodeSnippetService.cs" />
-    <Compile Include="Services\Interfaces\IConfigurationService.cs" />
     <Compile Include="Services\Interfaces\INugetCommandsService.cs" />
     <Compile Include="Services\Interfaces\INugetService.cs" />
     <Compile Include="Services\Interfaces\IPluginService.cs" />
@@ -162,6 +162,9 @@
     <Compile Include="Translators\PluginsTranslator.cs" />
     <Compile Include="Translators\CodeSnippetTranslator.cs" />
     <Compile Include="Translators\PluginTranslator.cs" />
+    <Compile Include="UserControls\AddPlugins\PluginsControl.xaml.cs">
+      <DependentUpon>PluginsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AddProjects\FinishedControl.xaml.cs">
       <DependentUpon>FinishedControl.xaml</DependentUpon>
     </Compile>
@@ -173,6 +176,9 @@
     </Compile>
     <Compile Include="UserControls\AddProjects\PageSelectorControl.xaml.cs">
       <DependentUpon>PageSelectorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AddProjects\NugetPackagesControl.xaml.cs">
+      <DependentUpon>NugetPackagesControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\AddProjects\ProjectsControl.xaml.cs">
       <DependentUpon>ProjectsControl.xaml</DependentUpon>
@@ -187,9 +193,6 @@
     <Compile Include="UserControls\Options\CodingStyleUserControl.xaml.cs">
       <DependentUpon>CodingStyleUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Options\PluginsUserControl.xaml.cs">
-      <DependentUpon>PluginsUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\Options\ProjectsUserControl.xaml.cs">
       <DependentUpon>ProjectsUserControl.xaml</DependentUpon>
     </Compile>
@@ -202,6 +205,8 @@
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\AddProjects\FinishedViewModel.cs" />
     <Compile Include="ViewModels\AddProjects\FrameworkSelectorViewModel.cs" />
+    <Compile Include="ViewModels\AddProjects\NugetPackagesViewModel.cs" />
+    <Compile Include="ViewModels\AddProjects\PluginsViewModel.cs" />
     <Compile Include="ViewModels\AddProjects\ProjectsViewModel.cs" />
     <Compile Include="ViewModels\AddProjects\ProjectsWizardViewModel.cs" />
     <Compile Include="ViewModels\AddProjects\ViewsViewModel.cs" />
@@ -210,7 +215,6 @@
     <Compile Include="ViewModels\Options\BuildViewModel.cs" />
     <Compile Include="ViewModels\Options\CodingStyleViewModel.cs" />
     <Compile Include="ViewModels\Options\OptionsViewModel.cs" />
-    <Compile Include="ViewModels\Options\PluginsViewModel.cs" />
     <Compile Include="ViewModels\Options\ProjectsViewModel.cs" />
     <Compile Include="ViewModels\Options\TracingViewModel.cs" />
     <Compile Include="ViewModels\Options\VisualViewModel.cs" />
@@ -259,7 +263,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="obj\" />
-    <Folder Include="UserControls\AddPlugins\" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Resources\App.xaml">
@@ -278,6 +281,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\AddPlugins\PluginsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControls\AddProjects\FinishedControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -294,6 +301,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\AddProjects\NugetPackagesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControls\AddProjects\ProjectsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -307,10 +318,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Options\CodingStyleUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\Options\PluginsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

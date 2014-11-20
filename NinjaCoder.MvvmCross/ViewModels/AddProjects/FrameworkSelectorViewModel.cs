@@ -9,19 +9,26 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
     using NinjaCoder.MvvmCross.Constants;
     using NinjaCoder.MvvmCross.Entities;
     using NinjaCoder.MvvmCross.Services.Interfaces;
+    using NinjaCoder.MvvmCross.UserControls.AddViews;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Wpf;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using System;
     using System.Collections.Generic;
     using System.Windows.Input;
-    using UserControls.AddProjects;
+
+    using PluginsControl = NinjaCoder.MvvmCross.UserControls.AddPlugins.PluginsControl;
 
     /// <summary>
     /// Defines the FrameworkSelectorViewModel type.
     /// </summary>
     public class FrameworkSelectorViewModel : BaseWizardStepViewModel
     {
+        /// <summary>
+        /// The visual studio service.
+        /// </summary>
+        private readonly IVisualStudioService visualStudioService;
+
         /// <summary>
         /// The settings service.
         /// </summary>
@@ -31,6 +38,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// The message box service.
         /// </summary>
         private readonly IMessageBoxService messageBoxService;
+
+        /// <summary>
+        /// No framework.
+        /// </summary>
+        private bool noFramework;
 
         /// <summary>
         /// The MVVM cross option.
@@ -48,27 +60,52 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         private bool mvvmcrossxamarinForms;
 
         /// <summary>
-        /// The enable xamarin forms.
-        /// </summary>
-        private bool enableXamarinForms;
-
-        /// <summary>
-        /// The enable MVVM cross and xamarin forms.
-        /// </summary>
-        private bool enableMvvmCrossAndXamarinForms;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="FrameworkSelectorViewModel"/> class.
         /// </summary>
         public FrameworkSelectorViewModel(
+            IVisualStudioService visualStudioService,
             ISettingsService settingsService,
             IMessageBoxService messageBoxService)
         {
+            this.visualStudioService = visualStudioService;
             this.settingsService = settingsService;
             this.messageBoxService = messageBoxService;
 
-            this.EnableXamarinForms = this.settingsService.EnableXamarinForms;
-            this.EnableMvvmCrossAndXamarinForms = this.settingsService.EnableMvvmCrossAndXamarinForms;
+            switch (this.settingsService.FrameworkType)
+            {
+                case FrameworkType.NoFramework:
+                    this.NoFramework = true;
+                    break;
+
+                case FrameworkType.XamarinForms:
+                    this.XamarinForms = true;
+                    break;
+
+                case FrameworkType.MvvmCrossAndXamarinForms:
+                    this.MvvmCrossXamarinForms = true;
+                    break;
+
+                default:
+                    this.MvvmCross = true;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [solution already created].
+        /// </summary>
+        public bool AllowFrameWorkSelection
+        {
+            get { return !this.visualStudioService.SolutionAlreadyCreated; }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [no framework].
+        /// </summary>
+        public bool NoFramework
+        {
+            get { return this.noFramework; }
+            set { this.SetProperty(ref this.noFramework, value); }
         }
 
         /// <summary>
@@ -99,24 +136,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         }
         
         /// <summary>
-        /// Gets or sets a value indicating whether [enable xamarin forms].
-        /// </summary>
-        public bool EnableXamarinForms
-        {
-            get { return this.enableXamarinForms; }
-            set { this.SetProperty(ref this.enableXamarinForms, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [enable MVVM cross and xamarin forms].
-        /// </summary>
-        public bool EnableMvvmCrossAndXamarinForms
-        {
-            get { return this.enableMvvmCrossAndXamarinForms; }
-            set { this.SetProperty(ref this.enableMvvmCrossAndXamarinForms, value); }
-        }
-
-        /// <summary>
         /// Gets the display name.
         /// </summary>
         public override string DisplayName
@@ -133,15 +152,23 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// </returns>
         public override RouteModifier OnNext()
         {
-            //// if we are mvvmcross then we don't want the xamarin forms steps
-            if (this.mvvmCross)
+            //// if no framework we cant setup up the viewmodels and views.
+            if (this.noFramework)
             {
-                return new RouteModifier 
+                return new RouteModifier
                 {
-                    ExcludeViewTypes = new List<Type> { typeof(LayoutSelectorControl), typeof(PageSelectorControl) },
+                    ExcludeViewTypes = new List<Type> { typeof(ViewsControl), typeof(PluginsControl) } 
                 };
             }
-             
+
+            if (this.xamarinForms)
+            {
+                return new RouteModifier
+                {
+                    ExcludeViewTypes = new List<Type> { typeof(PluginsControl) }
+                };
+            }
+
             return new RouteModifier();
         }
 
@@ -151,7 +178,12 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// <returns></returns>
         public override bool CanMoveToNextPage()
         {
-            if (this.mvvmCross)
+            if (this.noFramework)
+            {
+                this.settingsService.FrameworkType = FrameworkType.NoFramework;
+            }
+
+            else if (this.mvvmCross)
             {
                 this.settingsService.FrameworkType = FrameworkType.MvvmCross;
             }
@@ -163,14 +195,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 
             else if (this.MvvmCrossXamarinForms)
             {
-                this.messageBoxService.Show(
-                    "This option is not currently available - Will be available in a future release.",
-                    Settings.ApplicationName,
-                    true,
-                    Theme.Light, 
-                    this.settingsService.ThemeColor);
-
-                return false;
+                this.settingsService.FrameworkType = FrameworkType.MvvmCrossAndXamarinForms;
             }
 
             return true;

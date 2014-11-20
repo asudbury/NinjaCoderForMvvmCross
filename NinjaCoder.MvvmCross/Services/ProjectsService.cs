@@ -6,6 +6,8 @@
 namespace NinjaCoder.MvvmCross.Services
 {
     using Interfaces;
+
+    using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
@@ -53,15 +55,13 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="visualStudioServiceInstance">The visual studio service.</param>
         /// <param name="path">The path.</param>
         /// <param name="projectsInfos">The projects infos.</param>
-        /// <param name="solutionAlreadyCreated">if set to <c>true</c> [solution already created].</param>
         /// <returns>
         /// The messages.
         /// </returns>
         public IEnumerable<string> AddProjects(
             IVisualStudioService visualStudioServiceInstance,
             string path, 
-            IEnumerable<ProjectTemplateInfo> projectsInfos, 
-            bool solutionAlreadyCreated)
+            IEnumerable<ProjectTemplateInfo> projectsInfos)
         {
             IEnumerable<ProjectTemplateInfo> projectTemplateInfos = projectsInfos as ProjectTemplateInfo[] ?? projectsInfos.ToArray();
 
@@ -70,7 +70,7 @@ namespace NinjaCoder.MvvmCross.Services
             TraceService.WriteLine(message);
 
             //// reset the messages.
-            this.Messages = new List<string> { this.settingsService.FrameworkType + " framework selected." };
+            this.Messages = new List<string> { this.settingsService.FrameworkType.GetDescription() + " framework selected.", string.Empty };
 
             this.visualStudioService = visualStudioServiceInstance;
             
@@ -114,7 +114,7 @@ namespace NinjaCoder.MvvmCross.Services
 
             //// now add references to xamarin forms if required.
 
-            IProjectService formsProjectService = this.visualStudioService.FormsProjectService;
+            IProjectService formsProjectService = this.visualStudioService.XamarinFormsProjectService ;
 
             if (formsProjectService != null && 
                 projectService != null && 
@@ -169,11 +169,13 @@ namespace NinjaCoder.MvvmCross.Services
 
                 this.visualStudioService.SolutionService.AddProjectToSolution(projectPath, template, projectInfo.Name);
 
-                this.Messages.Add(projectInfo.Name + " project successfully added.  (template=" + projectInfo.TemplateName + ")");
+                this.Messages.Add(projectInfo.Name + " project successfully added. (template " + projectInfo.TemplateName + ")");
             }
             catch (Exception exception)
             {
                 TraceService.WriteError("error adding project " + projectPath + " exception=" + exception.Message + " templateName=" + projectInfo.TemplateName);
+               
+                this.Messages.Add(projectInfo.Name + " not added. Error " + exception.Message + " (template " + projectInfo.TemplateName + ")");
             }
         }
     }

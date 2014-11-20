@@ -29,5 +29,15 @@ namespace NinjaCoder.MvvmCross.Entities
         /// Gets or sets the type of the layout.
         /// </summary>
         public string LayoutType { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="View"/> is existing.
+        /// </summary>
+        public bool Existing { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [allow deletion].
+        /// </summary>
+        public bool AllowDeletion { get; set; }
     }
 }

@@ -15,6 +15,8 @@ namespace NinjaCoder.MvvmCross.Factories
     using UserControls.AddProjects;
     using ViewModels.AddProjects;
 
+    using PluginsControl = NinjaCoder.MvvmCross.UserControls.AddPlugins.PluginsControl;
+
     /// <summary>
     ///  Defines the ProjectFactory type.
     /// </summary>
@@ -45,6 +47,9 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             switch (frameworkType)
             {
+                case FrameworkType.NoFramework:
+                    return this.resolverService.Resolve<INoFrameworkProjectFactory>().GetAllowedProjects();
+
                 case FrameworkType.MvvmCross:
                     return this.resolverService.Resolve<IMvvmCrossProjectFactory>().GetAllowedProjects();
 
@@ -81,7 +86,16 @@ namespace NinjaCoder.MvvmCross.Factories
                     ViewModel = this.resolverService.Resolve<ViewsViewModel>(),
                     ViewType = typeof (ViewsControl)
                 },
-
+                new WizardStepViewModel
+                {
+                    ViewModel = this.resolverService.Resolve<PluginsViewModel>(),
+                    ViewType = typeof (PluginsControl)
+                },
+                new WizardStepViewModel
+                {
+                    ViewModel = this.resolverService.Resolve<NugetPackagesViewModel>(),
+                    ViewType = typeof (NugetPackagesControl)
+                },
                 new WizardStepViewModel
                 {
                     ViewModel = this.resolverService.Resolve<FinishedViewModel>(),

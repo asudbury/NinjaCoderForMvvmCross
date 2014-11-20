@@ -26,11 +26,6 @@ namespace NinjaCoder.MvvmCross.Factories
         private readonly ICodeSnippetService codeSnippetService;
 
         /// <summary>
-        /// The file system.
-        /// </summary>
-        private readonly IFileSystem fileSystem;
-
-        /// <summary>
         /// The settings service.
         /// </summary>
         private readonly ISettingsService settingsService;
@@ -63,7 +58,6 @@ namespace NinjaCoder.MvvmCross.Factories
             TraceService.WriteLine("CodeSnippetFactory::Constructor");
 
             this.codeSnippetService = codeSnippetService;
-            this.fileSystem = fileSystem;
             this.settingsService = settingsService;
             this.translator = translator;
             
@@ -93,7 +87,7 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             TraceService.WriteLine("CodeSnippetFactory::GetSnippet path=" + path);
 
-            return this.fileSystem.File.Exists(path) ? this.translator.Translate(path) : null;
+            return this.translator.Translate(path);
         }
 
         /// <summary>
@@ -111,7 +105,6 @@ namespace NinjaCoder.MvvmCross.Factories
 
             return this.GetSnippet(
                 this.settingsService.PluginsCodeSnippetsPath,
-                this.settingsService.UserCodeSnippetsPluginsPath,
                 fileName);
         }
 
@@ -128,7 +121,6 @@ namespace NinjaCoder.MvvmCross.Factories
             
             CodeSnippet codeSnippet = this.GetSnippet(
                 this.settingsService.PluginsCodeSnippetsPath,
-                this.settingsService.UserCodeSnippetsPluginsPath,
                 fileName);
 
             this.BuildTestingSnippet(codeSnippet);
@@ -149,7 +141,6 @@ namespace NinjaCoder.MvvmCross.Factories
 
             return this.GetSnippet(
                 this.settingsService.ServicesCodeSnippetsPath,
-                this.settingsService.UserCodeSnippetsServicesPath,
                 fileName);
         }
 
@@ -166,7 +157,6 @@ namespace NinjaCoder.MvvmCross.Factories
 
             return this.GetSnippet(
                 this.settingsService.CodeSnippetsPath,
-                this.settingsService.UserCodeSnippetsServicesPath,
                 fileName);
         }
 
@@ -174,31 +164,16 @@ namespace NinjaCoder.MvvmCross.Factories
         /// Gets the snippet.
         /// </summary>
         /// <param name="coreDirectory">The core directory.</param>
-        /// <param name="overrideDirectory">The override directory.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <returns>The code snippet.</returns>
         internal CodeSnippet GetSnippet(
             string coreDirectory,
-            string overrideDirectory,
             string fileName)
         {
             TraceService.WriteLine("CodeSnippetFactory::GetSnippet fileName=" + fileName);
 
-            //// first check the user directory
-            string snippetPath = string.Format(
-                "{0}{1}",
-                overrideDirectory,
-                fileName);
-
-            if (this.fileSystem.File.Exists(snippetPath))
-            {
-                TraceService.WriteLine("path=" + snippetPath);
-
-                return this.GetSnippet(snippetPath);
-            }
-
             //// use the core if no user version of the snippet.
-            snippetPath = string.Format(
+            string snippetPath = string.Format(
                 "{0}{1}",
                 coreDirectory,
                 fileName);

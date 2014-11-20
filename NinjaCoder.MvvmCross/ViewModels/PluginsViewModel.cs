@@ -44,14 +44,14 @@ namespace NinjaCoder.MvvmCross.ViewModels
         private readonly ObservableCollection<SelectableItemViewModel<Plugin>> communityPlugins;
 
         /// <summary>
-        /// The user plugins.
+        /// The core plugins selected
         /// </summary>
-        private readonly ObservableCollection<SelectableItemViewModel<Plugin>> userPlugins;
+        private bool corePluginsSelected;
 
         /// <summary>
-        /// The use nuget.
+        /// The community plugins selected
         /// </summary>
-        private bool useNuget;
+        public bool communityPluginsSelected;
 
         /// <summary>
         /// The view model names.
@@ -85,22 +85,23 @@ namespace NinjaCoder.MvvmCross.ViewModels
             this.settingsService = settingsService;
             this.visualStudioService = visualStudioService;
 
-            Plugins allPlugins = pluginFactory.GetPlugins();
+            Plugins allPlugins = pluginFactory.GetPlugins(this.settingsService.PluginsUri);
 
-            this.corePlugins = this.GetPlugins(allPlugins, false, false);
-            this.communityPlugins = this.GetPlugins(allPlugins, true, false);
-            this.userPlugins = this.GetPlugins(allPlugins, false, true);
+            this.corePlugins = this.GetPlugins(allPlugins, false);
+            this.communityPlugins = this.GetPlugins(allPlugins, true);
+
+            if (this.corePlugins.Any()== false &&
+                this.communityPlugins.Any())
+            {
+                this.CommunityPluginsSelected = true;
+            }
+
+            else
+            {
+                this.CorePluginsSelected = true;
+            }
 
             TraceService.WriteLine("PluginsViewModel::Constructor End");
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether to use nuget.
-        /// </summary>
-        public bool UseNuget
-        {
-            get { return this.useNuget; }
-            set { this.SetProperty(ref this.useNuget, value); }
         }
 
         /// <summary>
@@ -130,6 +131,24 @@ namespace NinjaCoder.MvvmCross.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [core plugins selected].
+        /// </summary>
+        public bool CorePluginsSelected
+        {
+            get { return this.corePluginsSelected; }
+            set { this.corePluginsSelected = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [community plugins selected].
+        /// </summary>
+        public bool CommunityPluginsSelected
+        {
+            get { return this.communityPluginsSelected; }
+            set { this.communityPluginsSelected = value; }
+        }
+
+        /// <summary>
         /// Gets the core plugins.
         /// </summary>
         public IEnumerable<SelectableItemViewModel<Plugin>> CorePlugins
@@ -146,27 +165,11 @@ namespace NinjaCoder.MvvmCross.ViewModels
         }
 
         /// <summary>
-        /// Gets the community plugins.
-        /// </summary>
-        public IEnumerable<SelectableItemViewModel<Plugin>> UserPlugins
-        {
-            get { return this.userPlugins; }
-        }
-
-        /// <summary>
         /// Gets the wiki page command.
         /// </summary>
         public ICommand WikiPageCommand
         {
             get { return new RelayCommand(this.DisplayWikiPage); }
-        }
-
-        /// <summary>
-        /// Gets the open user plugins folder.
-        /// </summary>
-        public ICommand OpenUserPluginsFolderCommand
-        {
-            get { return new RelayCommand(this.OpenUserPluginsFolder); }
         }
 
         /// <summary>
@@ -178,8 +181,7 @@ namespace NinjaCoder.MvvmCross.ViewModels
             TraceService.WriteLine("PluginsViewModel::GetRequiredPlugins");
 
             IEnumerable<SelectableItemViewModel<Plugin>> viewModels = this.CorePlugins
-                                                                .Union(this.CommunityPlugins
-                                                                .Union(this.UserPlugins));
+                                                                .Union(this.CommunityPlugins);
 
             return viewModels.ToList()
                 .Where(x => x.IsSelected)
@@ -195,30 +197,22 @@ namespace NinjaCoder.MvvmCross.ViewModels
         }
 
         /// <summary>
-        /// Opens the user plugins folder.
-        /// </summary>
-        internal void OpenUserPluginsFolder()
-        {
-            Process.Start(this.settingsService.UserPluginsPath);
-        }
-
-        /// <summary>
         /// Gets the plugins.
         /// </summary>
         /// <param name="plugins">The plugins.</param>
         /// <param name="includeCommunityPlugins">if set to <c>true</c> [community plugins].</param>
-        /// <param name="includeUserPlugins">if set to <c>true</c> [user plugins].</param>
-        /// <returns>The view Models.</returns>
+        /// <returns>
+        /// The view Models.
+        /// </returns>
         internal ObservableCollection<SelectableItemViewModel<Plugin>> GetPlugins(
             Plugins plugins,
-            bool includeCommunityPlugins,
-            bool includeUserPlugins)
+            bool includeCommunityPlugins)
         {
             ObservableCollection<SelectableItemViewModel<Plugin>> viewModels = new ObservableCollection<SelectableItemViewModel<Plugin>>();
 
             foreach (SelectableItemViewModel<Plugin> viewModel in from plugin in plugins.Items
                                                                   where plugin.IsCommunityPlugin == includeCommunityPlugins &&
-                                                                        plugin.IsUserPlugin == includeUserPlugins
+                                                                        plugin.Frameworks.Contains(this.visualStudioService.GetFrameworkType())
                                                                   select new SelectableItemViewModel<Plugin>(plugin))
             {
                 viewModels.Add(viewModel);

@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaCoder.MvvmCross.Update
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{D8877B22-87DF-4D49-917C-AEB6EC4CDBEA}"
 	ProjectSection(SolutionItems) = preProject
-		Config\NugetServices.xml = Config\NugetServices.xml
+		Config\NugetPackages.xml = Config\NugetPackages.xml
 		Config\Plugins.xml = Config\Plugins.xml
 	EndProjectSection
 EndProject
@@ -84,7 +84,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{AB0A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuSpec", "NuSpec", "{6487A2BF-47FE-41C6-9B7F-D33363630C95}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\Scorchio.NinjaCoder.MvvmCross.Tests.1.0.0.nuspec = NuSpec\Scorchio.NinjaCoder.MvvmCross.Tests.1.0.0.nuspec
+		NuSpec\Scorchio.NinjaCoder.MvvmCross.Tests.1.0.1.nuspec = NuSpec\Scorchio.NinjaCoder.MvvmCross.Tests.1.0.1.nuspec
+		NuSpec\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.Core.1.0.0.nuspec = NuSpec\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.Core.1.0.0.nuspec
 		NuSpec\Scorchio.NinjaCoder.NoFramework.1.0.0.nuspec = NuSpec\Scorchio.NinjaCoder.NoFramework.1.0.0.nuspec
 		NuSpec\Scorchio.NinjaCoder.Xamarin.Forms.1.0.0.nuspec = NuSpec\Scorchio.NinjaCoder.Xamarin.Forms.1.0.0.nuspec
 		NuSpec\Scorchio.NinjaCoder.Xamarin.Forms.Core.1.0.0.nuspec = NuSpec\Scorchio.NinjaCoder.Xamarin.Forms.Core.1.0.0.nuspec
@@ -94,6 +95,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreContent", "CoreContent"
 	ProjectSection(SolutionItems) = preProject
 		NuSpec\CoreContent\FormsBaseViewModel.cs.pp = NuSpec\CoreContent\FormsBaseViewModel.cs.pp
 		NuSpec\CoreContent\FormsHelper.cs.pp = NuSpec\CoreContent\FormsHelper.cs.pp
+		NuSpec\CoreContent\IVewModelService.cs.pp = NuSpec\CoreContent\IVewModelService.cs.pp
+		NuSpec\CoreContent\IViewModelService.cs.pp = NuSpec\CoreContent\IViewModelService.cs.pp
 		NuSpec\CoreContent\XamarinFormsSchema.xsd = NuSpec\CoreContent\XamarinFormsSchema.xsd
 	EndProjectSection
 EndProject

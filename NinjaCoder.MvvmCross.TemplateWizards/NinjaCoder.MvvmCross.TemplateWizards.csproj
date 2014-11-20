@@ -105,11 +105,13 @@
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseWizard.cs" />
+    <Compile Include="Entities\View.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Plugins\PluginsWizard.cs" />
     <Compile Include="Projects\ProjectsWizard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SettingsService.cs" />
+    <Compile Include="ViewModelsAndViews\XamarinFormsViewsWizard.cs" />
     <Compile Include="ViewModelsAndViews\ViewModelsAndViewsWizard.cs" />
   </ItemGroup>
   <ItemGroup>

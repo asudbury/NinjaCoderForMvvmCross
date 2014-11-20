@@ -31,12 +31,9 @@
     <system:String x:Key="NinjaOptions">Ninja | Options</system:String>
     <system:String x:Key="NinjaPlugins">Ninja | Plugins</system:String>
     <system:String x:Key="NinjaSelectFramework">Ninja | Select Framework</system:String>
-    <system:String x:Key="NinjaCoderForMvvmCross">Ninja Coder for MvvmCross</system:String>
-    <system:String x:Key="Nuget">Nuget</system:String>
-    <system:String x:Key="NugetInternetConnection">(Nuget integration requires internet connection)</system:String>
+    <system:String x:Key="NinjaCoderForMvvmCross">Ninja Coder</system:String>
     <system:String x:Key="Ok">OK</system:String>
     <system:String x:Key="Open">Open</system:String>
-    <system:String x:Key="OpenUserPluginsFolder">Open User Plugins folder</system:String>
     <system:String x:Key="PageType">Page type</system:String>
     <system:String x:Key="Path">Path</system:String>
     <system:String x:Key="Plugins">Plugins</system:String>
@@ -68,5 +65,4 @@
     <system:String x:Key="Views">Views</system:String>
     <system:String x:Key="ViewType">View type</system:String>
     <system:String x:Key="Visual">Visual</system:String>
-    <system:String x:Key="UseNuget">Use Nuget (Internet connection required)</system:String>
 </ResourceDictionary>

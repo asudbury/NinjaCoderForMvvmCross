@@ -18,16 +18,16 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Adds the view model and views.
         /// </summary>
         /// <param name="coreProjectService">The core project service.</param>
-        /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="templateInfos">The template infos.</param>
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="addUnitTests">if set to <c>true</c> [add unit tests].</param>
         /// <param name="viewModelInitiateFrom">The view model initiate from.</param>
         /// <param name="viewModelNavigateTo">The view model navigate to.</param>
-        /// <returns>The messages.</returns>
+        /// <returns>
+        /// The messages.
+        /// </returns>
         IEnumerable<string> AddViewModelAndViews(
             IProjectService coreProjectService,
-            IVisualStudioService visualStudioService,
             IEnumerable<ItemTemplateInfo> templateInfos,
             string viewModelName,
             bool addUnitTests,

@@ -27,6 +27,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
     public class ViewsViewModel : BaseWizardStepViewModel
     {
         /// <summary>
+        /// The visual studio service.
+        /// </summary>
+        private readonly IVisualStudioService visualStudioService;
+
+        /// <summary>
         /// The settings service.
         /// </summary>
         private readonly ISettingsService settingsService;
@@ -114,6 +119,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewsViewModel" /> class.
         /// </summary>
+        /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="frameworkFactory">The framework factory.</param>
         /// <param name="pageFactory">The page factory.</param>
@@ -121,6 +127,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// <param name="messageBoxService">The message box service.</param>
         /// <param name="mvvmCrossViewFactory">The MVVM cross view factory.</param>
         public ViewsViewModel(
+            IVisualStudioService visualStudioService,
             ISettingsService settingsService,
             IFrameworkFactory frameworkFactory,
             IXamarinPageFactory pageFactory,
@@ -130,6 +137,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         {
             this.views = new ObservableCollection<View>();
 
+            this.visualStudioService = visualStudioService;
             this.settingsService = settingsService;
             this.frameworkFactory = frameworkFactory;
             this.pageTypes = pageFactory.Pages;
@@ -140,8 +148,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             this.Frameworks = frameworkFactory.AllowedFrameworks;
 
             this.DisplayGrid();
-
-            this.Add();
         }
 
         /// <summary>
@@ -280,9 +286,33 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 
             if (thisView != null)
             {
+                ImageItemWithDescription imageItemWithDescription;
+
                 if (this.showXFPages)
                 {
-                    ImageItemWithDescription imageItemWithDescription = this.Pages.FirstOrDefault(x => x.Selected);
+                    imageItemWithDescription = this.Pages.FirstOrDefault(x => x.Selected);
+
+                    //// bug im my code or WPF - doesnt seem to uncheck radio buttons in a group !!
+                    IEnumerable<ImageItemWithDescription> items = this.Pages.Where(x => x.Selected);
+
+                    ImageItemWithDescription[] imageItemWithDescriptions = items as ImageItemWithDescription[] ?? items.ToArray();
+
+                    if (imageItemWithDescriptions.Count() == 2)
+                    {
+                        ImageItemWithDescription firstItem = imageItemWithDescriptions.ToList()[0];
+
+                        if (thisView.PageType != firstItem.Name)
+                        {
+                            imageItemWithDescription = firstItem;
+                        }
+
+                        ImageItemWithDescription secondItem = imageItemWithDescriptions.ToList()[1];
+
+                        if (thisView.PageType != secondItem.Name)
+                        {
+                            imageItemWithDescription = secondItem;
+                        }
+                    }
 
                     if (imageItemWithDescription != null)
                     {
@@ -292,7 +322,29 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 
                 else if (this.showMvxPages)
                 {
-                    ImageItemWithDescription imageItemWithDescription = this.MvxViews.FirstOrDefault(x => x.Selected);
+                    imageItemWithDescription = this.MvxViews.FirstOrDefault(x => x.Selected);
+
+                    //// bug im my code or WPF - doesnt seem to uncheck radio buttons in a group !!
+                    IEnumerable<ImageItemWithDescription> items = this.MvxViews.Where(x => x.Selected);
+
+                    ImageItemWithDescription[] imageItemWithDescriptions = items as ImageItemWithDescription[] ?? items.ToArray();
+
+                    if (imageItemWithDescriptions.Count() == 2)
+                    {
+                        ImageItemWithDescription firstItem = imageItemWithDescriptions.ToList()[0];
+
+                        if (thisView.PageType != firstItem.Name)
+                        {
+                            imageItemWithDescription = firstItem;
+                        }
+
+                        ImageItemWithDescription secondItem = imageItemWithDescriptions.ToList()[1];
+
+                        if (thisView.PageType != secondItem.Name)
+                        {
+                            imageItemWithDescription = secondItem;
+                        }
+                    }
 
                     if (imageItemWithDescription != null)
                     {
@@ -302,7 +354,29 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 
                 else if (this.showLayouts)
                 {
-                    ImageItemWithDescription imageItemWithDescription = this.Layouts.FirstOrDefault(x => x.Selected);
+                    imageItemWithDescription = this.Layouts.FirstOrDefault(x => x.Selected);
+
+                    //// bug im my code or WPF - doesnt seem to uncheck radio buttons in a group !!
+                    IEnumerable<ImageItemWithDescription> items = this.Layouts.Where(x => x.Selected);
+
+                    ImageItemWithDescription[] imageItemWithDescriptions = items as ImageItemWithDescription[] ?? items.ToArray();
+
+                    if (imageItemWithDescriptions.Count() == 2)
+                    {
+                        ImageItemWithDescription firstItem = imageItemWithDescriptions.ToList()[0];
+
+                        if (thisView.PageType != firstItem.Name)
+                        {
+                            imageItemWithDescription = firstItem;
+                        }
+
+                        ImageItemWithDescription secondItem = imageItemWithDescriptions.ToList()[1];
+
+                        if (thisView.PageType != secondItem.Name)
+                        {
+                            imageItemWithDescription = secondItem;
+                        }
+                    }
 
                     if (imageItemWithDescription != null)
                     {
@@ -339,6 +413,30 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         public override void OnInitialize()
         {
             this.Frameworks = frameworkFactory.AllowedFrameworks;
+
+            if (!this.views.Any())
+            {
+                ///// lets work out which viewmodels already exist and add them to the screen
+                IEnumerable<string> currentViewModels = this.visualStudioService.GetPublicViewModelNames();
+
+                if (currentViewModels != null)
+                {
+                    foreach (View view in currentViewModels.Select(viewModel => new View
+                    {
+                        Name = viewModel.Replace("ViewModel", string.Empty),
+                        Existing = true,
+                        AllowDeletion = false
+                    }))
+                    {
+                        this.Views.Add(view);
+                    }
+                }
+
+                else
+                {
+                    this.Add(); 
+                }
+            }
         }
 
         /// <summary>
@@ -347,23 +445,30 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         public void Add()
         {
             View view = new View
-                            {
-                                Name = this.GetName(), 
-                                PageType = "Content Page", 
-                                LayoutType = "Content View"
-                            };
+            {
+                Name = this.GetName(), 
+                AllowDeletion = true
+            };
+
+            //// dont allow the main viewmodel to be deleted.
+            if (view.Name == "Main")
+            {
+                view.AllowDeletion = false;
+            }
 
             if (this.settingsService.FrameworkType == FrameworkType.XamarinForms ||
                 this.settingsService.FrameworkType == FrameworkType.MvvmCrossAndXamarinForms)
             {
                 view.Framework = FrameworkType.XamarinForms.GetDescription();
+                view.PageType = "Content Page";
+                view.LayoutType = "Content View";
             }
 
             else
             {
                 view.Framework = FrameworkType.MvvmCross.GetDescription();
-                view.PageType = this.settingsService.SelectedViewType;
                 view.LayoutType = "Not Applicable";
+                view.PageType = "SampleData";
             }
             
             this.Views.Add(view);
@@ -375,29 +480,28 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         public void ChoosePageType(object parameter)
         {
             this.currentView = this.views.FirstOrDefault(x => x.Name == parameter.ToString());
-
-
+            
             if (this.currentView != null)
             {
-                ImageItemWithDescription ImageItemWithDescription = this.Pages.FirstOrDefault(x => x.Name == this.currentView.PageType);
+                ImageItemWithDescription imageItemWithDescription = this.Pages.FirstOrDefault(x => x.Name == this.currentView.PageType);
 
-                if (ImageItemWithDescription != null)
+                if (imageItemWithDescription != null)
                 {
-                    ImageItemWithDescription.Selected = true;
+                    imageItemWithDescription.Selected = true;
                 }
 
                 else
                 {
-                    ImageItemWithDescription = this.MvxViews.FirstOrDefault(x => x.Name == this.currentView.PageType);
+                    imageItemWithDescription = this.MvxViews.FirstOrDefault(x => x.Name == this.currentView.PageType);
 
-                    if (ImageItemWithDescription != null)
+                    if (imageItemWithDescription != null)
                     {
-                        ImageItemWithDescription.Selected = true;
+                        imageItemWithDescription.Selected = true;
                     }                    
                 }
-            }
 
-            this.DisplayPages(this.currentView.Framework);
+                this.DisplayPages(this.currentView.Framework);
+            }
         }
 
         /// <summary>
@@ -405,27 +509,30 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// </summary>
         public void ChooseLayoutType(object parameter)
         {
-            this.messageBoxService.Show(
-                "Not currently available - Will be available in a future release.",
-                Settings.ApplicationName,
-                true,
-                Theme.Light,
-                this.settingsService.ThemeColor);
-
-            return;
             this.currentView = this.views.FirstOrDefault(x => x.Name == parameter.ToString());
 
             if (this.currentView != null)
             {
-                ImageItemWithDescription ImageItemWithDescription = this.Layouts.FirstOrDefault(x => x.Name == this.currentView.LayoutType);
-
-                if (ImageItemWithDescription != null)
+                if (this.currentView.Framework == FrameworkType.MvvmCross.GetDescription())
                 {
-                    ImageItemWithDescription.Selected = true;
+                    this.messageBoxService.Show(
+                        "Not applicable to MvvmCross views.",
+                        Settings.ApplicationName,
+                        true,
+                        Theme.Light,
+                        this.settingsService.ThemeColor);
+                    return;
                 }
             }
 
             this.DisplayLayouts();
+
+            ImageItemWithDescription imageItemWithDescription = this.Layouts.FirstOrDefault(x => x.Name == this.currentView.LayoutType);
+
+            if (imageItemWithDescription != null)
+            {
+                imageItemWithDescription.Selected = true;
+            }
         }
 
         /// <summary>
@@ -438,19 +545,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 
             if (view != null)
             {
-                if (view.Name == "Main")
-                {
-                    this.messageBoxService.Show(
-                        "'Main' View Model and Views cannot be deleted.", 
-                        Settings.ApplicationName, 
-                        true, 
-                        Theme.Light,
-                        this.settingsService.ThemeColor);
-                }
-                else
-                {
-                    this.views.Remove(view);
-                }
+                this.views.Remove(view);
             }
         }
 

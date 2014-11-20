@@ -9,27 +9,35 @@ namespace NinjaCoder.MvvmCross.Services
     using Scorchio.Infrastructure.Constants;
     using System.Collections.Generic;
 
-    using Scorchio.VisualStudio.Services;
-
     /// <summary>
     /// Defines the NugetCommandsService type.
     /// </summary>
     public class NugetCommandsService : INugetCommandsService
     {
         /// <summary>
-        /// The nuget unit tests package.
-        /// </summary>
-        private const string NugetUnitTestsPackage = "MvvmCross.HotTuna.Tests";
-
-        /// <summary>
         /// The nuget mvvm cross library.
         /// </summary>
         private const string NugetMvvmCrossPackage = "MvvmCross.HotTuna.MvvmCrossLibraries";
 
         /// <summary>
-        /// The nuget xamarin forms package.
+        /// The nuget scorchio MVVM cross tests.
         /// </summary>
-        private const string NugetXamarinFormsPackage = "Xamarin.Forms";
+        private const string NugetScorchioMvvmCrossTests = "Scorchio.NinjaCoder.MvvmCross.Tests";
+
+        /// <summary>
+        /// The nuget scorchio no framework package
+        /// </summary>
+        private const string NugetScorchioNoFrameworkPackage = "Scorchio.NinjaCoder.NoFramework";
+
+        /// <summary>
+        /// The nuget scorchio xamarin forms core package.
+        /// </summary>
+        private const string NugetScorchioXamarinFormsCorePackage = "Scorchio.NinjaCoder.Xamarin.Forms.Core";
+
+        /// <summary>
+        /// The nuget scorchio xamarin forms package.
+        /// </summary>
+        private const string NugetScorchioXamarinFormsPackage = "Scorchio.NinjaCoder.Xamarin.Forms";
 
         /// <summary>
         /// The nuget moq package.
@@ -50,6 +58,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// The nuget nunit package.
         /// </summary>
         private const string NugetNUnitPackage = "NUnit";
+
+        /// <summary>
+        /// The nuget xamarin android package.
+        /// </summary>
+        private const string NugetXamarinAndroidPackage = "Xamarin.Android.Support.v4";
         
         /// <summary>
         /// The settings service.
@@ -57,8 +70,9 @@ namespace NinjaCoder.MvvmCross.Services
         private readonly ISettingsService settingsService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NugetCommandsService"/> class.
+        /// Initializes a new instance of the <see cref="NugetCommandsService" /> class.
         /// </summary>
+        /// <param name="settingsService">The settings service.</param>
         public NugetCommandsService(ISettingsService settingsService)
         {
             this.settingsService = settingsService;
@@ -70,26 +84,11 @@ namespace NinjaCoder.MvvmCross.Services
         public const string NugetInstallPackage = "Install-Package %s -FileConflictAction ignore -ProjectName";
 
         /// <summary>
-        /// Gets the MVVM cross core cross commands.
+        /// Gets the test commands.
         /// </summary>
-        public IEnumerable<string> GetMvvmCrossCoreCommands()
+        public IEnumerable<string> GetTestCommands()
         {
-            return new List<string> 
-                {
-                    NugetInstallPackage.Replace("%s", NugetMvvmCrossPackage)
-                };
-        }
-
-        /// <summary>
-        /// Gets the core tests commands.
-        /// </summary>
-        public IEnumerable<string> GetCoreTestsCommands()
-        {
-            List<string> commands = new List<string>
-                                        {
-                                            NugetInstallPackage.Replace("%s", NugetUnitTestsPackage),
-                                            NugetInstallPackage.Replace("%s", NugetMvvmCrossPackage)
-                                        };
+            List<string> commands = new List<string>();
 
             //// add the mocking framework.
             switch (this.settingsService.MockingFramework)
@@ -112,7 +111,34 @@ namespace NinjaCoder.MvvmCross.Services
                 commands.Add(NugetInstallPackage.Replace("%s", NugetNUnitPackage));
             }
 
-            TraceService.WriteLine("GetCoreTestsCommands=" + commands);
+            return commands;
+        }
+
+        /// <summary>
+        /// Gets the MVVM cross core cross commands.
+        /// </summary>
+        public IEnumerable<string> GetMvvmCrossCoreCommands()
+        {
+            return new List<string> 
+                {
+                    NugetInstallPackage.Replace("%s", NugetMvvmCrossPackage)
+                };
+        }
+
+        /// <summary>
+        /// Gets the MVVM cross tests commands.
+        /// </summary>
+        public IEnumerable<string> GetMvvmCrossTestsCommands()
+        {
+            List<string> commands = new List<string>
+                                        {
+                                            NugetInstallPackage.Replace("%s", NugetScorchioMvvmCrossTests),
+                                            NugetInstallPackage.Replace("%s", NugetMvvmCrossPackage)
+                                        };
+
+            IEnumerable<string> testCommands = this.GetTestCommands();
+
+            commands.AddRange(testCommands);
 
             return commands;
         }
@@ -124,7 +150,8 @@ namespace NinjaCoder.MvvmCross.Services
         {
             return new List<string> 
                 {
-                    NugetInstallPackage.Replace("%s", NugetMvvmCrossPackage)
+                    NugetInstallPackage.Replace("%s", NugetMvvmCrossPackage),
+                    NugetInstallPackage.Replace("%s", NugetXamarinAndroidPackage)
                 };
         }
 
@@ -175,11 +202,33 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the xamarin forms commands.
         /// </summary>
+        public IEnumerable<string> GetNoFrameworksCommands()
+        {
+            return new List<string> 
+                {
+                    NugetInstallPackage.Replace("%s", NugetScorchioNoFrameworkPackage)
+                };
+        }
+
+        /// <summary>
+        /// Gets the xamarin forms core commands.
+        /// </summary>
+        public IEnumerable<string> GetXamarinFormsCoreCommands()
+        {
+            return new List<string> 
+                {
+                    NugetInstallPackage.Replace("%s", NugetScorchioXamarinFormsCorePackage)
+                };
+        }
+
+        /// <summary>
+        /// Gets the xamarin forms commands.
+        /// </summary>
         public IEnumerable<string> GetXamarinFormsCommands()
         {
             return new List<string> 
                 {
-                    NugetInstallPackage.Replace("%s", NugetXamarinFormsPackage)
+                    NugetInstallPackage.Replace("%s", NugetScorchioXamarinFormsPackage)
                 };
         }
 
@@ -191,7 +240,7 @@ namespace NinjaCoder.MvvmCross.Services
             return new List<string> 
                 {
                     NugetInstallPackage.Replace("%s", NugetMvvmCrossPackage),
-                    NugetInstallPackage.Replace("%s", NugetXamarinFormsPackage)
+                    NugetInstallPackage.Replace("%s", NugetScorchioXamarinFormsPackage)
                 };
         }
 
@@ -203,7 +252,7 @@ namespace NinjaCoder.MvvmCross.Services
             return new List<string> 
                 {
                     NugetInstallPackage.Replace("%s", NugetMvvmCrossPackage),
-                    NugetInstallPackage.Replace("%s", NugetXamarinFormsPackage)
+                    NugetInstallPackage.Replace("%s", NugetScorchioXamarinFormsPackage)
                 };
         }
 
@@ -215,7 +264,19 @@ namespace NinjaCoder.MvvmCross.Services
             return new List<string> 
                 {
                     NugetInstallPackage.Replace("%s", NugetMvvmCrossPackage),
-                    NugetInstallPackage.Replace("%s", NugetXamarinFormsPackage),
+                    NugetInstallPackage.Replace("%s", NugetScorchioXamarinFormsPackage),
+                };
+        }
+
+        /// <summary>
+        /// Gets the xamarin android commands.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<string> GetXamarinAndroidCommands()
+        {
+            return new List<string> 
+                {
+                    NugetInstallPackage.Replace("%s", NugetXamarinAndroidPackage),
                 };
         }
     }

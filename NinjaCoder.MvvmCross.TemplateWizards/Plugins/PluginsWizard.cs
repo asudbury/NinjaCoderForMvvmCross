@@ -45,7 +45,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Plugins
 
                 if (File.Exists(path))
                 {
-                    TraceService.WriteLine("File already exists");
+                    TraceService.WriteLine(path  + " file already exists");
                     return false;
                 }
             }

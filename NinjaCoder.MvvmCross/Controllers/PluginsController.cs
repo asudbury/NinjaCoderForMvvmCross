@@ -36,7 +36,6 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="PluginsController" /> class.
         /// </summary>
-        /// <param name="configurationService">The configuration service.</param>
         /// <param name="pluginsService">The plugins service.</param>
         /// <param name="nugetService">The nuget service.</param>
         /// <param name="visualStudioService">The visual studio service.</param>
@@ -45,7 +44,6 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="resolverService">The resolver service.</param>
         /// <param name="readMeService">The read me service.</param>
         public PluginsController(
-            IConfigurationService configurationService,
             IPluginsService pluginsService,
             INugetService nugetService,
             IVisualStudioService visualStudioService,
@@ -54,7 +52,6 @@ namespace NinjaCoder.MvvmCross.Controllers
             IResolverService resolverService,
             IReadMeService readMeService)
             : base(
-            configurationService,
             visualStudioService, 
             settingsService, 
             messageBoxService,
@@ -76,9 +73,13 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             //// we open the nuget package manager console so we don't have
             //// a wait condition later!
-            this.nugetService.OpenNugetWindow(this.VisualStudioService);
+            this.nugetService.OpenNugetWindow();
 
-            if (this.VisualStudioService.IsMvvmCrossSolution)
+            FrameworkType frameworkType = this.VisualStudioService.GetFrameworkType();
+
+            if (frameworkType == FrameworkType.MvvmCross || 
+                frameworkType == FrameworkType.XamarinForms ||
+                frameworkType == FrameworkType.MvvmCrossAndXamarinForms)
             {
                 PluginsViewModel viewModel = this.ShowDialog<PluginsViewModel>(new PluginsView());
 
@@ -97,7 +98,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             }
             else
             {
-                this.ShowNotMvvmCrossSolutionMessage();
+                this.ShowNotMvvmCrossOrXamarinFormsSolutionMessage();
             }
         }
 
@@ -135,7 +136,6 @@ namespace NinjaCoder.MvvmCross.Controllers
                     if (SettingsService.ProcessNugetCommands)
                     {
                         this.nugetService.Execute(
-                            this.VisualStudioService,
                             this.GetReadMePath(),
                             commands);
                     }

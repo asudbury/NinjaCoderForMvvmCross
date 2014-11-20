@@ -17,7 +17,7 @@ namespace NinjaCoder.MvvmCross.Factories
     /// <summary>
     ///  Defines the XamarinFormsProjectFactory type. 
     /// </summary>
-    public class XamarinFormsProjectFactory : IXamarinFormsProjectFactory
+    public class XamarinFormsProjectFactory : BaseProjectFactory, IXamarinFormsProjectFactory
     {
         /// <summary>
         /// The visual studio service.
@@ -65,7 +65,12 @@ namespace NinjaCoder.MvvmCross.Factories
                 projectInfos.Add(this.GetCoreProject());
             }
 
-            if (this.visualStudioService.FormsProjectService == null)
+            if (this.visualStudioService.CoreTestsProjectService == null)
+            {
+                projectInfos.Add(this.GetCoreTestsProject());
+            }
+
+            if (this.visualStudioService.XamarinFormsProjectService == null)
             {
                 projectInfos.Add(this.GetFormsProject());
             }
@@ -98,10 +103,23 @@ namespace NinjaCoder.MvvmCross.Factories
             {
                 FriendlyName = ProjectType.Core.GetDescription() + " (Profile " + this.settingsService.PCLProfile + ")",
                 ProjectSuffix = ProjectSuffix.Core.GetDescription(),
-                TemplateName = XamarinFormsProjectTemplate.Core.GetDescription(),
+                TemplateName = ProjectTemplate.Core.GetDescription(),
                 PreSelected = true,
-                NugetCommands = this.nugetCommandsService.GetMvvmCrossCoreCommands()
+                NugetCommands = this.nugetCommandsService.GetXamarinFormsCoreCommands()
             };
+        }
+
+        /// <summary>
+        /// Gets the core tests project.
+        /// </summary>
+        /// <returns>A unit tests project.</returns>
+        internal ProjectTemplateInfo GetCoreTestsProject()
+        {
+            return this.GetCoreTestsProject(
+                FrameworkType.XamarinForms,
+                this.settingsService.TestingFramework,
+                this.settingsService.MockingFramework,
+                this.nugetCommandsService.GetTestCommands());
         }
 
         /// <summary>
@@ -112,9 +130,9 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             return new ProjectTemplateInfo
             {
-                FriendlyName = ProjectType.XamarinForms.GetDescription(),
-                ProjectSuffix = ProjectSuffix.Forms.GetDescription(),
-                TemplateName = XamarinFormsProjectTemplate.Forms.GetDescription(),
+                FriendlyName = ProjectType.XamarinForms.GetDescription() + " (Profile " + this.settingsService.PCLProfile + ")",
+                ProjectSuffix = ProjectSuffix.XamarinForms.GetDescription(),
+                TemplateName = ProjectTemplate.XamarinForms.GetDescription(),
                 PreSelected = true,
                 NugetCommands = this.nugetCommandsService.GetXamarinFormsCommands()
             };
@@ -131,7 +149,7 @@ namespace NinjaCoder.MvvmCross.Factories
             {
                 FriendlyName = "Android",
                 ProjectSuffix = ProjectSuffix.Droid.GetDescription(),
-                TemplateName = XamarinFormsProjectTemplate.Droid.GetDescription(),
+                TemplateName = ProjectTemplate.Droid.GetDescription(),
                 PreSelected = true,
                 ReferenceXamarinFormsProject = true,
                 NugetCommands = this.nugetCommandsService.GetXamarinFormsCommands()
@@ -148,8 +166,9 @@ namespace NinjaCoder.MvvmCross.Factories
             {
                 FriendlyName = ProjectType.iOS.GetDescription() + " " + this.settingsService.iOSBuildVersion,
                 ProjectSuffix = ProjectSuffix.iOS.GetDescription(),
-                TemplateName = XamarinFormsProjectTemplate.iOS.GetDescription(),
+                TemplateName = ProjectTemplate.iOS.GetDescription(),
                 PreSelected = true,
+                ReferenceXamarinFormsProject = true,
                 NugetCommands = this.nugetCommandsService.GetXamarinFormsCommands()
             };
         }
@@ -164,7 +183,7 @@ namespace NinjaCoder.MvvmCross.Factories
             {
                 FriendlyName = ProjectType.WindowsPhone.GetDescription() + " " + this.settingsService.WindowsPhoneBuildVersion,
                 ProjectSuffix = ProjectSuffix.WindowsPhone.GetDescription(),
-                TemplateName = XamarinFormsProjectTemplate.WindowsPhone.GetDescription(),
+                TemplateName = ProjectTemplate.WindowsPhone.GetDescription(),
                 ReferenceXamarinFormsProject = true,
                 PreSelected = true,
                 NugetCommands = this.nugetCommandsService.GetXamarinFormsCommands()

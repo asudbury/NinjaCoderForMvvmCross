@@ -29,24 +29,9 @@ namespace NinjaCoder.MvvmCross.Entities
         public string FriendlyName { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the file.
-        /// </summary>
-        public string FileName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the source.
-        /// </summary>
-        public string Source { get; set; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether [is community plugin].
         /// </summary>
         public bool IsCommunityPlugin { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [is user plugin].
-        /// </summary>
-        public bool IsUserPlugin { get; set; }
 
         /// <summary>
         /// Gets or sets the using statement.
@@ -62,5 +47,10 @@ namespace NinjaCoder.MvvmCross.Entities
         /// Gets or sets the platforms.
         /// </summary>
         public IEnumerable<string> Platforms { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the frameworks.
+        /// </summary>
+        public IEnumerable<FrameworkType> Frameworks { get; set; }
     }
 }

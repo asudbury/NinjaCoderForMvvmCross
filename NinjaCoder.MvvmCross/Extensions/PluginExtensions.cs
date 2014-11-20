@@ -6,11 +6,10 @@
 
 namespace NinjaCoder.MvvmCross.Extensions
 {
-    using System;
-
     using NinjaCoder.MvvmCross.Entities;
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using Scorchio.VisualStudio.Services.Interfaces;
+    using System;
 
     /// <summary>
     ///  Defines the PluginExtensions type.
@@ -34,16 +33,6 @@ namespace NinjaCoder.MvvmCross.Extensions
         {
             string commands = string.Empty;
 
-            IProjectService coreProjectService = visualStudioService.CoreProjectService;
-
-            if (coreProjectService != null)
-            {
-                foreach (string nugetCommand in instance.NugetCommands)
-                {
-                    commands +=  NugetInstallPackage.Replace("%s", nugetCommand) + " " + coreProjectService.Name + Environment.NewLine; 
-                }
-            }
-
             foreach (string platform in instance.Platforms)
             {
                 IProjectService projectService = visualStudioService.GetProjectServiceBySuffix(platform);
@@ -53,6 +42,34 @@ namespace NinjaCoder.MvvmCross.Extensions
                     foreach (string nugetCommand in instance.NugetCommands)
                     {
                         commands += NugetInstallPackage.Replace("%s", nugetCommand) + " " + projectService.Name + Environment.NewLine;
+                    }
+                }
+            }
+
+            return commands;
+        }
+
+        /// <summary>
+        /// Gets the nuget command messages.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="visualStudioService">The visual studio service.</param>
+        /// <returns></returns>
+        internal static string GetNugetCommandMessages(
+            this Plugin instance,
+            IVisualStudioService visualStudioService)
+        {
+            string commands = string.Empty;
+
+            foreach (string platform in instance.Platforms)
+            {
+                IProjectService projectService = visualStudioService.GetProjectServiceBySuffix(platform);
+
+                if (projectService != null)
+                {
+                    foreach (string nugetCommand in instance.NugetCommands)
+                    {
+                        commands += nugetCommand + " nuget package added to  " + projectService.Name + " project.";
                     }
                 }
             }

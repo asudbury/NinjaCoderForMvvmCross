@@ -6,9 +6,7 @@
 namespace NinjaCoder.MvvmCross.ViewModels
 {
     using MahApps.Metro;
-
     using NinjaCoder.MvvmCross.Services.Interfaces;
-
     using Scorchio.Infrastructure.Wpf;
     using Scorchio.Infrastructure.Wpf.ViewModels;
     using System.Windows.Input;
@@ -53,10 +51,7 @@ namespace NinjaCoder.MvvmCross.ViewModels
         /// </summary>
         protected Theme CurrentTheme
         {
-            get
-            {
-                return this.SettingsService.Theme == "Dark" ? Theme.Dark : Theme.Light;
-            }
+            get { return this.SettingsService.Theme == "Dark" ? Theme.Dark : Theme.Light; }
         }
     }
 }

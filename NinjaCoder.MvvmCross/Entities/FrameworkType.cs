@@ -14,6 +14,18 @@ namespace NinjaCoder.MvvmCross.Entities
     public enum FrameworkType
     {
         /// <summary>
+        /// Not Set.
+        /// </summary>
+        [Description("Not Set")]
+        NotSet,
+
+        /// <summary>
+        /// No framework.
+        /// </summary>
+        [Description("No Framework")]
+        NoFramework,
+
+        /// <summary>
         /// The MvvmCross framework.
         /// </summary>
         [Description("MvvmCross")]

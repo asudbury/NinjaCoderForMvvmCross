@@ -82,7 +82,7 @@ namespace NinjaCoder.MvvmCross.Tests.Factories
         [Test]
         public void TestGetPlugins()
         {
-            Plugins plugins = this.factory.GetPlugins();
+            Plugins plugins = this.factory.GetPlugins("");
         }
     }
 }

@@ -56,9 +56,9 @@ namespace NinjaCoder.MvvmCross.Entities
 	    Wpf,
 
         /// <summary>
-        /// The windows WPF
+        /// The xamarin forms
         /// </summary>
         [Description(".Forms")]
-	    Forms
+	    XamarinForms
     }
 }

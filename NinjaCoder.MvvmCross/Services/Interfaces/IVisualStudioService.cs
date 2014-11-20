@@ -7,6 +7,9 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
 {
     using EnvDTE;
     using EnvDTE80;
+
+    using NinjaCoder.MvvmCross.Entities;
+
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services.Interfaces;
     using System.Collections.Generic;
@@ -77,16 +80,19 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         IProjectService WpfProjectService { get; }
 
         /// <summary>
-        /// Gets the forms project service.
+        /// Gets the xamarin forms project service.
         /// </summary>
-        IProjectService FormsProjectService { get;  }
+        IProjectService XamarinFormsProjectService { get; }
 
         /// <summary>
-        /// Gets the allowed converters.
+        /// Gets the view models project service.
         /// </summary>
-        /// <param name="templatesPath">The templates path.</param>
-        /// <returns>The allowed converters.</returns>
-        IEnumerable<ItemTemplateInfo> GetAllowedConverters(string templatesPath);
+        IProjectService ViewModelsProjectService { get; }
+
+        /// <summary>
+        /// Gets the plugins project service.
+        /// </summary>
+        IProjectService PluginsProjectService { get; }
 
         /// <summary>
         /// Gets the folder template infos.
@@ -127,5 +133,16 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// </summary>
         /// <returns>The public view model names.</returns>
         IEnumerable<string> GetPublicViewModelNames();
+
+        /// <summary>
+        /// Gets the type of the framework.
+        /// </summary>
+        /// <returns>The framework type.</returns>
+        FrameworkType GetFrameworkType();
+
+        /// <summary>
+        /// Gets a value indicating whether [solution already created].
+        /// </summary>
+        bool SolutionAlreadyCreated { get; }
     }
 }

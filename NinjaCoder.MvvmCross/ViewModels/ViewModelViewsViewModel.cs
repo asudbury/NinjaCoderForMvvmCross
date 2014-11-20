@@ -84,11 +84,6 @@ namespace NinjaCoder.MvvmCross.ViewModels
         private readonly IEnumerable<string> viewTypes;
 
         /// <summary>
-        /// The selected view type.
-        /// </summary>
-        private string selectedViewType;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="ViewModelViewsViewModel" /> class.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
@@ -118,7 +113,6 @@ namespace NinjaCoder.MvvmCross.ViewModels
             }
 
             this.viewTypes = viewModelAndViewsFactory.GetAvailableViewTypes();
-            this.selectedViewType = this.settingsService.SelectedViewType;
         }
 
         /// <summary>
@@ -146,15 +140,6 @@ namespace NinjaCoder.MvvmCross.ViewModels
         {
             get { return this.viewModelNavigateTo; }
             set { this.SetProperty(ref this.viewModelNavigateTo, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the type of the selected view.
-        /// </summary>
-        public string SelectedViewType
-        {
-            get { return this.selectedViewType; }
-            set { this.SetProperty(ref this.selectedViewType, value); }
         }
 
         /// <summary>
@@ -205,7 +190,8 @@ namespace NinjaCoder.MvvmCross.ViewModels
                     null,
                     this.ViewModelName,
                     requiredUIViews,
-                    this.IncludeUnitTests);
+                    this.IncludeUnitTests,
+                    false);
             }
         }
 
@@ -236,8 +222,6 @@ namespace NinjaCoder.MvvmCross.ViewModels
             }
             else
             {
-                this.settingsService.SelectedViewType = this.selectedViewType ?? "SampleData";
-                this.settingsService.SelectedViewPrefix = this.ViewModelName.Replace("ViewModel", string.Empty);
                 base.OnOk();
             }
         }

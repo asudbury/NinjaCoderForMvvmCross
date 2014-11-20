@@ -5,7 +5,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 {
-
     using Factories.Interfaces;
 
     using MahApps.Metro;
@@ -29,6 +28,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
     /// </summary>
     public class ProjectsViewModel : BaseWizardStepViewModel
     {
+        /// <summary>
+        /// Gets or sets the visual studio service.
+        /// </summary>
+        private readonly IVisualStudioService visualStudioService;
+
         /// <summary>
         /// The settings service.
         /// </summary>
@@ -88,11 +92,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             IProjectFactory projectFactory,
             IFileSystem fileSystem,
             IMessageBoxService messageBoxService,
-            IFolderBrowserDialogService folderBrowserDialogService,
-            IViewModelAndViewsFactory viewModelAndViewsFactory)
+            IFolderBrowserDialogService folderBrowserDialogService)
         {
             TraceService.WriteLine("ProjectsViewModel::Constructor Start");
 
+            this.visualStudioService = visualStudioService;
             this.settingsService = settingsService;
             this.fileSystem = fileSystem;
             this.projectFactory = projectFactory;
@@ -107,7 +111,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             string defaultPath = this.settingsService.DefaultProjectsPath;
 
             //// if we are already in the solution disable project name and path.
-            this.solutionAlreadyCreated = this.Project.Length > 0;
+            this.solutionAlreadyCreated = this.visualStudioService.SolutionAlreadyCreated;
 
             if (this.solutionAlreadyCreated)
             {
@@ -122,6 +126,22 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             }
 
             TraceService.WriteLine("ProjectsViewModel::Constructor End");
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [allow updates].
+        /// </summary>
+        public bool AllowUpdates
+        {
+            get { return !this.visualStudioService.SolutionAlreadyCreated; }
+        }
+
+        /// <summary>
+        /// Gets the framework.
+        /// </summary>
+        public string Framework
+        {
+            get { return this.settingsService.FrameworkType.GetDescription(); }
         }
 
         /// <summary>
@@ -185,7 +205,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// </summary>
         public override void OnInitialize()
         {
-
             this.projects = new ObservableCollection<SelectableItemViewModel<ProjectTemplateInfo>>();
 
             IEnumerable<ProjectTemplateInfo> projectTemplateInfos = projectFactory.GetAllowedProjects(this.settingsService.FrameworkType);

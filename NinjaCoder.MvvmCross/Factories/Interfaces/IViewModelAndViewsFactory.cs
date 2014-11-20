@@ -24,7 +24,7 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// </summary>
         /// <returns>The available view types.</returns>
         IEnumerable<string> GetAvailableViewTypes();
-        
+
         /// <summary>
         /// Gets the required view model and views.
         /// </summary>
@@ -32,11 +32,13 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="requiredUIViews">The required UI views.</param>
         /// <param name="unitTestsRequired">if set to <c>true</c> [unit tests required].</param>
+        /// <param name="overwriteCurrentFiles">if set to <c>true</c> [overwrite current files].</param>
         /// <returns></returns>
         IEnumerable<ItemTemplateInfo> GetRequiredViewModelAndViews(
             View view,
             string viewModelName,
             IEnumerable<ItemTemplateInfo> requiredUIViews,
-            bool unitTestsRequired);
+            bool unitTestsRequired,
+            bool overwriteCurrentFiles);
     }
 }

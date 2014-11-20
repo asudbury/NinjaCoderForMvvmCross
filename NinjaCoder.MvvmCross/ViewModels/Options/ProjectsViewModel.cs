@@ -231,8 +231,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         {
             this.testingServiceFactory.CurrentFrameWork = this.SelectedTestingFramework;
             this.mockingServiceFactory.CurrentFrameWork = this.SelectedMockingFramework;
-
-            this.SettingsService.SelectedViewType = this.SelectedViewType;
         }
 
         /// <summary>
@@ -256,8 +254,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.SelectedMockingFramework = mockingServiceFactory.CurrentFrameWork;
 
             this.ViewTypes = this.viewModelAndViewsFactory.GetAvailableViewTypes();
-
-            this.SelectedViewType = this.SettingsService.SelectedViewType;
         }
     }
 }

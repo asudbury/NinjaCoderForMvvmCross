@@ -93,7 +93,8 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public string PluginsCodeSnippetsPath
         {
-            get { return this.InstalledDirectory + @"CodeSnippets\Plugins\"; }
+            ////get { return this.InstalledDirectory + @"CodeSnippets\Plugins\"; }
+            get { return "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/CodeSnippets/Plugins/"; } 
         }
 
         /// <summary>
@@ -289,141 +290,6 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets or sets the default users paths set.
-        /// </summary>
-        public bool DefaultUsersPathsSet
-        {
-            get { return this.GetRegistryValue(string.Empty, "DefaultUsersPathsSet", "N") == "Y"; }
-            set { this.SetRegistryValue(string.Empty, "DefaultUsersPathsSet", value ? "Y" : "N"); }
-        }
-
-        /// <summary>
-        /// Gets or sets the default user plugins path.
-        /// </summary>
-        public string DefaultUserPluginsPath
-        {
-            get { return this.GetRegistryValue("Plugins", "DefaultUserPluginsPath", string.Empty); }
-            set { this.SetRegistryValue("Plugins", "DefaultUserPluginsPath", value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the default user services path.
-        /// </summary>
-        public string DefaultUserServicesPath
-        {
-            get { return this.GetRegistryValue("Services", "DefaultUserServicesPath", string.Empty); }
-            set { this.SetRegistryValue("Services", "DefaultUserServicesPath", value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the default user code snippets plugins path.
-        /// </summary>
-        public string DefaultUserCodeSnippetsPluginsPath
-        {
-            get { return this.GetRegistryValue("Plugins", "DefaultUserCodeSnippetsPluginsPath", string.Empty); }
-            set { this.SetRegistryValue("Plugins", "DefaultUserCodeSnippetsPluginsPath", value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the default user code snippets services path.
-        /// </summary>
-        public string DefaultUserCodeSnippetsServicesPath
-        {
-            get { return this.GetRegistryValue("Services", "DefaultUserCodeSnippetsServicesPath", string.Empty); }
-            set { this.SetRegistryValue("Services", "DefaultUserCodeSnippetsServicesPath", value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the default user code config plugins path.
-        /// </summary>
-        public string DefaultUserCodeConfigPluginsPath
-        {
-            get { return this.GetRegistryValue("Plugins", "DefaultUserCodeConfigPluginsPath", string.Empty); }
-            set { this.SetRegistryValue("Plugins", "DefaultUserCodeConfigPluginsPath", value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the default user code config services path.
-        /// </summary>
-        public string DefaultUserCodeConfigServicesPath
-        {
-            get { return this.GetRegistryValue("Services", "DefaultUserCodeConfigServicesPath", string.Empty); }
-            set { this.SetRegistryValue("Services", "DefaultUserCodeConfigServicesPath", value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the user plugins path.
-        /// </summary>
-        public string UserPluginsPath
-        {
-            get { return this.GetRegistryValue("Plugins", "UserPluginsPath", this.DefaultUserPluginsPath); }
-            set { this.SetRegistryValue("Plugins", "UserPluginsPath", value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the user services path.
-        /// </summary>
-        public string UserServicesPath
-        {
-            get { return this.GetRegistryValue("Services", "UserServicesPath", this.DefaultUserServicesPath); }
-            set { this.SetRegistryValue("Services", "UserServicesPath", value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the user code snippets plugins path.
-        /// </summary>
-        public string UserCodeSnippetsPluginsPath
-        {
-            get { return this.GetRegistryValue("Plugins", "UserCodeSnippetsPluginsPath", this.DefaultUserCodeSnippetsPluginsPath); }
-            set { this.SetRegistryValue("Plugins", "UserCodeSnippetsPluginsPath", value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the user code snippets services path.
-        /// </summary>
-        public string UserCodeSnippetsServicesPath
-        {
-            get { return this.GetRegistryValue("Services", "UserCodeSnippetsServicesPath", this.DefaultUserCodeSnippetsServicesPath); }
-            set { this.SetRegistryValue("Services", "UserCodeSnippetsServicesPath", value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the user code config plugins path.
-        /// </summary>
-        public string UserCodeConfigPluginsPath
-        {
-            get { return this.GetRegistryValue("Plugins", "UserCodeConfigPluginsPath", this.DefaultUserCodeConfigPluginsPath); }
-            set { this.SetRegistryValue("Plugins", "UserCodeConfigPluginsPath", value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the user code config services path.
-        /// </summary>
-        public string UserCodeConfigServicesPath
-        {
-            get { return this.GetRegistryValue("Services", "UserCodeConfigServicesPath", this.DefaultUserCodeConfigServicesPath); }
-            set { this.SetRegistryValue("Services", "UserCodeConfigServicesPath", value); }
-        }
-        
-        /// <summary>
-        /// Gets or sets the type of the selected view.
-        /// </summary>
-        public string SelectedViewType
-        {
-            get { return this.GetRegistryValue("Internals", "SelectedViewType", "SampleData"); }
-            set { this.SetRegistryValue("Internals", "SelectedViewType", value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the selected view prefix.
-        /// </summary>
-        public string SelectedViewPrefix
-        {
-            get { return this.GetRegistryValue("Internals", "SelectedViewPrefix", string.Empty); }
-            set { this.SetRegistryValue("Internals", "SelectedViewPrefix", value); }
-        }
-
-        /// <summary>
         /// Gets or sets the PCL profile.
         /// </summary>
         public string PCLProfile
@@ -545,7 +411,6 @@ namespace NinjaCoder.MvvmCross.Services
             get
             {
                 string value = this.GetRegistryValue("Internals", "FrameworkType", "MvvmCross");
-
                 return FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(value);
             }
             set
@@ -554,25 +419,81 @@ namespace NinjaCoder.MvvmCross.Services
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether [fix information plist].
+        /// </summary>
         public bool FixInfoPlist
         {
            get { return this.GetRegistryValue("Internals", "FixInfoPlist", "Y") == "Y"; }
         }
 
         /// <summary>
-        /// Gets a value indicating whether [enable xamarin forms].
+        /// Gets or sets a value indicating whether [use local uris].
         /// </summary>
-        public bool EnableXamarinForms
+        public bool UseLocalUris
         {
-            get { return this.GetRegistryValue("Internals", "EnableXamarinForms", "Y") == "Y"; }
+            get { return this.GetRegistryValue("Build", "UseLocalUris", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "UseLocalUris", value ? "Y" : "N"); }
+       }
+
+        /// <summary>
+        /// Gets the plugins URI.
+        /// </summary>
+        public string PluginsUri
+        {
+            get
+            {
+                return this.UseLocalUris ? 
+                    this.GetRegistryValue("Internals", "PluginsUri", this.InstalledDirectory + "Plugins.xml") :
+                    this.GetRegistryValue("Internals", "PluginsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/Plugins.xml");
+            }
+        }
+        /// <summary>
+        /// Gets the nuget pacakges URI.
+        /// </summary>
+        public string NugetPackagesUri
+        {
+            get
+            {
+                return this.UseLocalUris ?
+                    this.GetRegistryValue("Internals", "NugetPackagesUri", this.InstalledDirectory + "NugetPackages.xml") : 
+                    this.GetRegistryValue("Internals", "NugetPackagesUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/NugetPackages.xml");
+            }
         }
 
         /// <summary>
-        /// Gets a value indicating whether [enable MVVM cross and xamarin forms].
+        /// Gets or sets the xamarin forms views.
         /// </summary>
-        public bool EnableMvvmCrossAndXamarinForms
+        public string XamarinFormsViews 
         {
-            get { return this.GetRegistryValue("Internals", "EnableMvvmCrossAndXamarinForms", "Y") == "Y"; }
+            get { return this.GetRegistryValue("Internals", "XamarinFormsViews", string.Empty); }
+            set { this.SetRegistryValue("Internals", "XamarinFormsViews", value); }
+        }
+
+        /// <summary>
+        /// Sets the requested nuget commands.
+        /// </summary>
+        public string RequestedNugetCommands 
+        {
+            set { this.SetRegistryValue("Internals", "RequestedNugetCommands", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [output nuget commands to read me].
+        /// </summary>
+        public bool OutputNugetCommandsToReadMe
+        {
+            get { return this.GetRegistryValue("Build", "OutputNugetCommandsToReadMe", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "OutputNugetCommandsToReadMe", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [output errors to read me].
+        /// </summary>
+        public bool OutputErrorsToReadMe
+        {
+            get { return this.GetRegistryValue("Build", "OutputErrorsToReadMe", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "OutputErrorsToReadMee", value ? "Y" : "N"); }
         }
 
         /// <summary>

@@ -5,10 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
-    using Constants;
     using Entities;
     using Factories.Interfaces;
-
     using Interfaces;
     using Scorchio.Infrastructure.Services.Testing.Interfaces;
     using Scorchio.VisualStudio.Entities;
@@ -112,6 +110,11 @@ namespace NinjaCoder.MvvmCross.Services
                 false);
 
             this.AddProjectPlugins(
+                 visualStudioService.XamarinFormsProjectService,
+                enumerablePlugins,
+                false);
+
+            this.AddProjectPlugins(
                  visualStudioService.CoreTestsProjectService,
                 enumerablePlugins,
                 false);
@@ -166,14 +169,12 @@ namespace NinjaCoder.MvvmCross.Services
         /// <returns>
         /// The added plugins.
         /// </returns>
-        public IEnumerable<Plugin> AddProjectPlugins(
+        public void AddProjectPlugins(
             IProjectService projectService,
             IEnumerable<Plugin> plugins,
             bool addBootstrapFile)
         {
             TraceService.WriteLine("PluginsService::AddProjectPlugins");
-
-            List<Plugin> addedPlugins = new List<Plugin>();
 
             if (projectService != null)
             {
@@ -188,7 +189,7 @@ namespace NinjaCoder.MvvmCross.Services
                         projectService, 
                         plugin);
 
-                    addedPlugins.Add(plugin);
+                    this.Messages.Add("Plugin " + plugin.FriendlyName + " added to " + projectService.Name + " project.");
                 }
 
                 if (addBootstrapFile)
@@ -196,8 +197,6 @@ namespace NinjaCoder.MvvmCross.Services
                     projectService.AddToFolderFromTemplate("MvvmCross.Plugin.zip", "Ninja");
                 }
             }
-
-            return addedPlugins;
         }
 
         /// <summary>
@@ -332,7 +331,7 @@ namespace NinjaCoder.MvvmCross.Services
                 codeSnippet,
                 viewModelName,
                 plugin.FriendlyName,
-                Path.GetFileNameWithoutExtension(plugin.FileName));
+                Path.GetFileNameWithoutExtension(plugin.FriendlyName));
         }
     }
 }

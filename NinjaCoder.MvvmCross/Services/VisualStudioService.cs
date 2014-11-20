@@ -23,6 +23,8 @@ namespace NinjaCoder.MvvmCross.Services
     using System.IO;
     using System.Linq;
 
+    using VSLangProj;
+
     /// <summary>
     /// Defines the VisualStudioService type.
     /// </summary>
@@ -46,7 +48,10 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<Project> Projects
         {
-            get { return this.Solution.GetProjects(); }
+            get
+            {
+                return this.Solution.GetProjects();
+            }
         }
 
         /// <summary>
@@ -81,7 +86,10 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IDTEService DTEService
         {
-            get { return new DTEService(this.DTE2); }
+            get
+            {
+                return new DTEService(this.DTE2);
+            }
         }
 
         /// <summary>
@@ -89,30 +97,39 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public ISolutionService SolutionService
         {
-            get { return new SolutionService(this.DTE2.Solution); }
+            get
+            {
+                return new SolutionService(this.DTE2.Solution);
+            }
         }
 
         /// <summary>
         /// Gets the solution.
         /// </summary>
-        public Solution2 Solution 
+        public Solution2 Solution
         {
-            get { return this.DTE2.Solution as Solution2; }
+            get
+            {
+                return this.DTE2.Solution as Solution2;
+            }
         }
 
         /// <summary>
         /// Gets a value indicating whether this instance is MVVM cross solution.
         /// </summary>
-        public bool IsMvvmCrossSolution 
+        public bool IsMvvmCrossSolution
         {
-            get { return this.CoreProject != null; }
+            get
+            {
+                return this.CoreProject != null;
+            }
         }
 
         /// <summary>
         /// Gets the core project service.
         /// </summary>
-        public IProjectService CoreProjectService 
-        { 
+        public IProjectService CoreProjectService
+        {
             get
             {
                 Project project = this.CoreProject;
@@ -147,7 +164,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the iOS project service.
         /// </summary>
-        public IProjectService iOSProjectService 
+        public IProjectService iOSProjectService
         {
             get
             {
@@ -159,7 +176,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the windows phone project service.
         /// </summary>
-        public IProjectService WindowsPhoneProjectService 
+        public IProjectService WindowsPhoneProjectService
         {
             get
             {
@@ -171,7 +188,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the windows store project service.
         /// </summary>
-        public IProjectService WindowsStoreProjectService 
+        public IProjectService WindowsStoreProjectService
         {
             get
             {
@@ -192,12 +209,38 @@ namespace NinjaCoder.MvvmCross.Services
             }
         }
 
-
-        public IProjectService FormsProjectService
+        /// <summary>
+        /// Gets the xamarin forms project service.
+        /// </summary>
+        public IProjectService XamarinFormsProjectService
         {
             get
             {
-                Project project = this.FormsProject;
+                Project project = this.XamarinFormsProject;
+                return project != null ? new ProjectService(project) : null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the view models project service.
+        /// </summary>
+        public IProjectService ViewModelsProjectService
+        {
+            get
+            {
+                Project project = this.ViewModelsProject;
+                return project != null ? new ProjectService(project) : null;                
+            }
+        }
+
+        /// <summary>
+        /// Gets the plugins project service.
+        /// </summary>
+        public IProjectService PluginsProjectService
+        {
+            get
+            {
+                Project project = this.PluginsProject;
                 return project != null ? new ProjectService(project) : null;
             }
         }
@@ -215,7 +258,10 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal Project CoreTestsProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.CoreTests.GetDescription())); }
+            get
+            {
+                return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.CoreTests.GetDescription()));
+            }
         }
 
         /// <summary>
@@ -257,44 +303,39 @@ namespace NinjaCoder.MvvmCross.Services
         {
             get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.Wpf.GetDescription())); }
         }
-
-
+        
         /// <summary>
-        /// Gets the forms project.
+        /// Gets the xamarin forms project.
         /// </summary>
-        internal Project FormsProject
+        internal Project XamarinFormsProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.Forms.GetDescription())); }
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.XamarinForms.GetDescription())); }
         }
 
         /// <summary>
-        /// Gets the allowed converters.
+        /// Gets the view models project.
         /// </summary>
-        /// <param name="templatesPath">The templates path.</param>
-        /// <returns>The allowed converters.</returns>
-        public IEnumerable<ItemTemplateInfo> GetAllowedConverters(string templatesPath)
+        internal Project ViewModelsProject
         {
-            List<ItemTemplateInfo> templateInfos = this.GetFolderTemplateInfos(templatesPath);
-
-            //// now check to see if currently in the project!!
-
-            IProjectService coreProjectService = this.CoreProjectService;
-
-            if (coreProjectService != null)
+            get
             {
-                IEnumerable<string> folderItems = coreProjectService.GetFolderItems("Converters", false);
+                Project coreProject = this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.Core.GetDescription()));
 
-                foreach (ItemTemplateInfo item in folderItems
-                    .Select(folderItem => templateInfos
-                    .FirstOrDefault(x => x.FriendlyName.Contains(folderItem)))
-                    .Where(item => item != null))
-                {
-                    //// remove if already in the project!
-                    templateInfos.Remove(item);
-                }
+                return coreProject;
             }
+        }
 
-            return templateInfos;
+                /// <summary>
+        /// Gets the view models project.
+        /// </summary>
+        internal Project PluginsProject
+        {
+            get
+            {
+                Project pluginProject = this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.Core.GetDescription()));
+
+                return pluginProject;
+            }
         }
 
         /// <summary>
@@ -314,11 +355,12 @@ namespace NinjaCoder.MvvmCross.Services
 
                 string name = Path.GetFileNameWithoutExtension(fileInfo.Name);
 
-                itemTemplateInfos.Add(new ItemTemplateInfo
-                {
-                    FriendlyName = name.Replace("MvvmCross.", string.Empty),
-                    FileName = fileInfo.Name,
-                });
+                itemTemplateInfos.Add(
+                    new ItemTemplateInfo
+                        {
+                            FriendlyName = name.Replace("MvvmCross.", string.Empty),
+                            FileName = fileInfo.Name,
+                        });
             }
 
             return itemTemplateInfos;
@@ -338,10 +380,10 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         /// <param name="removeHeader">if set to <c>true</c> [remove header].</param>
         /// <param name="removeComments">if set to <c>true</c> [remove comments].</param>
-        public void CodeTidyUp(
-            bool removeHeader,
-            bool removeComments)
+        public void CodeTidyUp(bool removeHeader, bool removeComments)
         {
+            TraceService.WriteLine("VisualStudioService::CodeTidyUp");
+
             if (removeHeader)
             {
                 this.SolutionService.RemoveFileHeaders();
@@ -363,9 +405,11 @@ namespace NinjaCoder.MvvmCross.Services
         {
             IProjectService projectService = this.CoreProjectService;
 
-            return projectService != null ? projectService.Name.Replace(ProjectSuffix.Core.GetDescription(), string.Empty) : string.Empty;
+            return projectService != null
+                       ? projectService.Name.Replace(ProjectSuffix.Core.GetDescription(), string.Empty)
+                       : string.Empty;
         }
-        
+
         /// <summary>
         /// Gets the project service by suffix.
         /// </summary>
@@ -393,6 +437,63 @@ namespace NinjaCoder.MvvmCross.Services
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Gets the type of the framework.
+        /// </summary>
+        /// <returns>
+        /// The framework type.
+        /// </returns>
+        public FrameworkType GetFrameworkType()
+        {
+            int projectType = 0;
+
+            if (this.CoreProjectService == null)
+            {
+                return FrameworkType.NotSet;
+            }
+
+            IEnumerable<Reference> projectReferences = this.CoreProjectService.GetProjectReferences();
+
+            if (projectReferences != null)
+            {
+                if (projectReferences.Any(projectReference => projectReference.Name.Contains("MvvmCross")))
+                {
+                    projectType = 1;
+                }
+            }
+
+            if (this.XamarinFormsProjectService != null)
+            {
+                projectType += 2;
+            }
+
+            switch (projectType)
+            {
+                case 0:
+                    return FrameworkType.NoFramework;
+
+                case 1:
+                    return FrameworkType.MvvmCross;
+
+                case 2:
+                    return FrameworkType.XamarinForms;
+
+                case 3:
+                    return FrameworkType.MvvmCrossAndXamarinForms;
+
+                default:
+                    return FrameworkType.NotSet;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [solution already created].
+        /// </summary>
+        public bool SolutionAlreadyCreated
+        {
+            get { return this.SolutionService.GetProjects().Any(); }
         }
     }
 }

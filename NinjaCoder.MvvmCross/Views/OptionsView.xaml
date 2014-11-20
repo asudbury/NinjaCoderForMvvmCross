@@ -89,18 +89,6 @@
                         LanguageDictionary="{Binding LanguageDictionary}"/>
                 </GroupBox>
             </TabItem>
-            <TabItem Header="{DynamicResource Plugins}">
-                <GroupBox Height="{StaticResource TabHeight}">
-                    <GroupBox.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{DynamicResource Plugins}" Foreground="White" />
-                        </DataTemplate>
-                    </GroupBox.HeaderTemplate>
-                    <options:PluginsUserControl 
-                        DataContext="{Binding PluginsViewModel}" 
-                        LanguageDictionary="{Binding LanguageDictionary}"/>
-                </GroupBox>
-            </TabItem>
         </controls:MetroAnimatedTabControl>
 
         <StackPanel Margin="1" HorizontalAlignment="Right" Orientation="Horizontal">

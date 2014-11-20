@@ -10,7 +10,6 @@ namespace NinjaCoder.MvvmCross.Factories
     using NinjaCoder.MvvmCross.Factories.Interfaces;
     using NinjaCoder.MvvmCross.Services.Interfaces;
 
-    using Scorchio.Infrastructure.Constants;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Entities;
     using System.Collections.Generic;
@@ -18,7 +17,7 @@ namespace NinjaCoder.MvvmCross.Factories
     /// <summary>
     ///  Defines the MvvmCrossProjectFactory type. 
     /// </summary>
-    public class MvvmCrossProjectFactory : IMvvmCrossProjectFactory
+    public class MvvmCrossProjectFactory : BaseProjectFactory, IMvvmCrossProjectFactory
     {
         /// <summary>
         /// The visual studio service.
@@ -121,26 +120,11 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <returns>A unit tests project.</returns>
         internal ProjectTemplateInfo GetCoreTestsProject()
         {
-            string testingFrameWork = this.settingsService.TestingFramework;
-            string mockingFrameWork = this.settingsService.MockingFramework;
-
-            string friendlyName = ProjectType.CoreTests.GetDescription() + " (" + testingFrameWork + " and " + mockingFrameWork + ")";
-            string templateName = MvvmCrossProjectTemplate.NUnitTests.GetDescription();
-
-            if (testingFrameWork == TestingConstants.MsTest.Name)
-            {
-                templateName = MvvmCrossProjectTemplate.MsTestTests.GetDescription();
-            }
-
-            return new ProjectTemplateInfo
-            {
-                FriendlyName = friendlyName,
-                ProjectSuffix = ProjectSuffix.CoreTests.GetDescription(),
-                TemplateName = templateName,
-                PreSelected = true,
-                ReferenceCoreProject = true,
-                NugetCommands = this.nugetCommandsService.GetCoreTestsCommands()
-            };
+            return this.GetCoreTestsProject(
+                FrameworkType.MvvmCross,
+                this.settingsService.TestingFramework,
+                this.settingsService.MockingFramework,
+                this.nugetCommandsService.GetMvvmCrossTestsCommands());
         }
 
         /// <summary>

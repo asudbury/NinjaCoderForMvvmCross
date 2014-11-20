@@ -19,6 +19,11 @@ namespace NinjaCoder.MvvmCross.Constants
         /// The non MVVM cross solution message.
         /// </summary>
         public const string NonMvvmCrossSolution = "This solution is not a MvvmCross solution.";
+        
+        /// <summary>
+        /// The non MVVM cross or xamarin forms solution.
+        /// </summary>
+        public const string NonMvvmCrossOrXamarinFormsSolution = "This solution is not a MvvmCross or Xamarin Forms solution.";
 
         /// <summary>
         /// The replace blank lines reg ex

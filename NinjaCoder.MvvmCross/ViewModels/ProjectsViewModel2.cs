@@ -5,11 +5,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels
 {
+    using System.Linq;
+
     using AddProjects;
     using Factories.Interfaces;
 
     using NinjaCoder.MvvmCross.Services.Interfaces;
 
+    using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Services;
     using System;
 
@@ -42,6 +45,16 @@ namespace NinjaCoder.MvvmCross.ViewModels
         /// Gets or sets the wizard view model.
         /// </summary>
         public ProjectsWizardViewModel ProjectsWizardViewModel { get; set; }
+
+        /// <summary>
+        /// Gets the wizard step view model.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        public WizardStepViewModel GetWizardStepViewModel(string name)
+        {
+            return this.ProjectsWizardViewModel.Steps
+                    .FirstOrDefault(x => x.ViewModel.ToString().Contains(name));
+        }
 
         /// <summary>
         /// Projectses the wizard view model on on cancel.

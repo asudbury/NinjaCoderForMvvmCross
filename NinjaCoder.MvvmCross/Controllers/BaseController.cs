@@ -34,14 +34,12 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseController" /> class.
         /// </summary>
-        /// <param name="configurationService">The configuration service.</param>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="messageBoxService">The message box service.</param>
         /// <param name="resolverService">The resolver service.</param>
         /// <param name="readMeService">The read me service.</param>
         protected BaseController(
-            IConfigurationService configurationService,
             IVisualStudioService visualStudioService,
             ISettingsService settingsService,
             IMessageBoxService messageBoxService,
@@ -57,11 +55,8 @@ namespace NinjaCoder.MvvmCross.Controllers
                 settingsService.LogFilePath,
                 settingsService.DisplayErrors);
 
-            configurationService.CreateUserDirectories();
-
             TraceService.WriteLine("BaseController::Constructor");
 
-            this.ConfigurationService = configurationService;
             this.VisualStudioService = visualStudioService;
             this.SettingsService = settingsService;
             this.MessageBoxService = messageBoxService;
@@ -76,11 +71,6 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             set { this.VisualStudioService.DTE2 = value; }
         }
-
-        /// <summary>
-        /// The configuration service.
-        /// </summary>
-        protected IConfigurationService ConfigurationService { get; private set; }
 
         /// <summary>
         /// Gets the visual studio service.
@@ -224,7 +214,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         protected void ShowNotMvvmCrossSolutionMessage()
         {
-            TraceService.WriteLine(Settings.NonMvvmCrossSolution);
+            TraceService.WriteLine("BaseController::.ShowNotMvvmCrossSolutionMessage");
 
             this.MessageBoxService.Show(
                 Settings.NonMvvmCrossSolution, 
@@ -234,6 +224,20 @@ namespace NinjaCoder.MvvmCross.Controllers
                 this.SettingsService.ThemeColor);
         }
 
+        /// <summary>
+        /// Shows the not MVVM cross or xamarin forms solution message.
+        /// </summary>
+        protected void ShowNotMvvmCrossOrXamarinFormsSolutionMessage()
+        {
+            TraceService.WriteLine("BaseController::.ShowNotMvvmCrossOrXamarinFormsSolutionMessage");
+
+            this.MessageBoxService.Show(
+                Settings.NonMvvmCrossOrXamarinFormsSolution,
+                Settings.ApplicationName,
+                this.SettingsService.BetaTesting,
+                this.CurrentTheme,
+                this.SettingsService.ThemeColor);
+        }
         /// <summary>
         /// Shows the read me.
         /// </summary>

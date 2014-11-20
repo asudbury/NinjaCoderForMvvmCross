@@ -7,30 +7,39 @@ namespace NinjaCoder.MvvmCross.Services
 {
     using EnvDTE;
     using Interfaces;
-
     using NinjaCoder.MvvmCross.Constants;
-
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    
+
     /// <summary>
     /// Defines the NugetService type.
     /// </summary>
     public class NugetService : INugetService
     {
         /// <summary>
+        /// The visual studio service.
+        /// </summary>
+        private readonly IVisualStudioService visualStudioService;
+
+        /// <summary>
         /// The document events.
         /// </summary>
         private DocumentEvents documentEvents;
 
         /// <summary>
-        /// Gets or sets the visual studio service.
+        /// Initializes a new instance of the <see cref="NugetService" /> class.
         /// </summary>
-        public IVisualStudioService VisualStudioService { get; set; }
+        /// <param name="visualStudioService">The visual studio service.</param>
+        public NugetService(IVisualStudioService visualStudioService)
+        {
+            TraceService.WriteLine("NugetService::Constructor");
+
+            this.visualStudioService = visualStudioService;
+        }
 
         /// <summary>
         /// Gets the init nuget messages.
@@ -51,16 +60,13 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the nuget commands.
         /// </summary>
-        /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="templates">The templates.</param>
         /// <returns>
         /// The nuget commands.
         /// </returns>
-        public string GetNugetCommands(
-            IVisualStudioService visualStudioService,
-            IEnumerable<ProjectTemplateInfo> templates)
+        public string GetNugetCommands(IEnumerable<ProjectTemplateInfo> templates)
         {
-            TraceService.WriteLine("NugetService::ExecuteNugetCommands");
+            TraceService.WriteLine("NugetService::GetNugetCommands");
 
             string nugetCommandsString = string.Empty;
 
@@ -94,24 +100,19 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Opens the nuget window.
         /// </summary>
-        /// <param name="visualStudioService">The visual studio service.</param>
-        public void OpenNugetWindow(IVisualStudioService visualStudioService)
+        public void OpenNugetWindow()
         {
             TraceService.WriteLine("NugetService::OpenNugetWindow");
 
-            this.VisualStudioService = visualStudioService;
-
-            this.VisualStudioService.DTEService.ExecuteNugetCommand(string.Empty);
+            this.visualStudioService.DTEService.ExecuteNugetCommand(string.Empty);
         }
 
         /// <summary>
         /// Executes the specified commands.
         /// </summary>
-        /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="readMePath">The read me path.</param>
         /// <param name="commands">The commands.</param>
         public void Execute(
-            IVisualStudioService visualStudioService,
             string readMePath,
             IEnumerable<string> commands)
         {
@@ -120,7 +121,6 @@ namespace NinjaCoder.MvvmCross.Services
             string nugetCommandsString = string.Join(Environment.NewLine, commands);
 
             this.Execute(
-                visualStudioService,
                 readMePath,
                 nugetCommandsString);
         }
@@ -128,23 +128,19 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Executes the specified visual studio service.
         /// </summary>
-        /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="readMePath">The read me path.</param>
         /// <param name="commands">The commands.</param>
         public void  Execute(
-            IVisualStudioService visualStudioService,
             string readMePath,
             string commands)
         {
             TraceService.WriteLine("NugetService::Execute");
-
-            this.VisualStudioService = visualStudioService;
-
+            
             this.SetupEventHandlers();
 
             commands += Environment.NewLine + "$DTE.ItemOperations.OpenFile('" + readMePath + "')";
 
-            this.VisualStudioService.DTEService.ExecuteNugetCommand(commands);
+            this.visualStudioService.DTEService.ExecuteNugetCommand(commands);
         }
 
         /// <summary>
@@ -154,7 +150,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             TraceService.WriteLine("NugetService::SetupEventHandlers");
 
-            this.documentEvents = this.VisualStudioService.DTEService.GetDocumentEvents();
+            this.documentEvents = this.visualStudioService.DTEService.GetDocumentEvents();
             
             this.documentEvents.DocumentOpened += this.DocumentEventsDocumentOpened;
         }
@@ -202,26 +198,38 @@ namespace NinjaCoder.MvvmCross.Services
                 this.RemoveEventHandlers();
             }
 
-            this.FixTestProject();
+            this.FixUpXamarinFormHelpers();
 
-            this.VisualStudioService.DTEService.CollapseSolution();
+            this.visualStudioService.DTEService.CollapseSolution();
         }
 
         /// <summary>
-        /// Fixes the test project. 
-        /// At the moment we  remove the *.Wpf assemblies.
+        /// Fixes up xamarin form helpers.
         /// </summary>
-        internal void FixTestProject()
+        internal void FixUpXamarinFormHelpers()
         {
-            TraceService.WriteLine("NugetService::FixTestProject");
+            IProjectService droidProjectService = this.visualStudioService.DroidProjectService;
 
-            IProjectService projectService = this.VisualStudioService.CoreTestsProjectService;
-
-            if (projectService != null)
+            if (droidProjectService != null)
             {
-                projectService.RemoveReferences(".wpf");
-                projectService.RemoveFolder("Bootstrap");
-                projectService.RemoveFolder("ToDo-MvvmCross");
+                IProjectItemService projectItemService = droidProjectService.GetProjectItem("MainActivity.cs");
+
+                if (projectItemService != null)
+                {
+                    projectItemService.ReplaceText("Droid.Forms", "Forms");
+                }
+            }
+
+            IProjectService iosProjectService = this.visualStudioService.iOSProjectService;
+
+            if (iosProjectService != null)
+            {
+                IProjectItemService projectItemService = iosProjectService.GetProjectItem("AppDelegate.cs");
+
+                if (projectItemService != null)
+                {
+                    projectItemService.ReplaceText("iOS.Forms", "Forms");
+                }
             }
         }
     }

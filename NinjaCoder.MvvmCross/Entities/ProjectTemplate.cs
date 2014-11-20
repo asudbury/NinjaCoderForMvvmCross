@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-//  Defines the XamarinFormsProjectTemplate type.
+//  Defines the NoFrameworkProjectTemplate type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -9,38 +9,50 @@ namespace NinjaCoder.MvvmCross.Entities
     using System.ComponentModel;
 
     /// <summary>
-    /// Defines the XamarinFormsProjectTemplate type.
+    /// Defines the NoFrameworkProjectTemplate type.
     /// </summary>
-    public enum XamarinFormsProjectTemplate
+    public enum ProjectTemplate
     {
         /// <summary>
-        /// The xamarin core
+        /// The core project
         /// </summary>
         [Description("Xamarin.Core.zip")]
         Core,
 
         /// <summary>
-        /// The xamarin forms
+        /// The xamarin forms project
         /// </summary>
         [Description("Xamarin.Forms.zip")]
-        Forms,
+        XamarinForms,
+
+        /// <summary>
+        /// The nunit tests
+        /// </summary>
+        [Description("NUnit.Tests.zip")]
+        NUnitTests,
+
+        /// <summary>
+        /// The mstest tests
+        /// </summary>
+        [Description("MSTest.Tests.zip")]
+        MsTestTests,
 
         /// <summary>
         /// The iOS
         /// </summary>
-        [Description("Xamarin.Forms.iOS.zip")]
+        [Description("Xamarin.iOS.zip")]
         iOS,
 
         /// <summary>
-        /// The Droid
+        /// The droid
         /// </summary>
-        [Description("Xamarin.Forms.Droid.zip")]
+        [Description("Xamarin.Droid.zip")]
         Droid,
 
         /// <summary>
-        /// The Windows Phone
+        /// The windows phone
         /// </summary>
-        [Description("Xamarin.Forms.WindowsPhone.zip")]
+        [Description("Xamarin.WindowsPhone.zip")]
         WindowsPhone
     }
 }

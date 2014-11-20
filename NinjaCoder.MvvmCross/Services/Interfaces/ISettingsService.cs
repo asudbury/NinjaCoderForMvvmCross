@@ -62,10 +62,6 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// </summary>
         string ServicesCodeSnippetsPath { get; }
 
-        /// <summary>
-        /// Gets the plugins config path.
-        /// </summary>
-        string PluginsConfigPath { get; }
 
         /// <summary>
         /// Gets the services config path.
@@ -178,81 +174,6 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         string MockingFramework { get; set; }
 
         /// <summary>
-        /// Gets or sets the default users paths set.
-        /// </summary>
-        bool DefaultUsersPathsSet { get; set; }
-
-        /// <summary>
-        /// Gets or sets the default user plugins path.
-        /// </summary>
-        string DefaultUserPluginsPath { get; set; }
-
-        /// <summary>
-        /// Gets or sets the default user services path.
-        /// </summary>
-        string DefaultUserServicesPath { get; set; }
-
-        /// <summary>
-        /// Gets or sets the default user code snippets plugins path.
-        /// </summary>
-        string DefaultUserCodeSnippetsPluginsPath { get; set; }
-
-        /// <summary>
-        /// Gets or sets the default user code snippets services path.
-        /// </summary>
-        string DefaultUserCodeSnippetsServicesPath { get; set; }
-
-        /// <summary>
-        /// Gets or sets the default user code config plugins path.
-        /// </summary>
-        string DefaultUserCodeConfigPluginsPath { get; set; }
-
-        /// <summary>
-        /// Gets or sets the default user code config services path.
-        /// </summary>
-        string DefaultUserCodeConfigServicesPath { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user plugins path.
-        /// </summary>
-        string UserPluginsPath { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user services path.
-        /// </summary>
-        string UserServicesPath { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user code snippets plugins path.
-        /// </summary>
-        string UserCodeSnippetsPluginsPath { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user code snippets services path.
-        /// </summary>
-        string UserCodeSnippetsServicesPath { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user code config plugins path.
-        /// </summary>
-        string UserCodeConfigPluginsPath { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user code config services path.
-        /// </summary>
-        string UserCodeConfigServicesPath { get; set; }
-
-        /// <summary>
-        /// Gets or sets the type of the selected view.
-        /// </summary>
-        string SelectedViewType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the selected view prefix.
-        /// </summary>
-        string SelectedViewPrefix { get; set; }
-
-        /// <summary>
         /// Gets or sets the PCL profile.
         /// </summary>
         string PCLProfile { get; set; }
@@ -328,14 +249,40 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         bool FixInfoPlist { get; }
 
         /// <summary>
-        /// Gets a value indicating whether [enable xamarin forms].
+        /// Gets or sets a value indicating whether [use local uris].
         /// </summary>
-
-        bool EnableXamarinForms { get;  }
+        bool UseLocalUris { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether [enable MVVM cross and xamarin forms].
+        /// Gets the plugins URI.
         /// </summary>
-        bool EnableMvvmCrossAndXamarinForms { get;  }
+        string PluginsUri { get; }
+
+        /// <summary>
+        /// Gets the nuget pacakges URI.
+        /// </summary>
+        string NugetPackagesUri { get; }
+
+        /// <summary>
+        /// Gets or sets the xamarin forms views.
+        /// </summary>
+        string XamarinFormsViews { get; set; }
+        
+        /// <summary>
+        /// Sets the requested nuget commands.
+        /// </summary>
+        string RequestedNugetCommands { set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [output nuget commands to read me].
+        /// </summary>
+        bool OutputNugetCommandsToReadMe { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [output errors to read me].
+        /// </summary>
+        bool OutputErrorsToReadMe { get; set; }
     }
 }
+
+

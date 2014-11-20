@@ -39,7 +39,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <returns>
         /// The added plugins.
         /// </returns>
-        IEnumerable<Plugin> AddProjectPlugins(
+        void AddProjectPlugins(
             IProjectService projectService,
             IEnumerable<Plugin> plugins, 
             bool addBootstrapFile);

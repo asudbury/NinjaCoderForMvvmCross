@@ -16,21 +16,20 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
-            <Separator Margin="10"/>
-            <Label Height="10"></Label>
-            <TextBlock Text="Click 'Finish' to generate the solution." FontSize="18"></TextBlock>
-            <Label Height="20"></Label>
-            <TextBlock  FontSize="10">
+        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Width="500">
+            <Separator Margin="5"/>
+            <TextBlock Text="Click 'Finish' to generate the solution."></TextBlock>
+            <Separator Margin="5"/>
+
+            <TextBlock  FontSize="12">
                 Note:- All frameworks and supporting packages are downloaded from Nuget<LineBreak/>   Internet connection required.
             </TextBlock>
 
         </StackPanel>
 
-        <Image Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/bottom.png" Grid.Column="1" Grid.Row="1" />
+        <Image Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/bottom.png" Grid.Column="1" Grid.Row="1" Width="150" />
 
-        <Image Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/lefthand.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="30"/>
-
+        <Image Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/lefthand.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="30" VerticalAlignment="Top"/>
 
     </Grid>
 

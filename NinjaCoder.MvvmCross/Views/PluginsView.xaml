@@ -41,34 +41,18 @@
             Margin="10"/>
 
         <controls:MetroAnimatedTabControl Margin="1,0,0,0">
-            <TabItem Header="{DynamicResource Core}">
+            <TabItem Header="{DynamicResource Core}" IsSelected="{Binding CorePluginsSelected}">
                 <userControls:PickListView 
                     GroupBoxTitle="{DynamicResource CorePlugins}"
                     DataContext="{Binding CorePlugins}"
                     Height="370"/>
             </TabItem>
 
-            <TabItem Header="{DynamicResource Community}">
+            <TabItem Header="{DynamicResource Community}" IsSelected="{Binding CommunityPluginsSelected}">
                 <userControls:PickListView 
                     GroupBoxTitle="{DynamicResource CommunityPlugins}"
                     DataContext="{Binding CommunityPlugins}"
                     Height="370"/>
-            </TabItem>
-            <TabItem Header="{DynamicResource User}">
-                <StackPanel Orientation="Vertical">
-                    <userControls:PickListView 
-                    GroupBoxTitle="{DynamicResource UserPlugins}"
-                    DataContext="{Binding UserPlugins}"
-                    Height="335"/>
-                    <TextBlock Margin="10">
-                    <Hyperlink Command="{Binding OpenUserPluginsFolderCommand}">
-                        <TextBlock 
-                            Text="{DynamicResource OpenUserPluginsFolder}" />
-                    </Hyperlink>
-                </TextBlock>
-
-                </StackPanel>
-
             </TabItem>
         </controls:MetroAnimatedTabControl>
 

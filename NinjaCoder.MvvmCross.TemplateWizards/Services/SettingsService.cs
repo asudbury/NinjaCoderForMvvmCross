@@ -101,6 +101,15 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Services
         {
             get { return this.GetRegistryValue("Internals", "PluginsToAdd", string.Empty); }
         }
+
+        /// <summary>
+        /// Gets the xamarin forms views.
+        /// </summary>
+        public string XamarinFormsViews
+        {
+            get { return this.GetRegistryValue("Internals", "XamarinFormsViews", string.Empty); }
+        }
+
         /// <summary>
         /// Gets the registry value.
         /// </summary>
@@ -165,6 +174,25 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Services
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Sets the value.
+        /// </summary>
+        /// <param name="subKey">The sub key.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="value">The value.</param>
+        internal void SetRegistryValue(
+            string subKey,
+            string name,
+            string value)
+        {
+            RegistryKey registryKey = this.GetRegistryKey(subKey, true);
+
+            if (registryKey != null)
+            {
+                registryKey.SetValue(name, value);
+            }
         }
     }
 }

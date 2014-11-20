@@ -7,7 +7,6 @@ namespace NinjaCoder.MvvmCross.Services
 {
     using Constants;
     using Factories.Interfaces;
-
     using Interfaces;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Services.Testing.Interfaces;
@@ -22,6 +21,11 @@ namespace NinjaCoder.MvvmCross.Services
     /// </summary>
     internal class ViewModelViewsService : BaseService, IViewModelViewsService
     {
+        /// <summary>
+        /// The visual studio service.
+        /// </summary>
+        private readonly IVisualStudioService visualStudioService;
+
         /// <summary>
         /// The code snippet factory.
         /// </summary>
@@ -45,16 +49,19 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewModelViewsService" /> class.
         /// </summary>
+        /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="codeSnippetFactory">The code snippet factory.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="testingServiceFactory">The testing service factory.</param>
         public ViewModelViewsService(
+            IVisualStudioService visualStudioService,
             ICodeSnippetFactory codeSnippetFactory,
             ISettingsService settingsService,
             ITestingServiceFactory testingServiceFactory)
         {
             TraceService.WriteLine("ViewModelViewsService::Constructor");
 
+            this.visualStudioService = visualStudioService;
             this.codeSnippetFactory = codeSnippetFactory;
             this.settingsService = settingsService;
             this.testingService = testingServiceFactory.GetTestingService();
@@ -64,16 +71,16 @@ namespace NinjaCoder.MvvmCross.Services
         /// Adds the view model and views.
         /// </summary>
         /// <param name="coreProjectService">The core project service.</param>
-        /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="templateInfos">The template infos.</param>
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="addUnitTests">if set to <c>true</c> [add unit tests].</param>
         /// <param name="viewModelInitiateFrom">The view model initiate from.</param>
         /// <param name="viewModelNavigateTo">The view model navigate to.</param>
-        /// <returns>The messages.</returns>
+        /// <returns>
+        /// The messages.
+        /// </returns>
         public IEnumerable<string> AddViewModelAndViews(
             IProjectService coreProjectService,
-            IVisualStudioService visualStudioService,
             IEnumerable<ItemTemplateInfo> templateInfos,
             string viewModelName,
             bool addUnitTests,

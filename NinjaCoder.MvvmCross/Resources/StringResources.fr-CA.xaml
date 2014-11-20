@@ -43,5 +43,4 @@
     <system:String x:Key="Views">Vues</system:String>
     <system:String x:Key="ViewType">Type d'affichage</system:String>
     <system:String x:Key="Visual">Visuel</system:String>
-    <system:String x:Key="UseNuget">Utilise Nuget (Internet connexion requis)</system:String>
 </ResourceDictionary>

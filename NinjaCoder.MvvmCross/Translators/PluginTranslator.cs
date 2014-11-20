@@ -6,162 +6,142 @@
 namespace NinjaCoder.MvvmCross.Translators
 {
     using Entities;
-
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-
+    using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Translators;
-    using System;
     using System.Collections.Generic;
-    using System.IO;
-    using System.IO.Abstractions;
     using System.Linq;
     using System.Xml.Linq;
 
     /// <summary>
     ///  Defines the PluginTranslator type.
     /// </summary>
-    internal class PluginTranslator : ITranslator<FileInfoBase, Plugin>
+    internal class PluginTranslator : ITranslator<XElement, Plugin>
     {
-        /// <summary>
-        /// The settings service.
-        /// </summary>
-        private readonly ISettingsService settingsService;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PluginTranslator" /> class.
-        /// </summary>
-        /// <param name="settingsService">The settings service.</param>
-        public PluginTranslator(ISettingsService settingsService)
-        {
-            this.settingsService = settingsService;
-        }
-
         /// <summary>
         /// Translates the object.
         /// </summary>
         /// <param name="from">The object to translate from.</param>
         /// <returns>The translated object.</returns>
-        public Plugin Translate(FileInfoBase @from)
+        public Plugin Translate(XElement @from)
         {
-            string name = Path.GetFileNameWithoutExtension(from.Name);
+            IEnumerable<string> nugetCommands = this.GetNugetCommands(from);
+            IEnumerable<string> platforms = this.GetPlatforms(from);
 
-            if (string.IsNullOrEmpty(name) == false)
-            {
-                XDocument doc = XDocument.Load(@from.FullName);
+            IEnumerable<FrameworkType> frameworks = this.GetFrameworks(from);
+                
+            string usingStatement = this.GetUsingStatement(from);
 
-                IEnumerable<string> nugetCommands = this.GetNugetCommands(doc);
-                IEnumerable<string> platforms = this.GetPlatforms(doc);
-                string usingStatement = this.GetUsingStatement(doc);
-
-                return new Plugin
-                           {
-                               FriendlyName = this.GetFriendlyName(name),
-                               FileName = from.Name,
-                               Source = from.FullName,
-                               IsCommunityPlugin = this.IsCommunityPlugin(from),
-                               IsUserPlugin = this.IsUserPlugin(from),
-                               UsingStatement = usingStatement,
-                               NugetCommands = nugetCommands,
-                               Platforms = platforms
-                           };
-            }
-
-            return null;
+            return new Plugin
+                        {
+                            FriendlyName = this.GetFriendlyName(from),
+                            IsCommunityPlugin = this.IsCommunityPlugin(from),
+                            UsingStatement = usingStatement,
+                            NugetCommands = nugetCommands,
+                            Platforms = platforms,
+                            Frameworks = frameworks
+                        };
         }
 
         /// <summary>
         /// Gets the name of the friendly.
         /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns>The friendly name.</returns>
-        internal string GetFriendlyName(string name)
+        /// <param name="element">The element.</param>
+        /// <returns>
+        /// The friendly name.
+        /// </returns>
+        internal string GetFriendlyName(XElement element)
         {
-            string friendlyName = name;
+            XElement nameElement = element.Element("Name");
 
-            int index = name.IndexOf("Plugins", StringComparison.OrdinalIgnoreCase);
-
-            if (index != -1)
-            {
-                //// uppercase first character.
-                friendlyName = name.Substring(index + 8, 1).ToUpper() + name.Substring(index + 9);
-            }
-            else
-            {
-                index = name.IndexOf("Plugin", StringComparison.OrdinalIgnoreCase);
-
-                if (index != -1)
-                {
-                    //// uppercase first character.
-                    friendlyName = name.Substring(index + 7, 1).ToUpper() + name.Substring(index + 8);
-                }
-            }
-
-            return friendlyName;
+            return nameElement != null ? nameElement.Value : "No Name";
         }
 
         /// <summary>
         /// Determines whether [is community plugin] [the specified name].
         /// </summary>
-        /// <param name="fileInfoBase">The file info base.</param>
-        /// <returns>True or false.</returns>
-        internal bool IsCommunityPlugin(FileInfoBase fileInfoBase)
+        /// <param name="element">The element.</param>
+        /// <returns>
+        /// True or false.
+        /// </returns>
+        internal bool IsCommunityPlugin(XElement element)
         {
-            return this.IsUserPlugin(fileInfoBase) == false && fileInfoBase.FullName.Contains("Community");
-        }
+            XElement communityPluginElement = element.Element("CommunityPlugin");
 
-        /// <summary>
-        /// Determines whether [is user plugin] [the specified name].
-        /// </summary>
-        /// <param name="fileInfoBase">The file info base.</param>
-        /// <returns>True or false.</returns>
-        internal bool IsUserPlugin(FileInfoBase fileInfoBase)
-        {
-            return this.settingsService.UserPluginsPath != string.Empty && fileInfoBase.FullName.Contains(this.settingsService.UserPluginsPath);
+            return communityPluginElement != null;
         }
 
         /// <summary>
         /// Gets the using statement.
         /// </summary>
-        /// <param name="doc">The document.</param>
+        /// <param name="element">The element.</param>
         /// <returns></returns>
-        internal string GetUsingStatement(XDocument doc)
+        internal string GetUsingStatement(XElement element)
         {
-            XElement element = doc.Root.Element("UsingStatement");
+            XElement usingElement = element.Element("UsingStatement");
 
-            return element != null ? element.Value : string.Empty;
+            return usingElement != null ? usingElement.Value : string.Empty;
         }
 
         /// <summary>
         /// Gets the nuget commands.
         /// </summary>
-        /// <param name="doc">The document.</param>
+        /// <param name="element">The element.</param>
         /// <returns></returns>
-        internal IEnumerable<string> GetNugetCommands(XDocument doc)
+        internal IEnumerable<string> GetNugetCommands(XElement element)
         {
-            IEnumerable<XElement> elements = doc.Root.Elements("NugetPackage");
+            IEnumerable<XElement> elements = element.Elements("NugetPackage");
 
-            return elements.Select(element => element.Value).ToList();
+            return elements.Select(e => e.Value).ToList();
         }
 
         /// <summary>
         /// Gets the platforms.
         /// </summary>
-        /// <param name="doc">The document.</param>
+        /// <param name="element">The element.</param>
         /// <returns>
         /// The suported platforms.
         /// </returns>
-        internal IEnumerable<string> GetPlatforms(XDocument doc)
+        internal IEnumerable<string> GetPlatforms(XElement element)
         {
-            XElement platformsElement = doc.Root.Element("Platforms");
+            XElement platformsElement = element.Element("Platforms");
 
             if (platformsElement != null)
             {
                 IEnumerable<XElement> elements = platformsElement.Elements("Platform");
 
-                return elements.Select(element => element.Value).ToList();
+                return elements.Select(e => e.Value).ToList();
             }
 
             return new List<string>();
+        }
+
+
+        /// <summary>
+        /// Gets the frameworks.
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <returns>
+        /// The supported frameworks
+        /// </returns>
+        internal IEnumerable<FrameworkType> GetFrameworks(XElement element)
+        {
+            List<FrameworkType> frameworkTypes = new List<FrameworkType>();
+
+            XElement frameWorksEement = element.Element("Frameworks");
+
+            if (frameWorksEement != null)
+            {
+                IEnumerable<XElement> elements = frameWorksEement.Elements("Framework");
+
+                foreach (XElement e in elements)
+                {
+                    FrameworkType frameworkType = FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(e.Value);
+
+                    frameworkTypes.Add(frameworkType);    
+                }
+            }
+
+            return frameworkTypes;
         }
     }
 }

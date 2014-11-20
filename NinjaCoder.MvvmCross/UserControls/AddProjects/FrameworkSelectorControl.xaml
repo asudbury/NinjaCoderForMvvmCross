@@ -21,14 +21,17 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
+            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Width="500">
             <Separator Margin="5"/>
 
-            <Label Height="30">Select the best framework to suit your needs :-</Label>
-                <RadioButton Content="No framework (not available in this version)" Margin="10" IsChecked="{Binding Path=NoFramework, Mode=TwoWay}" IsEnabled="False"></RadioButton>
-                <RadioButton Content="MvvmCross only" Margin="10" IsChecked="{Binding Path=MvvmCross, Mode=TwoWay}"></RadioButton>
-                <RadioButton Content="Xamarin Forms only (not available in this version)" Margin="10" IsChecked="{Binding Path=XamarinForms, Mode=TwoWay}" IsEnabled="False"></RadioButton>
-                <RadioButton Content="MvvmCross and Xamarin Forms (not available in this version)" Margin="10" IsChecked="{Binding Path=MvvmCrossXamarinForms, Mode=TwoWay}" IsEnabled="False"></RadioButton>
+            <Label>Select the best framework to suit your needs :-</Label>
+
+            <Separator Margin="5"/>
+
+            <RadioButton Content="No Framework" Margin="10" IsChecked="{Binding Path=NoFramework, Mode=TwoWay}" IsEnabled="{Binding Path=AllowFrameWorkSelection}"></RadioButton>
+            <RadioButton Content="MvvmCross" Margin="10" IsChecked="{Binding Path=MvvmCross, Mode=TwoWay}" IsEnabled="{Binding Path=AllowFrameWorkSelection}"></RadioButton>
+            <RadioButton Content="Xamarin Forms" Margin="10" IsChecked="{Binding Path=XamarinForms, Mode=TwoWay}" IsEnabled="{Binding Path=AllowFrameWorkSelection}"></RadioButton>
+                <RadioButton Content="MvvmCross and Xamarin Forms" Margin="10" IsChecked="{Binding Path=MvvmCrossXamarinForms, Mode=TwoWay}" IsEnabled="False"></RadioButton>
 
         </StackPanel>
 
@@ -65,10 +68,9 @@
             
         </StackPanel>
 
+        <Image Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/bottom.png" Grid.Column="1" Grid.Row="2" Width="150" />
 
-        <Image Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/bottom.png" Grid.Column="1" Grid.Row="2" />
-
-            <Image Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/lefthand.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Top" />
+        <Image Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/lefthand.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Top" />
 
     </Grid>
 

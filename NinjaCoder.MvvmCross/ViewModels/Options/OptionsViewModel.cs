@@ -40,7 +40,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.ProjectsViewModel = resolverService.Resolve<ProjectsViewModel>();
             this.CodingStyleViewModel = resolverService.Resolve<CodingStyleViewModel>();
             this.VisualViewModel = resolverService.Resolve<VisualViewModel>();
-            this.PluginsViewModel = resolverService.Resolve<PluginsViewModel>();
         }
 
         /// <summary>
@@ -63,11 +62,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         /// </summary>
         public CodingStyleViewModel CodingStyleViewModel { get; private set; }
 
-        /// <summary>
-        /// Gets the plugins view model.
-        /// </summary>
-        public PluginsViewModel PluginsViewModel { get; private set; }
-        
+       
         /// <summary>
         /// Gets the visual view model.
         /// </summary>
@@ -86,8 +81,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             set
             {
                 this.languageDictionary = value;
-                this.BuildViewModel.LanguageDictionary = value;
-                this.PluginsViewModel.LanguageDictionary = value;
                 this.TracingViewModel.LanguageDictionary = value;
                 this.ProjectsViewModel.LanguageDictionary = value;
                 this.CodingStyleViewModel.LanguageDictionary = value;
@@ -113,7 +106,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.ProjectsViewModel.Save();
             this.CodingStyleViewModel.Save();
             this.VisualViewModel.Save();
-            this.PluginsViewModel.Save();
         }
     }
 }

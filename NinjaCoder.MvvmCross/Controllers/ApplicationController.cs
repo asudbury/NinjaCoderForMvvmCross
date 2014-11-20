@@ -39,7 +39,6 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// Initializes a new instance of the <see cref="ApplicationController" /> class.
         /// </summary>
         /// <param name="applicationService">The application service.</param>
-        /// <param name="configurationService">The configuration service.</param>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="messageBoxService">The message box service.</param>
@@ -48,7 +47,6 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="readMeService">The read me service.</param>
         public ApplicationController(
             IApplicationService applicationService,
-            IConfigurationService configurationService,
             IVisualStudioService visualStudioService,
             ISettingsService settingsService,
             IMessageBoxService messageBoxService,
@@ -56,7 +54,6 @@ namespace NinjaCoder.MvvmCross.Controllers
             ITranslator<IList<Accent>, IEnumerable<AccentColor>> translator,
             IReadMeService readMeService)
             : base(
-            configurationService,
             visualStudioService,
             settingsService,
             messageBoxService,

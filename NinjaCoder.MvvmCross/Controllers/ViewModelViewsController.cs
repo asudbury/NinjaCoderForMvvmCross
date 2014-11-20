@@ -7,7 +7,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 {
     using Constants;
     using EnvDTE;
-
+    using NinjaCoder.MvvmCross.Entities;
     using Scorchio.Infrastructure.Services;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
@@ -29,7 +29,6 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewModelViewsController" /> class.
         /// </summary>
-        /// <param name="configurationService">The configuration service.</param>
         /// <param name="viewModelViewsService">The view model views service.</param>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="settingsService">The settings service.</param>
@@ -37,7 +36,6 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="resolverService">The resolver service.</param>
         /// <param name="readMeService">The read me service.</param>
         public ViewModelViewsController(
-            IConfigurationService configurationService,
             IViewModelViewsService viewModelViewsService,
             IVisualStudioService visualStudioService,
             ISettingsService settingsService,
@@ -45,7 +43,6 @@ namespace NinjaCoder.MvvmCross.Controllers
             IResolverService resolverService,
             IReadMeService readMeService)
             : base(
-            configurationService,
             visualStudioService,
             settingsService,
             messageBoxService,
@@ -64,7 +61,11 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteHeader("ViewModelAndViewsController::Run");
 
-            if (this.VisualStudioService.IsMvvmCrossSolution)
+            FrameworkType frameworkType = this.VisualStudioService.GetFrameworkType();
+
+            if (frameworkType == FrameworkType.MvvmCross || 
+                frameworkType == FrameworkType.XamarinForms ||
+                frameworkType == FrameworkType.MvvmCrossAndXamarinForms)
             {
                 ViewModelViewsViewModel viewModel = this.ShowDialog<ViewModelViewsViewModel>(new ViewModelViewsView());
 
@@ -80,7 +81,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             }
             else
             {
-                this.ShowNotMvvmCrossSolutionMessage();
+                this.ShowNotMvvmCrossOrXamarinFormsSolutionMessage();
             }
         }
 
@@ -112,7 +113,6 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             IEnumerable<string> messages = this.viewModelViewsService.AddViewModelAndViews(
                 this.VisualStudioService.CoreProjectService,
-                this.VisualStudioService,
                 templateInfos,
                 viewModelName,
                 addUnitTests,

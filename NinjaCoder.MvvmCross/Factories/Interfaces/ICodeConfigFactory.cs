@@ -20,19 +20,5 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// </summary>
         /// <returns>The code config service.</returns>
         ICodeConfigService GetCodeConfigService();
-
-        /// <summary>
-        /// Gets the plugin config.
-        /// </summary>
-        /// <param name="plugin">The plugin.</param>
-        /// <returns>The code config.</returns>
-        CodeConfig GetPluginConfig(Plugin plugin);
-
-        /// <summary>
-        /// Gets the service config.
-        /// </summary>
-        /// <param name="friendlyName">Name of the friendly.</param>
-        /// <returns>The code config.</returns>
-        CodeConfig GetServiceConfig(string friendlyName);
     }
 }

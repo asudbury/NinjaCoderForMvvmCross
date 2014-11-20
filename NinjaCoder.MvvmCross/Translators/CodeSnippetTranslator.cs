@@ -9,6 +9,7 @@ namespace NinjaCoder.MvvmCross.Translators
     using System.IO;
     using System.Text.RegularExpressions;
     using System.Xml;
+    using System.Xml.Linq;
     using System.Xml.Serialization;
     using Constants;
 
@@ -27,13 +28,14 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <returns>A CodeSnippet.</returns>
         public CodeSnippet Translate(string @from)
         {
-            if (File.Exists(from))
+            XDocument doc = XDocument.Load(from);
+
+            if (doc.Root != null)
             {
-                FileStream fileStream = new FileStream(from, FileMode.Open, FileAccess.Read);
-                XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(fileStream, new XmlDictionaryReaderQuotas());
+                XmlReader xmlReader = doc.Root.CreateReader();
 
                 XmlSerializer serializer = new XmlSerializer(typeof(CodeSnippet));
-                CodeSnippet codeSnippet = (CodeSnippet)serializer.Deserialize(reader);
+                CodeSnippet codeSnippet = (CodeSnippet)serializer.Deserialize(xmlReader);
                 return this.CleanedUp(codeSnippet);
             }
 

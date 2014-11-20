@@ -147,6 +147,8 @@ namespace Scorchio.VisualStudio.Services
             string solutionPath, 
             string solutionName)
         {
+            TraceService.WriteLine("SolutionService::CreateEmptySolution");
+
             this.solution2.CreateEmptySolution(solutionPath, solutionName);
         }
 

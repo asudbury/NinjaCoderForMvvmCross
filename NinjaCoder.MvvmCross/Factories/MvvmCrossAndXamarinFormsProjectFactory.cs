@@ -16,7 +16,7 @@ namespace NinjaCoder.MvvmCross.Factories
     /// <summary>
     ///  Defines the MvvmCrossAndXamarinFormsProjectFactory type. 
     /// </summary>
-    public class MvvmCrossAndXamarinFormsProjectFactory : IMvvmCrossAndXamarinFormsProjectFactory
+    public class MvvmCrossAndXamarinFormsProjectFactory : BaseProjectFactory, IMvvmCrossAndXamarinFormsProjectFactory
     {
         /// <summary>
         /// The visual studio service.
@@ -59,12 +59,30 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             List<ProjectTemplateInfo> projectInfos = new List<ProjectTemplateInfo>();
 
+            if (this.visualStudioService.CoreTestsProjectService == null)
+            {
+                projectInfos.Add(this.GetCoreTestsProject());
+            }
+
             if (this.visualStudioService.iOSProjectService == null)
             {
                 projectInfos.Add(this.GetiOSProject());
             }
 
             return projectInfos;;
+        }
+
+        /// <summary>
+        /// Gets the core tests project.
+        /// </summary>
+        /// <returns>A unit tests project.</returns>
+        internal ProjectTemplateInfo GetCoreTestsProject()
+        {
+            return this.GetCoreTestsProject(
+                FrameworkType.MvvmCrossAndXamarinForms,
+                this.settingsService.TestingFramework,
+                this.settingsService.MockingFramework,
+                this.nugetCommandsService.GetMvvmCrossTestsCommands());
         }
 
         /// <summary>

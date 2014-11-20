@@ -5,28 +5,28 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Translators
 {
+    using System.Linq;
+    using System.Xml.Linq;
+
     using Entities;
     using Scorchio.Infrastructure.Translators;
     using System.Collections.Generic;
-    using System.IO;
-    using System.IO.Abstractions;
-    using System.Linq;
 
     /// <summary>
     /// Defines the PluginsTranslator type.
     /// </summary>
-    internal class PluginsTranslator : ITranslator<IEnumerable<DirectoryInfoBase>, Plugins>
+    internal class PluginsTranslator : ITranslator<string, Plugins>
     {
         /// <summary>
         /// The translator.
         /// </summary>
-        private readonly ITranslator<FileInfoBase, Plugin> translator;
+        private readonly ITranslator<XElement, Plugin> translator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PluginsTranslator" /> class.
         /// </summary>
         /// <param name="translator">The translator.</param>
-        public PluginsTranslator(ITranslator<FileInfoBase, Plugin> translator)
+        public PluginsTranslator(ITranslator<XElement, Plugin> translator)
         {
             this.translator = translator;
         }
@@ -36,35 +36,22 @@ namespace NinjaCoder.MvvmCross.Translators
         /// </summary>
         /// <param name="from">From.</param>
         /// <returns></returns>
-        public Plugins Translate(IEnumerable<DirectoryInfoBase> @from)
+        public Plugins Translate(string from)
         {
-            List<FileInfoBase> combinedFiles = new List<FileInfoBase>();
+            XDocument doc = XDocument.Load(from);
 
-            foreach (DirectoryInfoBase directoryInfoBase in from)
+            if (doc.Root != null)
             {
-                IEnumerable<FileInfoBase> files = this.GetFiles(directoryInfoBase);
-                
-                combinedFiles.AddRange(files);
+                IEnumerable<XElement> elements = doc.Root.Elements("Plugin");
+
+                List<Plugin> items = elements.Select(element => this.translator.Translate(element)).ToList();
+
+                Plugins plugins = new Plugins { Items = items };
+
+                return plugins;
             }
 
-            //// ensure we order the plugins by friendly name.
-            IEnumerable<Plugin> items = combinedFiles.Select(
-                                    fileInfo => this.translator.Translate(fileInfo))
-                                    .OrderBy(p => p.FriendlyName);
-
-            Plugins plugins = new Plugins { Items = items };
-
-            return plugins;
-        }
-
-        /// <summary>
-        /// Gets the files.
-        /// </summary>
-        /// <param name="directoryInfoBase">The directory info base.</param>
-        /// <returns>The files.</returns>
-        internal IEnumerable<FileInfoBase> GetFiles(DirectoryInfoBase directoryInfoBase)
-        {
-            return directoryInfoBase.GetFiles("*.*", SearchOption.TopDirectoryOnly);
+            return null;
         }
     }
 }

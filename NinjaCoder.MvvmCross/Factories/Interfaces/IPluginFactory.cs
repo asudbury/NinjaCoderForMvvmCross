@@ -22,14 +22,7 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// <summary>
         /// Gets the plugins.
         /// </summary>
-        /// <returns>The plugins.</returns>
-        Plugins GetPlugins();
-
-        /// <summary>
-        /// Gets the name of the plugin by name.
-        /// </summary>
-        /// <param name="friendlyName">Name of the friendly.</param>
-        /// <returns>The plugin.</returns>
-        Plugin GetPluginByName(string friendlyName);
+        /// <param name="uri">The URI.</param>
+        Plugins GetPlugins(string uri);
     }
 }
