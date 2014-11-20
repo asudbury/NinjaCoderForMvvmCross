@@ -1,0 +1,144 @@
+<Plugins>
+
+  <Plugin>
+    <Name>Xamarin.Forms.Labs</Name>
+    <NugetPackage>Xamarin.Forms.Labs</NugetPackage>
+    <Platforms>
+      <Platform>Forms</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>Microsoft.Net.Http</Name>
+    <NugetPackage>Microsoft.Net.Http</NugetPackage>
+    <Platforms>
+      <Platform>Core</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>No Framework</Framework>
+      <Framework>MvvmCross</Framework>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>SQLite.Net-PCL</Name>
+    <NugetPackage>SQLite.Net-PCL</NugetPackage>
+    <Platforms>
+      <Platform>Core</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>No Framework</Framework>
+      <Framework>MvvmCross</Framework>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>MvvmLightLibs</Name>
+    <NugetPackage>MvvmLightLibs</NugetPackage>
+    <Platforms>
+      <Platform>Core</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>No Framework</Framework>
+      <Framework>MvvmCross</Framework>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>PCLStorage</Name>
+    <NugetPackage>PCLStorage</NugetPackage>
+    <Platforms>
+      <Platform>Core</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>No Framework</Framework>
+      <Framework>MvvmCross</Framework>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>AsyncOAuth</Name>
+    <NugetPackage>AsyncOAuth</NugetPackage>
+    <Platforms>
+      <Platform>Core</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>No Framework</Framework>
+      <Framework>MvvmCross</Framework>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>PCLCrypto</Name>
+    <NugetPackage>PCLCrypto</NugetPackage>
+    <Platforms>
+      <Platform>Core</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>No Framework</Framework>
+      <Framework>MvvmCross</Framework>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>PortableRest</Name>
+    <NugetPackage>PortableRest</NugetPackage>
+    <Platforms>
+      <Platform>Core</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>No Framework</Framework>
+      <Framework>MvvmCross</Framework>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>Portable.Ninject</Name>
+    <NugetPackage>Portable.Ninject</NugetPackage>
+    <Platforms>
+      <Platform>Core</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>No Framework</Framework>
+      <Framework>MvvmCross</Framework>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>Newtonsoft.Json</Name>
+    <NugetPackage>Newtonsoft.Json</NugetPackage>
+    <Platforms>
+      <Platform>Core</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>No Framework</Framework>
+      <Framework>MvvmCross</Framework>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+</Plugins>
