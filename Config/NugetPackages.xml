@@ -141,4 +141,18 @@
     </Frameworks>
   </Plugin>
 
+  <Plugin>
+    <Name>Microsoft.Bcl.Async</Name>
+    <NugetPackage>Microsoft.Bcl.Async</NugetPackage>
+    <Platforms>
+      <Platform>Core</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>No Framework</Framework>
+      <Framework>MvvmCross</Framework>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
 </Plugins>
