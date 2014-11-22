@@ -20,6 +20,9 @@
     <NugetPackage>Microsoft.Net.Http</NugetPackage>
     <Platforms>
       <Platform>Core</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
     </Platforms>
     <Frameworks>
       <Framework>No Framework</Framework>
