@@ -2,7 +2,7 @@
 
   <Plugin>
     <Name>Xamarin.Forms.Labs</Name>
-    <NugetPackage>Xamarin.Forms.Labs</NugetPackage>
+    <NugetPackage>Scorchio.NinjaCoder.Xamarin.Forms.Labs</NugetPackage>
     <Platforms>
       <Platform>Forms</Platform>
       <Platform>iOS</Platform>
