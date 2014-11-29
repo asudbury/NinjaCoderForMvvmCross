@@ -3,6 +3,7 @@
   <Plugin>
     <Name>Xamarin.Forms.Labs</Name>
     <NugetPackage>Scorchio.NinjaCoder.Xamarin.Forms.Labs</NugetPackage>
+    <OverwriteFiles>Y</OverwriteFiles>
     <Platforms>
       <Platform>Forms</Platform>
       <Platform>iOS</Platform>
