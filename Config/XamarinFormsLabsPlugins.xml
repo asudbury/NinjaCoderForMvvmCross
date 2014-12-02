@@ -13,7 +13,7 @@
   </Plugin>
 
   <Plugin>
-    <Name>Services.SimpleContainer</Name>
+    <Name>SimpleContainer</Name>
     <NugetPackage>Xamarin.Forms.Labs.Services.SimpleContainer</NugetPackage>
     <Platforms>
       <Platform>Forms</Platform>
@@ -25,7 +25,7 @@
   </Plugin>
 
   <Plugin>
-    <Name>Services.Ninject</Name>
+    <Name>Ninject</Name>
     <NugetPackage>Xamarin.Forms.Labs.Services.Ninject</NugetPackage>
     <Platforms>
       <Platform>Forms</Platform>
@@ -37,7 +37,7 @@
   </Plugin>
 
   <Plugin>
-    <Name>Services.Autofac</Name>
+    <Name>Autofac</Name>
     <NugetPackage>Xamarin.Forms.Labs.Services.Autofac</NugetPackage>
     <Platforms>
       <Platform>Forms</Platform>
@@ -49,7 +49,7 @@
   </Plugin>
 
   <Plugin>
-    <Name>Services.TinyIOC</Name>
+    <Name>TinyIOC</Name>
     <NugetPackage>Xamarin.Forms.Labs.Services.TinyIOC</NugetPackage>
     <Platforms>
       <Platform>Forms</Platform>
@@ -64,7 +64,7 @@
   </Plugin>
 
   <Plugin>
-    <Name>Services.Serialization.ServiceStackV3</Name>
+    <Name>ServiceStackV3</Name>
     <NugetPackage>Xamarin.Forms.Labs.Services.Serialization.ServiceStackV3</NugetPackage>
     <Platforms>
       <Platform>Forms</Platform>
@@ -79,7 +79,7 @@
   </Plugin>
   
   <Plugin>
-    <Name>Services.Serialization.ProtoBuf</Name>
+    <Name>ProtoBuf</Name>
     <NugetPackage>Xamarin.Forms.Labs.Services.Serialization.ProtoBuf</NugetPackage>
     <Platforms>
       <Platform>Forms</Platform>
@@ -91,7 +91,7 @@
   </Plugin>
   
   <Plugin>
-    <Name>Serialization.JsonNET</Name>
+    <Name>JsonNET</Name>
     <NugetPackage>Xamarin.Forms.Labs.Serialization.JsonNET</NugetPackage>
     <Platforms>
       <Platform>Forms</Platform>
