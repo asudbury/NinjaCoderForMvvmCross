@@ -159,4 +159,24 @@
     </Frameworks>
   </Plugin>
 
+  <Plugin>
+    <Name>StyleCop</Name>
+    <NugetPackage>StyleCop</NugetPackage>
+    <Platforms>
+      <Platform>Core</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+      <Platform>WindowsStore</Platform>
+      <Platform>Wpf</Platform>
+      <Platform>Forms</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>No Framework</Framework>
+      <Framework>MvvmCross</Framework>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
 </Plugins>
