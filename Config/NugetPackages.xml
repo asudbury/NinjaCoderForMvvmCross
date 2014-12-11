@@ -160,8 +160,8 @@
   </Plugin>
 
   <Plugin>
-    <Name>StyleCop</Name>
-    <NugetPackage>StyleCop</NugetPackage>
+    <Name>StyleCop.MSBuild</Name>
+    <NugetPackage>StyleCop.MSBuild</NugetPackage>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
