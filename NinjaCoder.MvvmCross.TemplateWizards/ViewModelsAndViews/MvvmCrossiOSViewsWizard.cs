@@ -73,6 +73,8 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.ViewModelsAndViews
 
                     projectItem.ReplaceText("MonoTouch.Foundation", "Foundation");
                     projectItem.ReplaceText("MonoTouch.UIKit", "UIKit");
+                    projectItem.ReplaceText("System.Drawing", "CoreGraphics");
+                    projectItem.ReplaceText("RectangleF", "CGRect");
                 }
 
                 projectItem.Save();
