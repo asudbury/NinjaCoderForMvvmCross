@@ -69,6 +69,10 @@
     <Compile Include="Extensions\ThemeManagerExtensions.cs" />
     <Compile Include="Factories\IThemeFactory.cs" />
     <Compile Include="Factories\ThemeFactory.cs" />
+    <Compile Include="IoC\RegisterService.cs" />
+    <Compile Include="IoC\ResolverService.cs" />
+    <Compile Include="IoC\IRegisterService.cs" />
+    <Compile Include="IoC\IResolverService.cs" />
     <Compile Include="IoC\TinyIoC\TinyIoC.cs" />
     <Compile Include="IoC\TinyIoC\TinyMessenger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -104,6 +108,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Wpf\Behaviors\FocusBehavior.cs" />
+    <Compile Include="Wpf\BindingProxy.cs" />
     <Compile Include="Wpf\Converters\ResourceFromKeyConverter.cs" />
     <Compile Include="Wpf\Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Wpf\Converters\InverseBooleanConverter.cs" />

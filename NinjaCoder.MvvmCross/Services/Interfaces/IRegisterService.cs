@@ -26,8 +26,8 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Creates/replaces a container class registration with a specific, strong referenced, instance.
         /// </summary>
-        /// <typeparam name="RegisterType">The type of the register type.</typeparam>
+        /// <typeparam name="TRegisterType">The type of the register type.</typeparam>
         /// <param name="instance">Instance of RegisterType to register</param>
-        void Register<RegisterType>(RegisterType instance) where RegisterType : class;
+        void Register<TRegisterType>(TRegisterType instance) where TRegisterType : class;
     }
 }

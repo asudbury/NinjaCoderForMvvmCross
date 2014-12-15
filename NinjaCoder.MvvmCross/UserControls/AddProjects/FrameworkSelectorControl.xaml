@@ -29,17 +29,18 @@
             <Separator Margin="5"/>
 
             <RadioButton Content="No Framework" Margin="10" IsChecked="{Binding Path=NoFramework, Mode=TwoWay}" IsEnabled="{Binding Path=AllowFrameWorkSelection}"></RadioButton>
-            <RadioButton Content="MvvmCross" Margin="10" IsChecked="{Binding Path=MvvmCross, Mode=TwoWay}" IsEnabled="{Binding Path=AllowFrameWorkSelection}"></RadioButton>
-            <RadioButton Content="Xamarin Forms" Margin="10" IsChecked="{Binding Path=XamarinForms, Mode=TwoWay}" IsEnabled="{Binding Path=AllowFrameWorkSelection}"></RadioButton>
-                <RadioButton Content="MvvmCross and Xamarin Forms" Margin="10" IsChecked="{Binding Path=MvvmCrossXamarinForms, Mode=TwoWay}" IsEnabled="False"></RadioButton>
+            <RadioButton Content="{Binding MvvmCrossLabel}" Margin="10" IsChecked="{Binding Path=MvvmCross, Mode=TwoWay}" IsEnabled="{Binding Path=AllowFrameWorkSelection}"></RadioButton>
+            <RadioButton Content="{Binding XamarinFormsLabel}" Margin="10" IsChecked="{Binding Path=XamarinForms, Mode=TwoWay}" IsEnabled="{Binding Path=AllowFrameWorkSelection}"></RadioButton>
+            <RadioButton Content="{Binding MvvmCrossAndXamarinFormsLabel}" Margin="10" IsChecked="{Binding Path=MvvmCrossXamarinForms, Mode=TwoWay}" IsEnabled="False"></RadioButton>
 
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
 
             <Separator Margin="5"/>
-
             <Label>The solution will target :-</Label>
+           
+
             <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center">
                     <LineBreak />
                     <Bold>
@@ -55,7 +56,7 @@
                     <LineBreak />
                     Xamarin.Android
                     <LineBreak />
-                    Xamarin.iOS (Classic)
+                    Xamarin.iOS 
             </TextBlock>
 
 
@@ -64,7 +65,7 @@
                 <TextBlock Text="Change Profile" />
             </Hyperlink>
         </TextBlock>
-            <Separator Margin="5" FontWeight="Normal"/>
+            <Separator Margin="5"/>
             
         </StackPanel>
 

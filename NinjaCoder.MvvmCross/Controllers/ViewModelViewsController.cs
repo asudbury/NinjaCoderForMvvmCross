@@ -8,13 +8,15 @@ namespace NinjaCoder.MvvmCross.Controllers
     using Constants;
     using EnvDTE;
     using NinjaCoder.MvvmCross.Entities;
+    using NinjaCoder.MvvmCross.Factories.Interfaces;
+    using NinjaCoder.MvvmCross.ViewModels.AddViews;
+    using NinjaCoder.MvvmCross.ViewModels.Wizard;
+    using NinjaCoder.MvvmCross.Views.Wizard;
+
     using Scorchio.Infrastructure.Services;
-    using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;
     using System.Collections.Generic;
-    using ViewModels;
-    using Views;
 
     /// <summary>
     /// Defines the ViewModelViewsController type.
@@ -27,6 +29,11 @@ namespace NinjaCoder.MvvmCross.Controllers
         private readonly IViewModelViewsService viewModelViewsService;
 
         /// <summary>
+        /// The view model and views factory.
+        /// </summary>
+        private readonly IViewModelAndViewsFactory viewModelAndViewsFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ViewModelViewsController" /> class.
         /// </summary>
         /// <param name="viewModelViewsService">The view model views service.</param>
@@ -35,13 +42,15 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="messageBoxService">The message box service.</param>
         /// <param name="resolverService">The resolver service.</param>
         /// <param name="readMeService">The read me service.</param>
+        /// <param name="viewModelAndViewsFactory">The view model and views factory.</param>
         public ViewModelViewsController(
             IViewModelViewsService viewModelViewsService,
             IVisualStudioService visualStudioService,
             ISettingsService settingsService,
             IMessageBoxService messageBoxService,
             IResolverService resolverService,
-            IReadMeService readMeService)
+            IReadMeService readMeService,
+            IViewModelAndViewsFactory viewModelAndViewsFactory)
             : base(
             visualStudioService,
             settingsService,
@@ -52,6 +61,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             TraceService.WriteLine("ViewModelAndViewsController::Constructor");
 
             this.viewModelViewsService = viewModelViewsService;
+            this.viewModelAndViewsFactory = viewModelAndViewsFactory;
         }
 
         /// <summary>
@@ -67,16 +77,15 @@ namespace NinjaCoder.MvvmCross.Controllers
                 frameworkType == FrameworkType.XamarinForms ||
                 frameworkType == FrameworkType.MvvmCrossAndXamarinForms)
             {
-                ViewModelViewsViewModel viewModel = this.ShowDialog<ViewModelViewsViewModel>(new ViewModelViewsView());
+                this.viewModelAndViewsFactory.RegisterWizardData();
+
+                WizardFrameViewModel viewModel = this.ShowDialog<WizardFrameViewModel>(new WizardView());
 
                 if (viewModel.Continue)
                 {
-                    this.Process(
-                        viewModel.RequiredTemplates,
-                        viewModel.ViewModelName,
-                        viewModel.IncludeUnitTests,
-                        viewModel.ViewModelInitiatedFrom,
-                        viewModel.ViewModelToNavigateTo);
+                    ViewsViewModel viewsViewModel = (ViewsViewModel)viewModel.GetWizardStepViewModel("ViewsViewModel").ViewModel;
+
+                    this.Process(viewsViewModel.Views);
                 }
             }
             else
@@ -88,17 +97,8 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <summary>
         /// Processes the specified form.
         /// </summary>
-        /// <param name="templateInfos">The template infos.</param>
-        /// <param name="viewModelName">Name of the view model.</param>
-        /// <param name="addUnitTests">if set to <c>true</c> [add unit tests].</param>
-        /// <param name="viewModelInitiateFrom">The view model initiate from.</param>
-        /// <param name="viewModelNavigateTo">The view model navigate to.</param>
-        internal void Process(
-            IEnumerable<ItemTemplateInfo> templateInfos, 
-            string viewModelName,
-            bool addUnitTests,
-            string viewModelInitiateFrom,
-            string viewModelNavigateTo)
+        /// <param name="views">The views.</param>
+        internal void Process(IEnumerable<View> views)
         {
             TraceService.WriteLine("ViewModelAndViewsController::Process");
 
@@ -111,13 +111,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                 cSharpProjectItemsEvents.ItemAdded += this.ProjectItemsEventsItemAdded;
             }
 
-            IEnumerable<string> messages = this.viewModelViewsService.AddViewModelAndViews(
-                this.VisualStudioService.CoreProjectService,
-                templateInfos,
-                viewModelName,
-                addUnitTests,
-                viewModelInitiateFrom,
-                viewModelNavigateTo);
+            IEnumerable<string> messages = this.viewModelViewsService.AddViewModelsAndViews(views);
 
             if (cSharpProjectItemsEvents != null)
             {

@@ -8,6 +8,7 @@ namespace NinjaCoder.MvvmCross.Services
     using Constants;
     using Factories.Interfaces;
     using Interfaces;
+    using NinjaCoder.MvvmCross.Entities;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Services.Testing.Interfaces;
     using Scorchio.VisualStudio.Entities;
@@ -15,6 +16,7 @@ namespace NinjaCoder.MvvmCross.Services
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     ///  Defines the ViewModelViewsService type.
@@ -37,6 +39,11 @@ namespace NinjaCoder.MvvmCross.Services
         private readonly ISettingsService settingsService;
 
         /// <summary>
+        /// The view model and views factory.
+        /// </summary>
+        private readonly IViewModelAndViewsFactory viewModelAndViewsFactory;
+
+        /// <summary>
         /// The testing service.
         /// </summary>
         private readonly ITestingService testingService;
@@ -53,17 +60,20 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="codeSnippetFactory">The code snippet factory.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="testingServiceFactory">The testing service factory.</param>
+        /// <param name="viewModelAndViewsFactory">The view model and views factory.</param>
         public ViewModelViewsService(
             IVisualStudioService visualStudioService,
             ICodeSnippetFactory codeSnippetFactory,
             ISettingsService settingsService,
-            ITestingServiceFactory testingServiceFactory)
+            ITestingServiceFactory testingServiceFactory,
+            IViewModelAndViewsFactory viewModelAndViewsFactory)
         {
             TraceService.WriteLine("ViewModelViewsService::Constructor");
 
             this.visualStudioService = visualStudioService;
             this.codeSnippetFactory = codeSnippetFactory;
             this.settingsService = settingsService;
+            this.viewModelAndViewsFactory = viewModelAndViewsFactory;
             this.testingService = testingServiceFactory.GetTestingService();
         }
 
@@ -114,6 +124,52 @@ namespace NinjaCoder.MvvmCross.Services
                 this.UpdateNavigateToViewModel(
                     viewModelName,
                     viewModelNavigateTo);
+            }
+
+            return messages;
+        }
+
+        /// <summary>
+        /// Adds the view models and views.
+        /// </summary>
+        /// <param name="views">The views.</param>
+        /// <returns></returns>
+        public IEnumerable<string> AddViewModelsAndViews(IEnumerable<View> views)
+        {
+            List<string> messages = new List<string>();
+
+            this.visualStudioService.WriteStatusBarMessage(NinjaMessages.AddingViewModelAndViews);
+
+            //// we need to store the xamarin forms views to change the names after nuget has run.
+            IEnumerable<View> viewsArray = views as View[] ?? views.ToArray();
+
+            this.settingsService.XamarinFormsViews = viewsArray.Where(
+                x => x.Framework == FrameworkType.XamarinForms.GetDescription()).ToList().SerializeToString();
+
+            foreach (View view in viewsArray)
+            {
+                if (view.Existing == false)
+                {
+                    string viewModelName = view.Name + "ViewModel";
+
+                    IEnumerable<ItemTemplateInfo> itemTemplateInfos =
+                        this.viewModelAndViewsFactory.GetRequiredViewModelAndViews(
+                            view,
+                            viewModelName,
+                            this.viewModelAndViewsFactory.AllowedUIViews,
+                            true,
+                            false);
+
+                    IEnumerable<string> viewModelMessages = this.AddViewModelAndViews(
+                        this.visualStudioService.CoreProjectService,
+                        itemTemplateInfos,
+                        viewModelName,
+                        true,
+                        null,
+                        null);
+
+                    messages.AddRange(viewModelMessages);
+                }
             }
 
             return messages;

@@ -75,14 +75,37 @@ namespace NinjaCoder.MvvmCross.Factories
                 projectInfos.Add(this.GetDroidProject());
             }
 
+            if (this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.DroidTestsProjectService == null)
+            {
+                projectInfos.Add(this.GetPlatformTestsProject(
+                    ProjectSuffix.DroidTests.GetDescription(),
+                    ProjectType.DroidTests.GetDescription()));
+            }
+
             if (this.visualStudioService.iOSProjectService == null)
             {
                 projectInfos.Add(this.GetiOSProject());
             }
 
+            if (this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.iOSTestsProjectService == null)
+            {
+                projectInfos.Add(this.GetPlatformTestsProject(
+                    ProjectSuffix.iOSTests.GetDescription(),
+                    ProjectType.iOSTests.GetDescription()));
+            }
             if (this.visualStudioService.WindowsPhoneProjectService == null)
             {
                 projectInfos.Add(this.GetWindowsPhoneProject());
+            }
+
+            if (this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.WindowsPhoneTestsProjectService == null)
+            {
+                projectInfos.Add(this.GetPlatformTestsProject(
+                    ProjectSuffix.WindowsPhoneTests.GetDescription(),
+                    ProjectType.WindowsPhoneTests.GetDescription()));
             }
 
             if (this.visualStudioService.WindowsStoreProjectService == null)
@@ -90,9 +113,25 @@ namespace NinjaCoder.MvvmCross.Factories
                 projectInfos.Add(this.GetWindowsStoreProject());
             }
 
+            if (this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.WindowsStoreTestsProjectService == null)
+            {
+                projectInfos.Add(this.GetPlatformTestsProject(
+                    ProjectSuffix.WindowsStoreTests.GetDescription(),
+                    ProjectType.WindowsStoreTests.GetDescription()));
+            }
+
             if (this.visualStudioService.WpfProjectService == null)
             {
                 projectInfos.Add(this.GetWpfProject());
+            }
+
+            if (this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.WpfTestsProjectService == null)
+            {
+                projectInfos.Add(this.GetPlatformTestsProject(
+                    ProjectSuffix.WpfTests.GetDescription(),
+                    ProjectType.WindowsWpfTests.GetDescription()));
             }
 
             return projectInfos;
@@ -120,11 +159,12 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <returns>A unit tests project.</returns>
         internal ProjectTemplateInfo GetCoreTestsProject()
         {
-            return this.GetCoreTestsProject(
+            return this.GetTestsProject(
                 FrameworkType.MvvmCross,
                 this.settingsService.TestingFramework,
-                this.settingsService.MockingFramework,
-                this.nugetCommandsService.GetMvvmCrossTestsCommands());
+                this.nugetCommandsService.GetMvvmCrossTestsCommands(),
+                ProjectSuffix.CoreTests.GetDescription(),
+                ProjectType.CoreTests.GetDescription());
         }
 
         /// <summary>
@@ -139,6 +179,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 ProjectSuffix = ProjectSuffix.Droid.GetDescription(),
                 TemplateName = MvvmCrossProjectTemplate.Droid.GetDescription(),
                 ReferenceCoreProject = true,
+                PreSelected = true,
                 NugetCommands = this.nugetCommandsService.GetMvvmCrossDroidCommands()
             };
         }
@@ -151,10 +192,11 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             return new ProjectTemplateInfo
             {
-                FriendlyName = ProjectType.iOS.GetDescription() + " " + this.settingsService.iOSBuildVersion,
+                FriendlyName = ProjectType.iOS.GetDescription() + " (" + this.settingsService.iOSApiVersion + ")",
                 ProjectSuffix = ProjectSuffix.iOS.GetDescription(),
-                TemplateName = MvvmCrossProjectTemplate.iOS.GetDescription(),
+                TemplateName = this.GetiOSProjectTemplate(this.settingsService.iOSApiVersion),
                 ReferenceCoreProject = true,
+                PreSelected = true,
                 NugetCommands = this.nugetCommandsService.GetMvvmCrossiOSCommands()
             };
         }
@@ -171,6 +213,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 ProjectSuffix = ProjectSuffix.WindowsPhone.GetDescription(),
                 TemplateName = MvvmCrossProjectTemplate.WindowsPhone.GetDescription(),
                 ReferenceCoreProject = true,
+                PreSelected = true,
                 NugetCommands = this.nugetCommandsService.GetMvvmCrossWindowsPhoneCommands()
             };
         }
@@ -187,6 +230,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 ProjectSuffix = ProjectSuffix.WindowsStore.GetDescription(),
                 TemplateName = MvvmCrossProjectTemplate.WindowsStore.GetDescription(),
                 ReferenceCoreProject = true,
+                PreSelected = true,
                 NugetCommands = this.nugetCommandsService.GetMvvmCrossWindowsStoreCommands()
             };
         }
@@ -203,9 +247,29 @@ namespace NinjaCoder.MvvmCross.Factories
                 ProjectSuffix = ProjectSuffix.Wpf.GetDescription(),
                 TemplateName = MvvmCrossProjectTemplate.WindowsWpf.GetDescription(),
                 ReferenceCoreProject = true,
+                PreSelected = true,
                 NugetCommands = this.nugetCommandsService.GetMvvmCrossWpfCommands()
             };
         }
 
+        /// <summary>
+        /// Gets the core tests project.
+        /// </summary>
+        /// <param name="projectSuffix">The project suffix.</param>
+        /// <param name="projectType">Type of the project.</param>
+        /// <returns>
+        /// A unit tests project.
+        /// </returns>
+        internal ProjectTemplateInfo GetPlatformTestsProject(
+            string projectSuffix,
+            string projectType)
+        {
+            return this.GetPlatFormTestsProject(
+                FrameworkType.MvvmCross,
+                this.settingsService.TestingFramework,
+                this.nugetCommandsService.GetTestCommands(),
+                projectSuffix,
+                projectType);
+        }
     }
 }

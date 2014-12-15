@@ -6,7 +6,7 @@
 namespace NinjaCoder.MvvmCross.Services
 {
     using Interfaces;
-
+    using NinjaCoder.MvvmCross.Entities;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
@@ -45,6 +45,8 @@ namespace NinjaCoder.MvvmCross.Services
             ISettingsService settingsService,
             IFileSystem fileSystem)
         {
+            TraceService.WriteLine("ProjectsService::constructor");
+
             this.settingsService = settingsService;
             this.FileSystem = fileSystem;
         }
@@ -63,6 +65,8 @@ namespace NinjaCoder.MvvmCross.Services
             string path, 
             IEnumerable<ProjectTemplateInfo> projectsInfos)
         {
+            TraceService.WriteLine("ProjectsService::AddProjects");
+
             IEnumerable<ProjectTemplateInfo> projectTemplateInfos = projectsInfos as ProjectTemplateInfo[] ?? projectsInfos.ToArray();
 
             string message = string.Format("ProjectsService::AddProjects project count={0} path={1}", projectTemplateInfos.Count(), path);
@@ -70,7 +74,27 @@ namespace NinjaCoder.MvvmCross.Services
             TraceService.WriteLine(message);
 
             //// reset the messages.
-            this.Messages = new List<string> { this.settingsService.FrameworkType.GetDescription() + " framework selected.", string.Empty };
+            this.Messages = new List<string>
+            {
+                this.settingsService.FrameworkType.GetDescription() + " framework selected.", 
+                string.Empty
+            };
+
+            if (this.settingsService.UsePreReleaseMvvmCrossNugetPackages &&
+               (this.settingsService.FrameworkType == FrameworkType.MvvmCross ||
+                 this.settingsService.FrameworkType == FrameworkType.MvvmCrossAndXamarinForms))
+            {
+                this.Messages.Add("Pre Release MvvmCross Nuget Packages requested.");
+                this.Messages.Add(string.Empty);
+            }
+
+            if (this.settingsService.UsePreReleaseMvvmCrossNugetPackages &&
+               (this.settingsService.FrameworkType == FrameworkType.XamarinForms ||
+                this.settingsService.FrameworkType == FrameworkType.MvvmCrossAndXamarinForms))
+            {
+                this.Messages.Add("Pre Release Xamarin Forms Nuget Packages requested.");
+                this.Messages.Add(string.Empty);
+            }
 
             this.visualStudioService = visualStudioServiceInstance;
             
@@ -114,13 +138,40 @@ namespace NinjaCoder.MvvmCross.Services
 
             //// now add references to xamarin forms if required.
 
-            IProjectService formsProjectService = this.visualStudioService.XamarinFormsProjectService ;
-
-            if (formsProjectService != null && 
-                projectService != null && 
-                projectInfo.ReferenceXamarinFormsProject)
+            if (projectInfo.ReferenceXamarinFormsProject)
             {
-                projectService.AddProjectReference(formsProjectService);
+                IProjectService formsProjectService = this.visualStudioService.XamarinFormsProjectService;
+
+                if (formsProjectService != null && 
+                    projectService != null )
+                {
+                    projectService.AddProjectReference(formsProjectService);
+                }
+            }
+
+            //// now add reference to the plaform project from the test platform project
+
+            if (projectInfo.ReferencePlatformProject)
+            {
+                //// TODO : tidy this up a little bit!
+                IProjectService platformProjectService = this.visualStudioService.GetProjectServiceBySuffix(
+                    projectInfo.ProjectSuffix.Replace(".Tests", string.Empty));
+
+                if (platformProjectService != null && 
+                    projectService != null)
+                {
+                    //// for some reason cant add project reference to windows store project !!
+                    //// as no one is developing mvvmcross windows store apps dont worry about it :-)
+                    try
+                    {
+                        projectService.AddProjectReference(platformProjectService);
+
+                    }
+                    catch (Exception exception)
+                    {
+                        TraceService.WriteError("Unable to add project reference to " + platformProjectService.Name);
+                    }
+                }
             }
         }
 
@@ -175,7 +226,7 @@ namespace NinjaCoder.MvvmCross.Services
             {
                 TraceService.WriteError("error adding project " + projectPath + " exception=" + exception.Message + " templateName=" + projectInfo.TemplateName);
                
-                this.Messages.Add(projectInfo.Name + " not added. Error " + exception.Message + " (template " + projectInfo.TemplateName + ")");
+                this.Messages.Add("ERROR " + projectInfo.Name + " not added. exception " + exception.Message + " (template " + projectInfo.TemplateName + ")");
             }
         }
     }

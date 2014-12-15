@@ -80,7 +80,20 @@ namespace NinjaCoder.MvvmCross.Controllers
             ResolveController<PluginsController>(dte2)
                 .Run();
         }
+
+        /// <summary>
+        /// Runs the nuget packages controller.
+        /// </summary>
+        /// <param name="dte2">The dte2.</param>
+        public static void RunNugetPackagesController(DTE2 dte2 = null)
+        {
+            TraceService.WriteLine("NinjaController::RunNugetPackagesController");
+
+            ResolveController<NugetPackagesController>(dte2)
+                .Run();
+        }
         
+
         /// <summary>
         /// Shows the options.
         /// </summary>
@@ -199,7 +212,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                     //// NinjaCoder for MvvmCross interfaces.
                     container.AutoRegister(Assembly.LoadFrom(path));
 
-                    //// we only want one instance of the VisualStudio class
+                    //// we only want one instance of the VisualStudio class.
                     container.Register<VisualStudioService>().AsSingleton();
                     
                     //// register the types that aren't auto-registered by TinyIoC.

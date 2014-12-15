@@ -75,12 +75,12 @@ namespace NinjaCoder.MvvmCross.Tests.Factories
 
             this.mockMockingServiceFactory.Setup(x => x.GetMockingService()).Returns(mockingService.Object);
             
-            this.factory = new CodeSnippetFactory(
+            /*this.factory = new CodeSnippetFactory(
                 this.mockCodeSnippetService.Object,
                 this.mockFileSystem.Object,
                 this.mockSettingsService.Object,
                 this.mockTranslator.Object,
-                this.mockMockingServiceFactory.Object);
+                this.mockMockingServiceFactory.Object);*/
         }
 
         /// <summary>

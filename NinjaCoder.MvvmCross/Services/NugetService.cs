@@ -208,6 +208,8 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal void FixUpXamarinFormHelpers()
         {
+            TraceService.WriteLine("NugetService::FixUpXamarinFormHelpers");
+
             IProjectService droidProjectService = this.visualStudioService.DroidProjectService;
 
             if (droidProjectService != null)

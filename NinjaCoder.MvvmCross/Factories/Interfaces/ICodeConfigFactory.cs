@@ -5,10 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories.Interfaces
 {
-    using Entities;
     using Services.Interfaces;
-
-    using Scorchio.VisualStudio.Entities;
 
     /// <summary>
     /// Defines the ICodeConfigFactory type.

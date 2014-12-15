@@ -23,11 +23,6 @@ namespace NinjaCoder.MvvmCross.Factories
         private readonly IPluginsService pluginsService;
 
         /// <summary>
-        /// The settings service.
-        /// </summary>
-        private readonly ISettingsService settingsService;
-
-        /// <summary>
         /// The pluginsTranslator.
         /// </summary>
         private readonly ITranslator<string, Plugins> pluginsTranslator;
@@ -36,17 +31,14 @@ namespace NinjaCoder.MvvmCross.Factories
         /// Initializes a new instance of the <see cref="PluginFactory" /> class.
         /// </summary>
         /// <param name="pluginsService">The plugins service.</param>
-        /// <param name="settingsService">The settings service.</param>
         /// <param name="pluginsTranslator">The pluginsTranslator.</param>
         public PluginFactory(
             IPluginsService pluginsService,
-            ISettingsService settingsService,
             ITranslator<string, Plugins> pluginsTranslator)
         {
             TraceService.WriteLine("PluginFactory::Constructor");
 
             this.pluginsService = pluginsService;
-            this.settingsService = settingsService;
             this.pluginsTranslator = pluginsTranslator;
         }
 

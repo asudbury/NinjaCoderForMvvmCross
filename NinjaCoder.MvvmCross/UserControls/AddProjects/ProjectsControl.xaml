@@ -74,9 +74,9 @@
                 GroupBoxTitle="Platforms"
                 DataContext="{Binding Projects}"
                 Height="220"
-                Width="300"
+                Width="500"
                 HorizontalAlignment="Left"/>
-
+                
         </StackPanel>
 
         <Image Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/bottom.png" Grid.Column="1" Grid.Row="2" Width="150" />

@@ -38,7 +38,8 @@ namespace NinjaCoder.MvvmCross.Translators
                             UsingStatement = usingStatement,
                             NugetCommands = nugetCommands,
                             Platforms = platforms,
-                            Frameworks = frameworks
+                            Frameworks = frameworks,
+                            OverwriteFiles = this.GetOverwriteFiles(from)
                         };
         }
 
@@ -115,7 +116,6 @@ namespace NinjaCoder.MvvmCross.Translators
             return new List<string>();
         }
 
-
         /// <summary>
         /// Gets the frameworks.
         /// </summary>
@@ -142,6 +142,26 @@ namespace NinjaCoder.MvvmCross.Translators
             }
 
             return frameworkTypes;
+        }
+
+        /// <summary>
+        /// Overwrites the files.
+        /// </summary>
+        /// <param name="element">The element.</param>
+        /// <returns></returns>
+        internal bool GetOverwriteFiles(XElement element)
+        {
+            bool overWrite = false;
+
+            XElement overwriteFileElement = element.Element("OverwriteFiles");
+
+            if (overwriteFileElement != null &&
+                overwriteFileElement.Value == "Y")
+            {
+                overWrite = true;
+            }
+
+            return overWrite;
         }
     }
 }

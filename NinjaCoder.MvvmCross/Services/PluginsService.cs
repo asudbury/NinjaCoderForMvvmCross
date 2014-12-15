@@ -8,6 +8,9 @@ namespace NinjaCoder.MvvmCross.Services
     using Entities;
     using Factories.Interfaces;
     using Interfaces;
+
+    using NinjaCoder.MvvmCross.Extensions;
+
     using Scorchio.Infrastructure.Services.Testing.Interfaces;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
@@ -21,6 +24,11 @@ namespace NinjaCoder.MvvmCross.Services
     /// </summary>
     internal class PluginsService : BaseService, IPluginsService
     {
+        /// <summary>
+        /// The visual studio service.
+        /// </summary>
+        private readonly IVisualStudioService visualStudioService;
+
         /// <summary>
         /// The plugin service.
         /// </summary>
@@ -54,12 +62,14 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="PluginsService" /> class.
         /// </summary>
+        /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="pluginService">The plugin service.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="nugetService">The nuget service.</param>
         /// <param name="codeSnippetFactory">The code snippet factory.</param>
         /// <param name="testingServiceFactory">The testing service factory.</param>
         public PluginsService(
+            IVisualStudioService visualStudioService,
             IPluginService pluginService,
             ISettingsService settingsService,
             INugetService nugetService,
@@ -68,6 +78,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             TraceService.WriteLine("PluginsService::Constructor");
 
+            this.visualStudioService = visualStudioService;
             this.pluginService = pluginService;
             this.settingsService = settingsService;
             this.nugetService = nugetService;
@@ -80,7 +91,6 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Adds the plugins.
         /// </summary>
-        /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="plugins">The plugins.</param>
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="createUnitTests">if set to <c>true</c> [create unit tests].</param>
@@ -88,7 +98,6 @@ namespace NinjaCoder.MvvmCross.Services
         /// The messages.
         /// </returns>
         public IEnumerable<string> AddPlugins(
-            IVisualStudioService visualStudioService,
             IEnumerable<Plugin> plugins,
             string viewModelName,
             bool createUnitTests)
@@ -150,7 +159,6 @@ namespace NinjaCoder.MvvmCross.Services
             if (string.IsNullOrEmpty(viewModelName) == false)
             {
                 this.AddToViewModel(
-                    visualStudioService, 
                     viewModelName, 
                     createUnitTests, 
                     coreProjectService, 
@@ -158,6 +166,36 @@ namespace NinjaCoder.MvvmCross.Services
             }
 
             return this.Messages;
+        }
+
+        /// <summary>
+        /// Gets the nuget commands.
+        /// </summary>
+        /// <param name="plugins">The plugins.</param>
+        /// <param name="usePreRelease">if set to <c>true</c> [use pre release].</param>
+        /// <returns></returns>
+        public IEnumerable<string> GetNugetCommands(
+            IEnumerable<Plugin> plugins, 
+            bool usePreRelease)
+        {
+            IEnumerable<Plugin> pluginsArray = plugins as Plugin[] ?? plugins.ToArray();
+
+            return pluginsArray.Select(plugin => plugin.GetNugetCommandStrings(
+                this.visualStudioService,
+                usePreRelease)).ToList();
+        }
+
+        /// <summary>
+        /// Gets the nuget messages.
+        /// </summary>
+        /// <param name="plugins">The plugins.</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public IEnumerable<string> GetNugetMessages(IEnumerable<Plugin> plugins)
+        {
+            IEnumerable<Plugin> pluginsArray = plugins as Plugin[] ?? plugins.ToArray();
+
+            return pluginsArray.Select(plugin => plugin.GetNugetCommandMessages(this.visualStudioService)).ToList();
         }
 
         /// <summary>
@@ -169,7 +207,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <returns>
         /// The added plugins.
         /// </returns>
-        public void AddProjectPlugins(
+        internal void AddProjectPlugins(
             IProjectService projectService,
             IEnumerable<Plugin> plugins,
             bool addBootstrapFile)
@@ -202,13 +240,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Adds to view model.
         /// </summary>
-        /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="createUnitTests">if set to <c>true</c> [create unit tests].</param>
         /// <param name="coreProjectService">The core project service.</param>
         /// <param name="enumerablePlugins">The enumerable plugins.</param>
         internal void AddToViewModel(
-            IVisualStudioService visualStudioService, 
             string viewModelName, 
             bool createUnitTests, 
             IProjectService coreProjectService, 
@@ -224,7 +260,6 @@ namespace NinjaCoder.MvvmCross.Services
                 foreach (Plugin plugin in enumerablePlugins)
                 {
                     testProjectItemService = this.CreateSnippet(
-                        visualStudioService,
                         viewModelName,
                         createUnitTests,
                         coreProjectService.Name,
@@ -250,7 +285,6 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Creates the snippet.
         /// </summary>
-        /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="createUnitTests">if set to <c>true</c> [create unit tests].</param>
         /// <param name="projectName">Name of the project.</param>
@@ -260,7 +294,6 @@ namespace NinjaCoder.MvvmCross.Services
         /// The project item service interface..
         /// </returns>
         internal IProjectItemService CreateSnippet(
-            IVisualStudioService visualStudioService, 
             string viewModelName, 
             bool createUnitTests, 
             string projectName, 
@@ -288,7 +321,6 @@ namespace NinjaCoder.MvvmCross.Services
                 if (createUnitTests)
                 {
                     IProjectItemService itemService = this.CreateUnitTests(
-                        visualStudioService,
                         visualStudioService.CoreTestsProjectService,
                         plugin,
                         viewModelName);
@@ -310,13 +342,13 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Creates the unit tests.
         /// </summary>
-        /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="projectService">The project service.</param>
         /// <param name="plugin">The plugin.</param>
         /// <param name="viewModelName">Name of the view model.</param>
-        /// <returns>The project item service.</returns>
+        /// <returns>
+        /// The project item service.
+        /// </returns>
         internal IProjectItemService CreateUnitTests(
-            IVisualStudioService visualStudioService,
             IProjectService projectService,
             Plugin plugin,
             string viewModelName)

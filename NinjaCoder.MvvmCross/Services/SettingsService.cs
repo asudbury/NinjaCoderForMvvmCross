@@ -184,7 +184,22 @@ namespace NinjaCoder.MvvmCross.Services
         public string MvvmCrossPluginsWikiPage
         {
             get { return this.GetRegistryValue(string.Empty, "MvvmCrossPluginsWikiPage", "http://github.com/MvvmCross/MvvmCross/wiki/MvvmCross-plugins"); }
-            set { this.SetRegistryValue(string.Empty, "MvvmCrossPluginsWikiPage", value); }
+        }
+
+        /// <summary>
+        /// Gets the nuget website page.
+        /// </summary>
+        public string NugetWebsitePage 
+        {
+            get { return this.GetRegistryValue(string.Empty, "NugetWebsitePage", "http://nuget.org"); }
+        }
+
+        /// <summary>
+        /// Gets the xamarin forms labs nuget packages git hub page.
+        /// </summary>
+        public string XamarinFormsLabsNugetPackagesGitHubPage
+        {
+            get { return this.GetRegistryValue(string.Empty, "XamarinFormsLabsNugetPackagesGitHubPage", "https://github.com/XLabs/Xamarin-Forms-Labs/wiki/Nuget-Packages"); }
         }
 
         /// <summary>
@@ -308,12 +323,12 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets or sets the ios version.
+        /// Gets or sets the API version.
         /// </summary>
-        public string iOSBuildVersion
+        public string iOSApiVersion
         {
-            get { return this.GetRegistryValue("Projects", "iOSBuildVersion", "8"); }
-            set { this.SetRegistryValue("Projects", "iOSBuildVersion", value); }
+            get { return this.GetRegistryValue("Projects", "iOSApiVersion", "Classic"); }
+            set { this.SetRegistryValue("Projects", "iOSApiVersion", value); }
         }
 
         /// <summary>
@@ -437,17 +452,18 @@ namespace NinjaCoder.MvvmCross.Services
        }
 
         /// <summary>
-        /// Gets the plugins URI.
+        /// Gets the mvvmcross plugins URI.
         /// </summary>
-        public string PluginsUri
+        public string MvvmCrossPluginsUri
         {
             get
             {
                 return this.UseLocalUris ? 
-                    this.GetRegistryValue("Internals", "PluginsUri", this.InstalledDirectory + "Plugins.xml") :
-                    this.GetRegistryValue("Internals", "PluginsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/Plugins.xml");
+                    this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", this.InstalledDirectory + "MvvmCrossPlugins.xml") :
+                    this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/MvvmCrossPlugins.xml");
             }
         }
+
         /// <summary>
         /// Gets the nuget pacakges URI.
         /// </summary>
@@ -462,6 +478,19 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets the mvvmcross plugins URI.
+        /// </summary>
+        public string XamarinFormsLabsPluginsUri
+        {
+            get
+            {
+                return this.UseLocalUris ?
+                    this.GetRegistryValue("Internals", "XamarinFormsLabsPluginsUri", this.InstalledDirectory + "XamarinFormsLabsPlugins.xml") :
+                    this.GetRegistryValue("Internals", "XamarinFormsLabsPluginsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/XamarinFormsLabsPlugins.xml");
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the xamarin forms views.
         /// </summary>
         public string XamarinFormsViews 
@@ -469,15 +498,7 @@ namespace NinjaCoder.MvvmCross.Services
             get { return this.GetRegistryValue("Internals", "XamarinFormsViews", string.Empty); }
             set { this.SetRegistryValue("Internals", "XamarinFormsViews", value); }
         }
-
-        /// <summary>
-        /// Sets the requested nuget commands.
-        /// </summary>
-        public string RequestedNugetCommands 
-        {
-            set { this.SetRegistryValue("Internals", "RequestedNugetCommands", value); }
-        }
-
+        
         /// <summary>
         /// Gets or sets a value indicating whether [output nuget commands to read me].
         /// </summary>
@@ -494,6 +515,42 @@ namespace NinjaCoder.MvvmCross.Services
         {
             get { return this.GetRegistryValue("Build", "OutputErrorsToReadMe", "N") == "Y"; }
             set { this.SetRegistryValue("Build", "OutputErrorsToReadMee", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use pre release MVVM cross nuget packages].
+        /// </summary>
+        public bool UsePreReleaseMvvmCrossNugetPackages 
+        {
+            get { return this.GetRegistryValue("Build", "UsePreReleaseMvvmCrossNugetPackages", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "UsePreReleaseMvvmCrossNugetPackages", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use pre release xamarin forms nuget packages].
+        /// </summary>
+        public bool UsePreReleaseXamarinFormsNugetPackages
+        {
+            get { return this.GetRegistryValue("Build", "UsePreReleaseXamarinFormsNugetPackages", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "UsePreReleaseXamarinFormsNugetPackages", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [bind context in xaml for xamarin forms].
+        /// </summary>
+        public bool BindContextInXamlForXamarinForms 
+        {
+            get { return this.GetRegistryValue("Coding Style", "BindContextInXamlForXamarinForms", "Y") == "Y"; }
+            set { this.SetRegistryValue("Coding Style", "BindContextInXamlForXamarinForms", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [create test projects for all projects].
+        /// </summary>
+        public bool CreatePlatformTestProjects
+        {
+            get { return this.GetRegistryValue("Build", "CreatePlatformTestProjects", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "CreatePlatformTestProjects", value ? "Y" : "N"); }
         }
 
         /// <summary>

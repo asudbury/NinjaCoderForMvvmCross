@@ -231,6 +231,12 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         {
             this.testingServiceFactory.CurrentFrameWork = this.SelectedTestingFramework;
             this.mockingServiceFactory.CurrentFrameWork = this.SelectedMockingFramework;
+
+            //// ReSharper disable once RedundantCheckBeforeAssignment
+            if (this.SettingsService.iOSApiVersion != this.SelectediOSVersion)
+            {
+                this.SettingsService.iOSApiVersion = this.SelectediOSVersion;
+            }
         }
 
         /// <summary>
@@ -239,12 +245,12 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         internal void Init()
         {
             this.SelectedPCLProfile = this.SettingsService.PCLProfile;
-            this.SelectediOSVersion = this.SettingsService.iOSBuildVersion;
+            this.SelectediOSVersion = this.SettingsService.iOSApiVersion;
             this.SelectedWindowsPhoneVersion = this.SettingsService.WindowsPhoneBuildVersion;
             
             //// for now there are no real options for these - maybe change in the future
             this.PCLProfiles = new List<string> { this.selectedPCLProfile };
-            this.iOSVersions = new List<string> { this.selectediOSVersion };
+            this.iOSVersions = new List<string> { "Classic", "Unified" };
             this.WindowsPhoneVersions = new List<string> { this.selectedWindowsPhoneVersion };
 
             this.TestingFrameworks = testingServiceFactory.FrameWorks;

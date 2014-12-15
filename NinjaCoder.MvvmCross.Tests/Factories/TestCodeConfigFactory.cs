@@ -62,11 +62,11 @@ namespace NinjaCoder.MvvmCross.Tests.Factories
             this.mockSettingsService = new Mock<ISettingsService>();
             this.mockTranslator = new Mock<ITranslator<string, CodeConfig>>();
 
-            this.factory = new CodeConfigFactory(
+            /*this.factory = new CodeConfigFactory(
                 this.mockCodeConfigService.Object,
                 this.mockFileSystem.Object,
                 this.mockSettingsService.Object,
-                this.mockTranslator.Object);
+                this.mockTranslator.Object);*/
         }
 
         /// <summary>

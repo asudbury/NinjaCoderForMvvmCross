@@ -74,6 +74,14 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         {
             get { return new RelayCommand(this.AddPlugins); }
         }
+        
+        /// <summary>
+        /// Gets the add nuget packages command.
+        /// </summary>
+        public ICommand AddNugetPackagesCommand
+        {
+            get { return new RelayCommand(this.AddNugetPackages); }
+        }
 
         /// <summary>
         /// Gets the view log command.
@@ -138,6 +146,14 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         internal void AddPlugins()
         {
             NinjaController.RunPluginsController();
+        }
+
+        /// <summary>
+        /// Adds the nuget packages.
+        /// </summary>
+        internal void AddNugetPackages()
+        {
+            NinjaController.RunNugetPackagesController();    
         }
 
         /// <summary>

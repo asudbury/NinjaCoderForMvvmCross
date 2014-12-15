@@ -133,18 +133,18 @@ namespace NinjaCoder.MvvmCross.AddIn
 
             this.AddMenuItem(commandInfo);
 
-            /*commandInfo = new VSCommandInfo
+            commandInfo = new VSCommandInfo
             {
                 AddIn = this.AddInInstance,
-                Name = "NinjaCoderforMvvmCrossAddServices",
-                ButtonText = "Add Services",
-                Tooltip = "Ninja Coder for MvvmCross Add Services",
-                Action = this.AddServices,
+                Name = "NinjaCoderforMvvmCrossAddNugetPackages",
+                ButtonText = "Add Nuget Packages",
+                Tooltip = "Ninja Coder for MvvmCross Add Nuget Packages",
+                Action = this.AddNugetPackages,
                 ParentCommand = commandBar,
                 BitmapResourceId = 0,
             };
 
-            this.AddMenuItem(commandInfo);*/
+            this.AddMenuItem(commandInfo);
 
             commandInfo = new VSCommandInfo
             {
@@ -237,6 +237,16 @@ namespace NinjaCoder.MvvmCross.AddIn
             TraceService.WriteLine("Connect::AddPlugins");
 
             NinjaController.RunPluginsController(this.VsInstance.ApplicationObject);
+        }
+
+        /// <summary>
+        /// Adds the nuget packages.
+        /// </summary>
+        internal void AddNugetPackages()
+        {
+            TraceService.WriteLine("Connect::AddNugetPackages");
+
+            NinjaController.RunNugetPackagesController(this.VsInstance.ApplicationObject);
         }
 
         /// <summary>

@@ -52,5 +52,10 @@ namespace NinjaCoder.MvvmCross.Entities
         /// Gets or sets the frameworks.
         /// </summary>
         public IEnumerable<FrameworkType> Frameworks { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [overwrite files].
+        /// </summary>
+        public bool OverwriteFiles { get; set; }
     }
 }

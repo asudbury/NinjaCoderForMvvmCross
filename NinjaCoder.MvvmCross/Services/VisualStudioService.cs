@@ -48,10 +48,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<Project> Projects
         {
-            get
-            {
-                return this.Solution.GetProjects();
-            }
+            get { return this.Solution.GetProjects(); }
         }
 
         /// <summary>
@@ -86,21 +83,15 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IDTEService DTEService
         {
-            get
-            {
-                return new DTEService(this.DTE2);
-            }
+            get { return new DTEService(this.DTE2); }
         }
 
         /// <summary>
         /// Gets the solution service.
         /// </summary>
         public ISolutionService SolutionService
-        {
-            get
-            {
-                return new SolutionService(this.DTE2.Solution);
-            }
+        { 
+            get { return new SolutionService(this.DTE2.Solution); }
         }
 
         /// <summary>
@@ -108,10 +99,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public Solution2 Solution
         {
-            get
-            {
-                return this.DTE2.Solution as Solution2;
-            }
+            get { return this.DTE2.Solution as Solution2; }
         }
 
         /// <summary>
@@ -119,10 +107,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public bool IsMvvmCrossSolution
         {
-            get
-            {
-                return this.CoreProject != null;
-            }
+            get { return this.CoreProject != null; }
         }
 
         /// <summary>
@@ -162,6 +147,18 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets the droid tests project service.
+        /// </summary>
+        public IProjectService DroidTestsProjectService
+        {
+            get
+            {
+                Project project = this.DroidTestsProject;
+                return project != null ? new ProjectService(project) : null;
+            }
+        }
+
+        /// <summary>
         /// Gets the iOS project service.
         /// </summary>
         public IProjectService iOSProjectService
@@ -169,6 +166,18 @@ namespace NinjaCoder.MvvmCross.Services
             get
             {
                 Project project = this.iOSProject;
+                return project != null ? new ProjectService(project) : null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the ios tests project service.
+        /// </summary>
+        public IProjectService iOSTestsProjectService
+        {
+            get
+            {
+                Project project = this.iOSTestsProject;
                 return project != null ? new ProjectService(project) : null;
             }
         }
@@ -186,6 +195,18 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets the windows phone tests project service.
+        /// </summary>
+        public IProjectService WindowsPhoneTestsProjectService
+        {
+            get
+            {
+                Project project = this.WindowsPhoneTestsProject;
+                return project != null ? new ProjectService(project) : null;
+            }
+        }
+
+        /// <summary>
         /// Gets the windows store project service.
         /// </summary>
         public IProjectService WindowsStoreProjectService
@@ -193,6 +214,18 @@ namespace NinjaCoder.MvvmCross.Services
             get
             {
                 Project project = this.WindowsStoreProject;
+                return project != null ? new ProjectService(project) : null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the windows store tests project service.
+        /// </summary>
+        public IProjectService WindowsStoreTestsProjectService
+        {
+            get
+            {
+                Project project = this.WindowsStoreTestsProject;
                 return project != null ? new ProjectService(project) : null;
             }
         }
@@ -210,6 +243,18 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets the WPF tests project service.
+        /// </summary>
+        public IProjectService WpfTestsProjectService
+        {
+            get
+            {
+                Project project = this.WpfTestsProject;
+                return project != null ? new ProjectService(project) : null;
+            }
+        }
+
+        /// <summary>
         /// Gets the xamarin forms project service.
         /// </summary>
         public IProjectService XamarinFormsProjectService
@@ -217,6 +262,18 @@ namespace NinjaCoder.MvvmCross.Services
             get
             {
                 Project project = this.XamarinFormsProject;
+                return project != null ? new ProjectService(project) : null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the xamarin forms tests project service.
+        /// </summary>
+        public IProjectService XamarinFormsTestsProjectService
+        {
+            get
+            {
+                Project project = this.XamarinFormsTestsProject;
                 return project != null ? new ProjectService(project) : null;
             }
         }
@@ -258,10 +315,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal Project CoreTestsProject
         {
-            get
-            {
-                return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.CoreTests.GetDescription()));
-            }
+            get {  return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.CoreTests.GetDescription())); }
         }
 
         /// <summary>
@@ -273,11 +327,27 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets the droid tests project.
+        /// </summary>
+        internal Project DroidTestsProject
+        {
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.DroidTests.GetDescription())); }
+        }
+
+        /// <summary>
         /// Gets the iOS project.
         /// </summary>
         internal Project iOSProject
         {
             get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.iOS.GetDescription())); }
+        }
+
+        /// <summary>
+        /// Gets the iOS tests project.
+        /// </summary>
+        internal Project iOSTestsProject
+        {
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.iOSTests.GetDescription())); }
         }
 
         /// <summary>
@@ -289,11 +359,27 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets the windows phone tests project.
+        /// </summary>
+        internal Project WindowsPhoneTestsProject
+        {
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.WindowsPhoneTests.GetDescription())); }
+        }
+
+        /// <summary>
         /// Gets the windows store project.
         /// </summary>
         internal Project WindowsStoreProject
         {
             get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.WindowsStore.GetDescription())); }
+        }
+
+        /// <summary>
+        /// Gets the windows store tests project.
+        /// </summary>
+        internal Project WindowsStoreTestsProject
+        {
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.WindowsStoreTests.GetDescription())); }
         }
 
         /// <summary>
@@ -303,13 +389,29 @@ namespace NinjaCoder.MvvmCross.Services
         {
             get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.Wpf.GetDescription())); }
         }
-        
+
+        /// <summary>
+        /// Gets the WPF tests project.
+        /// </summary>
+        internal Project WpfTestsProject
+        {
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.WpfTests.GetDescription())); }
+        }
+
         /// <summary>
         /// Gets the xamarin forms project.
         /// </summary>
         internal Project XamarinFormsProject
         {
             get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.XamarinForms.GetDescription())); }
+        }
+
+        /// <summary>
+        /// Gets the xamarin forms tests project.
+        /// </summary>
+        internal Project XamarinFormsTestsProject
+        {
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.XamarinFormsTests.GetDescription())); }
         }
 
         /// <summary>
@@ -320,7 +422,6 @@ namespace NinjaCoder.MvvmCross.Services
             get
             {
                 Project coreProject = this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.Core.GetDescription()));
-
                 return coreProject;
             }
         }
@@ -333,7 +434,6 @@ namespace NinjaCoder.MvvmCross.Services
             get
             {
                 Project pluginProject = this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.Core.GetDescription()));
-
                 return pluginProject;
             }
         }
@@ -418,7 +518,6 @@ namespace NinjaCoder.MvvmCross.Services
         public IProjectService GetProjectServiceBySuffix(string suffix)
         {
             Project project = this.Projects.FirstOrDefault(x => x.Name.EndsWith(suffix));
-
             return project != null ? new ProjectService(project) : null;
         }
 

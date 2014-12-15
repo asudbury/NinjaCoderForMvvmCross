@@ -5,17 +5,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.TemplateWizards
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
     using EnvDTE;
     using EnvDTE80;
     using Microsoft.VisualStudio.TemplateWizard;
-
     using NinjaCoder.MvvmCross.TemplateWizards.Services;
-
     using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     ///  Defines the BaseWizard type.

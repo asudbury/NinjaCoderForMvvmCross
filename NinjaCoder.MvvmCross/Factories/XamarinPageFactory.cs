@@ -7,7 +7,9 @@ namespace NinjaCoder.MvvmCross.Factories
 {
     using Constants;
     using Interfaces;
+    using NinjaCoder.MvvmCross.Entities;
     using Scorchio.Infrastructure.Entities;
+    using Scorchio.Infrastructure.Extensions;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -28,28 +30,28 @@ namespace NinjaCoder.MvvmCross.Factories
                     new ImageItemWithDescription  
                         {
                             ImageUrl = this.GetUrlPath("ContentPage.png"),
-                            Name = "Content Page",
+                            Name = XamarinFormsPage.ContentPage.GetDescription(),
                             Selected = true
                         },
                     new ImageItemWithDescription
                         {
                             ImageUrl =  this.GetUrlPath("MasterDetailPage.png"),
-                            Name = "Master Detail Page"
+                            Name = XamarinFormsPage.MasterDetailPage.GetDescription(),
                         },
                     new ImageItemWithDescription
                         {
                             ImageUrl =  this.GetUrlPath("NavigationPage.png"),
-                            Name = "Navigation Page"
+                            Name = XamarinFormsPage.NavigationPage.GetDescription(),
                         },
                     new ImageItemWithDescription
                         {
                             ImageUrl =  this.GetUrlPath("TabbedPage.png"),
-                            Name = "Tabbed Page"
+                            Name = XamarinFormsPage.TabbedPage.GetDescription(),
                         },
                     new ImageItemWithDescription
                         {
                             ImageUrl =  this.GetUrlPath("CarouselPage.png"),
-                            Name = "Carousel Page"
+                            Name = XamarinFormsPage.CarouselPage.GetDescription(),
                         }
                 };
 

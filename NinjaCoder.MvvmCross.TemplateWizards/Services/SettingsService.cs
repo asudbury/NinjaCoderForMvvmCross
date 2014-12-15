@@ -111,6 +111,22 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Services
         }
 
         /// <summary>
+        /// Gets a value indicating whether [bind context in xaml for xamarin forms].
+        /// </summary>
+        public bool BindContextInXamlForXamarinForms
+        {
+            get { return this.GetRegistryValue("Coding Style", "BindContextInXamlForXamarinForms", "Y") == "Y"; }
+        }
+
+        /// <summary>
+        /// Gets or sets the API version.
+        /// </summary>
+        public string iOSApiVersion
+        {
+            get { return this.GetRegistryValue("Projects", "iOSApiVersion", "Classic"); }
+        }
+
+        /// <summary>
         /// Gets the registry value.
         /// </summary>
         /// <param name="subKey">The sub key.</param>

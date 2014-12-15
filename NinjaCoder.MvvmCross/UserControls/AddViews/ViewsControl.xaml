@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:userControls="clr-namespace:Scorchio.Infrastructure.Wpf.UserControls;assembly=Scorchio.Infrastructure"
+             xmlns:wpf="clr-namespace:Scorchio.Infrastructure.Wpf;assembly=Scorchio.Infrastructure"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
              x:Name="MyControl">
     <UserControl.Resources>
         <Style TargetType="DataGridCell">
@@ -15,10 +15,10 @@
         <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
     </UserControl.Resources>
 
-    <Grid>
+        <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -26,18 +26,22 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="1" Grid.Row="0" Width="500">
-            <Separator Margin="10"/>
+            <StackPanel Grid.Column="1" Grid.Row="0" Width="500">
+               
+                <Separator Margin="10"/>
 
-            <StackPanel Visibility="{Binding ShowGrid, Converter={StaticResource BoolToVisibility}, FallbackValue=Hidden}">
+                <StackPanel Visibility="{Binding ShowGrid, Converter={StaticResource BoolToVisibility}, FallbackValue=Hidden}">
 
                 <Label Height="30">Here you can change the characteristics of the ViewModels and views.</Label>
 
                 <Label Height="30">To add additional ViewModels and assocaited views click 'Add'.</Label>
 
                 <Separator Margin="10"/>
+                   
+                   <Grid Margin="10">
 
-                <Grid Margin="10">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Center" Height="310">
+                        <StackPanel Height="310" Orientation="Vertical" CanVerticallyScroll="True">
                         <DataGrid AutoGenerateColumns="False" 
                                   CanUserAddRows="False"
                                   CanUserDeleteRows="True"
@@ -46,8 +50,13 @@
                                   RowBackground="White"
                                   SelectionMode="Single"
                                   SelectionUnit="Cell"
-                                  ItemsSource="{Binding Views,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        
+                                  ItemsSource="{Binding Views,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  Height="310">
+
+                        <DataGrid.Resources>
+                            <wpf:BindingProxy x:Key="proxy" Data="{Binding}" />
+                        </DataGrid.Resources>
+
                         <DataGrid.CellStyle>
                             <Style TargetType="{x:Type DataGridCell}">
                                 <Style.Triggers>
@@ -70,14 +79,16 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBox 
-                                            Text="{Binding Name}" 
+                                            Text="{Binding Name,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                             IsEnabled="{Binding AllowDeletion}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
 
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Header="Framework">
+                            <DataGridTemplateColumn 
+                                Header="Framework" 
+                                Visibility="{Binding Path=Data.ShowFrameworks, Converter={StaticResource BoolToVisibility}, Source={StaticResource proxy}}" >
 
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -153,12 +164,12 @@
                         </DataGrid.Columns>
                         
                         </DataGrid>
-                    </Grid>
+                        </StackPanel>
+                        </ScrollViewer>
 
-                <Separator Margin="10"/>
+                </Grid>
 
                 <Button Content="Add" Width="70" Command="{Binding Path=AddCommand}"></Button>
-
             </StackPanel>
 
             <StackPanel Visibility="{Binding ShowMvxPages, Converter={StaticResource BoolToVisibility}, FallbackValue=Hidden}">
@@ -168,8 +179,8 @@
                 <userControls:ImagePickerWithDescriptionView DataContext="{Binding MvxViews}"></userControls:ImagePickerWithDescriptionView>
 
             </StackPanel>
-            
-            <StackPanel Visibility="{Binding ShowXFPages, Converter={StaticResource BoolToVisibility}, FallbackValue=Hidden}">
+
+            <StackPanel Visibility="{Binding ShowXfPages, Converter={StaticResource BoolToVisibility}, FallbackValue=Hidden}">
 
                 <Label Height="30">Select Page type and click 'Next' to continue.</Label>
 
@@ -181,7 +192,11 @@
 
                 <Label Height="30">Select Layout and click 'Next' to continue.</Label>
 
+                <userControls:ImagePickerWithDescriptionView DataContext="{Binding Layouts}"></userControls:ImagePickerWithDescriptionView>
+
             </StackPanel>
+
+            <Separator Margin="10"/>
             
         </StackPanel>
 
@@ -189,6 +204,6 @@
 
         <Image Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/lefthand.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Top" />
 
-    </Grid>    
+    </Grid>   
 
 </UserControl>

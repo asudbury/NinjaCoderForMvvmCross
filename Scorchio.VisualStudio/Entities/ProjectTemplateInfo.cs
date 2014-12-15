@@ -32,5 +32,10 @@ namespace Scorchio.VisualStudio.Entities
         /// Gets or sets a value indicating whether [reference core project].
         /// </summary>
         public bool ReferenceCoreProject { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [reference platform project].
+        /// </summary>
+        public bool ReferencePlatformProject { get; set; }
     }
 }

@@ -59,6 +59,11 @@
             Add the plugins.
             </summary>
         </member>
+        <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.AddNugetPackages">
+            <summary>
+            Adds the nuget packages.
+            </summary>
+        </member>
         <member name="M:NinjaCoder.MvvmCross.AddIn.Connect.ShowOptions">
             <summary>
             Shows the options.

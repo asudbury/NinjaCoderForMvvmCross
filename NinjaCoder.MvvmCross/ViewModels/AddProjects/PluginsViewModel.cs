@@ -79,7 +79,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         {
             if (this.settingsService.FrameworkType != FrameworkType.NoFramework)
             {
-                Plugins allPlugins = this.pluginFactory.GetPlugins(this.settingsService.PluginsUri);
+                Plugins allPlugins = this.pluginFactory.GetPlugins(this.settingsService.MvvmCrossPluginsUri);
 
                 this.CorePlugins = this.GetPlugins(allPlugins, false);
                 this.CommunityPlugins = this.GetPlugins(allPlugins, true);

@@ -41,19 +41,5 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// <param name="plugin">The plugin.</param>
         /// <returns>The code snippet.</returns>
         CodeSnippet GetPluginTestSnippet(Plugin plugin);
-
-        /// <summary>
-        /// Gets the service snippet.
-        /// </summary>
-        /// <param name="friendlyName">Name of the friendly.</param>
-        /// <returns>The code snippet.</returns>
-        CodeSnippet GetServiceSnippet(string friendlyName);
-
-        /// <summary>
-        /// Gets the service test snippet.
-        /// </summary>
-        /// <param name="friendlyName">Name of the friendly.</param>
-        /// <returns>The code snippet.</returns>
-        CodeSnippet GetServiceTestSnippet(string friendlyName);
     }
 }

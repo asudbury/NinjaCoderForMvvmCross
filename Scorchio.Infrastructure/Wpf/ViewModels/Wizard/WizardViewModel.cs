@@ -6,6 +6,7 @@
 namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Windows.Input;
 
     /// <summary>
@@ -44,6 +45,21 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         private RelayCommand cancelCommand;
 
         /// <summary>
+        /// The finish text.
+        /// </summary>
+        private string finishText;
+
+        /// <summary>
+        /// The show next command.
+        /// </summary>
+        private bool showNextCommand;
+
+        /// <summary>
+        /// The show previous command.
+        /// </summary>
+        private bool showPreviousCommand;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="WizardViewModel"/> class.
         /// </summary>
         protected WizardViewModel()
@@ -68,6 +84,21 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
                 this.wizardStepManager.ProvideSteps(value);
 
                 this.ActionsOnCurrentStep(this.wizardStepManager.FirstStep);
+
+                this.steps.First().ViewModel.OnInitialize();
+
+                //// if we only have one step - hide the previous and next buttons
+
+                this.finishText = "Finish";
+                this.showNextCommand = true;
+                this.showPreviousCommand = true;
+
+                if (this.steps.Count == 1)
+                {
+                    this.finishText = "Ok";
+                    this.showNextCommand = false;
+                    this.showPreviousCommand = false;
+                }
             }
         }
         
@@ -158,6 +189,30 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         }
 
         /// <summary>
+        /// Gets the finish text.
+        /// </summary>
+        public string FinishText
+        {
+            get { return this.finishText; }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [show previous command].
+        /// </summary>
+        public bool ShowPreviousCommand
+        {
+            get { return this.showPreviousCommand; }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [show next command].
+        /// </summary>
+        public bool ShowNextCommand
+        {
+            get { return this.showNextCommand; }
+        }
+
+        /// <summary>
         /// Cancels this instance.
         /// </summary>
         public abstract void Cancel();
@@ -170,7 +225,7 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         /// <summary>
         /// Moves to next step.
         /// </summary>
-        private void MoveToNextStep()
+        protected virtual void MoveToNextStep()
         {
             if (this.CurrentLinkedListStep.Value.ViewModel.CanMoveToNextPage())
             {
@@ -187,11 +242,17 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         /// <summary>
         /// Moves to previous step.
         /// </summary>
-        private void MoveToPreviousStep()
+        protected virtual void MoveToPreviousStep()
         {
             if (this.CurrentLinkedListStep.Value.ViewModel.CanMoveToPreviousPage())
             {
-                this.CurrentLinkedListStep = CurrentLinkedListStep.Previous;
+                this.wizardStepManager.ReworkListBasedOn(CurrentLinkedListStep.Value.ViewModel.OnPrevious());
+                this.CurrentLinkedListStep = this.CurrentLinkedListStep.Previous;
+
+                if (this.CurrentLinkedListStep != null)
+                {
+                    this.CurrentLinkedListStep.Value.ViewModel.OnInitialize();
+                }
             }
         }
         

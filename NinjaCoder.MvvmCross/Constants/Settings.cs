@@ -59,5 +59,10 @@ namespace NinjaCoder.MvvmCross.Constants
         /// The xamarin resource path.
         /// </summary>
         public const string XamarinResourcePath = ResourcePath + "/Xamarin";
+
+        /// <summary>
+        /// The nuget include pre release
+        /// </summary>
+        public const string NugetIncludePreRelease = " –IncludePrerelease ";
     }
 }

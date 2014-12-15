@@ -119,17 +119,18 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             try
             {
-                IEnumerable<string> messages = this.pluginsService.AddPlugins(
-                    this.VisualStudioService,
+                List<string> messages = this.pluginsService.AddPlugins(
                     plugins,
                     implementInViewModel,
-                    includeUnitTests);
+                    includeUnitTests).ToList();
                 
                 this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.UpdatingFiles);
 
                 this.VisualStudioService.DTEService.SaveAll();
 
-                List<string> commands = plugins.Select(plugin => plugin.GetNugetCommandStrings(this.VisualStudioService)).ToList();
+                List<string> commands = plugins.Select(plugin => plugin.GetNugetCommandStrings(
+                    this.VisualStudioService, 
+                    this.SettingsService.UsePreReleaseMvvmCrossNugetPackages)).ToList();
 
                 if (commands.Any())
                 {
@@ -141,6 +142,11 @@ namespace NinjaCoder.MvvmCross.Controllers
                     }
 
                     this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NugetDownload);
+                }
+
+                if (this.SettingsService.OutputNugetCommandsToReadMe)
+                {
+                    messages.Add(string.Join(Environment.NewLine,commands));
                 }
 
                 //// show the readme.

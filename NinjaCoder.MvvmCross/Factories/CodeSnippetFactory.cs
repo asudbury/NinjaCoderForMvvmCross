@@ -13,7 +13,6 @@ namespace NinjaCoder.MvvmCross.Factories
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;
-    using System.IO.Abstractions;
 
     /// <summary>
     /// Defines the CodeSnippetFactory type.
@@ -44,13 +43,11 @@ namespace NinjaCoder.MvvmCross.Factories
         /// Initializes a new instance of the <see cref="CodeSnippetFactory" /> class.
         /// </summary>
         /// <param name="codeSnippetService">The code snippet service.</param>
-        /// <param name="fileSystem">The file system.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="translator">The translator.</param>
         /// <param name="mockingServiceFactory">The mocking service factory.</param>
         public CodeSnippetFactory(
             ICodeSnippetService codeSnippetService,
-            IFileSystem fileSystem,
             ISettingsService settingsService,
             ITranslator<string, CodeSnippet> translator,
             IMockingServiceFactory mockingServiceFactory)

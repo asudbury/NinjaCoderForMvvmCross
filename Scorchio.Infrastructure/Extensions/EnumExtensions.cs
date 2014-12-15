@@ -26,9 +26,14 @@ namespace Scorchio.Infrastructure.Extensions
         {
             FieldInfo fieldInfo = instance.GetType().GetField(instance.ToString());
 
-            DescriptionAttribute[] attributes = (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
+            if (fieldInfo != null)
+            {
+                DescriptionAttribute[] attributes = (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
 
-            return (attributes.Length > 0) ? attributes[0].Description : instance.ToString();
+                return (attributes.Length > 0) ? attributes[0].Description : instance.ToString();
+            }
+
+            return string.Empty;
         }
 
         /// <summary>

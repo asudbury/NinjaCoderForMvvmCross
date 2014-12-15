@@ -28,9 +28,19 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         private bool outputNugetCommandsToReadMe;
 
         /// <summary>
-        /// The output errors to read me
+        /// The output errors to read me.
         /// </summary>
         private bool outputErrorsToReadMe;
+
+        /// <summary>
+        /// The use pre release MVVM cross nuget packages
+        /// </summary>
+        private bool usePreReleaseMvvmCrossNugetPackages;
+
+        /// <summary>
+        /// The use pre release xamarin forms nuget packages.
+        /// </summary>
+        private bool usePreReleaseXamarinFormsNugetPackages;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NinjaBaseViewModel" /> class.
@@ -68,8 +78,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             get { return this.outputNugetCommandsToReadMe; }
             set { this.SetProperty(ref this.outputNugetCommandsToReadMe, value); }
         }
-
-
+        
         /// <summary>
         /// Gets or sets a value indicating whether [output errors to read me].
         /// </summary>
@@ -77,6 +86,24 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         {
             get { return this.outputErrorsToReadMe; }
             set { this.SetProperty(ref this.outputErrorsToReadMe, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use pre release MVVM cross nuget packages].
+        /// </summary>
+        public bool UsePreReleaseMvvmCrossNugetPackages 
+        {
+            get { return this.usePreReleaseMvvmCrossNugetPackages; }
+            set { this.SetProperty(ref this.usePreReleaseMvvmCrossNugetPackages, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use pre release xamarin forms nuget packages].
+        /// </summary>
+        public bool UsePreReleaseXamarinFormsNugetPackages
+        {
+            get { return this.usePreReleaseXamarinFormsNugetPackages; }
+            set { this.SetProperty(ref this.usePreReleaseXamarinFormsNugetPackages, value); }
         }
 
         /// <summary>
@@ -88,6 +115,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.SettingsService.CheckForUpdates = this.checkForUpdates;
             this.SettingsService.OutputNugetCommandsToReadMe = this.OutputNugetCommandsToReadMe;
             this.SettingsService.OutputErrorsToReadMe = this.OutputErrorsToReadMe;
+            this.SettingsService.UsePreReleaseMvvmCrossNugetPackages = this.UsePreReleaseMvvmCrossNugetPackages;
+            this.SettingsService.UsePreReleaseXamarinFormsNugetPackages = this.UsePreReleaseXamarinFormsNugetPackages;
         }
 
         /// <summary>
@@ -99,7 +128,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.CheckForUpdates = this.SettingsService.CheckForUpdates;
             this.OutputNugetCommandsToReadMe = this.SettingsService.OutputNugetCommandsToReadMe;
             this.OutputErrorsToReadMe = this.SettingsService.OutputErrorsToReadMe;
-
+            this.UsePreReleaseMvvmCrossNugetPackages = this.SettingsService.UsePreReleaseMvvmCrossNugetPackages;
+            this.UsePreReleaseXamarinFormsNugetPackages = this.SettingsService.UsePreReleaseXamarinFormsNugetPackages;
         }
     }
 }

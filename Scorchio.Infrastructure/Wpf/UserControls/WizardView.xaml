@@ -25,7 +25,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+
     </UserControl.Resources>
 
     <Grid Margin="1">
@@ -91,18 +93,20 @@
                             Command="{Binding Path=MovePreviousCommand}"
                             IsEnabled="{Binding Path=MovePreviousCommandEnabled}"
                             Content="&lt; Previous"
+                            Visibility="{Binding ShowPreviousCommand, Converter={StaticResource BoolToVisibility}, FallbackValue=Visible}"
                             Margin="4,0,0,5"
                             Width="80"/>
                     <Button Grid.Column="1"
                             Command="{Binding Path=MoveNextCommand}"
                             IsEnabled="{Binding Path=MoveNextCommandEnabled}"
+                            Visibility="{Binding ShowNextCommand, Converter={StaticResource BoolToVisibility}, FallbackValue=Visible}"
                             Content="Next &gt;"
                             Margin="4,0,0,5"
                             Width="80"/>
                     <Button Grid.Column="2"
                             Command="{Binding Path=FinishCommand}"
                             IsEnabled="{Binding Path=FinishCommandEnabled}"
-                            Content="Finish"
+                            Content="{Binding Path=FinishText}"
                             Margin="4,0,0,5"
                             Width="80"/>
                     <Button Grid.Column="4"

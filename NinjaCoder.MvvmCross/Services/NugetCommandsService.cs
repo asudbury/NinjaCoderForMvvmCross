@@ -6,8 +6,11 @@
 namespace NinjaCoder.MvvmCross.Services
 {
     using Interfaces;
+    using NinjaCoder.MvvmCross.Constants;
+    using NinjaCoder.MvvmCross.Entities;
     using Scorchio.Infrastructure.Constants;
     using System.Collections.Generic;
+    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     /// Defines the NugetCommandsService type.
@@ -20,15 +23,40 @@ namespace NinjaCoder.MvvmCross.Services
         private const string NugetMvvmCrossPackage = "MvvmCross.HotTuna.MvvmCrossLibraries";
 
         /// <summary>
-        /// The nuget scorchio MVVM cross tests.
+        /// The nuget scorchio MVVM cross mstest tests.
         /// </summary>
-        private const string NugetScorchioMvvmCrossTests = "Scorchio.NinjaCoder.MvvmCross.Tests";
+        private const string NugetScorchioMvvmCrossMsTestTests = "Scorchio.NinjaCoder.MvvmCross.MSTests.Tests";
+
+        /// <summary>
+        /// The nuget scorchio  nunit tests.
+        /// </summary>
+        private const string NugetScorchioNUnitTests = "Scorchio.NinjaCoder.NUnit.Tests";
+
+        /// <summary>
+        /// The nuget scorchio  mstest tests.
+        /// </summary>
+        private const string NugetScorchioMsTestTests = "Scorchio.NinjaCoder.MSTest.Tests";
+
+        /// <summary>
+        /// The nuget scorchio MVVM cross nunit tests.
+        /// </summary>
+        private const string NugetScorchioMvvmCrossNUnitTests = "Scorchio.NinjaCoder.MvvmCross.NUnit.Tests";
 
         /// <summary>
         /// The nuget scorchio no framework package
         /// </summary>
         private const string NugetScorchioNoFrameworkPackage = "Scorchio.NinjaCoder.NoFramework";
 
+        /// <summary>
+        /// The nuget scorchio no framework iOS classic package
+        /// </summary>
+        private const string NugetScorchioNoFrameworkiOSClassicPackage = "Scorchio.NinjaCoder.NoFramework.iOS.Classic";
+
+        /// <summary>
+        /// The nuget scorchio no framework iOS unified package
+        /// </summary>
+        private const string NugetScorchioNoFrameworkiOSUnifiedPackage = "Scorchio.NinjaCoder.NoFramework.iOS.Unified";
+        
         /// <summary>
         /// The nuget scorchio xamarin forms core package.
         /// </summary>
@@ -38,6 +66,26 @@ namespace NinjaCoder.MvvmCross.Services
         /// The nuget scorchio xamarin forms package.
         /// </summary>
         private const string NugetScorchioXamarinFormsPackage = "Scorchio.NinjaCoder.Xamarin.Forms";
+
+        /// <summary>
+        /// The nuget scorchio xamarin formsi os classic package.
+        /// </summary>
+        private const string NugetScorchioXamarinFormsiOSClassicPackage = "Scorchio.NinjaCoder.Xamarin.Forms.iOS.Classic";
+
+        /// <summary>
+        /// The nuget scorchio xamarin formsi os unified package.
+        /// </summary>
+        private const string NugetScorchioXamarinFormsiOSUnifiedPackage = "Scorchio.NinjaCoder.Xamarin.Forms.iOS.Unified";
+        
+        /// <summary>
+        /// The nuget scorchio MVVM crossi os classic package.
+        /// </summary>
+        private const string NugetScorchioMvvmCrossiOSClassicPackage = "Scorchio.NinjaCoder.MvvmCross.iOS.Classic";
+        
+        /// <summary>
+        /// The nuget scorchio MVVM crossi os unified package.
+        /// </summary>
+        private const string NugetScorchioMvvmCrossiOSUnifiedPackage = "Scorchio.NinjaCoder.MvvmCross.iOS.Unified";
 
         /// <summary>
         /// The nuget moq package.
@@ -55,28 +103,19 @@ namespace NinjaCoder.MvvmCross.Services
         private const string NugetNSubstitutePackage = "NSubstitute";
 
         /// <summary>
-        /// The nuget nunit package.
+        /// The nuget xamarin forms package
         /// </summary>
-        private const string NugetNUnitPackage = "NUnit";
-
+        private const string NugetXamarinFormsPackage = " Xamarin.Forms";
+        
         /// <summary>
         /// The nuget xamarin android package.
         /// </summary>
         private const string NugetXamarinAndroidPackage = "Xamarin.Android.Support.v4";
-        
+
         /// <summary>
         /// The settings service.
         /// </summary>
         private readonly ISettingsService settingsService;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NugetCommandsService" /> class.
-        /// </summary>
-        /// <param name="settingsService">The settings service.</param>
-        public NugetCommandsService(ISettingsService settingsService)
-        {
-            this.settingsService = settingsService;
-        }
 
         /// <summary>
         /// The nuget install package.
@@ -84,10 +123,28 @@ namespace NinjaCoder.MvvmCross.Services
         public const string NugetInstallPackage = "Install-Package %s -FileConflictAction ignore -ProjectName";
 
         /// <summary>
+        /// The nuget install package overwrite files.
+        /// </summary>
+        public const string NugetInstallPackageOverwriteFiles = "Install-Package %s -ProjectName";
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NugetCommandsService" /> class.
+        /// </summary>
+        /// <param name="settingsService">The settings service.</param>
+        public NugetCommandsService(ISettingsService settingsService)
+        {
+            TraceService.WriteLine("NugetCommandsService::Constructor");
+
+            this.settingsService = settingsService;
+        }
+
+        /// <summary>
         /// Gets the test commands.
         /// </summary>
         public IEnumerable<string> GetTestCommands()
         {
+            TraceService.WriteLine("NugetCommandsService::GetTestCommands");
+
             List<string> commands = new List<string>();
 
             //// add the mocking framework.
@@ -106,10 +163,22 @@ namespace NinjaCoder.MvvmCross.Services
                     break;
             }
 
-            if (this.settingsService.TestingFramework == TestingConstants.NUnit.Name)
+            switch (this.settingsService.FrameworkType)
             {
-                commands.Add(NugetInstallPackage.Replace("%s", NugetNUnitPackage));
+                case FrameworkType.MvvmCross:
+                case FrameworkType.MvvmCrossAndXamarinForms:
+                    break;
+
+                case FrameworkType.XamarinForms:
+                    break;
             }
+
+            commands.Add(
+                this.settingsService.TestingFramework == TestingConstants.NUnit.Name
+                    ? NugetInstallPackage.Replace("%s", NugetScorchioNUnitTests)
+                    : NugetInstallPackage.Replace("%s", NugetScorchioMsTestTests));
+
+            TraceService.WriteLine("NugetCommandsService::GetTestCommands End");
 
             return commands;
         }
@@ -119,9 +188,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetMvvmCrossCoreCommands()
         {
+            TraceService.WriteLine("NugetCommandsService::GetMvvmCrossCoreCommands");
+
             return new List<string> 
                 {
-                    NugetInstallPackage.Replace("%s", NugetMvvmCrossPackage)
+                    this.GetMvvmCrossCommand(NugetMvvmCrossPackage)
                 };
         }
 
@@ -130,10 +201,18 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetMvvmCrossTestsCommands()
         {
+            TraceService.WriteLine("NugetCommandsService::GetMvvmCrossTestsCommands");
+
+            string testingFrameworkNugetPackage = NugetScorchioMvvmCrossMsTestTests;
+
+            if (this.settingsService.TestingFramework == TestingConstants.NUnit.Name)
+            {
+                testingFrameworkNugetPackage = NugetScorchioMvvmCrossNUnitTests;
+            }
+
             List<string> commands = new List<string>
                                         {
-                                            NugetInstallPackage.Replace("%s", NugetScorchioMvvmCrossTests),
-                                            NugetInstallPackage.Replace("%s", NugetMvvmCrossPackage)
+                                            NugetInstallPackage.Replace("%s", testingFrameworkNugetPackage)
                                         };
 
             IEnumerable<string> testCommands = this.GetTestCommands();
@@ -148,9 +227,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetMvvmCrossDroidCommands()
         {
+            TraceService.WriteLine("NugetCommandsService::GetMvvmCrossDroidCommands");
+
             return new List<string> 
                 {
-                    NugetInstallPackage.Replace("%s", NugetMvvmCrossPackage),
+                    this.GetMvvmCrossCommand(NugetMvvmCrossPackage),
                     NugetInstallPackage.Replace("%s", NugetXamarinAndroidPackage)
                 };
         }
@@ -160,10 +241,22 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetMvvmCrossiOSCommands()
         {
-            return new List<string> 
-                {
-                    NugetInstallPackage.Replace("%s", NugetMvvmCrossPackage)
-                };
+            TraceService.WriteLine("NugetCommandsService::GetMvvmCrossiOSCommands");
+
+            if (this.settingsService.iOSApiVersion == "Classic")
+            {
+                return new List<string>
+                           {
+                                this.GetMvvmCrossCommand(NugetMvvmCrossPackage),
+                               NugetInstallPackage.Replace("%s", NugetScorchioMvvmCrossiOSClassicPackage)
+                           };
+            }
+
+            return new List<string>
+                           {
+                                this.GetMvvmCrossCommand(NugetMvvmCrossPackage),
+                               NugetInstallPackage.Replace("%s", NugetScorchioMvvmCrossiOSUnifiedPackage)
+                           };
         }
 
         /// <summary>
@@ -171,9 +264,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetMvvmCrossWindowsPhoneCommands()
         {
+            TraceService.WriteLine("NugetCommandsService::GetMvvmCrossWindowsPhoneCommands");
+
             return new List<string> 
                 {
-                    NugetInstallPackage.Replace("%s", NugetMvvmCrossPackage)
+                    this.GetMvvmCrossCommand(NugetMvvmCrossPackage)
                 };
         }
 
@@ -182,9 +277,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetMvvmCrossWindowsStoreCommands()
         {
+            TraceService.WriteLine("NugetCommandsService::GetMvvmCrossWindowsStoreCommands");
+
             return new List<string> 
                 {
-                    NugetInstallPackage.Replace("%s", NugetMvvmCrossPackage)
+                    this.GetMvvmCrossCommand(NugetMvvmCrossPackage)
                 };
         }
 
@@ -193,9 +290,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetMvvmCrossWpfCommands()
         {
+            TraceService.WriteLine("NugetCommandsService::GetMvvmCrossWpfCommands");
+
             return new List<string> 
                 {
-                    NugetInstallPackage.Replace("%s", NugetMvvmCrossPackage)
+                    this.GetMvvmCrossCommand(NugetMvvmCrossPackage)
                 };
         }
 
@@ -204,6 +303,8 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetNoFrameworksCommands()
         {
+            TraceService.WriteLine("NugetCommandsService::GetNoFrameworksCommands");
+
             return new List<string> 
                 {
                     NugetInstallPackage.Replace("%s", NugetScorchioNoFrameworkPackage)
@@ -211,10 +312,33 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets the no frameworksi os commands.
+        /// </summary>
+        public IEnumerable<string> GetNoFrameworksiOSCommands()
+        {
+            TraceService.WriteLine("NugetCommandsService::GetNoFrameworksiOSCommands");
+
+            if (this.settingsService.iOSApiVersion == "Classic")
+            {
+                return new List<string>
+                           {
+                               NugetInstallPackage.Replace("%s", NugetScorchioNoFrameworkiOSClassicPackage)
+                           };
+            }
+
+            return new List<string>
+                           {
+                               NugetInstallPackage.Replace("%s", NugetScorchioNoFrameworkiOSUnifiedPackage)
+                           };
+        }
+
+        /// <summary>
         /// Gets the xamarin forms core commands.
         /// </summary>
         public IEnumerable<string> GetXamarinFormsCoreCommands()
         {
+            TraceService.WriteLine("NugetCommandsService::GetXamarinFormsCoreCommands");
+
             return new List<string> 
                 {
                     NugetInstallPackage.Replace("%s", NugetScorchioXamarinFormsCorePackage)
@@ -226,10 +350,37 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetXamarinFormsCommands()
         {
+            TraceService.WriteLine("NugetCommandsService::GetXamarinFormsCommands");
+
             return new List<string> 
                 {
+                    this.GetXamarinFormsCommand(NugetXamarinFormsPackage),
                     NugetInstallPackage.Replace("%s", NugetScorchioXamarinFormsPackage)
                 };
+        }
+
+        /// <summary>
+        /// Gets the xamarin formsi os commands.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<string> GetXamarinFormsiOSCommands()
+        {
+            TraceService.WriteLine("NugetCommandsService::GetXamarinFormsiOSCommands");
+
+            if (this.settingsService.iOSApiVersion == "Classic")
+            {
+                return new List<string>
+                           {
+                               this.GetXamarinFormsCommand(NugetXamarinFormsPackage),
+                               NugetInstallPackage.Replace("%s", NugetScorchioXamarinFormsiOSClassicPackage)
+                           };
+            }
+
+            return new List<string>
+                           {
+                               this.GetXamarinFormsCommand(NugetXamarinFormsPackage),
+                               NugetInstallPackage.Replace("%s", NugetScorchioXamarinFormsiOSUnifiedPackage)
+                           };
         }
 
         /// <summary>
@@ -237,9 +388,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetMvvmCrossXamarinFormDroidCommands()
         {
+            TraceService.WriteLine("NugetCommandsService::GetMvvmCrossXamarinFormDroidCommands");
+
             return new List<string> 
                 {
-                    NugetInstallPackage.Replace("%s", NugetMvvmCrossPackage),
+                    this.GetMvvmCrossCommand(NugetMvvmCrossPackage),
                     NugetInstallPackage.Replace("%s", NugetScorchioXamarinFormsPackage)
                 };
         }
@@ -249,9 +402,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetMvvmCrossXamarinFormsiOSCommands()
         {
+            TraceService.WriteLine("NugetCommandsService::GetMvvmCrossXamarinFormsiOSCommands");
+
             return new List<string> 
                 {
-                    NugetInstallPackage.Replace("%s", NugetMvvmCrossPackage),
+                    this.GetMvvmCrossCommand(NugetMvvmCrossPackage),
                     NugetInstallPackage.Replace("%s", NugetScorchioXamarinFormsPackage)
                 };
         }
@@ -261,9 +416,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetMvvmCrossXamarinFormsWindowsPhoneCommands()
         {
+            TraceService.WriteLine("NugetCommandsService::GetMvvmCrossXamarinFormsWindowsPhoneCommands");
+
             return new List<string> 
                 {
-                    NugetInstallPackage.Replace("%s", NugetMvvmCrossPackage),
+                    this.GetMvvmCrossCommand(NugetMvvmCrossPackage),
                     NugetInstallPackage.Replace("%s", NugetScorchioXamarinFormsPackage),
                 };
         }
@@ -274,10 +431,44 @@ namespace NinjaCoder.MvvmCross.Services
         /// <returns></returns>
         public IEnumerable<string> GetXamarinAndroidCommands()
         {
+            TraceService.WriteLine("NugetCommandsService::GetXamarinAndroidCommands");
+
             return new List<string> 
                 {
                     NugetInstallPackage.Replace("%s", NugetXamarinAndroidPackage),
                 };
+        }
+
+        /// <summary>
+        /// Gets the MVVM cross command.
+        /// </summary>
+        /// <returns></returns>
+        internal string GetMvvmCrossCommand(string command)
+        {
+            TraceService.WriteLine("NugetCommandsService::GetMvvmCrossCommand");
+
+            if (this.settingsService.UsePreReleaseMvvmCrossNugetPackages)
+            {
+                command += Settings.NugetIncludePreRelease;
+            }
+
+            return NugetInstallPackage.Replace("%s", command);
+        }
+
+        /// <summary>
+        /// Gets the xamarin forms command.
+        /// </summary>
+        /// <returns></returns>
+        internal string GetXamarinFormsCommand(string command)
+        {
+            TraceService.WriteLine("NugetCommandsService::GetXamarinFormsCommand");
+
+            if (this.settingsService.UsePreReleaseXamarinFormsNugetPackages)
+            {
+                command += Settings.NugetIncludePreRelease;
+            }
+
+            return NugetInstallPackage.Replace("%s", command);
         }
     }
 }

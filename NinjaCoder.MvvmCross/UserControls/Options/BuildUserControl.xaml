@@ -27,5 +27,15 @@
             Content="Output Errors to Read Me file" 
             Margin="10"
             IsChecked="{Binding OutputErrorsToReadMe}"/>
+        <CheckBox 
+            Content="Use Pre release MvvmCross Nuget Packages" 
+            Margin="10"
+            IsChecked="{Binding UsePreReleaseMvvmCrossNugetPackages}"/>
+        <CheckBox 
+            Content="Use Pre release Xamarin Forms Nuget Packages" 
+            Margin="10"
+            IsChecked="{Binding UsePreReleaseXamarinFormsNugetPackages}"/>
+
+
     </StackPanel>
 </userControls:BaseUserControl>

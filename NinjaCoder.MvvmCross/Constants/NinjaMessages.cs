@@ -31,21 +31,6 @@ namespace NinjaCoder.MvvmCross.Constants
         public const string ViewModelAndViewsCompleted = "The Ninja Coder has completed the adding of the viewModel and views.";
 
         /// <summary>
-        /// The plugins completed message.
-        /// </summary>
-        public const string PluginsCompleted = "The Ninja Coder has completed the adding of the plugins.";
-
-        /// <summary>
-        /// The converters completed message.
-        /// </summary>
-        public const string ConvertersCompleted = "The Ninja Coder has completed the adding of the converters.";
-
-        /// <summary>
-        /// The services completed message.
-        /// </summary>
-        public const string ServicesCompleted = "The Ninja Coder has completed the adding of the services.";
-
-        /// <summary>
         /// The adding view model and views.
         /// </summary>
         public const string AddingViewModelAndViews = "Adding ViewModel and Views.";

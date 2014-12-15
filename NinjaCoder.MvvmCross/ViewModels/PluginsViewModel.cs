@@ -85,7 +85,7 @@ namespace NinjaCoder.MvvmCross.ViewModels
             this.settingsService = settingsService;
             this.visualStudioService = visualStudioService;
 
-            Plugins allPlugins = pluginFactory.GetPlugins(this.settingsService.PluginsUri);
+            Plugins allPlugins = pluginFactory.GetPlugins(this.settingsService.MvvmCrossPluginsUri);
 
             this.corePlugins = this.GetPlugins(allPlugins, false);
             this.communityPlugins = this.GetPlugins(allPlugins, true);

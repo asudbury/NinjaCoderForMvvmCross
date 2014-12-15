@@ -78,11 +78,12 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <returns>A unit tests project.</returns>
         internal ProjectTemplateInfo GetCoreTestsProject()
         {
-            return this.GetCoreTestsProject(
+            return this.GetTestsProject(
                 FrameworkType.MvvmCrossAndXamarinForms,
                 this.settingsService.TestingFramework,
-                this.settingsService.MockingFramework,
-                this.nugetCommandsService.GetMvvmCrossTestsCommands());
+                this.nugetCommandsService.GetMvvmCrossTestsCommands(),
+                ProjectSuffix.CoreTests.GetDescription(),
+                ProjectType.CoreTests.GetDescription());
         }
 
         /// <summary>
@@ -93,9 +94,9 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             return new ProjectTemplateInfo
             {
-                FriendlyName = ProjectType.iOS.GetDescription() + " " + this.settingsService.iOSBuildVersion,
+                FriendlyName = ProjectType.iOS.GetDescription() + " (" + this.settingsService.iOSApiVersion + ")",
                 ProjectSuffix = ProjectSuffix.iOS.GetDescription(),
-                TemplateName = MvvmCrossAndXmarinFormsProjectTemplates.iOS.GetDescription(),
+                TemplateName = this.GetiOSProjectTemplate(this.settingsService.iOSApiVersion),
                 PreSelected = true,
                 ReferenceCoreProject = true,
                 ReferenceXamarinFormsProject = true,

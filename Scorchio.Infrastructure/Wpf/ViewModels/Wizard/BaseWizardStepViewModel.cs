@@ -48,6 +48,16 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         }
 
         /// <summary>
+        /// For when yous need to save some values that can't be directly bound to UI elements.
+        /// Not called when moving previous (see WizardViewModel.MoveToNextStep).
+        /// </summary>
+        /// <returns>An object that may modify the route</returns>
+        public virtual RouteModifier OnPrevious()
+        {
+            return null;
+        }
+
+        /// <summary>
         /// Determines whether this instance [can move to next page].
         /// </summary>
         /// <returns></returns>

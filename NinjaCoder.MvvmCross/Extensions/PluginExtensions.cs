@@ -6,6 +6,7 @@
 
 namespace NinjaCoder.MvvmCross.Extensions
 {
+    using NinjaCoder.MvvmCross.Constants;
     using NinjaCoder.MvvmCross.Entities;
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using Scorchio.VisualStudio.Services.Interfaces;
@@ -22,14 +23,21 @@ namespace NinjaCoder.MvvmCross.Extensions
         internal const string NugetInstallPackage = "Install-Package %s -FileConflictAction ignore -ProjectName";
 
         /// <summary>
+        /// The nuget install package overwrite files.
+        /// </summary>
+        internal const string NugetInstallPackageOverwriteFiles = "Install-Package %s -FileConflictAction Overwrite -ProjectName";
+
+        /// <summary>
         /// Gets the nuget command strings.
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="visualStudioService">The visual studio service.</param>
+        /// <param name="usePreRelease">if set to <c>true</c> [use pre release].</param>
         /// <returns></returns>
         internal static string GetNugetCommandStrings(
             this Plugin instance,
-            IVisualStudioService visualStudioService)
+            IVisualStudioService visualStudioService,
+            bool usePreRelease)
         {
             string commands = string.Empty;
 
@@ -41,7 +49,22 @@ namespace NinjaCoder.MvvmCross.Extensions
                 {
                     foreach (string nugetCommand in instance.NugetCommands)
                     {
-                        commands += NugetInstallPackage.Replace("%s", nugetCommand) + " " + projectService.Name + Environment.NewLine;
+                        string pluginNugetCommand = nugetCommand;
+
+                        if (usePreRelease)
+                        {
+                            pluginNugetCommand += Settings.NugetIncludePreRelease;
+                        }
+
+                        if (instance.OverwriteFiles)
+                        {
+                            commands += NugetInstallPackageOverwriteFiles.Replace("%s", pluginNugetCommand) + " " + projectService.Name + Environment.NewLine;
+                        }
+
+                        else
+                        {
+                            commands += NugetInstallPackage.Replace("%s", pluginNugetCommand) + " " + projectService.Name + Environment.NewLine;
+                        }
                     }
                 }
             }

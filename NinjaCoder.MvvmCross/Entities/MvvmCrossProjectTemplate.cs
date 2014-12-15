@@ -20,24 +20,6 @@ namespace NinjaCoder.MvvmCross.Entities
         Core,
 
         /// <summary>
-        /// The nunit tests
-        /// </summary>
-        [Description("MvvmCross.Core.NUnit.Tests.zip")]
-        NUnitTests,
-
-        /// <summary>
-        /// The mstest tests
-        /// </summary>
-        [Description("MvvmCross.Core.MSTest.Tests.zip")]
-        MsTestTests,
-
-        /// <summary>
-        /// The iOS
-        /// </summary>
-        [Description("MvvmCross.iOS.zip")]
-        iOS,
-
-        /// <summary>
         /// The droid
         /// </summary>
         [Description("MvvmCross.Droid.zip")]

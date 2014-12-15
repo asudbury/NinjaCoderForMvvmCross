@@ -16,13 +16,13 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Attempts to resolve a type.
         /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
+        /// <typeparam name="TResolveType">Type to resolve</typeparam>
         /// <returns>Instance of type</returns>
-        public ResolveType Resolve<ResolveType>()
-            where ResolveType : class
+        public TResolveType Resolve<TResolveType>()
+            where TResolveType : class
         {
             TinyIoCContainer container = TinyIoCContainer.Current;
-            return container.Resolve<ResolveType>();
+            return container.Resolve<TResolveType>();
         }
     }
 }

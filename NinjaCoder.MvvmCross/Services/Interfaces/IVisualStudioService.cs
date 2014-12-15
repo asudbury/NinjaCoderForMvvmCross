@@ -60,9 +60,20 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         IProjectService DroidProjectService { get; }
 
         /// <summary>
+        /// Gets the droid tests project service.
+        /// </summary>
+        IProjectService DroidTestsProjectService { get; }
+
+        /// <summary>
         /// Gets the iOS project service.
         /// </summary>
         IProjectService iOSProjectService { get; }
+
+        /// <summary>
+        /// Gets the ios tests project service.
+        /// </summary>
+        /// <value>
+        IProjectService iOSTestsProjectService { get; }
 
         /// <summary>
         /// Gets the windows phone project service.
@@ -70,9 +81,19 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         IProjectService WindowsPhoneProjectService { get; }
 
         /// <summary>
+        /// Gets the windows phone tests project service.
+        /// </summary>
+        IProjectService WindowsPhoneTestsProjectService { get; }
+
+        /// <summary>
         /// Gets the windows store project service.
         /// </summary>
         IProjectService WindowsStoreProjectService { get; }
+
+        /// <summary>
+        /// Gets the windows store tests project service.
+        /// </summary>
+        IProjectService WindowsStoreTestsProjectService { get; }
 
         /// <summary>
         /// Gets the WPF project service.
@@ -80,9 +101,19 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         IProjectService WpfProjectService { get; }
 
         /// <summary>
+        /// Gets the WPF tests project service.
+        /// </summary>
+        IProjectService WpfTestsProjectService { get; }
+
+        /// <summary>
         /// Gets the xamarin forms project service.
         /// </summary>
         IProjectService XamarinFormsProjectService { get; }
+
+        /// <summary>
+        /// Gets the xamarin forms tests project service.
+        /// </summary>
+        IProjectService XamarinFormsTestsProjectService { get; }
 
         /// <summary>
         /// Gets the view models project service.

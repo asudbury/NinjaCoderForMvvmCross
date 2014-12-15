@@ -59,6 +59,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         IEnumerable<string> GetNoFrameworksCommands();
 
         /// <summary>
+        /// Gets the no frameworks iOS commands.
+        /// </summary>
+        IEnumerable<string> GetNoFrameworksiOSCommands();
+
+        /// <summary>
         /// Gets the xamarin forms core commands.
         /// </summary>
         IEnumerable<string> GetXamarinFormsCoreCommands();
@@ -67,6 +72,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets the xamarin forms commands.
         /// </summary>
         IEnumerable<string> GetXamarinFormsCommands();
+
+        /// <summary>
+        /// Gets the xamarin formsi os commands.
+        /// </summary>
+        IEnumerable<string> GetXamarinFormsiOSCommands();
 
         /// <summary>
         /// Gets the MVVM cross xamarin form droid commands.

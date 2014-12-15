@@ -5,16 +5,15 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.TemplateWizards.ViewModelsAndViews
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Xml.Serialization;
-
     using EnvDTE;
-
     using NinjaCoder.MvvmCross.TemplateWizards.Entities;
-
     using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Xml.Serialization;
 
     /// <summary>
     ///  Defines the ViewModelsAndViewsWizard type.
@@ -91,12 +90,33 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.ViewModelsAndViews
 
                     if (views != null)
                     {
-                        foreach (View view in views)
+                        foreach (View view in views
+                            .Where(view => view.Name == projectItem.Name.Replace("View.xaml", string.Empty)))
                         {
-                            if (view.Name == projectItem.Name.Replace("View.xaml", string.Empty))
+                            string pageType = view.PageType.Replace(" ", string.Empty);
+
+                            projectItem.ReplaceText("ContentPage", pageType);
+                            projectItem.ReplaceText("AbsoluteLayout", view.LayoutType.Replace(" ", string.Empty));
+
+                            projectItem.ReplaceText("Forms.Core", "Core");
+
+                            if (this.SettingsService.BindContextInXamlForXamarinForms)
                             {
-                                projectItem.ReplaceText("ContentPage", view.PageType.Replace(" ", string.Empty));
-                                projectItem.ReplaceText("AbsoluteLayout", view.LayoutType.Replace(" ", string.Empty));
+                                TraceService.WriteLine("XamarinFormsViewsWizard::UpdateFile Update Xaml");
+
+                                string text = string.Format("<{0}.BindingContext>{1}\t\t<viewModels:{2} />{1}\t</{0}.BindingContext>", 
+                                    pageType,
+                                    Environment.NewLine,
+                                    view.Name + "ViewModel");
+
+                                projectItem.ReplaceText("<!-- BindingContextPlaceHolder -->", text);
+                            }
+
+                            else
+                            {
+                                TraceService.WriteLine("XamarinFormsViewsWizard::UpdateFile Remove placeholder");
+
+                                projectItem.ReplaceText("<!-- BindingContextPlaceHolder -->", string.Empty);
                             }
                         }
                     }

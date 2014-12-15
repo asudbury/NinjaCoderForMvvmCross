@@ -25,7 +25,7 @@
             SelectedItem="{Binding Path=SelectedWindowsPhoneVersion, Mode=TwoWay}"
             HorizontalAlignment="Left" 
             Margin="10,0,0,3"/>
-        <TextBlock Text="iOS Version" Margin="10,10,0,4"/>
+        <TextBlock Text="iOS Classic (32bit) or Unified (64bit)" Margin="10,10,0,4"/>
         <ComboBox 
             Width="200" 
             ItemsSource="{Binding iOSVersions}"

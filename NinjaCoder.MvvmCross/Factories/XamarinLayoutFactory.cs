@@ -7,7 +7,9 @@ namespace NinjaCoder.MvvmCross.Factories
 {
     using Constants;
     using Interfaces;
+    using NinjaCoder.MvvmCross.Entities;
     using Scorchio.Infrastructure.Entities;
+    using Scorchio.Infrastructure.Extensions;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -28,38 +30,38 @@ namespace NinjaCoder.MvvmCross.Factories
                     new ImageItemWithDescription  
                         {
                             ImageUrl = this.GetUrlPath("StackLayout.png"),
-                            Name = "Stack Layout",
+                            Name = XamarinLayout.StackLayout.GetDescription(),
                             Selected = true
                         },
                     new ImageItemWithDescription
                         {
-                            ImageUrl =  this.GetUrlPath("AbsoluteLayout.png"),
-                            Name = "Absolute Layout"
+                            ImageUrl = this.GetUrlPath("AbsoluteLayout.png"),
+                            Name = XamarinLayout.AbsoluteLayout.GetDescription(),
                         },
                     new ImageItemWithDescription
                         {
-                            ImageUrl =  this.GetUrlPath("RelativeLayout.png"),
-                            Name = "Relative Layout"
+                            ImageUrl = this.GetUrlPath("RelativeLayout.png"),
+                            Name = XamarinLayout.RelativeLayout.GetDescription(),
                         },
                     new ImageItemWithDescription
                         {
                             ImageUrl =  this.GetUrlPath("GridLayout.png"),
-                            Name = "Grid Layout"
+                            Name =  XamarinLayout.GridLayout.GetDescription(),
                         },
                     new ImageItemWithDescription
                         {
-                            ImageUrl =  this.GetUrlPath("ContentView.png"),
-                            Name = "Content View"
+                            ImageUrl = this.GetUrlPath("ContentView.png"),
+                            Name = XamarinLayout.ContentView.GetDescription(),
                         },
                     new ImageItemWithDescription
                         {
-                            ImageUrl =  this.GetUrlPath("ScrollView.png"),
-                            Name = "Scroll View"
+                            ImageUrl = this.GetUrlPath("ScrollView.png"),
+                            Name = XamarinLayout.ScrollView.GetDescription(),
                         },
                     new ImageItemWithDescription
                         {
                             ImageUrl =  this.GetUrlPath("Frame.png"),
-                            Name = "Frame"
+                            Name = XamarinLayout.Frame.GetDescription(),
                         }
                 };
 

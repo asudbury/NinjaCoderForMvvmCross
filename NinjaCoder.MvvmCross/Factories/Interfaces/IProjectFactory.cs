@@ -33,5 +33,10 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// The wizard steps.
         /// </returns>
         List<WizardStepViewModel> GetWizardsSteps();
+
+        /// <summary>
+        /// Registers the wizard data.
+        /// </summary>
+        void RegisterWizardData();
     }
 }

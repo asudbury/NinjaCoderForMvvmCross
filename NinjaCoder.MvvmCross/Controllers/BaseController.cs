@@ -10,6 +10,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     using EnvDTE80;
 
     using MahApps.Metro;
+
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Wpf.Views;
@@ -104,12 +105,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             get
             {
-                if (this.readmeLines == null)
-                {
-                    this.readmeLines = new List<string>();
-                }
-
-                return this.readmeLines;
+                return this.readmeLines ?? (this.readmeLines = new List<string>());
             }
         }
 

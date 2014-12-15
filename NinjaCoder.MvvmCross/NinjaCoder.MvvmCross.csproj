@@ -68,14 +68,16 @@
   <ItemGroup>
     <Compile Include="Constants\NinjaMessages.cs" />
     <Compile Include="Constants\Settings.cs" />
-    <Compile Include="Constants\Themes.cs" />
     <Compile Include="Constants\Variables.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\NinjaController.cs" />
+    <Compile Include="Controllers\NugetPackagesController.cs" />
     <Compile Include="Controllers\PluginsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\ViewModelViewsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Entities\XamarinLayout.cs" />
+    <Compile Include="Entities\XamarinFormsPage.cs" />
     <Compile Include="Entities\ProjectTemplate.cs" />
     <Compile Include="Entities\Plugin.cs" />
     <Compile Include="Entities\Plugins.cs" />
@@ -85,6 +87,8 @@
     <Compile Include="Entities\MvvmCrossAndXmarinFormsProjectTemplates.cs" />
     <Compile Include="Entities\ProjectSuffix.cs" />
     <Compile Include="Entities\ProjectType.cs" />
+    <Compile Include="Entities\WizardData.cs" />
+    <Compile Include="Entities\IWizardData.cs" />
     <Compile Include="Exceptions\NinjaCoderServiceException.cs" />
     <Compile Include="Exceptions\NinjaCoderException.cs" />
     <Compile Include="Extensions\PluginExtensions.cs" />
@@ -100,6 +104,7 @@
     <Compile Include="Factories\Interfaces\IMvvmCrossAndXamarinFormsProjectFactory.cs" />
     <Compile Include="Factories\Interfaces\INoFrameworkProjectFactory.cs" />
     <Compile Include="Factories\Interfaces\IMvvmCrossViewFactory.cs" />
+    <Compile Include="Factories\Interfaces\INugetPackagesFactory.cs" />
     <Compile Include="Factories\Interfaces\IXamarinFormsProjectFactory.cs" />
     <Compile Include="Factories\Interfaces\IMvvmCrossProjectFactory.cs" />
     <Compile Include="Factories\Interfaces\IPluginFactory.cs" />
@@ -114,6 +119,7 @@
     <Compile Include="Factories\NoFrameworkProjectFactory.cs" />
     <Compile Include="Factories\MvvmCrossProjectFactory.cs" />
     <Compile Include="Factories\MvvmCrossViewFactory.cs" />
+    <Compile Include="Factories\NugetPackagesFactory.cs" />
     <Compile Include="Factories\PluginFactory.cs" />
     <Compile Include="Factories\ProjectFactory.cs" />
     <Compile Include="Factories\TestingServiceFactory.cs" />
@@ -162,11 +168,17 @@
     <Compile Include="Translators\PluginsTranslator.cs" />
     <Compile Include="Translators\CodeSnippetTranslator.cs" />
     <Compile Include="Translators\PluginTranslator.cs" />
+    <Compile Include="UserControls\AddNugetPackages\NugetPackagesFinishedControl.xaml.cs">
+      <DependentUpon>NugetPackagesFinishedControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AddPlugins\PluginsControl.xaml.cs">
       <DependentUpon>PluginsControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\AddProjects\FinishedControl.xaml.cs">
-      <DependentUpon>FinishedControl.xaml</DependentUpon>
+    <Compile Include="UserControls\AddProjects\BuildOptionsControl.xaml.cs">
+      <DependentUpon>BuildOptionsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AddProjects\ProjectsFinishedControl.xaml.cs">
+      <DependentUpon>ProjectsFinishedControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\AddProjects\FrameworkSelectorControl.xaml.cs">
       <DependentUpon>FrameworkSelectorControl.xaml</DependentUpon>
@@ -174,14 +186,20 @@
     <Compile Include="UserControls\AddProjects\LayoutSelectorControl.xaml.cs">
       <DependentUpon>LayoutSelectorControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\AddNugetPackages\XamarinFormsLabsControl.xaml.cs">
+      <DependentUpon>XamarinFormsLabsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AddProjects\PageSelectorControl.xaml.cs">
       <DependentUpon>PageSelectorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\AddProjects\NugetPackagesControl.xaml.cs">
+    <Compile Include="UserControls\AddNugetPackages\NugetPackagesControl.xaml.cs">
       <DependentUpon>NugetPackagesControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\AddProjects\ProjectsControl.xaml.cs">
       <DependentUpon>ProjectsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AddViews\ViewsFinishedControl.xaml.cs">
+      <DependentUpon>ViewsFinishedControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\AddViews\ViewsControl.xaml.cs">
       <DependentUpon>ViewsControl.xaml</DependentUpon>
@@ -203,13 +221,17 @@
       <DependentUpon>VisualUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AboutViewModel.cs" />
-    <Compile Include="ViewModels\AddProjects\FinishedViewModel.cs" />
+    <Compile Include="ViewModels\AddNugetPackages\NugetPackagesFinishedViewModel.cs" />
+    <Compile Include="ViewModels\AddProjects\BuildOptionsViewModel.cs" />
+    <Compile Include="ViewModels\AddProjects\ProjectsFinishedViewModel.cs" />
     <Compile Include="ViewModels\AddProjects\FrameworkSelectorViewModel.cs" />
-    <Compile Include="ViewModels\AddProjects\NugetPackagesViewModel.cs" />
+    <Compile Include="ViewModels\AddNugetPackages\XamarinFormsLabsViewModel.cs" />
+    <Compile Include="ViewModels\AddNugetPackages\NugetPackagesViewModel.cs" />
     <Compile Include="ViewModels\AddProjects\PluginsViewModel.cs" />
     <Compile Include="ViewModels\AddProjects\ProjectsViewModel.cs" />
-    <Compile Include="ViewModels\AddProjects\ProjectsWizardViewModel.cs" />
-    <Compile Include="ViewModels\AddProjects\ViewsViewModel.cs" />
+    <Compile Include="ViewModels\AddViews\ViewsFinishedViewModel.cs" />
+    <Compile Include="ViewModels\Wizard\NinjaWizardViewModel.cs" />
+    <Compile Include="ViewModels\AddViews\ViewsViewModel.cs" />
     <Compile Include="ViewModels\NinjaBaseViewModel.cs" />
     <Compile Include="ViewModels\DownloadViewModel.cs" />
     <Compile Include="ViewModels\Options\BuildViewModel.cs" />
@@ -219,9 +241,7 @@
     <Compile Include="ViewModels\Options\TracingViewModel.cs" />
     <Compile Include="ViewModels\Options\VisualViewModel.cs" />
     <Compile Include="ViewModels\PluginsViewModel.cs" />
-    <Compile Include="ViewModels\ProjectsViewModel2.cs" />
-    <Compile Include="ViewModels\ServicesViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelViewsViewModel.cs" />
+    <Compile Include="ViewModels\Wizard\WizardFrameViewModel.cs" />
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
@@ -235,14 +255,8 @@
     <Compile Include="Views\PluginsView.xaml.cs">
       <DependentUpon>PluginsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ProjectsView2.xaml.cs">
-      <DependentUpon>ProjectsView2.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ServicesView.xaml.cs">
-      <DependentUpon>ServicesView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ViewModelViewsView.xaml.cs">
-      <DependentUpon>ViewModelViewsView.xaml</DependentUpon>
+    <Compile Include="Views\Wizard\WizardView.xaml.cs">
+      <DependentUpon>WizardView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -281,11 +295,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\AddNugetPackages\NugetPackagesFinishedControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControls\AddPlugins\PluginsControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\AddProjects\FinishedControl.xaml">
+    <Page Include="UserControls\AddProjects\BuildOptionsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AddProjects\ProjectsFinishedControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -297,17 +319,25 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\AddNugetPackages\XamarinFormsLabsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControls\AddProjects\PageSelectorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\AddProjects\NugetPackagesControl.xaml">
+    <Page Include="UserControls\AddNugetPackages\NugetPackagesControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\AddProjects\ProjectsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AddViews\ViewsFinishedControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\AddViews\ViewsControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -349,21 +379,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ProjectsView2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ServicesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Resources\Themes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ViewModelViewsView.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\Wizard\WizardView.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

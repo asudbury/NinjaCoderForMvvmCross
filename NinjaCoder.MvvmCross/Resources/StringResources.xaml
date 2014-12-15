@@ -1,11 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:system="clr-namespace:System;assembly=mscorlib">
-    <system:String x:Key="ANewVersion">A new version of the Ninja Coder for MvvmCross is available</system:String>
+    <system:String x:Key="ANewVersion">A new version of the Ninja Coder is available</system:String>
     <system:String x:Key="Build">Build</system:String>
     <system:String x:Key="BuildDate">Build Date</system:String>
     <system:String x:Key="Cancel">CANCEL</system:String>
-    <system:String x:Key="CheckForNinjaCoderUpdates">Check for Ninja Coder for MvvmCross updates</system:String>
+    <system:String x:Key="CheckForNinjaCoderUpdates">Check for Ninja Coder updates</system:String>
     <system:String x:Key="ClearLog">Clear log</system:String>
     <system:String x:Key="Close">CLOSE</system:String>
     <system:String x:Key="CodingStyle">Coding style</system:String>

@@ -13,8 +13,8 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Attempts to resolve a type using default options.
         /// </summary>
-        /// <typeparam name="ResolveType">Type to resolve</typeparam>
+        /// <typeparam name="TResolveType">Type to resolve</typeparam>
         /// <returns>Instance of type</returns>
-        ResolveType Resolve<ResolveType>() where ResolveType : class;
+        TResolveType Resolve<TResolveType>() where TResolveType : class;
     }
 }

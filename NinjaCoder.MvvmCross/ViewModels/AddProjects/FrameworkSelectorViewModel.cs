@@ -5,17 +5,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 {
-    using MahApps.Metro;
-    using NinjaCoder.MvvmCross.Constants;
     using NinjaCoder.MvvmCross.Entities;
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using NinjaCoder.MvvmCross.UserControls.AddViews;
-    using Scorchio.Infrastructure.Services;
-    using Scorchio.Infrastructure.Wpf;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using System;
     using System.Collections.Generic;
-    using System.Windows.Input;
 
     using PluginsControl = NinjaCoder.MvvmCross.UserControls.AddPlugins.PluginsControl;
 
@@ -35,11 +30,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         private readonly ISettingsService settingsService;
 
         /// <summary>
-        /// The message box service.
-        /// </summary>
-        private readonly IMessageBoxService messageBoxService;
-
-        /// <summary>
         /// No framework.
         /// </summary>
         private bool noFramework;
@@ -47,7 +37,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// <summary>
         /// The MVVM cross option.
         /// </summary>
-        private bool mvvmCross = true;
+        private bool mvvmCross;
 
         /// <summary>
         /// The xamarin forms option.
@@ -60,35 +50,31 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         private bool mvvmcrossxamarinForms;
 
         /// <summary>
+        /// The MVVM cross label.
+        /// </summary>
+        private string mvvmCrossLabel;
+
+        /// <summary>
+        /// The xamarin forms label.
+        /// </summary>
+        private string xamarinFormsLabel;
+
+        /// <summary>
+        /// The MVVM cross and xamarin forms label.
+        /// </summary>
+        private string mvvmCrossAndXamarinFormsLabel;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="FrameworkSelectorViewModel"/> class.
         /// </summary>
         public FrameworkSelectorViewModel(
             IVisualStudioService visualStudioService,
-            ISettingsService settingsService,
-            IMessageBoxService messageBoxService)
+            ISettingsService settingsService)
         {
             this.visualStudioService = visualStudioService;
             this.settingsService = settingsService;
-            this.messageBoxService = messageBoxService;
 
-            switch (this.settingsService.FrameworkType)
-            {
-                case FrameworkType.NoFramework:
-                    this.NoFramework = true;
-                    break;
-
-                case FrameworkType.XamarinForms:
-                    this.XamarinForms = true;
-                    break;
-
-                case FrameworkType.MvvmCrossAndXamarinForms:
-                    this.MvvmCrossXamarinForms = true;
-                    break;
-
-                default:
-                    this.MvvmCross = true;
-                    break;
-            }
+            this.Init();
         }
 
         /// <summary>
@@ -134,7 +120,37 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             get { return this.mvvmcrossxamarinForms; }
             set { this.SetProperty(ref this.mvvmcrossxamarinForms, value); }
         }
-        
+
+        /// <summary>
+        /// Gets or sets the MVVM cross label.
+        /// </summary>
+        public string MvvmCrossLabel
+        {
+            get { return this.mvvmCrossLabel; }
+            set { this.SetProperty(ref this.mvvmCrossLabel, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the xamarin forms label.
+        /// </summary>
+        public string XamarinFormsLabel
+        {
+            get { return this.xamarinFormsLabel; }
+            set { this.SetProperty(ref this.xamarinFormsLabel, value); }
+        }
+
+        /// <summary>
+        /// Gets the MVVM cross and xamarin forms label.
+        /// </summary>
+        /// <value>
+        /// The MVVM cross and xamarin forms label.
+        /// </value>
+        public string MvvmCrossAndXamarinFormsLabel
+        {
+            get { return this.mvvmCrossAndXamarinFormsLabel; }
+            set { this.SetProperty(ref this.mvvmCrossAndXamarinFormsLabel, value); }
+        }
+
         /// <summary>
         /// Gets the display name.
         /// </summary>
@@ -157,7 +173,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             {
                 return new RouteModifier
                 {
-                    ExcludeViewTypes = new List<Type> { typeof(ViewsControl), typeof(PluginsControl) } 
+                    ExcludeViewTypes = new List<Type>
+                        {
+                            typeof(ViewsControl), 
+                            typeof(PluginsControl)
+                        } 
                 };
             }
 
@@ -165,7 +185,10 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             {
                 return new RouteModifier
                 {
-                    ExcludeViewTypes = new List<Type> { typeof(PluginsControl) }
+                    ExcludeViewTypes = new List<Type>
+                        {
+                            typeof(PluginsControl)
+                        }
                 };
             }
 
@@ -178,48 +201,96 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// <returns></returns>
         public override bool CanMoveToNextPage()
         {
+            bool canMove = false;
+
             if (this.noFramework)
             {
                 this.settingsService.FrameworkType = FrameworkType.NoFramework;
+                canMove = true;
             }
 
             else if (this.mvvmCross)
             {
                 this.settingsService.FrameworkType = FrameworkType.MvvmCross;
+                canMove = true;
             }
 
             else if (this.XamarinForms)
             {
                 this.settingsService.FrameworkType = FrameworkType.XamarinForms;
+                canMove = true;
             }
 
             else if (this.MvvmCrossXamarinForms)
             {
                 this.settingsService.FrameworkType = FrameworkType.MvvmCrossAndXamarinForms;
+                canMove = true;
             }
 
-            return true;
+            return canMove;
         }
 
         /// <summary>
-        /// Gets the change profile page command.
+        /// Called when [initialize].
         /// </summary>
-        public ICommand ChangeProfilePageCommand
+        public override void OnInitialize()
         {
-            get { return new RelayCommand(this.ChangeProfilePage); }
+            this.Init();
         }
 
         /// <summary>
-        /// Changes the profile page.
+        /// Initializes this instance.
         /// </summary>
-        internal void ChangeProfilePage()
+        internal void Init()
         {
-                this.messageBoxService.Show(
-                    "This option is not currently available - Will be available in a future release.",
-                    Settings.ApplicationName,
-                    true,
-                    Theme.Light, 
-                    this.settingsService.ThemeColor);
+            switch (this.settingsService.FrameworkType)
+            {
+                case FrameworkType.NoFramework:
+                    this.NoFramework = true;
+                    break;
+
+                case FrameworkType.XamarinForms:
+                    this.XamarinForms = true;
+                    break;
+
+                case FrameworkType.MvvmCrossAndXamarinForms:
+                    this.MvvmCrossXamarinForms = true;
+                    break;
+
+                default:
+                    this.MvvmCross = true;
+                    break;
+            }
+
+            string label = "MvvmCross";
+
+            if (this.settingsService.UsePreReleaseMvvmCrossNugetPackages)
+            {
+                label += " (Pre Release)";
+            }
+
+            this.MvvmCrossLabel = label;
+
+            label = "Xamarin Forms";
+
+            if (this.settingsService.UsePreReleaseXamarinFormsNugetPackages)
+            {
+                label += " (Pre Release)";
+            }
+
+            this.XamarinFormsLabel = label;
+
+            label = "MvvmCross and Xamarin Forms";
+
+            if (this.settingsService.UsePreReleaseMvvmCrossNugetPackages ||
+                this.settingsService.UsePreReleaseXamarinFormsNugetPackages)
+            {
+                ////label += " (Pre Release)";
+            }
+
+            label += " (Available in a future release)";
+
+            this.MvvmCrossAndXamarinFormsLabel = label;
         }
     }
 }

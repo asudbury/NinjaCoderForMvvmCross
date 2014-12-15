@@ -61,8 +61,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets the services code snippets path.
         /// </summary>
         string ServicesCodeSnippetsPath { get; }
-
-
+        
         /// <summary>
         /// Gets the services config path.
         /// </summary>
@@ -106,8 +105,18 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Gets or sets the MVVM cross plugins wiki page.
         /// </summary>
-        string MvvmCrossPluginsWikiPage { get; set; }
-        
+        string MvvmCrossPluginsWikiPage { get;  }
+
+        /// <summary>
+        /// Gets the nuget website page.
+        /// </summary>
+        string NugetWebsitePage { get; }
+
+        /// <summary>
+        /// Gets the xamarin forms labs nuget packages git hub page.
+        /// </summary>
+        string XamarinFormsLabsNugetPackagesGitHubPage { get; }
+
         /// <summary>
         /// Gets the installed directory.
         /// </summary>
@@ -184,9 +193,9 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         string WindowsPhoneBuildVersion { get; set; }
 
         /// <summary>
-        /// Gets or sets the ios version.
+        /// Gets or sets the API version.
         /// </summary>
-        string iOSBuildVersion { get; set; }
+        string iOSApiVersion { get; set; }
 
         /// <summary>
         /// Gets or sets the langugage override.
@@ -254,9 +263,9 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         bool UseLocalUris { get; set; }
 
         /// <summary>
-        /// Gets the plugins URI.
+        /// Gets the mvvmcross plugins URI.
         /// </summary>
-        string PluginsUri { get; }
+        string MvvmCrossPluginsUri { get; }
 
         /// <summary>
         /// Gets the nuget pacakges URI.
@@ -264,15 +273,15 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         string NugetPackagesUri { get; }
 
         /// <summary>
+        /// Gets the xamarin forms labs plugins URI.
+        /// </summary>
+        string XamarinFormsLabsPluginsUri { get; }
+
+        /// <summary>
         /// Gets or sets the xamarin forms views.
         /// </summary>
         string XamarinFormsViews { get; set; }
         
-        /// <summary>
-        /// Sets the requested nuget commands.
-        /// </summary>
-        string RequestedNugetCommands { set; }
-
         /// <summary>
         /// Gets or sets a value indicating whether [output nuget commands to read me].
         /// </summary>
@@ -282,6 +291,26 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets or sets a value indicating whether [output errors to read me].
         /// </summary>
         bool OutputErrorsToReadMe { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use pre release MVVM cross nuget packages].
+        /// </summary>
+        bool UsePreReleaseMvvmCrossNugetPackages { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use pre release xamarin forms nuget packages].
+        /// </summary>
+        bool UsePreReleaseXamarinFormsNugetPackages { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [bind context in xaml for xamarin forms].
+        /// </summary>
+        bool BindContextInXamlForXamarinForms { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [create test projects for all projects].
+        /// </summary>
+        bool CreatePlatformTestProjects { get; set; }
     }
 }
 

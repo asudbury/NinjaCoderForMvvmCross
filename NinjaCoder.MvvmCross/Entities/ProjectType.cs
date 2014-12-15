@@ -32,10 +32,22 @@ namespace NinjaCoder.MvvmCross.Entities
         iOS,
 
         /// <summary>
+        /// The iOS Tests.
+        /// </summary>
+        [Description("iOS Tests")]
+        iOSTests,
+
+        /// <summary>
         /// The droid
         /// </summary>
         [Description("Droid")]
         Droid,
+
+        /// <summary>
+        /// The droid tests.
+        /// </summary>
+        [Description("Droid Tests")]
+        DroidTests,
 
         /// <summary>
         /// The windows phone
@@ -44,10 +56,22 @@ namespace NinjaCoder.MvvmCross.Entities
         WindowsPhone,
 
         /// <summary>
+        /// The windows phone tests.
+        /// </summary>
+        [Description("Windows Phone Tests")]
+        WindowsPhoneTests,
+
+        /// <summary>
         /// The windows store
         /// </summary>
         [Description("Windows Store")]
         WindowsStore,
+
+        /// <summary>
+        /// The windows store tests.
+        /// </summary>
+        [Description("Windows Store Tests")]
+        WindowsStoreTests,
 
         /// <summary>
         /// The windows WPF
@@ -56,9 +80,21 @@ namespace NinjaCoder.MvvmCross.Entities
         WindowsWpf,
 
         /// <summary>
+        /// The windows WPF Tests
+        /// </summary>
+        [Description("Windows WPF Tests")]
+        WindowsWpfTests,
+
+        /// <summary>
         /// The xamarin forms
         /// </summary>
-        [Description("Xamarin.Forms")]
-        XamarinForms
+        [Description("Xamarin Forms")]
+        XamarinForms,
+
+        /// <summary>
+        /// The core tests
+        /// </summary>
+        [Description("Xamarin Forms Tests")]
+        XamarinFormsTests,
     }
 }

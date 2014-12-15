@@ -104,12 +104,12 @@ namespace NinjaCoder.MvvmCross.Tests.Services
             this.mockFileSystem.SetupGet(x => x.FileInfo).Returns(this.mockFileInfoFactory.Object);
             this.mockFileInfoFactory.Setup(x => x.FromFileName(It.IsAny<string>())).Returns(this.mockFileInfo);
 
-            this.service = new PluginsService(
+            /*this.service = new PluginsService(
                 this.mockPluginService.Object,
                 this.mockSettingsService.Object,
                 this.mockNugetService.Object,
                 this.mockCodeSnippetFactory.Object,
-                this.mockTestingServiceFactory.Object);
+                this.mockTestingServiceFactory.Object);*/
         }
 
         /// <summary>

@@ -97,6 +97,15 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets the seperator line.
+        /// </summary>
+        /// <returns>the seperator line.</returns>
+        public string GetSeperatorLine()
+        {
+            return "----------------------------------------------------------------------------------------------------";
+        }
+
+        /// <summary>
         /// Gets the footer.
         /// </summary>
         /// <returns>The footer text.</returns>
@@ -117,15 +126,6 @@ namespace NinjaCoder.MvvmCross.Services
                 string.Empty,
                 "@asudbury"
             };
-        }
-
-        /// <summary>
-        /// Gets the seperator line.
-        /// </summary>
-        /// <returns>the seperator line.</returns>
-        internal string GetSeperatorLine()
-        {
-            return "----------------------------------------------------------------------------------------------------";
         }
     }
 }

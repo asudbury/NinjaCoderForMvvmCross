@@ -6,15 +6,17 @@
 namespace NinjaCoder.MvvmCross.Factories
 {
     using Entities;
-
     using Interfaces;
-
+    using NinjaCoder.MvvmCross.UserControls.AddViews;
+    using NinjaCoder.MvvmCross.ViewModels.AddViews;
     using Scorchio.Infrastructure.Extensions;
+    using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
-
     using Services.Interfaces;
     using System.Collections.Generic;
+
+    using ViewsFinishedControl = NinjaCoder.MvvmCross.UserControls.AddViews.ViewsFinishedControl;
 
     /// <summary>
     ///  Defines the ViewModelAndViewsFactory type.
@@ -32,16 +34,32 @@ namespace NinjaCoder.MvvmCross.Factories
         private readonly ISettingsService settingsService;
 
         /// <summary>
+        /// The resolver service.
+        /// </summary>
+        private readonly IResolverService resolverService;
+
+        /// <summary>
+        /// The register service.
+        /// </summary>
+        private readonly IRegisterService registerService;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ViewModelAndViewsFactory" /> class.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="settingsService">The settings service.</param>
+        /// <param name="resolverService">The resolver service.</param>
+        /// <param name="registerService">The register service.</param>
         public ViewModelAndViewsFactory(
             IVisualStudioService visualStudioService,
-            ISettingsService settingsService)
+            ISettingsService settingsService,
+            IResolverService resolverService,
+            IRegisterService registerService)
         {
             this.visualStudioService = visualStudioService;
             this.settingsService = settingsService;
+            this.resolverService = resolverService;
+            this.registerService = registerService;
         }
 
         /// <summary>
@@ -222,6 +240,47 @@ namespace NinjaCoder.MvvmCross.Factories
         }
 
         /// <summary>
+        /// Gets the wizards steps.
+        /// </summary>
+        /// <returns>
+        /// The wizard steps.
+        /// </returns>
+        public List<WizardStepViewModel> GetWizardsSteps()
+        {
+            List<WizardStepViewModel> wizardSteps = new List<WizardStepViewModel>
+            {
+                new WizardStepViewModel
+                {
+                    ViewModel = this.resolverService.Resolve<ViewsViewModel>(),
+                    ViewType = typeof (ViewsControl)
+                },
+                new WizardStepViewModel
+                {
+                    ViewModel = this.resolverService.Resolve<ViewsFinishedViewModel>(),
+                    ViewType = typeof (ViewsFinishedControl)
+                }
+            };
+
+            return wizardSteps;
+        }
+
+        /// <summary>
+        /// Registers the wizard data.
+        /// </summary>
+        public void RegisterWizardData()
+        {
+            WizardData wizardData = new WizardData
+            {
+                WindowTitle = "Add ViewModel and Views",
+                WindowHeight = 600,
+                WindowWidth = 680,
+                WizardSteps = this.GetWizardsSteps()
+            };
+
+            this.registerService.Register<IWizardData>(wizardData);
+        }
+
+        /// <summary>
         /// Gets the view model template.
         /// </summary>
         /// <param name="frameworkType">Type of the framework.</param>
@@ -255,6 +314,13 @@ namespace NinjaCoder.MvvmCross.Factories
             FrameworkType frameworkType,
             string pageType)
         {
+            if (frameworkType == FrameworkType.XamarinForms)
+            {
+                return string.Format(
+                    "MvvmCross.{0}.TestViewModel.Blank.zip",
+                    this.settingsService.TestingFramework);
+            }
+
             return string.Format(
                 "MvvmCross.{0}.TestViewModel.{1}.zip",
                 this.settingsService.TestingFramework,

@@ -30,6 +30,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         private bool formatFunctionParameters;
 
         /// <summary>
+        /// The bind context in xaml for xamarin forms.
+        /// </summary>
+        private bool bindContextInXamlForXamarinForms;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="NinjaBaseViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
@@ -72,6 +77,15 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [bind context in xaml for xamarin forms].
+        /// </summary>
+        public bool BindContextInXamlForXamarinForms
+        {
+            get { return this.bindContextInXamlForXamarinForms; }
+            set { this.SetProperty(ref this.bindContextInXamlForXamarinForms, value); }
+        }
+        
+        /// <summary>
         /// Saves this instance.
         /// </summary>
         public void Save()
@@ -79,6 +93,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.SettingsService.RemoveDefaultComments = this.RemoveDefaultComments;
             this.SettingsService.RemoveDefaultFileHeaders = this.RemoveDefaultFileHeaders;
             this.SettingsService.FormatFunctionParameters = this.FormatFunctionParameters;
+            this.SettingsService.BindContextInXamlForXamarinForms = this.BindContextInXamlForXamarinForms;
         }
 
         /// <summary>
@@ -89,7 +104,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.RemoveDefaultComments = this.SettingsService.RemoveDefaultComments;
             this.RemoveDefaultFileHeaders = this.SettingsService.RemoveDefaultFileHeaders;
             this.FormatFunctionParameters = this.SettingsService.FormatFunctionParameters;
-
+            this.BindContextInXamlForXamarinForms = this.SettingsService.BindContextInXamlForXamarinForms;
         }
     }
 }

@@ -75,9 +75,22 @@ namespace NinjaCoder.MvvmCross.Factories
                 projectInfos.Add(this.GetFormsProject());
             }
 
+            if (this.visualStudioService.XamarinFormsTestsProjectService == null)
+            {
+                projectInfos.Add(this.GetFormsTestsProject());
+            }
+
             if (this.visualStudioService.DroidProjectService == null)
             {
                 projectInfos.Add(this.GetDroidProject());
+            }
+
+            if (this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.DroidTestsProjectService == null)
+            {
+                projectInfos.Add(this.GetPlatformTestsProject(
+                    ProjectSuffix.DroidTests.GetDescription(),
+                    ProjectType.DroidTests.GetDescription()));
             }
 
             if (this.visualStudioService.iOSProjectService == null)
@@ -85,9 +98,25 @@ namespace NinjaCoder.MvvmCross.Factories
                 projectInfos.Add(this.GetiOSProject());
             }
 
+            if (this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.iOSTestsProjectService == null)
+            {
+                projectInfos.Add(this.GetPlatformTestsProject(
+                    ProjectSuffix.iOSTests.GetDescription(),
+                    ProjectType.iOSTests.GetDescription()));
+            }
+
             if (this.visualStudioService.WindowsPhoneProjectService == null)
             {
                 projectInfos.Add(this.GetWindowsPhoneProject());
+            }
+
+            if (this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.WindowsPhoneTestsProjectService == null)
+            {
+                projectInfos.Add(this.GetPlatformTestsProject(
+                    ProjectSuffix.WindowsPhoneTests.GetDescription(),
+                    ProjectType.WindowsPhoneTests.GetDescription()));
             }
 
             return projectInfos;
@@ -115,11 +144,12 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <returns>A unit tests project.</returns>
         internal ProjectTemplateInfo GetCoreTestsProject()
         {
-            return this.GetCoreTestsProject(
+            return this.GetTestsProject(
                 FrameworkType.XamarinForms,
                 this.settingsService.TestingFramework,
-                this.settingsService.MockingFramework,
-                this.nugetCommandsService.GetTestCommands());
+                this.nugetCommandsService.GetTestCommands(),
+                ProjectSuffix.CoreTests.GetDescription(),
+                ProjectType.CoreTests.GetDescription());
         }
 
         /// <summary>
@@ -134,11 +164,36 @@ namespace NinjaCoder.MvvmCross.Factories
                 ProjectSuffix = ProjectSuffix.XamarinForms.GetDescription(),
                 TemplateName = ProjectTemplate.XamarinForms.GetDescription(),
                 PreSelected = true,
+                ReferenceCoreProject = true,
                 NugetCommands = this.nugetCommandsService.GetXamarinFormsCommands()
             };
         }
 
+        /// <summary>
+        /// Gets the forms tests project.
+        /// </summary>
+        /// <returns></returns>
+        internal ProjectTemplateInfo GetFormsTestsProject()
+        {
+            ProjectTemplateInfo projectTemplateInfo =  this.GetTestsProject(
+                FrameworkType.XamarinForms,
+                this.settingsService.TestingFramework,
+                this.nugetCommandsService.GetTestCommands(),
+                ProjectSuffix.XamarinFormsTests.GetDescription(),
+                ProjectType.XamarinFormsTests.GetDescription());
 
+            //// TODO : lets do this properly :-)
+            projectTemplateInfo.ReferenceCoreProject = false;
+            projectTemplateInfo.ReferenceXamarinFormsProject = true;
+
+            if (this.settingsService.CreatePlatformTestProjects == false)
+            {
+                projectTemplateInfo.PreSelected = false;
+            }
+
+            return projectTemplateInfo;
+        }
+        
         /// <summary>
         /// Gets the droid project.
         /// </summary>
@@ -164,12 +219,12 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             return new ProjectTemplateInfo
             {
-                FriendlyName = ProjectType.iOS.GetDescription() + " " + this.settingsService.iOSBuildVersion,
+                FriendlyName = ProjectType.iOS.GetDescription() + " (" + this.settingsService.iOSApiVersion + ")",
                 ProjectSuffix = ProjectSuffix.iOS.GetDescription(),
-                TemplateName = ProjectTemplate.iOS.GetDescription(),
+                TemplateName = this.GetiOSProjectTemplate(this.settingsService.iOSApiVersion),
                 PreSelected = true,
                 ReferenceXamarinFormsProject = true,
-                NugetCommands = this.nugetCommandsService.GetXamarinFormsCommands()
+                NugetCommands = this.nugetCommandsService.GetXamarinFormsiOSCommands()
             };
         }
 
@@ -188,6 +243,26 @@ namespace NinjaCoder.MvvmCross.Factories
                 PreSelected = true,
                 NugetCommands = this.nugetCommandsService.GetXamarinFormsCommands()
             };
+        }
+
+        /// <summary>
+        /// Gets the core tests project.
+        /// </summary>
+        /// <param name="projectSuffix">The project suffix.</param>
+        /// <param name="projectType">Type of the project.</param>
+        /// <returns>
+        /// A unit tests project.
+        /// </returns>
+        internal ProjectTemplateInfo GetPlatformTestsProject(
+            string projectSuffix,
+            string projectType)
+        {
+            return this.GetPlatFormTestsProject(
+                FrameworkType.XamarinForms,
+                this.settingsService.TestingFramework,
+                this.nugetCommandsService.GetTestCommands(),
+                projectSuffix,
+                projectType);
         }
     }
 }
