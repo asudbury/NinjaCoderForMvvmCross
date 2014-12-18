@@ -1,0 +1,49 @@
+<Plugins>
+
+  <Plugin>
+    <Name>Xamarin Forms Labs</Name>
+    <NugetPackage>Scorchio.NinjaCoder.Xamarin.Forms.Labs</NugetPackage>
+    <OverwriteFiles>Y</OverwriteFiles>
+    <Platforms>
+      <Platform>Forms</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>Xamarin Forms UserDialogs</Name>
+    <NugetPackage>Acr.XamForms.UserDialogs</NugetPackage>
+    <Platforms>
+      <Platform>Forms</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>Xamarin Forms Maps</Name>
+    <NugetPackage>Xamarin.Forms.Maps</NugetPackage>
+    <Platforms>
+      <Platform>Forms</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+</Plugins>
