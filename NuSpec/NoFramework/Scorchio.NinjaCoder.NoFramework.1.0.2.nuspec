@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Scorchio.NinjaCoder.NoFramework</id>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
         <authors>Adrian Sudbury</authors>
 		<owners>Scorchio Limited</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -14,12 +14,12 @@
 		
 		<!-- Droid -->
 		
-		<file src="DroidContent\NoFrameworkMainActivity.cs.pp" target="content\MonoAndroid\MainActivity.cs.pp" />
+		<file src="DroidContent\MainActivity.cs.pp" target="content\MonoAndroid\MainActivity.cs.pp" />
 			
 		<!-- WindowsPhoneContent -->
 		
-		<file src="WindowsPhoneContent\NoFrameworkApp.xaml.pp" target="content\wp8\App.xaml.pp" /> 
-		<file src="WindowsPhoneContent\NoFrameworkApp.xaml.cs.pp" target="content\wp8\App.xaml.cs.pp" />
+		<file src="WindowsPhoneContent\App.xaml.pp" target="content\wp8\App.xaml.pp" /> 
+		<file src="WindowsPhoneContent\App.xaml.cs.pp" target="content\wp8\App.xaml.cs.pp" />
 				
 	 </files>
 </package> 

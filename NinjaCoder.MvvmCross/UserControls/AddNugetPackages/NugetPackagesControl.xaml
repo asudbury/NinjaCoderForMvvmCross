@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:converters="clr-namespace:Scorchio.Infrastructure.Wpf.Converters;assembly=Scorchio.Infrastructure"
              xmlns:userControls="clr-namespace:Scorchio.Infrastructure.Wpf.UserControls;assembly=Scorchio.Infrastructure"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d">
@@ -35,21 +34,22 @@
             <Separator Margin="5"/>
         
             <controls:MetroAnimatedTabControl Margin="1,0,0,0">
-                <TabItem Header="Nuget" >
+                <TabItem Header="Core" >
                     <userControls:PickListView 
                         GroupBoxTitle="Nuget Packages"
-                        DataContext="{Binding NugetPackages}"
+                        DataContext="{Binding CoreNugetPackages}"
+                        Height="240"
+                        Width="500"/>
+                </TabItem>
+
+                <TabItem Header="Forms" >
+                    <userControls:PickListView 
+                        GroupBoxTitle="Nuget Packages"
+                        DataContext="{Binding FormsNugetPackages}"
                         Height="240"
                         Width="500"/>
                 </TabItem>
             </controls:MetroAnimatedTabControl>
-
-            <TextBlock Margin="10">
-                <Hyperlink Command="{Binding WikiPageCommand}">
-                    <TextBlock 
-                        Text="" />
-                </Hyperlink>
-            </TextBlock>
 
             <TextBlock Margin="10">
                 <Hyperlink Command="{Binding NugetWebSiteCommand}">
@@ -57,6 +57,7 @@
                         Text="Nuget Website" />
                 </Hyperlink>
             </TextBlock>
+            
             <Separator Margin="10" />
 
         </StackPanel>

@@ -54,21 +54,21 @@
             <CheckBox 
             Content="Bind Context in Xaml for Xamarin Forms"
             IsChecked="{Binding BindContextInXamlForXamarinForms}"
-            Margin="10,30,10,10"/>
+            Margin="10,25,10,5"/>
 
             <CheckBox 
             Content="Create Platform Test Projects" 
-            Margin="10"
+            Margin="10,5,10,5"
             IsChecked="{Binding CreatePlatformTestProjects}"/>
            
             <CheckBox 
             Content="Use Pre release MvvmCross Nuget Packages" 
-            Margin="10"
+            Margin="10,5,10,5"
             IsChecked="{Binding UsePreReleaseMvvmCrossNugetPackages}"/>
             
             <CheckBox 
             Content="Use Pre release Xamarin Forms Nuget Packages" 
-            Margin="10"
+            Margin="10,5,10,5"
             IsChecked="{Binding UsePreReleaseXamarinFormsNugetPackages}"/>
 
             <Separator Margin="10 "/>

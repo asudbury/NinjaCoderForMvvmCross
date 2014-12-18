@@ -36,9 +36,14 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         private readonly IPluginFactory pluginFactory;
 
         /// <summary>
-        /// The nuget packages.
+        /// The core nuget packages.
         /// </summary>
-        private ObservableCollection<SelectableItemViewModel<Plugin>> nugetPackages;
+        private ObservableCollection<SelectableItemViewModel<Plugin>> coreNugetPackages;
+
+        /// <summary>
+        /// The forms nuget packages.
+        /// </summary>
+        private ObservableCollection<SelectableItemViewModel<Plugin>> formsNugetPackages;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NugetPackagesViewModel" /> class.
@@ -63,7 +68,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         public override void OnInitialize()
         {
             Plugins allPackages = this.pluginFactory.GetPlugins(this.settingsService.NugetPackagesUri);
-            this.NugetPackages = this.GetPackages(allPackages);
+            this.CoreNugetPackages = this.GetPackages(allPackages);
         }
 
         /// <summary>
@@ -92,12 +97,21 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         }
 
         /// <summary>
-        /// Gets the nuget packagess.
+        /// Gets the core nuget packagess.
         /// </summary>
-        public ObservableCollection<SelectableItemViewModel<Plugin>> NugetPackages
+        public ObservableCollection<SelectableItemViewModel<Plugin>> CoreNugetPackages
         {
-            get { return this.nugetPackages; }
-            set { this.SetProperty(ref this.nugetPackages, value); }
+            get { return this.coreNugetPackages; }
+            set { this.SetProperty(ref this.coreNugetPackages, value); }
+        }
+
+        /// <summary>
+        /// Gets the forms nuget packagess.
+        /// </summary>
+        public ObservableCollection<SelectableItemViewModel<Plugin>> FormsNugetPackages
+        {
+            get { return this.formsNugetPackages; }
+            set { this.SetProperty(ref this.formsNugetPackages, value); }
         }
 
         /// <summary>
@@ -108,7 +122,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         {
             TraceService.WriteLine("NugetPackagesViewModel::GetRequiredPackages");
 
-            IEnumerable<SelectableItemViewModel<Plugin>> viewModels = this.NugetPackages;
+            IEnumerable<SelectableItemViewModel<Plugin>> viewModels = this.CoreNugetPackages;
                                                                 
             return viewModels.ToList()
                 .Where(x => x.IsSelected)

@@ -113,6 +113,11 @@ namespace NinjaCoder.MvvmCross.Services
         private const string NugetXamarinAndroidPackage = "Xamarin.Android.Support.v4";
 
         /// <summary>
+        /// The nuget xamarin forms WPF package.
+        /// </summary>
+        private const string NugetXamarinFormsWpfPackage = "Xamarin.Forms.Platform.WPF";
+        
+        /// <summary>
         /// The settings service.
         /// </summary>
         private readonly ISettingsService settingsService;
@@ -383,6 +388,21 @@ namespace NinjaCoder.MvvmCross.Services
                            };
         }
 
+        /// <summary>
+        /// Gets the xamarin forms WPF commands.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<string> GetXamarinFormsWpfCommands()
+        {
+            TraceService.WriteLine("NugetCommandsService::GetXamarinFormsWpfCommands");
+
+            return new List<string> 
+                {
+                    this.GetXamarinFormsCommand(NugetXamarinFormsPackage),
+                    NugetInstallPackage.Replace("%s", NugetXamarinFormsWpfPackage)
+                };
+        }
+        
         /// <summary>
         /// Gets the MVVM cross xamarin form droid commands.
         /// </summary>

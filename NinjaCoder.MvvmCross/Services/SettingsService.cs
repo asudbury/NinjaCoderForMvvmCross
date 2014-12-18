@@ -477,6 +477,16 @@ namespace NinjaCoder.MvvmCross.Services
             }
         }
 
+        public string XamarinFormsNugetPackagesUri
+        {
+            get
+            {
+                return this.UseLocalUris ?
+                    this.GetRegistryValue("Internals", "XamarinFormsNugetPackagesUri", this.InstalledDirectory + "XamarinFormsNugetPackages.xml") :
+                    this.GetRegistryValue("Internals", "XamarinFormsNugetPackagesUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/XamarinFormsNugetPackages.xml");
+            }
+        }
+
         /// <summary>
         /// Gets the mvvmcross plugins URI.
         /// </summary>
@@ -551,6 +561,22 @@ namespace NinjaCoder.MvvmCross.Services
         {
             get { return this.GetRegistryValue("Build", "CreatePlatformTestProjects", "N") == "Y"; }
             set { this.SetRegistryValue("Build", "CreatePlatformTestProjects", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets the xamarin pages help.
+        /// </summary>
+        public string XamarinPagesHelp
+        {
+            get { return this.GetRegistryValue(string.Empty, "XamarinPagesHelp", "http://developer.xamarin.com/guides/cross-platform/xamarin-forms/controls/pages/"); }
+        }
+
+        /// <summary>
+        /// Gets the xamarin layouts help.
+        /// </summary>
+        public string XamarinLayoutsHelp
+        {
+            get { return this.GetRegistryValue(string.Empty, "XamarinLayoutsHelp", "http://developer.xamarin.com/guides/cross-platform/xamarin-forms/controls/layouts/"); }
         }
 
         /// <summary>

@@ -17,6 +17,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Diagnostics;
     using System.Globalization;
     using System.Linq;
     using System.Windows.Input;
@@ -222,6 +223,23 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         {
             get { return this.deleteViewCommand ?? (this.deleteViewCommand = new RelayParameterCommand<object>(this.DeleteView)); }
         }
+
+        /// <summary>
+        /// Gets the xamarin pages help command.
+        /// </summary>
+        public ICommand XamarinPagesHelpCommand
+        {
+            get { return new RelayParameterCommand<object>(this.DisplayPagesWebPage); }
+        }
+
+        /// <summary>
+        /// Gets the xamarin layouts help command.
+        /// </summary>
+        public ICommand XamarinLayoutsHelpCommand
+        {
+            get { return new RelayParameterCommand<object>(this.DisplayLayoutsWebPage); }
+        }
+
         /// <summary>
         /// Gets the pages types.
         /// </summary>
@@ -640,6 +658,22 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
             }
 
             return imageItemWithDescription;
+        }
+
+        /// <summary>
+        /// Displays the pages web page.
+        /// </summary>
+        internal void DisplayPagesWebPage(object parameter)
+        {
+            Process.Start(this.settingsService.XamarinPagesHelp);
+        }
+
+        /// <summary>
+        /// Displays the layouts web page.
+        /// </summary>
+        internal void DisplayLayoutsWebPage(object parameter)
+        {
+            Process.Start(this.settingsService.XamarinLayoutsHelp);
         }
     }
 }

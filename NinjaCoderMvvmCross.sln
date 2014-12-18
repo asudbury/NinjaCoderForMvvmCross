@@ -25,6 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{D8877B
 		Config\MvvmCrossPlugins.xml = Config\MvvmCrossPlugins.xml
 		Config\NugetPackages.xml = Config\NugetPackages.xml
 		Config\XamarinFormsLabsPlugins.xml = Config\XamarinFormsLabsPlugins.xml
+		Config\XamarinFormsNugetPackages.xml = Config\XamarinFormsNugetPackages.xml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeSnippets", "CodeSnippets", "{090C89C7-94C7-4F18-A81A-FB35605C9EAA}"
@@ -97,7 +98,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvvmCross", "MvvmCross", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XamarinForms", "XamarinForms", "{91FC43D9-2BAF-43F8-A49E-DF84E5315198}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.2.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.2.nuspec
+		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.3.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.3.nuspec
 		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Core.1.0.0.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Core.1.0.0.nuspec
 		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.iOS.Classic1.0.1.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.iOS.Classic1.0.1.nuspec
 		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.iOS.Unified1.0.1.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.iOS.Unified1.0.1.nuspec
@@ -106,7 +107,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XamarinForms", "XamarinForm
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NoFramework", "NoFramework", "{4157C2D6-6BC2-4514-B7E8-395BA9FA129F}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.1.0.1.nuspec = NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.1.0.1.nuspec
+		NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.1.0.2.nuspec = NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.1.0.2.nuspec
 		NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.iOS.Classic.1.0.0.nuspec = NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.iOS.Classic.1.0.0.nuspec
 		NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.iOS.Unified.1.0.1.nuspec = NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.iOS.Unified.1.0.1.nuspec
 	EndProjectSection

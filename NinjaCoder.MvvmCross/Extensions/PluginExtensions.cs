@@ -92,7 +92,7 @@ namespace NinjaCoder.MvvmCross.Extensions
                 {
                     foreach (string nugetCommand in instance.NugetCommands)
                     {
-                        commands += nugetCommand + " nuget package added to  " + projectService.Name + " project.";
+                        commands += nugetCommand + " nuget package added to " + projectService.Name + " project." + Environment.NewLine;
                     }
                 }
             }

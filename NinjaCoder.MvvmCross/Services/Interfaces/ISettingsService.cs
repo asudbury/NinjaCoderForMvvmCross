@@ -273,6 +273,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         string NugetPackagesUri { get; }
 
         /// <summary>
+        /// Gets the xamarin forms nuget pacakges URI.
+        /// </summary>
+        string XamarinFormsNugetPackagesUri { get; }
+
+        /// <summary>
         /// Gets the xamarin forms labs plugins URI.
         /// </summary>
         string XamarinFormsLabsPluginsUri { get; }
@@ -311,6 +316,17 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets or sets a value indicating whether [create test projects for all projects].
         /// </summary>
         bool CreatePlatformTestProjects { get; set; }
+
+        /// <summary>
+        /// Gets the xamarin pages help.
+        /// </summary>
+        string XamarinPagesHelp { get; }
+
+        /// <summary>
+        /// Gets the xamarin layouts help.
+        /// </summary>
+        string XamarinLayoutsHelp { get; }
+
     }
 }
 

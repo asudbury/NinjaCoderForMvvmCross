@@ -59,6 +59,12 @@ namespace NinjaCoder.MvvmCross.Entities
         /// The windows phone
         /// </summary>
         [Description("Xamarin.WindowsPhone.zip")]
-        WindowsPhone
+        WindowsPhone,
+
+        /// <summary>
+        /// The wpf.
+        /// </summary>
+        [Description("Xamarin.Wpf.zip")]
+        Wpf
     }
 }

@@ -183,14 +183,8 @@
     <Compile Include="UserControls\AddProjects\FrameworkSelectorControl.xaml.cs">
       <DependentUpon>FrameworkSelectorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\AddProjects\LayoutSelectorControl.xaml.cs">
-      <DependentUpon>LayoutSelectorControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\AddNugetPackages\XamarinFormsLabsControl.xaml.cs">
       <DependentUpon>XamarinFormsLabsControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\AddProjects\PageSelectorControl.xaml.cs">
-      <DependentUpon>PageSelectorControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\AddNugetPackages\NugetPackagesControl.xaml.cs">
       <DependentUpon>NugetPackagesControl.xaml</DependentUpon>
@@ -315,17 +309,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\AddProjects\LayoutSelectorControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControls\AddNugetPackages\XamarinFormsLabsControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\AddProjects\PageSelectorControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\AddNugetPackages\NugetPackagesControl.xaml">
       <Generator>MSBuild:Compile</Generator>

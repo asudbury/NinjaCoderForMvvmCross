@@ -40,13 +40,13 @@ namespace NinjaCoder.MvvmCross.Entities
         /// <summary>
         /// The droid
         /// </summary>
-        [Description("Droid")]
+        [Description("Android")]
         Droid,
 
         /// <summary>
         /// The droid tests.
         /// </summary>
-        [Description("Droid Tests")]
+        [Description("Androi Tests")]
         DroidTests,
 
         /// <summary>

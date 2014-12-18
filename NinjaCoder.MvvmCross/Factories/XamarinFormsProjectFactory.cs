@@ -119,6 +119,14 @@ namespace NinjaCoder.MvvmCross.Factories
                     ProjectType.WindowsPhoneTests.GetDescription()));
             }
 
+            if (this.settingsService.BetaTesting)
+            {
+                if (this.visualStudioService.WpfProjectService == null)
+                {
+                    projectInfos.Add(this.GetWindowsWpfProject());
+                }
+            }
+
             return projectInfos;
         }
 
@@ -207,6 +215,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 TemplateName = ProjectTemplate.Droid.GetDescription(),
                 PreSelected = true,
                 ReferenceXamarinFormsProject = true,
+                ReferenceCoreProject = true,
                 NugetCommands = this.nugetCommandsService.GetXamarinFormsCommands()
             };
         }
@@ -224,6 +233,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 TemplateName = this.GetiOSProjectTemplate(this.settingsService.iOSApiVersion),
                 PreSelected = true,
                 ReferenceXamarinFormsProject = true,
+                ReferenceCoreProject = true,
                 NugetCommands = this.nugetCommandsService.GetXamarinFormsiOSCommands()
             };
         }
@@ -240,8 +250,27 @@ namespace NinjaCoder.MvvmCross.Factories
                 ProjectSuffix = ProjectSuffix.WindowsPhone.GetDescription(),
                 TemplateName = ProjectTemplate.WindowsPhone.GetDescription(),
                 ReferenceXamarinFormsProject = true,
+                ReferenceCoreProject = true,
                 PreSelected = true,
                 NugetCommands = this.nugetCommandsService.GetXamarinFormsCommands()
+            };
+        }
+
+        /// <summary>
+        /// Gets the windows WPF project.
+        /// </summary>
+        /// <returns></returns>
+        internal ProjectTemplateInfo GetWindowsWpfProject()
+        {
+            return new ProjectTemplateInfo
+            {
+                FriendlyName = ProjectType.WindowsWpf.GetDescription(),
+                ProjectSuffix = ProjectSuffix.Wpf.GetDescription(),
+                TemplateName = MvvmCrossProjectTemplate.WindowsWpf.GetDescription(),
+                ReferenceXamarinFormsProject = true,
+                ReferenceCoreProject = true,
+                PreSelected = true,
+                NugetCommands = this.nugetCommandsService.GetXamarinFormsWpfCommands()
             };
         }
 
