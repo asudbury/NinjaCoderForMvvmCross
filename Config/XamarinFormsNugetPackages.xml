@@ -120,5 +120,20 @@
       <Framework>MvvmCross and Xamarin Forms</Framework>
     </Frameworks>
   </Plugin>
+
+    <Plugin>
+    <Name>Image Circle</Name>
+    <NugetPackage>Xam.Plugins.Forms.ImageCircle</NugetPackage>
+    <Platforms>
+      <Platform>Forms</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
   
 </Plugins>
