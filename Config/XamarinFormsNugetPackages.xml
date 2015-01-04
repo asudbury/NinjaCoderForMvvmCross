@@ -151,4 +151,19 @@
     </Frameworks>
   </Plugin>
   
+  <Plugin>
+    <Name>Toast Notifications</Name>
+    <NugetPackage>Toasts.Forms.Plugin</NugetPackage>
+    <Platforms>
+      <Platform>Forms</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
 </Plugins>
