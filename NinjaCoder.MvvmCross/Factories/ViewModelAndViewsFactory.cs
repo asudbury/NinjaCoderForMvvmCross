@@ -294,7 +294,7 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             if (frameworkType == FrameworkType.XamarinForms)
             {
-                return string.Format("MvvmCross.ViewModel.Blank.zip");
+                return string.Format("XamarinForms.ViewModel.Blank.zip");
             }
 
             return string.Format(

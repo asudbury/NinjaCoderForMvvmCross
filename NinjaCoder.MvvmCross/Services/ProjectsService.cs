@@ -76,6 +76,7 @@ namespace NinjaCoder.MvvmCross.Services
             //// reset the messages.
             this.Messages = new List<string>
             {
+                string.Empty,
                 this.settingsService.FrameworkType.GetDescription() + " framework selected.", 
                 string.Empty
             };
@@ -115,7 +116,7 @@ namespace NinjaCoder.MvvmCross.Services
             string path,
             ProjectTemplateInfo projectInfo)
         {
-            string message = string.Format("ProjectsService::AddProject project {0}", projectInfo.Name);
+            string message = string.Format("ProjectsService::AddProjectIf project {0}", projectInfo.Name);
 
             TraceService.WriteLine(message);
             
@@ -210,7 +211,7 @@ namespace NinjaCoder.MvvmCross.Services
             ProjectTemplateInfo projectInfo,
             string projectPath)
         {
-            TraceService.WriteLine("ProjectsService::AddProject project=" + projectInfo.Name + " templateName=" + projectInfo.TemplateName);
+            TraceService.WriteLine("ProjectsService::AddProjectIf project=" + projectInfo.Name + " templateName=" + projectInfo.TemplateName);
 
             try
             {

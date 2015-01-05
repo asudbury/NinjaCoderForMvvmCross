@@ -309,7 +309,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public string PCLProfile
         {
-            get { return this.GetRegistryValue("Projects", "PCLProfile", "78"); }
+            get { return this.GetRegistryValue("Projects", "PCLProfile", "259"); }
             set { this.SetRegistryValue("Projects", "PCLProfile", value); }
         }
 
@@ -514,7 +514,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public bool OutputNugetCommandsToReadMe
         {
-            get { return this.GetRegistryValue("Build", "OutputNugetCommandsToReadMe", "N") == "Y"; }
+            get { return this.GetRegistryValue("Build", "OutputNugetCommandsToReadMe", "Y") == "Y"; }
             set { this.SetRegistryValue("Build", "OutputNugetCommandsToReadMe", value ? "Y" : "N"); }
         }
 
@@ -524,7 +524,7 @@ namespace NinjaCoder.MvvmCross.Services
         public bool OutputErrorsToReadMe
         {
             get { return this.GetRegistryValue("Build", "OutputErrorsToReadMe", "N") == "Y"; }
-            set { this.SetRegistryValue("Build", "OutputErrorsToReadMee", value ? "Y" : "N"); }
+            set { this.SetRegistryValue("Build", "OutputErrorsToReadMe", value ? "Y" : "N"); }
         }
 
         /// <summary>

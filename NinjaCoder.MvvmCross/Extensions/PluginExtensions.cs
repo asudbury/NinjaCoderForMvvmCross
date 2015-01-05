@@ -18,16 +18,6 @@ namespace NinjaCoder.MvvmCross.Extensions
     public static class PluginExtensions
     {
         /// <summary>
-        /// The nuget install package.
-        /// </summary>
-        internal const string NugetInstallPackage = "Install-Package %s -FileConflictAction ignore -ProjectName";
-
-        /// <summary>
-        /// The nuget install package overwrite files.
-        /// </summary>
-        internal const string NugetInstallPackageOverwriteFiles = "Install-Package %s -FileConflictAction Overwrite -ProjectName";
-
-        /// <summary>
         /// Gets the nuget command strings.
         /// </summary>
         /// <param name="instance">The instance.</param>
@@ -58,12 +48,12 @@ namespace NinjaCoder.MvvmCross.Extensions
 
                         if (instance.OverwriteFiles)
                         {
-                            commands += NugetInstallPackageOverwriteFiles.Replace("%s", pluginNugetCommand) + " " + projectService.Name + Environment.NewLine;
+                            commands += Settings.NugetInstallPackageOverwriteFiles .Replace("%s", pluginNugetCommand) + " " + projectService.Name + Environment.NewLine;
                         }
 
                         else
                         {
-                            commands += NugetInstallPackage.Replace("%s", pluginNugetCommand) + " " + projectService.Name + Environment.NewLine;
+                            commands += Settings.NugetInstallPackage.Replace("%s", pluginNugetCommand) + " " + projectService.Name + Environment.NewLine;
                         }
                     }
                 }

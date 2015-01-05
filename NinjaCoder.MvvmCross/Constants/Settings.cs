@@ -41,11 +41,6 @@ namespace NinjaCoder.MvvmCross.Constants
         public const string DirectoryExists = "The directory is not empty please select another one.";
 
         /// <summary>
-        /// The view model exists.
-        /// </summary>
-        public const string ViewModelExists = "The view model already exists, please select another one.";
-
-        /// <summary>
         /// The base view model name.
         /// </summary>
         public const string BaseViewModelName = "BaseViewModel";
@@ -64,5 +59,15 @@ namespace NinjaCoder.MvvmCross.Constants
         /// The nuget include pre release
         /// </summary>
         public const string NugetIncludePreRelease = " –IncludePrerelease ";
+
+        /// <summary>
+        /// The nuget install package.
+        /// </summary>
+        public const string NugetInstallPackage = "Install-Package %s -FileConflictAction ignore -ProjectName";
+
+        /// <summary>
+        /// The nuget install package overwrite files.
+        /// </summary>
+        public const string NugetInstallPackageOverwriteFiles = "Install-Package %s -FileConflictAction Overwrite -ProjectName";
     }
 }

@@ -207,28 +207,44 @@ namespace NinjaCoder.MvvmCross.Controllers
             {
                 List<Plugin> packages = nugetPackagesViewModel.GetRequiredPackages().ToList();
 
-                commands += string.Join(Environment.NewLine, this.pluginsService.GetNugetCommands(
-                                packages,
-                                this.SettingsService.UsePreReleaseXamarinFormsNugetPackages));
+                if (packages.Any())
+                { 
+                    messages.Add(string.Empty);
 
-                messages.AddRange(this.pluginsService.GetNugetMessages(packages));
+                    commands += string.Join(Environment.NewLine, this.pluginsService.GetNugetCommands(
+                                    packages,
+                                    this.SettingsService.UsePreReleaseXamarinFormsNugetPackages));
+
+                    messages.AddRange(this.pluginsService.GetNugetMessages(packages));
+}
             }
 
             if (xamarinFormsLabsViewModel != null)
             {
                 List<Plugin> plugins = xamarinFormsLabsViewModel.GetRequiredPlugins().ToList();
                
-                commands += string.Join(Environment.NewLine,  pluginsService.GetNugetCommands(
-                                plugins,
-                                this.SettingsService.UsePreReleaseXamarinFormsNugetPackages));
+                if (plugins.Any())
+                {
+                    messages.Add(string.Empty);
 
-                messages.AddRange(this.pluginsService.GetNugetMessages(plugins));
+                    commands += string.Join(Environment.NewLine,  pluginsService.GetNugetCommands(
+                                    plugins,
+                                    this.SettingsService.UsePreReleaseXamarinFormsNugetPackages));
+
+                    messages.AddRange(this.pluginsService.GetNugetMessages(plugins));
+                }
             }
-            
+
+            //// a bit of (unnecessary) tidying up - replace double new lines!
+            commands = commands.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine); 
+
             if (this.SettingsService.OutputNugetCommandsToReadMe)
             {
-                messages.Add(Environment.NewLine);
+                messages.Add(string.Empty);
                 messages.Add(this.ReadMeService.GetSeperatorLine());
+                messages.Add("Nuget Commands");
+                messages.Add(this.ReadMeService.GetSeperatorLine());
+                messages.Add(string.Empty);
                 messages.Add(commands);
             }
 

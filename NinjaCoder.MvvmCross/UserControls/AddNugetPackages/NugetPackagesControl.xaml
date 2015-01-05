@@ -6,11 +6,13 @@
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:userControls="clr-namespace:Scorchio.Infrastructure.Wpf.UserControls;assembly=Scorchio.Infrastructure"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:wpf="clr-namespace:Scorchio.Infrastructure.Wpf;assembly=Scorchio.Infrastructure"
              mc:Ignorable="d">
 
     <UserControl.Resources>
         <ResourceDictionary>
             <system:Double x:Key="TabItemFontSize">16.00</system:Double>
+            <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -42,7 +44,7 @@
                         Width="500"/>
                 </TabItem>
 
-                <TabItem Header="Forms" >
+                <TabItem Header="Forms" Visibility="{Binding DisplayFormsNugetPackages, Converter={StaticResource BoolToVisibility}, FallbackValue=Hidden}">
                     <userControls:PickListView 
                         GroupBoxTitle="Nuget Packages"
                         DataContext="{Binding FormsNugetPackages}"

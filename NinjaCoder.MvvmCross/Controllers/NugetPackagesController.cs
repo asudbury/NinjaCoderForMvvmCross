@@ -9,7 +9,6 @@ namespace NinjaCoder.MvvmCross.Controllers
     using Entities;
     using NinjaCoder.MvvmCross.Factories.Interfaces;
     using NinjaCoder.MvvmCross.ViewModels.AddNugetPackages;
-    using NinjaCoder.MvvmCross.ViewModels.AddProjects;
     using NinjaCoder.MvvmCross.ViewModels.Wizard;
     using NinjaCoder.MvvmCross.Views.Wizard;
     using Scorchio.Infrastructure.Services;
@@ -125,22 +124,28 @@ namespace NinjaCoder.MvvmCross.Controllers
             {
                 List<Plugin> packages = nugetPackagesViewModel.GetRequiredPackages().ToList();
 
-                commands += string.Join(Environment.NewLine, this.pluginsService.GetNugetCommands(
-                                packages,
-                                false));
+                if (packages.Any())
+                {
+                    commands += string.Join(
+                        Environment.NewLine, 
+                        this.pluginsService.GetNugetCommands(packages, false));
 
-                messages.AddRange(this.pluginsService.GetNugetMessages(packages));
+                    messages.AddRange(this.pluginsService.GetNugetMessages(packages));
+                }
             }
 
             if (xamarinFormsLabsViewModel != null)
             {
                 List<Plugin> plugins = xamarinFormsLabsViewModel.GetRequiredPlugins().ToList();
 
-                commands += string.Join(Environment.NewLine, pluginsService.GetNugetCommands(
-                                plugins,
-                                false));
+                if (plugins.Any())
+                {
+                    commands += string.Join(
+                                Environment.NewLine, 
+                                pluginsService.GetNugetCommands(plugins, false));
 
-                messages.AddRange(this.pluginsService.GetNugetMessages(plugins));
+                    messages.AddRange(this.pluginsService.GetNugetMessages(plugins));
+                }
             }
 
             if (this.SettingsService.OutputNugetCommandsToReadMe)
@@ -148,6 +153,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                 messages.Add(Environment.NewLine);
                 messages.Add(this.ReadMeService.GetSeperatorLine());
                 messages.Add(commands);
+                messages.Add(this.ReadMeService.GetSeperatorLine());
             }
 
             this.ReadMeService.AddLines(

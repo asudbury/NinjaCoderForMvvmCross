@@ -259,6 +259,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
                 return false;
             }
 
+            this.settingsService.DefaultProjectsPath = this.Path;
+
             return true;
         }
 

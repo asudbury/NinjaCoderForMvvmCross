@@ -26,6 +26,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
     public class NugetPackagesViewModel : BaseWizardStepViewModel
     {
         /// <summary>
+        /// The application service.
+        /// </summary>
+        private readonly IApplicationService applicationService;
+
+        /// <summary>
         /// The settings service.
         /// </summary>
         private readonly ISettingsService settingsService;
@@ -46,16 +51,24 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         private ObservableCollection<SelectableItemViewModel<Plugin>> formsNugetPackages;
 
         /// <summary>
+        /// The display forms nuget packages.
+        /// </summary>
+        private bool displayFormsNugetPackages;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="NugetPackagesViewModel" /> class.
         /// </summary>
+        /// <param name="applicationService">The application service.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="pluginFactory">The plugin factory.</param>
         public NugetPackagesViewModel(
+            IApplicationService applicationService,
             ISettingsService settingsService,
             IPluginFactory pluginFactory)
         {
             TraceService.WriteLine("NugetServicesViewModel::Constructor Start");
 
+            this.applicationService = applicationService;
             this.settingsService = settingsService;
             this.pluginFactory = pluginFactory;
 
@@ -67,8 +80,24 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         /// </summary>
         public override void OnInitialize()
         {
-            Plugins allPackages = this.pluginFactory.GetPlugins(this.settingsService.NugetPackagesUri);
-            this.CoreNugetPackages = this.GetPackages(allPackages);
+            Plugins corePlugins = this.pluginFactory.GetPlugins(this.settingsService.NugetPackagesUri);
+            this.CoreNugetPackages = this.GetPackages(corePlugins);
+
+            Plugins formsPlugins = this.pluginFactory.GetPlugins(this.settingsService.XamarinFormsNugetPackagesUri);
+            this.FormsNugetPackages = this.GetPackages(formsPlugins);
+
+            FrameworkType frameworkType = this.applicationService.GetApplicationFramework();
+
+            if (frameworkType == FrameworkType.XamarinForms ||
+                frameworkType == FrameworkType.MvvmCrossAndXamarinForms)
+            {
+                this.DisplayFormsNugetPackages = true;
+            }
+
+            else
+            {
+                this.DisplayFormsNugetPackages = false;
+            }
         }
 
         /// <summary>
@@ -82,7 +111,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         {
             IEnumerable<Plugin> plugins = this.GetRequiredPackages();
 
-            if (plugins.FirstOrDefault(x => x.FriendlyName.Contains("Xamarin.Forms.Labs")) == null)
+            if (plugins.FirstOrDefault(x => x.FriendlyName.Contains("Xamarin Forms Labs")) == null)
             {
                 return new RouteModifier
                 {
@@ -97,7 +126,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         }
 
         /// <summary>
-        /// Gets the core nuget packagess.
+        /// Gets or sets the core nuget packages.
         /// </summary>
         public ObservableCollection<SelectableItemViewModel<Plugin>> CoreNugetPackages
         {
@@ -106,12 +135,21 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         }
 
         /// <summary>
-        /// Gets the forms nuget packagess.
+        /// Gets or sets the forms nuget packages.
         /// </summary>
         public ObservableCollection<SelectableItemViewModel<Plugin>> FormsNugetPackages
         {
             get { return this.formsNugetPackages; }
             set { this.SetProperty(ref this.formsNugetPackages, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to display forms nuget packages.
+        /// </summary>
+        public bool DisplayFormsNugetPackages
+        {
+            get { return this.displayFormsNugetPackages; }
+            set { this.SetProperty(ref this.displayFormsNugetPackages, value); }
         }
 
         /// <summary>
@@ -122,8 +160,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         {
             TraceService.WriteLine("NugetPackagesViewModel::GetRequiredPackages");
 
-            IEnumerable<SelectableItemViewModel<Plugin>> viewModels = this.CoreNugetPackages;
-                                                                
+            IEnumerable<SelectableItemViewModel<Plugin>> viewModels = this.CoreNugetPackages.Concat(this.FormsNugetPackages);
+                                   
             return viewModels.ToList()
                 .Where(x => x.IsSelected)
                 .Select(x => x.Item).ToList();

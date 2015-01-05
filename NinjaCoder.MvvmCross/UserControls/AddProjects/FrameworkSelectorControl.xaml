@@ -44,7 +44,7 @@
             <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center">
                     <LineBreak />
                     <Bold>
-                        Profile 78
+                        Profile 259
                     </Bold>
                     <LineBreak />
                     <LineBreak />
@@ -52,11 +52,11 @@
                     <LineBreak />
                     Windows 8
                     <LineBreak />
-                    Windows Phone Silverlight 8
+                    Windows Phone 8 and 8.1
                     <LineBreak />
                     Xamarin.Android
                     <LineBreak />
-                    Xamarin.iOS 
+                    Xamarin.iOS (Classic and Unified API)          
             </TextBlock>
 
 

@@ -36,11 +36,5 @@ namespace NinjaCoder.MvvmCross.Entities
         /// </summary>
         [Description("MvvmCross.WindowsStore.zip")]
         WindowsStore,
-
-        /// <summary>
-        /// The windows WPF
-        /// </summary>
-        [Description("MvvmCross.Wpf.zip")]
-        WindowsWpf
     }
 }

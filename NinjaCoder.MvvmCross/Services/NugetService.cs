@@ -51,10 +51,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             TraceService.WriteLine("NugetService::InitNugetMessages");
 
-            return new List<string>
-                        {
-                            string.Empty
-                        };
+            return new List<string> { string.Empty };
         }
 
         /// <summary>
@@ -231,6 +228,18 @@ namespace NinjaCoder.MvvmCross.Services
                 if (projectItemService != null)
                 {
                     projectItemService.ReplaceText("iOS.Forms", "Forms");
+                }
+            }
+
+            IProjectService wpfProjectService = this.visualStudioService.WpfProjectService;
+
+            if (wpfProjectService != null)
+            {
+                IProjectItemService projectItemService = wpfProjectService.GetProjectItem("App.xaml.cs");
+
+                if (projectItemService != null)
+                {
+                    projectItemService.ReplaceText("Wpf.Forms", "Forms");
                 }
             }
         }

@@ -82,6 +82,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 FrameworkType.MvvmCrossAndXamarinForms,
                 this.settingsService.TestingFramework,
                 this.nugetCommandsService.GetMvvmCrossTestsCommands(),
+                true,
                 ProjectSuffix.CoreTests.GetDescription(),
                 ProjectType.CoreTests.GetDescription());
         }

@@ -10,7 +10,7 @@ namespace $rootnamespace$
     /// <summary>
     ///    Defines the MainPage.xaml type.
     /// </summary>
-    public partial class MainPage
+    public partial class MainPage : FormsApplicationPage
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MainPage"/> class.
@@ -21,7 +21,7 @@ namespace $rootnamespace$
 
             Forms.Init();
 
-            this.Content = FormsHelper.GetMainPage().ConvertPageToUIElement(this);
+			this.LoadApplication(new $rootnamespace$.App());
         }
     }
 }
