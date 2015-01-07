@@ -81,7 +81,7 @@ namespace $rootnamespace$
         public void Include(UIDatePicker uiDatePicker)
         {
             uiDatePicker.Date = uiDatePicker.Date.AddSeconds(1);
-            uiDatePicker.ValueChanged += (sender, args) => { uiDatePicker.Date = DateTime.MaxValue; };
+            uiDatePicker.ValueChanged += (sender, args) => { uiDatePicker.Date = NSDate.DistantFuture; };
         }
 
         /// <summary>
