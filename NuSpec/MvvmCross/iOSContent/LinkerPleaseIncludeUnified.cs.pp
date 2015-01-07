@@ -9,6 +9,7 @@ namespace $rootnamespace$
     using System.Collections.Specialized;
     using System.Windows.Input;
 
+	using Foundation;
     using UIKit;
 
     /// <summary>
