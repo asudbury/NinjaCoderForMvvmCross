@@ -18,11 +18,40 @@ namespace NinjaCoder.MvvmCross.Factories
     public abstract class BaseProjectFactory
     {
         /// <summary>
+        /// Prevents a default instance of the <see cref="BaseProjectFactory"/> class from being created.
+        /// </summary>
+        protected BaseProjectFactory()
+        {
+            this.ProjectTemplateInfos = new List<ProjectTemplateInfo>();
+        }
+
+        /// <summary>
+        /// Gets or sets the project template infos.
+        /// </summary>
+        protected List<ProjectTemplateInfo> ProjectTemplateInfos { get; set; }
+
+        /// <summary>
+        /// Adds the project if.
+        /// </summary>
+        /// <param name="condition">if set to <c>true</c> [condition].</param>
+        /// <param name="projectTemplateInfo">The project template information.</param>
+        protected void AddProjectIf(
+            bool condition,
+            ProjectTemplateInfo projectTemplateInfo)
+        {
+            if (condition)
+            {
+                this.ProjectTemplateInfos.Add(projectTemplateInfo);
+            }
+        }
+
+        /// <summary>
         /// Gets the core tests project.
         /// </summary>
         /// <param name="frameworkType">Type of the framework.</param>
         /// <param name="testingFramework">The testing framework.</param>
         /// <param name="nugetCommands">The nuget commands.</param>
+        /// <param name="preSelect">if set to <c>true</c> [pre select].</param>
         /// <param name="projectSuffix">The project suffix.</param>
         /// <param name="projectType">Type of the project.</param>
         /// <returns>
@@ -32,6 +61,7 @@ namespace NinjaCoder.MvvmCross.Factories
             FrameworkType frameworkType,
             string testingFramework,
             IEnumerable<string> nugetCommands,
+            bool preSelect,
             string projectSuffix,
             string projectType)
         {
@@ -64,7 +94,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 FriendlyName = friendlyName,
                 ProjectSuffix = projectSuffix,
                 TemplateName = templateName,
-                PreSelected = true,
+                PreSelected = preSelect,
                 ReferenceCoreProject = true,
                 NugetCommands = nugetCommands
             };
@@ -83,6 +113,7 @@ namespace NinjaCoder.MvvmCross.Factories
             FrameworkType frameworkType,
             string testingFramework,
             IEnumerable<string> nugetCommands,
+            bool preSelect,
             string projectSuffix,
             string projectType)
         {
@@ -92,6 +123,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 frameworkType, 
                 testingFramework, 
                 nugetCommands, 
+                preSelect,
                 projectSuffix, 
                 projectType);
 

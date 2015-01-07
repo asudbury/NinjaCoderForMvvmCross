@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <summary>
-//    Defines the FormsHelper type.
+//    Defines the App type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
@@ -9,17 +9,16 @@ namespace $rootnamespace$
     using $rootnamespace$.Views;
 
     /// <summary>
-    /// Defines the FormsHelper type.
+    /// Defines the App type.
     /// </summary>
-    public static class FormsHelper
+    public class App : Application
     {
         /// <summary>
-        /// Gets the main page.
+        /// Initializes a new instance of the <see cref="App"/> class.
         /// </summary>
-        /// <returns></returns>
-        public static Page GetMainPage()
+        public App()
         {
-            return new MainView();
+            this.MainPage = new MainView();
         }
     }
 }

@@ -6,6 +6,9 @@ namespace NinjaCoder.MvvmCross.Services
 {
     using EnvDTE;
     using Interfaces;
+
+    using NinjaCoder.MvvmCross.Constants;
+
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
@@ -61,7 +64,7 @@ namespace NinjaCoder.MvvmCross.Services
 
             if (string.IsNullOrEmpty(nugetCommand) == false)
             {
-                command = NugetCommandsService.NugetInstallPackage.Replace("%s", nugetCommand);
+                command = Settings.NugetInstallPackage.Replace("%s", nugetCommand);
 
                 //// need to add the project to the end of the command!
                 command += string.Format(" {0}", projectService.Name);

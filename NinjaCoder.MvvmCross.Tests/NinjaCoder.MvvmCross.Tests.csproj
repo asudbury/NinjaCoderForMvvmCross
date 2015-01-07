@@ -68,6 +68,7 @@
     <Compile Include="Factories\TestCodeSnippetFactory.cs" />
     <Compile Include="Factories\TestMockingServiceFactory.cs" />
     <Compile Include="Factories\TestPluginFactory.cs" />
+    <Compile Include="Factories\GenerateProjectTemplatesXml.cs" />
     <Compile Include="Factories\TestTestingServiceFactory.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Mocks\MockDirectory.cs" />

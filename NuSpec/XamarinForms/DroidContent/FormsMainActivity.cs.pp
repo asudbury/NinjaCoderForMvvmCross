@@ -16,7 +16,7 @@ namespace $rootnamespace$
     /// Defines the MainActivity type.
     /// </summary>
     [Activity(Label = "$safeprojectname$", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : AndroidActivity
+    public class MainActivity : FormsApplicationActivity
     {
         /// <summary>
         /// Called when [create].
@@ -28,7 +28,7 @@ namespace $rootnamespace$
 
             Xamarin.Forms.Forms.Init(this, bundle);
 
-            this.SetPage(FormsHelper.GetMainPage());
+			this.LoadApplication(new App());
         }
     }
 }

@@ -5,6 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
+    using System.Windows.Shapes;
+
     using Interfaces;
 
     using Scorchio.VisualStudio.Services;
@@ -78,7 +80,6 @@ namespace NinjaCoder.MvvmCross.Services
             sw.WriteLine(this.GetSeperatorLine());
             sw.WriteLine(DateTime.Now.ToString("dd MMM yy HH:mm")  + " " + functionName);
             sw.WriteLine(this.GetSeperatorLine());
-            sw.WriteLine(string.Empty);
 
             lines.ToList().ForEach(sw.WriteLine);
   

@@ -1,8 +1,0 @@
-﻿<UserControl x:Class="NinjaCoder.MvvmCross.UserControls.AddProjects.PageSelectorControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:userControls="clr-namespace:Scorchio.Infrastructure.Wpf.UserControls;assembly=Scorchio.Infrastructure">
-        
-    <userControls:ImagePickerWithDescriptionView DataContext="{Binding Pages}"></userControls:ImagePickerWithDescriptionView>
-    
-</UserControl>

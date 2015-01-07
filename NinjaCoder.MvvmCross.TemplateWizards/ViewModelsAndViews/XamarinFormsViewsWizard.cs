@@ -110,6 +110,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.ViewModelsAndViews
                                     view.Name + "ViewModel");
 
                                 projectItem.ReplaceText("<!-- BindingContextPlaceHolder -->", text);
+                                projectItem.ReplaceText("<!-- BindingPlaceHolder -->",  "<Label Text='{Binding SampleText}' VerticalOptions='Center' HorizontalOptions='Center'/>");
                             }
 
                             else
@@ -117,6 +118,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.ViewModelsAndViews
                                 TraceService.WriteLine("XamarinFormsViewsWizard::UpdateFile Remove placeholder");
 
                                 projectItem.ReplaceText("<!-- BindingContextPlaceHolder -->", string.Empty);
+                                projectItem.ReplaceText("<!-- BindingPlaceHolder -->", string.Empty);
                             }
                         }
                     }

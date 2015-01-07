@@ -12,19 +12,16 @@ namespace $rootnamespace$
 
 	using $rootnamespace$.Forms;
 		
+	using Xamarin.Forms.Platform.iOS;
+
     /// <summary>
     /// The UIApplicationDelegate for the application. This class is responsible for launching the 
     /// User Interface of the application, as well as listening (and optionally responding) to 
     /// application events from iOS.
     /// </summary>
     [Register("AppDelegate")]
-    public class AppDelegate : UIApplicationDelegate
+    public class AppDelegate : FormsApplicationDelegate
     {
-        /// <summary>
-        /// The window.
-        /// </summary>
-        private UIWindow window;
-
         /// <summary>
         /// Finished the launching.
         /// </summary>
@@ -35,14 +32,9 @@ namespace $rootnamespace$
         {
             Forms.Init();
 
-            window = new UIWindow(UIScreen.MainScreen.Bounds)
-                         {
-                             RootViewController = FormsHelper.GetMainPage().CreateViewController()
-                         };
+			this.LoadApplication(new App());
 
-            this.window.MakeKeyAndVisible();
-
-            return true;
+            return base.FinishedLaunching(app, options);
         }
     }
 }

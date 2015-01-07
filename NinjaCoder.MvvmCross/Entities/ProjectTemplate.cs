@@ -16,8 +16,8 @@ namespace NinjaCoder.MvvmCross.Entities
         /// <summary>
         /// The core project
         /// </summary>
-        [Description("Xamarin.Core.zip")]
-        Core,
+        [Description("NinjaCoder.Core.zip")]
+        Core, 
 
         /// <summary>
         /// The xamarin forms project
@@ -59,6 +59,12 @@ namespace NinjaCoder.MvvmCross.Entities
         /// The windows phone
         /// </summary>
         [Description("Xamarin.WindowsPhone.zip")]
-        WindowsPhone
+        WindowsPhone,
+
+        /// <summary>
+        /// The wpf.
+        /// </summary>
+        [Description("NinajCoder.Wpf.zip")]
+        Wpf
     }
 }

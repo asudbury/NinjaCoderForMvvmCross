@@ -1,53 +1,7 @@
 <Plugins>
-
-  <Plugin>
-    <Name>Xamarin.Forms.Labs</Name>
-    <NugetPackage>Scorchio.NinjaCoder.Xamarin.Forms.Labs</NugetPackage>
-    <OverwriteFiles>Y</OverwriteFiles>
-    <Platforms>
-      <Platform>Forms</Platform>
-      <Platform>iOS</Platform>
-      <Platform>Droid</Platform>
-      <Platform>WindowsPhone</Platform>
-    </Platforms>
-    <Frameworks>
-      <Framework>Xamarin Forms</Framework>
-      <Framework>MvvmCross and Xamarin Forms</Framework>
-    </Frameworks>
-  </Plugin>
-
-  <Plugin>
-    <Name>Xamarin.Forms.UserDialogs</Name>
-    <NugetPackage>Acr.XamForms.UserDialogs</NugetPackage>
-    <Platforms>
-      <Platform>Forms</Platform>
-      <Platform>iOS</Platform>
-      <Platform>Droid</Platform>
-      <Platform>WindowsPhone</Platform>
-    </Platforms>
-    <Frameworks>
-      <Framework>Xamarin Forms</Framework>
-      <Framework>MvvmCross and Xamarin Forms</Framework>
-    </Frameworks>
-  </Plugin>
-
-  <Plugin>
-    <Name>Xamarin.Forms.Maps</Name>
-    <NugetPackage>Xamarin.Forms.Maps</NugetPackage>
-    <Platforms>
-      <Platform>Forms</Platform>
-      <Platform>iOS</Platform>
-      <Platform>Droid</Platform>
-      <Platform>WindowsPhone</Platform>
-    </Platforms>
-    <Frameworks>
-      <Framework>Xamarin Forms</Framework>
-      <Framework>MvvmCross and Xamarin Forms</Framework>
-    </Frameworks>
-  </Plugin>
   
   <Plugin>
-    <Name>Microsoft.Net.Http</Name>
+    <Name>Microsoft Net Http</Name>
     <NugetPackage>Microsoft.Net.Http</NugetPackage>
     <Platforms>
       <Platform>Core</Platform>
@@ -64,7 +18,7 @@
   </Plugin>
 
   <Plugin>
-    <Name>SQLite.Net-PCL</Name>
+    <Name>SQLite Net PCL</Name>
     <NugetPackage>SQLite.Net-PCL</NugetPackage>
     <Platforms>
       <Platform>Core</Platform>
@@ -92,7 +46,7 @@
   </Plugin>
 
   <Plugin>
-    <Name>PCLStorage</Name>
+    <Name>PCL Storage</Name>
     <NugetPackage>PCLStorage</NugetPackage>
     <Platforms>
       <Platform>Core</Platform>
@@ -103,10 +57,10 @@
       <Framework>Xamarin Forms</Framework>
       <Framework>MvvmCross and Xamarin Forms</Framework>
     </Frameworks>
-  </Plugin>
+  </Plugin> 
 
   <Plugin>
-    <Name>AsyncOAuth</Name>
+    <Name>Async OAuth</Name>
     <NugetPackage>AsyncOAuth</NugetPackage>
     <Platforms>
       <Platform>Core</Platform>
@@ -120,7 +74,7 @@
   </Plugin>
 
   <Plugin>
-    <Name>PCLCrypto</Name>
+    <Name>PCL Crypto</Name>
     <NugetPackage>PCLCrypto</NugetPackage>
     <Platforms>
       <Platform>Core</Platform>
@@ -134,7 +88,7 @@
   </Plugin>
 
   <Plugin>
-    <Name>PortableRest</Name>
+    <Name>Portable Rest</Name>
     <NugetPackage>PortableRest</NugetPackage>
     <Platforms>
       <Platform>Core</Platform>
@@ -148,7 +102,7 @@
   </Plugin>
 
   <Plugin>
-    <Name>Portable.Ninject</Name>
+    <Name>Portable Ninject</Name>
     <NugetPackage>Portable.Ninject</NugetPackage>
     <Platforms>
       <Platform>Core</Platform>
@@ -162,7 +116,7 @@
   </Plugin>
 
   <Plugin>
-    <Name>Newtonsoft.Json</Name>
+    <Name>Newtonsoft Json</Name>
     <NugetPackage>Newtonsoft.Json</NugetPackage>
     <Platforms>
       <Platform>Core</Platform>
@@ -176,7 +130,7 @@
   </Plugin>
 
   <Plugin>
-    <Name>Microsoft.Bcl.Async</Name>
+    <Name>Microsoft Bcl Async</Name>
     <NugetPackage>Microsoft.Bcl.Async</NugetPackage>
     <Platforms>
       <Platform>Core</Platform>
@@ -190,7 +144,7 @@
   </Plugin>
 
   <Plugin>
-    <Name>StyleCop.MSBuild</Name>
+    <Name>StyleCop MSBuild</Name>
     <NugetPackage>StyleCop.MSBuild</NugetPackage>
     <Platforms>
       <Platform>Core</Platform>
@@ -209,4 +163,34 @@
     </Frameworks>
   </Plugin>
 
+  <Plugin>
+    <Name>Amazon Web Services</Name>
+    <NugetPackage>AWSSDK.xplatform</NugetPackage>
+    <Platforms>
+      <Platform>Core</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>No Framework</Framework>
+      <Framework>MvvmCross</Framework>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>Azure Mobile Services</Name>
+    <NugetPackage>WindowsAzure.MobileServices</NugetPackage>
+    <Platforms>
+      <Platform>Core</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>No Framework</Framework>
+      <Framework>MvvmCross</Framework>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
 </Plugins>

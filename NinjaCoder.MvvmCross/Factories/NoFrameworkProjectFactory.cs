@@ -12,7 +12,6 @@ namespace NinjaCoder.MvvmCross.Factories
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
-    using System;
     using System.Collections.Generic;
 
     /// <summary> 
@@ -63,87 +62,81 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             TraceService.WriteLine("NoFrameworkProjectFactory::GetAllowedProjects");
 
-            List<ProjectTemplateInfo> projectInfos = new List<ProjectTemplateInfo>();
+            this.ProjectTemplateInfos = new List<ProjectTemplateInfo>();
 
-            if (this.visualStudioService.CoreProjectService == null)
-            {
-                projectInfos.Add(this.GetCoreProject());
-            }
+            this.AddProjectIf(
+                this.visualStudioService.CoreProjectService == null,
+                this.GetCoreProject());
 
-            if (this.visualStudioService.CoreTestsProjectService == null)
-            {
-                projectInfos.Add(this.GetTestsProject(
+            this.AddProjectIf(
+                this.visualStudioService.CoreTestsProjectService == null,
+                this.GetTestsProject(
                     ProjectSuffix.CoreTests.GetDescription(),
                     ProjectType.CoreTests.GetDescription()));
-            }
 
-            if (this.visualStudioService.DroidProjectService == null)
-            {
-                projectInfos.Add(this.GetDroidProject());
-            }
+            this.AddProjectIf(
+                this.visualStudioService.DroidProjectService == null,
+                this.GetDroidProject());
 
-            if (this.settingsService.CreatePlatformTestProjects &&
-                this.visualStudioService.DroidTestsProjectService == null)
-            {
-                TraceService.WriteLine("get droid test project");
-
-                string projectSuffix = ProjectSuffix.DroidTests.GetDescription();
-                string projectType = ProjectType.DroidTests.GetDescription();
-
-                try
-                {
-                    ProjectTemplateInfo projectTemplateInfo = this.GetPlatFormTestsProject(
+            this.AddProjectIf(
+                (this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.DroidTestsProjectService == null),
+                this.GetPlatFormTestsProject(
                            FrameworkType.NoFramework,
                            this.settingsService.TestingFramework,
                            this.nugetCommandsService.GetTestCommands(),
-                           projectSuffix,
-                           projectType);
+                           true,
+                           ProjectSuffix.DroidTests.GetDescription(),
+                           ProjectType.DroidTests.GetDescription()));
 
-                    projectInfos.Add(projectTemplateInfo);
-                }
-                catch (Exception exception)
-                {
-                    TraceService.WriteError("Error adding test project exception=" + exception.Message);
-                }
-            }
+            this.AddProjectIf(
+                this.visualStudioService.iOSProjectService == null,
+                this.GetiOSProject());
 
-            if (this.visualStudioService.iOSProjectService == null)
-            {
-                projectInfos.Add(this.GetiOSProject());
-            }
-
-            if (this.settingsService.CreatePlatformTestProjects && 
-                this.visualStudioService.iOSTestsProjectService == null)
-            {
-                projectInfos.Add(this.GetPlatFormTestsProject(
+            this.AddProjectIf(
+                (this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.iOSTestsProjectService == null),
+                this.GetPlatFormTestsProject(
                       FrameworkType.NoFramework,
                       this.settingsService.TestingFramework,
                       this.nugetCommandsService.GetTestCommands(),
+                      true,
                       ProjectSuffix.iOSTests.GetDescription(),
                       ProjectType.iOSTests.GetDescription()));
-            }
 
-            if (this.visualStudioService.WindowsPhoneProjectService == null)
-            {
-                projectInfos.Add(this.GetWindowsPhoneProject());
-            }
-            
-            if (this.settingsService.CreatePlatformTestProjects && 
-                this.visualStudioService.WindowsPhoneTestsProjectService == null)
-            {
-                projectInfos.Add(this.GetPlatFormTestsProject(
+            this.AddProjectIf(
+                 this.visualStudioService.WindowsPhoneProjectService == null,
+                 this.GetWindowsPhoneProject());
+
+            this.AddProjectIf(
+                (this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.WindowsPhoneTestsProjectService == null),
+                this.GetPlatFormTestsProject(
                       FrameworkType.NoFramework,
                       this.settingsService.TestingFramework,
                       this.nugetCommandsService.GetTestCommands(),
+                      true,
                       ProjectSuffix.WindowsPhoneTests.GetDescription(),
                       ProjectType.WindowsPhoneTests.GetDescription()));
-            }
 
-            TraceService.WriteLine("projectInfos Count=" + projectInfos.Count);
-            
-            return projectInfos;
+            this.AddProjectIf(
+                this.visualStudioService.WpfProjectService == null,
+                this.GetWindowsWpfProject());
+
+            this.AddProjectIf(
+                (this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.WpfTestsProjectService == null),
+                this.GetPlatFormTestsProject(
+                      FrameworkType.NoFramework,
+                      this.settingsService.TestingFramework,
+                      this.nugetCommandsService.GetTestCommands(),
+                      true,
+                      ProjectSuffix.WpfTests.GetDescription(),
+                      ProjectType.WindowsWpfTests.GetDescription()));
+
+            return this.ProjectTemplateInfos;
         }
-
+        
         /// <summary>
         /// Gets the core project.
         /// </summary>
@@ -180,6 +173,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 FrameworkType.NoFramework,
                 this.settingsService.TestingFramework,
                 this.nugetCommandsService.GetTestCommands(),
+                true,
                 projectSuffix,
                 projectType);
         }
@@ -238,6 +232,23 @@ namespace NinjaCoder.MvvmCross.Factories
                 ReferenceCoreProject = true,
                 PreSelected = true,
                 NugetCommands = this.nugetCommandsService.GetNoFrameworksCommands()
+            };
+        }
+
+        /// <summary>
+        /// Gets the windows WPF project.
+        /// </summary>
+        /// <returns></returns>
+        internal ProjectTemplateInfo GetWindowsWpfProject()
+        {
+            return new ProjectTemplateInfo
+            {
+                FriendlyName = ProjectType.WindowsWpf.GetDescription(),
+                ProjectSuffix = ProjectSuffix.Wpf.GetDescription(),
+                TemplateName = ProjectTemplate.Wpf.GetDescription(),
+                ReferenceXamarinFormsProject = true,
+                ReferenceCoreProject = true,
+                PreSelected = true
             };
         }
     }

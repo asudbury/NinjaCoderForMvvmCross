@@ -25,6 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{D8877B
 		Config\MvvmCrossPlugins.xml = Config\MvvmCrossPlugins.xml
 		Config\NugetPackages.xml = Config\NugetPackages.xml
 		Config\XamarinFormsLabsPlugins.xml = Config\XamarinFormsLabsPlugins.xml
+		Config\XamarinFormsNugetPackages.xml = Config\XamarinFormsNugetPackages.xml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeSnippets", "CodeSnippets", "{090C89C7-94C7-4F18-A81A-FB35605C9EAA}"
@@ -92,21 +93,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvvmCross", "MvvmCross", "{
 		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.iOS.Unified.1.0.1.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.iOS.Unified.1.0.1.nuspec
 		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.MSTests.1.0.2.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.MSTests.1.0.2.nuspec
 		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.NUnit.Tests.1.0.2.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.NUnit.Tests.1.0.2.nuspec
+		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Wpf.1.0.4.nupkg = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Wpf.1.0.4.nupkg
 		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.Core.1.0.0.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.Core.1.0.0.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XamarinForms", "XamarinForms", "{91FC43D9-2BAF-43F8-A49E-DF84E5315198}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.2.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.2.nuspec
-		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Core.1.0.0.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Core.1.0.0.nuspec
-		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.iOS.Classic1.0.1.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.iOS.Classic1.0.1.nuspec
-		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.iOS.Unified1.0.1.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.iOS.Unified1.0.1.nuspec
+		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.5.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.5.nuspec
+		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Core.1.0.2.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Core.1.0.2.nuspec
+		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.iOS.Classic1.0.3.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.iOS.Classic1.0.3.nuspec
+		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.iOS.Unified1.0.3.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.iOS.Unified1.0.3.nuspec
 		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Labs.1.0.3.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Labs.1.0.3.nuspec
+		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Wpf.1.0.5.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Wpf.1.0.5.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NoFramework", "NoFramework", "{4157C2D6-6BC2-4514-B7E8-395BA9FA129F}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.1.0.1.nuspec = NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.1.0.1.nuspec
+		NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.1.0.2.nuspec = NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.1.0.2.nuspec
 		NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.iOS.Classic.1.0.0.nuspec = NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.iOS.Classic.1.0.0.nuspec
 		NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.iOS.Unified.1.0.1.nuspec = NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.iOS.Unified.1.0.1.nuspec
 	EndProjectSection
@@ -191,8 +194,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Views", "Views", "{D41E581F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreContent", "CoreContent", "{19781428-8C5F-4FE8-A5F8-82020FEC95CA}"
 	ProjectSection(SolutionItems) = preProject
+		NuSpec\XamarinForms\CoreContent\App.cs.pp = NuSpec\XamarinForms\CoreContent\App.cs.pp
 		NuSpec\XamarinForms\CoreContent\BaseViewModel.cs.pp = NuSpec\XamarinForms\CoreContent\BaseViewModel.cs.pp
-		NuSpec\XamarinForms\CoreContent\FormsHelper.cs.pp = NuSpec\XamarinForms\CoreContent\FormsHelper.cs.pp
 		NuSpec\XamarinForms\CoreContent\XamarinFormsSchema.xsd = NuSpec\XamarinForms\CoreContent\XamarinFormsSchema.xsd
 	EndProjectSection
 EndProject
@@ -260,6 +263,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestContent", "TestContent"
 		NuSpec\Testing\TestContent\NUnitBaseTest.cs.pp = NuSpec\Testing\TestContent\NUnitBaseTest.cs.pp
 		NuSpec\Testing\TestContent\TestTrace.cs.pp = NuSpec\Testing\TestContent\TestTrace.cs.pp
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WpfContent", "WpfContent", "{F70595F7-5472-4EAE-A57B-550ED68B1827}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\MvvmCross\WpfContent\App.xaml.cs.pp = NuSpec\MvvmCross\WpfContent\App.xaml.cs.pp
+		NuSpec\MvvmCross\WpfContent\Setup.cs.pp = NuSpec\MvvmCross\WpfContent\Setup.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Views", "Views", "{1CCD6769-28C7-4DFC-AC51-6F9EF1CDE027}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\MvvmCross\WpfContent\Views\BaseView.cs.pp = NuSpec\MvvmCross\WpfContent\Views\BaseView.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WpfContent", "WpfContent", "{86848CC5-6D2D-4730-A25A-B68332A06460}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\XamarinForms\WpfContent\MainWindow.xaml.cs.pp = NuSpec\XamarinForms\WpfContent\MainWindow.xaml.cs.pp
+		NuSpec\XamarinForms\WpfContent\MainWindow.xaml.pp = NuSpec\XamarinForms\WpfContent\MainWindow.xaml.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WpfLib", "WpfLib", "{356E28DD-DBAF-4D5D-B6CF-1BB606CB8F18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -849,5 +871,9 @@ Global
 		{E67C8D00-5BA9-4160-99EB-13039CE7D639} = {4157C2D6-6BC2-4514-B7E8-395BA9FA129F}
 		{36E56479-B1AE-4459-B99E-524C15319D38} = {6487A2BF-47FE-41C6-9B7F-D33363630C95}
 		{2AE0C02E-B13A-466D-9BC4-BA8D003724CE} = {36E56479-B1AE-4459-B99E-524C15319D38}
+		{F70595F7-5472-4EAE-A57B-550ED68B1827} = {00EB0871-7621-4000-8CA1-0EB308F81E82}
+		{1CCD6769-28C7-4DFC-AC51-6F9EF1CDE027} = {F70595F7-5472-4EAE-A57B-550ED68B1827}
+		{86848CC5-6D2D-4730-A25A-B68332A06460} = {91FC43D9-2BAF-43F8-A49E-DF84E5315198}
+		{356E28DD-DBAF-4D5D-B6CF-1BB606CB8F18} = {91FC43D9-2BAF-43F8-A49E-DF84E5315198}
 	EndGlobalSection
 EndGlobal

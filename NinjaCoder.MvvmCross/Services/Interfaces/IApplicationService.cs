@@ -5,6 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services.Interfaces
 {
+    using NinjaCoder.MvvmCross.Entities;
+
     /// <summary>
     /// Defines the IApplicationService type.
     /// </summary>
@@ -35,5 +37,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Clears the log file.
         /// </summary>
         void ClearLogFile();
+        
+        /// <summary>
+        /// Gets the application framework.
+        /// </summary>
+        /// <returns></returns>
+        FrameworkType GetApplicationFramework();
     }
 }

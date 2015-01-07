@@ -45,9 +45,10 @@ namespace NinjaCoder.MvvmCross.Tests.Services
             this.mockSettingsService = new Mock<ISettingsService>();
             this.mockFileSystem = new Mock<IFileSystem>();
 
-            this.service = new ApplicationService(
+            /*this.service = new ApplicationService(
+                
                 mockSettingsService.Object, 
-                this.mockFileSystem.Object);
+                this.mockFileSystem.Object);*/
         }
 
         /// <summary>

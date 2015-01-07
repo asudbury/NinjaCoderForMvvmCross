@@ -6,6 +6,9 @@
 namespace NinjaCoder.MvvmCross.Services
 {
     using Interfaces;
+
+    using NinjaCoder.MvvmCross.Entities;
+
     using Scorchio.VisualStudio.Services;
     using System;
     using System.Diagnostics;
@@ -17,6 +20,11 @@ namespace NinjaCoder.MvvmCross.Services
     /// </summary>
     public class ApplicationService : IApplicationService
     {
+        /// <summary>
+        /// The visual studio service.
+        /// </summary>
+        private readonly IVisualStudioService visualStudioService;
+
         /// <summary>
         /// The settings service.
         /// </summary>
@@ -30,12 +38,15 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationService" /> class.
         /// </summary>
+        /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="fileSystem">The file system.</param>
         public ApplicationService(
+            IVisualStudioService visualStudioService,
             ISettingsService settingsService,
             IFileSystem fileSystem)
         {
+            this.visualStudioService = visualStudioService;
             this.settingsService = settingsService;
             this.fileSystem = fileSystem;
         }
@@ -132,6 +143,23 @@ namespace NinjaCoder.MvvmCross.Services
             {
                 File.Delete(this.settingsService.LogFilePath);
             }
+        }
+
+        /// <summary>
+        /// Gets the application framework.
+        /// </summary>
+        /// <returns></returns>
+        public FrameworkType GetApplicationFramework()
+        {
+            FrameworkType frameworkType = this.visualStudioService.GetFrameworkType();
+
+            if (frameworkType == FrameworkType.NotSet)
+            {
+                //// new solution
+                frameworkType = this.settingsService.FrameworkType;
+            }
+
+            return frameworkType;
         }
     }
 }

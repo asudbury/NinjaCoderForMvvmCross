@@ -186,6 +186,13 @@
 
                 <userControls:ImagePickerWithDescriptionView DataContext="{Binding Pages}"></userControls:ImagePickerWithDescriptionView>
 
+                <TextBlock Margin="5,0,0,0">
+                    <Hyperlink Command="{Binding XamarinPagesHelpCommand}">
+                        <TextBlock 
+                            Text="Xamarin Pages help" />
+                    </Hyperlink>
+                </TextBlock>
+                
             </StackPanel>
 
             <StackPanel Visibility="{Binding ShowLayouts, Converter={StaticResource BoolToVisibility}, FallbackValue=Hidden}">
@@ -194,6 +201,13 @@
 
                 <userControls:ImagePickerWithDescriptionView DataContext="{Binding Layouts}"></userControls:ImagePickerWithDescriptionView>
 
+                <TextBlock Margin="5,0,0,0">
+                    <Hyperlink Command="{Binding XamarinLayoutsHelpCommand}">
+                        <TextBlock 
+                            Text="Xamarin Layouts help" />
+                    </Hyperlink>
+                </TextBlock>
+                
             </StackPanel>
 
             <Separator Margin="10"/>

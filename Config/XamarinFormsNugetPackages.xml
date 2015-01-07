@@ -1,0 +1,169 @@
+<Plugins>
+
+  <Plugin>
+    <Name>Xamarin Forms Labs</Name>
+    <NugetPackage>Scorchio.NinjaCoder.Xamarin.Forms.Labs</NugetPackage>
+    <OverwriteFiles>Y</OverwriteFiles>
+    <Platforms>
+      <Platform>Forms</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>UserDialogs</Name>
+    <NugetPackage>Acr.XamForms.UserDialogs</NugetPackage>
+    <Platforms>
+      <Platform>Forms</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>Maps</Name>
+    <NugetPackage>Xamarin.Forms.Maps</NugetPackage>
+    <Platforms>
+      <Platform>Forms</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>OxyPlot Charting</Name>
+    <NugetPackage>OxyPlot</NugetPackage>
+    <Platforms>
+      <Platform>Forms</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>Settings</Name>
+    <NugetPackage>Xam.Plugins.Settings</NugetPackage>
+    <Platforms>
+      <Platform>Forms</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>Text to Speech</Name>
+    <NugetPackage>Xam.Plugins.TextToSpeech</NugetPackage>
+    <Platforms>
+      <Platform>Forms</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>DeviceInfo</Name>
+    <NugetPackage>Xam.Plugin.DeviceInfo</NugetPackage>
+    <Platforms>
+      <Platform>Forms</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>Vibrate</Name>
+    <NugetPackage>Xam.Plugins.Forms.Vibrate</NugetPackage>
+    <Platforms>
+      <Platform>Forms</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+   <Plugin>
+    <Name>Image Circle</Name>
+    <NugetPackage>Xam.Plugins.Forms.ImageCircle</NugetPackage>
+    <Platforms>
+      <Platform>Forms</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+  
+    <Plugin>
+    <Name>Store Rating</Name>
+    <NugetPackage>VoxDev.StoreRating.Forms.Plugin</NugetPackage>
+    <Platforms>
+      <Platform>Forms</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+  
+  <Plugin>
+    <Name>Toast Notifications</Name>
+    <NugetPackage>Toasts.Forms.Plugin</NugetPackage>
+    <Platforms>
+      <Platform>Forms</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+</Plugins>
