@@ -166,4 +166,48 @@
     </Frameworks>
   </Plugin>
 
+  <Plugin>
+    <Name>Barcode Scanner</Name>
+    <NugetPackage>Acr.XamForms.BarCodeScanner</NugetPackage>
+    <Platforms>
+      <Platform>Forms</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>Compass</Name>
+    <NugetPackage>JarleySoft.Compass.Forms.Plugin</NugetPackage>
+    <Platforms>
+      <Platform>Forms</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
+  <Plugin>
+    <Name>SVG</Name>
+    <NugetPackage>Xam.Plugins.Forms.Svg</NugetPackage>
+    <Platforms>
+      <Platform>Forms</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
 </Plugins>
