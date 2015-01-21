@@ -224,5 +224,22 @@
       <Framework>MvvmCross and Xamarin Forms</Framework>
     </Frameworks>
   </Plugin>
-  
+
+  <Plugin>
+    <Name>Xamarin Insights</Name>
+    <NugetPackage>Xamarin.Insights</NugetPackage>
+    <Platforms>
+      <Platform>Core</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>No Framework</Framework>
+      <Framework>MvvmCross</Framework>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
 </Plugins>
