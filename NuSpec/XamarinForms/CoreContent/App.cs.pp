@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
+    using System.Diagnostics;
     using Xamarin.Forms;
     using $rootnamespace$.Views;
 
@@ -18,7 +19,33 @@ namespace $rootnamespace$
         /// </summary>
         public App()
         {
+			Debug.WriteLine("App::Constructor");
+
             this.MainPage = new MainView();
         }
+
+		/// <summary>
+        /// Called when [start].
+        /// </summary>
+		protected override void OnStart()
+		{
+			Debug.WriteLine("App::OnStart");
+		}
+
+		/// <summary>
+        /// Called when [sleep].
+        /// </summary>
+		protected override void OnSleep()
+		{
+			Debug.WriteLine("App::OnSleep");
+		}
+
+		/// <summary>
+        /// Called when [resume].
+        /// </summary>
+		protected override void OnResume()
+		{
+			Debug.WriteLine("App::OnResume");
+		}
     }
 }

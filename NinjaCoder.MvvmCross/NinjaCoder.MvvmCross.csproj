@@ -84,7 +84,6 @@
     <Compile Include="Entities\View.cs" />
     <Compile Include="Entities\FrameworkType.cs" />
     <Compile Include="Entities\MvvmCrossProjectTemplate.cs" />
-    <Compile Include="Entities\MvvmCrossAndXmarinFormsProjectTemplates.cs" />
     <Compile Include="Entities\ProjectSuffix.cs" />
     <Compile Include="Entities\ProjectType.cs" />
     <Compile Include="Entities\WizardData.cs" />

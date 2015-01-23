@@ -196,6 +196,7 @@ namespace NinjaCoder.MvvmCross.Services
             }
 
             this.FixUpXamarinFormHelpers();
+            this.FixUpMvvmCrossXamarinForms();
 
             this.visualStudioService.DTEService.CollapseSolution();
         }
@@ -207,39 +208,135 @@ namespace NinjaCoder.MvvmCross.Services
         {
             TraceService.WriteLine("NugetService::FixUpXamarinFormHelpers");
 
-            IProjectService droidProjectService = this.visualStudioService.DroidProjectService;
+            IProjectService formsProjectService = this.visualStudioService.XamarinFormsProjectService;
 
-            if (droidProjectService != null)
+            if (formsProjectService != null)
             {
-                IProjectItemService projectItemService = droidProjectService.GetProjectItem("MainActivity.cs");
+                IProjectService droidProjectService = this.visualStudioService.DroidProjectService;
 
-                if (projectItemService != null)
+                if (droidProjectService != null)
                 {
-                    projectItemService.ReplaceText("Droid.Forms", "Forms");
+                    IProjectItemService projectItemService = droidProjectService.GetProjectItem("MainActivity.cs");
+
+                    if (projectItemService != null)
+                    {
+                        projectItemService.ReplaceText("Droid.Forms", "Forms");
+                    }
+                }
+
+                IProjectService iosProjectService = this.visualStudioService.iOSProjectService;
+
+                if (iosProjectService != null)
+                {
+                    IProjectItemService projectItemService = iosProjectService.GetProjectItem("AppDelegate.cs");
+
+                    if (projectItemService != null)
+                    {
+                        projectItemService.ReplaceText("iOS.Forms", "Forms");
+                    }
+                }
+
+                IProjectService wpfProjectService = this.visualStudioService.WpfProjectService;
+
+                if (wpfProjectService != null)
+                {
+                    IProjectItemService projectItemService = wpfProjectService.GetProjectItem("App.xaml.cs");
+
+                    if (projectItemService != null)
+                    {
+                        projectItemService.ReplaceText("Wpf.Forms", "Forms");
+                    }
                 }
             }
+        }
 
-            IProjectService iosProjectService = this.visualStudioService.iOSProjectService;
+        /// <summary>
+        /// Fixes up MVVM cross xamarin forms.
+        /// </summary>
+        internal void FixUpMvvmCrossXamarinForms()
+        {
+            TraceService.WriteLine("NugetService::FixUpMvvmCrossXamarinForms");
 
-            if (iosProjectService != null)
-            {
-                IProjectItemService projectItemService = iosProjectService.GetProjectItem("AppDelegate.cs");
+            IProjectService coreProjectService = this.visualStudioService.CoreProjectService;
+            IProjectService formsProjectService = this.visualStudioService.XamarinFormsProjectService;
 
-                if (projectItemService != null)
-                {
-                    projectItemService.ReplaceText("iOS.Forms", "Forms");
-                }
+            if (coreProjectService != null &&
+                formsProjectService != null)
+            { 
+                string coreProjectName = coreProjectService.Name;
+           
+                this.ReplaceProjectItemText(
+                    this.visualStudioService.DroidProjectService,
+                    "Setup.cs",
+                    "CoreProject",
+                    coreProjectName);
+
+                this.ReplaceProjectItemText(
+                    this.visualStudioService.DroidProjectService,
+                    "MvxFormsAndroidViewPresenter.cs",
+                    "CoreProject",
+                    coreProjectName);
+
+                this.ReplaceProjectItemText(
+                    this.visualStudioService.iOSProjectService,
+                    "Setup.cs",
+                    "CoreProject",
+                    coreProjectName);
+
+                 this.ReplaceProjectItemText(
+                    this.visualStudioService.iOSProjectService,
+                    "MvxFormsTouchViewPresenter.cs",
+                    "CoreProject",
+                    coreProjectName);
+
+                string formsProjectName = coreProjectService.Name;
+
+                this.ReplaceProjectItemText(
+                    this.visualStudioService.DroidProjectService,
+                    "Setup.cs",
+                    "FormsProject",
+                    formsProjectName);
+
+                this.ReplaceProjectItemText(
+                    this.visualStudioService.DroidProjectService,
+                    "MvxFormsAndroidViewPresenter.cs",
+                    "FormsProject",
+                    formsProjectName);
+
+                this.ReplaceProjectItemText(
+                    this.visualStudioService.iOSProjectService,
+                    "Setup.cs",
+                    "FormsProject",
+                    formsProjectName);
+
+                this.ReplaceProjectItemText(
+                    this.visualStudioService.iOSProjectService,
+                    "MvxFormsTouchViewPresenter.cs",
+                    "FormsProject",
+                    formsProjectName);
             }
+        }
 
-            IProjectService wpfProjectService = this.visualStudioService.WpfProjectService;
-
-            if (wpfProjectService != null)
+        /// <summary>
+        /// Replaces the project item text.
+        /// </summary>
+        /// <param name="projectService">The project service.</param>
+        /// <param name="projectItem">The project item.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="replacementText">The replacement text.</param>
+        internal void ReplaceProjectItemText(
+            IProjectService projectService,
+            string projectItem,
+            string text,
+            string replacementText)
+        {
+            if (projectService != null)
             {
-                IProjectItemService projectItemService = wpfProjectService.GetProjectItem("App.xaml.cs");
+                IProjectItemService projectItemService = projectService.GetProjectItem(projectItem);
 
                 if (projectItemService != null)
                 {
-                    projectItemService.ReplaceText("Wpf.Forms", "Forms");
+                    projectItemService.ReplaceText(text, replacementText);
                 }
             }
         }

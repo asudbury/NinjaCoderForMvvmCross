@@ -119,14 +119,6 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Services
         }
 
         /// <summary>
-        /// Gets or sets the API version.
-        /// </summary>
-        public string iOSApiVersion
-        {
-            get { return this.GetRegistryValue("Projects", "iOSApiVersion", "Classic"); }
-        }
-
-        /// <summary>
         /// Gets the registry value.
         /// </summary>
         /// <param name="subKey">The sub key.</param>

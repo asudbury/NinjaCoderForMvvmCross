@@ -1,7 +1,7 @@
 ﻿<userControls:BaseUserControl x:Class="NinjaCoder.MvvmCross.UserControls.AddProjects.BuildOptionsControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:userControls="clr-namespace:NinjaCoder.MvvmCross.UserControls">
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:userControls="clr-namespace:NinjaCoder.MvvmCross.UserControls">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -21,63 +21,63 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Width="500" Height="400">
+        <Image Grid.Row="0"
+               Grid.RowSpan="3"
+               Grid.Column="0"
+               VerticalAlignment="Top"
+               Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/lefthand.png" />
 
-            <Separator Margin="5"/>
+        <StackPanel Grid.Row="0"
+                    Grid.Column="1"
+                    Width="500"
+                    Height="400"
+                    Orientation="Vertical">
+
+            <Separator Margin="5" />
 
             <Label>Select the build options to suit your needs in most cases the default settings are appropriate.</Label>
 
-            <Separator Margin="5"/>
-            
-            <TextBlock Text="iOS Classic (32bit) or Unified (64bit)" Margin="10,10,0,4"/>
-            <ComboBox 
-            Width="200" 
-            ItemsSource="{Binding iOSVersions}"
-            SelectedItem="{Binding Path=SelectediOSVersion, Mode=TwoWay}"
-            HorizontalAlignment="Left" 
-            Margin="10,0,0,3"/>
-            <TextBlock Text="Testing Framework" Margin="10,10,0,4"/>
-            <ComboBox 
-            Width="200" 
-            ItemsSource="{Binding TestingFrameworks}"
-            SelectedItem="{Binding Path=SelectedTestingFramework, Mode=TwoWay}"
-            HorizontalAlignment="Left" 
-            Margin="10,0,0,3"/>
-            <TextBlock Text="Mocking Framework" Margin="10,10,0,4"/>
-            <ComboBox 
-            Width="200" 
-            ItemsSource="{Binding MockingFrameworks}"
-            SelectedItem="{Binding Path=SelectedMockingFramework, Mode=TwoWay}"
-            HorizontalAlignment="Left" 
-            Margin="10,0,0,3"/>
+            <Separator Margin="5" />
 
-            <CheckBox 
-            Content="Bind Context in Xaml for Xamarin Forms"
-            IsChecked="{Binding BindContextInXamlForXamarinForms}"
-            Margin="10,25,10,5"/>
+            <TextBlock Margin="10,10,0,4" Text="Testing Framework" />
+            <ComboBox Width="200"
+                      Margin="10,0,0,3"
+                      HorizontalAlignment="Left"
+                      ItemsSource="{Binding TestingFrameworks}"
+                      SelectedItem="{Binding Path=SelectedTestingFramework,
+                                             Mode=TwoWay}" />
+            <TextBlock Margin="10,10,0,4" Text="Mocking Framework" />
+            <ComboBox Width="200"
+                      Margin="10,0,0,3"
+                      HorizontalAlignment="Left"
+                      ItemsSource="{Binding MockingFrameworks}"
+                      SelectedItem="{Binding Path=SelectedMockingFramework,
+                                             Mode=TwoWay}" />
 
-            <CheckBox 
-            Content="Create Platform Test Projects" 
-            Margin="10,5,10,5"
-            IsChecked="{Binding CreatePlatformTestProjects}"/>
-           
-            <CheckBox 
-            Content="Use Pre release MvvmCross Nuget Packages" 
-            Margin="10,5,10,5"
-            IsChecked="{Binding UsePreReleaseMvvmCrossNugetPackages}"/>
-            
-            <CheckBox 
-            Content="Use Pre release Xamarin Forms Nuget Packages" 
-            Margin="10,5,10,5"
-            IsChecked="{Binding UsePreReleaseXamarinFormsNugetPackages}"/>
+            <CheckBox Margin="10,25,10,5"
+                      Content="Bind Context in Xaml for Xamarin Forms"
+                      IsChecked="{Binding BindContextInXamlForXamarinForms}" />
 
-            <Separator Margin="10 "/>
+            <CheckBox Margin="10,5,10,5"
+                      Content="Create Platform Test Projects"
+                      IsChecked="{Binding CreatePlatformTestProjects}" />
+
+            <CheckBox Margin="10,5,10,5"
+                      Content="Use Pre release MvvmCross Nuget Packages"
+                      IsChecked="{Binding UsePreReleaseMvvmCrossNugetPackages}" />
+
+            <CheckBox Margin="10,5,10,5"
+                      Content="Use Pre release Xamarin Forms Nuget Packages"
+                      IsChecked="{Binding UsePreReleaseXamarinFormsNugetPackages}" />
+
+            <Separator Margin="10 " />
 
         </StackPanel>
-        
-        <Image Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/bottom.png" Grid.Column="1" Grid.Row="2" Width="150" />
 
-        <Image Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/lefthand.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Top" />
+        <Image Grid.Row="2"
+               Grid.Column="1"
+               Width="150"
+               Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/bottom.png" />
 
     </Grid>
 

@@ -1,57 +1,50 @@
 ﻿<userControls:BaseUserControl x:Class="NinjaCoder.MvvmCross.UserControls.Options.ProjectsUserControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:resources="clr-namespace:Scorchio.Infrastructure.Wpf.Resources;assembly=Scorchio.Infrastructure"
-             xmlns:userControls="clr-namespace:NinjaCoder.MvvmCross.UserControls">
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:resources="clr-namespace:Scorchio.Infrastructure.Wpf.Resources;assembly=Scorchio.Infrastructure"
+                              xmlns:userControls="clr-namespace:NinjaCoder.MvvmCross.UserControls">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <resources:SharedResourceDictionary Source="..\..\Resources\App.xaml"/>
+                <resources:SharedResourceDictionary Source="..\..\Resources\App.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel Margin="10">
-        <TextBlock Text="PCL Profile" Margin="10,10,0,4"/>
-        <ComboBox 
-            Width="200" 
-            ItemsSource="{Binding PCLProfiles}"
-            SelectedItem="{Binding Path=SelectedPCLProfile, Mode=TwoWay}"
-            HorizontalAlignment="Left" 
-            Margin="10,0,0,3"/>
-        <TextBlock Text="Windows Phone Version" Margin="10,10,0,4"/>
-        <ComboBox 
-            Width="200" 
-            ItemsSource="{Binding WindowsPhoneVersions}"
-            SelectedItem="{Binding Path=SelectedWindowsPhoneVersion, Mode=TwoWay}"
-            HorizontalAlignment="Left" 
-            Margin="10,0,0,3"/>
-        <TextBlock Text="iOS Classic (32bit) or Unified (64bit)" Margin="10,10,0,4"/>
-        <ComboBox 
-            Width="200" 
-            ItemsSource="{Binding iOSVersions}"
-            SelectedItem="{Binding Path=SelectediOSVersion, Mode=TwoWay}"
-            HorizontalAlignment="Left" 
-            Margin="10,0,0,3"/>
-        <TextBlock Text="Testing Framework" Margin="10,10,0,4"/>
-        <ComboBox 
-            Width="200" 
-            ItemsSource="{Binding TestingFrameworks}"
-            SelectedItem="{Binding Path=SelectedTestingFramework, Mode=TwoWay}"
-            HorizontalAlignment="Left" 
-            Margin="10,0,0,3"/>
-        <TextBlock Text="Mocking Framework" Margin="10,10,0,4"/>
-        <ComboBox 
-            Width="200" 
-            ItemsSource="{Binding MockingFrameworks}"
-            SelectedItem="{Binding Path=SelectedMockingFramework, Mode=TwoWay}"
-            HorizontalAlignment="Left" 
-            Margin="10,0,0,3"/>
-        <TextBlock Text="Default View Type" Margin="10,10,0,4"/>
-        <ComboBox 
-            Width="200" 
-            ItemsSource="{Binding ViewTypes}"
-            SelectedItem="{Binding Path=SelectedViewType, Mode=TwoWay}"
-            HorizontalAlignment="Left" 
-            Margin="10,0,0,3"/>
+        <TextBlock Margin="10,10,0,4" Text="PCL Profile" />
+        <ComboBox Width="200"
+                  Margin="10,0,0,3"
+                  HorizontalAlignment="Left"
+                  ItemsSource="{Binding PCLProfiles}"
+                  SelectedItem="{Binding Path=SelectedPCLProfile,
+                                         Mode=TwoWay}" />
+        <TextBlock Margin="10,10,0,4" Text="Windows Phone Version" />
+        <ComboBox Width="200"
+                  Margin="10,0,0,3"
+                  HorizontalAlignment="Left"
+                  ItemsSource="{Binding WindowsPhoneVersions}"
+                  SelectedItem="{Binding Path=SelectedWindowsPhoneVersion,
+                                         Mode=TwoWay}" />
+        <TextBlock Margin="10,10,0,4" Text="Testing Framework" />
+        <ComboBox Width="200"
+                  Margin="10,0,0,3"
+                  HorizontalAlignment="Left"
+                  ItemsSource="{Binding TestingFrameworks}"
+                  SelectedItem="{Binding Path=SelectedTestingFramework,
+                                         Mode=TwoWay}" />
+        <TextBlock Margin="10,10,0,4" Text="Mocking Framework" />
+        <ComboBox Width="200"
+                  Margin="10,0,0,3"
+                  HorizontalAlignment="Left"
+                  ItemsSource="{Binding MockingFrameworks}"
+                  SelectedItem="{Binding Path=SelectedMockingFramework,
+                                         Mode=TwoWay}" />
+        <TextBlock Margin="10,10,0,4" Text="Default View Type" />
+        <ComboBox Width="200"
+                  Margin="10,0,0,3"
+                  HorizontalAlignment="Left"
+                  ItemsSource="{Binding ViewTypes}"
+                  SelectedItem="{Binding Path=SelectedViewType,
+                                         Mode=TwoWay}" />
     </StackPanel>
 </userControls:BaseUserControl>

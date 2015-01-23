@@ -238,9 +238,9 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             return new ProjectTemplateInfo
             {
-                FriendlyName = ProjectType.iOS.GetDescription() + " (" + this.settingsService.iOSApiVersion + ")",
+                FriendlyName = ProjectType.iOS.GetDescription(),
                 ProjectSuffix = ProjectSuffix.iOS.GetDescription(),
-                TemplateName = this.GetiOSProjectTemplate(this.settingsService.iOSApiVersion),
+                TemplateName = ProjectTemplate.iOS.GetDescription(),
                 PreSelected = true,
                 ReferenceXamarinFormsProject = true,
                 ReferenceCoreProject = true,

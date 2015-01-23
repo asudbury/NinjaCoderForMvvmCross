@@ -323,15 +323,6 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets or sets the API version.
-        /// </summary>
-        public string iOSApiVersion
-        {
-            get { return this.GetRegistryValue("Projects", "iOSApiVersion", "Classic"); }
-            set { this.SetRegistryValue("Projects", "iOSApiVersion", value); }
-        }
-
-        /// <summary>
         /// Gets or sets the Language override.
         /// </summary>
         public string LanguageOverride

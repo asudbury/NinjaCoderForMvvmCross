@@ -40,19 +40,13 @@ namespace NinjaCoder.MvvmCross.Entities
         /// <summary>
         /// The iOS
         /// </summary>
-        [Description("Xamarin.iOS.Classic.zip")]
-        iOSClassic,
-
-        /// <summary>
-        /// The iOS
-        /// </summary>
-        [Description("Xamarin.iOS.Unified.zip")]
-        iOSUnified,
+        [Description("NinjaCoder.iOS.zip")]
+        iOS,
 
         /// <summary>
         /// The droid
         /// </summary>
-        [Description("Xamarin.Droid.zip")]
+        [Description("NinjaCoder.Droid.zip")]
         Droid,
 
         /// <summary>

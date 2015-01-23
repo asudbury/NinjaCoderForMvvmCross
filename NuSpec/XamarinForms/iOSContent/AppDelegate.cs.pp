@@ -5,15 +5,15 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
-    using MonoTouch.Foundation;
-    using MonoTouch.UIKit;
+    using Foundation;
+    using UIKit;
 
     using Xamarin.Forms;
 
 	using $rootnamespace$.Forms;
-
-	using Xamarin.Forms.Platform.iOS;
 		
+	using Xamarin.Forms.Platform.iOS;
+
     /// <summary>
     /// The UIApplicationDelegate for the application. This class is responsible for launching the 
     /// User Interface of the application, as well as listening (and optionally responding) to 
@@ -28,9 +28,7 @@ namespace $rootnamespace$
         /// <param name="app">The app.</param>
         /// <param name="options">The options.</param>
         /// <returns>True or false.</returns>
-        public override bool FinishedLaunching(
-			UIApplication app, 
-			NSDictionary options)
+        public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             Forms.Init();
 

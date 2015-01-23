@@ -216,7 +216,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                                     this.SettingsService.UsePreReleaseXamarinFormsNugetPackages));
 
                     messages.AddRange(this.pluginsService.GetNugetMessages(packages));
-}
+                }
             }
 
             if (xamarinFormsLabsViewModel != null)
@@ -227,7 +227,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                 {
                     messages.Add(string.Empty);
 
-                    commands += string.Join(Environment.NewLine,  pluginsService.GetNugetCommands(
+                    commands += string.Join(Environment.NewLine, this.pluginsService.GetNugetCommands(
                                     plugins,
                                     this.SettingsService.UsePreReleaseXamarinFormsNugetPackages));
 

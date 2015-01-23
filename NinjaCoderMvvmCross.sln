@@ -89,29 +89,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuSpec", "NuSpec", "{6487A2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvvmCross", "MvvmCross", "{00EB0871-7621-4000-8CA1-0EB308F81E82}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.iOS.Classic.1.0.1.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.iOS.Classic.1.0.1.nuspec
-		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.iOS.Unified.1.0.1.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.iOS.Unified.1.0.1.nuspec
+		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.1.0.0.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.1.0.0.nuspec
 		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.MSTests.1.0.2.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.MSTests.1.0.2.nuspec
 		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.NUnit.Tests.1.0.2.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.NUnit.Tests.1.0.2.nuspec
-		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Wpf.1.0.4.nupkg = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Wpf.1.0.4.nupkg
-		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.Core.1.0.0.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.Core.1.0.0.nuspec
+		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Wpf.1.0.4.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Wpf.1.0.4.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XamarinForms", "XamarinForms", "{91FC43D9-2BAF-43F8-A49E-DF84E5315198}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.5.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.5.nuspec
-		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Core.1.0.2.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Core.1.0.2.nuspec
-		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.iOS.Classic1.0.3.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.iOS.Classic1.0.3.nuspec
-		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.iOS.Unified1.0.3.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.iOS.Unified1.0.3.nuspec
+		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.8.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.8.nuspec
+		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Core.1.0.5.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Core.1.0.5.nuspec
 		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Labs.1.0.3.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Labs.1.0.3.nuspec
 		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Wpf.1.0.5.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Wpf.1.0.5.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NoFramework", "NoFramework", "{4157C2D6-6BC2-4514-B7E8-395BA9FA129F}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.1.0.2.nuspec = NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.1.0.2.nuspec
-		NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.iOS.Classic.1.0.0.nuspec = NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.iOS.Classic.1.0.0.nuspec
-		NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.iOS.Unified.1.0.1.nuspec = NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.iOS.Unified.1.0.1.nuspec
+		NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.1.0.3.nuspec = NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.1.0.3.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreContent", "CoreContent", "{1D2AE2A2-8597-4623-B009-4E6102284253}"
@@ -121,10 +115,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreContent", "CoreContent"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{665D21F7-A1BF-4BCF-AFC8-6712E26D265E}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\MvvmCross\CoreContent\Services\IVewModelService.cs.pp = NuSpec\MvvmCross\CoreContent\Services\IVewModelService.cs.pp
 		NuSpec\MvvmCross\CoreContent\Services\IViewModelService.cs.pp = NuSpec\MvvmCross\CoreContent\Services\IViewModelService.cs.pp
-		NuSpec\MvvmCross\CoreContent\Services\MvvmCrossAndXamarinFormsIViewModelService.cs.pp = NuSpec\MvvmCross\CoreContent\Services\MvvmCrossAndXamarinFormsIViewModelService.cs.pp
-		NuSpec\MvvmCross\CoreContent\Services\MvvmCrossAndXamarinFormsViewModelService.cs.pp = NuSpec\MvvmCross\CoreContent\Services\MvvmCrossAndXamarinFormsViewModelService.cs.pp
 		NuSpec\MvvmCross\CoreContent\Services\ViewModelService.cs.pp = NuSpec\MvvmCross\CoreContent\Services\ViewModelService.cs.pp
 	EndProjectSection
 EndProject
@@ -142,20 +133,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DroidContent", "DroidConten
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FormsContent", "FormsContent", "{57FFB3AE-5AD9-48E8-AD82-24FCC50E54A8}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\MvvmCross\FormsContent\IXamarinFormsService.cs.pp = NuSpec\MvvmCross\FormsContent\IXamarinFormsService.cs.pp
-		NuSpec\MvvmCross\FormsContent\XamarinFormsService.cs.pp = NuSpec\MvvmCross\FormsContent\XamarinFormsService.cs.pp
+		NuSpec\MvvmCross\FormsContent\IPageService.cs.pp = NuSpec\MvvmCross\FormsContent\IPageService.cs.pp
+		NuSpec\MvvmCross\FormsContent\PageService.cs.pp = NuSpec\MvvmCross\FormsContent\PageService.cs.pp
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iOSContent", "iOSContent", "{8563A085-1568-48E7-BEC5-2795536EAEC0}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\MvvmCross\iOSContent\AppDelegateClassic.cs.pp = NuSpec\MvvmCross\iOSContent\AppDelegateClassic.cs.pp
-		NuSpec\MvvmCross\iOSContent\AppDelegateUnified.cs.pp = NuSpec\MvvmCross\iOSContent\AppDelegateUnified.cs.pp
-		NuSpec\MvvmCross\iOSContent\LinkerPleaseIncludeClassic.cs.pp = NuSpec\MvvmCross\iOSContent\LinkerPleaseIncludeClassic.cs.pp
-		NuSpec\MvvmCross\iOSContent\LinkerPleaseIncludeUnified.cs.pp = NuSpec\MvvmCross\iOSContent\LinkerPleaseIncludeUnified.cs.pp
-		NuSpec\MvvmCross\iOSContent\MainClassic.cs.pp = NuSpec\MvvmCross\iOSContent\MainClassic.cs.pp
-		NuSpec\MvvmCross\iOSContent\MainUnified.cs.pp = NuSpec\MvvmCross\iOSContent\MainUnified.cs.pp
-		NuSpec\MvvmCross\iOSContent\SetupClassic.cs.pp = NuSpec\MvvmCross\iOSContent\SetupClassic.cs.pp
-		NuSpec\MvvmCross\iOSContent\SetupUnified.cs.pp = NuSpec\MvvmCross\iOSContent\SetupUnified.cs.pp
+		NuSpec\MvvmCross\iOSContent\AppDelegate.cs.pp = NuSpec\MvvmCross\iOSContent\AppDelegate.cs.pp
+		NuSpec\MvvmCross\iOSContent\LinkerPleaseInclude.cs.pp = NuSpec\MvvmCross\iOSContent\LinkerPleaseInclude.cs.pp
+		NuSpec\MvvmCross\iOSContent\Main.cs.pp = NuSpec\MvvmCross\iOSContent\Main.cs.pp
+		NuSpec\MvvmCross\iOSContent\Setup.cs.pp = NuSpec\MvvmCross\iOSContent\Setup.cs.pp
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestContent", "TestContent", "{FCE95796-5609-498F-8A7D-0FA014692ABD}"
@@ -183,8 +170,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Views", "Views", "{254384AB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Views", "Views", "{3E3B2A5E-C151-4772-9E37-2389BACF585C}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\MvvmCross\iOSContent\Views\BaseViewClassic.cs.pp = NuSpec\MvvmCross\iOSContent\Views\BaseViewClassic.cs.pp
-		NuSpec\MvvmCross\iOSContent\Views\BaseViewUnified.cs.pp = NuSpec\MvvmCross\iOSContent\Views\BaseViewUnified.cs.pp
+		NuSpec\MvvmCross\iOSContent\Views\BaseView.cs.pp = NuSpec\MvvmCross\iOSContent\Views\BaseView.cs.pp
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Views", "Views", "{D41E581F-7FC1-41B0-8491-6CFDE8E74C5A}"
@@ -195,7 +181,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreContent", "CoreContent", "{19781428-8C5F-4FE8-A5F8-82020FEC95CA}"
 	ProjectSection(SolutionItems) = preProject
 		NuSpec\XamarinForms\CoreContent\App.cs.pp = NuSpec\XamarinForms\CoreContent\App.cs.pp
-		NuSpec\XamarinForms\CoreContent\BaseViewModel.cs.pp = NuSpec\XamarinForms\CoreContent\BaseViewModel.cs.pp
+		NuSpec\XamarinForms\CoreContent\Infrastructure.cs.pp = NuSpec\XamarinForms\CoreContent\Infrastructure.cs.pp
 		NuSpec\XamarinForms\CoreContent\XamarinFormsSchema.xsd = NuSpec\XamarinForms\CoreContent\XamarinFormsSchema.xsd
 	EndProjectSection
 EndProject
@@ -205,19 +191,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DroidContent", "DroidConten
 		NuSpec\XamarinForms\DroidContent\FormsMainActivity.cs.pp = NuSpec\XamarinForms\DroidContent\FormsMainActivity.cs.pp
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FormsContent", "FormsContent", "{033B317A-611C-48D4-9B95-2F5C3547FCBE}"
-	ProjectSection(SolutionItems) = preProject
-		NuSpec\XamarinForms\FormsContent\IXamarinFormsService.cs.pp = NuSpec\XamarinForms\FormsContent\IXamarinFormsService.cs.pp
-		NuSpec\XamarinForms\FormsContent\XamarinFormsService.cs.pp = NuSpec\XamarinForms\FormsContent\XamarinFormsService.cs.pp
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iOSContent", "iOSContent", "{EAE2971C-34A5-41C3-86BF-758D28D0EC2B}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\XamarinForms\iOSContent\AppDelegateClassic.cs.pp = NuSpec\XamarinForms\iOSContent\AppDelegateClassic.cs.pp
-		NuSpec\XamarinForms\iOSContent\AppDelegateUnified.cs.pp = NuSpec\XamarinForms\iOSContent\AppDelegateUnified.cs.pp
+		NuSpec\XamarinForms\iOSContent\AppDelegate.cs.pp = NuSpec\XamarinForms\iOSContent\AppDelegate.cs.pp
 		NuSpec\XamarinForms\iOSContent\LabsAppDelegate.cs.pp = NuSpec\XamarinForms\iOSContent\LabsAppDelegate.cs.pp
-		NuSpec\XamarinForms\iOSContent\MainClassic.cs.pp = NuSpec\XamarinForms\iOSContent\MainClassic.cs.pp
-		NuSpec\XamarinForms\iOSContent\MainUnified.cs.pp = NuSpec\XamarinForms\iOSContent\MainUnified.cs.pp
+		NuSpec\XamarinForms\iOSContent\Main.cs.pp = NuSpec\XamarinForms\iOSContent\Main.cs.pp
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsPhoneContent", "WindowsPhoneContent", "{5F999CCF-5F43-43E0-95C2-257567B55463}"
@@ -238,10 +216,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DroidContent", "DroidConten
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iOSContent", "iOSContent", "{019DD289-282D-47EB-88BA-B37C595C4262}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\NoFramework\iOSContent\AppDelegateClassic.cs.pp = NuSpec\NoFramework\iOSContent\AppDelegateClassic.cs.pp
-		NuSpec\NoFramework\iOSContent\AppDelegateUnified.cs.pp = NuSpec\NoFramework\iOSContent\AppDelegateUnified.cs.pp
-		NuSpec\NoFramework\iOSContent\MainClassic.cs.pp = NuSpec\NoFramework\iOSContent\MainClassic.cs.pp
-		NuSpec\NoFramework\iOSContent\MainUnified.cs.pp = NuSpec\NoFramework\iOSContent\MainUnified.cs.pp
+		NuSpec\NoFramework\iOSContent\AppDelegate.cs.pp = NuSpec\NoFramework\iOSContent\AppDelegate.cs.pp
+		NuSpec\NoFramework\iOSContent\Main.cs.pp = NuSpec\NoFramework\iOSContent\Main.cs.pp
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsPhoneContent", "WindowsPhoneContent", "{E67C8D00-5BA9-4160-99EB-13039CE7D639}"
@@ -281,7 +257,55 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WpfContent", "WpfContent", 
 		NuSpec\XamarinForms\WpfContent\MainWindow.xaml.pp = NuSpec\XamarinForms\WpfContent\MainWindow.xaml.pp
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WpfLib", "WpfLib", "{356E28DD-DBAF-4D5D-B6CF-1BB606CB8F18}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvvmCrossAndXamarinForms", "MvvmCrossAndXamarinForms", "{6FCD48A4-5E35-4382-96B2-2FC5E439D43C}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\MvvmCrossAndXamarinForms\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.1.0.5.nuspec = NuSpec\MvvmCrossAndXamarinForms\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.1.0.5.nuspec
+		NuSpec\MvvmCrossAndXamarinForms\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.Core.1.0.1.nuspec = NuSpec\MvvmCrossAndXamarinForms\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.Core.1.0.1.nuspec
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreContent", "CoreContent", "{8273EF20-9B1E-4AA1-B253-02D3602814A7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2042BA6E-E0C6-4BC4-A0C7-D2B7ACF968AA}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\IViewModelService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\IViewModelService.cs.pp
+		NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\ViewModelService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\ViewModelService.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModels", "ViewModels", "{FFB3674A-D02F-4CD3-8F2A-3F34A33FFF27}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\XamarinForms\CoreContent\ViewModels\BaseViewModel.cs.pp = NuSpec\XamarinForms\CoreContent\ViewModels\BaseViewModel.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FormsContent", "FormsContent", "{CF5A9719-BF39-45A3-9921-8B4C820FB548}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{9256921D-2D45-4763-8E02-F7E2872BF61F}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\MvvmCrossAndXamarinForms\FormsContent\Services\IPageService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\FormsContent\Services\IPageService.cs.pp
+		NuSpec\MvvmCrossAndXamarinForms\FormsContent\Services\PageService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\FormsContent\Services\PageService.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iOSContent", "iOSContent", "{431D8C39-D17C-4DA6-A1E6-5C5E4E6A0327}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\MvvmCrossAndXamarinForms\iOSContent\Setup.cs.pp = NuSpec\MvvmCrossAndXamarinForms\iOSContent\Setup.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presenters", "Presenters", "{26B56DF6-FAD8-46AA-A963-F37271E3DF3C}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\MvvmCrossAndXamarinForms\iOSContent\Presenters\MvxFormsTouchViewPresenter.cs.pp = NuSpec\MvvmCrossAndXamarinForms\iOSContent\Presenters\MvxFormsTouchViewPresenter.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DroidContent", "DroidContent", "{1E7C934A-35B9-4CB3-8009-77BBD9EAB32C}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\MvvmCrossAndXamarinForms\DroidContent\Setup.cs.pp = NuSpec\MvvmCrossAndXamarinForms\DroidContent\Setup.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presenters", "Presenters", "{5BA19C42-DCEA-4CD7-B3AB-F96281D29627}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\MvvmCrossAndXamarinForms\DroidContent\Presenters\IMvxFormsAndroidNavigationHost.cs.pp = NuSpec\MvvmCrossAndXamarinForms\DroidContent\Presenters\IMvxFormsAndroidNavigationHost.cs.pp
+		NuSpec\MvvmCrossAndXamarinForms\DroidContent\Presenters\IMvxFormsAndroidNavigationProvider.cs.pp = NuSpec\MvvmCrossAndXamarinForms\DroidContent\Presenters\IMvxFormsAndroidNavigationProvider.cs.pp
+		NuSpec\MvvmCrossAndXamarinForms\DroidContent\Presenters\MvxFormsAndroidNavigationActivity.cs.pp = NuSpec\MvvmCrossAndXamarinForms\DroidContent\Presenters\MvxFormsAndroidNavigationActivity.cs.pp
+		NuSpec\MvvmCrossAndXamarinForms\DroidContent\Presenters\MvxFormsAndroidViewPresenter.cs.pp = NuSpec\MvvmCrossAndXamarinForms\DroidContent\Presenters\MvxFormsAndroidViewPresenter.cs.pp
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -863,7 +887,6 @@ Global
 		{D41E581F-7FC1-41B0-8491-6CFDE8E74C5A} = {5FF965F5-55BF-4E79-8923-3E9B7C198973}
 		{19781428-8C5F-4FE8-A5F8-82020FEC95CA} = {91FC43D9-2BAF-43F8-A49E-DF84E5315198}
 		{920E2653-3B4C-4D18-B314-4D6205625ED2} = {91FC43D9-2BAF-43F8-A49E-DF84E5315198}
-		{033B317A-611C-48D4-9B95-2F5C3547FCBE} = {91FC43D9-2BAF-43F8-A49E-DF84E5315198}
 		{EAE2971C-34A5-41C3-86BF-758D28D0EC2B} = {91FC43D9-2BAF-43F8-A49E-DF84E5315198}
 		{5F999CCF-5F43-43E0-95C2-257567B55463} = {91FC43D9-2BAF-43F8-A49E-DF84E5315198}
 		{1DAA6314-BAD5-47F8-ADA6-186C63F0EDAB} = {4157C2D6-6BC2-4514-B7E8-395BA9FA129F}
@@ -874,6 +897,15 @@ Global
 		{F70595F7-5472-4EAE-A57B-550ED68B1827} = {00EB0871-7621-4000-8CA1-0EB308F81E82}
 		{1CCD6769-28C7-4DFC-AC51-6F9EF1CDE027} = {F70595F7-5472-4EAE-A57B-550ED68B1827}
 		{86848CC5-6D2D-4730-A25A-B68332A06460} = {91FC43D9-2BAF-43F8-A49E-DF84E5315198}
-		{356E28DD-DBAF-4D5D-B6CF-1BB606CB8F18} = {91FC43D9-2BAF-43F8-A49E-DF84E5315198}
+		{6FCD48A4-5E35-4382-96B2-2FC5E439D43C} = {6487A2BF-47FE-41C6-9B7F-D33363630C95}
+		{8273EF20-9B1E-4AA1-B253-02D3602814A7} = {6FCD48A4-5E35-4382-96B2-2FC5E439D43C}
+		{2042BA6E-E0C6-4BC4-A0C7-D2B7ACF968AA} = {8273EF20-9B1E-4AA1-B253-02D3602814A7}
+		{FFB3674A-D02F-4CD3-8F2A-3F34A33FFF27} = {19781428-8C5F-4FE8-A5F8-82020FEC95CA}
+		{CF5A9719-BF39-45A3-9921-8B4C820FB548} = {6FCD48A4-5E35-4382-96B2-2FC5E439D43C}
+		{9256921D-2D45-4763-8E02-F7E2872BF61F} = {CF5A9719-BF39-45A3-9921-8B4C820FB548}
+		{431D8C39-D17C-4DA6-A1E6-5C5E4E6A0327} = {6FCD48A4-5E35-4382-96B2-2FC5E439D43C}
+		{26B56DF6-FAD8-46AA-A963-F37271E3DF3C} = {431D8C39-D17C-4DA6-A1E6-5C5E4E6A0327}
+		{1E7C934A-35B9-4CB3-8009-77BBD9EAB32C} = {6FCD48A4-5E35-4382-96B2-2FC5E439D43C}
+		{5BA19C42-DCEA-4CD7-B3AB-F96281D29627} = {1E7C934A-35B9-4CB3-8009-77BBD9EAB32C}
 	EndGlobalSection
 EndGlobal

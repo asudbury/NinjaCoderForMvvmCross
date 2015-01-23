@@ -134,22 +134,5 @@ namespace NinjaCoder.MvvmCross.Factories
 
             return projectTemplateInfo;
         }
-
-        /// <summary>
-        /// Getis the ios project template.
-        /// </summary>
-        /// <param name="iOSApiVersion">The i os API version.</param>
-        /// <returns></returns>
-        protected string GetiOSProjectTemplate(string iOSApiVersion)
-        {
-            TraceService.WriteLine("BaseProjectFactory::GetiOSProjectTemplate");
-
-            if (iOSApiVersion == "Unified")
-            {
-                return ProjectTemplate.iOSUnified.GetDescription();   
-            }
-            
-            return ProjectTemplate.iOSClassic.GetDescription();
-        }
     }
 }

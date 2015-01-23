@@ -193,11 +193,6 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         string WindowsPhoneBuildVersion { get; set; }
 
         /// <summary>
-        /// Gets or sets the API version.
-        /// </summary>
-        string iOSApiVersion { get; set; }
-
-        /// <summary>
         /// Gets or sets the langugage override.
         /// </summary>
         string LanguageOverride { get; set; }

@@ -31,11 +31,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         private readonly IMockingServiceFactory mockingServiceFactory;
 
         /// <summary>
-        /// The ios versions.
-        /// </summary>
-        private IEnumerable<string> iosVersions;
-
-        /// <summary>
         /// The testing frameworks.
         /// </summary>
         private IEnumerable<string> testingFrameworks;
@@ -49,11 +44,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// The selected phone version.
         /// </summary>
         private string selectedWindowsPhoneVersion;
-
-        /// <summary>
-        /// The selectedi ios versionn.
-        /// </summary>
-        private string selectediOSVersion;
 
         /// <summary>
         /// The selected testing framework.
@@ -100,24 +90,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             this.testingServiceFactory = testingServiceFactory;
             this.mockingServiceFactory = mockingServiceFactory;
             this.Init();
-        }
-
-        /// <summary>
-        /// Gets or sets the ios versions.
-        /// </summary>
-        public IEnumerable<string> iOSVersions
-        {
-            get { return this.iosVersions; }
-            set { this.SetProperty(ref this.iosVersions, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the selected ios version.
-        /// </summary>
-        public string SelectediOSVersion
-        {
-            get { return this.selectediOSVersion; }
-            set { this.SetProperty(ref this.selectediOSVersion, value); }
         }
 
         /// <summary>
@@ -208,12 +180,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             this.testingServiceFactory.CurrentFrameWork = this.SelectedTestingFramework;
             this.mockingServiceFactory.CurrentFrameWork = this.SelectedMockingFramework;
 
-            //// ReSharper disable once RedundantCheckBeforeAssignment
-            if (this.settingsService.iOSApiVersion != this.SelectediOSVersion)
-            {
-                this.settingsService.iOSApiVersion = this.SelectediOSVersion;
-            }
-
             this.settingsService.BindContextInXamlForXamarinForms = this.bindContextInXamlForXamarinForms;
 
             this.settingsService.UsePreReleaseMvvmCrossNugetPackages = this.usePreReleaseMvvmCrossNugetPackages;
@@ -227,9 +193,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// </summary>
         internal void Init()
         {
-            this.SelectediOSVersion = this.settingsService.iOSApiVersion;
             this.SelectedWindowsPhoneVersion = this.settingsService.WindowsPhoneBuildVersion;
-            this.iOSVersions = new List<string> { "Classic", "Unified" };
 
             this.TestingFrameworks = this.testingServiceFactory.FrameWorks;
             this.MockingFrameworks = this.mockingServiceFactory.FrameWorks;
