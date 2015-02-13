@@ -58,7 +58,7 @@ namespace NinjaCoder.MvvmCross.Entities
         /// <summary>
         /// The wpf.
         /// </summary>
-        [Description("NinajCoder.Wpf.zip")]
+        [Description("NinjaCoder.Wpf.zip")]
         Wpf
     }
 }
