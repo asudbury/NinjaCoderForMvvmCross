@@ -74,7 +74,7 @@ namespace NinjaCoder.MvvmCross.Services
                 //// in cases where the project is not supported (SDK not installed) it will
                 //// not have been added (and therefore no nuget commands to run)
 
-                IProjectService projectService = visualStudioService.GetProjectServiceBySuffix(projectTemplateInfo.ProjectSuffix);
+                IProjectService projectService = this.visualStudioService.GetProjectServiceBySuffix(projectTemplateInfo.ProjectSuffix);
 
                 if (projectService != null)
                 {
@@ -264,32 +264,15 @@ namespace NinjaCoder.MvvmCross.Services
                 formsProjectService != null)
             { 
                 string coreProjectName = coreProjectService.Name;
-           
+                string formsProjectName = formsProjectService.Name;
+
+                //// Droid 
+                
                 this.ReplaceProjectItemText(
                     this.visualStudioService.DroidProjectService,
                     "Setup.cs",
                     "CoreProject",
                     coreProjectName);
-
-                this.ReplaceProjectItemText(
-                    this.visualStudioService.DroidProjectService,
-                    "MvxFormsAndroidViewPresenter.cs",
-                    "CoreProject",
-                    coreProjectName);
-
-                this.ReplaceProjectItemText(
-                    this.visualStudioService.iOSProjectService,
-                    "Setup.cs",
-                    "CoreProject",
-                    coreProjectName);
-
-                 this.ReplaceProjectItemText(
-                    this.visualStudioService.iOSProjectService,
-                    "MvxFormsTouchViewPresenter.cs",
-                    "CoreProject",
-                    coreProjectName);
-
-                string formsProjectName = coreProjectService.Name;
 
                 this.ReplaceProjectItemText(
                     this.visualStudioService.DroidProjectService,
@@ -300,8 +283,28 @@ namespace NinjaCoder.MvvmCross.Services
                 this.ReplaceProjectItemText(
                     this.visualStudioService.DroidProjectService,
                     "MvxFormsAndroidViewPresenter.cs",
+                    "CoreProject",
+                    coreProjectName);
+
+                this.ReplaceProjectItemText(
+                    this.visualStudioService.DroidProjectService,
+                    "MvxFormsAndroidViewPresenter.cs",
                     "FormsProject",
                     formsProjectName);
+                
+                this.ReplaceProjectItemText(
+                    this.visualStudioService.DroidProjectService,
+                    "MvxFormsAndroidNavigationActivity.cs",
+                    "FormsProject",
+                    formsProjectName);
+
+                //// iOS
+                
+                this.ReplaceProjectItemText(
+                    this.visualStudioService.iOSProjectService,
+                    "Setup.cs",
+                    "CoreProject",
+                    coreProjectName);
 
                 this.ReplaceProjectItemText(
                     this.visualStudioService.iOSProjectService,
@@ -310,8 +313,40 @@ namespace NinjaCoder.MvvmCross.Services
                     formsProjectName);
 
                 this.ReplaceProjectItemText(
+                   this.visualStudioService.iOSProjectService,
+                   "MvxFormsTouchViewPresenter.cs",
+                   "CoreProject",
+                   coreProjectName);
+
+                this.ReplaceProjectItemText(
                     this.visualStudioService.iOSProjectService,
                     "MvxFormsTouchViewPresenter.cs",
+                    "FormsProject",
+                    formsProjectName);
+
+                //// Windows Phone
+                
+                this.ReplaceProjectItemText(
+                    this.visualStudioService.WindowsPhoneProjectService,
+                    "Setup.cs",
+                    "CoreProject",
+                    coreProjectName);
+
+                this.ReplaceProjectItemText(
+                    this.visualStudioService.WindowsPhoneProjectService,
+                    "Setup.cs",
+                    "FormsProject",
+                    formsProjectName);
+
+                this.ReplaceProjectItemText(
+                    this.visualStudioService.WindowsPhoneProjectService,
+                    "MvxFormsWindowsPhoneViewPresenter.cs",
+                    "CoreProject",
+                    coreProjectName);
+
+                this.ReplaceProjectItemText(
+                    this.visualStudioService.WindowsPhoneProjectService,
+                    "MvxFormsWindowsPhoneViewPresenter.cs",
                     "FormsProject",
                     formsProjectName);
             }

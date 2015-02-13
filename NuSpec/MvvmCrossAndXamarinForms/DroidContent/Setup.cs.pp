@@ -14,7 +14,7 @@ namespace $rootnamespace$
 	
     using $rootnamespace$.Presenters;
 
-	using CoreProject.Core.Services;
+	using CoreProject.Services;
     using FormsProject.Services;
 
     /// <summary>

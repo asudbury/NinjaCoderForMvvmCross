@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-        <id>Scorchio.NinjaCoder.Xamarin.Forms.iOS.Classic</id>
+        <id>Scorchio.NinjaCoder.MvvmCross.Wpf</id>
         <version>1.0.4</version>
         <authors>Adrian Sudbury</authors>
 		<owners>Scorchio Limited</owners>
@@ -9,11 +9,8 @@
         <description>Helper For NinjaCoder for MvvmCross and Xamarin Forms</description>
     </metadata>
     <files>
-			
-		<!-- iOS -->
-
-      <file src="iOSContent\AppDelegateClassic.cs.pp" target="content\MonoTouch\AppDelegate.cs.pp" />
-      <file src="iOSContent\MainClassic.cs.pp" target="content\MonoTouch\Main.cs.pp" />
-    
+		<file src="WpfContent\App.xaml.cs.pp" target="content\net45\App.xaml.cs.pp" />
+		<file src="WpfContent\Setup.cs.pp" target="content\net45\Setup.cs.pp" />
+		<file src="WpfContent\Views\BaseView.cs.pp" target="content\Views\BaseView.cs.pp" />
     </files>
 </package> 

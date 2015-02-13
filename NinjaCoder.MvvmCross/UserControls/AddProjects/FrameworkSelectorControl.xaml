@@ -56,7 +56,7 @@
                          Content="{Binding MvvmCrossAndXamarinFormsLabel}"
                          IsChecked="{Binding Path=MvvmCrossXamarinForms,
                                              Mode=TwoWay}"
-                         IsEnabled="False" />
+                         IsEnabled="{Binding Path=AllowFrameWorkSelection}" />
 
         </StackPanel>
 

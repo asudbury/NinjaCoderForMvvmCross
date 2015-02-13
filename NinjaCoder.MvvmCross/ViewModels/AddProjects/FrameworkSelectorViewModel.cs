@@ -285,10 +285,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             if (this.settingsService.UsePreReleaseMvvmCrossNugetPackages ||
                 this.settingsService.UsePreReleaseXamarinFormsNugetPackages)
             {
-                ////label += " (Pre Release)";
+                label += " (Pre Release)";
             }
-
-            label += " (Available in a future release)";
 
             this.MvvmCrossAndXamarinFormsLabel = label;
         }

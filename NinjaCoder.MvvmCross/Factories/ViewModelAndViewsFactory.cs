@@ -170,11 +170,8 @@ namespace NinjaCoder.MvvmCross.Factories
                 ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
                 {
                     ProjectSuffix = ProjectSuffix.Core.GetDescription(),
-
-                    TemplateName = this.GetViewModelTemplate(
-                        FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), 
-                        view.PageType),
-                    FileName = viewModelName + ".cs",
+                    TemplateName = this.GetViewModelTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), view.PageType),
+                    FileName = viewModelName + ".cs"
                 };
 
                 itemTemplateInfos.Add(viewModelTemplateInfo);
@@ -183,11 +180,12 @@ namespace NinjaCoder.MvvmCross.Factories
 
                 foreach (ItemTemplateInfo itemTemplateInfo in requiredUIViews)
                 {
-                    itemTemplateInfo.TemplateName = this.GetViewTemplate(
-                        FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), 
+                    itemTemplateInfo.TemplateName = this.GetViewTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), 
                         itemTemplateInfo.ProjectSuffix, 
                         view.PageType);
+
                     itemTemplateInfo.FileName = viewName;
+
                     itemTemplateInfos.Add(itemTemplateInfo);
                 }                
             }
@@ -197,9 +195,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
                 {
                     ProjectSuffix = ProjectSuffix.Core.GetDescription(),
-                    TemplateName = this.GetViewModelTemplate(
-                        FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework),
-                        view.PageType),
+                    TemplateName = this.GetViewModelTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), view.PageType),
                     FileName = viewModelName + ".cs",
                 };
 
@@ -210,8 +206,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 ItemTemplateInfo viewTemplateInfo = new ItemTemplateInfo
                 {
                     ProjectSuffix = ProjectSuffix.XamarinForms.GetDescription(),
-                    TemplateName = this.GetViewTemplate(
-                        FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework),
+                    TemplateName = this.GetViewTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework),
                         string.Empty, 
                         view.PageType),
                     FileName = viewName,

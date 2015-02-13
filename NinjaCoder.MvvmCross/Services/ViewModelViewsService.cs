@@ -152,8 +152,7 @@ namespace NinjaCoder.MvvmCross.Services
                 {
                     string viewModelName = view.Name + "ViewModel";
 
-                    IEnumerable<ItemTemplateInfo> itemTemplateInfos =
-                        this.viewModelAndViewsFactory.GetRequiredViewModelAndViews(
+                    IEnumerable<ItemTemplateInfo> itemTemplateInfos = this.viewModelAndViewsFactory.GetRequiredViewModelAndViews(
                             view,
                             viewModelName,
                             this.viewModelAndViewsFactory.AllowedUIViews,

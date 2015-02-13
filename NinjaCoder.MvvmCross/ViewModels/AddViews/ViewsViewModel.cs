@@ -68,9 +68,9 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         private readonly IEnumerable<ImageItemWithDescription> layoutTypes;
 
         /// <summary>
-        /// The frameworks.
+        /// The choose framework command.
         /// </summary>
-        private IEnumerable<string> frameworks;
+        private RelayParameterCommand<object> chooseFrameworkCommand;
 
         /// <summary>
         /// The choose page type command.
@@ -88,6 +88,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         private RelayParameterCommand<object> deleteViewCommand;
 
         /// <summary>
+        /// The frameworks.
+        /// </summary>
+        private IEnumerable<ImageItemWithDescription> frameworks;
+
+        /// <summary>
         /// The page types.
         /// </summary>
         private readonly IEnumerable<ImageItemWithDescription> pageTypes;
@@ -98,9 +103,14 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         private readonly IEnumerable<ImageItemWithDescription> mvxViews;
 
         /// <summary>
+        /// The allow framework selection.
+        /// </summary>
+        private readonly bool allowFrameworkSelection;
+
+        /// <summary>
         /// The show frameworks.
         /// </summary>
-        private readonly bool showFrameworks;
+        private bool showFrameworks;
 
         /// <summary>
         /// The show grid.
@@ -151,9 +161,9 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
             this.messageBoxService = messageBoxService;
             this.mvxViews = mvvmCrossViewFactory.Views;
 
-            this.Frameworks = frameworkFactory.AllowedFrameworks;
+            this.frameworks = frameworkFactory.AllowedFrameworks;
 
-            this.showFrameworks = this.Frameworks.Count() > 1;
+            this.allowFrameworkSelection = this.Frameworks.Count() > 1;
 
             this.DisplayGrid();
         }
@@ -176,21 +186,12 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         }
 
         /// <summary>
-        /// Gets a value indicating whether [show frameworks].
+        /// Gets a value indicating whether [allow framework selection].
         /// </summary>
-        public bool ShowFrameworks
+        public bool AllowFrameworkSelection
         {
-            get { return this.showFrameworks; }
+            get { return this.allowFrameworkSelection; }
         }
-
-        /// <summary>
-        /// Gets the frameworks.
-        /// </summary>
-        public IEnumerable<string> Frameworks
-        {
-            get {return this.frameworks; }
-            set { this.SetProperty(ref this.frameworks, value); }
-        } 
 
         /// <summary>
         /// Gets the Add command.
@@ -199,7 +200,15 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         {
             get { return this.addCommand ?? (this.addCommand = new RelayCommand(this.Add)); }
         }
-        
+
+        /// <summary>
+        /// Gets the choose framework command.
+        /// </summary>
+        public ICommand ChooseFrameworkCommand
+        {
+            get { return this.chooseFrameworkCommand ?? (this.chooseFrameworkCommand = new RelayParameterCommand<object>(this.ChooseFramework)); }
+        }
+
         /// <summary>
         /// Gets the choose page type command.
         /// </summary>
@@ -239,7 +248,15 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         {
             get { return new RelayParameterCommand<object>(this.DisplayLayoutsWebPage); }
         }
-
+        
+        /// <summary>
+        /// Gets the frameworks.
+        /// </summary>
+        public IEnumerable<ImageItemWithDescription> Frameworks
+        {
+            get { return this.frameworks; }
+        }
+ 
         /// <summary>
         /// Gets the pages types.
         /// </summary>
@@ -273,6 +290,14 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
             set { this.SetProperty(ref this.showGrid, value); }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [show frameworks].
+        /// </summary>
+        public bool ShowFrameworks
+        {
+            get { return this.showFrameworks; }
+            set { this.SetProperty(ref this.showFrameworks, value); }
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether [show MVX pages].
@@ -357,6 +382,32 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
                         thisView.LayoutType = imageItemWithDescription.Name;
                     } 
                 }
+
+                else if (this.showFrameworks)
+                {
+                    imageItemWithDescription = this.GetImageItemWithDescription(thisView, this.Frameworks);
+
+                    if (imageItemWithDescription != null)
+                    {
+                        if (thisView.Framework != imageItemWithDescription.Name)
+                        {
+                            if (imageItemWithDescription.Name == FrameworkType.XamarinForms.GetDescription())
+                            {
+                                thisView.PageType = "Content Page";
+                                thisView.LayoutType = "Content View";
+                            }
+
+                            else
+                            {
+                                thisView.LayoutType = "Not Applicable";
+                                thisView.PageType = "SampleData";
+                            }
+                        }
+
+                        thisView.Framework = imageItemWithDescription.Name;
+                    } 
+
+                }
             }
 
             this.Views = currentViews;
@@ -386,7 +437,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         /// </summary>
         public override void OnInitialize()
         {
-            this.Frameworks = this.frameworkFactory.AllowedFrameworks;
+            this.frameworks = this.frameworkFactory.AllowedFrameworks;
 
             if (!this.views.Any())
             {
@@ -446,6 +497,27 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
             }
             
             this.Views.Add(view);
+        }
+
+        /// <summary>
+        /// Chooses the framework.
+        /// </summary>
+        /// <param name="parameter">The parameter.</param>
+        public void ChooseFramework(object parameter)
+        {
+            this.currentView = this.views.FirstOrDefault(x => x.Name == parameter.ToString());
+
+            if (this.currentView != null)
+            {
+                this.DisplayFrameworks();
+
+                ImageItemWithDescription imageItemWithDescription = this.Frameworks.FirstOrDefault(x => x.Name == this.currentView.Framework);
+
+                if (imageItemWithDescription != null)
+                {
+                    imageItemWithDescription.Selected = true;
+                }
+           }
         }
 
         /// <summary>
@@ -536,6 +608,19 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         internal void DisplayGrid()
         {
             this.ShowGrid = true;
+            this.ShowFrameworks = false;
+            this.ShowMvxPages = false;
+            this.ShowXfPages = false;
+            this.ShowLayouts = false;
+        }
+
+        /// <summary>
+        /// Displays the frameworks.
+        /// </summary>
+        internal void DisplayFrameworks()
+        {
+            this.ShowGrid = false;
+            this.ShowFrameworks = true;
             this.ShowMvxPages = false;
             this.ShowXfPages = false;
             this.ShowLayouts = false;
@@ -548,6 +633,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         internal void DisplayPages(string framework)
         {
             this.ShowGrid = false;
+            this.ShowFrameworks = false;
 
             //// work out if we are mvvmcross or xamarin forms
 
@@ -570,11 +656,12 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         internal void DisplayLayouts()
         {
             this.ShowGrid = false;
+            this.ShowFrameworks = false;
             this.ShowMvxPages = false;
             this.ShowXfPages = false;
             this.ShowLayouts = true;
         }
-
+        
         /// <summary>
         /// Gets the name.
         /// </summary>
@@ -640,7 +727,21 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
                     }                    
                 }
 
-                else
+                else if (this.showFrameworks)
+                {
+                    if (view.Framework != firstItem.Name)
+                    {
+                        imageItemWithDescription = firstItem;
+                    }
+
+                    ImageItemWithDescription secondItem = imageItemWithDescriptions.ToList()[1];
+
+                    if (view.Framework != secondItem.Name)
+                    {
+                        imageItemWithDescription = secondItem;
+                    } 
+                }
+                else 
                 {
                     if (view.PageType != firstItem.Name)
                     {

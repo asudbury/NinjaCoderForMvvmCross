@@ -11,12 +11,13 @@ namespace $rootnamespace$.Presenters
     using Cirrious.MvvmCross.ViewModels;
     using Xamarin.Forms;
     using Xamarin.Forms.Platform.Android;
+	using FormsProject;
 
     /// <summary>
     /// Defines the MvxFormsAndroidNavigationActivity type.
     /// </summary>
     [Activity(Label = "A View")]
-    public class MvxFormsAndroidNavigationActivity : AndroidActivity, IMvxFormsAndroidNavigationProvider
+    public class MvxFormsAndroidNavigationActivity : FormsApplicationActivity, IMvxFormsAndroidNavigationProvider
     {
         /// <summary>
         /// The navigation page.
@@ -50,7 +51,7 @@ namespace $rootnamespace$.Presenters
 
             this.navigationPage = new NavigationPage(page);
             
-            this.SetPage(this.navigationPage);
+            this.LoadApplication(new App());
         }
 
         /// <summary>

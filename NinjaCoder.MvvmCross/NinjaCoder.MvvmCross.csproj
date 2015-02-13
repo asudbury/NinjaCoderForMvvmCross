@@ -397,6 +397,10 @@
     <Resource Include="Resources\bottom.png" />
     <Resource Include="Resources\lefthand.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\mvvmcross.png" />
+    <Resource Include="Resources\Xamarin.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -22,19 +22,19 @@ namespace NinjaCoder.MvvmCross.Entities
         /// <summary>
         /// The xamarin forms project
         /// </summary>
-        [Description("Xamarin.Forms.zip")]
+        [Description("NinjaCoder.Xamarin.Forms.zip")]
         XamarinForms,
 
         /// <summary>
         /// The nunit tests
         /// </summary>
-        [Description("NUnit.Tests.zip")]
+        [Description("NinjaCoder.NUnit.zip")]
         NUnitTests,
 
         /// <summary>
         /// The mstest tests
         /// </summary>
-        [Description("MSTest.Tests.zip")]
+        [Description("NinjaCoder.MSTest.zip")]
         MsTestTests,
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace NinjaCoder.MvvmCross.Entities
         /// <summary>
         /// The windows phone
         /// </summary>
-        [Description("Xamarin.WindowsPhone.zip")]
+        [Description("NinjaCoder.WindowsPhone.zip")]
         WindowsPhone,
 
         /// <summary>

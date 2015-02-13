@@ -7,6 +7,8 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
 {
     using System.Collections.Generic;
 
+    using Scorchio.Infrastructure.Entities;
+
     /// <summary>
     /// Defines the IFrameworkFactory type.
     /// </summary>
@@ -20,7 +22,6 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// <summary>
         /// Gets the allowed frameworks.
         /// </summary>
-        IEnumerable<string> AllowedFrameworks { get; }
-
+        IEnumerable<ImageItemWithDescription> AllowedFrameworks { get; }
     }
 }

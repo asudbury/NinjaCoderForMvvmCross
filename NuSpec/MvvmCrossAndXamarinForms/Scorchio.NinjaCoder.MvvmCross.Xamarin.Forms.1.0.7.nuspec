@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms</id>
-        <version>1.0.5</version>
+        <version>1.0.6</version>
         <authors>Adrian Sudbury</authors>
 		    <owners>Scorchio Limited</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -24,6 +24,10 @@
     <file src="DroidContent\Presenters\IMvxFormsAndroidNavigationProvider.cs.pp" target="content\MonoAndroid\Presenters\IMvxFormsAndroidNavigationProvider.cs.pp" />
     <file src="DroidContent\Presenters\MvxFormsAndroidNavigationActivity.cs.pp" target="content\MonoAndroid\Presenters\MvxFormsAndroidNavigationActivity.cs.pp" />
     <file src="DroidContent\Presenters\MvxFormsAndroidViewPresenter.cs.pp" target="content\MonoAndroid\Presenters\MvxFormsAndroidViewPresenter.cs.pp" />
+
+    <!-- Windows Phone -->
+    <file src="WindowsPhoneContent\Setup.cs.pp" target="content\wp8\Setup.cs.pp" />
+    <file src="WindowsPhoneContent\Presenters\MvxFormsWindowsPhoneViewPresenter.cs.pp" target="content\wp8\Presenters\MvxFormsWindowsPhoneViewPresenter.cs.pp" />
 
     </files>
 </package> 
