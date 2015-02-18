@@ -246,7 +246,14 @@
     <Name>AutoFixture</Name>
     <NugetPackage>AutoFixture</NugetPackage>
     <Platforms>
-      <Platform>Tests</Platform>
+      <Platform>Core.Tests</Platform>
+      <Platform>Forms.Tests</Platform>
+      <Platform>iOS.Tests</Platform>
+      <Platform>Droid.Tests</Platform>
+      <Platform>WindowsPhone.Tests</Platform>
+      <Platform>WindowsStore.Tests</Platform>
+      <Platform>Wpf.Tests</Platform>      
+      
     </Platforms>
     <Frameworks>
       <Framework>No Framework</Framework>
