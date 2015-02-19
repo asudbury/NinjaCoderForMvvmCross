@@ -160,6 +160,13 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         IProjectService GetProjectServiceBySuffix(string suffix);
 
         /// <summary>
+        /// Gets the project services by suffix.
+        /// </summary>
+        /// <param name="suffix">The suffix.</param>
+        /// <returns>A collection of project services.</returns>
+        IEnumerable<IProjectService> GetProjectServicesBySuffix(string suffix);
+
+        /// <summary>
         /// Gets the public view model names.
         /// </summary>
         /// <returns>The public view model names.</returns>

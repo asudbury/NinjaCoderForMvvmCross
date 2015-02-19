@@ -522,6 +522,20 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets the project services by suffix.
+        /// </summary>
+        /// <param name="suffix">The suffix.</param>
+        /// <returns>
+        /// A collection of project services.
+        /// </returns>
+        public IEnumerable<IProjectService> GetProjectServicesBySuffix(string suffix)
+        {
+            IEnumerable<Project> projects = this.Projects.Where(x => x.Name.EndsWith(suffix));
+
+            return projects.Select(project => new ProjectService(project)).ToList();
+        }
+
+        /// <summary>
         /// Gets the public view model names.
         /// </summary>
         /// <returns>The public view model names.</returns>

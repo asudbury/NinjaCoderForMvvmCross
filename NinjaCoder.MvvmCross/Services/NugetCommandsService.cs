@@ -38,7 +38,12 @@ namespace NinjaCoder.MvvmCross.Services
         /// The scorchio mstest tests.
         /// </summary>
         private const string ScorchioMsTestTests = "Scorchio.NinjaCoder.MSTest.Tests";
-        
+
+        /// <summary>
+        /// The scorchio xunit tests.
+        /// </summary>
+        private const string ScorchioXUnitTests = "Scorchio.NinjaCoder.XUnit.Tests";
+
         /// <summary>
         /// The scorchio MVVM cross.
         /// </summary>
@@ -165,10 +170,24 @@ namespace NinjaCoder.MvvmCross.Services
                     break;
             }
 
-            commands.Add(
-                this.settingsService.TestingFramework == TestingConstants.NUnit.Name
-                    ? Settings.NugetInstallPackage.Replace("%s", ScorchioNUnitTests)
-                    : Settings.NugetInstallPackage.Replace("%s", ScorchioMsTestTests));
+            string nugetPackageName;
+
+            switch (this.settingsService.TestingFramework)
+            {
+                case TestingConstants.NUnit.Name:
+                    nugetPackageName = ScorchioNUnitTests;
+                    break;
+
+                case TestingConstants.XUnit.Name:
+                    nugetPackageName = ScorchioXUnitTests;
+                    break;
+
+                default:
+                    nugetPackageName = ScorchioMsTestTests;
+                    break;
+            }
+
+            commands.Add(Settings.NugetInstallPackage.Replace("%s", nugetPackageName));
 
             return commands;
         }

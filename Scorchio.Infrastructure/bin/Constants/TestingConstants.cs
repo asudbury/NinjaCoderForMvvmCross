@@ -53,6 +53,27 @@ namespace Scorchio.Infrastructure.Constants
         }
 
         /// <summary>
+        /// Defines the XUnit type.
+        /// </summary>
+        public static class XUnit
+        {
+            /// <summary>
+            /// The name.
+            /// </summary>
+            public const string Name = "XUnit";
+
+            /// <summary>
+            /// The class attribute.
+            /// </summary>
+            public const string ClassAttribute = "[Fact]";
+
+            /// <summary>
+            /// The method attribute.
+            /// </summary>
+            public const string MethodAttribute = "";
+        }
+
+        /// <summary>
         /// Defines the Moq type.
         /// </summary>
         public static class Moq

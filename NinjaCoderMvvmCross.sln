@@ -228,6 +228,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{36E5
 	ProjectSection(SolutionItems) = preProject
 		NuSpec\Testing\Scorchio.NinjaCoder.MSTest.Tests.1.0.1.nuspec = NuSpec\Testing\Scorchio.NinjaCoder.MSTest.Tests.1.0.1.nuspec
 		NuSpec\Testing\Scorchio.NinjaCoder.NUnit.Tests.1.0.2.nuspec = NuSpec\Testing\Scorchio.NinjaCoder.NUnit.Tests.1.0.2.nuspec
+		NuSpec\Testing\Scorchio.NinjaCoder.XUnit.Tests.1.0.0.nuspec = NuSpec\Testing\Scorchio.NinjaCoder.XUnit.Tests.1.0.0.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestContent", "TestContent", "{2AE0C02E-B13A-466D-9BC4-BA8D003724CE}"
@@ -236,6 +237,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestContent", "TestContent"
 		NuSpec\Testing\TestContent\MSTestBaseTest.cs.pp = NuSpec\Testing\TestContent\MSTestBaseTest.cs.pp
 		NuSpec\Testing\TestContent\NUnitBaseTest.cs.pp = NuSpec\Testing\TestContent\NUnitBaseTest.cs.pp
 		NuSpec\Testing\TestContent\TestTrace.cs.pp = NuSpec\Testing\TestContent\TestTrace.cs.pp
+		NuSpec\Testing\TestContent\XUnitBaseTest.cs.pp = NuSpec\Testing\TestContent\XUnitBaseTest.cs.pp
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WpfContent", "WpfContent", "{F70595F7-5472-4EAE-A57B-550ED68B1827}"

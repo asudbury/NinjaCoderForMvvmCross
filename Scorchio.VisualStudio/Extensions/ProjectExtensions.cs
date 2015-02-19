@@ -29,30 +29,6 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The project path.</returns>
         public static string GetProjectPath(this Project instance)
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             string path = string.Empty;
 
             try

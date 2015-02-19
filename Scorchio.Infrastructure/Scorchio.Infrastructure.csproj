@@ -53,7 +53,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\TestingConstants.cs" />
+    <Compile Include="bin\Constants\TestingConstants.cs" />
     <Compile Include="Entities\AccentColor.cs" />
     <Compile Include="Entities\ImageItemWithDescription.cs" />
     <Compile Include="Entities\ImageItem.cs" />
@@ -99,6 +99,7 @@
     <Compile Include="Services\Testing\MoqMockingService.cs" />
     <Compile Include="Services\Testing\MsTestTestingService.cs" />
     <Compile Include="Services\Testing\NSubstituteMockingService.cs" />
+    <Compile Include="Services\Testing\XUnitTestingService.cs" />
     <Compile Include="Services\Testing\NUnitTestingService.cs" />
     <Compile Include="Services\Testing\RhinoMocksMockingService.cs" />
     <Compile Include="Services\ZipperService.cs" />

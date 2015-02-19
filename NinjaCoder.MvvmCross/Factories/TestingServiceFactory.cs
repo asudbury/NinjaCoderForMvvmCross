@@ -56,7 +56,8 @@ namespace NinjaCoder.MvvmCross.Factories
                 return new List<string>
                        {
                            TestingConstants.NUnit.Name, 
-                           TestingConstants.MsTest.Name
+                           TestingConstants.MsTest.Name,
+                           TestingConstants.XUnit.Name
                        };
             }
         }
