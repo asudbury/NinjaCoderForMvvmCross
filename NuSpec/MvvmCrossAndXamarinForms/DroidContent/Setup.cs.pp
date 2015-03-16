@@ -14,8 +14,7 @@ namespace $rootnamespace$
 	
     using $rootnamespace$.Presenters;
 
-	using CoreProject.Services;
-    using FormsProject.Services;
+    using FormsProject;
 
     /// <summary>
     /// Defines the Setup type.
@@ -46,11 +45,8 @@ namespace $rootnamespace$
         /// <returns></returns>
         protected override IMvxAndroidViewPresenter CreateViewPresenter()
         {
-            MvxFormsAndroidViewPresenter presenter = new MvxFormsAndroidViewPresenter(
-			    new ViewModelService(), 
-                new PageService());
-
-            Mvx.RegisterSingleton<IMvxFormsAndroidNavigationHost>(presenter);
+            var presenter = new MvxFormsAndroidViewPresenter(new MvxFormsApp());
+            Mvx.RegisterSingleton<IMvxViewPresenter>(presenter);
 
             return presenter;
         }

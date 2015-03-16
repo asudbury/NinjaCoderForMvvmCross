@@ -5,14 +5,16 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
-    using Cirrious.MvvmCross.ViewModels;
-    using Cirrious.MvvmCross.WindowsPhone.Platform;
-    using Cirrious.MvvmCross.WindowsPhone.Views;
+    using Cirrious.CrossCore;
+	using Cirrious.CrossCore.Platform;
+	using Cirrious.MvvmCross.ViewModels;
+	using Cirrious.MvvmCross.Views;
+	using Cirrious.MvvmCross.WindowsPhone.Platform;
+	using Cirrious.MvvmCross.WindowsPhone.Views;
 
     using Microsoft.Phone.Controls;
 
-    using CoreProject.Services;
-    using FormsProject.Services;
+    using FormsProject;
     using $rootnamespace$.Presenters;
 
     /// <summary>
@@ -45,10 +47,12 @@ namespace $rootnamespace$
         /// <returns></returns>
         protected override IMvxPhoneViewPresenter CreateViewPresenter(PhoneApplicationFrame rootFrame)
         {
-            return new MvxFormsWindowsPhoneViewPresenter(
-                new ViewModelService(),
-                new PageService(),
-                rootFrame);
+            Xamarin.Forms.Forms.Init();
+
+            var presenter = new MvxFormsWindowsPhoneViewPresenter(new MvxFormsApp(), rootFrame);
+            Mvx.RegisterSingleton<IMvxViewPresenter>(presenter);
+
+            return presenter;
         }
     }
 }
