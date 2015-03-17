@@ -6,6 +6,7 @@
 
 using System;
 using Cirrious.CrossCore;
+
 using Xamarin.Forms;
 
 namespace $rootnamespace$

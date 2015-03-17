@@ -3,20 +3,22 @@
 //    Defines the Setup type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
+using Cirrious.CrossCore;
+using Cirrious.CrossCore.Platform;
+using Cirrious.MvvmCross.Touch.Platform;
+using Cirrious.MvvmCross.Touch.Views.Presenters;
+using Cirrious.MvvmCross.ViewModels;
+using Cirrious.MvvmCross.Views;
+
+using CoreProject;
+
+using $rootnamespace$.Presenters;
+
+using UIKit;
+
 namespace $rootnamespace$
 {
-	using Cirrious.CrossCore;
-	using Cirrious.CrossCore.Platform;
-	using Cirrious.MvvmCross.Touch.Platform;
-	using Cirrious.MvvmCross.Touch.Views.Presenters;
-	using Cirrious.MvvmCross.ViewModels;
-	using Cirrious.MvvmCross.Views;
-
-    using FormsProject;
-    using $rootnamespace$.Presenters;
-
-	using UIKit;
-	
     /// <summary>
     ///    Defines the Setup type.
     /// </summary>
@@ -38,7 +40,16 @@ namespace $rootnamespace$
         /// <returns>An instance of IMvxApplication</returns>
         protected override IMvxApplication CreateApp()
         {
-            return new Core.App();
+            return new App();
+        }
+
+        /// <summary>
+        /// Create an instance of IMvxTrace
+        /// </summary>
+        /// <returns></returns>
+        protected override IMvxTrace CreateDebugTrace()
+        {
+            return new DebugTrace();
         }
 
 		/// <summary>

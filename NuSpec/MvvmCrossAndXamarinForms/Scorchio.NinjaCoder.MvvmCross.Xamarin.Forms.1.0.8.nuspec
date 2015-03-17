@@ -10,9 +10,8 @@
     </metadata>
     <files>
       <!-- Forms -->
-      <file src="FormsContent\Presenters\MvxFormsBaseViewPresenter.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Presenters\MvxFormsBaseViewPresenter.cs.pp" />
-      <file src="FormsContent\MvxFormsApp.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\MvxFormsApp.cs.pp" />
-
+      <file src="FormsContent\Services\View\ViewService.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Services\View\ViewService.cs.pp" />
+      
       <!-- Droid -->
       <file src="DroidContent\Presenters\MvxFormsAndroidViewPresenter.cs.pp" target="content\MonoAndroid\Presenters\MvxFormsAndroidViewPresenter.cs.pp" />
       <file src="DroidContent\MvxFormsApplicationActivity.cs.pp" target="content\MonoAndroid\MvxFormsApplicationActivity.cs.pp" />

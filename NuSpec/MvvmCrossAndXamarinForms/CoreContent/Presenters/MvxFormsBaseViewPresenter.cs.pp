@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
 using Cirrious.MvvmCross.Views;
+
+using $rootnamespace$.Services.View;
+
 using Xamarin.Forms;
 
 namespace $rootnamespace$.Presenters
@@ -12,13 +12,13 @@ namespace $rootnamespace$.Presenters
     public abstract class MvxFormsBaseViewPresenter
         : IMvxViewPresenter
     {
-        private readonly string _viewSuffix;
+        private readonly IViewService _viewService;
         public readonly Application MvxFormsApp;
 
-        protected MvxFormsBaseViewPresenter(Application mvxFormsApp, string viewSuffix = "View")
+        protected MvxFormsBaseViewPresenter(Application mvxFormsApp, IViewService viewService)
         {
             MvxFormsApp = mvxFormsApp;
-            _viewSuffix = viewSuffix;
+            _viewService = viewService;
         }
 
         public async void ChangePresentation(MvxPresentationHint hint)
@@ -47,28 +47,27 @@ namespace $rootnamespace$.Presenters
 
         private async Task<bool> TryShowPage(MvxViewModelRequest request)
         {
-            var viewModelName = request.ViewModelType.Name;
-            var viewName = viewModelName.Replace("ViewModel", _viewSuffix);
-            var view = typeof(MvxFormsBaseViewPresenter).GetTypeInfo().Assembly.DefinedTypes.FirstOrDefault(x => x.Name == viewName);
-            if (view == null)
-            {
-                Mvx.Trace("View not found for {0}", viewName);
-                return false;
-            }
-
-            var page = Activator.CreateInstance(view.AsType()) as ContentPage;
-            if (page == null)
-            {
-                Mvx.Error("Failed to create ContentPage {0}", viewName);
-            }
-            if (page == null)
-                return false;
-
+            // Get the ViewModel from the request
             var viewModel = Mvx.Resolve<IMvxViewModelLoader>().LoadViewModel(request, null);
-            if (viewModel == null) return false;
+            if (viewModel == null)
+            {
+                Mvx.Error("Failed to load {0}", request.ViewModelType.Name);
+                return false;
+            }
 
+            // Get the Page from the ViewModel name
+            string viewName;
+            var page = _viewService.GetPage(request.ViewModelType.Name, out viewName);
+            if (page == null)
+            {
+                Mvx.Error("Failed to create a Page from {0}", viewName);
+                return false;
+            }
+
+            // Get the MainPage
             var mainPage = MvxFormsApp.MainPage as NavigationPage;
 
+            // Set the MainPage if not yet defined (first load)
             if (mainPage == null)
             {
                 MvxFormsApp.MainPage = new NavigationPage(page);
@@ -77,13 +76,19 @@ namespace $rootnamespace$.Presenters
             }
             else
             {
+                // Show the Page
                 await mainPage.PushAsync(page);
             }
 
+            // Set the Page context to the corresponding ViewModel
             page.BindingContext = viewModel;
             return true;
         }
 
+        /// <summary>
+        /// To implement on each platform if needed
+        /// </summary>
+        /// <param name="mainPage"></param>
         protected virtual void CustomPlatformInitialization(NavigationPage mainPage)
         {
         }

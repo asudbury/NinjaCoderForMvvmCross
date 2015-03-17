@@ -1,25 +1,25 @@
-﻿namespace $rootnamespace$.Presenters
+﻿using Cirrious.MvvmCross.Touch.Views.Presenters;
+
+using CoreProject;
+using CoreProject.Presenters;
+using CoreProject.Services.View;
+
+using FormsProject.Services.View;
+
+using UIKit;
+
+using Xamarin.Forms;
+
+namespace $rootnamespace$.Presenters
 {
-    using Cirrious.MvvmCross.Touch.Views.Presenters;
-
-    using FormsProject;
-    using FormsProject.Presenters;
-
-    using UIKit;
-
-    using Xamarin.Forms;
-
-    /// <summary>
-    /// Defines the MvxFormsTouchViewPresenter type.
-    /// </summary>
     public class MvxFormsTouchViewPresenter
         : MvxFormsBaseViewPresenter
         , IMvxTouchViewPresenter
     {
         private readonly UIWindow _window;
 
-        public MvxFormsTouchViewPresenter(MvxFormsApp mvxFormsApp, UIWindow window, string viewSuffix = "View")
-            : base(mvxFormsApp, viewSuffix)
+        public MvxFormsTouchViewPresenter(MvxFormsApp mvxFormsApp, UIWindow window, IViewService viewService = null)
+            : base(mvxFormsApp, viewService ?? new ViewService())
         {
             _window = window;
         }

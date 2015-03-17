@@ -3,17 +3,22 @@
 //    Defines the MvxFormsWindowsPhoneViewPresenter type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
+using System;
+
+using Cirrious.MvvmCross.WindowsPhone.Views;
+
+using Microsoft.Phone.Controls;
+
+using CoreProject.Presenters;
+using CoreProject.Services.View;
+
+using FormsProject.Services.View;
+
+using Xamarin.Forms;
+
 namespace $rootnamespace$.Presenters
 {
-    using System;
-    using Cirrious.MvvmCross.WindowsPhone.Views;
-
-    using Microsoft.Phone.Controls;
-
-    using Xamarin.Forms;
-
-    using FormsProject.Presenters;
-
     /// <summary>
     /// Defines the MvxFormsWindowsPhoneViewPresenter type.
     /// </summary>
@@ -23,8 +28,8 @@ namespace $rootnamespace$.Presenters
     {
         private readonly PhoneApplicationFrame _rootFrame;
 
-        public MvxFormsWindowsPhoneViewPresenter(Application mvxFormsApp, PhoneApplicationFrame rootFrame, string viewSuffix = "View")
-            : base(mvxFormsApp, viewSuffix)
+        public MvxFormsWindowsPhoneViewPresenter(Application mvxFormsApp, PhoneApplicationFrame rootFrame, IViewService viewService = null)
+            : base(mvxFormsApp, viewService ?? new ViewService())
         {
             _rootFrame = rootFrame;
         }

@@ -1,6 +1,10 @@
 using Cirrious.MvvmCross.Droid.Views;
-using NinjaMvxForms.Forms;
-using NinjaMvxForms.Forms.Presenters;
+
+using CoreProject;
+using CoreProject.Presenters;
+using CoreProject.Services.View;
+
+using FormsProject.Services.View;
 
 namespace $rootnamespace$.Presenters
 {
@@ -8,8 +12,8 @@ namespace $rootnamespace$.Presenters
         : MvxFormsBaseViewPresenter
         , IMvxAndroidViewPresenter
     {
-        public MvxFormsAndroidViewPresenter(MvxFormsApp mvxFormsApp, string viewSuffix = "View")
-            : base(mvxFormsApp, viewSuffix)
+        public MvxFormsAndroidViewPresenter(MvxFormsApp mvxFormsApp, IViewService viewService = null)
+            : base(mvxFormsApp, viewService ?? new ViewService())
         {
         }
     }
