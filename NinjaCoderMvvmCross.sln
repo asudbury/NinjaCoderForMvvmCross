@@ -97,7 +97,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvvmCross", "MvvmCross", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XamarinForms", "XamarinForms", "{91FC43D9-2BAF-43F8-A49E-DF84E5315198}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.10.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.10.nuspec
+		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.11.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.11.nuspec
 		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Core.1.0.5.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Core.1.0.5.nuspec
 		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Labs.1.0.3.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Labs.1.0.3.nuspec
 		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Wpf.1.0.5.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Wpf.1.0.5.nuspec
@@ -319,8 +319,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presenters", "Presenters", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FormsContent", "FormsContent", "{A8736A28-5B28-41DE-B8E5-7906CB2FDC9D}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\XamarinForms\CoreContent\App.cs.pp = NuSpec\XamarinForms\CoreContent\App.cs.pp
-		NuSpec\XamarinForms\CoreContent\XamarinFormsSchema.xsd = NuSpec\XamarinForms\CoreContent\XamarinFormsSchema.xsd
+		NuSpec\XamarinForms\FormsContent\App.cs.pp = NuSpec\XamarinForms\FormsContent\App.cs.pp
 	EndProjectSection
 EndProject
 Global
