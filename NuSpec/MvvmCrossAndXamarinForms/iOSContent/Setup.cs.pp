@@ -10,11 +10,9 @@ using Cirrious.MvvmCross.Touch.Platform;
 using Cirrious.MvvmCross.Touch.Views.Presenters;
 using Cirrious.MvvmCross.ViewModels;
 using Cirrious.MvvmCross.Views;
-
 using CoreProject;
-
+using FormsProject;
 using $rootnamespace$.Presenters;
-
 using UIKit;
 
 namespace $rootnamespace$
@@ -60,7 +58,7 @@ namespace $rootnamespace$
         {
             Xamarin.Forms.Forms.Init();
 
-            var presenter = new MvxFormsTouchViewPresenter(new MvxFormsApp(), Window);
+            var presenter = new MvxFormsTouchViewPresenter(new XamarinFormsApp(), Window);
             Mvx.RegisterSingleton<IMvxViewPresenter>(presenter);
 
             return presenter;

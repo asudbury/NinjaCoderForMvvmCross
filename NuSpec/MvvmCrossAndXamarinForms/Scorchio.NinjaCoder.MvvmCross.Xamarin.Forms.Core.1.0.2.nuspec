@@ -11,10 +11,8 @@
   <files>
 
     <!-- Core -->
-
-    <file src="CoreContent\MvxFormsApp.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\MvxFormsApp.cs.pp" />
-    <file src="CoreContent\Presenters\MvxFormsBaseViewPresenter.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Presenters\MvxFormsBaseViewPresenter.cs.pp" />
-    <file src="CoreContent\Services\View\IViewService.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Services\View\IViewService.cs.pp" />
+    <file src="CoreContent\Services\ViewModel\IViewModelService.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Services\ViewModel\IViewModelService.cs.pp" />
+    <file src="CoreContent\Services\ViewModel\ViewModelService.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Services\ViewModel\ViewModelService.cs.pp" />
 
   </files>
 </package>

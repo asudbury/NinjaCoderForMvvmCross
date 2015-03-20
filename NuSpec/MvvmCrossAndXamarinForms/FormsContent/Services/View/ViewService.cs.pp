@@ -2,9 +2,6 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-
-using CoreProject.Services.View;
-
 using Xamarin.Forms;
 
 namespace $rootnamespace$.Services.View

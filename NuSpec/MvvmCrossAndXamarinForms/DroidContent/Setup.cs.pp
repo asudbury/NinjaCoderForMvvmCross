@@ -12,8 +12,8 @@ using Cirrious.MvvmCross.Droid.Platform;
 using Cirrious.MvvmCross.Droid.Views;
 using Cirrious.MvvmCross.ViewModels;
 using Cirrious.MvvmCross.Views;
-
 using CoreProject;
+using FormsProject;
 using $rootnamespace$.Presenters;
 
 namespace $rootnamespace$
@@ -56,7 +56,7 @@ namespace $rootnamespace$
         /// <returns></returns>
         protected override IMvxAndroidViewPresenter CreateViewPresenter()
         {
-            var presenter = new MvxFormsAndroidViewPresenter(new MvxFormsApp());
+            var presenter = new MvxFormsAndroidViewPresenter(new XamarinFormsApp());
             Mvx.RegisterSingleton<IMvxViewPresenter>(presenter);
 
             return presenter;

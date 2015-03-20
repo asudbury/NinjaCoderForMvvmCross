@@ -30,7 +30,7 @@ namespace $rootnamespace$
 
         public override void InitializationComplete()
         {
-            StartActivity(typeof(MvxFormsApplicationActivity));
+            StartActivity(typeof(MainActivity));
         }
 
         protected override void OnCreate(Bundle bundle)

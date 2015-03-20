@@ -1,31 +1,30 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <summary>
-//    Defines the App type.
+//    Defines the XamarinFormsApp type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-using Cirrious.CrossCore;
-
+using System.Diagnostics;
 using Xamarin.Forms;
 
 namespace $rootnamespace$
 {
     /// <summary>
-    /// Defines the App type.
+    /// Defines the XamarinFormsApp type.
     /// </summary>
-    public class MvxFormsApp : Application
+    public class XamarinFormsApp : Application
     {
         public event EventHandler Start;
         public event EventHandler Sleep;
         public event EventHandler Resume;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MvxFormsApp"/> class.
+        /// Initializes a new instance of the <see cref="XamarinFormsApp"/> class.
         /// </summary>
-        public MvxFormsApp()
+        public XamarinFormsApp()
         {
-            Mvx.TaggedTrace("MvxFormsApp", "Constructor");
+            Debug.WriteLine("MvxFormsApp::Constructor");
         }
 
 		/// <summary>
@@ -33,7 +32,7 @@ namespace $rootnamespace$
         /// </summary>
 		protected override void OnStart()
 		{
-            Mvx.TaggedTrace("MvxFormsApp", "OnStart");
+            Debug.WriteLine("MvxFormsApp::OnStart");
 
             var handler = Start;
             if (handler != null)
@@ -45,7 +44,7 @@ namespace $rootnamespace$
         /// </summary>
 		protected override void OnSleep()
 		{
-            Mvx.TaggedTrace("MvxFormsApp", "OnSleep");
+            Debug.WriteLine("MvxFormsApp::OnSleep");
 
             var handler = Sleep;
             if (handler != null)
@@ -57,7 +56,7 @@ namespace $rootnamespace$
         /// </summary>
 		protected override void OnResume()
 		{
-            Mvx.TaggedTrace("MvxFormsApp", "OnResume");
+            Debug.WriteLine("MvxFormsApp::OnResume");
 
             var handler = Resume;
             if (handler != null)
