@@ -85,6 +85,7 @@ namespace $rootnamespace$.Presenters
                     Forms.Init();
 
                     this.navigationPage = new NavigationPage(page);
+					this.RootFrame.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
                 }
                 else
                 {
