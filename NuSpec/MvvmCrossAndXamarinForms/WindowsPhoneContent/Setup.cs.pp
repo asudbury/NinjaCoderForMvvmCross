@@ -3,18 +3,20 @@
 //    Defines the Setup type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
+using Cirrious.CrossCore;
+using Cirrious.CrossCore.Platform;
+using Cirrious.MvvmCross.ViewModels;
+using Cirrious.MvvmCross.Views;
+using Cirrious.MvvmCross.WindowsPhone.Platform;
+using Cirrious.MvvmCross.WindowsPhone.Views;
+using Microsoft.Phone.Controls;
+using CoreProject;
+using FormsProject;
+using $rootnamespace$.Presenters;
+
 namespace $rootnamespace$
 {
-    using Cirrious.MvvmCross.ViewModels;
-    using Cirrious.MvvmCross.WindowsPhone.Platform;
-    using Cirrious.MvvmCross.WindowsPhone.Views;
-
-    using Microsoft.Phone.Controls;
-
-    using CoreProject.Services;
-    using FormsProject.Services;
-    using $rootnamespace$.Presenters;
-
     /// <summary>
     ///    Defines the Setup type.
     /// </summary>
@@ -39,16 +41,27 @@ namespace $rootnamespace$
         }
 
         /// <summary>
+        /// Create an instance of IMvxTrace
+        /// </summary>
+        /// <returns></returns>
+        protected override IMvxTrace CreateDebugTrace()
+        {
+            return new DebugTrace();
+        }
+
+        /// <summary>
         /// Creates the view presenter.
         /// </summary>
         /// <param name="rootFrame">The root frame.</param>
         /// <returns></returns>
         protected override IMvxPhoneViewPresenter CreateViewPresenter(PhoneApplicationFrame rootFrame)
         {
-            return new MvxFormsWindowsPhoneViewPresenter(
-                new ViewModelService(),
-                new PageService(),
-                rootFrame);
+            Xamarin.Forms.Forms.Init();
+
+            var presenter = new MvxFormsWindowsPhoneViewPresenter(new XamarinFormsApp(), rootFrame);
+            Mvx.RegisterSingleton<IMvxViewPresenter>(presenter);
+
+            return presenter;
         }
     }
 }

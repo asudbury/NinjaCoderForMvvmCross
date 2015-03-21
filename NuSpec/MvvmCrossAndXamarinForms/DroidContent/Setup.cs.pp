@@ -3,20 +3,21 @@
 //    Defines the Setup type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
+using Android.Content;
+
+using Cirrious.CrossCore;
+using Cirrious.CrossCore.Platform;
+using Cirrious.MvvmCross.Droid.Platform;
+using Cirrious.MvvmCross.Droid.Views;
+using Cirrious.MvvmCross.ViewModels;
+using Cirrious.MvvmCross.Views;
+using CoreProject;
+using FormsProject;
+using $rootnamespace$.Presenters;
+
 namespace $rootnamespace$
 {
-    using Android.Content;
-    using Cirrious.CrossCore;
-    using Cirrious.CrossCore.Platform;
-    using Cirrious.MvvmCross.Droid.Platform;
-    using Cirrious.MvvmCross.Droid.Views;
-    using Cirrious.MvvmCross.ViewModels;
-	
-    using $rootnamespace$.Presenters;
-
-	using CoreProject.Services;
-    using FormsProject.Services;
-
     /// <summary>
     /// Defines the Setup type.
     /// </summary>
@@ -37,7 +38,16 @@ namespace $rootnamespace$
         /// <returns></returns>
         protected override IMvxApplication CreateApp()
         {
-            return new Core.App();
+            return new App();
+        }
+
+        /// <summary>
+        /// Create an instance of IMvxTrace
+        /// </summary>
+        /// <returns></returns>
+        protected override IMvxTrace CreateDebugTrace()
+        {
+            return new DebugTrace();
         }
 
         /// <summary>
@@ -46,11 +56,8 @@ namespace $rootnamespace$
         /// <returns></returns>
         protected override IMvxAndroidViewPresenter CreateViewPresenter()
         {
-            MvxFormsAndroidViewPresenter presenter = new MvxFormsAndroidViewPresenter(
-			    new ViewModelService(), 
-                new PageService());
-
-            Mvx.RegisterSingleton<IMvxFormsAndroidNavigationHost>(presenter);
+            var presenter = new MvxFormsAndroidViewPresenter(new XamarinFormsApp());
+            Mvx.RegisterSingleton<IMvxViewPresenter>(presenter);
 
             return presenter;
         }

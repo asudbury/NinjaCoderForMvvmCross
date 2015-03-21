@@ -1,104 +1,88 @@
-// --------------------------------------------------------------------------------------------------------------------
-// <summary>
-//    Defines the MvxFormsAndroidViewPresenter type.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
+using System.Threading.Tasks;
+using Cirrious.CrossCore;
+using Cirrious.MvvmCross.Droid.Views;
+using Cirrious.MvvmCross.ViewModels;
+using CoreProject.Services.ViewModel;
+using FormsProject;
+using FormsProject.Services.View;
+using Xamarin.Forms;
+
 namespace $rootnamespace$.Presenters
 {
-    using Cirrious.MvvmCross.Droid.Views;
-    using Cirrious.MvvmCross.ViewModels;
-    using Xamarin.Forms;
-
-	using CoreProject.Services;
-    using FormsProject.Services;
-
-    /// <summary>
-    /// Defines the MvxFormsAndroidViewPresenter type.
-    /// </summary>
-    public class MvxFormsAndroidViewPresenter : MvxAndroidViewPresenter, IMvxFormsAndroidNavigationHost
+    public class MvxFormsAndroidViewPresenter
+        : IMvxAndroidViewPresenter
     {
-	    /// <summary>
-        /// The view model service.
-        /// </summary>
-        private readonly IViewModelService viewModelService;
+        public readonly XamarinFormsApp XamarinFormsApp;
+        private readonly IViewService _viewService;
+        private readonly IViewModelService _viewModelService;
 
-        /// <summary>
-        /// The page service.
-        /// </summary>
-        private readonly IPageService pageService;
-				
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MvxFormsAndroidViewPresenter" /> class.
-        /// </summary>
-        /// <param name="viewModelService">The view model service.</param>
-        /// <param name="pageService">The page service.</param>
-        public MvxFormsAndroidViewPresenter(
-            IViewModelService viewModelService,
-            IPageService pageService)
+        public MvxFormsAndroidViewPresenter(XamarinFormsApp xamarinFormsApp, IViewService viewService = null, IViewModelService viewModelService = null)
         {
-            this.viewModelService = viewModelService;
-            this.pageService = pageService;
+            XamarinFormsApp = xamarinFormsApp;
+            _viewService = viewService ?? new ViewService();
+            _viewModelService = viewModelService ?? new ViewModelService();
         }
 
-        /// <summary>
-        /// Gets or sets the navigation provider.
-        /// </summary>
-        public IMvxFormsAndroidNavigationProvider NavigationProvider { get; set; }
-
-        /// <summary>
-        /// Shows the specified request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        public override void Show(MvxViewModelRequest request)
+        public async void ChangePresentation(MvxPresentationHint hint)
         {
-            if (this.TryShowPage(request))
+            if (!(hint is MvxClosePresentationHint)) return;
+
+            var mainPage = XamarinFormsApp.MainPage as NavigationPage;
+
+            if (mainPage == null)
             {
-                return;
+                Mvx.TaggedTrace("MvxFormsViewPresenter:ChangePresentation()", "Shit, son! Don't know what to do");
             }
-
-            base.Show(request);
+            else
+            {
+                // TODO - perhaps we should do more here... also async void is a boo boo
+                await mainPage.PopAsync();
+            }
         }
 
-        /// <summary>
-        /// Tries the show page.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns></returns>
-        private bool TryShowPage(MvxViewModelRequest request)
+        public async void Show(MvxViewModelRequest request)
         {
-            if (this.NavigationProvider == null)
+            if (await TryShowPage(request)) return;
+
+            Mvx.Error("Skipping request for {0}", request.ViewModelType.Name);
+        }
+
+        private async Task<bool> TryShowPage(MvxViewModelRequest request)
+        {
+            // Get the ViewModel from the request
+            var viewModel = _viewModelService.GetViewModel(request);
+            if (viewModel == null)
             {
+                Mvx.Error("Failed to load {0}", request.ViewModelType.Name);
                 return false;
             }
 
-			Page page = this.pageService.GetPage(request.ViewModelType);
-
+            // Get the Page from the ViewModel name
+            string viewName;
+            var page = _viewService.GetPage(request.ViewModelType.Name, out viewName);
             if (page == null)
             {
+                Mvx.Error("Failed to create a Page from {0}", viewName);
                 return false;
             }
 
-			IMvxViewModel viewModel = this.viewModelService.GetViewModel(request);
+            // Get the MainPage
+            var mainPage = XamarinFormsApp.MainPage as NavigationPage;
 
-             page.BindingContext = viewModel;
-
-            this.NavigationProvider.Push(page);
-
-            return true;
-        }
-
-        /// <summary>
-        /// Closes the specified view model.
-        /// </summary>
-        /// <param name="viewModel">The view model.</param>
-        public override void Close(IMvxViewModel viewModel)
-        {
-            if (this.NavigationProvider == null)
+            // Set the MainPage if not yet defined (first load)
+            if (mainPage == null)
             {
-                return;
+                XamarinFormsApp.MainPage = new NavigationPage(page);
+            }
+            else
+            {
+                // Show the Page
+                await mainPage.PushAsync(page);
             }
 
-            this.NavigationProvider.Pop();
+            // Set the Page context to the corresponding ViewModel
+            page.BindingContext = viewModel;
+            return true;
         }
     }
 }
