@@ -259,16 +259,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WpfContent", "WpfContent", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvvmCrossAndXamarinForms", "MvvmCrossAndXamarinForms", "{6FCD48A4-5E35-4382-96B2-2FC5E439D43C}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\MvvmCrossAndXamarinForms\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.1.0.7.nuspec = NuSpec\MvvmCrossAndXamarinForms\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.1.0.7.nuspec
-		NuSpec\MvvmCrossAndXamarinForms\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.Core.1.0.1.nuspec = NuSpec\MvvmCrossAndXamarinForms\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.Core.1.0.1.nuspec
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreContent", "CoreContent", "{8273EF20-9B1E-4AA1-B253-02D3602814A7}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2042BA6E-E0C6-4BC4-A0C7-D2B7ACF968AA}"
-	ProjectSection(SolutionItems) = preProject
-		NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\IViewModelService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\IViewModelService.cs.pp
-		NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\ViewModelService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\ViewModelService.cs.pp
+		NuSpec\MvvmCrossAndXamarinForms\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.1.0.8.nuspec = NuSpec\MvvmCrossAndXamarinForms\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.1.0.8.nuspec
+		NuSpec\MvvmCrossAndXamarinForms\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.Core.1.0.2.nuspec = NuSpec\MvvmCrossAndXamarinForms\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.Core.1.0.2.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModels", "ViewModels", "{FFB3674A-D02F-4CD3-8F2A-3F34A33FFF27}"
@@ -277,11 +269,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModels", "ViewModels", 
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FormsContent", "FormsContent", "{CF5A9719-BF39-45A3-9921-8B4C820FB548}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{9256921D-2D45-4763-8E02-F7E2872BF61F}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\MvvmCrossAndXamarinForms\FormsContent\Services\IPageService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\FormsContent\Services\IPageService.cs.pp
-		NuSpec\MvvmCrossAndXamarinForms\FormsContent\Services\PageService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\FormsContent\Services\PageService.cs.pp
+		NuSpec\MvvmCrossAndXamarinForms\FormsContent\XamarinFormsApp.cs.pp = NuSpec\MvvmCrossAndXamarinForms\FormsContent\XamarinFormsApp.cs.pp
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iOSContent", "iOSContent", "{431D8C39-D17C-4DA6-A1E6-5C5E4E6A0327}"
@@ -296,19 +285,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presenters", "Presenters", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DroidContent", "DroidContent", "{1E7C934A-35B9-4CB3-8009-77BBD9EAB32C}"
 	ProjectSection(SolutionItems) = preProject
+		NuSpec\MvvmCrossAndXamarinForms\DroidContent\MainActivity.cs.pp = NuSpec\MvvmCrossAndXamarinForms\DroidContent\MainActivity.cs.pp
 		NuSpec\MvvmCrossAndXamarinForms\DroidContent\Setup.cs.pp = NuSpec\MvvmCrossAndXamarinForms\DroidContent\Setup.cs.pp
+		NuSpec\MvvmCrossAndXamarinForms\DroidContent\SplashScreen.cs.pp = NuSpec\MvvmCrossAndXamarinForms\DroidContent\SplashScreen.cs.pp
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presenters", "Presenters", "{5BA19C42-DCEA-4CD7-B3AB-F96281D29627}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\MvvmCrossAndXamarinForms\DroidContent\Presenters\IMvxFormsAndroidNavigationHost.cs.pp = NuSpec\MvvmCrossAndXamarinForms\DroidContent\Presenters\IMvxFormsAndroidNavigationHost.cs.pp
-		NuSpec\MvvmCrossAndXamarinForms\DroidContent\Presenters\IMvxFormsAndroidNavigationProvider.cs.pp = NuSpec\MvvmCrossAndXamarinForms\DroidContent\Presenters\IMvxFormsAndroidNavigationProvider.cs.pp
-		NuSpec\MvvmCrossAndXamarinForms\DroidContent\Presenters\MvxFormsAndroidNavigationActivity.cs.pp = NuSpec\MvvmCrossAndXamarinForms\DroidContent\Presenters\MvxFormsAndroidNavigationActivity.cs.pp
 		NuSpec\MvvmCrossAndXamarinForms\DroidContent\Presenters\MvxFormsAndroidViewPresenter.cs.pp = NuSpec\MvvmCrossAndXamarinForms\DroidContent\Presenters\MvxFormsAndroidViewPresenter.cs.pp
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsPhoneContent", "WindowsPhoneContent", "{FD8DD122-AE73-4DD1-A485-2FC02D239287}"
 	ProjectSection(SolutionItems) = preProject
+		NuSpec\MvvmCrossAndXamarinForms\WindowsPhoneContent\MainPage.xaml.cs.pp = NuSpec\MvvmCrossAndXamarinForms\WindowsPhoneContent\MainPage.xaml.cs.pp
+		NuSpec\MvvmCrossAndXamarinForms\WindowsPhoneContent\MainPage.xaml.pp = NuSpec\MvvmCrossAndXamarinForms\WindowsPhoneContent\MainPage.xaml.pp
 		NuSpec\MvvmCrossAndXamarinForms\WindowsPhoneContent\Setup.cs.pp = NuSpec\MvvmCrossAndXamarinForms\WindowsPhoneContent\Setup.cs.pp
 	EndProjectSection
 EndProject
@@ -320,6 +310,24 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FormsContent", "FormsContent", "{A8736A28-5B28-41DE-B8E5-7906CB2FDC9D}"
 	ProjectSection(SolutionItems) = preProject
 		NuSpec\XamarinForms\FormsContent\App.cs.pp = NuSpec\XamarinForms\FormsContent\App.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{1C8F650B-7674-41B0-9C59-760E1B4CE30C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreContent", "CoreContent", "{684E7CB9-9F8C-4107-B485-0F0374FA31E3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A098DEA7-618A-45A1-8E0C-DA9FCE4332B3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "View", "View", "{7C634588-D638-4FB8-8877-FC82CF014EAD}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\MvvmCrossAndXamarinForms\FormsContent\Services\View\IViewService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\FormsContent\Services\View\IViewService.cs.pp
+		NuSpec\MvvmCrossAndXamarinForms\FormsContent\Services\View\ViewService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\FormsContent\Services\View\ViewService.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModel", "ViewModel", "{0B18030C-D403-4660-9B18-8357782BDB92}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\ViewModel\IViewModelService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\ViewModel\IViewModelService.cs.pp
+		NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\ViewModel\ViewModelService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\ViewModel\ViewModelService.cs.pp
 	EndProjectSection
 EndProject
 Global
@@ -913,11 +921,8 @@ Global
 		{1CCD6769-28C7-4DFC-AC51-6F9EF1CDE027} = {F70595F7-5472-4EAE-A57B-550ED68B1827}
 		{86848CC5-6D2D-4730-A25A-B68332A06460} = {91FC43D9-2BAF-43F8-A49E-DF84E5315198}
 		{6FCD48A4-5E35-4382-96B2-2FC5E439D43C} = {6487A2BF-47FE-41C6-9B7F-D33363630C95}
-		{8273EF20-9B1E-4AA1-B253-02D3602814A7} = {6FCD48A4-5E35-4382-96B2-2FC5E439D43C}
-		{2042BA6E-E0C6-4BC4-A0C7-D2B7ACF968AA} = {8273EF20-9B1E-4AA1-B253-02D3602814A7}
 		{FFB3674A-D02F-4CD3-8F2A-3F34A33FFF27} = {19781428-8C5F-4FE8-A5F8-82020FEC95CA}
 		{CF5A9719-BF39-45A3-9921-8B4C820FB548} = {6FCD48A4-5E35-4382-96B2-2FC5E439D43C}
-		{9256921D-2D45-4763-8E02-F7E2872BF61F} = {CF5A9719-BF39-45A3-9921-8B4C820FB548}
 		{431D8C39-D17C-4DA6-A1E6-5C5E4E6A0327} = {6FCD48A4-5E35-4382-96B2-2FC5E439D43C}
 		{26B56DF6-FAD8-46AA-A963-F37271E3DF3C} = {431D8C39-D17C-4DA6-A1E6-5C5E4E6A0327}
 		{1E7C934A-35B9-4CB3-8009-77BBD9EAB32C} = {6FCD48A4-5E35-4382-96B2-2FC5E439D43C}
@@ -925,5 +930,10 @@ Global
 		{FD8DD122-AE73-4DD1-A485-2FC02D239287} = {6FCD48A4-5E35-4382-96B2-2FC5E439D43C}
 		{BBBC1784-4C53-48BE-9174-242870C0D954} = {FD8DD122-AE73-4DD1-A485-2FC02D239287}
 		{A8736A28-5B28-41DE-B8E5-7906CB2FDC9D} = {91FC43D9-2BAF-43F8-A49E-DF84E5315198}
+		{1C8F650B-7674-41B0-9C59-760E1B4CE30C} = {CF5A9719-BF39-45A3-9921-8B4C820FB548}
+		{684E7CB9-9F8C-4107-B485-0F0374FA31E3} = {6FCD48A4-5E35-4382-96B2-2FC5E439D43C}
+		{A098DEA7-618A-45A1-8E0C-DA9FCE4332B3} = {684E7CB9-9F8C-4107-B485-0F0374FA31E3}
+		{7C634588-D638-4FB8-8877-FC82CF014EAD} = {1C8F650B-7674-41B0-9C59-760E1B4CE30C}
+		{0B18030C-D403-4660-9B18-8357782BDB92} = {A098DEA7-618A-45A1-8E0C-DA9FCE4332B3}
 	EndGlobalSection
 EndGlobal

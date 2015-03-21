@@ -1,102 +1,102 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <summary>
 //    Defines the MvxFormsWindowsPhoneViewPresenter type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
+using System;
+using System.Threading.Tasks;
+using Cirrious.CrossCore;
+using Cirrious.MvvmCross.ViewModels;
+using Cirrious.MvvmCross.WindowsPhone.Views;
+using Microsoft.Phone.Controls;
+using CoreProject.Services.ViewModel;
+using FormsProject;
+using FormsProject.Services.View;
+using Xamarin.Forms;
+
 namespace $rootnamespace$.Presenters
 {
-    using Cirrious.MvvmCross.ViewModels;
-    using Cirrious.MvvmCross.WindowsPhone.Views;
-
-    using Microsoft.Phone.Controls;
-
-    using Xamarin.Forms;
-
-    using System.Threading.Tasks;
-
-    using CoreProject.Services;
-    using FormsProject.Services;
-
     /// <summary>
     /// Defines the MvxFormsWindowsPhoneViewPresenter type.
     /// </summary>
-    public class MvxFormsWindowsPhoneViewPresenter : MvxPhoneViewPresenter
+    public class MvxFormsWindowsPhoneViewPresenter
+        : IMvxPhoneViewPresenter
     {
-        /// <summary>
-        /// The view model service.
-        /// </summary>
-        private readonly IViewModelService viewModelService;
+        public readonly XamarinFormsApp XamarinFormsApp;
+        private readonly PhoneApplicationFrame _rootFrame;
+        private readonly IViewService _viewService;
+        private readonly IViewModelService _viewModelService;
 
-        /// <summary>
-        /// The page service.
-        /// </summary>
-        private readonly IPageService pageService;
-
-        /// <summary>
-        /// The navigation page.
-        /// </summary>
-        private NavigationPage navigationPage;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MvxFormsWindowsPhoneViewPresenter"/> class.
-        /// </summary>
-        /// <param name="viewModelService">The view model service.</param>
-        /// <param name="pageService">The page service.</param>
-        /// <param name="rootFrame">The root frame.</param>
-        public MvxFormsWindowsPhoneViewPresenter(
-            IViewModelService viewModelService,
-            IPageService pageService,
-            PhoneApplicationFrame rootFrame)
-            :base(rootFrame)
+        public MvxFormsWindowsPhoneViewPresenter(XamarinFormsApp xamarinFormsApp, PhoneApplicationFrame rootFrame, IViewService viewService = null, IViewModelService viewModelService = null)
         {
-            this.viewModelService = viewModelService;
-            this.pageService = pageService;
+            XamarinFormsApp = xamarinFormsApp;
+            _rootFrame = rootFrame;
+            _viewService = viewService ?? new ViewService();
+            _viewModelService = viewModelService ?? new ViewModelService();
         }
 
-        /// <summary>
-        /// Shows the specified request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        public override async void Show(MvxViewModelRequest request)
+        public async void ChangePresentation(MvxPresentationHint hint)
         {
-            if (await this.TryShowPage(request))
+            if (!(hint is MvxClosePresentationHint)) return;
+
+            var mainPage = XamarinFormsApp.MainPage as NavigationPage;
+
+            if (mainPage == null)
             {
-                return;
+                Mvx.TaggedTrace("MvxFormsViewPresenter:ChangePresentation()", "Shit, son! Don't know what to do");
             }
-
-            base.Show(request);
+            else
+            {
+                // TODO - perhaps we should do more here... also async void is a boo boo
+                await mainPage.PopAsync();
+            }
         }
 
-        /// <summary>
-        /// Tries the show page.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns></returns>
+        public async void Show(MvxViewModelRequest request)
+        {
+            if (await TryShowPage(request)) return;
+
+            Mvx.Error("Skipping request for {0}", request.ViewModelType.Name);
+        }
+
         private async Task<bool> TryShowPage(MvxViewModelRequest request)
         {
-            Page page = this.pageService.GetPage(request.ViewModelType);
-
-            if (page != null)
+            // Get the ViewModel from the request
+            var viewModel = _viewModelService.GetViewModel(request);
+            if (viewModel == null)
             {
-                IMvxViewModel viewModel = this.viewModelService.GetViewModel(request);
-
-                if (this.navigationPage == null)
-                {
-                    Forms.Init();
-
-                    this.navigationPage = new NavigationPage(page);
-					this.RootFrame.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
-                }
-                else
-                {
-                    await this.navigationPage.PushAsync(page);
-                }
-
-                page.BindingContext = viewModel;
-                return true;
+                Mvx.Error("Failed to load {0}", request.ViewModelType.Name);
+                return false;
             }
 
-            return false;
+            // Get the Page from the ViewModel name
+            string viewName;
+            var page = _viewService.GetPage(request.ViewModelType.Name, out viewName);
+            if (page == null)
+            {
+                Mvx.Error("Failed to create a Page from {0}", viewName);
+                return false;
+            }
+
+            // Get the MainPage
+            var mainPage = XamarinFormsApp.MainPage as NavigationPage;
+
+            // Set the MainPage if not yet defined (first load)
+            if (mainPage == null)
+            {
+                XamarinFormsApp.MainPage = new NavigationPage(page);
+                _rootFrame.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+            }
+            else
+            {
+                // Show the Page
+                await mainPage.PushAsync(page);
+            }
+
+            // Set the Page context to the corresponding ViewModel
+            page.BindingContext = viewModel;
+            return true;
         }
     }
 }

@@ -1,98 +1,101 @@
-﻿namespace $rootnamespace$.Presenters
+using System.Threading.Tasks;
+using Cirrious.CrossCore;
+using Cirrious.MvvmCross.Touch.Views.Presenters;
+using Cirrious.MvvmCross.ViewModels;
+using CoreProject.Services.ViewModel;
+using FormsProject;
+using FormsProject.Services.View;
+using UIKit;
+using Xamarin.Forms;
+
+namespace $rootnamespace$.Presenters
 {
-    using System.Threading.Tasks;
-
-    using Cirrious.MvvmCross.Touch.Views.Presenters;
-    using Cirrious.MvvmCross.ViewModels;
-
-	using CoreProject.Services;
-    using FormsProject.Services;
-
-    using UIKit;
-
-    using Xamarin.Forms;
-
-    /// <summary>
-    /// Defines the MvxFormsTouchViewPresenter type.
-    /// </summary>
-    public class MvxFormsTouchViewPresenter : MvxTouchViewPresenter
+    public class MvxFormsTouchViewPresenter
+        : IMvxTouchViewPresenter
     {
-        /// <summary>
-        /// The view model service.
-        /// </summary>
-        private readonly IViewModelService viewModelService;
+        public readonly XamarinFormsApp XamarinFormsApp;
+        private readonly UIWindow _window;
+        private readonly IViewService _viewService;
+        private readonly IViewModelService _viewModelService;
 
-        /// <summary>
-        /// The page service.
-        /// </summary>
-        private readonly IPageService pageService;
-
-        /// <summary>
-        /// The navigation page.
-        /// </summary>
-        private NavigationPage navigationPage;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MvxFormsTouchViewPresenter" /> class.
-        /// </summary>
-        /// <param name="viewModelService">The view model service.</param>
-        /// <param name="pageService">The page service.</param>
-        /// <param name="applicationDelegate">The application delegate.</param>
-        /// <param name="window">The window.</param>
-        public MvxFormsTouchViewPresenter(
-            IViewModelService viewModelService,
-            IPageService pageService,
-            UIApplicationDelegate applicationDelegate,
-            UIWindow window)
-            : base(applicationDelegate, window)
+        public MvxFormsTouchViewPresenter(XamarinFormsApp xamarinFormsApp, UIWindow window, IViewService viewService = null, IViewModelService viewModelService = null)
         {
-            this.viewModelService = viewModelService;
-            this.pageService = pageService;
+            XamarinFormsApp = xamarinFormsApp;
+            _window = window;
+            _viewService = viewService ?? new ViewService();
+            _viewModelService = viewModelService ?? new ViewModelService();
         }
 
-        /// <summary>
-        /// Shows the specified request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        public async override void Show(MvxViewModelRequest request)
+        public virtual bool PresentModalViewController(UIViewController controller, bool animated)
         {
-            if (await this.TryShowFormsPage(request))
-            {
-                return;
-            }
-
-            base.Show(request);
+            return false;
         }
 
-        /// <summary>
-        /// Tries the show page.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns></returns>
-        private async Task<bool> TryShowFormsPage(MvxViewModelRequest request)
+        public virtual void NativeModalViewControllerDisappearedOnItsOwn()
         {
-            Page page = this.pageService.GetPage(request.ViewModelType);
+        }
 
-            if (page == null)
+        public async void ChangePresentation(MvxPresentationHint hint)
+        {
+            if (!(hint is MvxClosePresentationHint)) return;
+
+            var mainPage = XamarinFormsApp.MainPage as NavigationPage;
+
+            if (mainPage == null)
             {
-                return false;
-            }
-
-            IMvxViewModel viewModel = this.viewModelService.GetViewModel(request);
-
-            if (this.navigationPage == null)
-            {
-                Forms.Init();
-                this.navigationPage = new NavigationPage(page);
-                this.Window.RootViewController = this.navigationPage.CreateViewController();
+                Mvx.TaggedTrace("MvxFormsViewPresenter:ChangePresentation()", "Shit, son! Don't know what to do");
             }
             else
             {
-                await this.navigationPage.PushAsync(page);
+                // TODO - perhaps we should do more here... also async void is a boo boo
+                await mainPage.PopAsync();
+            }
+        }
+
+        public async void Show(MvxViewModelRequest request)
+        {
+            if (await TryShowPage(request)) return;
+
+            Mvx.Error("Skipping request for {0}", request.ViewModelType.Name);
+        }
+
+        private async Task<bool> TryShowPage(MvxViewModelRequest request)
+        {
+            // Get the ViewModel from the request
+            var viewModel = _viewModelService.GetViewModel(request);
+            if (viewModel == null)
+            {
+                Mvx.Error("Failed to load {0}", request.ViewModelType.Name);
+                return false;
             }
 
-            page.BindingContext = viewModel;
+            // Get the Page from the ViewModel name
+            string viewName;
+            var page = _viewService.GetPage(request.ViewModelType.Name, out viewName);
+            if (page == null)
+            {
+                Mvx.Error("Failed to create a Page from {0}", viewName);
+                return false;
+            }
 
+            // Get the MainPage
+            var mainPage = XamarinFormsApp.MainPage as NavigationPage;
+
+            // Set the MainPage if not yet defined (first load)
+            if (mainPage == null)
+            {
+                XamarinFormsApp.MainPage = new NavigationPage(page);
+                mainPage = (NavigationPage)XamarinFormsApp.MainPage;
+                _window.RootViewController = mainPage.CreateViewController();
+            }
+            else
+            {
+                // Show the Page
+                await mainPage.PushAsync(page);
+            }
+
+            // Set the Page context to the corresponding ViewModel
+            page.BindingContext = viewModel;
             return true;
         }
     }

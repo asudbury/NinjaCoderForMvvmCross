@@ -3,16 +3,20 @@
 //    Defines the Setup type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
+using Cirrious.CrossCore;
+using Cirrious.CrossCore.Platform;
+using Cirrious.MvvmCross.Touch.Platform;
+using Cirrious.MvvmCross.Touch.Views.Presenters;
+using Cirrious.MvvmCross.ViewModels;
+using Cirrious.MvvmCross.Views;
+using CoreProject;
+using FormsProject;
+using $rootnamespace$.Presenters;
+using UIKit;
+
 namespace $rootnamespace$
 {
-    using Cirrious.MvvmCross.Touch.Platform;
-    using Cirrious.MvvmCross.Touch.Views.Presenters;
-    using Cirrious.MvvmCross.ViewModels;
-
-	using CoreProject.Services;
-    using FormsProject.Services;
-    using $rootnamespace$.Presenters;
-
     /// <summary>
     ///    Defines the Setup type.
     /// </summary>
@@ -22,25 +26,10 @@ namespace $rootnamespace$
         /// Initializes a new instance of the <see cref="Setup"/> class.
         /// </summary>
         /// <param name="applicationDelegate">The application delegate.</param>
-        /// <param name="presenter">The presenter.</param>
-        public Setup(
-			MvxApplicationDelegate applicationDelegate, 
-			IMvxTouchViewPresenter presenter)
-            : base(applicationDelegate, presenter)
+        /// <param name="window">The window.</param>
+        public Setup(MvxApplicationDelegate applicationDelegate, UIWindow window)
+            : base(applicationDelegate, window)
         {
-        }
-
-		/// <summary>
-        /// Creates the presenter.
-        /// </summary>
-        /// <returns></returns>
-        protected override IMvxTouchViewPresenter CreatePresenter()
-        {
-            return new MvxFormsTouchViewPresenter(
-                new ViewModelService(), 
-                new PageService(), 
-                this.ApplicationDelegate,
-                this.Window);
         }
 
         /// <summary>
@@ -49,7 +38,30 @@ namespace $rootnamespace$
         /// <returns>An instance of IMvxApplication</returns>
         protected override IMvxApplication CreateApp()
         {
-            return new Core.App();
+            return new App();
+        }
+
+        /// <summary>
+        /// Create an instance of IMvxTrace
+        /// </summary>
+        /// <returns></returns>
+        protected override IMvxTrace CreateDebugTrace()
+        {
+            return new DebugTrace();
+        }
+
+		/// <summary>
+        /// Creates the presenter.
+        /// </summary>
+        /// <returns></returns>
+        protected override IMvxTouchViewPresenter CreatePresenter()
+        {
+            Xamarin.Forms.Forms.Init();
+
+            var presenter = new MvxFormsTouchViewPresenter(new XamarinFormsApp(), Window);
+            Mvx.RegisterSingleton<IMvxViewPresenter>(presenter);
+
+            return presenter;
         }
     }
 }
