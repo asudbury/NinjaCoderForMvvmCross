@@ -12,7 +12,6 @@
       <!-- Forms -->
       <file src="FormsContent\Services\View\IViewService.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Services\View\IViewService.cs.pp" />
       <file src="FormsContent\Services\View\ViewService.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Services\View\ViewService.cs.pp" />
-      <file src="FormsContent\XamarinFormsApp.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\XamarinFormsApp.cs.pp" />
       
       <!-- Droid -->
       <file src="DroidContent\Presenters\MvxFormsAndroidViewPresenter.cs.pp" target="content\MonoAndroid\Presenters\MvxFormsAndroidViewPresenter.cs.pp" />
