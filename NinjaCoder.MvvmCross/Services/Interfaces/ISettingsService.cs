@@ -303,6 +303,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         bool UsePreReleaseXamarinFormsNugetPackages { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [use pre release ninja nuget packages].
+        /// </summary>
+        bool UsePreReleaseNinjaNugetPackages { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [bind context in xaml for xamarin forms].
         /// </summary>
         bool BindContextInXamlForXamarinForms { get; set; }

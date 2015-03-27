@@ -43,6 +43,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         private bool usePreReleaseXamarinFormsNugetPackages;
 
         /// <summary>
+        /// The use pre release ninja coder nuget packages.
+        /// </summary>
+        private bool usePreReleaseNinjaCoderNugetPackages;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="NinjaBaseViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
@@ -107,6 +112,18 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [use pre release ninja coder nuget packages].
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if [use pre release ninja coder nuget packages]; otherwise, <c>false</c>.
+        /// </value>
+        public bool UsePreReleaseNinjaCoderNugetPackages
+        {
+            get { return this.usePreReleaseNinjaCoderNugetPackages; }
+            set { this.SetProperty(ref this.usePreReleaseNinjaCoderNugetPackages, value); }
+        }
+
+        /// <summary>
         /// Saves this instance.
         /// </summary>
         public void Save()
@@ -117,6 +134,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.SettingsService.OutputErrorsToReadMe = this.OutputErrorsToReadMe;
             this.SettingsService.UsePreReleaseMvvmCrossNugetPackages = this.UsePreReleaseMvvmCrossNugetPackages;
             this.SettingsService.UsePreReleaseXamarinFormsNugetPackages = this.UsePreReleaseXamarinFormsNugetPackages;
+            this.SettingsService.UsePreReleaseNinjaNugetPackages = this.UsePreReleaseNinjaCoderNugetPackages;
         }
 
         /// <summary>
@@ -130,6 +148,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.OutputErrorsToReadMe = this.SettingsService.OutputErrorsToReadMe;
             this.UsePreReleaseMvvmCrossNugetPackages = this.SettingsService.UsePreReleaseMvvmCrossNugetPackages;
             this.UsePreReleaseXamarinFormsNugetPackages = this.SettingsService.UsePreReleaseXamarinFormsNugetPackages;
+            this.UsePreReleaseNinjaCoderNugetPackages = this.SettingsService.UsePreReleaseNinjaNugetPackages;
         }
     }
 }

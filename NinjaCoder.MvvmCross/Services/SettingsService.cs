@@ -537,6 +537,15 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [use pre release ninja nuget packages].
+        /// </summary>
+        public bool UsePreReleaseNinjaNugetPackages
+        {
+            get { return this.GetRegistryValue("Build", "UsePreReleaseNinjaNugetPackages", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "UsePreReleaseNinjaNugetPackages", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [bind context in xaml for xamarin forms].
         /// </summary>
         public bool BindContextInXamlForXamarinForms 

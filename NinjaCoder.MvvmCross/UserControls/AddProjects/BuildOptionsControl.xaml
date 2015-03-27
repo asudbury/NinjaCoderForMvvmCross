@@ -70,6 +70,10 @@
                       Content="Use Pre release Xamarin Forms Nuget Packages"
                       IsChecked="{Binding UsePreReleaseXamarinFormsNugetPackages}" />
 
+            <CheckBox Margin="10,5,10,5"
+                      Content="Use Pre release Ninja Coder Nuget Packages"
+                      IsChecked="{Binding UsePreReleaseNinjaCoderNugetPackages}" />
+            
             <Separator Margin="10 " />
 
         </StackPanel>

@@ -35,7 +35,7 @@ namespace $rootnamespace$
 			//// Added to prevent iOS linker from removing core assembly out of deployed package.
             Core.Infrastructure.Init();
 
-			this.LoadApplication(new App());
+			this.LoadApplication(new XamarinFormsApp());
 
             return base.FinishedLaunching(app, options);
         }

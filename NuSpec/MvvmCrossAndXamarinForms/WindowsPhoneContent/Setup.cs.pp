@@ -4,19 +4,18 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.Platform;
-using Cirrious.MvvmCross.ViewModels;
-using Cirrious.MvvmCross.Views;
-using Cirrious.MvvmCross.WindowsPhone.Platform;
-using Cirrious.MvvmCross.WindowsPhone.Views;
-using Microsoft.Phone.Controls;
-using CoreProject;
-using FormsProject;
-using $rootnamespace$.Presenters;
-
 namespace $rootnamespace$
 {
+	using Cirrious.CrossCore;
+	using Cirrious.MvvmCross.ViewModels;
+	using Cirrious.MvvmCross.Views;
+	using Cirrious.MvvmCross.WindowsPhone.Platform;
+	using Cirrious.MvvmCross.WindowsPhone.Views;
+	using Microsoft.Phone.Controls;
+	using CoreProject;
+	using FormsProject;
+	using $rootnamespace$.Presenters;
+
     /// <summary>
     ///    Defines the Setup type.
     /// </summary>
@@ -38,15 +37,6 @@ namespace $rootnamespace$
         protected override IMvxApplication CreateApp()
         {
             return new Core.App();
-        }
-
-        /// <summary>
-        /// Create an instance of IMvxTrace
-        /// </summary>
-        /// <returns></returns>
-        protected override IMvxTrace CreateDebugTrace()
-        {
-            return new DebugTrace();
         }
 
         /// <summary>

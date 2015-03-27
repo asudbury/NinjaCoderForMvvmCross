@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Scorchio.NinjaCoder.Xamarin.Forms</id>
-        <version>1.0.10</version>
+        <version>1.0.12-beta1</version>
         <authors>Adrian Sudbury</authors>
 		    <owners>Scorchio Limited</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -10,12 +10,7 @@
     </metadata>
     <files>
 	
-		<!-- Forms -->
-		
-		<file src="FormsContent\XamarinFormsSchema.xsd" target="content\portable-net45+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\XamarinFormsSchema.xsd" />
-		<file src="FormsContent\App.cs.pp" target="content\portable-net45+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\App.cs.pp" />
-
-    <!-- Droid -->
+	   <!-- Droid -->
 		
 		<file src="DroidContent\FormsMainActivity.cs.pp" target="content\MonoAndroid\MainActivity.cs.pp" />
 			

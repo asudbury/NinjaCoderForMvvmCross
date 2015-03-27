@@ -3,20 +3,18 @@
 //    Defines the Setup type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.Platform;
-using Cirrious.MvvmCross.Touch.Platform;
-using Cirrious.MvvmCross.Touch.Views.Presenters;
-using Cirrious.MvvmCross.ViewModels;
-using Cirrious.MvvmCross.Views;
-using CoreProject;
-using FormsProject;
-using $rootnamespace$.Presenters;
-using UIKit;
-
 namespace $rootnamespace$
 {
+	using Cirrious.CrossCore;
+	using Cirrious.MvvmCross.Touch.Platform;
+	using Cirrious.MvvmCross.Touch.Views.Presenters;
+	using Cirrious.MvvmCross.ViewModels;
+	using Cirrious.MvvmCross.Views;
+	using CoreProject;
+	using FormsProject;
+	using $rootnamespace$.Presenters;
+	using UIKit;
+
     /// <summary>
     ///    Defines the Setup type.
     /// </summary>
@@ -41,15 +39,6 @@ namespace $rootnamespace$
             return new App();
         }
 
-        /// <summary>
-        /// Create an instance of IMvxTrace
-        /// </summary>
-        /// <returns></returns>
-        protected override IMvxTrace CreateDebugTrace()
-        {
-            return new DebugTrace();
-        }
-
 		/// <summary>
         /// Creates the presenter.
         /// </summary>
@@ -58,7 +47,10 @@ namespace $rootnamespace$
         {
             Xamarin.Forms.Forms.Init();
 
-            var presenter = new MvxFormsTouchViewPresenter(new XamarinFormsApp(), Window);
+            MvxFormsTouchViewPresenter presenter = new MvxFormsTouchViewPresenter(
+                new XamarinFormsApp(), 
+                this.Window);
+
             Mvx.RegisterSingleton<IMvxViewPresenter>(presenter);
 
             return presenter;

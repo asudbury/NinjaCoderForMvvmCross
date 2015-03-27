@@ -1,7 +1,12 @@
-﻿using Xamarin.Forms;
-
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//    Defines the IViewService type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$.Services.View
 {
+    using Xamarin.Forms;
+
     public interface IViewService
     {
         /// <summary>
@@ -17,6 +22,9 @@ namespace $rootnamespace$.Services.View
         /// <returns>
         /// A Page and its corresponding ViewName
         /// </returns>
-        Page GetPage(string viewModelName, out string viewName);
+        Page GetPage(
+            string viewModelName, 
+            out string viewName);
     }
 }
+

@@ -3,21 +3,18 @@
 //    Defines the Setup type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
-using Android.Content;
-
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.Platform;
-using Cirrious.MvvmCross.Droid.Platform;
-using Cirrious.MvvmCross.Droid.Views;
-using Cirrious.MvvmCross.ViewModels;
-using Cirrious.MvvmCross.Views;
-using CoreProject;
-using FormsProject;
-using $rootnamespace$.Presenters;
-
 namespace $rootnamespace$
 {
+	using Android.Content;
+	using Cirrious.CrossCore;
+	using Cirrious.MvvmCross.Droid.Platform;
+	using Cirrious.MvvmCross.Droid.Views;
+	using Cirrious.MvvmCross.ViewModels;
+	using Cirrious.MvvmCross.Views;
+	using CoreProject;
+	using FormsProject;
+	using $rootnamespace$.Presenters;
+
     /// <summary>
     /// Defines the Setup type.
     /// </summary>
@@ -39,15 +36,6 @@ namespace $rootnamespace$
         protected override IMvxApplication CreateApp()
         {
             return new App();
-        }
-
-        /// <summary>
-        /// Create an instance of IMvxTrace
-        /// </summary>
-        /// <returns></returns>
-        protected override IMvxTrace CreateDebugTrace()
-        {
-            return new DebugTrace();
         }
 
         /// <summary>

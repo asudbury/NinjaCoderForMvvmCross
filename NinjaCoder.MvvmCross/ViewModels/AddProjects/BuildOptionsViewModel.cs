@@ -71,6 +71,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         private bool usePreReleaseXamarinFormsNugetPackages;
 
         /// <summary>
+        /// The use pre release ninja coder nuget packages.
+        /// </summary>
+        private bool usePreReleaseNinjaCoderNugetPackages;
+
+        /// <summary>
         /// The create platform test projects.
         /// </summary>
         private bool createPlatformTestProjects;
@@ -156,6 +161,15 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [use pre release ninja coder nuget packages].
+        /// </summary>
+        public bool UsePreReleaseNinjaCoderNugetPackages
+        {
+            get { return this.usePreReleaseNinjaCoderNugetPackages; }
+            set { this.SetProperty(ref this.usePreReleaseNinjaCoderNugetPackages, value); }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [bind context in xaml for xamarin forms].
         /// </summary>
         public bool BindContextInXamlForXamarinForms
@@ -184,6 +198,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 
             this.settingsService.UsePreReleaseMvvmCrossNugetPackages = this.usePreReleaseMvvmCrossNugetPackages;
             this.settingsService.UsePreReleaseXamarinFormsNugetPackages = this.usePreReleaseXamarinFormsNugetPackages;
+            this.settingsService.UsePreReleaseNinjaNugetPackages = this.usePreReleaseNinjaCoderNugetPackages;
 
             this.settingsService.CreatePlatformTestProjects = this.createPlatformTestProjects;
         }
@@ -205,6 +220,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 
             this.UsePreReleaseMvvmCrossNugetPackages = this.settingsService.UsePreReleaseMvvmCrossNugetPackages;
             this.UsePreReleaseXamarinFormsNugetPackages = this.settingsService.UsePreReleaseXamarinFormsNugetPackages;
+            this.UsePreReleaseNinjaCoderNugetPackages = this.settingsService.UsePreReleaseNinjaNugetPackages;
 
             this.CreatePlatformTestProjects = this.settingsService.CreatePlatformTestProjects;
         }

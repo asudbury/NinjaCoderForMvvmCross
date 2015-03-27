@@ -3,20 +3,30 @@
 //    Defines the XamarinFormsApp type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
-using System;
-using System.Diagnostics;
-using Xamarin.Forms;
-
 namespace $rootnamespace$
 {
+    using System;
+    using System.Diagnostics;
+    using Xamarin.Forms;
+
     /// <summary>
     /// Defines the XamarinFormsApp type.
     /// </summary>
     public class XamarinFormsApp : Application
     {
+        /// <summary>
+        /// Occurs when [start].
+        /// </summary>
         public event EventHandler Start;
+
+        /// <summary>
+        /// Occurs when [sleep].
+        /// </summary>
         public event EventHandler Sleep;
+
+        /// <summary>
+        /// Occurs when [resume].
+        /// </summary>
         public event EventHandler Resume;
 
         /// <summary>
@@ -24,7 +34,7 @@ namespace $rootnamespace$
         /// </summary>
         public XamarinFormsApp()
         {
-            Debug.WriteLine("MvxFormsApp::Constructor");
+            Debug.WriteLine("XamarinFormsApp::Constructor");
         }
 
 		/// <summary>
@@ -32,11 +42,14 @@ namespace $rootnamespace$
         /// </summary>
 		protected override void OnStart()
 		{
-            Debug.WriteLine("MvxFormsApp::OnStart");
+            Debug.WriteLine("XamarinFormsApp::OnStart");
 
-            var handler = Start;
-            if (handler != null)
-                handler(this, EventArgs.Empty);
+            EventHandler handler = this.Start;
+
+		    if (handler != null)
+		    {
+		        handler(this, EventArgs.Empty);
+		    }
 		}
 
 		/// <summary>
@@ -44,11 +57,14 @@ namespace $rootnamespace$
         /// </summary>
 		protected override void OnSleep()
 		{
-            Debug.WriteLine("MvxFormsApp::OnSleep");
+            Debug.WriteLine("XamarinFormsApp::OnSleep");
 
-            var handler = Sleep;
-            if (handler != null)
-                handler(this, EventArgs.Empty);
+            EventHandler handler = this.Sleep;
+
+		    if (handler != null)
+		    {
+		        handler(this, EventArgs.Empty);
+		    }
 		}
 
 		/// <summary>
@@ -56,11 +72,15 @@ namespace $rootnamespace$
         /// </summary>
 		protected override void OnResume()
 		{
-            Debug.WriteLine("MvxFormsApp::OnResume");
+            Debug.WriteLine("XamarinFormsApp::OnResume");
 
-            var handler = Resume;
-            if (handler != null)
-                handler(this, EventArgs.Empty);
+            EventHandler handler = this.Resume;
+
+		    if (handler != null)
+		    {
+		        handler(this, EventArgs.Empty);
+		    }
 		}
     }
 }
+

@@ -1,13 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Cirrious.CrossCore;
-using Cirrious.MvvmCross.ViewModels;
-
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//    Defines the ViewModelService type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$.Services.ViewModel
 {
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Text;
+	using System.Threading.Tasks;
+	using Cirrious.CrossCore;
+	using Cirrious.MvvmCross.ViewModels;
+
     /// <summary>
     ///  Defines the ViewModelService type.
     /// </summary>
