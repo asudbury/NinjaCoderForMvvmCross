@@ -1,7 +1,7 @@
 ﻿using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Views;
 
-using FormsProject.Presenters;
+using $rootnamespace$.Presenters;
 
 using Xamarin.Forms.Platform.WinPhone;
 

@@ -328,6 +328,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModel", "ViewModel", "{
 		NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\ViewModel\ViewModelService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\ViewModel\ViewModelService.cs.pp
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{83CEEC28-0014-4CD5-8378-86A5CB25C90C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Drawable", "Drawable", "{4170AFEB-29A3-46FB-8D42-511D24EAB94D}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\MvvmCross\DroidContent\Resources\Drawable\splash.png = NuSpec\MvvmCross\DroidContent\Resources\Drawable\splash.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Values", "Values", "{357EDA28-821D-4AEB-B725-328E7EE4E8A8}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\MvvmCross\DroidContent\Resources\Values\SplashStyle.xml = NuSpec\MvvmCross\DroidContent\Resources\Values\SplashStyle.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -933,5 +945,8 @@ Global
 		{A098DEA7-618A-45A1-8E0C-DA9FCE4332B3} = {684E7CB9-9F8C-4107-B485-0F0374FA31E3}
 		{7C634588-D638-4FB8-8877-FC82CF014EAD} = {1C8F650B-7674-41B0-9C59-760E1B4CE30C}
 		{0B18030C-D403-4660-9B18-8357782BDB92} = {A098DEA7-618A-45A1-8E0C-DA9FCE4332B3}
+		{83CEEC28-0014-4CD5-8378-86A5CB25C90C} = {97C98269-E8F7-4213-B0CC-B330CE1CFB89}
+		{4170AFEB-29A3-46FB-8D42-511D24EAB94D} = {83CEEC28-0014-4CD5-8378-86A5CB25C90C}
+		{357EDA28-821D-4AEB-B725-328E7EE4E8A8} = {83CEEC28-0014-4CD5-8378-86A5CB25C90C}
 	EndGlobalSection
 EndGlobal
