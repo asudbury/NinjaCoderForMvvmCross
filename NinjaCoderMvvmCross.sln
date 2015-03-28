@@ -272,6 +272,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FormsContent", "FormsConten
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iOSContent", "iOSContent", "{431D8C39-D17C-4DA6-A1E6-5C5E4E6A0327}"
 	ProjectSection(SolutionItems) = preProject
+		NuSpec\MvvmCrossAndXamarinForms\iOSContent\AppDelegate.cs.pp = NuSpec\MvvmCrossAndXamarinForms\iOSContent\AppDelegate.cs.pp
 		NuSpec\MvvmCrossAndXamarinForms\iOSContent\Setup.cs.pp = NuSpec\MvvmCrossAndXamarinForms\iOSContent\Setup.cs.pp
 	EndProjectSection
 EndProject

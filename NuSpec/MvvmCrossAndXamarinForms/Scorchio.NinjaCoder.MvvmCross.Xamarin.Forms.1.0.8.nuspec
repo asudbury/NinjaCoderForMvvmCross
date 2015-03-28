@@ -22,6 +22,7 @@
       <!-- iOS -->
       <file src="iOSContent\Presenters\MvxFormsTouchViewPresenter.cs.pp" target="content\Xamarin.iOS10\Presenters\MvxFormsTouchViewPresenter.cs.pp" />
       <file src="iOSContent\Setup.cs.pp" target="content\Xamarin.iOS10\Setup.cs.pp" />
+      <file src="iOSContent\AppDelegate.cs.pp" target="content\Xamarin.iOS10\AppDelegate.cs.pp" />
       
       <!-- WindowsPhone -->
       <file src="WindowsPhoneContent\Presenters\MvxFormsWindowsPhoneViewPresenter.cs.pp" target="content\wp8\Presenters\MvxFormsWindowsPhoneViewPresenter.cs.pp" />
