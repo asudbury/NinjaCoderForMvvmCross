@@ -1,51 +1,26 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-//    Defines the AppDelegate type.
+//    Defines the Main type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
-    using Cirrious.CrossCore;
-    using Cirrious.MvvmCross.Touch.Platform;
-    using Cirrious.MvvmCross.Touch.Views.Presenters;
-    using Cirrious.MvvmCross.ViewModels;
-    using Foundation;
     using UIKit;
 
     /// <summary>
-    /// The UIApplicationDelegate for the application. This class is responsible for launching the 
-    /// User Interface of the application, as well as listening (and optionally responding) to 
-    /// application events from iOS.
+    ///    Defines the Main type.
     /// </summary>
-    [Register("AppDelegate")]
-    public class AppDelegate : MvxApplicationDelegate
+    public class Application
     {
         /// <summary>
-        /// The window.
+        /// This is the main entry point of the application.
         /// </summary>
-        private UIWindow window;
-
-        /// <summary>
-        /// Finished the launching.
-        /// </summary>
-        /// <param name="app">The app.</param>
-        /// <param name="options">The options.</param>
-        /// <returns>True or false.</returns>
-        public override bool FinishedLaunching(UIApplication app, NSDictionary options)
+        /// <param name="args">The args.</param>
+        public static void Main(string[] args)
         {
-            this.window = new UIWindow(UIScreen.MainScreen.Bounds);
-
-            MvxTouchViewPresenter presenter = new MvxTouchViewPresenter(this, this.window);
-
-            Setup setup = new Setup(this, presenter);
-            setup.Initialize();
-
-            IMvxAppStart startup = Mvx.Resolve<IMvxAppStart>();
-            startup.Start();
-
-            this.window.MakeKeyAndVisible();
-
-            return true;
+            // if you want to use a different Application Delegate class from "AppDelegate"
+            // you can specify it here.
+            UIApplication.Main(args, null, "AppDelegate");
         }
     }
 }

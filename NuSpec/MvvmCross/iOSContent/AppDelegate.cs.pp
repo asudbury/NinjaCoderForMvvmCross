@@ -1,26 +1,48 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-//    Defines the Main type.
+//    Defines the AppDelegate type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
+    using Cirrious.CrossCore;
+    using Cirrious.MvvmCross.Touch.Platform;
+    using Cirrious.MvvmCross.ViewModels;
+    using Foundation;
     using UIKit;
 
     /// <summary>
-    ///    Defines the Main type.
+    /// The UIApplicationDelegate for the application. This class is responsible for launching the 
+    /// User Interface of the application, as well as listening (and optionally responding) to 
+    /// application events from iOS.
     /// </summary>
-    public class Application
+    [Register("AppDelegate")]
+    public partial class AppDelegate : MvxApplicationDelegate
     {
         /// <summary>
-        /// This is the main entry point of the application.
+        /// The window.
         /// </summary>
-        /// <param name="args">The args.</param>
-        public static void Main(string[] args)
+        private UIWindow window;
+
+        /// <summary>
+        /// Finished the launching.
+        /// </summary>
+        /// <param name="app">The app.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>True or false.</returns>
+        public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            // if you want to use a different Application Delegate class from "AppDelegate"
-            // you can specify it here.
-            UIApplication.Main(args, null, "AppDelegate");
+            this.window = new UIWindow(UIScreen.MainScreen.Bounds);
+
+            Setup setup = new Setup(this, this.window);
+            setup.Initialize();
+
+            IMvxAppStart startup = Mvx.Resolve<IMvxAppStart>();
+            startup.Start();
+
+            this.window.MakeKeyAndVisible();
+
+            return true;
         }
     }
 }

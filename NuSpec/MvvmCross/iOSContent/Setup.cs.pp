@@ -18,9 +18,9 @@ namespace $rootnamespace$
         /// Initializes a new instance of the <see cref="Setup"/> class.
         /// </summary>
         /// <param name="applicationDelegate">The application delegate.</param>
-        /// <param name="presenter">The presenter.</param>
-        public Setup(MvxApplicationDelegate applicationDelegate, IMvxTouchViewPresenter presenter)
-            : base(applicationDelegate, presenter)
+        /// <param name="window">The window.</param>
+        public Setup(MvxApplicationDelegate applicationDelegate, UIWindow window)
+            : base(applicationDelegate, window)
         {
         }
 
