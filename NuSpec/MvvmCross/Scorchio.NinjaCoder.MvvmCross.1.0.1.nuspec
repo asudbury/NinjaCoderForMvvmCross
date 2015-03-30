@@ -9,6 +9,11 @@
         <description>Helper For NinjaCoder for MvvmCross and Xamarin Forms</description>
     </metadata>
     <files>
+
+
+      <!-- Droid -->
+      <file src="DroidContent\Resources\Drawable\splash.png" target="content\MonoAndroid\Resources\Drawable\splash.png" />
+      <file src="DroidContent\Resources\Values\SplashStyle.xml" target="content\MonoAndroid\Resources\Values\SplashStyle.xml" />
 			
 		<!-- iOS -->
 	
