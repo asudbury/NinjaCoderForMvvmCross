@@ -12,7 +12,6 @@ namespace $rootnamespace$
 	using Cirrious.MvvmCross.WindowsPhone.Platform;
 	using Cirrious.MvvmCross.WindowsPhone.Views;
 	using Microsoft.Phone.Controls;
-	using CoreProject;
 	using FormsProject;
 	using $rootnamespace$.Presenters;
 
@@ -48,7 +47,7 @@ namespace $rootnamespace$
         {
             Xamarin.Forms.Forms.Init();
 
-            var presenter = new MvxFormsWindowsPhoneViewPresenter(new XamarinFormsApp(), rootFrame);
+            MvxFormsWindowsPhoneViewPresenter presenter = new MvxFormsWindowsPhoneViewPresenter(new XamarinFormsApp(), rootFrame);
             Mvx.RegisterSingleton<IMvxViewPresenter>(presenter);
 
             return presenter;

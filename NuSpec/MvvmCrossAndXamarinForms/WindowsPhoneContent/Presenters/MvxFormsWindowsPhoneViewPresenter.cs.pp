@@ -4,7 +4,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Ytttttt.WindowsPhone.Presenters
+namespace $rootnamespace$.Presenters
 {
 	using System;
 	using System.Threading.Tasks;
@@ -100,6 +100,11 @@ namespace Ytttttt.WindowsPhone.Presenters
             Mvx.Error("Skipping request for {0}", request.ViewModelType.Name);
         }
 
+		/// <summary>
+        /// Tries the show page.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
         private async Task<bool> TryShowPage(MvxViewModelRequest request)
         {
             //// Get the ViewModel from the request
