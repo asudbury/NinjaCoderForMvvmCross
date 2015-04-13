@@ -239,6 +239,7 @@ namespace NinjaCoder.MvvmCross.Services
             return new List<string> 
             {
                 this.GetMvvmCrossCommand(MvvmCrossPackage),
+                this.GetNinjaCommand(ScorchioMvvmCrossPackage, false),
                 Settings.NugetInstallPackage.Replace("%s", XamarinAndroidPackage)
             };
         }
