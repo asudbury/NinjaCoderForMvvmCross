@@ -28,7 +28,7 @@ namespace $rootnamespace$
 
             Xamarin.Forms.Forms.Init(this, bundle);
 
-			this.LoadApplication(new App());
+			this.LoadApplication(new XamarinFormsApp());
         }
     }
 }

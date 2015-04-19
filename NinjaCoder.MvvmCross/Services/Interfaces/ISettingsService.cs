@@ -313,6 +313,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         bool BindContextInXamlForXamarinForms { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [bind xaml for xamarin forms].
+        /// </summary>
+        bool BindXamlForXamarinForms { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [create test projects for all projects].
         /// </summary>
         bool CreatePlatformTestProjects { get; set; }

@@ -17,6 +17,7 @@ namespace NinjaCoder.MvvmCross.Services
     using Scorchio.VisualStudio.Services.Interfaces;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Windows.Forms.VisualStyles;
 
     /// <summary>
     ///  Defines the ViewModelViewsService type.
@@ -101,14 +102,14 @@ namespace NinjaCoder.MvvmCross.Services
 
             this.projectService = coreProjectService;
 
-             IEnumerable<string> messages = visualStudioService.SolutionService.AddItemTemplateToProjects(templateInfos);
+             IEnumerable<string> messages = this.visualStudioService.SolutionService.AddItemTemplateToProjects(templateInfos);
 
             //// we now need to amend code in the unit test file that references FirstViewModel to this ViewModel
 
             if (addUnitTests)
             {
                 this.UpdateUnitTestFile(
-                    visualStudioService,
+                    this.visualStudioService,
                     viewModelName);
             }
 
@@ -145,6 +146,19 @@ namespace NinjaCoder.MvvmCross.Services
 
             this.settingsService.XamarinFormsViews = viewsArray.Where(
                 x => x.Framework == FrameworkType.XamarinForms.GetDescription()).ToList().SerializeToString();
+
+            if (this.settingsService.FrameworkType == FrameworkType.MvvmCrossAndXamarinForms)
+            ////if (this.visualStudioService.GetFrameworkType() == FrameworkType.MvvmCrossAndXamarinForms)
+            {
+                this.settingsService.BindXamlForXamarinForms = true;
+                this.settingsService.BindContextInXamlForXamarinForms = false;
+            }
+
+            else
+            {
+                this.settingsService.BindXamlForXamarinForms = true;
+                this.settingsService.BindContextInXamlForXamarinForms = true;
+            }
 
             foreach (View view in viewsArray)
             {

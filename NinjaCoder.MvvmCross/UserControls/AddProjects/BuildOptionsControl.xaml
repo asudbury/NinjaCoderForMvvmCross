@@ -54,10 +54,6 @@
                       SelectedItem="{Binding Path=SelectedMockingFramework,
                                              Mode=TwoWay}" />
 
-            <CheckBox Margin="10,25,10,5"
-                      Content="Bind Context in Xaml for Xamarin Forms"
-                      IsChecked="{Binding BindContextInXamlForXamarinForms}" />
-
             <CheckBox Margin="10,5,10,5"
                       Content="Create Platform Test Projects"
                       IsChecked="{Binding CreatePlatformTestProjects}" />

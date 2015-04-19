@@ -113,12 +113,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreContent", "CoreContent"
 		NuSpec\MvvmCross\CoreContent\App.cs.pp = NuSpec\MvvmCross\CoreContent\App.cs.pp
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{665D21F7-A1BF-4BCF-AFC8-6712E26D265E}"
-	ProjectSection(SolutionItems) = preProject
-		NuSpec\MvvmCross\CoreContent\Services\IViewModelService.cs.pp = NuSpec\MvvmCross\CoreContent\Services\IViewModelService.cs.pp
-		NuSpec\MvvmCross\CoreContent\Services\ViewModelService.cs.pp = NuSpec\MvvmCross\CoreContent\Services\ViewModelService.cs.pp
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModels", "ViewModels", "{C16D0C56-5073-4B2C-9B13-E84778BAAE6F}"
 	ProjectSection(SolutionItems) = preProject
 		NuSpec\MvvmCross\CoreContent\ViewModels\BaseViewModel.cs.pp = NuSpec\MvvmCross\CoreContent\ViewModels\BaseViewModel.cs.pp
@@ -908,7 +902,6 @@ Global
 		{91FC43D9-2BAF-43F8-A49E-DF84E5315198} = {6487A2BF-47FE-41C6-9B7F-D33363630C95}
 		{4157C2D6-6BC2-4514-B7E8-395BA9FA129F} = {6487A2BF-47FE-41C6-9B7F-D33363630C95}
 		{1D2AE2A2-8597-4623-B009-4E6102284253} = {00EB0871-7621-4000-8CA1-0EB308F81E82}
-		{665D21F7-A1BF-4BCF-AFC8-6712E26D265E} = {1D2AE2A2-8597-4623-B009-4E6102284253}
 		{C16D0C56-5073-4B2C-9B13-E84778BAAE6F} = {1D2AE2A2-8597-4623-B009-4E6102284253}
 		{97C98269-E8F7-4213-B0CC-B330CE1CFB89} = {00EB0871-7621-4000-8CA1-0EB308F81E82}
 		{57FFB3AE-5AD9-48E8-AD82-24FCC50E54A8} = {00EB0871-7621-4000-8CA1-0EB308F81E82}

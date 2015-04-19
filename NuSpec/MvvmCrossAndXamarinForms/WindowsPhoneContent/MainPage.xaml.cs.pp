@@ -9,11 +9,14 @@
     {
         public MainPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             var presenter = Mvx.Resolve<IMvxViewPresenter>() as MvxFormsWindowsPhoneViewPresenter;
 
-            if (presenter == null) return;
+            if (presenter == null) 
+			{
+				return;
+			}
 
             LoadApplication(presenter.XamarinFormsApp);
         }

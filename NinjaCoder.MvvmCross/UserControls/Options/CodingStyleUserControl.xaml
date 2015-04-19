@@ -23,9 +23,5 @@
             Content="{DynamicResource FormatFunctionParametersOnToNewLines}"
             IsChecked="{Binding FormatFunctionParameters}"
             Margin="10"/>
-        <CheckBox 
-            Content="Bind Context in Xaml for Xamarin Forms"
-            IsChecked="{Binding BindContextInXamlForXamarinForms}"
-            Margin="10"/>
     </StackPanel>
 </userControls:BaseUserControl>

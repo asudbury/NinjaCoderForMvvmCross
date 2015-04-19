@@ -38,25 +38,16 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Plugins
 
             if (activeProject != null)
             {
-                TraceService.WriteLine("ActiveProject=" + activeProject.FullName);
-
                 string projectPath = activeProject.GetProjectPath();
                 string path = string.Format(@"{0}\{1}", projectPath, filePath);
 
                 if (File.Exists(path))
                 {
-                    TraceService.WriteLine(path  + " file already exists");
                     return false;
                 }
             }
-            else
-            {
-                TraceService.WriteError("Cannot determine project");
-            }
 
             string pluginsString = this.SettingsService.PluginsToAdd;
-
-            TraceService.WriteLine("pluginsString=" + pluginsString);
 
             if (string.IsNullOrEmpty(pluginsString) == false)
             {

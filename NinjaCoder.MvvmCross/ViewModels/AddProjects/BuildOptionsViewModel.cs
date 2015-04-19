@@ -56,11 +56,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         private string selectedMockingFramework;
 
         /// <summary>
-        /// The bind context in xaml for xamarin forms.
-        /// </summary>
-        private bool bindContextInXamlForXamarinForms;
-
-        /// <summary>
         /// The use pre release MVVM cross nuget packages
         /// </summary>
         private bool usePreReleaseMvvmCrossNugetPackages;
@@ -170,15 +165,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [bind context in xaml for xamarin forms].
-        /// </summary>
-        public bool BindContextInXamlForXamarinForms
-        {
-            get { return this.bindContextInXamlForXamarinForms; }
-            set { this.SetProperty(ref this.bindContextInXamlForXamarinForms, value); }
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether [create platform test projects].
         /// </summary>
         public bool CreatePlatformTestProjects
@@ -193,8 +179,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         {
             this.testingServiceFactory.CurrentFrameWork = this.SelectedTestingFramework;
             this.mockingServiceFactory.CurrentFrameWork = this.SelectedMockingFramework;
-
-            this.settingsService.BindContextInXamlForXamarinForms = this.bindContextInXamlForXamarinForms;
 
             this.settingsService.UsePreReleaseMvvmCrossNugetPackages = this.usePreReleaseMvvmCrossNugetPackages;
             this.settingsService.UsePreReleaseXamarinFormsNugetPackages = this.usePreReleaseXamarinFormsNugetPackages;
@@ -215,8 +199,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 
             this.SelectedTestingFramework = this.testingServiceFactory.CurrentFrameWork;
             this.SelectedMockingFramework = this.mockingServiceFactory.CurrentFrameWork;
-
-            this.BindContextInXamlForXamarinForms = this.settingsService.BindContextInXamlForXamarinForms;
 
             this.UsePreReleaseMvvmCrossNugetPackages = this.settingsService.UsePreReleaseMvvmCrossNugetPackages;
             this.UsePreReleaseXamarinFormsNugetPackages = this.settingsService.UsePreReleaseXamarinFormsNugetPackages;

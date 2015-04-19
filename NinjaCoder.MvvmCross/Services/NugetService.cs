@@ -236,6 +236,18 @@ namespace NinjaCoder.MvvmCross.Services
                     }
                 }
 
+                IProjectService windowsPhoneProjectService = this.visualStudioService.WindowsPhoneProjectService;
+
+                if (windowsPhoneProjectService != null)
+                {
+                    IProjectItemService projectItemService = windowsPhoneProjectService.GetProjectItem("MainPage.xaml.cs");
+
+                    if (projectItemService != null)
+                    {
+                        projectItemService.ReplaceText("FormsProject", formsProjectService.Name);
+                    }
+                }
+
                 IProjectService wpfProjectService = this.visualStudioService.WpfProjectService;
 
                 if (wpfProjectService != null)

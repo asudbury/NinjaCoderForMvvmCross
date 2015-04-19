@@ -297,7 +297,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             return new List<string> 
             {
-                this.GetNinjaCommand(ScorchioNoFrameworkPackage, false)
+                this.GetNinjaCommand(ScorchioNoFrameworkPackage, true)
             };
         }
 
@@ -308,7 +308,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             return new List<string>
             {
-                this.GetNinjaCommand(ScorchioNoFrameworkPackage, false)
+                this.GetNinjaCommand(ScorchioNoFrameworkPackage, true)
             };
         }
 
@@ -319,7 +319,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             return new List<string> 
             {
-                this.GetNinjaCommand(ScorchioXamarinFormsCorePackage, false)
+                this.GetNinjaCommand(ScorchioXamarinFormsCorePackage, true)
             };
         }
 
@@ -331,7 +331,7 @@ namespace NinjaCoder.MvvmCross.Services
             return new List<string> 
             {
                 this.GetXamarinFormsCommand(XamarinFormsPackage),
-                this.GetNinjaCommand(ScorchioXamarinFormsPackage, false)
+                this.GetNinjaCommand(ScorchioXamarinFormsPackage, true)
             };
         }
 
@@ -455,7 +455,7 @@ namespace NinjaCoder.MvvmCross.Services
                 command += Settings.NugetIncludePreRelease;
             }
 
-            return Settings.NugetInstallPackage.Replace("%s", command);
+            return Settings.NugetInstallPackageOverwriteFiles.Replace("%s", command);
         }
 
         /// <summary>
@@ -469,7 +469,7 @@ namespace NinjaCoder.MvvmCross.Services
                 command += Settings.NugetIncludePreRelease;
             }
 
-            return Settings.NugetInstallPackage.Replace("%s", command);
+            return Settings.NugetInstallPackageOverwriteFiles.Replace("%s", command);
         }
 
         /// <summary>

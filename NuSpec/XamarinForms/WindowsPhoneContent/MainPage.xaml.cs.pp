@@ -6,6 +6,9 @@
 namespace $rootnamespace$
 {
     using Xamarin.Forms;
+	using Xamarin.Forms.Platform.WinPhone;
+
+	using FormsProject;
 
     /// <summary>
     ///    Defines the MainPage.xaml type.
@@ -21,7 +24,7 @@ namespace $rootnamespace$
 
             Forms.Init();
 
-			this.LoadApplication(new $rootnamespace$.App());
+			this.LoadApplication(new XamarinFormsApp());
         }
     }
 }

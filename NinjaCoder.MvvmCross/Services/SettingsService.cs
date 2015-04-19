@@ -550,8 +550,17 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public bool BindContextInXamlForXamarinForms 
         {
-            get { return this.GetRegistryValue("Coding Style", "BindContextInXamlForXamarinForms", "Y") == "Y"; }
-            set { this.SetRegistryValue("Coding Style", "BindContextInXamlForXamarinForms", value ? "Y" : "N"); }
+            get { return this.GetRegistryValue("Internal", "BindContextInXamlForXamarinForms", "Y") == "Y"; }
+            set { this.SetRegistryValue("Internal", "BindContextInXamlForXamarinForms", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [bind xaml for xamarin forms].
+        /// </summary>
+        public bool BindXamlForXamarinForms
+        {
+            get { return this.GetRegistryValue("Internal", "BindXamlForXamarinForms", "Y") == "Y"; }
+            set { this.SetRegistryValue("Internal", "BindXamlForXamarinForms", value ? "Y" : "N"); }
         }
 
         /// <summary>

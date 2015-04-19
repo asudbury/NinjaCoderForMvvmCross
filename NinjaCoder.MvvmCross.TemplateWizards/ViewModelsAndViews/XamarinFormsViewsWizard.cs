@@ -93,6 +93,8 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.ViewModelsAndViews
                         foreach (View view in views
                             .Where(view => view.Name == projectItem.Name.Replace("View.xaml", string.Empty)))
                         {
+                            TraceService.WriteLine("XamarinFormsViewsWizard::UpdateFile View=" + view.Name);
+
                             string pageType = view.PageType.Replace(" ", string.Empty);
 
                             projectItem.ReplaceText("ContentPage", pageType);
@@ -102,7 +104,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.ViewModelsAndViews
 
                             if (this.SettingsService.BindContextInXamlForXamarinForms)
                             {
-                                TraceService.WriteLine("XamarinFormsViewsWizard::UpdateFile Update Xaml");
+                                TraceService.WriteLine("XamarinFormsViewsWizard::UpdateFile Update BindingContextPlaceHolder");
 
                                 string text = string.Format("<{0}.BindingContext>{1}\t\t<viewModels:{2} />{1}\t</{0}.BindingContext>", 
                                     pageType,
@@ -110,14 +112,26 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.ViewModelsAndViews
                                     view.Name + "ViewModel");
 
                                 projectItem.ReplaceText("<!-- BindingContextPlaceHolder -->", text);
+                            }
+
+                            else
+                            {
+                                TraceService.WriteLine("XamarinFormsViewsWizard::UpdateFile Remove BindingContextPlaceHolder");
+
+                                projectItem.ReplaceText("<!-- BindingContextPlaceHolder -->", string.Empty);
+                            }
+
+                            if (this.SettingsService.BindXamlForXamarinForms)
+                            {
+                                TraceService.WriteLine("XamarinFormsViewsWizard::UpdateFile Update BindingPlaceHolder");
+
                                 projectItem.ReplaceText("<!-- BindingPlaceHolder -->",  "<Label Text='{Binding SampleText}' VerticalOptions='Center' HorizontalOptions='Center'/>");
                             }
 
                             else
                             {
-                                TraceService.WriteLine("XamarinFormsViewsWizard::UpdateFile Remove placeholder");
+                                TraceService.WriteLine("XamarinFormsViewsWizard::UpdateFile Remove BindingPlaceHolder");
 
-                                projectItem.ReplaceText("<!-- BindingContextPlaceHolder -->", string.Empty);
                                 projectItem.ReplaceText("<!-- BindingPlaceHolder -->", string.Empty);
                             }
                         }

@@ -571,7 +571,14 @@ namespace NinjaCoder.MvvmCross.Services
 
             if (projectReferences != null)
             {
+                //// the reference will only be there once nuget has run
                 if (projectReferences.Any(projectReference => projectReference.Name.Contains("MvvmCross")))
+                {
+                    projectType = 1;
+                }
+
+                //// if nuget has not yet run look for the ViewModelService
+                else if (this.CoreProjectService.GetProjectItem("ViewModelService.cs") != null)
                 {
                     projectType = 1;
                 }
