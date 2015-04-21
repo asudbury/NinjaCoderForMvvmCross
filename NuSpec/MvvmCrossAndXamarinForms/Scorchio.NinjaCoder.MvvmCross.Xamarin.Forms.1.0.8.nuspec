@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms</id>
-        <version>1.0.8-beta9</version>
+        <version>1.0.8-beta10</version>
         <authors>Adrian Sudbury</authors>
         <owners>Scorchio Limited</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -29,5 +29,7 @@
       <file src="WindowsPhoneContent\Setup.cs.pp" target="content\wp8\Setup.cs.pp" />
       <file src="WindowsPhoneContent\MainPage.xaml.pp" target="content\wp8\MainPage.xaml.pp" />
       <file src="WindowsPhoneContent\MainPage.xaml.cs.pp" target="content\wp8\MainPage.xaml.cs.pp" />
+      <file src="WindowsPhoneContent\App.xaml.pp" target="content\wp8\App.xaml.pp" />
+      <file src="WindowsPhoneContent\App.xaml.cs.pp" target="content\wp8\App.xaml.cs.pp" />
     </files>
 </package>

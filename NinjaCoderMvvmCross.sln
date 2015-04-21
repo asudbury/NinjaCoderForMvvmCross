@@ -147,8 +147,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestContent", "TestContent"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsPhoneContent", "WindowsPhoneContent", "{5FF965F5-55BF-4E79-8923-3E9B7C198973}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\MvvmCross\WindowsPhoneContent\App.xaml.cs.pp = NuSpec\MvvmCross\WindowsPhoneContent\App.xaml.cs.pp
-		NuSpec\MvvmCross\WindowsPhoneContent\App.xaml.pp = NuSpec\MvvmCross\WindowsPhoneContent\App.xaml.pp
 		NuSpec\MvvmCross\WindowsPhoneContent\ApplicationIcon.png = NuSpec\MvvmCross\WindowsPhoneContent\ApplicationIcon.png
 		NuSpec\MvvmCross\WindowsPhoneContent\Background.png = NuSpec\MvvmCross\WindowsPhoneContent\Background.png
 		NuSpec\MvvmCross\WindowsPhoneContent\MainPage.xaml.cs.pp = NuSpec\MvvmCross\WindowsPhoneContent\MainPage.xaml.cs.pp
@@ -289,6 +287,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presenters", "Presenters", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsPhoneContent", "WindowsPhoneContent", "{FD8DD122-AE73-4DD1-A485-2FC02D239287}"
 	ProjectSection(SolutionItems) = preProject
+		NuSpec\MvvmCrossAndXamarinForms\WindowsPhoneContent\App.xaml.cs.pp = NuSpec\MvvmCrossAndXamarinForms\WindowsPhoneContent\App.xaml.cs.pp
+		NuSpec\MvvmCrossAndXamarinForms\WindowsPhoneContent\App.xaml.pp = NuSpec\MvvmCrossAndXamarinForms\WindowsPhoneContent\App.xaml.pp
 		NuSpec\MvvmCrossAndXamarinForms\WindowsPhoneContent\MainPage.xaml.cs.pp = NuSpec\MvvmCrossAndXamarinForms\WindowsPhoneContent\MainPage.xaml.cs.pp
 		NuSpec\MvvmCrossAndXamarinForms\WindowsPhoneContent\MainPage.xaml.pp = NuSpec\MvvmCrossAndXamarinForms\WindowsPhoneContent\MainPage.xaml.pp
 		NuSpec\MvvmCrossAndXamarinForms\WindowsPhoneContent\Setup.cs.pp = NuSpec\MvvmCrossAndXamarinForms\WindowsPhoneContent\Setup.cs.pp
