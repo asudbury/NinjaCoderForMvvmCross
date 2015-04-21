@@ -55,6 +55,8 @@ namespace $rootnamespace$
                 // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
+            var setup = new Setup(RootFrame);
+            setup.Initialize();
         }
 
         // Code to execute when the application is launching (eg, from Start)
@@ -68,6 +70,7 @@ namespace $rootnamespace$
         {
             args.Cancel = true;
             RootFrame.Navigating -= RootFrameOnNavigating;
+            RootFrame.Dispatcher.BeginInvoke(() => { Cirrious.CrossCore.Mvx.Resolve<Cirrious.MvvmCross.ViewModels.IMvxAppStart>().Start(); });
           }
 
         // Code to execute if a navigation fails
