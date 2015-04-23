@@ -89,7 +89,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuSpec", "NuSpec", "{6487A2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvvmCross", "MvvmCross", "{00EB0871-7621-4000-8CA1-0EB308F81E82}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.1.0.1.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.1.0.1.nuspec
+		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.1.0.3.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.1.0.3.nuspec
 		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.MSTests.1.0.2.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.MSTests.1.0.2.nuspec
 		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.NUnit.Tests.1.0.2.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.NUnit.Tests.1.0.2.nuspec
 		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Wpf.1.0.4.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Wpf.1.0.4.nuspec

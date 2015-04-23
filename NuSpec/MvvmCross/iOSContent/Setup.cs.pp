@@ -6,8 +6,9 @@
 namespace $rootnamespace$
 {
     using Cirrious.MvvmCross.Touch.Platform;
-    using Cirrious.MvvmCross.Touch.Views.Presenters;
     using Cirrious.MvvmCross.ViewModels;
+
+    using UIKit;
 
     /// <summary>
     ///    Defines the Setup type.
