@@ -14,7 +14,7 @@ namespace $rootnamespace$
     /// <summary>
     ///    Defines the App.xaml type.
     /// </summary>
-    public partial class App
+    public partial class App : Application
     {
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
@@ -130,6 +130,9 @@ namespace $rootnamespace$
             // Handle navigation failures
             RootFrame.NavigationFailed += RootFrame_NavigationFailed;
 
+            // Handle reset requests for clearing the backstack
+            RootFrame.Navigated += CheckForResetNavigation;
+
             // Ensure we don't initialize again
             phoneApplicationInitialized = true;
         }
@@ -145,6 +148,30 @@ namespace $rootnamespace$
 
             // Remove this handler since it is no longer needed
             RootFrame.Navigated -= CompleteInitializePhoneApplication;
+        }
+
+        private void CheckForResetNavigation(object sender, NavigationEventArgs e)
+        {
+            // If the app has received a 'reset' navigation, then we need to check
+            // on the next navigation to see if the page stack should be reset
+            if (e.NavigationMode == NavigationMode.Reset)
+                RootFrame.Navigated += ClearBackStackAfterReset;
+        }
+
+        private void ClearBackStackAfterReset(object sender, NavigationEventArgs e)
+        {
+            // Unregister the event so it doesn't get called again
+            RootFrame.Navigated -= ClearBackStackAfterReset;
+
+            // Only clear the stack for 'new' (forward) and 'refresh' navigations
+            if (e.NavigationMode != NavigationMode.New && e.NavigationMode != NavigationMode.Refresh)
+                return;
+
+            // For UI consistency, clear the entire page stack
+            while (RootFrame.RemoveBackEntry() != null)
+            {
+                ; // do nothing
+            }
         }
     }
 }

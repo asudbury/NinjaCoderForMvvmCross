@@ -35,7 +35,6 @@ namespace $rootnamespace$
         public XamarinFormsApp()
         {
             Debug.WriteLine("XamarinFormsApp::Constructor");
-            MainPage = new MainView();
         }
 
 		/// <summary>
