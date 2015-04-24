@@ -8,6 +8,7 @@ namespace $rootnamespace$
     using System;
     using System.Diagnostics;
 	using Xamarin.Forms;
+	using Views;
 
     /// <summary>
     /// Defines the XamarinFormsApp type.
