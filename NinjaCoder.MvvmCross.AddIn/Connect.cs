@@ -1,16 +1,13 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-//    Defines the Connect type.
+//    Defines the X type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.AddIn
 {
     using Controllers;
-
     using Microsoft.VisualStudio.CommandBars;
-
     using NinjaCoder.MvvmCross.Services;
-
     using Scorchio.VisualStudio;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
@@ -91,7 +88,7 @@ namespace NinjaCoder.MvvmCross.AddIn
             };
 
             this.AddMenuItem(commandInfo);*/
-
+            
             CommandBar commandBar = this.AddCommandBar("Ninja Coder for MvvmCross");
 
             VSCommandInfo commandInfo = new VSCommandInfo

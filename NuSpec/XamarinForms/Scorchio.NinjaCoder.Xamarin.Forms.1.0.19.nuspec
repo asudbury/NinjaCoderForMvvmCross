@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Scorchio.NinjaCoder.Xamarin.Forms</id>
-        <version>1.0.14</version>
+        <version>1.0.19</version>
         <authors>Adrian Sudbury</authors>
 		    <owners>Scorchio Limited</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -22,7 +22,7 @@
       <file src="iOSContent\AppDelegate.cs.pp" target="content\Xamarin.iOS10\AppDelegate.cs.pp" />
       <file src="iOSContent\Main.cs.pp" target="content\Xamarin.iOS10\Main.cs.pp" />
 
-      <!-- WindowsPhoneContent -->
+    <!-- WindowsPhone -->
 		
 		<file src="WindowsPhoneContent\MainPage.xaml.pp" target="content\wp8\MainPage.xaml.pp" /> 
 		<file src="WindowsPhoneContent\MainPage.xaml.cs.pp" target="content\wp8\MainPage.xaml.cs.pp" />
@@ -30,5 +30,13 @@
     <file src="WindowsPhoneContent\App.xaml.pp" target="content\wp8\App.xaml.pp" />
     <file src="WindowsPhoneContent\App.xaml.cs.pp" target="content\wp8\App.xaml.cs.pp" />
 
+    <!-- WindowsStore -->
+
+    <file src="WindowsStoreContent\MainPage.xaml.pp" target="content\win81\MainPage.xaml.pp" />
+    <file src="WindowsStoreContent\MainPage.xaml.cs.pp" target="content\win81\MainPage.xaml.cs.pp" />
+
+    <file src="WindowsStoreContent\App.xaml.pp" target="content\win81\App.xaml.pp" />
+    <file src="WindowsStoreContent\App.xaml.cs.pp" target="content\win81\App.xaml.cs.pp" />
+      
     </files>
 </package> 

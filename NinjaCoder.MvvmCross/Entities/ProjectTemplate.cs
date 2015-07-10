@@ -56,6 +56,12 @@ namespace NinjaCoder.MvvmCross.Entities
         WindowsPhone,
 
         /// <summary>
+        /// The windows phone
+        /// </summary>
+        [Description("BlankApp.zip")]
+        WindowsStore,
+
+        /// <summary>
         /// The wpf.
         /// </summary>
         [Description("NinjaCoder.Wpf.zip")]

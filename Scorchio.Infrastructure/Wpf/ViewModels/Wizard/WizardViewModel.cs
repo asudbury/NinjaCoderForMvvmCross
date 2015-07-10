@@ -125,8 +125,7 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
                 this.OnNotify("FinishCommandEnabled");
             }
         }
-
-
+        
         /// <summary>
         /// Gets the move next command.
         /// </summary>
@@ -229,7 +228,7 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         {
             if (this.CurrentLinkedListStep.Value.ViewModel.CanMoveToNextPage())
             {
-                this.wizardStepManager.ReworkListBasedOn(CurrentLinkedListStep.Value.ViewModel.OnNext());
+                this.wizardStepManager.ReworkListBasedOn(this.CurrentLinkedListStep.Value.ViewModel.OnNext());
                 this.CurrentLinkedListStep = this.CurrentLinkedListStep.Next;
 
                 if (this.CurrentLinkedListStep != null)
@@ -246,7 +245,7 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         {
             if (this.CurrentLinkedListStep.Value.ViewModel.CanMoveToPreviousPage())
             {
-                this.wizardStepManager.ReworkListBasedOn(CurrentLinkedListStep.Value.ViewModel.OnPrevious());
+                this.wizardStepManager.ReworkListBasedOn(this.CurrentLinkedListStep.Value.ViewModel.OnPrevious());
                 this.CurrentLinkedListStep = this.CurrentLinkedListStep.Previous;
 
                 if (this.CurrentLinkedListStep != null)

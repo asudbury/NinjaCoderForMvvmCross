@@ -167,7 +167,8 @@ namespace NinjaCoder.MvvmCross.Controllers
             {
                 this.nugetService.Execute(
                     this.GetReadMePath(),
-                    commands);
+                    commands,
+                    this.SettingsService.SuspendReSharperDuringBuild);
             }
 
             this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NugetDownload);

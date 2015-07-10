@@ -30,7 +30,7 @@
         <StackPanel Grid.Row="0"
                     Grid.Column="1"
                     Width="500"
-                    Height="400"
+                    Height="420"
                     Orientation="Vertical">
 
             <Separator Margin="5" />
@@ -54,23 +54,41 @@
                       SelectedItem="{Binding Path=SelectedMockingFramework,
                                              Mode=TwoWay}" />
 
+            <Separator Margin="5" />
+
             <CheckBox Margin="10,5,10,5"
                       Content="Create Platform Test Projects"
                       IsChecked="{Binding CreatePlatformTestProjects}" />
 
             <CheckBox Margin="10,5,10,5"
-                      Content="Use Pre release MvvmCross Nuget Packages"
-                      IsChecked="{Binding UsePreReleaseMvvmCrossNugetPackages}" />
+                      Content="Add Xamarin Test Cloud to iOS and Android Test Projects (Requires NUnit)"
+                      IsChecked="{Binding UseXamarinTestCloud}" />
 
             <CheckBox Margin="10,5,10,5"
-                      Content="Use Pre release Xamarin Forms Nuget Packages"
-                      IsChecked="{Binding UsePreReleaseXamarinFormsNugetPackages}" />
+                      Content="Add Xamarin Insights Nuget Package"
+                      IsChecked="{Binding UseXamarinInsights}" />
 
             <CheckBox Margin="10,5,10,5"
-                      Content="Use Pre release Ninja Coder Nuget Packages"
-                      IsChecked="{Binding UsePreReleaseNinjaCoderNugetPackages}" />
-            
-            <Separator Margin="10 " />
+                      Content="Add Style Cop Nuget Package"
+                      IsChecked="{Binding UseStyleCop}" />
+
+            <Separator Margin="5" />
+
+            <Expander Margin="8,5,10,5" Header="Pre-Release Nuget Package Options">
+                <StackPanel Margin="8,4,0,0">
+                    <CheckBox Margin="8,5,10,5"
+                              Content="Use Pre release MvvmCross Nuget Packages"
+                              IsChecked="{Binding UsePreReleaseMvvmCrossNugetPackages}" />
+
+                    <CheckBox Margin="8,5,10,5"
+                              Content="Use Pre release Xamarin Forms Nuget Packages"
+                              IsChecked="{Binding UsePreReleaseXamarinFormsNugetPackages}" />
+
+                    <CheckBox Margin="8,5,10,5"
+                              Content="Use Pre release Ninja Coder Nuget Packages"
+                              IsChecked="{Binding UsePreReleaseNinjaCoderNugetPackages}" />
+                </StackPanel>
+            </Expander>
 
         </StackPanel>
 

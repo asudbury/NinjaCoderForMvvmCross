@@ -6,8 +6,6 @@
 
 namespace NinjaCoder.MvvmCross.Factories
 {
-    using System;
-
     using NinjaCoder.MvvmCross.Entities;
     using NinjaCoder.MvvmCross.Factories.Interfaces;
     using NinjaCoder.MvvmCross.Services.Interfaces;
@@ -92,7 +90,8 @@ namespace NinjaCoder.MvvmCross.Factories
                 (this.settingsService.CreatePlatformTestProjects &&
                 this.visualStudioService.DroidTestsProjectService == null),
                 this.GetPlatformTestsProject(
-                true,
+                    this.nugetCommandsService.GetAndroidTestCommands(),
+                    true,
                     ProjectSuffix.DroidTests.GetDescription(),
                     ProjectType.DroidTests.GetDescription()));
 
@@ -104,6 +103,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 (this.settingsService.CreatePlatformTestProjects &&
                 this.visualStudioService.iOSTestsProjectService == null),
                 this.GetPlatformTestsProject(
+                    this.nugetCommandsService.GetiOSTestCommands(),
                     true,
                     ProjectSuffix.iOSTests.GetDescription(),
                     ProjectType.iOSTests.GetDescription()));
@@ -116,12 +116,26 @@ namespace NinjaCoder.MvvmCross.Factories
                 (this.settingsService.CreatePlatformTestProjects &&
                 this.visualStudioService.WindowsPhoneTestsProjectService == null),
                 this.GetPlatformTestsProject(
+                    this.nugetCommandsService.GetTestCommands(),
                     true,
                     ProjectSuffix.WindowsPhoneTests.GetDescription(),
                     ProjectType.WindowsPhoneTests.GetDescription()));
 
+            this.AddProjectIf(
+                this.visualStudioService.WindowsStoreProjectService == null,
+                this.GetWindowsStoreProject());
+
+            this.AddProjectIf(
+                (this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.WindowsStoreTestsProjectService == null),
+                this.GetPlatformTestsProject(
+                    this.nugetCommandsService.GetTestCommands(),
+                    false,
+                    ProjectSuffix.WindowsStoreTests.GetDescription(),
+                    ProjectType.WindowsStoreTests.GetDescription()));
+
             if (this.settingsService.BetaTesting)
-            { 
+            {
                 this.AddProjectIf(
                     this.visualStudioService.WpfProjectService == null,
                     this.GetWindowsWpfProject());
@@ -130,6 +144,7 @@ namespace NinjaCoder.MvvmCross.Factories
                     (this.settingsService.CreatePlatformTestProjects &&
                     this.visualStudioService.WpfTestsProjectService == null),
                     this.GetPlatformTestsProject(
+                        this.nugetCommandsService.GetTestCommands(),
                         false,
                         ProjectSuffix.WpfTests.GetDescription(),
                         ProjectType.WindowsWpfTests.GetDescription()));
@@ -226,7 +241,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 PreSelected = true,
                 ReferenceXamarinFormsProject = true,
                 ReferenceCoreProject = true,
-                NugetCommands = this.nugetCommandsService.GetXamarinFormsCommands()
+                NugetCommands = this.nugetCommandsService.GetXamarinFormsAndroidCommands()
             };
         }
 
@@ -287,6 +302,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <summary>
         /// Gets the core tests project.
         /// </summary>
+        /// <param name="nugetCommands">The nuget commands.</param>
         /// <param name="preSelect">if set to <c>true</c> [pre select].</param>
         /// <param name="projectSuffix">The project suffix.</param>
         /// <param name="projectType">Type of the project.</param>
@@ -294,6 +310,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// A unit tests project.
         /// </returns>
         internal ProjectTemplateInfo GetPlatformTestsProject(
+            IEnumerable<string> nugetCommands, 
             bool preSelect,
             string projectSuffix,
             string projectType)
@@ -301,12 +318,30 @@ namespace NinjaCoder.MvvmCross.Factories
             ProjectTemplateInfo projectTemplateInfo = this.GetPlatFormTestsProject(
                 FrameworkType.XamarinForms,
                 this.settingsService.TestingFramework,
-                this.nugetCommandsService.GetTestCommands(),
+                nugetCommands,
                 preSelect,
                 projectSuffix,
                 projectType);
 
             return projectTemplateInfo;
+        }
+
+        /// <summary>
+        /// Gets the windows store project.
+        /// </summary>
+        /// <returns></returns>
+        internal ProjectTemplateInfo GetWindowsStoreProject()
+        {
+            return new ProjectTemplateInfo
+            {
+                FriendlyName = ProjectType.WindowsStore.GetDescription(),
+                ProjectSuffix = ProjectSuffix.WindowsStore.GetDescription(),
+                TemplateName = ProjectTemplate.WindowsStore.GetDescription(),
+                ReferenceXamarinFormsProject = true,
+                ReferenceCoreProject = true,
+                PreSelected = false,
+                NugetCommands = this.nugetCommandsService.GetXamarinFormsCommands()
+            };
         }
     }
 }

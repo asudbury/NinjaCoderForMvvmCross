@@ -7,6 +7,8 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
 {
     using NinjaCoder.MvvmCross.Entities;
 
+    using Scorchio.VisualStudio.Entities;
+
     /// <summary>
     /// Defines the IApplicationService type.
     /// </summary>
@@ -43,5 +45,16 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// </summary>
         /// <returns></returns>
         FrameworkType GetApplicationFramework();
+
+        /// <summary>
+        /// Suspends the resharper if requested.
+        /// </summary>
+        void SuspendResharperIfRequested();
+
+        /// <summary>
+        /// Fixes the information p list.
+        /// </summary>
+        /// <param name="projectTemplateInfo">The project template information.</param>
+        void FixInfoPList(ProjectTemplateInfo projectTemplateInfo);
     }
 }

@@ -40,17 +40,21 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// </summary>
         /// <param name="readMePath">The read me path.</param>
         /// <param name="commands">The commands.</param>
+        /// <param name="resumeReSharper">if set to <c>true</c> [resume re sharper].</param>
         void Execute(
             string readMePath,
-            IEnumerable<string> commands);
+            IEnumerable<string> commands,
+            bool resumeReSharper);
 
         /// <summary>
         /// Executes the specified visual studio service.
         /// </summary>
         /// <param name="readMePath">The read me path.</param>
         /// <param name="commands">The commands.</param>
+        /// <param name="resumeReSharper">if set to <c>true</c> [resume re sharper].</param>
         void Execute(
             string readMePath,
-            string commands);
+            string commands,
+            bool resumeReSharper);
     }
 }

@@ -78,24 +78,45 @@ namespace NinjaCoder.MvvmCross.Services
             {
                 string.Empty,
                 this.settingsService.FrameworkType.GetDescription() + " framework selected.", 
-                string.Empty
+                this.settingsService.TestingFramework + " testing framework selected.", 
+                this.settingsService.MockingFramework + " mocking framework selected.",
             };
+
+            if (this.settingsService.CreatePlatformTestProjects)
+            {
+                this.Messages.Add("Create Test Projects selected.");
+            }
+
+            if (this.settingsService.UseXamarinTestCloud)
+            {
+                this.Messages.Add("Use Xamarin Test Cloud selected.");
+            }
+
+            if (this.settingsService.UseXamarinInsights)
+            {
+                this.Messages.Add("Use Xamarin Insights selected.");
+            }
 
             if (this.settingsService.UsePreReleaseMvvmCrossNugetPackages &&
                (this.settingsService.FrameworkType == FrameworkType.MvvmCross ||
                  this.settingsService.FrameworkType == FrameworkType.MvvmCrossAndXamarinForms))
             {
-                this.Messages.Add("Pre Release MvvmCross Nuget Packages requested.");
-                this.Messages.Add(string.Empty);
+                this.Messages.Add("Pre Release MvvmCross Nuget Packages selected.");
             }
 
             if (this.settingsService.UsePreReleaseMvvmCrossNugetPackages &&
                (this.settingsService.FrameworkType == FrameworkType.XamarinForms ||
                 this.settingsService.FrameworkType == FrameworkType.MvvmCrossAndXamarinForms))
             {
-                this.Messages.Add("Pre Release Xamarin Forms Nuget Packages requested.");
-                this.Messages.Add(string.Empty);
+                this.Messages.Add("Pre Release Xamarin Forms Nuget Packages selected.");
             }
+
+            if (this.settingsService.UsePreReleaseNinjaNugetPackages)
+            {
+                this.Messages.Add("Pre Release Ninja Nuget Packages selected.");
+            }
+
+            this.Messages.Add(string.Empty);
 
             this.visualStudioService = visualStudioServiceInstance;
             

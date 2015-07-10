@@ -6,9 +6,7 @@
 namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 {
     using Factories.Interfaces;
-
     using MahApps.Metro;
-
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Wpf;
@@ -17,6 +15,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.IO.Abstractions;
@@ -107,6 +106,12 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 
             //// set the defaults!
             this.Project = visualStudioService.GetDefaultProjectName();
+
+            if (string.IsNullOrEmpty(this.Project) 
+                && this.settingsService.UseTempProjectName)
+            {
+                this.Project = "P" + DateTime.Now.ToString("yyMMddHHmm");
+            }
 
             string defaultPath = this.settingsService.DefaultProjectsPath;
 
@@ -207,7 +212,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         {
             this.projects = new ObservableCollection<SelectableItemViewModel<ProjectTemplateInfo>>();
 
-            IEnumerable<ProjectTemplateInfo> projectTemplateInfos = projectFactory.GetAllowedProjects(this.settingsService.FrameworkType);
+            IEnumerable<ProjectTemplateInfo> projectTemplateInfos = this.projectFactory.GetAllowedProjects(this.settingsService.FrameworkType);
 
             foreach (SelectableItemViewModel<ProjectTemplateInfo> template in projectTemplateInfos
                 .Select(projectTemplateInfo => new SelectableItemViewModel<ProjectTemplateInfo>(projectTemplateInfo, projectTemplateInfo.PreSelected)))

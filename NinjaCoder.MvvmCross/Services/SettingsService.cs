@@ -573,6 +573,33 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [use xamarin test cloud].
+        /// </summary>
+        public bool UseXamarinTestCloud
+        {
+            get { return this.GetRegistryValue("Build", "UseXamarinTestCloud", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "UseXamarinTestCloud", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use xamarin insights].
+        /// </summary>
+        public bool UseXamarinInsights
+        {
+            get { return this.GetRegistryValue("Build", "UseXamarinInsights", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "UseXamarinInsights", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use style cop].
+        /// </summary>
+        public bool UseStyleCop
+        {
+            get { return this.GetRegistryValue("Build", "UseStyleCop", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "UseStyleCop", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
         /// Gets the xamarin pages help.
         /// </summary>
         public string XamarinPagesHelp
@@ -586,6 +613,23 @@ namespace NinjaCoder.MvvmCross.Services
         public string XamarinLayoutsHelp
         {
             get { return this.GetRegistryValue(string.Empty, "XamarinLayoutsHelp", "http://developer.xamarin.com/guides/cross-platform/xamarin-forms/controls/layouts/"); }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [use temporary project name].
+        /// </summary>
+        public bool UseTempProjectName
+        {
+            get { return this.GetRegistryValue("Internals", "UseTempProjectName", "N") == "Y"; }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [suspend re sharper during build].
+        /// </summary>
+        public bool SuspendReSharperDuringBuild
+        {
+            get { return this.GetRegistryValue("Build", "SuspendReSharperDuringBuild", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "SuspendReSharperDuringBuild", value ? "Y" : "N"); }
         }
 
         /// <summary>

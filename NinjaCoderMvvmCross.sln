@@ -97,7 +97,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvvmCross", "MvvmCross", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XamarinForms", "XamarinForms", "{91FC43D9-2BAF-43F8-A49E-DF84E5315198}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.14.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.14.nuspec
+		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.19.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.19.nuspec
 		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Core.1.0.5.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Core.1.0.5.nuspec
 		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Labs.1.0.3.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Labs.1.0.3.nuspec
 		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Wpf.1.0.5.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Wpf.1.0.5.nuspec
@@ -336,6 +336,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Values", "Values", "{357EDA
 	ProjectSection(SolutionItems) = preProject
 		NuSpec\MvvmCross\DroidContent\Resources\Values\SplashStyle.xml = NuSpec\MvvmCross\DroidContent\Resources\Values\SplashStyle.xml
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsStoreContent", "WindowsStoreContent", "{45CC621D-0FED-4BB7-AC2E-B3D0B7C28B0C}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\XamarinForms\WindowsStoreContent\App.xaml.cs.pp = NuSpec\XamarinForms\WindowsStoreContent\App.xaml.cs.pp
+		NuSpec\XamarinForms\WindowsStoreContent\App.xaml.pp = NuSpec\XamarinForms\WindowsStoreContent\App.xaml.pp
+		NuSpec\XamarinForms\WindowsStoreContent\MainPage.xaml.cs.pp = NuSpec\XamarinForms\WindowsStoreContent\MainPage.xaml.cs.pp
+		NuSpec\XamarinForms\WindowsStoreContent\MainPage.xaml.pp = NuSpec\XamarinForms\WindowsStoreContent\MainPage.xaml.pp
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaCoder.MvvmCross.VSPackage", "NinjaCoder.MvvmCross.VSPackage\NinjaCoder.MvvmCross.VSPackage.csproj", "{CA7D2A7E-6493-4F5B-9A83-8565C260D508}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -894,6 +904,69 @@ Global
 		{68179A9A-9E34-4B94-9240-84E9DF04C809}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
 		{68179A9A-9E34-4B94-9240-84E9DF04C809}.SingleImage|x64.ActiveCfg = Release|Any CPU
 		{68179A9A-9E34-4B94-9240-84E9DF04C809}.SingleImage|x86.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Ad-Hoc|ARM.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Ad-Hoc|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Ad-Hoc|Mixed Platforms.Build.0 = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Ad-Hoc|x64.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Ad-Hoc|x86.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.AppStore|Any CPU.Build.0 = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.AppStore|ARM.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.AppStore|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.AppStore|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.AppStore|Mixed Platforms.Build.0 = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.AppStore|x64.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.AppStore|x86.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.CD_ROM|ARM.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.CD_ROM|iPhone.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.CD_ROM|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.CD_ROM|Mixed Platforms.Build.0 = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.CD_ROM|x64.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.CD_ROM|x86.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.DVD-5|ARM.ActiveCfg = Debug|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.DVD-5|iPhone.ActiveCfg = Debug|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.DVD-5|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.DVD-5|x64.ActiveCfg = Debug|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.DVD-5|x86.ActiveCfg = Debug|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Release|ARM.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Release|x64.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.Release|x86.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.SingleImage|ARM.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.SingleImage|iPhone.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.SingleImage|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.SingleImage|x64.ActiveCfg = Release|Any CPU
+		{CA7D2A7E-6493-4F5B-9A83-8565C260D508}.SingleImage|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -944,5 +1017,6 @@ Global
 		{83CEEC28-0014-4CD5-8378-86A5CB25C90C} = {97C98269-E8F7-4213-B0CC-B330CE1CFB89}
 		{4170AFEB-29A3-46FB-8D42-511D24EAB94D} = {83CEEC28-0014-4CD5-8378-86A5CB25C90C}
 		{357EDA28-821D-4AEB-B725-328E7EE4E8A8} = {83CEEC28-0014-4CD5-8378-86A5CB25C90C}
+		{45CC621D-0FED-4BB7-AC2E-B3D0B7C28B0C} = {91FC43D9-2BAF-43F8-A49E-DF84E5315198}
 	EndGlobalSection
 EndGlobal

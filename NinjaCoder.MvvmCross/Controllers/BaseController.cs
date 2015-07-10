@@ -103,10 +103,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         protected IList<string> ReadMeLines
         {
-            get
-            {
-                return this.readmeLines ?? (this.readmeLines = new List<string>());
-            }
+            get { return this.readmeLines ?? (this.readmeLines = new List<string>()); }
         }
 
         /// <summary>

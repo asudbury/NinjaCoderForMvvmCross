@@ -6,17 +6,18 @@
 namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
 {
     using NinjaCoder.MvvmCross.Entities;
-using NinjaCoder.MvvmCross.Factories.Interfaces;
-using NinjaCoder.MvvmCross.Services.Interfaces;
-using Scorchio.Infrastructure.Wpf;
-using Scorchio.Infrastructure.Wpf.ViewModels;
-using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
-using Scorchio.VisualStudio.Services;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Windows.Input;
+    using NinjaCoder.MvvmCross.Factories.Interfaces;
+    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Scorchio.Infrastructure.Wpf;
+    using Scorchio.Infrastructure.Wpf.ViewModels;
+    using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
+    using Scorchio.VisualStudio.Services;
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Windows.Input;
 
     /// <summary>
     ///  Defines the XamarinFormsLabsViewModel type.
@@ -27,6 +28,11 @@ using System.Windows.Input;
         /// The settings service.
         /// </summary>
         private readonly ISettingsService settingsService;
+
+        /// <summary>
+        /// The plugins service.
+        /// </summary>
+        private readonly IPluginsService pluginsService;
 
         /// <summary>
         /// The plugin factory.
@@ -42,14 +48,17 @@ using System.Windows.Input;
         /// Initializes a new instance of the <see cref="XamarinFormsLabsViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
+        /// <param name="pluginsService">The plugins service.</param>
         /// <param name="pluginFactory">The plugin factory.</param>
         public XamarinFormsLabsViewModel(
             ISettingsService settingsService,
+            IPluginsService pluginsService,
             IPluginFactory pluginFactory)
         {
             TraceService.WriteLine("XamarinFormsLabsViewModel::Constructor Start");
 
             this.settingsService = settingsService;
+            this.pluginsService = pluginsService;
             this.pluginFactory = pluginFactory;
 
             TraceService.WriteLine("XamarinFormsLabsViewModel::Constructor End");
@@ -107,6 +116,47 @@ using System.Windows.Input;
         public override string DisplayName
         {
             get { return "Xamarin Forms Labs Plugins"; }
+        }
+
+        /// <summary>
+        /// Gets the nuget commands.
+        /// </summary>
+        /// <returns></returns>
+        public string GetNugetCommands()
+        {
+            List<Plugin> requiredPlugins = this.GetRequiredPlugins().ToList();
+
+            string commands = string.Empty;
+
+            if (requiredPlugins.Any())
+            {
+                commands += string.Join(
+                    Environment.NewLine,
+                    this.pluginsService.GetNugetCommands(requiredPlugins, 
+                    this.settingsService.UsePreReleaseXamarinFormsNugetPackages));
+            }
+
+            return commands;
+        }
+
+        /// <summary>
+        /// Gets the nuget messages.
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetNugetMessages()
+        {
+            List<Plugin> requiredPlugins = this.GetRequiredPlugins().ToList();
+
+            List<string> messages = new List<string>();
+
+            if (requiredPlugins.Any())
+            {
+                messages.Add(string.Empty);
+
+                messages.AddRange(this.pluginsService.GetNugetMessages(requiredPlugins));
+            }
+
+            return messages;
         }
 
         /// <summary>

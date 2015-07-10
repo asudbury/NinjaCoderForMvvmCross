@@ -1,8 +1,8 @@
 ﻿<UserControl x:Class="NinjaCoder.MvvmCross.UserControls.AddViews.ViewsFinishedControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d">
 
     <Grid>
@@ -15,16 +15,35 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Width="500" Height="400">
-            <Separator Margin="5"/>
-            <TextBlock Text="Click 'Finish' to generate the view models and views." Margin="10"></TextBlock>
-            <Separator Margin="5"/>
-            
+        <Image Grid.Row="0"
+               Grid.RowSpan="2"
+               Grid.Column="0"
+               Margin="30"
+               VerticalAlignment="Top"
+               Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/lefthand.png" />
+
+        <StackPanel Grid.Row="0"
+                    Grid.Column="1"
+                    Width="500"
+                    Height="400"
+                    Orientation="Vertical">
+
+            <Separator Margin="5" />
+
+            <CheckBox Margin="10"
+                      Content="Suspend ReSharper during Ninja adding of views"
+                      IsChecked="{Binding SuspendReSharperDuringBuild}" />
+
+            <Separator Margin="5" />
+            <TextBlock Margin="10" Text="Click 'Finish' to generate the view models and views." />
+            <Separator Margin="5" />
+
         </StackPanel>
 
-        <Image Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/bottom.png" Grid.Column="1" Grid.Row="1" Width="150" />
-
-        <Image Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/lefthand.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="30" VerticalAlignment="Top"/>
+        <Image Grid.Row="1"
+               Grid.Column="1"
+               Width="150"
+               Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/bottom.png" />
 
     </Grid>
 

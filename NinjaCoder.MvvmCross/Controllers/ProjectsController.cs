@@ -14,14 +14,11 @@ namespace NinjaCoder.MvvmCross.Controllers
     using NinjaCoder.MvvmCross.Views.Wizard;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Services;
-    using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
-    using Scorchio.VisualStudio.Services.Interfaces;
     using Services.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Xml.Linq;
     using ViewModels.AddProjects;
 
     using PluginsViewModel = NinjaCoder.MvvmCross.ViewModels.AddProjects.PluginsViewModel;
@@ -45,16 +42,16 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// The view model views service.
         /// </summary>
         private readonly IViewModelViewsService viewModelViewsService;
-
-        /// <summary>
-        /// The plugins service.
-        /// </summary>
-        private readonly IPluginsService pluginsService;
-
+        
         /// <summary>
         /// The project factory.
         /// </summary>
         private readonly IProjectFactory projectFactory;
+
+        /// <summary>
+        /// The application service.
+        /// </summary>
+        private readonly IApplicationService applicationService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectsController" /> class.
@@ -67,8 +64,8 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="resolverService">The resolver service.</param>
         /// <param name="viewModelViewsService">The view model views service.</param>
         /// <param name="readMeService">The read me service.</param>
-        /// <param name="pluginsService">The plugins service.</param>
         /// <param name="projectFactory">The project factory.</param>
+        /// <param name="applicationService">The application service.</param>
         public ProjectsController(
             IProjectsService projectsService,
             INugetService nugetService,
@@ -78,8 +75,8 @@ namespace NinjaCoder.MvvmCross.Controllers
             IResolverService resolverService,
             IViewModelViewsService viewModelViewsService,
             IReadMeService readMeService,
-            IPluginsService pluginsService,
-            IProjectFactory projectFactory)
+            IProjectFactory projectFactory,
+            IApplicationService applicationService)
             : base(visualStudioService, settingsService, messageBoxService, resolverService, readMeService)
         {
             TraceService.WriteLine("ProjectsController::Constructor");
@@ -87,8 +84,8 @@ namespace NinjaCoder.MvvmCross.Controllers
             this.projectsService = projectsService;
             this.nugetService = nugetService;
             this.viewModelViewsService = viewModelViewsService;
-            this.pluginsService = pluginsService;
             this.projectFactory = projectFactory;
+            this.applicationService = applicationService;
         }
 
         /// <summary>
@@ -139,13 +136,13 @@ namespace NinjaCoder.MvvmCross.Controllers
             NugetPackagesViewModel nugetPackagesViewModel,
             XamarinFormsLabsViewModel xamarinFormsLabsViewModel)
         {
-            //// TODO : this method is too big and needs refactoring!!!
-            
             TraceService.WriteLine("ProjectsController::Process");
 
             string commands = string.Empty;
 
             this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NinjaIsRunning);
+
+            this.applicationService.SuspendResharperIfRequested();
 
             //// create the solution if we don't have one!
             if (this.VisualStudioService.SolutionAlreadyCreated == false)
@@ -153,8 +150,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                 this.VisualStudioService.SolutionService.CreateEmptySolution(projectsViewModel.GetSolutionPath(), projectsViewModel.Project);
             }
 
-            List<string> messages =
-                this.projectsService.AddProjects(
+            List<string> messages = this.projectsService.AddProjects(
                     this.VisualStudioService,
                     projectsViewModel.GetSolutionPath(),
                     projectsViewModel.GetFormattedRequiredTemplates())
@@ -165,7 +161,8 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             if (this.SettingsService.FixInfoPlist)
             {
-                this.FixInfoPlist(projectsViewModel);
+                this.applicationService.FixInfoPList(projectsViewModel.GetFormattedRequiredTemplates()
+                        .FirstOrDefault(x => x.ProjectSuffix == ProjectSuffix.iOS.GetDescription()));
             }
 
             if (this.SettingsService.ProcessViewModelAndViews && 
@@ -181,18 +178,8 @@ namespace NinjaCoder.MvvmCross.Controllers
                 (this.SettingsService.FrameworkType == FrameworkType.MvvmCross ||
                  this.SettingsService.FrameworkType == FrameworkType.MvvmCrossAndXamarinForms))
             {
-                List<Plugin> plugins = pluginsViewModel.GetRequiredPlugins().ToList();
-
-                messages.AddRange(this.pluginsService.AddPlugins(
-                    plugins,
-                    string.Empty,
-                    false));
-
-                IEnumerable<string> pluginCommands = this.pluginsService.GetNugetCommands(
-                    plugins,
-                    this.SettingsService.UsePreReleaseMvvmCrossNugetPackages);
-
-                commands += string.Join(Environment.NewLine, pluginCommands);
+                commands += pluginsViewModel.GetNugetCommands();
+                messages.AddRange(pluginsViewModel.GetNugetMessages());
             }
 
             this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.UpdatingFiles);
@@ -205,34 +192,14 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             if (nugetPackagesViewModel != null)
             {
-                List<Plugin> packages = nugetPackagesViewModel.GetRequiredPackages().ToList();
-
-                if (packages.Any())
-                { 
-                    messages.Add(string.Empty);
-
-                    commands += string.Join(Environment.NewLine, this.pluginsService.GetNugetCommands(
-                                    packages,
-                                    this.SettingsService.UsePreReleaseXamarinFormsNugetPackages));
-
-                    messages.AddRange(this.pluginsService.GetNugetMessages(packages));
-                }
+                commands += nugetPackagesViewModel.GetNugetCommands();
+                messages.AddRange(nugetPackagesViewModel.GetNugetMessages());
             }
 
             if (xamarinFormsLabsViewModel != null)
             {
-                List<Plugin> plugins = xamarinFormsLabsViewModel.GetRequiredPlugins().ToList();
-               
-                if (plugins.Any())
-                {
-                    messages.Add(string.Empty);
-
-                    commands += string.Join(Environment.NewLine, this.pluginsService.GetNugetCommands(
-                                    plugins,
-                                    this.SettingsService.UsePreReleaseXamarinFormsNugetPackages));
-
-                    messages.AddRange(this.pluginsService.GetNugetMessages(plugins));
-                }
+                commands += xamarinFormsLabsViewModel.GetNugetCommands();
+                messages.AddRange(xamarinFormsLabsViewModel.GetNugetMessages());
             }
 
             //// a bit of (unnecessary) tidying up - replace double new lines!
@@ -259,76 +226,11 @@ namespace NinjaCoder.MvvmCross.Controllers
             {
                 this.nugetService.Execute(
                     this.GetReadMePath(), 
-                    commands);
+                    commands,
+                    this.SettingsService.SuspendReSharperDuringBuild);
             }
 
             this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NugetDownload);
-        }
-
-        /// <summary>
-        /// Fixes the information plist.
-        /// </summary>
-        /// <param name="projectsViewModel">The projects view model.</param>
-        private void FixInfoPlist(ProjectsViewModel projectsViewModel)
-        {
-            TraceService.WriteLine("ProjectsController::FixInfoPlist");
-
-            IProjectService iosProjectService = this.VisualStudioService.iOSProjectService;
-
-            if (iosProjectService != null)
-            {
-                //// first check its in the new projects being added!
-
-                ProjectTemplateInfo projectTemplateInfo =
-                    projectsViewModel.GetFormattedRequiredTemplates()
-                        .FirstOrDefault(x => x.ProjectSuffix == ProjectSuffix.iOS.GetDescription());
-
-                if (projectTemplateInfo != null)
-                {
-                    IProjectItemService projectItemService = iosProjectService.GetProjectItem("Info.plist");
-
-                    if (projectItemService != null)
-                    {
-                        XDocument doc = XDocument.Load(projectItemService.FileName);
-
-                        if (doc.Root != null)
-                        {
-                            XElement element = doc.Root.Element("dict");
-
-                            if (element != null)
-                            {
-                                //// first look for the elements
-
-                                XElement childElement = element.Elements("key").FirstOrDefault(x => x.Value == "CFBundleDisplayName");
-
-                                if (childElement == null)
-                                {
-                                    element.Add(new XElement("key", "CFBundleDisplayName"));
-                                    element.Add(new XElement("string", iosProjectService.Name));
-                                }
-
-                                childElement = element.Elements("key").FirstOrDefault(x => x.Value == "CFBundleVersion");
-
-                                if (childElement == null)
-                                {
-                                    element.Add(new XElement("key", "CFBundleVersion"));
-                                    element.Add(new XElement("string", "1.0"));
-                                }
-
-                                childElement = element.Elements("key").FirstOrDefault(x => x.Value == "CFBundleIdentifier");
-
-                                if (childElement == null)
-                                {
-                                    element.Add(new XElement("key", "CFBundleIdentifier"));
-                                    element.Add(new XElement("string", "1"));
-                                }
-                            }
-
-                            doc.Save(projectItemService.FileName);
-                        }
-                    }
-                }
-            }
         }
     }
 }

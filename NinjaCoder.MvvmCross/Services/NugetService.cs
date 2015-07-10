@@ -26,19 +26,33 @@ namespace NinjaCoder.MvvmCross.Services
         private readonly IVisualStudioService visualStudioService;
 
         /// <summary>
+        /// The settings service.
+        /// </summary>
+        private readonly ISettingsService settingsService;
+
+        /// <summary>
         /// The document events.
         /// </summary>
         private DocumentEvents documentEvents;
 
         /// <summary>
+        /// Gets or sets a value indicating whether [resume re sharper].
+        /// </summary>
+        private bool ResumeReSharper { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="NugetService" /> class.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
-        public NugetService(IVisualStudioService visualStudioService)
+        /// <param name="settingsService">The settings service.</param>
+        public NugetService(
+            IVisualStudioService visualStudioService,
+            ISettingsService settingsService)
         {
             TraceService.WriteLine("NugetService::Constructor");
 
             this.visualStudioService = visualStudioService;
+            this.settingsService = settingsService;
         }
 
         /// <summary>
@@ -50,7 +64,6 @@ namespace NinjaCoder.MvvmCross.Services
         public IEnumerable<string> GetInitNugetMessages()
         {
             TraceService.WriteLine("NugetService::InitNugetMessages");
-
             return new List<string> { string.Empty };
         }
 
@@ -86,6 +99,15 @@ namespace NinjaCoder.MvvmCross.Services
                             projectTemplateInfo.Name,
                             Environment.NewLine);
                     }
+
+                    if (this.settingsService.UseStyleCop)
+                    {
+                        nugetCommandsString += string.Format(
+                        "{0} {1} {2}",
+                        Settings.NugetInstallPackage.Replace("%s", Settings.StyleCopMsBuildPackage),
+                        projectTemplateInfo.Name,
+                        Environment.NewLine);
+                    }
                 }
             }
 
@@ -109,9 +131,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         /// <param name="readMePath">The read me path.</param>
         /// <param name="commands">The commands.</param>
+        /// <param name="resumeReSharper">if set to <c>true</c> [resume re sharper].</param>
         public void Execute(
             string readMePath,
-            IEnumerable<string> commands)
+            IEnumerable<string> commands,
+            bool resumeReSharper)
         {
             TraceService.WriteLine("NugetService::Execute");
 
@@ -119,7 +143,8 @@ namespace NinjaCoder.MvvmCross.Services
 
             this.Execute(
                 readMePath,
-                nugetCommandsString);
+                nugetCommandsString,
+                resumeReSharper);
         }
 
         /// <summary>
@@ -127,12 +152,15 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         /// <param name="readMePath">The read me path.</param>
         /// <param name="commands">The commands.</param>
+        /// <param name="resumeReSharper">if set to <c>true</c> [resume re sharper].</param>
         public void  Execute(
             string readMePath,
-            string commands)
+            string commands,
+            bool resumeReSharper)
         {
             TraceService.WriteLine("NugetService::Execute");
-            
+            this.ResumeReSharper = resumeReSharper;
+
             this.SetupEventHandlers();
 
             commands += Environment.NewLine + "$DTE.ItemOperations.OpenFile('" + readMePath + "')";
@@ -199,6 +227,19 @@ namespace NinjaCoder.MvvmCross.Services
             this.FixUpMvvmCrossXamarinForms();
 
             this.visualStudioService.DTEService.CollapseSolution();
+            
+            if (this.ResumeReSharper)
+            {
+                try
+                {
+                    //// this could fail - so catch exception.
+                    this.visualStudioService.DTEService.ExecuteCommand(Settings.ResumeReSharperCommand);
+                }
+                catch (Exception exception)
+                {
+                    TraceService.WriteError("Error Resuming ReSharper exception=" + exception.Message);
+                }
+            }
         }
 
         /// <summary>
@@ -241,6 +282,18 @@ namespace NinjaCoder.MvvmCross.Services
                 if (windowsPhoneProjectService != null)
                 {
                     IProjectItemService projectItemService = windowsPhoneProjectService.GetProjectItem("MainPage.xaml.cs");
+
+                    if (projectItemService != null)
+                    {
+                        projectItemService.ReplaceText("FormsProject", formsProjectService.Name);
+                    }
+                }
+
+                IProjectService windowsStoreProjectService = this.visualStudioService.WindowsStoreProjectService;
+
+                if (windowsStoreProjectService != null)
+                {
+                    IProjectItemService projectItemService = windowsStoreProjectService.GetProjectItem("MainPage.xaml.cs");
 
                     if (projectItemService != null)
                     {

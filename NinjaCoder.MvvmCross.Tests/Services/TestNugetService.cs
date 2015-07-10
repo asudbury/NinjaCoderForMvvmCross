@@ -98,7 +98,8 @@ namespace NinjaCoder.MvvmCross.Tests.Services
         {
             this.service.Execute(
                 string.Empty,
-                string.Empty);
+                string.Empty,
+                false);
 
             this.mockDTEService.Verify(x => x.ExecuteNugetCommand(It.IsAny<string>()));
         }

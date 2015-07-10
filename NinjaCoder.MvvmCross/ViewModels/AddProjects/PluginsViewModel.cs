@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
@@ -29,6 +30,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// The settings service.
         /// </summary>
         private readonly ISettingsService settingsService;
+
+        /// <summary>
+        /// The plugins service.
+        /// </summary>
+        private readonly IPluginsService pluginsService;
 
         /// <summary>
         /// The plugin factory.
@@ -59,14 +65,17 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// Initializes a new instance of the <see cref="PluginsViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
+        /// <param name="pluginsService">The plugins service.</param>
         /// <param name="pluginFactory">The plugin factory.</param>
         public PluginsViewModel(
             ISettingsService settingsService,
+            IPluginsService pluginsService,
             IPluginFactory pluginFactory)
         {
             TraceService.WriteLine("PluginsViewModel::Constructor Start");
 
             this.settingsService = settingsService;
+            this.pluginsService = pluginsService;
             this.pluginFactory = pluginFactory;
 
             TraceService.WriteLine("PluginsViewModel::Constructor End");
@@ -155,6 +164,47 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             return viewModels.ToList()
                 .Where(x => x.IsSelected)
                 .Select(x => x.Item).ToList();
+        }
+
+        /// <summary>
+        /// Gets the nuget commands.
+        /// </summary>
+        /// <returns></returns>
+        public string GetNugetCommands()
+        {
+            List<Plugin> requiredPlugins = this.GetRequiredPlugins().ToList();
+
+            string commands = string.Empty;
+
+            if (requiredPlugins.Any())
+            {
+                commands += string.Join(
+                    Environment.NewLine,
+                    this.pluginsService.GetNugetCommands(requiredPlugins,
+                    this.settingsService.UsePreReleaseXamarinFormsNugetPackages));
+            }
+
+            return commands;
+        }
+
+        /// <summary>
+        /// Gets the nuget messages.
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetNugetMessages()
+        {
+            List<Plugin> requiredPlugins = this.GetRequiredPlugins().ToList();
+
+            List<string> messages = new List<string>();
+
+            if (requiredPlugins.Any())
+            {
+                messages.Add(string.Empty);
+
+                messages.AddRange(this.pluginsService.GetNugetMessages(requiredPlugins));
+            }
+
+            return messages;
         }
 
         /// <summary>

@@ -5,13 +5,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using System.Resources;
-    using System.Runtime.InteropServices;
-
     using Entities;
     using EnvDTE;
     using EnvDTE80;
@@ -20,6 +13,12 @@ namespace Scorchio.VisualStudio
     using Microsoft.VisualStudio.CommandBars;
     using Services;
     using stdole;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Resources;
+    using System.Runtime.InteropServices;
 
     /// <summary>
     ///  Defines the ConnectBase type.

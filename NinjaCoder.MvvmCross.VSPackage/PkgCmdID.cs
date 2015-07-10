@@ -1,18 +1,18 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-//    Defines the IConfigurationService type.
+//    Defines the PkgCmdIDList type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace NinjaCoder.MvvmCross.Services.Interfaces
+namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
 {
     /// <summary>
-    /// Defines the IConfigurationService type.
+    /// Defines the PkgCmdIDList type.
     /// </summary>
-    public interface IConfigurationService
+    static class PkgCmdIDList
     {
         /// <summary>
-        /// Creates the user directories.
+        /// The ninja coder for MVVM cross command.
         /// </summary>
-        void CreateUserDirectories();
-    }
+        public const uint NinjaCoderForMvvmCrossCommand =  0x100;
+    };
 }

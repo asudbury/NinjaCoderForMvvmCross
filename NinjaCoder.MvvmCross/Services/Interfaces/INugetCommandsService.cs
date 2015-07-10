@@ -18,6 +18,18 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         IEnumerable<string> GetTestCommands();
 
         /// <summary>
+        /// Getis the os test commands.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<string> GetiOSTestCommands();
+
+        /// <summary>
+        /// Gets the android test commands.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<string> GetAndroidTestCommands();
+
+        /// <summary>
         /// Gets the MVVM cross core commands.
         /// </summary>
         IEnumerable<string> GetMvvmCrossCoreCommands();
@@ -74,9 +86,14 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         IEnumerable<string> GetXamarinFormsCommands();
 
         /// <summary>
-        /// Gets the xamarin formsi os commands.
+        /// Gets the xamarin forms ios commands.
         /// </summary>
         IEnumerable<string> GetXamarinFormsiOSCommands();
+
+        /// <summary>
+        /// Gets the xamarin forms android commands.
+        /// </summary>
+        IEnumerable<string> GetXamarinFormsAndroidCommands();
 
         /// <summary>
         /// Gets the xamarin forms WPF commands.

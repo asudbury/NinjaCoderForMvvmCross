@@ -41,6 +41,11 @@ namespace NinjaCoder.MvvmCross.Constants
         public const string DirectoryExists = "The directory is not empty please select another one.";
 
         /// <summary>
+        /// The xamarin test cloud and nunit.
+        /// </summary>
+        public const string XamarinTestCloudAndNUnit = "To use the Xamarin Test Cloud you must select NUnit as the testing framework.";
+        
+        /// <summary>
         /// The base view model name.
         /// </summary>
         public const string BaseViewModelName = "BaseViewModel";
@@ -69,5 +74,20 @@ namespace NinjaCoder.MvvmCross.Constants
         /// The nuget install package overwrite files.
         /// </summary>
         public const string NugetInstallPackageOverwriteFiles = "Install-Package %s -FileConflictAction Overwrite -ProjectName";
+
+        /// <summary>
+        /// The suspend re sharper command.
+        /// </summary>
+        public const string SuspendReSharperCommand = "ReSharper_Suspend";
+
+        /// <summary>
+        /// The resume re sharper command.
+        /// </summary>
+        public const string ResumeReSharperCommand = "ReSharper_Resume";
+
+        /// <summary>
+        /// The style cop ms build package.
+        /// </summary>
+        public const string StyleCopMsBuildPackage = "StyleCop.MSBuild";
     }
 }

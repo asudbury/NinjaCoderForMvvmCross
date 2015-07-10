@@ -323,6 +323,21 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         bool CreatePlatformTestProjects { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [use xamarin test cloud].
+        /// </summary>
+        bool UseXamarinTestCloud { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use xamarin insights].
+        /// </summary>
+        bool UseXamarinInsights { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use style cop].
+        /// </summary>
+        bool UseStyleCop { get; set; }
+
+        /// <summary>
         /// Gets the xamarin pages help.
         /// </summary>
         string XamarinPagesHelp { get; }
@@ -332,6 +347,15 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// </summary>
         string XamarinLayoutsHelp { get; }
 
+        /// <summary>
+        /// Gets a value indicating whether [use temporary project name].
+        /// </summary>
+        bool UseTempProjectName { get;  }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [suspend re sharper during build].
+        /// </summary>
+        bool SuspendReSharperDuringBuild { get; set; }
     }
 }
 

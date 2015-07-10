@@ -36,6 +36,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         private readonly ISettingsService settingsService;
 
         /// <summary>
+        /// The plugins service.
+        /// </summary>
+        private readonly IPluginsService pluginsService;
+
+        /// <summary>
         /// The plugin factory.
         /// </summary>
         private readonly IPluginFactory pluginFactory;
@@ -60,16 +65,19 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         /// </summary>
         /// <param name="applicationService">The application service.</param>
         /// <param name="settingsService">The settings service.</param>
+        /// <param name="pluginsService">The plugins service.</param>
         /// <param name="pluginFactory">The plugin factory.</param>
         public NugetPackagesViewModel(
             IApplicationService applicationService,
             ISettingsService settingsService,
+            IPluginsService pluginsService,
             IPluginFactory pluginFactory)
         {
             TraceService.WriteLine("NugetServicesViewModel::Constructor Start");
 
             this.applicationService = applicationService;
             this.settingsService = settingsService;
+            this.pluginsService = pluginsService;
             this.pluginFactory = pluginFactory;
 
             TraceService.WriteLine("NugetServicesViewModel::Constructor End");
@@ -173,6 +181,48 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         public ICommand NugetWebSiteCommand
         {
             get { return new RelayCommand(this.DisplayWebPage); }
+        }
+
+
+        /// <summary>
+        /// Gets the nuget commands.
+        /// </summary>
+        /// <returns></returns>
+        public string GetNugetCommands()
+        {
+            List<Plugin> requiredPlugins = this.GetRequiredPackages().ToList();
+
+            string commands = string.Empty;
+
+            if (requiredPlugins.Any())
+            {
+                commands += string.Join(
+                    Environment.NewLine,
+                    this.pluginsService.GetNugetCommands(requiredPlugins,
+                    this.settingsService.UsePreReleaseXamarinFormsNugetPackages));
+            }
+
+            return commands;
+        }
+
+        /// <summary>
+        /// Gets the nuget messages.
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetNugetMessages()
+        {
+            List<Plugin> requiredPlugins = this.GetRequiredPackages().ToList();
+
+            List<string> messages = new List<string>();
+
+            if (requiredPlugins.Any())
+            {
+                messages.Add(string.Empty);
+
+                messages.AddRange(this.pluginsService.GetNugetMessages(requiredPlugins));
+            }
+
+            return messages;
         }
 
         /// <summary>

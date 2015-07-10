@@ -5,8 +5,10 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 {
+    using MahApps.Metro;
     using NinjaCoder.MvvmCross.Factories.Interfaces;
     using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using System.Collections.Generic;
 
@@ -19,6 +21,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// The settings service.
         /// </summary>
         private readonly ISettingsService settingsService;
+
+        /// <summary>
+        /// The message box service.
+        /// </summary>
+        private readonly IMessageBoxService messageBoxService;
 
         /// <summary>
         /// The testing service factory
@@ -76,17 +83,35 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         private bool createPlatformTestProjects;
 
         /// <summary>
+        /// The use xamarin test cloud.
+        /// </summary>
+        private bool useXamarinTestCloud;
+
+        /// <summary>
+        /// The use xamarin insights.
+        /// </summary>
+        private bool useXamarinInsights;
+
+        /// <summary>
+        /// The use style cop.
+        /// </summary>
+        private bool useStyleCop;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="NinjaBaseViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
+        /// <param name="messageBoxService">The message box service.</param>
         /// <param name="testingServiceFactory">The testing service factory.</param>
         /// <param name="mockingServiceFactory">The mocking service factory.</param>
         public BuildOptionsViewModel(
             ISettingsService settingsService,
+            IMessageBoxService messageBoxService,
             ITestingServiceFactory testingServiceFactory,
             IMockingServiceFactory mockingServiceFactory)
         {
             this.settingsService = settingsService;
+            this.messageBoxService = messageBoxService;
             this.testingServiceFactory = testingServiceFactory;
             this.mockingServiceFactory = mockingServiceFactory;
             this.Init();
@@ -172,6 +197,34 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             get { return this.createPlatformTestProjects; }
             set { this.SetProperty(ref this.createPlatformTestProjects, value); }
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use xamarin test cloud].
+        /// </summary>
+        public bool UseXamarinTestCloud
+        {
+            get { return this.useXamarinTestCloud; }
+            set { this.SetProperty(ref this.useXamarinTestCloud, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use xamarin insights].
+        /// </summary>
+        public bool UseXamarinInsights
+        {
+            get { return this.useXamarinInsights; }
+            set { this.SetProperty(ref this.useXamarinInsights, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use style cop].
+        /// </summary>
+        public bool UseStyleCop
+        {
+            get { return this.useStyleCop; }
+            set { this.SetProperty(ref this.useStyleCop, value); }
+        }
+        
         /// <summary>
         /// Saves this instance.
         /// </summary>
@@ -185,6 +238,9 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             this.settingsService.UsePreReleaseNinjaNugetPackages = this.usePreReleaseNinjaCoderNugetPackages;
 
             this.settingsService.CreatePlatformTestProjects = this.createPlatformTestProjects;
+            this.settingsService.UseXamarinTestCloud = this.useXamarinTestCloud;
+            this.settingsService.UseXamarinInsights = this.useXamarinInsights;
+            this.settingsService.UseStyleCop = this.useStyleCop;
         }
 
         /// <summary>
@@ -205,10 +261,30 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             this.UsePreReleaseNinjaCoderNugetPackages = this.settingsService.UsePreReleaseNinjaNugetPackages;
 
             this.CreatePlatformTestProjects = this.settingsService.CreatePlatformTestProjects;
+            this.UseXamarinTestCloud = this.settingsService.UseXamarinTestCloud;
+            this.UseXamarinInsights = this.settingsService.UseXamarinInsights;
+            this.UseStyleCop = this.settingsService.UseStyleCop;
         }
 
+        /// <summary>
+        /// Determines whether this instance [can move to next page].
+        /// </summary>
+        /// <returns></returns>
         public override bool CanMoveToNextPage()
         {
+            if (this.UseXamarinTestCloud && 
+                this.selectedTestingFramework != "NUnit")
+            {
+                this.messageBoxService.Show(
+                    Constants.Settings.XamarinTestCloudAndNUnit,
+                    Constants.Settings.ApplicationName,
+                    this.settingsService.BetaTesting,
+                    Theme.Light,
+                    this.settingsService.ThemeColor);
+
+                return false;
+            }
+
             this.Save();
             return base.CanMoveToNextPage();
         }

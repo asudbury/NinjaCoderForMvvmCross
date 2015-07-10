@@ -14,6 +14,14 @@ namespace NinjaCoder.MvvmCross.Services
     using System.Diagnostics;
     using System.IO;
     using System.IO.Abstractions;
+    using System.Linq;
+    using System.Xml.Linq;
+
+    using NinjaCoder.MvvmCross.Constants;
+
+    using Scorchio.Infrastructure.Extensions;
+    using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Services.Interfaces;
 
     /// <summary>
     /// Defines the ApplicationService type.
@@ -160,6 +168,87 @@ namespace NinjaCoder.MvvmCross.Services
             }
 
             return frameworkType;
+        }
+
+        /// <summary>
+        /// Suspends the resharper if requested.
+        /// </summary>
+        public void SuspendResharperIfRequested()
+        {
+            if (this.settingsService.SuspendReSharperDuringBuild)
+            {
+                TraceService.WriteLine("SuspendResharper");
+
+                try
+                {
+                    //// this could fail so catch exception.
+                    this.visualStudioService.DTEService.ExecuteCommand(Settings.SuspendReSharperCommand);
+                }
+                catch (Exception exception)
+                {
+                    TraceService.WriteError("Error Suspending ReSharper exception=" + exception.Message);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Fixes the information p list.
+        /// </summary>
+        /// <param name="projectTemplateInfo">The project template information.</param>
+        public void FixInfoPList(ProjectTemplateInfo projectTemplateInfo)
+        {
+            TraceService.WriteLine("ApplicationService::FixInfoPlist");
+
+            IProjectService iosProjectService = this.visualStudioService.iOSProjectService;
+
+            if (iosProjectService != null)
+            {
+                if (projectTemplateInfo != null)
+                {
+                    IProjectItemService projectItemService = iosProjectService.GetProjectItem("Info.plist");
+
+                    if (projectItemService != null)
+                    {
+                        XDocument doc = XDocument.Load(projectItemService.FileName);
+
+                        if (doc.Root != null)
+                        {
+                            XElement element = doc.Root.Element("dict");
+
+                            if (element != null)
+                            {
+                                //// first look for the elements
+
+                                XElement childElement = element.Elements("key").FirstOrDefault(x => x.Value == "CFBundleDisplayName");
+
+                                if (childElement == null)
+                                {
+                                    element.Add(new XElement("key", "CFBundleDisplayName"));
+                                    element.Add(new XElement("string", iosProjectService.Name));
+                                }
+
+                                childElement = element.Elements("key").FirstOrDefault(x => x.Value == "CFBundleVersion");
+
+                                if (childElement == null)
+                                {
+                                    element.Add(new XElement("key", "CFBundleVersion"));
+                                    element.Add(new XElement("string", "1.0"));
+                                }
+
+                                childElement = element.Elements("key").FirstOrDefault(x => x.Value == "CFBundleIdentifier");
+
+                                if (childElement == null)
+                                {
+                                    element.Add(new XElement("key", "CFBundleIdentifier"));
+                                    element.Add(new XElement("string", "1"));
+                                }
+                            }
+
+                            doc.Save(projectItemService.FileName);
+                        }
+                    }
+                }
+            }
         }
     }
 }

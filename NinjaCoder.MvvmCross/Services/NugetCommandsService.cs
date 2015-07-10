@@ -105,6 +105,21 @@ namespace NinjaCoder.MvvmCross.Services
         private const string XamarinFormsWpfPackage = "Xamarin.Forms.Platform.WPF";
 
         /// <summary>
+        /// The xamarin UI test package.
+        /// </summary>
+        private const string XamarinUITestPackage = "Xamarin.UITest";
+
+        /// <summary>
+        /// The xamarin test cloud agent package.
+        /// </summary>
+        private const string XamarinTestCloudAgentPackage = "Xamarin.TestCloud.Agent";
+
+        /// <summary>
+        /// The xamarin insights package.
+        /// </summary>
+        private const string XamarinInsightsPackage = "Xamarin.Insights";
+
+        /// <summary>
         /// The scorchio xamarin forms WPF package.
         /// </summary>
         private const string ScorchioXamarinFormsWpfPackage = "Scorchio.NinjaCoder.Xamarin.Forms.Wpf";
@@ -163,10 +178,14 @@ namespace NinjaCoder.MvvmCross.Services
             switch (this.settingsService.FrameworkType)
             {
                 case FrameworkType.MvvmCross:
+                    break;
+
                 case FrameworkType.MvvmCrossAndXamarinForms:
+                    commands.Add(Settings.NugetInstallPackage.Replace("%s", XamarinFormsPackage));
                     break;
 
                 case FrameworkType.XamarinForms:
+                    commands.Add(Settings.NugetInstallPackage.Replace("%s", XamarinFormsPackage));
                     break;
             }
 
@@ -193,16 +212,55 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Getis the os test commands.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<string> GetiOSTestCommands()
+        {
+            List<string> commands = this.GetTestCommands().ToList();
+
+            if (this.settingsService.UseXamarinTestCloud)
+            {
+                commands.Add(this.GetXamarinFormsCommand(XamarinUITestPackage));
+            }
+
+            return commands;
+        }
+
+        /// <summary>
+        /// Gets the android test commands.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<string> GetAndroidTestCommands()
+        {
+            List<string> commands = this.GetTestCommands().ToList();
+            
+            if (this.settingsService.UseXamarinTestCloud)
+            {
+                commands.Add(this.GetXamarinFormsCommand(XamarinUITestPackage));
+            }
+
+            return commands;
+        }
+
+        /// <summary>
         /// Gets the MVVM cross core cross commands.
         /// </summary>
         public IEnumerable<string> GetMvvmCrossCoreCommands()
         {
             TraceService.WriteLine("NugetCommandsService::GetMvvmCrossCoreCommands");
 
-            return new List<string> 
+            List<string> commands =  new List<string> 
                 {
                     this.GetMvvmCrossCommand(MvvmCrossPackage)
                 };
+
+            if (this.settingsService.UseXamarinInsights)
+            {
+                commands.Add(this.GetXamarinFormsCommand(XamarinInsightsPackage));
+            }
+
+            return commands;
         }
 
         /// <summary>
@@ -236,12 +294,24 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetMvvmCrossDroidCommands()
         {
-            return new List<string> 
+            List<string> commands = new List<string> 
             {
                 this.GetMvvmCrossCommand(MvvmCrossPackage),
                 this.GetNinjaCommand(ScorchioMvvmCrossPackage, false),
                 Settings.NugetInstallPackage.Replace("%s", XamarinAndroidPackage)
             };
+            
+            if (this.settingsService.UseXamarinTestCloud)
+            {
+                commands.Add(this.GetXamarinFormsCommand(XamarinTestCloudAgentPackage));
+            }
+
+            if (this.settingsService.UseXamarinInsights)
+            {
+                commands.Add(this.GetXamarinFormsCommand(XamarinInsightsPackage));
+            }
+
+            return commands;
         }
 
         /// <summary>
@@ -249,11 +319,23 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetMvvmCrossiOSCommands()
         {
-            return new List<string>
+            List<string> commands = new List<string>
             {
                 this.GetMvvmCrossCommand(MvvmCrossPackage),
                 this.GetNinjaCommand(ScorchioMvvmCrossPackage, false)
             };
+            
+            if (this.settingsService.UseXamarinTestCloud)
+            {
+                commands.Add(this.GetXamarinFormsCommand(XamarinTestCloudAgentPackage));
+            }
+
+            if (this.settingsService.UseXamarinInsights)
+            {
+                commands.Add(this.GetXamarinFormsCommand(XamarinInsightsPackage));
+            }
+
+            return commands;
         }
 
         /// <summary>
@@ -261,10 +343,17 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetMvvmCrossWindowsPhoneCommands()
         {
-            return new List<string> 
+            List<string> commands = new List<string> 
             {
                 this.GetMvvmCrossCommand(MvvmCrossPackage)
             };
+
+            if (this.settingsService.UseXamarinInsights)
+            {
+                commands.Add(this.GetXamarinFormsCommand(XamarinInsightsPackage));
+            }
+
+            return commands;
         }
 
         /// <summary>
@@ -272,10 +361,17 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetMvvmCrossWindowsStoreCommands()
         {
-            return new List<string> 
+            List<string> commands = new List<string> 
             {
                 this.GetMvvmCrossCommand(MvvmCrossPackage)
             };
+
+            if (this.settingsService.UseXamarinInsights)
+            {
+                commands.Add(this.GetXamarinFormsCommand(XamarinInsightsPackage));
+            }
+
+            return commands;
         }
 
         /// <summary>
@@ -283,11 +379,18 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetMvvmCrossWpfCommands()
         {
-            return new List<string> 
+            List<string> commands = new List<string> 
             {
                 this.GetMvvmCrossCommand(MvvmCrossPackage),
                 this.GetNinjaCommand(ScorchioMvvmCrossWpfPackage, true)
             };
+
+            if (this.settingsService.UseXamarinInsights)
+            {
+                commands.Add(this.GetXamarinFormsCommand(XamarinInsightsPackage));
+            }
+
+            return commands;
         }
 
         /// <summary>
@@ -295,10 +398,17 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetNoFrameworksCommands()
         {
-            return new List<string> 
+            List<string> commands = new List<string> 
             {
                 this.GetNinjaCommand(ScorchioNoFrameworkPackage, true)
             };
+
+            if (this.settingsService.UseXamarinInsights)
+            {
+                commands.Add(this.GetXamarinFormsCommand(XamarinInsightsPackage));
+            }
+
+            return commands;
         }
 
         /// <summary>
@@ -306,10 +416,22 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetNoFrameworksiOSCommands()
         {
-            return new List<string>
+            List<string> commands = new List<string>
             {
                 this.GetNinjaCommand(ScorchioNoFrameworkPackage, true)
             };
+
+            if (this.settingsService.UseXamarinTestCloud)
+            {
+                commands.Add(this.GetXamarinFormsCommand(XamarinTestCloudAgentPackage));
+            }
+
+            if (this.settingsService.UseXamarinInsights)
+            {
+                commands.Add(this.GetXamarinFormsCommand(XamarinInsightsPackage));
+            }
+
+            return commands;
         }
 
         /// <summary>
@@ -317,10 +439,12 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetXamarinFormsCoreCommands()
         {
-            return new List<string> 
+            List<string> commands = new List<string> 
             {
                 this.GetNinjaCommand(ScorchioXamarinFormsCorePackage, true)
             };
+
+            return commands;
         }
 
         /// <summary>
@@ -328,11 +452,18 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetXamarinFormsCommands()
         {
-            return new List<string> 
+            List<string> commands = new List<string> 
             {
                 this.GetXamarinFormsCommand(XamarinFormsPackage),
                 this.GetNinjaCommand(ScorchioXamarinFormsPackage, true)
             };
+
+            if (this.settingsService.UseXamarinInsights)
+            {
+                commands.Add(this.GetXamarinFormsCommand(XamarinInsightsPackage));
+            }
+
+            return commands;
         }
 
         /// <summary>
@@ -341,11 +472,48 @@ namespace NinjaCoder.MvvmCross.Services
         /// <returns></returns>
         public IEnumerable<string> GetXamarinFormsiOSCommands()
         {
-            return new List<string>
+            List<string> commands =  new List<string>
             {
                 this.GetXamarinFormsCommand(XamarinFormsPackage),
                 this.GetNinjaCommand(ScorchioXamarinFormsPackage, true)
             };
+
+            if (this.settingsService.UseXamarinTestCloud)
+            {
+                commands.Add(this.GetXamarinFormsCommand(XamarinTestCloudAgentPackage));
+            }
+
+            if (this.settingsService.UseXamarinInsights)
+            {
+                commands.Add(this.GetXamarinFormsCommand(XamarinInsightsPackage));
+            }
+
+            return commands;
+        }
+
+        /// <summary>
+        /// Gets the xamarin forms android commands.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<string> GetXamarinFormsAndroidCommands()
+        {
+            List<string> commands = new List<string>
+            {
+                this.GetXamarinFormsCommand(XamarinFormsPackage),
+                this.GetNinjaCommand(ScorchioXamarinFormsPackage, true)
+            };
+
+            if (this.settingsService.UseXamarinTestCloud)
+            {
+                commands.Add(this.GetXamarinFormsCommand(XamarinTestCloudAgentPackage));
+            }
+
+            if (this.settingsService.UseXamarinInsights)
+            {
+                commands.Add(this.GetXamarinFormsCommand(XamarinInsightsPackage));
+            }
+
+            return commands;
         }
 
         /// <summary>
@@ -438,10 +606,22 @@ namespace NinjaCoder.MvvmCross.Services
         /// <returns></returns>
         public IEnumerable<string> GetXamarinAndroidCommands()
         {
-            return new List<string> 
+            List<string> commands =  new List<string> 
             {
                 Settings.NugetInstallPackage.Replace("%s", XamarinAndroidPackage),
             };
+
+            if (this.settingsService.UseXamarinTestCloud)
+            {
+                commands.Add(this.GetXamarinFormsCommand(XamarinTestCloudAgentPackage));
+            }
+
+            if (this.settingsService.UseXamarinInsights)
+            {
+                commands.Add(this.GetXamarinFormsCommand(XamarinInsightsPackage));
+            }
+
+            return commands;
         }
 
         /// <summary>
