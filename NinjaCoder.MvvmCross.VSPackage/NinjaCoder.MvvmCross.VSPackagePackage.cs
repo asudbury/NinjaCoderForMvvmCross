@@ -5,15 +5,13 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
 {
+    using EnvDTE80;
     using Microsoft.VisualStudio.Shell;
-    using Microsoft.VisualStudio.Shell.Interop;
     using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Services;
     using System;
     using System.ComponentModel.Design;
-    using System.Globalization;
     using System.Runtime.InteropServices;
-    using EnvDTE80;
-    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.
@@ -88,22 +86,7 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
         /// </summary>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            // Show a Message Box to prove we were here
-            IVsUIShell uiShell = (IVsUIShell)this.GetService(typeof(SVsUIShell));
-            Guid clsid = Guid.Empty;
-            int result;
-            Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(uiShell.ShowMessageBox(
-                       0,
-                       ref clsid,
-                       "NinjaCoder.MvvmCross.VSPackage",
-                       string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this),
-                       string.Empty,
-                       0,
-                       OLEMSGBUTTON.OLEMSGBUTTON_OK,
-                       OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST,
-                       OLEMSGICON.OLEMSGICON_INFO,
-                       0,        // false
-                       out result));
+            ////NinjaController.RunProjectsController(this.VsInstance.ApplicationObject);
         }
     }
 }

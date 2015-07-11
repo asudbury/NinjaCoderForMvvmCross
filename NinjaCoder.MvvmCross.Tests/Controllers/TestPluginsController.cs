@@ -30,7 +30,7 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
         /// <summary>
         /// The controller.
         /// </summary>
-        private PluginsController controller;
+        public PluginsController controller;
 
         /// <summary>
         /// The mock file system.

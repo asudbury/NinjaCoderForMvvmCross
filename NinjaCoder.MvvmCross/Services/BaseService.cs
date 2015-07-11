@@ -10,7 +10,7 @@ namespace NinjaCoder.MvvmCross.Services
     /// <summary>
     ///  Defines the BaseService type.
     /// </summary>
-    internal abstract class BaseService
+    public abstract class BaseService
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseService" /> class.

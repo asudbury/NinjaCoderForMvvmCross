@@ -15,7 +15,7 @@ namespace NinjaCoder.MvvmCross.Services
     /// <summary>
     /// Defines the PluginService type.
     /// </summary>
-    internal class PluginService : BaseService, IPluginService
+    public class PluginService : BaseService, IPluginService
     {
         /// <summary>
         /// The settings service.

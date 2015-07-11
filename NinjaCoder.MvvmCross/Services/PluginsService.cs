@@ -22,7 +22,7 @@ namespace NinjaCoder.MvvmCross.Services
     /// <summary>
     /// Defines the PluginsService type.
     /// </summary>
-    internal class PluginsService : BaseService, IPluginsService
+    public class PluginsService : BaseService, IPluginsService
     {
         /// <summary>
         /// The visual studio service.

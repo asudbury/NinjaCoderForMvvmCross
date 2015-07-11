@@ -5,16 +5,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Tests.Services
 {
-    using System.Collections.Generic;
-    using System.IO.Abstractions;
     using Moq;
-
     using NinjaCoder.MvvmCross.Services;
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using NinjaCoder.MvvmCross.Tests.Mocks;
     using NUnit.Framework;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services.Interfaces;
+    using System.IO.Abstractions;
 
     /// <summary>
     ///  Defines the TestProjectsService type.

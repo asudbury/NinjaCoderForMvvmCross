@@ -18,7 +18,7 @@ namespace NinjaCoder.MvvmCross.Services
     /// <summary>
     ///  Defines the CodeConfigService type.
     /// </summary>
-    internal class CodeConfigService : ICodeConfigService
+    public class CodeConfigService : ICodeConfigService
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeConfigService" /> class.

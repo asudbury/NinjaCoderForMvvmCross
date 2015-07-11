@@ -21,7 +21,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     /// <summary>
     /// Defines the PluginsController type.
     /// </summary>
-    internal class PluginsController : BaseController
+    public class PluginsController : BaseController
     {
         /// <summary>
         /// The plugins service.

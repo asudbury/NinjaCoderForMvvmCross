@@ -36,7 +36,7 @@ using System.Windows;
 [assembly: AssemblyVersion("1.2.0.0")]
 [assembly: AssemblyFileVersion("1.2.0.0")]
 
-[assembly: InternalsVisibleTo("NinjaCoder.MvvmCross.Tests")]
+////[assembly: InternalsVisibleTo("NinjaCoder.MvvmCross.Tests")]
 
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.SourceAssembly,

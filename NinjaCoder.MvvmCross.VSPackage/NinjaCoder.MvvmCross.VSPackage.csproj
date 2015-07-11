@@ -163,10 +163,6 @@
     <Content Include="Resources\Package.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NinjaCoder.MvvmCross\NinjaCoder.MvvmCross.csproj">
-      <Project>{678643f4-34d9-43ac-ac1b-55fc0d58b598}</Project>
-      <Name>NinjaCoder.MvvmCross</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Scorchio.Infrastructure\Scorchio.Infrastructure.csproj">
       <Project>{8788b9f4-d0b8-406b-b0bc-dbb581b453cc}</Project>
       <Name>Scorchio.Infrastructure</Name>

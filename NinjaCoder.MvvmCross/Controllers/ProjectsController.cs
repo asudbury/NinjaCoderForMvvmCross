@@ -26,7 +26,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     /// <summary>
     /// Defines the ProjectsController type.
     /// </summary>
-    internal class ProjectsController : BaseController
+    public class ProjectsController : BaseController
     {
         /// <summary>
         /// The projects service.
