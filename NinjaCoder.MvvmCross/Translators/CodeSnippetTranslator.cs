@@ -19,7 +19,7 @@ namespace NinjaCoder.MvvmCross.Translators
     /// <summary>
     /// Defines the SnippetTranslator type.
     /// </summary>
-    internal class CodeSnippetTranslator : ITranslator<string, CodeSnippet>
+    public class CodeSnippetTranslator : ITranslator<string, CodeSnippet>
     {
         /// <summary>
         /// Translates the specified from.

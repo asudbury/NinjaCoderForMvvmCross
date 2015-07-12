@@ -119,7 +119,7 @@ namespace NinjaCoder.MvvmCross.Tests.Services
 
             mockProjectItemService.SetupGet(x => x.Kind).Returns(string.Empty);
             
-            this.service.NugetCompleted();
+            ////this.service.NugetCompleted();
         }
     }
 }

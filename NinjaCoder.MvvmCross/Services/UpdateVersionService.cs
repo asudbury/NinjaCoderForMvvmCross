@@ -15,7 +15,7 @@ namespace NinjaCoder.MvvmCross.Services
     /// <summary>
     ///  Defines the UpdateVersionService type.
     /// </summary>
-    internal class UpdateVersionService : BaseService, IUpdateVersionService
+    public class UpdateVersionService : BaseService, IUpdateVersionService
     {
         /// <summary>
         /// The file system.

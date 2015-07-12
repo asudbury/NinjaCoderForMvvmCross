@@ -15,7 +15,7 @@ namespace NinjaCoder.MvvmCross.Translators
     /// <summary>
     ///  Defines the CodeConfigTranslator type.
     /// </summary>
-    internal class CodeConfigTranslator : ITranslator<string, CodeConfig>
+    public class CodeConfigTranslator : ITranslator<string, CodeConfig>
     {
         /// <summary>
         /// Translates the object.
