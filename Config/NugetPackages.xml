@@ -304,4 +304,21 @@
     </Frameworks>
   </Plugin>
   
+   <Plugin>
+    <Name>Xam.Plugins.Messaging</Name>
+    <NugetPackage>Xam.Plugins.Messaging</NugetPackage>
+    <Platforms>
+      <Platform>Core</Platform>
+      <Platform>iOS</Platform>
+      <Platform>Droid</Platform>
+      <Platform>WindowsPhone</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>No Framework</Framework>
+      <Framework>MvvmCross</Framework>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+  </Plugin>
+
 </Plugins>
