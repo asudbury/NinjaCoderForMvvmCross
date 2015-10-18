@@ -62,21 +62,6 @@
   </Plugin>
 
   <Plugin>
-    <Name>Settings</Name>
-    <NugetPackage>Xam.Plugins.Settings</NugetPackage>
-    <Platforms>
-      <Platform>Forms</Platform>
-      <Platform>iOS</Platform>
-      <Platform>Droid</Platform>
-      <Platform>WindowsPhone</Platform>
-    </Platforms>
-    <Frameworks>
-      <Framework>Xamarin Forms</Framework>
-      <Framework>MvvmCross and Xamarin Forms</Framework>
-    </Frameworks>
-  </Plugin>
-
-  <Plugin>
     <Name>Text to Speech</Name>
     <NugetPackage>Xam.Plugins.TextToSpeech</NugetPackage>
     <Platforms>
