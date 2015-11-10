@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorchio.VisualStudio", "Scorchio.VisualStudio\Scorchio.VisualStudio.csproj", "{012E2419-08C3-4555-AF80-F101B02BBCF0}"
 EndProject
@@ -22,7 +22,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{D8877B22-87DF-4D49-917C-AEB6EC4CDBEA}"
 	ProjectSection(SolutionItems) = preProject
 		Config\ApplicationConfig.xml = Config\ApplicationConfig.xml
+		Config\LocalNugetPackages.xml = Config\LocalNugetPackages.xml
 		Config\MvvmCrossPlugins.xml = Config\MvvmCrossPlugins.xml
+		Config\NinjaCommunityNugetPackages.xml = Config\NinjaCommunityNugetPackages.xml
+		Config\NinjaNugetPackages.xml = Config\NinjaNugetPackages.xml
 		Config\NugetPackages.xml = Config\NugetPackages.xml
 		Config\XamarinFormsLabsPlugins.xml = Config\XamarinFormsLabsPlugins.xml
 		Config\XamarinFormsNugetPackages.xml = Config\XamarinFormsNugetPackages.xml
@@ -97,7 +100,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvvmCross", "MvvmCross", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XamarinForms", "XamarinForms", "{91FC43D9-2BAF-43F8-A49E-DF84E5315198}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.19.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.19.nuspec
+		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.20.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.1.0.20.nuspec
 		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Core.1.0.5.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Core.1.0.5.nuspec
 		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Labs.1.0.3.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Labs.1.0.3.nuspec
 		NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Wpf.1.0.5.nuspec = NuSpec\XamarinForms\Scorchio.NinjaCoder.Xamarin.Forms.Wpf.1.0.5.nuspec
@@ -105,7 +108,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XamarinForms", "XamarinForm
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NoFramework", "NoFramework", "{4157C2D6-6BC2-4514-B7E8-395BA9FA129F}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.1.0.3.nuspec = NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.1.0.3.nuspec
+		NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.1.0.4.nuspec = NuSpec\NoFramework\Scorchio.NinjaCoder.NoFramework.1.0.4.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreContent", "CoreContent", "{1D2AE2A2-8597-4623-B009-4E6102284253}"
@@ -218,8 +221,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsPhoneContent", "Wind
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{36E56479-B1AE-4459-B99E-524C15319D38}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\Testing\Scorchio.NinjaCoder.MSTest.Tests.1.0.1.nuspec = NuSpec\Testing\Scorchio.NinjaCoder.MSTest.Tests.1.0.1.nuspec
-		NuSpec\Testing\Scorchio.NinjaCoder.NUnit.Tests.1.0.2.nuspec = NuSpec\Testing\Scorchio.NinjaCoder.NUnit.Tests.1.0.2.nuspec
+		NuSpec\Testing\Scorchio.NinjaCoder.MSTest.Tests.1.0.2.nuspec = NuSpec\Testing\Scorchio.NinjaCoder.MSTest.Tests.1.0.2.nuspec
+		NuSpec\Testing\Scorchio.NinjaCoder.NUnit.Tests.1.0.3.nuspec = NuSpec\Testing\Scorchio.NinjaCoder.NUnit.Tests.1.0.3.nuspec
 		NuSpec\Testing\Scorchio.NinjaCoder.XUnit.Tests.1.0.0.nuspec = NuSpec\Testing\Scorchio.NinjaCoder.XUnit.Tests.1.0.0.nuspec
 	EndProjectSection
 EndProject
@@ -251,8 +254,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WpfContent", "WpfContent", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvvmCrossAndXamarinForms", "MvvmCrossAndXamarinForms", "{6FCD48A4-5E35-4382-96B2-2FC5E439D43C}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\MvvmCrossAndXamarinForms\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.1.0.9.nuspec = NuSpec\MvvmCrossAndXamarinForms\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.1.0.9.nuspec
-		NuSpec\MvvmCrossAndXamarinForms\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.Core.1.0.2.nuspec = NuSpec\MvvmCrossAndXamarinForms\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.Core.1.0.2.nuspec
+		NuSpec\MvvmCrossAndXamarinForms\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.1.0.13.nuspec = NuSpec\MvvmCrossAndXamarinForms\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.1.0.13.nuspec
+		NuSpec\MvvmCrossAndXamarinForms\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.Core.1.0.5.nuspec = NuSpec\MvvmCrossAndXamarinForms\Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms.Core.1.0.5.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModels", "ViewModels", "{FFB3674A-D02F-4CD3-8F2A-3F34A33FFF27}"
@@ -308,21 +311,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FormsContent", "FormsConten
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{1C8F650B-7674-41B0-9C59-760E1B4CE30C}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\MvvmCrossAndXamarinForms\FormsContent\Services\IViewService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\FormsContent\Services\IViewService.cs.pp
+		NuSpec\MvvmCrossAndXamarinForms\FormsContent\Services\ViewService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\FormsContent\Services\ViewService.cs.pp
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreContent", "CoreContent", "{684E7CB9-9F8C-4107-B485-0F0374FA31E3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A098DEA7-618A-45A1-8E0C-DA9FCE4332B3}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "View", "View", "{7C634588-D638-4FB8-8877-FC82CF014EAD}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\MvvmCrossAndXamarinForms\FormsContent\Services\View\IViewService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\FormsContent\Services\View\IViewService.cs.pp
-		NuSpec\MvvmCrossAndXamarinForms\FormsContent\Services\View\ViewService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\FormsContent\Services\View\ViewService.cs.pp
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModel", "ViewModel", "{0B18030C-D403-4660-9B18-8357782BDB92}"
-	ProjectSection(SolutionItems) = preProject
-		NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\ViewModel\IViewModelService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\ViewModel\IViewModelService.cs.pp
-		NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\ViewModel\ViewModelService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\ViewModel\ViewModelService.cs.pp
+		NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\IViewModelService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\IViewModelService.cs.pp
+		NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\ViewModelService.cs.pp = NuSpec\MvvmCrossAndXamarinForms\CoreContent\Services\ViewModelService.cs.pp
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{83CEEC28-0014-4CD5-8378-86A5CB25C90C}"
@@ -346,6 +345,191 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsStoreContent", "Wind
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaCoder.MvvmCross.VSPackage", "NinjaCoder.MvvmCross.VSPackage\NinjaCoder.MvvmCross.VSPackage.csproj", "{CA7D2A7E-6493-4F5B-9A83-8565C260D508}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NinjaSamples", "NinjaSamples", "{D99D5A91-CC14-4224-A1E8-0B3E23F5DE5A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Settings", "Settings", "{EE530523-9AE8-41D7-AEBA-0C73AAEC669F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimpleSample", "SimpleSample", "{EA228896-B0AB-4E26-9B0F-167FFEF9C98B}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\Settings\SimpleSample\Scorchio.NinjaCoder.Settings.Simple.1.0.1.nuspec = NuSpec\NinjaSamples\Settings\SimpleSample\Scorchio.NinjaCoder.Settings.Simple.1.0.1.nuspec
+		NuSpec\NinjaSamples\Settings\SimpleSample\Scorchio.NinjaCoder.Settings.Simple.Core.1.0.2.nuspec = NuSpec\NinjaSamples\Settings\SimpleSample\Scorchio.NinjaCoder.Settings.Simple.Core.1.0.2.nuspec
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreContent", "CoreContent", "{7C8D43C4-4EC8-4A8C-992E-BFE6F326B60C}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\Settings\SimpleSample\CoreContent\NinjaSettingsSimpleReadme.txt = NuSpec\NinjaSamples\Settings\SimpleSample\CoreContent\NinjaSettingsSimpleReadme.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{5A4B4813-B98C-4717-93D5-C84D1AD26A2E}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\Settings\SimpleSample\CoreContent\Services\ISettingsService.cs.pp = NuSpec\NinjaSamples\Settings\SimpleSample\CoreContent\Services\ISettingsService.cs.pp
+		NuSpec\NinjaSamples\Settings\SimpleSample\CoreContent\Services\SettingsService.cs.pp = NuSpec\NinjaSamples\Settings\SimpleSample\CoreContent\Services\SettingsService.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModels", "ViewModels", "{17138149-4D33-4E0A-A824-3D7E86D873D3}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\Settings\SimpleSample\CoreContent\ViewModels\SettingsViewModel.cs.pp = NuSpec\NinjaSamples\Settings\SimpleSample\CoreContent\ViewModels\SettingsViewModel.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FormsContent", "FormsContent", "{63EE5197-47E4-4910-997E-34DA05DD6112}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\Settings\SimpleSample\FormsContent\NinjaSettingsSimpleReadme.txt = NuSpec\NinjaSamples\Settings\SimpleSample\FormsContent\NinjaSettingsSimpleReadme.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Views", "Views", "{4CAE7DFB-B66E-493B-AE62-7E7338D46B7F}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\Settings\SimpleSample\FormsContent\Views\SettingsView.xaml.cs.pp = NuSpec\NinjaSamples\Settings\SimpleSample\FormsContent\Views\SettingsView.xaml.cs.pp
+		NuSpec\NinjaSamples\Settings\SimpleSample\FormsContent\Views\SettingsView.xaml.pp = NuSpec\NinjaSamples\Settings\SimpleSample\FormsContent\Views\SettingsView.xaml.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure", "Azure", "{24055A0E-12BB-4B9C-86A2-2F9641E3ECE9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQLite", "SQLite", "{25683AD3-93A7-4755-A4AA-DD5894774684}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tasks", "Tasks", "{2E143900-F6AC-408F-8762-30F5F8B8B6A6}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\Azure\Tasks\Scorchio.NinjaCoder.Azure.Tasks.1.0.0.nuspec = NuSpec\NinjaSamples\Azure\Tasks\Scorchio.NinjaCoder.Azure.Tasks.1.0.0.nuspec
+		NuSpec\NinjaSamples\Azure\Tasks\Scorchio.NinjaCoder.Azure.Tasks.Core.1.0.0.nuspec = NuSpec\NinjaSamples\Azure\Tasks\Scorchio.NinjaCoder.Azure.Tasks.Core.1.0.0.nuspec
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreContent", "CoreContent", "{C2EA9C90-6CB3-4CB8-81E8-FDDB65A42164}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\Azure\Tasks\CoreContent\NinjaAzureTasksReadme.txt = NuSpec\NinjaSamples\Azure\Tasks\CoreContent\NinjaAzureTasksReadme.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FormsContent", "FormsContent", "{EAABFDC5-3A63-4771-80F7-046229CAEC3C}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\Azure\Tasks\FormsContent\NinjaAzureTasksReadMe.txt = NuSpec\NinjaSamples\Azure\Tasks\FormsContent\NinjaAzureTasksReadMe.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataServices", "DataServices", "{DC293440-725A-4376-842A-4811C7BCAB2D}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\Azure\Tasks\CoreContent\DataServices\ITaskAzureDataService.cs.pp = NuSpec\NinjaSamples\Azure\Tasks\CoreContent\DataServices\ITaskAzureDataService.cs.pp
+		NuSpec\NinjaSamples\Azure\Tasks\CoreContent\DataServices\TaskAzureDataService.cs.pp = NuSpec\NinjaSamples\Azure\Tasks\CoreContent\DataServices\TaskAzureDataService.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entities", "Entities", "{732447E8-FB86-4EEB-8EA4-C756144DFF71}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\Azure\Tasks\CoreContent\Entities\TaskItem.cs.pp = NuSpec\NinjaSamples\Azure\Tasks\CoreContent\Entities\TaskItem.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repositories", "Repositories", "{60CAD985-BFC3-41A9-BFA5-D03904B5245B}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\Azure\Tasks\CoreContent\Repositories\ITaskRepository.cs.pp = NuSpec\NinjaSamples\Azure\Tasks\CoreContent\Repositories\ITaskRepository.cs.pp
+		NuSpec\NinjaSamples\Azure\Tasks\CoreContent\Repositories\TaskRepository.cs.pp = NuSpec\NinjaSamples\Azure\Tasks\CoreContent\Repositories\TaskRepository.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{8C4E790D-258B-480C-B603-3334000F03C7}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\Azure\Tasks\CoreContent\Services\ITaskService.cs.pp = NuSpec\NinjaSamples\Azure\Tasks\CoreContent\Services\ITaskService.cs.pp
+		NuSpec\NinjaSamples\Azure\Tasks\CoreContent\Services\TaskService.cs.pp = NuSpec\NinjaSamples\Azure\Tasks\CoreContent\Services\TaskService.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModels", "ViewModels", "{9B76EFBC-492E-4182-9414-D56D181FD83B}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\Azure\Tasks\CoreContent\ViewModels\TaskItemViewModel.cs.pp = NuSpec\NinjaSamples\Azure\Tasks\CoreContent\ViewModels\TaskItemViewModel.cs.pp
+		NuSpec\NinjaSamples\Azure\Tasks\CoreContent\ViewModels\TaskListViewModel.cs.pp = NuSpec\NinjaSamples\Azure\Tasks\CoreContent\ViewModels\TaskListViewModel.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Todo", "Todo", "{8789825C-3994-4610-B9E3-45BA5CE6152A}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\SQLite\Todo\Scorchio.NinjaCoder.SQLite.Todo.1.0.0.nuspec = NuSpec\NinjaSamples\SQLite\Todo\Scorchio.NinjaCoder.SQLite.Todo.1.0.0.nuspec
+		NuSpec\NinjaSamples\SQLite\Todo\Scorchio.NinjaCoder.SQLite.Todo.Core.1.0.0.nuspec = NuSpec\NinjaSamples\SQLite\Todo\Scorchio.NinjaCoder.SQLite.Todo.Core.1.0.0.nuspec
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreContent", "CoreContent", "{C0500842-B45A-4163-AB72-D9F00E46D4A3}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\SQLite\Todo\CoreContent\NinjaSQLiteTodoReadme.txt = NuSpec\NinjaSamples\SQLite\Todo\CoreContent\NinjaSQLiteTodoReadme.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FormsContent", "FormsContent", "{3492AEE5-1DE0-42DC-921A-5248A4845B0B}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\SQLite\Todo\FormsContent\NinjaSQLiteTodoReadMe.txt = NuSpec\NinjaSamples\SQLite\Todo\FormsContent\NinjaSQLiteTodoReadMe.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataServices", "DataServices", "{AEECDABB-1D43-47B8-9153-3B80A1F5E784}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\SQLite\Todo\CoreContent\DataServices\ITodoSqliteDataService.cs.pp = NuSpec\NinjaSamples\SQLite\Todo\CoreContent\DataServices\ITodoSqliteDataService.cs.pp
+		NuSpec\NinjaSamples\SQLite\Todo\CoreContent\DataServices\TodoSqliteDataService.cs.pp = NuSpec\NinjaSamples\SQLite\Todo\CoreContent\DataServices\TodoSqliteDataService.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entities", "Entities", "{ECE672CF-EE0F-48C1-BEC6-F17234AF4A1A}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\SQLite\Todo\CoreContent\Entities\TodoItem.cs.pp = NuSpec\NinjaSamples\SQLite\Todo\CoreContent\Entities\TodoItem.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repositories", "Repositories", "{F97A1C8B-F6B8-4F00-98F7-034B9D1811BC}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\SQLite\Todo\CoreContent\Repositories\ITodoRepository.cs.pp = NuSpec\NinjaSamples\SQLite\Todo\CoreContent\Repositories\ITodoRepository.cs.pp
+		NuSpec\NinjaSamples\SQLite\Todo\CoreContent\Repositories\TodoRepository.cs.pp = NuSpec\NinjaSamples\SQLite\Todo\CoreContent\Repositories\TodoRepository.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{C61C190D-E476-493A-9C40-58EDD3150B63}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\SQLite\Todo\CoreContent\Services\ISqliteConnectionService.cs.pp = NuSpec\NinjaSamples\SQLite\Todo\CoreContent\Services\ISqliteConnectionService.cs.pp
+		NuSpec\NinjaSamples\SQLite\Todo\CoreContent\Services\ITodoService.cs.pp = NuSpec\NinjaSamples\SQLite\Todo\CoreContent\Services\ITodoService.cs.pp
+		NuSpec\NinjaSamples\SQLite\Todo\CoreContent\Services\TodoService.cs.pp = NuSpec\NinjaSamples\SQLite\Todo\CoreContent\Services\TodoService.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModels", "ViewModels", "{A5EA3278-350E-4863-908A-EE0583E420E7}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\SQLite\Todo\CoreContent\ViewModels\TodoItemViewModel.cs.pp = NuSpec\NinjaSamples\SQLite\Todo\CoreContent\ViewModels\TodoItemViewModel.cs.pp
+		NuSpec\NinjaSamples\SQLite\Todo\CoreContent\ViewModels\TodoListViewModel.cs.pp = NuSpec\NinjaSamples\SQLite\Todo\CoreContent\ViewModels\TodoListViewModel.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreContent", "CoreContent", "{2786E814-7B65-47D2-BE26-A45816EB686C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModels", "ViewModels", "{A5445DD0-8BAD-43DD-BFE5-B695BF828B64}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NoFramework\CoreContent\ViewModels\BaseViewModel.cs.pp = NuSpec\NoFramework\CoreContent\ViewModels\BaseViewModel.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Views", "Views", "{D7D5A78E-FD28-41D9-BD2A-7B7D887A4D55}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\Azure\Tasks\FormsContent\Views\TaskItemView.xaml.cs.pp = NuSpec\NinjaSamples\Azure\Tasks\FormsContent\Views\TaskItemView.xaml.cs.pp
+		NuSpec\NinjaSamples\Azure\Tasks\FormsContent\Views\TaskItemView.xaml.pp = NuSpec\NinjaSamples\Azure\Tasks\FormsContent\Views\TaskItemView.xaml.pp
+		NuSpec\NinjaSamples\Azure\Tasks\FormsContent\Views\TaskListView.xaml.cs.pp = NuSpec\NinjaSamples\Azure\Tasks\FormsContent\Views\TaskListView.xaml.cs.pp
+		NuSpec\NinjaSamples\Azure\Tasks\FormsContent\Views\TaskListView.xaml.pp = NuSpec\NinjaSamples\Azure\Tasks\FormsContent\Views\TaskListView.xaml.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Views", "Views", "{175E0FC7-D4FA-4411-9CB1-DA9C4ED182E1}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\SQLite\Todo\FormsContent\Views\TodoItemView.xaml.cs.pp = NuSpec\NinjaSamples\SQLite\Todo\FormsContent\Views\TodoItemView.xaml.cs.pp
+		NuSpec\NinjaSamples\SQLite\Todo\FormsContent\Views\TodoItemView.xaml.pp = NuSpec\NinjaSamples\SQLite\Todo\FormsContent\Views\TodoItemView.xaml.pp
+		NuSpec\NinjaSamples\SQLite\Todo\FormsContent\Views\TodoListView.xaml.cs.pp = NuSpec\NinjaSamples\SQLite\Todo\FormsContent\Views\TodoListView.xaml.cs.pp
+		NuSpec\NinjaSamples\SQLite\Todo\FormsContent\Views\TodoListView.xaml.pp = NuSpec\NinjaSamples\SQLite\Todo\FormsContent\Views\TodoListView.xaml.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DroidContent", "DroidContent", "{F44CCEED-824E-40D7-9066-E2FD45FD2564}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\SQLite\Todo\DroidContent\NinjaSQLiteTodoReadMe.txt = NuSpec\NinjaSamples\SQLite\Todo\DroidContent\NinjaSQLiteTodoReadMe.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DependencyServices", "DependencyServices", "{038A75B2-C9C8-4864-B531-897F542711EE}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\SQLite\Todo\DroidContent\DependencyServices\SqliteConnectionServiceDroid.cs.pp = NuSpec\NinjaSamples\SQLite\Todo\DroidContent\DependencyServices\SqliteConnectionServiceDroid.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iOSContent", "iOSContent", "{FD932952-DF13-4CC9-87A6-6EEB282E76BB}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\SQLite\Todo\iOSContent\NinjaSQLiteTodoReadMe.txt = NuSpec\NinjaSamples\SQLite\Todo\iOSContent\NinjaSQLiteTodoReadMe.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DependencyServices", "DependencyServices", "{0ED563E8-B216-488B-87DE-966145B5FABD}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\SQLite\Todo\iOSContent\DependencyServices\SqliteConnectionServiceiOS.cs.pp = NuSpec\NinjaSamples\SQLite\Todo\iOSContent\DependencyServices\SqliteConnectionServiceiOS.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsPhoneContent", "WindowsPhoneContent", "{FFC7300D-7815-4998-B1FA-AA3CB0FBA5D3}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\SQLite\Todo\WindowsPhoneContent\NinjaSQLiteTodoReadMe.txt = NuSpec\NinjaSamples\SQLite\Todo\WindowsPhoneContent\NinjaSQLiteTodoReadMe.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DependencyServices", "DependencyServices", "{C3ED11FD-1C1A-4999-B844-04EB598F4C5B}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\NinjaSamples\SQLite\Todo\WindowsPhoneContent\DependencyServices\SqliteConnectionServiceWindowsPhone.cs.pp = NuSpec\NinjaSamples\SQLite\Todo\WindowsPhoneContent\DependencyServices\SqliteConnectionServiceWindowsPhone.cs.pp
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1012,11 +1196,45 @@ Global
 		{1C8F650B-7674-41B0-9C59-760E1B4CE30C} = {CF5A9719-BF39-45A3-9921-8B4C820FB548}
 		{684E7CB9-9F8C-4107-B485-0F0374FA31E3} = {6FCD48A4-5E35-4382-96B2-2FC5E439D43C}
 		{A098DEA7-618A-45A1-8E0C-DA9FCE4332B3} = {684E7CB9-9F8C-4107-B485-0F0374FA31E3}
-		{7C634588-D638-4FB8-8877-FC82CF014EAD} = {1C8F650B-7674-41B0-9C59-760E1B4CE30C}
-		{0B18030C-D403-4660-9B18-8357782BDB92} = {A098DEA7-618A-45A1-8E0C-DA9FCE4332B3}
 		{83CEEC28-0014-4CD5-8378-86A5CB25C90C} = {97C98269-E8F7-4213-B0CC-B330CE1CFB89}
 		{4170AFEB-29A3-46FB-8D42-511D24EAB94D} = {83CEEC28-0014-4CD5-8378-86A5CB25C90C}
 		{357EDA28-821D-4AEB-B725-328E7EE4E8A8} = {83CEEC28-0014-4CD5-8378-86A5CB25C90C}
 		{45CC621D-0FED-4BB7-AC2E-B3D0B7C28B0C} = {91FC43D9-2BAF-43F8-A49E-DF84E5315198}
+		{D99D5A91-CC14-4224-A1E8-0B3E23F5DE5A} = {6487A2BF-47FE-41C6-9B7F-D33363630C95}
+		{EE530523-9AE8-41D7-AEBA-0C73AAEC669F} = {D99D5A91-CC14-4224-A1E8-0B3E23F5DE5A}
+		{EA228896-B0AB-4E26-9B0F-167FFEF9C98B} = {EE530523-9AE8-41D7-AEBA-0C73AAEC669F}
+		{7C8D43C4-4EC8-4A8C-992E-BFE6F326B60C} = {EA228896-B0AB-4E26-9B0F-167FFEF9C98B}
+		{5A4B4813-B98C-4717-93D5-C84D1AD26A2E} = {7C8D43C4-4EC8-4A8C-992E-BFE6F326B60C}
+		{17138149-4D33-4E0A-A824-3D7E86D873D3} = {7C8D43C4-4EC8-4A8C-992E-BFE6F326B60C}
+		{63EE5197-47E4-4910-997E-34DA05DD6112} = {EA228896-B0AB-4E26-9B0F-167FFEF9C98B}
+		{4CAE7DFB-B66E-493B-AE62-7E7338D46B7F} = {63EE5197-47E4-4910-997E-34DA05DD6112}
+		{24055A0E-12BB-4B9C-86A2-2F9641E3ECE9} = {D99D5A91-CC14-4224-A1E8-0B3E23F5DE5A}
+		{25683AD3-93A7-4755-A4AA-DD5894774684} = {D99D5A91-CC14-4224-A1E8-0B3E23F5DE5A}
+		{2E143900-F6AC-408F-8762-30F5F8B8B6A6} = {24055A0E-12BB-4B9C-86A2-2F9641E3ECE9}
+		{C2EA9C90-6CB3-4CB8-81E8-FDDB65A42164} = {2E143900-F6AC-408F-8762-30F5F8B8B6A6}
+		{EAABFDC5-3A63-4771-80F7-046229CAEC3C} = {2E143900-F6AC-408F-8762-30F5F8B8B6A6}
+		{DC293440-725A-4376-842A-4811C7BCAB2D} = {C2EA9C90-6CB3-4CB8-81E8-FDDB65A42164}
+		{732447E8-FB86-4EEB-8EA4-C756144DFF71} = {C2EA9C90-6CB3-4CB8-81E8-FDDB65A42164}
+		{60CAD985-BFC3-41A9-BFA5-D03904B5245B} = {C2EA9C90-6CB3-4CB8-81E8-FDDB65A42164}
+		{8C4E790D-258B-480C-B603-3334000F03C7} = {C2EA9C90-6CB3-4CB8-81E8-FDDB65A42164}
+		{9B76EFBC-492E-4182-9414-D56D181FD83B} = {C2EA9C90-6CB3-4CB8-81E8-FDDB65A42164}
+		{8789825C-3994-4610-B9E3-45BA5CE6152A} = {25683AD3-93A7-4755-A4AA-DD5894774684}
+		{C0500842-B45A-4163-AB72-D9F00E46D4A3} = {8789825C-3994-4610-B9E3-45BA5CE6152A}
+		{3492AEE5-1DE0-42DC-921A-5248A4845B0B} = {8789825C-3994-4610-B9E3-45BA5CE6152A}
+		{AEECDABB-1D43-47B8-9153-3B80A1F5E784} = {C0500842-B45A-4163-AB72-D9F00E46D4A3}
+		{ECE672CF-EE0F-48C1-BEC6-F17234AF4A1A} = {C0500842-B45A-4163-AB72-D9F00E46D4A3}
+		{F97A1C8B-F6B8-4F00-98F7-034B9D1811BC} = {C0500842-B45A-4163-AB72-D9F00E46D4A3}
+		{C61C190D-E476-493A-9C40-58EDD3150B63} = {C0500842-B45A-4163-AB72-D9F00E46D4A3}
+		{A5EA3278-350E-4863-908A-EE0583E420E7} = {C0500842-B45A-4163-AB72-D9F00E46D4A3}
+		{2786E814-7B65-47D2-BE26-A45816EB686C} = {4157C2D6-6BC2-4514-B7E8-395BA9FA129F}
+		{A5445DD0-8BAD-43DD-BFE5-B695BF828B64} = {2786E814-7B65-47D2-BE26-A45816EB686C}
+		{D7D5A78E-FD28-41D9-BD2A-7B7D887A4D55} = {EAABFDC5-3A63-4771-80F7-046229CAEC3C}
+		{175E0FC7-D4FA-4411-9CB1-DA9C4ED182E1} = {3492AEE5-1DE0-42DC-921A-5248A4845B0B}
+		{F44CCEED-824E-40D7-9066-E2FD45FD2564} = {8789825C-3994-4610-B9E3-45BA5CE6152A}
+		{038A75B2-C9C8-4864-B531-897F542711EE} = {F44CCEED-824E-40D7-9066-E2FD45FD2564}
+		{FD932952-DF13-4CC9-87A6-6EEB282E76BB} = {8789825C-3994-4610-B9E3-45BA5CE6152A}
+		{0ED563E8-B216-488B-87DE-966145B5FABD} = {FD932952-DF13-4CC9-87A6-6EEB282E76BB}
+		{FFC7300D-7815-4998-B1FA-AA3CB0FBA5D3} = {8789825C-3994-4610-B9E3-45BA5CE6152A}
+		{C3ED11FD-1C1A-4999-B844-04EB598F4C5B} = {FFC7300D-7815-4998-B1FA-AA3CB0FBA5D3}
 	EndGlobalSection
 EndGlobal

@@ -17,12 +17,12 @@ namespace NinjaCoder.MvvmCross.UpdateChecker
     /// <summary>
     /// Defines the Program type.
     /// </summary>
-    class Program
+    public class Program
     {
         /// <summary>
         /// Mains the specified args.
         /// </summary>
-        static void Main()
+        public static void Main()
         {
             TraceService.WriteHeader("NinjaCoder.MvvmCross.UpdateChecker::Main");
 
@@ -48,7 +48,7 @@ namespace NinjaCoder.MvvmCross.UpdateChecker
                 Dictionary<string, string> requestContext = new Dictionary<string, string>()
                                                             {
                                                                 { "LCID", "1033" },
-                                                                {"SearchSource", "ExtensionManagerUpdate"},
+                                                                { "SearchSource", "ExtensionManagerUpdate" }
                                                             };
 
                 string[] output = client.GetCurrentVersionsForVsixList(keys, requestContext);

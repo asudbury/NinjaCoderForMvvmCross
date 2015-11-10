@@ -1,6 +1,14 @@
-﻿namespace NinjaCoder.MvvmCross.TemplateWizards
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//    Defines the BaseForm type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace NinjaCoder.MvvmCross.TemplateWizards
 {
-    partial class BaseForm
+    /// <summary>
+    /// Defines the BaseForm type.
+    /// </summary>
+    public partial class BaseForm
     {
         /// <summary>
         /// Required designer variable.
@@ -13,10 +21,11 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing && (this.components != null))
             {
-                components.Dispose();
+                this.components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 

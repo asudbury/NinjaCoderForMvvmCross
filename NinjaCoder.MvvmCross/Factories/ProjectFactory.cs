@@ -10,16 +10,15 @@ namespace NinjaCoder.MvvmCross.Factories
     using NinjaCoder.MvvmCross.UserControls.AddViews;
     using NinjaCoder.MvvmCross.ViewModels.AddNugetPackages;
     using NinjaCoder.MvvmCross.ViewModels.AddViews;
-
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
-
     using Services.Interfaces;
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using UserControls.AddProjects;
     using ViewModels.AddProjects;
-
     using PluginsControl = NinjaCoder.MvvmCross.UserControls.AddPlugins.PluginsControl;
     using ProjectsFinishedControl = NinjaCoder.MvvmCross.UserControls.AddProjects.ProjectsFinishedControl;
 
@@ -39,18 +38,26 @@ namespace NinjaCoder.MvvmCross.Factories
         private readonly IRegisterService registerService;
 
         /// <summary>
+        /// The caching service.
+        /// </summary>
+        private readonly ICachingService cachingService;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ProjectFactory" /> class.
         /// </summary>
         /// <param name="resolverService">The resolver service.</param>
         /// <param name="registerService">The register service.</param>
+        /// <param name="cachingService">The caching service.</param>
         public ProjectFactory(
             IResolverService resolverService,
-            IRegisterService registerService)
+            IRegisterService registerService,
+            ICachingService cachingService)
         {
             TraceService.WriteLine("ProjectFactory::Constructor");
 
             this.resolverService = resolverService;
             this.registerService = registerService;
+            this.cachingService = cachingService;
         }
 
         /// <summary>
@@ -95,42 +102,68 @@ namespace NinjaCoder.MvvmCross.Factories
                 new WizardStepViewModel
                 {
                     ViewModel = this.resolverService.Resolve<BuildOptionsViewModel>(),
-                    ViewType = typeof (BuildOptionsControl)
+                    ViewType = typeof(BuildOptionsControl),
+                    Name = "Build"
                 },
                 new WizardStepViewModel
                 {
                     ViewModel = this.resolverService.Resolve<FrameworkSelectorViewModel>(),
-                    ViewType = typeof (FrameworkSelectorControl)
+                    ViewType = typeof(FrameworkSelectorControl),
+                    Name = "Framework"
                 },
                 new WizardStepViewModel
                 {
                     ViewModel = this.resolverService.Resolve<ProjectsViewModel>(),
-                    ViewType = typeof (ProjectsControl)
+                    ViewType = typeof(ProjectsControl),
+                    Name = "Projects"
+                },
+                new WizardStepViewModel
+                {
+                    ViewModel = this.resolverService.Resolve<ApplicationOptionsViewModel>(),
+                    ViewType = typeof(ApplicationOptionsControl),
+                    Name = "ApplicationOptions"
+                },
+                new WizardStepViewModel
+                {
+                    ViewModel = this.resolverService.Resolve<NinjaCoderOptionsViewModel>(),
+                    ViewType = typeof(NinjaCoderOptionsControl),
+                    Name = "NinjaCoderOptions"
+                },
+                new WizardStepViewModel
+                {
+                    ViewModel = this.resolverService.Resolve<ApplicationSamplesOptionsViewModel>(),
+                    ViewType = typeof(ApplicationSamplesOptionsControl),
+                    Name = "ApplicationSamplesOptions"
                 },
                 new WizardStepViewModel
                 {
                     ViewModel = this.resolverService.Resolve<ViewsViewModel>(),
-                    ViewType = typeof (ViewsControl)
+                    ViewType = typeof(ViewsControl),
+                    Name = "ViewsAndViewModels"
                 },
                 new WizardStepViewModel
                 {
                     ViewModel = this.resolverService.Resolve<PluginsViewModel>(),
-                    ViewType = typeof (PluginsControl)
+                    ViewType = typeof(PluginsControl),
+                    Name = "MvvmCrossPlugins"
                 },
                 new WizardStepViewModel
                 {
                     ViewModel = this.resolverService.Resolve<NugetPackagesViewModel>(),
-                    ViewType = typeof (NugetPackagesControl)
+                    ViewType = typeof(NugetPackagesControl),
+                    Name = "NugetPackages"
                 },
                 new WizardStepViewModel
                 {
                     ViewModel = this.resolverService.Resolve<XamarinFormsLabsViewModel>(),
-                    ViewType = typeof (XamarinFormsLabsControl)
+                    ViewType = typeof(XamarinFormsLabsControl),
+                    Name = "XamarinFormsLabs"
                 },
                 new WizardStepViewModel
                 {
                     ViewModel = this.resolverService.Resolve<ProjectsFinishedViewModel>(),
-                    ViewType = typeof (ProjectsFinishedControl)
+                    ViewType = typeof(ProjectsFinishedControl),
+                    Name = "Finish"
                 }
             };
 
@@ -154,6 +187,53 @@ namespace NinjaCoder.MvvmCross.Factories
             };
 
             this.registerService.Register<IWizardData>(wizardData);
+        }
+
+        /// <summary>
+        /// Gets the route modifier.
+        /// </summary>
+        /// <param name="frameworkType">Type of the framework.</param>
+        /// <returns></returns>
+        public RouteModifier GetRouteModifier(FrameworkType frameworkType)
+        {
+            RouteModifier routeModifier = new RouteModifier
+                                              {
+                                                  ExcludeViewTypes = new List<Type>()
+                                              };
+
+            //// if no framework we cant setup up the viewmodels and views.
+            if (frameworkType == FrameworkType.NoFramework)
+            {
+                routeModifier.ExcludeViewTypes.Add(typeof(ViewsControl));
+                routeModifier.ExcludeViewTypes.Add(typeof(PluginsControl));
+            }
+
+            if (frameworkType == FrameworkType.XamarinForms)
+            {
+                routeModifier.ExcludeViewTypes.Add(typeof(PluginsControl));
+            }
+
+            if (this.cachingService.HasNinjaNugetPackages == false && 
+                this.cachingService.HasNinjaCommunityNugetPackages == false &&
+                this.cachingService.HasLocalNugetPackages == false)
+            {
+                routeModifier.ExcludeViewTypes.Add(typeof(NinjaCoderOptionsControl));
+            }
+
+            IEnumerable<Plugin> samplePlugins = this.cachingService.ApplicationSamplePlugIns;
+
+            if (samplePlugins != null &&
+                samplePlugins.Any() == false)
+            {
+                routeModifier.ExcludeViewTypes.Add(typeof(ApplicationSamplesOptionsControl));
+            }
+
+            if (this.cachingService.XamarinFormsLabsNugetPackageRequested == false)
+            {
+                routeModifier.ExcludeViewTypes.Add(typeof(XamarinFormsLabsControl));
+            }
+
+            return routeModifier;
         }
     }
 }

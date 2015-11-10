@@ -22,7 +22,6 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// <param name="hTaskCaller">The task caller.</param>
         /// <param name="dwTickCount">The tick count.</param>
         /// <param name="lpInterfaceInfo">The interface info.</param>
-        /// <returns></returns>
         [PreserveSig]
         int HandleInComingCall(
             int dwCallType,
@@ -36,7 +35,6 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// <param name="hTaskCallee">The task callee.</param>
         /// <param name="dwTickCount">The tick count.</param>
         /// <param name="dwRejectType">Type of the reject.</param>
-        /// <returns></returns>
         [PreserveSig]
         int RetryRejectedCall(
             IntPtr hTaskCallee,
@@ -49,7 +47,6 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// <param name="hTaskCallee">The task callee.</param>
         /// <param name="dwTickCount">The tick count.</param>
         /// <param name="dwPendingType">Type of the pending.</param>
-        /// <returns></returns>
         [PreserveSig]
         int MessagePending(
             IntPtr hTaskCallee,

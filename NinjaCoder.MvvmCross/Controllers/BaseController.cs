@@ -47,7 +47,6 @@ namespace NinjaCoder.MvvmCross.Controllers
             IResolverService resolverService,
             IReadMeService readMeService)
         {
-
             //// init the tracing service first!
             TraceService.Initialize(
                 settingsService.LogToTrace,
@@ -202,6 +201,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             TraceService.WriteLine("BaseController::GetReadMePath path=" + path);
             return path;
         }
+
         /// <summary>
         /// Shows the not MVVM cross solution message.
         /// </summary>
@@ -231,6 +231,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                 this.CurrentTheme,
                 this.SettingsService.ThemeColor);
         }
+
         /// <summary>
         /// Shows the read me.
         /// </summary>
@@ -288,7 +289,6 @@ namespace NinjaCoder.MvvmCross.Controllers
             {
                 TraceService.WriteError("BaseController::ShowReadMe Showing ReadMe Error :-" + exception.Message);
             }
-
         }
 
         /// <summary>
@@ -315,7 +315,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             switch (currentCulture)
             {
                 case "fr-CA":
-                case "French" :
+                case "French": 
                     resourceDictionary.Source = new Uri(ResourcesBaseUrl + "StringResources.fr-CA.xaml", UriKind.RelativeOrAbsolute);
                     break;
 

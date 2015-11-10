@@ -1,71 +1,79 @@
 ﻿<views:BaseView x:Class="NinjaCoder.MvvmCross.Views.PluginsView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:wpf="clr-namespace:Scorchio.Infrastructure.Wpf;assembly=Scorchio.Infrastructure"
-             xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-             xmlns:userControls="clr-namespace:Scorchio.Infrastructure.Wpf.UserControls;assembly=Scorchio.Infrastructure"
-             xmlns:System="clr-namespace:System;assembly=mscorlib"
-             xmlns:converters="clr-namespace:Scorchio.Infrastructure.Wpf.Converters;assembly=Scorchio.Infrastructure"
-             xmlns:views="clr-namespace:NinjaCoder.MvvmCross.Views"
-             Title="{DynamicResource NinjaPlugins}" 
-             TitleCaps="False"
-             wpf:DialogCloser.DialogResult="{Binding DialogResult}"
-             ShowMinButton="False"
-             ShowMaxRestoreButton="False"
-             WindowStartupLocation="CenterScreen"
-             BorderThickness="1" 
-             BorderBrush="{DynamicResource AccentColorBrush}"
-             Height="655" 
-             Width="500">
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:System="clr-namespace:System;assembly=mscorlib"
+                xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                xmlns:converters="clr-namespace:Scorchio.Infrastructure.Wpf.Converters;assembly=Scorchio.Infrastructure"
+                xmlns:userControls="clr-namespace:Scorchio.Infrastructure.Wpf.UserControls;assembly=Scorchio.Infrastructure"
+                xmlns:views="clr-namespace:NinjaCoder.MvvmCross.Views"
+                xmlns:wpf="clr-namespace:Scorchio.Infrastructure.Wpf;assembly=Scorchio.Infrastructure"
+                Title="{DynamicResource NinjaPlugins}"
+                Width="500"
+                Height="655"
+                BorderBrush="{DynamicResource AccentColorBrush}"
+                BorderThickness="1"
+                ShowMaxRestoreButton="False"
+                ShowMinButton="False"
+                TitleCaps="False"
+                WindowStartupLocation="CenterScreen"
+                wpf:DialogCloser.DialogResult="{Binding DialogResult}">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="..\Resources\App.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <System:Double x:Key="TabItemFontSize">16.00</System:Double>
-            <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+            <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
         </ResourceDictionary>
     </Window.Resources>
-    <StackPanel Orientation="Vertical" Margin="10">
+    <StackPanel Margin="10" Orientation="Vertical">
 
-        <TextBlock Text="{DynamicResource ViewModelImplementPlugins}" Margin="10,0,0,3"/>
+        <TextBlock Margin="10,0,0,3" Text="{DynamicResource ViewModelImplementPlugins}" />
 
-        <ComboBox Margin="10,0,0,0" Width="250"
-                    HorizontalAlignment="Left"
-                    ItemsSource="{Binding Path=ViewModelNames}" 
-                    SelectedItem="{Binding Path=ImplementInViewModel}"/>
-        <CheckBox 
-            Content="{DynamicResource ViewModelUnitTests}" 
-            IsChecked="{Binding Path=IncludeUnitTests}"
-            Visibility="{Binding ImplementInViewModel, Converter={StaticResource StringToVisibilityConverter}}"
-            Margin="10"/>
+        <ComboBox Width="250"
+                  Margin="10,0,0,0"
+                  HorizontalAlignment="Left"
+                  ItemsSource="{Binding Path=ViewModelNames}"
+                  SelectedItem="{Binding Path=ImplementInViewModel}" />
+        <CheckBox Margin="10"
+                  Content="{DynamicResource ViewModelUnitTests}"
+                  IsChecked="{Binding Path=IncludeUnitTests}"
+                  Visibility="{Binding ImplementInViewModel,
+                                       Converter={StaticResource StringToVisibilityConverter}}" />
 
         <controls:MetroAnimatedTabControl Margin="1,0,0,0">
             <TabItem Header="{DynamicResource Core}" IsSelected="{Binding CorePluginsSelected}">
-                <userControls:PickListView 
-                    GroupBoxTitle="{DynamicResource CorePlugins}"
-                    DataContext="{Binding CorePlugins}"
-                    Height="370"/>
+                <userControls:PickListView Height="370"
+                                           DataContext="{Binding CorePlugins}"
+                                           GroupBoxTitle="{DynamicResource CorePlugins}" />
             </TabItem>
 
             <TabItem Header="{DynamicResource Community}" IsSelected="{Binding CommunityPluginsSelected}">
-                <userControls:PickListView 
-                    GroupBoxTitle="{DynamicResource CommunityPlugins}"
-                    DataContext="{Binding CommunityPlugins}"
-                    Height="370"/>
+                <userControls:PickListView Height="370"
+                                           DataContext="{Binding CommunityPlugins}"
+                                           GroupBoxTitle="{DynamicResource CommunityPlugins}" />
             </TabItem>
         </controls:MetroAnimatedTabControl>
 
         <TextBlock Margin="10">
             <Hyperlink Command="{Binding WikiPageCommand}">
-                <TextBlock 
-                    Text="{DynamicResource DisplayMvmmCrossPluginsWikiPage}" />
+                <TextBlock Text="{DynamicResource DisplayMvmmCrossPluginsWikiPage}" />
             </Hyperlink>
         </TextBlock>
 
-        <StackPanel Margin="1" HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button Command="{Binding OkCommand}" Content="{DynamicResource Ok}" IsDefault="True" Margin="0,10,5,10" Width="70"/>
-            <Button Command="{Binding CancelCommand}" Content="{DynamicResource Cancel}" IsCancel="True" Margin="0,10,10,10" Width="70" />
+        <StackPanel Margin="1"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <Button Width="70"
+                    Margin="0,10,5,10"
+                    Command="{Binding OkCommand}"
+                    Content="{DynamicResource Ok}"
+                    IsDefault="True" />
+            <Button Width="70"
+                    Margin="0,10,10,10"
+                    Command="{Binding CancelCommand}"
+                    Content="{DynamicResource Cancel}"
+                    IsCancel="True" />
         </StackPanel>
 
     </StackPanel>

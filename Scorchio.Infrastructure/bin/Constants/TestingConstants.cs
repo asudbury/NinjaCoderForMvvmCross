@@ -78,6 +78,9 @@ namespace Scorchio.Infrastructure.Constants
         /// </summary>
         public static class Moq
         {
+            /// <summary>
+            /// The name.
+            /// </summary>
             public const string Name = "Moq";
 
             /// <summary>

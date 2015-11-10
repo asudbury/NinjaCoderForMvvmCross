@@ -11,7 +11,7 @@ namespace Scorchio.Infrastructure.Wpf.UserControls
     public partial class DirectoryPickerView 
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PickListView"/> class.
+        /// Initializes a new instance of the <see cref="DirectoryPickerView"/> class.
         /// </summary>
         public DirectoryPickerView()
         {

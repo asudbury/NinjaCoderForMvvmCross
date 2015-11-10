@@ -5,15 +5,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.UI.ViewModels
 {
-    using System.Collections.Generic;
-    using System.Windows.Input;
-
-    using EnvDTE;
-
     using Controllers;
-
+    using EnvDTE;
     using Scorchio.Infrastructure.Wpf;
     using Scorchio.Infrastructure.Wpf.ViewModels;
+    using System.Collections.Generic;
+    using System.Windows.Input;
 
     /// <summary>
     ///  Defines the MainViewModel type.
@@ -36,14 +33,14 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
             {
                 this.projects = NinjaController.GetProjects();
             }
-
             catch
             {
+                // ignored
             }
         }
 
         /// <summary>
-        /// Gets the projects.
+        /// Gets or sets the projects.
         /// </summary>
         public IEnumerable<Project> Projects
         {

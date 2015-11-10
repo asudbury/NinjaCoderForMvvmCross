@@ -65,7 +65,6 @@ namespace NinjaCoder.MvvmCross.Services
             {
                 currentLines = this.fileSystem.File.ReadAllText(filePath);
             }
-
             else
             {
                 Stream stream = this.fileSystem.File.Create(filePath);

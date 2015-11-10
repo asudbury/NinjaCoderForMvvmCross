@@ -18,8 +18,13 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         public BaseWizardStepViewModel ViewModel { get; set; }
 
         /// <summary>
-        /// The class type of the actual xaml view to be used for this step
+        /// Gets the type of the view.
         /// </summary>
         public Type ViewType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        public string Name { get; set; }
     }
 }

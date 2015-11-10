@@ -5,18 +5,19 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.UI
 {
-    using System.Windows;
-
     using MahApps.Metro;
-
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Wpf.Views;
+    using System.Windows;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : IThemedDialog
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// </summary>
         public MainWindow()
         {
             this.InitializeComponent();

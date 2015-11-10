@@ -5,11 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio.Services.Interfaces
 {
-    using System.Collections.Generic;
-
     using EnvDTE;
-
     using Scorchio.VisualStudio.Entities;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Defines the ISolutionService type.
@@ -116,6 +114,26 @@ namespace Scorchio.VisualStudio.Services.Interfaces
             string projectName);
 
         /// <summary>
+        /// Gets the solution sub folder.
+        /// </summary>
+        /// <param name="solutionFolderName">Name of the solution folder.</param>
+        /// <returns></returns>
+        Project GetSolutionSubFolder(string solutionFolderName);
+
+        /// <summary>
+        /// Adds the project to sub folder.
+        /// </summary>
+        /// <param name="solutionFolderName">Name of the solution folder.</param>
+        /// <param name="path">The path.</param>
+        /// <param name="templatePath">The template path.</param>
+        /// <param name="projectName">Name of the project.</param>
+        void AddProjectToSubFolder(
+            string solutionFolderName,
+            string path,
+            string templatePath,
+            string projectName);
+
+        /// <summary>
         /// Gets the projects.
         /// </summary>
         /// <returns>The projects.</returns>
@@ -195,5 +213,11 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// </summary>
         /// <param name="path">The path.</param>
         void OpenFile(string path);
+
+        /// <summary>
+        /// Adds the item.
+        /// </summary>
+        /// <param name="solutionFolder">The solution folder.</param>
+        void AddSolutionFolder(string solutionFolder);
     }
 }

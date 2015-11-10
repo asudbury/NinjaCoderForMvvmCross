@@ -121,10 +121,9 @@ namespace Scorchio.VisualStudio.Extensions
 
             string templatePath = instance.GetProjectItemTemplate(templateName, "CSharp");
 
-            TraceService.WriteLine("TemplatePath=" +  templatePath);
+            TraceService.WriteLine("TemplatePath=" + templatePath);
 
             return templatePath;
-
         }
 
         /// <summary>
@@ -182,7 +181,32 @@ namespace Scorchio.VisualStudio.Extensions
         {
             ////TraceService.WriteLine("SolutionExtensions::GetProjects");
 
-            return instance.Projects.Cast<Project>().ToList();
+            List<Project> projects = instance.Projects.Cast<Project>().ToList();
+
+            List<Project> list = new List<Project>();
+
+            List<Project>.Enumerator item = projects.GetEnumerator();
+
+            while (item.MoveNext())
+            {
+                Project project = item.Current;
+
+                if (project == null)
+                {
+                    continue;
+                }
+
+                if (project.Kind == VSConstants.VsProjectKindSolutionItems)
+                {
+                    list.AddRange(project.GetSolutionFolderProjects());
+                }
+                else
+                {
+                    list.Add(project);
+                }
+            }
+
+            return list;
         }
 
         /// <summary>
@@ -228,16 +252,17 @@ namespace Scorchio.VisualStudio.Extensions
 
                 if (project != null)
                 {
-                    string context =  project.Name + "  (template=" + info.TemplateName + ") fileName=" + info.FileName;
+                    string context = project.Name + "  (template=" + info.TemplateName + ") fileName=" + info.FileName;
 
                     TraceService.WriteLine("AddItemTemplateToProjects"  + context);
 
                     try
                     {
-                        project.AddToFolderFromTemplate(info.TemplateName, info.FileName);
-                        messages.Add(info.FileName + " added to " + project.Name + " project (template=" + info.TemplateName + ")");
+                        if (project.AddItemToFolderFromTemplate(info.TemplateName, info.FileName))
+                        {
+                            messages.Add(info.FileName + " added to " + project.Name + " project (template=" + info.TemplateName + ")");
+                        }
                     }
-
                     catch (Exception exception)
                     {
                         TraceService.WriteError(context + " exception=" + exception.Message);

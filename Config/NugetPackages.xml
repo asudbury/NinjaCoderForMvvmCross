@@ -20,10 +20,13 @@
   </Plugin>
 
   <Plugin>
-    <Name>SQLite Net PCL</Name>
+    <Name>SQLite Net PCL *</Name>
     <NugetPackage>SQLite.Net-PCL</NugetPackage>
     <Platforms>
-      <Platform>Core</Platform>
+        <Platform>Core</Platform>
+        <Platform>iOS</Platform>
+        <Platform>Droid</Platform>
+        <Platform>WindowsPhone</Platform>
     </Platforms>
     <Frameworks>
       <Framework>No Framework</Framework>
@@ -32,6 +35,33 @@
       <Framework>MvvmCross and Xamarin Forms</Framework>
     </Frameworks>
     <Category>LocalStorage</Category>
+    <NinjaSamples>
+          <NinjaSample>
+              <Name>SQLite.Net-PCL Todo Sample</Name>
+              <NugetPackage Platform="Core">Scorchio.NinjaCoder.SQLite.Todo.Core</NugetPackage>
+              <NugetPackage Platform="Forms">Scorchio.NinjaCoder.SQLite.Todo</NugetPackage>
+              <NugetPackage Platform="iOS">Scorchio.NinjaCoder.SQLite.Todo</NugetPackage>
+              <NugetPackage Platform="Droid">Scorchio.NinjaCoder.SQLite.Todo</NugetPackage>
+              <NugetPackage Platform="WindowsPhone">Scorchio.NinjaCoder.SQLite.Todo</NugetPackage>
+              <Description>A Todo example of using SQLite.Net-PCL.</Description>
+              <Platforms>
+                  <Platform>Core</Platform>
+              </Platforms>
+              <Frameworks>
+                  <Framework>No Framework</Framework>
+                  <Framework>MvvmCross</Framework>
+                  <Framework>Xamarin Forms</Framework>
+                  <Framework>MvvmCross and Xamarin Forms</Framework>
+              </Frameworks>
+              <Commands>
+                  <Command Platform="Core" Type="RemoveFolder" Name="Helpers"/>
+              </Commands>
+              <FileOperations>
+                  <FileOperation Platform="Forms" Type="ReplaceText" Name="" File="SqliteView.xaml" Directory="Views" From="Forms.Core" To="Core" />
+                  <FileOperation Platform="Forms" Type="Properties" Name="" File="SqliteView.xaml" Directory="Views" From="BuildAction" To="3" />
+              </FileOperations>
+          </NinjaSample>
+      </NinjaSamples>
     <Description><![CDATA[
 	SQLite.Net PCL is an open source, minimal library to allow .NET and Mono applications to store data in SQLite databases.
 
@@ -89,6 +119,7 @@
       <Framework>Xamarin Forms</Framework>
       <Framework>MvvmCross and Xamarin Forms</Framework>
     </Frameworks>
+    <Category>Authentication</Category>
     <Description><![CDATA[
 	Portable Client Library and HttpClient based OAuth library, including all platform(for PCL).    
     ]]></Description>
@@ -273,7 +304,7 @@
   </Plugin>
   
   <Plugin>
-    <Name>Azure Mobile Services</Name>
+    <Name>Azure Mobile Services *</Name>
     <NugetPackage>WindowsAzure.MobileServices</NugetPackage>
     <Platforms>
       <Platform>Core</Platform>
@@ -285,6 +316,22 @@
       <Framework>MvvmCross and Xamarin Forms</Framework>
     </Frameworks>
     <Category>CloudServices</Category>
+    <NinjaSamples>
+          <NinjaSample>
+              <Name>Azure Tasks Sample</Name>
+              <NugetPackage Platform="Core">Scorchio.NinjaCoder.Azure.Tasks.Core</NugetPackage>
+              <Description>A Tasks example of using Azure Mobile Services</Description>
+              <Platforms>
+                  <Platform>Core</Platform>
+              </Platforms>
+              <Frameworks>
+                  <Framework>No Framework</Framework>
+                  <Framework>MvvmCross</Framework>
+                  <Framework>Xamarin Forms</Framework>
+                  <Framework>MvvmCross and Xamarin Forms</Framework>
+              </Frameworks>
+          </NinjaSample>
+      </NinjaSamples>
     <Description><![CDATA[
 	This client library enables client applications to connect to Windows Azure Mobile Services. 
 
@@ -414,6 +461,7 @@
       <Framework>Xamarin Forms</Framework>
       <Framework>MvvmCross and Xamarin Forms</Framework>
     </Frameworks>
+    <Category>Authentication</Category>
     <Description><![CDATA[
     	The Simplest OAuth client for Xamarin.
     ]]></Description>
@@ -458,19 +506,49 @@
   </Plugin>
 
   <Plugin>
-    <Name>Settings</Name>
+    <Name>Settings *</Name>
     <NugetPackage>Xam.Plugins.Settings</NugetPackage>
     <Platforms>
-      <Platform>Forms</Platform>
+      <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
     </Platforms>
     <Frameworks>
+      <Framework>No Framework</Framework>
+      <Framework>MvvmCross</Framework>
       <Framework>Xamarin Forms</Framework>
       <Framework>MvvmCross and Xamarin Forms</Framework>
     </Frameworks>
     <Category>LocalStorage</Category>
+    <NinjaSamples>
+      <NinjaSample>
+          <Name>Settings Simple Sample</Name>
+          <NugetPackage Platform="Core">Scorchio.NinjaCoder.Settings.Simple.Core</NugetPackage>
+          <NugetPackage Platform="Forms">Scorchio.NinjaCoder.Settings.Simple</NugetPackage>
+          <Description>Simple Example of using Settings.</Description>
+          <Platforms>
+            <Platform>Core</Platform>
+            <Platform>Forms</Platform>
+          </Platforms>
+          <Frameworks>
+              <Framework>No Framework</Framework>
+              <Framework>MvvmCross</Framework>
+              <Framework>Xamarin Forms</Framework>
+              <Framework>MvvmCross and Xamarin Forms</Framework>
+          </Frameworks>
+          <Commands>
+              <Command Platform="Core" Type="RemoveFolder" Name="Helpers"/>
+              <Command Platform="Droid" Type="RemoveFolder" Name="PluginsHelp"/>
+              <Command Platform="iOS" Type="RemoveFolder" Name="PluginsHelp"/>
+              <Command Platform="WindowsPhone" Type="RemoveFolder" Name="PluginsHelp"/>
+          </Commands>
+          <FileOperations>
+              <FileOperation Platform="Forms" Type="ReplaceText" Name="" File="SettingsView.xaml" Directory="Views" From="Forms.Core" To="Core" />
+              <FileOperation Platform="Forms" Type="Properties" Name="" File="SettingsView.xaml" Directory="Views" From="BuildAction" To="3" />
+          </FileOperations>
+      </NinjaSample>
+    </NinjaSamples>
     <Description>
       <![CDATA[
         Xam.PCL Settings provides a consistent, cross platform settings plugin for Windows Phone Silverlight 8/8.1, Windows Phone 8.1, 

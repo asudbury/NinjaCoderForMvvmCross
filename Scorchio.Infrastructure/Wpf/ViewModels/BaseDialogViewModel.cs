@@ -29,17 +29,13 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels
         /// </summary>
         public bool Continue
         {
-            get
-            {
-                return this.dialogResult.HasValue &&
-                       this.dialogResult == true;
-            }
+            get { return this.dialogResult.HasValue && this.dialogResult == true; }
         }
         
         /// <summary>
         /// Called when ok button pressed.
         /// </summary>
-        public virtual void OnOk()
+        protected virtual void OnOk()
         {
             this.DialogResult = true;
             this.OnNotify("DialogResult");
@@ -48,7 +44,7 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels
         /// <summary>
         /// Called when cancel button pressed.
         /// </summary>
-        public virtual void OnCancel()
+        protected virtual void OnCancel()
         {
             this.DialogResult = false;
             this.OnNotify("DialogResult");

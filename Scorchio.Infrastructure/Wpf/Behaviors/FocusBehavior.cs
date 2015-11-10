@@ -10,6 +10,9 @@ namespace Scorchio.Infrastructure.Wpf.Behaviors
 
     using System.Windows.Interactivity;
 
+    /// <summary>
+    ///  Defines the FocusBehavior type.
+    /// </summary>
     public class FocusBehavior : Behavior<Control>
     {
         /// <summary>
@@ -17,14 +20,14 @@ namespace Scorchio.Infrastructure.Wpf.Behaviors
         /// </summary>
         protected override void OnAttached()
         {
-            AssociatedObject.GotFocus += (sender, args) => IsFocused = true;
-            AssociatedObject.LostFocus += (sender, a) => IsFocused = false;
+            this.AssociatedObject.GotFocus += (sender, args) => this.IsFocused = true;
+            this.AssociatedObject.LostFocus += (sender, a) => this.IsFocused = false;
 
-            AssociatedObject.Loaded += (o, a) =>
+            this.AssociatedObject.Loaded += (o, a) =>
             {
-                if (HasInitialFocus || IsFocused)
+                if (this.HasInitialFocus || this.IsFocused)
                 {
-                    AssociatedObject.Focus();
+                    this.AssociatedObject.Focus();
                 }
             };
 
@@ -42,7 +45,7 @@ namespace Scorchio.Infrastructure.Wpf.Behaviors
                 new PropertyMetadata(false,
                     (d, e) =>
                     {
-                        if ((bool)e.NewValue) ((FocusBehavior)d).AssociatedObject.Focus();
+                        if ((bool)e.NewValue)((FocusBehavior)d).AssociatedObject.Focus();
                     }));
 
         /// <summary>
@@ -50,8 +53,8 @@ namespace Scorchio.Infrastructure.Wpf.Behaviors
         /// </summary>
         public bool IsFocused
         {
-            get { return (bool)GetValue(IsFocusedProperty); }
-            set { SetValue(IsFocusedProperty, value); }
+            get { return (bool)this.GetValue(IsFocusedProperty); }
+            set { this.SetValue(IsFocusedProperty, value); }
         }
 
         /// <summary>
@@ -69,8 +72,8 @@ namespace Scorchio.Infrastructure.Wpf.Behaviors
         /// </summary>
         public bool HasInitialFocus
         {
-            get { return (bool)GetValue(HasInitialFocusProperty); }
-            set { SetValue(HasInitialFocusProperty, value); }
+            get { return (bool)this.GetValue(HasInitialFocusProperty); }
+            set { this.SetValue(HasInitialFocusProperty, value); }
         }
     }
 }

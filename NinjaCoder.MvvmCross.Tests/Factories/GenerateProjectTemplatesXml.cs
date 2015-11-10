@@ -31,7 +31,6 @@ namespace NinjaCoder.MvvmCross.Tests.Factories
                 mockNugetCommandService.Object);
 
             var x = noFrameworkProjectFactory.GetAllowedProjects();
-
         }
     }
 }

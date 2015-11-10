@@ -37,23 +37,25 @@ namespace NinjaCoder.MvvmCross.Extensions
 
                 if (projectService != null)
                 {
-                    foreach (string nugetCommand in instance.NugetCommands)
+                    foreach (NugetCommand nugetCommand in instance.NugetCommands)
                     {
-                        string pluginNugetCommand = nugetCommand;
-
-                        if (usePreRelease)
+                        if (IsCommandRequired(nugetCommand, platform))
                         {
-                            pluginNugetCommand += Settings.NugetIncludePreRelease;
-                        }
+                            string pluginNugetCommand = nugetCommand.Command;
 
-                        if (instance.OverwriteFiles)
-                        {
-                            commands += Settings.NugetInstallPackageOverwriteFiles .Replace("%s", pluginNugetCommand) + " " + projectService.Name + Environment.NewLine;
-                        }
+                            if (usePreRelease)
+                            {
+                                pluginNugetCommand += Settings.NugetIncludePreRelease;
+                            }
 
-                        else
-                        {
-                            commands += Settings.NugetInstallPackage.Replace("%s", pluginNugetCommand) + " " + projectService.Name + Environment.NewLine;
+                            if (instance.OverwriteFiles)
+                            {
+                                commands += Settings.NugetInstallPackageOverwriteFiles.Replace("%s", pluginNugetCommand) + " " + projectService.Name + Environment.NewLine;
+                            }
+                            else
+                            {
+                                commands += Settings.NugetInstallPackage.Replace("%s", pluginNugetCommand) + " " + projectService.Name + Environment.NewLine;
+                            }
                         }
                     }
                 }
@@ -80,14 +82,41 @@ namespace NinjaCoder.MvvmCross.Extensions
 
                 if (projectService != null)
                 {
-                    foreach (string nugetCommand in instance.NugetCommands)
+                    foreach (NugetCommand nugetCommand in instance.NugetCommands)
                     {
-                        commands += nugetCommand + " nuget package added to " + projectService.Name + " project." + Environment.NewLine;
+                        if (IsCommandRequired(nugetCommand, platform))
+                        {
+                            commands += nugetCommand.Command + " nuget package added to " + projectService.Name
+                                        + " project.";
+                        }
                     }
                 }
             }
 
             return commands;
+        }
+
+        /// <summary>
+        /// Determines whether [is command required] [the specified nuget command].
+        /// </summary>
+        /// <param name="nugetCommand">The nuget command.</param>
+        /// <param name="platform">The platform.</param>
+        /// <returns></returns>
+        internal static bool IsCommandRequired(
+            NugetCommand nugetCommand, 
+            string platform)
+        {
+            bool process = true;
+
+            if (string.IsNullOrEmpty(nugetCommand.PlatForm) == false)
+            {
+                if (nugetCommand.PlatForm != platform)
+                {
+                    process = false;
+                }
+            }
+
+            return process;
         }
     }
 }

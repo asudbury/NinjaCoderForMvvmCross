@@ -11,6 +11,7 @@
     <AssemblyName>NinjaCoder.MvvmCross</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>378b94e4</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -76,6 +77,10 @@
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\ViewModelViewsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Entities\FileOpeation.cs" />
+    <Compile Include="Entities\Command.cs" />
+    <Compile Include="Entities\NugetActions.cs" />
+    <Compile Include="Entities\NugetCommand.cs" />
     <Compile Include="Entities\XamarinLayout.cs" />
     <Compile Include="Entities\XamarinFormsPage.cs" />
     <Compile Include="Entities\ProjectTemplate.cs" />
@@ -134,8 +139,10 @@
     </Compile>
     <Compile Include="Services\ApplicationService.cs" />
     <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\CachingService.cs" />
     <Compile Include="Services\CodeConfigService.cs" />
     <Compile Include="Services\Interfaces\IApplicationService.cs" />
+    <Compile Include="Services\Interfaces\ICachingService.cs" />
     <Compile Include="Services\Interfaces\ICodeConfigService.cs" />
     <Compile Include="Services\Interfaces\ICodeSnippetService.cs" />
     <Compile Include="Services\Interfaces\INugetCommandsService.cs" />
@@ -172,6 +179,15 @@
     </Compile>
     <Compile Include="UserControls\AddPlugins\PluginsControl.xaml.cs">
       <DependentUpon>PluginsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AddProjects\NinjaCoderOptionsControl.xaml.cs">
+      <DependentUpon>NinjaCoderOptionsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AddProjects\ApplicationSamplesOptionsControl.xaml.cs">
+      <DependentUpon>ApplicationSamplesOptionsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AddProjects\ApplicationOptionsControl.xaml.cs">
+      <DependentUpon>ApplicationOptionsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\AddProjects\BuildOptionsControl.xaml.cs">
       <DependentUpon>BuildOptionsControl.xaml</DependentUpon>
@@ -215,6 +231,9 @@
     </Compile>
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\AddNugetPackages\NugetPackagesFinishedViewModel.cs" />
+    <Compile Include="ViewModels\AddProjects\NinjaCoderOptionsViewModel.cs" />
+    <Compile Include="ViewModels\AddProjects\ApplicationSamplesOptionsViewModel.cs" />
+    <Compile Include="ViewModels\AddProjects\ApplicationOptionsViewModel.cs" />
     <Compile Include="ViewModels\AddProjects\BuildOptionsViewModel.cs" />
     <Compile Include="ViewModels\AddProjects\ProjectsFinishedViewModel.cs" />
     <Compile Include="ViewModels\AddProjects\FrameworkSelectorViewModel.cs" />
@@ -223,6 +242,7 @@
     <Compile Include="ViewModels\AddProjects\PluginsViewModel.cs" />
     <Compile Include="ViewModels\AddProjects\ProjectsViewModel.cs" />
     <Compile Include="ViewModels\AddViews\ViewsFinishedViewModel.cs" />
+    <Compile Include="ViewModels\NugetPackagesBaseViewModel.cs" />
     <Compile Include="ViewModels\Wizard\NinjaWizardViewModel.cs" />
     <Compile Include="ViewModels\AddViews\ViewsViewModel.cs" />
     <Compile Include="ViewModels\NinjaBaseViewModel.cs" />
@@ -295,6 +315,18 @@
     <Page Include="UserControls\AddPlugins\PluginsControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AddProjects\NinjaCoderOptionsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AddProjects\ApplicationSamplesOptionsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AddProjects\ApplicationOptionsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\AddProjects\BuildOptionsControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -401,7 +433,17 @@
     <Resource Include="Resources\mvvmcross.png" />
     <Resource Include="Resources\Xamarin.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\StyleCop.MSBuild.4.7.49.1\build\StyleCop.MSBuild.Targets" Condition="Exists('..\packages\StyleCop.MSBuild.4.7.49.1\build\StyleCop.MSBuild.Targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\StyleCop.MSBuild.4.7.49.1\build\StyleCop.MSBuild.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\StyleCop.MSBuild.4.7.49.1\build\StyleCop.MSBuild.Targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

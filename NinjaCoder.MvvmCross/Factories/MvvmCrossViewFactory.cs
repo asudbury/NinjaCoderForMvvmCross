@@ -35,17 +35,16 @@ namespace NinjaCoder.MvvmCross.Factories
                         },
                     new ImageItemWithDescription
                         {
-                            ImageUrl =  this.GetUrlPath("MasterDetailPage.png"),
+                            ImageUrl = this.GetUrlPath("MasterDetailPage.png"),
                             Description = "Views with sample data",
                             Name = "SampleData"
                         },
                     new ImageItemWithDescription
                         {
-                            ImageUrl =  this.GetUrlPath("NavigationPage.png"),
+                            ImageUrl = this.GetUrlPath("NavigationPage.png"),
                             Description = "Web View to host html",
                             Name = "Web"
                         }
-
                 };
 
                 return pages.OrderBy(x => x.Name);

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Scorchio.NinjaCoder.NoFramework</id>
+        <version>1.0.4</version>
+        <authors>Adrian Sudbury</authors>
+        <owners>Scorchio Limited</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Helper For NinjaCoder for MvvmCross and Xamarin Forms</description>
+    </metadata>
+    <files>
+    
+        <!-- Core -->
+
+        <file src="CoreContent\ViewModels\BaseViewModel.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\ViewModels\BaseViewModel.cs.pp" />
+
+        <!-- Droid -->
+        
+        <file src="DroidContent\MainActivity.cs.pp" target="content\MonoAndroid\MainActivity.cs.pp" />
+
+      <!-- iOS -->
+      <file src="iOSContent\AppDelegate.cs.pp" target="content\Xamarin.iOS10\AppDelegate.cs.pp" />
+      <file src="iOSContent\Main.cs.pp" target="content\Xamarin.iOS10\Main.cs.pp" />
+
+      <!-- WindowsPhone -->
+        
+        <file src="WindowsPhoneContent\App.xaml.pp" target="content\wp8\App.xaml.pp" /> 
+        <file src="WindowsPhoneContent\App.xaml.cs.pp" target="content\wp8\App.xaml.cs.pp" />
+                
+     </files>
+</package> 

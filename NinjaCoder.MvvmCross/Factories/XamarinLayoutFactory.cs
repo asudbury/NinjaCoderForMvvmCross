@@ -45,8 +45,8 @@ namespace NinjaCoder.MvvmCross.Factories
                         },
                     new ImageItemWithDescription
                         {
-                            ImageUrl =  this.GetUrlPath("GridLayout.png"),
-                            Name =  XamarinLayout.GridLayout.GetDescription(),
+                            ImageUrl = this.GetUrlPath("GridLayout.png"),
+                            Name = XamarinLayout.GridLayout.GetDescription(),
                         },
                     new ImageItemWithDescription
                         {
@@ -60,7 +60,7 @@ namespace NinjaCoder.MvvmCross.Factories
                         },
                     new ImageItemWithDescription
                         {
-                            ImageUrl =  this.GetUrlPath("Frame.png"),
+                            ImageUrl = this.GetUrlPath("Frame.png"),
                             Name = XamarinLayout.Frame.GetDescription(),
                         }
                 };

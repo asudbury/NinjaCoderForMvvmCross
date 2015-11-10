@@ -25,7 +25,6 @@ namespace Scorchio.VisualStudio.Entities
         /// <summary>
         /// Gets or sets a value indicating whether [reference xamarin forms project].
         /// </summary>
-
         public bool ReferenceXamarinFormsProject { get; set; }
 
         /// <summary>

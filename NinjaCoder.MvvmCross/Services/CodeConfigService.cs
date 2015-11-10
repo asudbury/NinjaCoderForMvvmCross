@@ -6,9 +6,7 @@ namespace NinjaCoder.MvvmCross.Services
 {
     using EnvDTE;
     using Interfaces;
-
     using NinjaCoder.MvvmCross.Constants;
-
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;

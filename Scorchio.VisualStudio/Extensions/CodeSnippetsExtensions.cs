@@ -19,7 +19,6 @@ namespace Scorchio.VisualStudio.Extensions
         /// Gets the mock init code.
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns>The Mock Init Code</returns>
         public static string GetMockInitCode(this CodeSnippet instance)
         {
             string code = string.Empty;
@@ -35,7 +34,6 @@ namespace Scorchio.VisualStudio.Extensions
 
             return code;
         }
-
 
         /// <summary>
         /// Gets the mock constructor code.

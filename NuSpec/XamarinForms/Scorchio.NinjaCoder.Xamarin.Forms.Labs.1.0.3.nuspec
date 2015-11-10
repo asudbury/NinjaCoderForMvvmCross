@@ -4,7 +4,7 @@
         <id>Scorchio.NinjaCoder.Xamarin.Forms.Labs</id>
         <version>1.0.3</version>
         <authors>Adrian Sudbury</authors>
-		<owners>Scorchio Limited</owners>
+        <owners>Scorchio Limited</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Helper For Xamarin Forms Labs.</description>
       <dependencies>
@@ -13,7 +13,7 @@
     </metadata>
     <files>
 
-		<!-- Droid -->
+        <!-- Droid -->
 
      <file src="DroidContent\FormsLabsMainActivity.cs.pp" target="content\MonoAndroid\MainActivity.cs.pp" />
 
@@ -26,5 +26,5 @@
     <file src="WindowsPhoneContent\LabsApp.xaml.pp" target="content\wp8\App.xaml.pp" />
     <file src="WindowsPhoneContent\LabsApp.xaml.cs.pp" target="content\wp8\App.xaml.cs.pp" />  
       
-	 </files>
+     </files>
 </package> 

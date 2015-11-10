@@ -12,6 +12,46 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
     public class MockPathBase : PathBase
     {
         /// <summary>
+        /// Gets the alt directory separator char.
+        /// </summary>
+        public override char AltDirectorySeparatorChar
+        {
+            get { return '\0'; }
+        }
+
+        /// <summary>
+        /// Gets the directory separator char.
+        /// </summary>
+        public override char DirectorySeparatorChar
+        {
+            get { return '\0'; }
+        }
+
+        /// <summary>
+        /// Gets the invalid path chars.
+        /// </summary>
+        public override char[] InvalidPathChars
+        {
+            get { return new char[] { }; }
+        }
+
+        /// <summary>
+        /// Gets the path separator.
+        /// </summary>
+        public override char PathSeparator
+        {
+            get { return '\0'; }
+        }
+
+        /// <summary>
+        /// Gets the volume separator char.
+        /// </summary>
+        public override char VolumeSeparatorChar
+        {
+            get { return '\0'; }
+        }
+
+        /// <summary>
         /// Changes the extension.
         /// </summary>
         /// <param name="path">The path.</param>
@@ -160,46 +200,6 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         public override bool IsPathRooted(string path)
         {
             return false;
-        }
-
-        /// <summary>
-        /// Gets the alt directory separator char.
-        /// </summary>
-        public override char AltDirectorySeparatorChar
-        {
-            get { return '\0'; }
-        }
-
-        /// <summary>
-        /// Gets the directory separator char.
-        /// </summary>
-        public override char DirectorySeparatorChar
-        {
-            get { return '\0'; }
-        }
-
-        /// <summary>
-        /// Gets the invalid path chars.
-        /// </summary>
-        public override char[] InvalidPathChars
-        {
-            get { return new char[] { }; }
-        }
-
-        /// <summary>
-        /// Gets the path separator.
-        /// </summary>
-        public override char PathSeparator
-        {
-            get { return '\0'; }
-        }
-
-        /// <summary>
-        /// Gets the volume separator char.
-        /// </summary>
-        public override char VolumeSeparatorChar
-        {
-            get { return '\0'; }
         }
     }
 }

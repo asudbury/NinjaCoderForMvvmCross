@@ -27,7 +27,6 @@ namespace Scorchio.VisualStudio.Services
             {
                 TraceService.WriteLine("VSActivatorService::Activate " + objectName);
                 dte2 = (DTE2)System.Runtime.InteropServices.Marshal.GetActiveObject(objectName);
-
             }
             catch (Exception exception)
             {

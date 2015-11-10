@@ -34,13 +34,11 @@ namespace Scorchio.Infrastructure.Wpf.Resources
                     base.Source = value;
                     SharedDictionaries.Add(key, this);
                 }
-
                 else
                 {
-                    MergedDictionaries.Add(SharedDictionaries[key]);
+                    this.MergedDictionaries.Add(SharedDictionaries[key]);
                 }
             }
         }
-
     }
 }

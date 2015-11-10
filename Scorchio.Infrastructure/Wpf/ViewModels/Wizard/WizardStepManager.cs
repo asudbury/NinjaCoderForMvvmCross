@@ -6,8 +6,8 @@
 namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
 {
     using System;
-    using System.Linq;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Defines the WizardStepManager type.
@@ -35,7 +35,7 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         public LinkedList<WizardStepViewModel> LinkedSteps { get; private set; }
 
         /// <summary>
-        /// Gets or sets the first step.
+        /// Gets the first step.
         /// </summary>
         public LinkedListNode<WizardStepViewModel> FirstStep
         {
@@ -43,7 +43,7 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         }
 
         /// <summary>
-        /// Gets the current step.
+        /// Gets or sets the current linked list step.
         /// </summary>
         public LinkedListNode<WizardStepViewModel> CurrentLinkedListStep
         {
@@ -56,9 +56,9 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
             {
                 this.currentLinkedListStep = value;
 
-                if ((this.LinkedSteps.First == this.currentLinkedListStep) && !reconfiguringRoute)
+                if ((this.LinkedSteps.First == this.currentLinkedListStep) && !this.reconfiguringRoute)
                 {
-                    ResetRoute();
+                    this.ResetRoute();
                 }
             }
         }
@@ -70,7 +70,7 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         public void ProvideSteps(List<WizardStepViewModel> wizardSteps)
         {
             this.steps = wizardSteps;
-            this.LinkedSteps = new LinkedList<WizardStepViewModel>(steps);
+            this.LinkedSteps = new LinkedList<WizardStepViewModel>(this.steps);
             this.CurrentLinkedListStep = this.LinkedSteps.First;
         }
 
@@ -100,7 +100,7 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         private void ResetRoute()
         {
             List<Type> allStepViewTypes = this.LinkedSteps.ToList().ConvertAll(s => s.ViewType);
-            ReworkListBasedOn(new RouteModifier() { IncludeViewTypes = allStepViewTypes });
+            this.ReworkListBasedOn(new RouteModifier() { IncludeViewTypes = allStepViewTypes });
         }
 
         /// <summary>
@@ -129,7 +129,6 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
             }
         }
 
-
         /// <summary>
         /// Creates the new step list.
         /// </summary>
@@ -145,6 +144,7 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
             {
                 routeModifier.ExcludeViewTypes.ForEach(t => result.RemoveAll(step => step.ViewType == t));
             }
+
             if (routeModifier.IncludeViewTypes != null)
             {
                 this.AddBack(result, routeModifier.IncludeViewTypes);

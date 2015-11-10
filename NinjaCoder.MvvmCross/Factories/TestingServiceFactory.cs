@@ -45,7 +45,6 @@ namespace NinjaCoder.MvvmCross.Factories
             set { this.settingsService.TestingFramework = value; }
         }
 
-
         /// <summary>
         /// Gets the frame works.
         /// </summary>

@@ -8,6 +8,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     using Constants;
     using Entities;
     using NinjaCoder.MvvmCross.Factories.Interfaces;
+    using NinjaCoder.MvvmCross.ViewModels;
     using NinjaCoder.MvvmCross.ViewModels.AddNugetPackages;
     using NinjaCoder.MvvmCross.ViewModels.AddViews;
     using NinjaCoder.MvvmCross.ViewModels.Wizard;
@@ -20,7 +21,6 @@ namespace NinjaCoder.MvvmCross.Controllers
     using System.Collections.Generic;
     using System.Linq;
     using ViewModels.AddProjects;
-
     using PluginsViewModel = NinjaCoder.MvvmCross.ViewModels.AddProjects.PluginsViewModel;
 
     /// <summary>
@@ -54,6 +54,31 @@ namespace NinjaCoder.MvvmCross.Controllers
         private readonly IApplicationService applicationService;
 
         /// <summary>
+        /// The caching service.
+        /// </summary>
+        private readonly ICachingService cachingService;
+
+        /// <summary>
+        /// The commands.
+        /// </summary>
+        private string commands;
+
+        /// <summary>
+        /// The messages.
+        /// </summary>
+        private List<string> messages;
+
+        /// <summary>
+        /// The post nuget commands.
+        /// </summary>
+        private readonly List<Command> postNugetCommands;
+
+        /// <summary>
+        /// The post nuget file operations.
+        /// </summary>
+        private readonly List<FileOperation> postNugetFileOperations;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ProjectsController" /> class.
         /// </summary>
         /// <param name="projectsService">The projects service.</param>
@@ -66,6 +91,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="readMeService">The read me service.</param>
         /// <param name="projectFactory">The project factory.</param>
         /// <param name="applicationService">The application service.</param>
+        /// <param name="cachingService">The caching service.</param>
         public ProjectsController(
             IProjectsService projectsService,
             INugetService nugetService,
@@ -76,7 +102,8 @@ namespace NinjaCoder.MvvmCross.Controllers
             IViewModelViewsService viewModelViewsService,
             IReadMeService readMeService,
             IProjectFactory projectFactory,
-            IApplicationService applicationService)
+            IApplicationService applicationService,
+            ICachingService cachingService)
             : base(visualStudioService, settingsService, messageBoxService, resolverService, readMeService)
         {
             TraceService.WriteLine("ProjectsController::Constructor");
@@ -86,6 +113,11 @@ namespace NinjaCoder.MvvmCross.Controllers
             this.viewModelViewsService = viewModelViewsService;
             this.projectFactory = projectFactory;
             this.applicationService = applicationService;
+            this.cachingService = cachingService;
+
+            this.commands = string.Empty;
+            this.postNugetCommands = new List<Command>();
+            this.postNugetFileOperations = new List<FileOperation>();
         }
 
         /// <summary>
@@ -104,20 +136,33 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             WizardFrameViewModel viewModel = this.ShowDialog<WizardFrameViewModel>(new WizardView());
 
-            if (viewModel.Continue)
+            try
             {
-                ProjectsViewModel projectsViewModel = (ProjectsViewModel)viewModel.GetWizardStepViewModel("ProjectsViewModel").ViewModel;
-                ViewsViewModel viewsViewModel = (ViewsViewModel)viewModel.GetWizardStepViewModel("ViewsViewModel").ViewModel;
-                PluginsViewModel pluginsViewModel = (PluginsViewModel)viewModel.GetWizardStepViewModel("PluginsViewModel").ViewModel;
-                NugetPackagesViewModel nugetPackagesViewModel = (NugetPackagesViewModel)viewModel.GetWizardStepViewModel("NugetPackagesViewModel").ViewModel;
-                XamarinFormsLabsViewModel xamarinFormsLabsViewModel = (XamarinFormsLabsViewModel)viewModel.GetWizardStepViewModel("XamarinFormsLabsViewModel").ViewModel;
-
-                this.Process(
-                    projectsViewModel, 
-                    viewsViewModel, 
-                    pluginsViewModel, 
-                    nugetPackagesViewModel,
-                    xamarinFormsLabsViewModel);
+                if (viewModel.Continue)
+                {
+                    ProjectsViewModel projectsViewModel = (ProjectsViewModel)viewModel.GetWizardStepViewModel("ProjectsViewModel").ViewModel;
+                    ApplicationOptionsViewModel applicationOptionsViewModel = (ApplicationOptionsViewModel)viewModel.GetWizardStepViewModel("ApplicationOptionsViewModel").ViewModel;
+                    NinjaCoderOptionsViewModel ninjaCoderOptionsViewModel = (NinjaCoderOptionsViewModel)viewModel.GetWizardStepViewModel("NinjaCoderOptionsViewModel").ViewModel;
+                    ApplicationSamplesOptionsViewModel applicationSamplesOptionsViewModel = (ApplicationSamplesOptionsViewModel)viewModel.GetWizardStepViewModel("ApplicationSamplesOptionsViewModel").ViewModel;
+                    ViewsViewModel viewsViewModel = (ViewsViewModel)viewModel.GetWizardStepViewModel("ViewsViewModel").ViewModel;
+                    PluginsViewModel pluginsViewModel = (PluginsViewModel)viewModel.GetWizardStepViewModel("PluginsViewModel").ViewModel;
+                    NugetPackagesViewModel nugetPackagesViewModel = (NugetPackagesViewModel)viewModel.GetWizardStepViewModel("NugetPackagesViewModel").ViewModel;
+                    XamarinFormsLabsViewModel xamarinFormsLabsViewModel = (XamarinFormsLabsViewModel)viewModel.GetWizardStepViewModel("XamarinFormsLabsViewModel").ViewModel;
+                    
+                    this.Process(
+                        projectsViewModel,
+                        applicationOptionsViewModel,
+                        ninjaCoderOptionsViewModel,
+                        applicationSamplesOptionsViewModel,
+                        viewsViewModel,
+                        pluginsViewModel,
+                        nugetPackagesViewModel,
+                        xamarinFormsLabsViewModel);
+                }
+            }
+            catch (Exception exception)
+            {
+                TraceService.WriteError(exception.Message);
             }
         }
 
@@ -125,21 +170,25 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// Processes the specified solution path.
         /// </summary>
         /// <param name="projectsViewModel">The projects view model.</param>
+        /// <param name="applicationOptionsViewModel">The application options view model.</param>
+        /// <param name="ninjaCoderOptionsViewModel">The ninja coder options view model.</param>
+        /// <param name="applicationSamplesOptionsViewModel">The application samples options view model.</param>
         /// <param name="viewsViewModel">The views view model.</param>
         /// <param name="pluginsViewModel">The plugins view model.</param>
         /// <param name="nugetPackagesViewModel">The nuget packages view model.</param>
         /// <param name="xamarinFormsLabsViewModel">The xamarin forms labs view model.</param>
         internal void Process(
             ProjectsViewModel projectsViewModel,
+            ApplicationOptionsViewModel applicationOptionsViewModel,
+            NinjaCoderOptionsViewModel ninjaCoderOptionsViewModel,
+            ApplicationSamplesOptionsViewModel applicationSamplesOptionsViewModel,
             ViewsViewModel viewsViewModel,
             PluginsViewModel pluginsViewModel,
             NugetPackagesViewModel nugetPackagesViewModel,
             XamarinFormsLabsViewModel xamarinFormsLabsViewModel)
         {
             TraceService.WriteLine("ProjectsController::Process");
-
-            string commands = string.Empty;
-
+            
             this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NinjaIsRunning);
 
             this.applicationService.SuspendResharperIfRequested();
@@ -150,7 +199,13 @@ namespace NinjaCoder.MvvmCross.Controllers
                 this.VisualStudioService.SolutionService.CreateEmptySolution(projectsViewModel.GetSolutionPath(), projectsViewModel.Project);
             }
 
-            List<string> messages = this.projectsService.AddProjects(
+            if (this.SettingsService.CreateTestProjectsSolutionFolder)
+            {
+                this.VisualStudioService.SolutionService.AddSolutionFolder(this.SettingsService.TestProjectsSolutionFolderName);    
+                this.VisualStudioService.DTEService.SaveAll();
+            }
+
+           this.messages = this.projectsService.AddProjects(
                     this.VisualStudioService,
                     projectsViewModel.GetSolutionPath(),
                     projectsViewModel.GetFormattedRequiredTemplates())
@@ -171,16 +226,15 @@ namespace NinjaCoder.MvvmCross.Controllers
             {
                 IEnumerable<string> viewModelMessages = this.viewModelViewsService.AddViewModelsAndViews(viewsViewModel.Views);
             
-                messages.AddRange(viewModelMessages);
+                this.messages.AddRange(viewModelMessages);
             }
 
-            if (pluginsViewModel != null &&
-                (this.SettingsService.FrameworkType == FrameworkType.MvvmCross ||
-                 this.SettingsService.FrameworkType == FrameworkType.MvvmCrossAndXamarinForms))
-            {
-                commands += pluginsViewModel.GetNugetCommands();
-                messages.AddRange(pluginsViewModel.GetNugetMessages());
-            }
+            this.PopulateNugetActions(applicationOptionsViewModel);
+            this.PopulateNugetActions(ninjaCoderOptionsViewModel);
+            this.PopulateNugetActions(applicationSamplesOptionsViewModel);
+            this.PopulateNugetActions(pluginsViewModel);
+            this.PopulateNugetActions(nugetPackagesViewModel);
+            this.PopulateNugetActions(xamarinFormsLabsViewModel);
 
             this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.UpdatingFiles);
 
@@ -188,49 +242,62 @@ namespace NinjaCoder.MvvmCross.Controllers
                 this.SettingsService.RemoveDefaultFileHeaders,
                 this.SettingsService.RemoveDefaultComments);
 
-            commands += this.nugetService.GetNugetCommands(projectsViewModel.GetFormattedRequiredTemplates());
+            this.commands += this.nugetService.GetNugetCommands(projectsViewModel.GetFormattedRequiredTemplates());
 
-            if (nugetPackagesViewModel != null)
-            {
-                commands += nugetPackagesViewModel.GetNugetCommands();
-                messages.AddRange(nugetPackagesViewModel.GetNugetMessages());
-            }
-
-            if (xamarinFormsLabsViewModel != null)
-            {
-                commands += xamarinFormsLabsViewModel.GetNugetCommands();
-                messages.AddRange(xamarinFormsLabsViewModel.GetNugetMessages());
-            }
+            this.cachingService.PostNugetCommands = this.postNugetCommands;
+            this.cachingService.PostNugetFileOperations = this.postNugetFileOperations;
 
             //// a bit of (unnecessary) tidying up - replace double new lines!
-            commands = commands.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine); 
+            this.commands = this.commands.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine); 
 
-            if (this.SettingsService.OutputNugetCommandsToReadMe)
-            {
-                messages.Add(string.Empty);
-                messages.Add(this.ReadMeService.GetSeperatorLine());
-                messages.Add("Nuget Commands");
-                messages.Add(this.ReadMeService.GetSeperatorLine());
-                messages.Add(string.Empty);
-                messages.Add(commands);
-            }
+            this.OutputNugetCommandsToReadMe();
 
             this.ReadMeService.AddLines(
                 this.GetReadMePath(),
                 "Add Projects",
-                messages);
+                this.messages);
 
-            TraceService.WriteHeader("RequestedNugetCommands=" + commands);
+            TraceService.WriteHeader("RequestedNugetCommands=" + this.commands);
 
             if (this.SettingsService.ProcessNugetCommands)
             {
                 this.nugetService.Execute(
                     this.GetReadMePath(), 
-                    commands,
+                    this.commands,
                     this.SettingsService.SuspendReSharperDuringBuild);
             }
 
             this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NugetDownload);
+        }
+
+        private void OutputNugetCommandsToReadMe()
+        {
+            if (this.SettingsService.OutputNugetCommandsToReadMe)
+            {
+                this.messages.Add(string.Empty);
+                this.messages.Add(this.ReadMeService.GetSeperatorLine());
+                this.messages.Add("Nuget Commands");
+                this.messages.Add(this.ReadMeService.GetSeperatorLine());
+                this.messages.Add(string.Empty);
+                this.messages.Add(this.commands);
+            }
+        }
+
+        /// <summary>
+        /// Populates the nuget actions.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        internal void PopulateNugetActions(NugetPackagesBaseViewModel viewModel)
+        {
+            if (viewModel != null)
+            {
+                NugetActions nugetActions = viewModel.GetNugetActions();
+
+                this.commands += nugetActions.NugetCommands;
+                this.messages.AddRange(nugetActions.NugetMessages);
+                this.postNugetCommands.AddRange(nugetActions.PostNugetCommands);
+                this.postNugetFileOperations.AddRange(nugetActions.PostNugetFileOperations);
+            }
         }
     }
 }

@@ -152,6 +152,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         {
             get { return 1; }
         }
+
         /// <summary>
         /// Deletes this instance.
         /// </summary>

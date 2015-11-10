@@ -21,7 +21,7 @@ namespace Scorchio.Infrastructure.Extensions
         /// Gets the description.
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns>Teh friendly description</returns>
+        /// <returns>The friendly description</returns>
         public static string GetDescription(this Enum instance)
         {
             FieldInfo fieldInfo = instance.GetType().GetField(instance.ToString());
@@ -38,15 +38,11 @@ namespace Scorchio.Infrastructure.Extensions
 
         /// <summary>
         /// Gets the value from description.
-        /// 
-        /// example :- type.GetValueFromDescription<FrameworkType>("Xamarin Forms");
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="instance">The instance.</param>
         /// <param name="description">The description.</param>
-        /// <returns>
-        /// The enum value
-        /// </returns>
+        /// <returns></returns>
         /// <exception cref="System.InvalidOperationException"></exception>
         public static T GetValueFromDescription<T>(
             this Enum instance,
@@ -65,7 +61,6 @@ namespace Scorchio.Infrastructure.Extensions
 
                 if (attribute != null)
                 {
-
                     if (attribute.Description == description)
                     {
                         return (T)field.GetValue(null);

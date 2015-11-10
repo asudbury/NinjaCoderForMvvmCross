@@ -5,7 +5,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.Infrastructure.Wpf.ViewModels
 {
-    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
@@ -14,16 +13,6 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels
     /// </summary>
     public abstract class BaseViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
-        /// <summary>
-        /// The is validating,
-        /// </summary>
-        public bool IsValidating = false;
-
-        /// <summary>
-        /// The errors.
-        /// </summary>
-        public Dictionary<string, string> Errors = new Dictionary<string, string>();
-
         /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
@@ -90,24 +79,15 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels
         /// <param name="columnName">The name of the property whose error message to get. </param>
         public string this[string columnName]
         {
-            get
-            {
-                return null;
-            }
+            get { return null; }
         }
 
         /// <summary>
         /// Gets an error message indicating what is wrong with this object.
         /// </summary>
-        /// <returns>
-        /// An error message indicating what is wrong with this object. The default is an empty string ("").
-        /// </returns>
         public string Error
         {
-            get
-            {
-                return null;
-            }
+            get { return null; }
         }
     }
 }

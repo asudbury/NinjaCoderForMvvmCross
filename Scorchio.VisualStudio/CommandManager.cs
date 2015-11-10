@@ -21,7 +21,7 @@ namespace Scorchio.VisualStudio
     using System.Runtime.InteropServices;
 
     /// <summary>
-    ///  Defines the ConnectBase type.
+    /// Defines the ConnectBase type.
     /// </summary>
     [ComVisible(true)]
     [ClassInterface(ClassInterfaceType.None)]
@@ -41,16 +41,6 @@ namespace Scorchio.VisualStudio
         }
 
         /// <summary>
-        /// Gets the visual studio instance.
-        /// </summary>
-        protected VSInstance VsInstance { get; set; }
-
-        /// <summary>
-        /// Gets the AddInInstance.
-        /// </summary>
-        protected AddIn AddInInstance { get; set; }
-
-        /// <summary>
         /// Sets the resource assembly.
         /// </summary>
         public Assembly ResourceAssembly 
@@ -62,6 +52,16 @@ namespace Scorchio.VisualStudio
         /// Gets or sets the resource manager.
         /// </summary>
         public ResourceManager ResourceManager { get; set; }
+
+        /// <summary>
+        /// Gets or sets the vs instance.
+        /// </summary>
+        protected VSInstance VsInstance { get; set; }
+
+        /// <summary>
+        /// Gets or sets the add in instance.
+        /// </summary>
+        protected AddIn AddInInstance { get; set; }
 
         /// <summary>
         /// Called when [connection].
@@ -110,138 +110,6 @@ namespace Scorchio.VisualStudio
                     this.AfterStartUp();
                     this.Initialize();
                     break;
-            }
-        }
-
-        /// <summary>
-        /// UIs the setup.
-        /// </summary>
-        protected virtual void UISetup()
-        {
-            TraceService.WriteLine("CommandManager::UISetup");
-        }
-    
-        /// <summary>
-        /// Starts up.
-        /// </summary>
-        protected virtual void StartUp()
-        {
-            TraceService.WriteLine("CommandManager::StartUp");
-        }
-
-        /// <summary>
-        /// After the start up.
-        /// </summary>
-        protected virtual void AfterStartUp()
-        {
-            TraceService.WriteLine("CommandManager::AfterStartUp");
-        }
-
-        /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        protected virtual void Initialize()
-        {
-            TraceService.WriteLine("CommandManager::Initialize");
-        }
-
-        /// <summary>
-        /// Adds the command bar.
-        /// </summary>
-        /// <param name="commandName">Name of the command.</param>
-        /// <returns>The command bar.</returns>
-        protected CommandBar AddCommandBar(string commandName)
-        {
-            TraceService.WriteLine("CommandManager::AddCommandBar commandName=" + commandName);
-
-            Commands2 commands = (Commands2)this.VsInstance.ApplicationObject.Commands;
-            CommandBarPopup toolsMenuPopUp = this.VsInstance.ApplicationObject.GetToolsMenuPopUp();
-
-            CommandBar commandBar = null;
-
-            for (int i = 1; i <= toolsMenuPopUp.CommandBar.Controls.Count; i++)
-            {
-                if (toolsMenuPopUp.CommandBar.Controls[i].Caption == commandName)
-                {
-                    TraceService.WriteLine("CommandManager::AddCommandBar commandFound in collection commandName=" + commandName);
-                    CommandBarPopup commandBarPopup = (CommandBarPopup)toolsMenuPopUp.CommandBar.Controls[i];
-
-                    commandBar = commandBarPopup.CommandBar;
-                    break;
-                }
-            }
-
-            if (commandBar == null)
-            {
-                TraceService.WriteLine("CommandManager::AddCommandBar creating command Name=" + commandName);
-                return (CommandBar)commands.AddCommandBar(commandName, vsCommandBarType.vsCommandBarTypeMenu, toolsMenuPopUp.CommandBar);
-            }
-
-            return commandBar;
-        }
-
-        /// <summary>
-        /// Deletes the command.
-        /// </summary>
-        /// <param name="commandName">Name of the command.</param>
-        protected void DeleteCommand(string commandName)
-        {
-            TraceService.WriteLine("CommandManager::DeleteCommand commandName=" + commandName);
-
-            try
-            {
-                Commands2 commands = (Commands2)this.VsInstance.ApplicationObject.Commands;
-                CommandBarPopup toolsMenuPopUp = this.VsInstance.ApplicationObject.GetToolsMenuPopUp();
-
-                CommandBar commandBar = null;
-
-                for (int i = 1; i <= toolsMenuPopUp.CommandBar.Controls.Count; i++)
-                {
-                    if (toolsMenuPopUp.CommandBar.Controls[i].Caption == commandName)
-                    {
-                        TraceService.WriteLine("CommandManager::DeleteCommand commandFound in collection commandName=" + commandName);
-                        CommandBarPopup commandBarPopup = (CommandBarPopup)toolsMenuPopUp.CommandBar.Controls[i];
-
-                        commandBar = commandBarPopup.CommandBar;
-                        break;
-                    }
-                }
-
-                if (commandBar != null)
-                {
-                    TraceService.WriteLine("Command found and will be deleted ommandName=" + commandName);
-                    commandBar.Delete();
-                }
-
-            }
-            catch (Exception exception)
-            {
-                TraceService.WriteError("exception=" + exception.Message);
-                TraceService.WriteError("stackTrace=" + exception.StackTrace);
-            }
-        }
-
-        /// <summary>
-        /// Lists all commands.
-        /// </summary>
-        protected void ListAllCommands()
-        {
-            TraceService.WriteLine("CommandManager::ListAllCommands");
-
-            try
-            {
-                Commands2 commands = (Commands2)this.VsInstance.ApplicationObject.Commands;
-                CommandBarPopup toolsMenuPopUp = this.VsInstance.ApplicationObject.GetToolsMenuPopUp();
-                
-                for (int i = 1; i <= toolsMenuPopUp.CommandBar.Controls.Count; i++)
-                {
-                    TraceService.WriteLine(toolsMenuPopUp.CommandBar.Controls[i].Caption);
-                }
-
-            }
-            catch (Exception exception)
-            {
-                TraceService.WriteError("exception=" + exception.Message);
             }
         }
 
@@ -348,12 +216,12 @@ namespace Scorchio.VisualStudio
                 return;
             }
 
-            foreach (VSCommandInfo vsCommandInfo in this.commandInfos
+            foreach (VSCommandInfo commandInfo in this.commandInfos
                 .Where(vsCommandInfo => vsCommandInfo.Command.Name == commandName))
             {
-                if (vsCommandInfo.Action != null)
+                if (commandInfo.Action != null)
                 {
-                    vsCommandInfo.Action();
+                    commandInfo.Action();
                 }
 
                 handled = true;
@@ -362,12 +230,142 @@ namespace Scorchio.VisualStudio
         }
 
         /// <summary>
+        /// UIs the setup.
+        /// </summary>
+        protected virtual void UISetup()
+        {
+            TraceService.WriteLine("CommandManager::UISetup");
+        }
+
+        /// <summary>
+        /// Starts up.
+        /// </summary>
+        protected virtual void StartUp()
+        {
+            TraceService.WriteLine("CommandManager::StartUp");
+        }
+
+        /// <summary>
+        /// After the start up.
+        /// </summary>
+        protected virtual void AfterStartUp()
+        {
+            TraceService.WriteLine("CommandManager::AfterStartUp");
+        }
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        protected virtual void Initialize()
+        {
+            TraceService.WriteLine("CommandManager::Initialize");
+        }
+
+        /// <summary>
+        /// Adds the command bar.
+        /// </summary>
+        /// <param name="commandName">Name of the command.</param>
+        /// <returns>The command bar.</returns>
+        protected CommandBar AddCommandBar(string commandName)
+        {
+            TraceService.WriteLine("CommandManager::AddCommandBar commandName=" + commandName);
+
+            Commands2 commands = (Commands2)this.VsInstance.ApplicationObject.Commands;
+            CommandBarPopup toolsMenuPopUp = this.VsInstance.ApplicationObject.GetToolsMenuPopUp();
+
+            CommandBar commandBar = null;
+
+            for (int i = 1; i <= toolsMenuPopUp.CommandBar.Controls.Count; i++)
+            {
+                if (toolsMenuPopUp.CommandBar.Controls[i].Caption == commandName)
+                {
+                    TraceService.WriteLine("CommandManager::AddCommandBar commandFound in collection commandName=" + commandName);
+                    CommandBarPopup commandBarPopup = (CommandBarPopup)toolsMenuPopUp.CommandBar.Controls[i];
+
+                    commandBar = commandBarPopup.CommandBar;
+                    break;
+                }
+            }
+
+            if (commandBar == null)
+            {
+                TraceService.WriteLine("CommandManager::AddCommandBar creating command Name=" + commandName);
+                return (CommandBar)commands.AddCommandBar(commandName, vsCommandBarType.vsCommandBarTypeMenu, toolsMenuPopUp.CommandBar);
+            }
+
+            return commandBar;
+        }
+
+        /// <summary>
+        /// Deletes the command.
+        /// </summary>
+        /// <param name="commandName">Name of the command.</param>
+        protected void DeleteCommand(string commandName)
+        {
+            TraceService.WriteLine("CommandManager::DeleteCommand commandName=" + commandName);
+
+            try
+            {
+                Commands2 commands = (Commands2)this.VsInstance.ApplicationObject.Commands;
+                CommandBarPopup toolsMenuPopUp = this.VsInstance.ApplicationObject.GetToolsMenuPopUp();
+
+                CommandBar commandBar = null;
+
+                for (int i = 1; i <= toolsMenuPopUp.CommandBar.Controls.Count; i++)
+                {
+                    if (toolsMenuPopUp.CommandBar.Controls[i].Caption == commandName)
+                    {
+                        TraceService.WriteLine("CommandManager::DeleteCommand commandFound in collection commandName=" + commandName);
+                        CommandBarPopup commandBarPopup = (CommandBarPopup)toolsMenuPopUp.CommandBar.Controls[i];
+
+                        commandBar = commandBarPopup.CommandBar;
+                        break;
+                    }
+                }
+
+                if (commandBar != null)
+                {
+                    TraceService.WriteLine("Command found and will be deleted ommandName=" + commandName);
+                    commandBar.Delete();
+                }
+            }
+            catch (Exception exception)
+            {
+                TraceService.WriteError("exception=" + exception.Message);
+                TraceService.WriteError("stackTrace=" + exception.StackTrace);
+            }
+        }
+
+        /// <summary>
+        /// Lists all commands.
+        /// </summary>
+        protected void ListAllCommands()
+        {
+            TraceService.WriteLine("CommandManager::ListAllCommands");
+
+            try
+            {
+                Commands2 commands = (Commands2)this.VsInstance.ApplicationObject.Commands;
+                CommandBarPopup toolsMenuPopUp = this.VsInstance.ApplicationObject.GetToolsMenuPopUp();
+
+                for (int i = 1; i <= toolsMenuPopUp.CommandBar.Controls.Count; i++)
+                {
+                    TraceService.WriteLine(toolsMenuPopUp.CommandBar.Controls[i].Caption);
+                }
+            }
+            catch (Exception exception)
+            {
+                TraceService.WriteError("exception=" + exception.Message);
+            }
+        }
+
+        /// <summary>
         /// Add item to the menu.
         /// </summary>
-        /// <param name="vsCommandInfo">The command info.</param>
-        protected virtual void AddMenuItem(VSCommandInfo vsCommandInfo)
+        /// <param name="commandInfo">The command info.</param>
+        protected virtual void AddMenuItem(VSCommandInfo commandInfo)
         {
-            TraceService.WriteLine("CommandManager::AddMenuItem Name=" + vsCommandInfo.Name);
+            TraceService.WriteLine("CommandManager::AddMenuItem Name=" + commandInfo.Name);
 
             //// This try/catch block can be duplicated if you wish to add multiple commands to be handled by your Add-in,
             //// just make sure you also update the QueryStatus/Exec method to include the new command names.
@@ -376,41 +374,40 @@ namespace Scorchio.VisualStudio
                 Commands2 commands = (Commands2)this.VsInstance.ApplicationObject.Commands;
                 object[] context = { };
 
-                TraceService.WriteLine("AddMenuItem name=" + vsCommandInfo.Name);
+                TraceService.WriteLine("AddMenuItem name=" + commandInfo.Name);
 
                 IEnumerable<Command> currentCommands = commands.Cast<Command>();
 
                 foreach (Command command in currentCommands
-                    .Where(command => command.Name.Contains(vsCommandInfo.Name)))
+                    .Where(command => command.Name.Contains(commandInfo.Name)))
                 {
-                    TraceService.WriteLine("Deleting Command already in memory name=" + vsCommandInfo.Name);
+                    TraceService.WriteLine("Deleting Command already in memory name=" + commandInfo.Name);
                     command.Delete();
                     break;
                 }
 
                 TraceService.WriteLine("AddingCommand");
 
-                vsCommandInfo.Command = commands.AddNamedCommand2(
-                        vsCommandInfo.AddIn,
-                        vsCommandInfo.Name,
-                        vsCommandInfo.ButtonText,
-                        vsCommandInfo.Tooltip,
-                        vsCommandInfo.UseOfficeResources,
-                        vsCommandInfo.BitmapResourceId,
+                commandInfo.Command = commands.AddNamedCommand2(
+                        commandInfo.AddIn,
+                        commandInfo.Name,
+                        commandInfo.ButtonText,
+                        commandInfo.Tooltip,
+                        commandInfo.UseOfficeResources,
+                        commandInfo.BitmapResourceId,
                         ref context);
 
                 TraceService.WriteLine("AddControl");
 
-                vsCommandInfo.Command.AddControl(vsCommandInfo.ParentCommand, vsCommandInfo.Position);
+                commandInfo.Command.AddControl(commandInfo.ParentCommand, commandInfo.Position);
 
                 TraceService.WriteLine("Added");
 
-                this.commandInfos.Add(vsCommandInfo);
+                this.commandInfos.Add(commandInfo);
             }
-            
             catch (Exception exception)
             {
-                TraceService.WriteLine("commandName=" + vsCommandInfo.Name);
+                TraceService.WriteLine("commandName=" + commandInfo.Name);
                 TraceService.WriteLine("message=" + exception.Message);
                 TraceService.WriteLine("stackTrace=" + exception.StackTrace);
             }
@@ -437,7 +434,6 @@ namespace Scorchio.VisualStudio
                     break;
                 }
             }
-
             catch (Exception exception)
             {
                 TraceService.WriteLine("menuItemName=" + menuItemName);

@@ -13,7 +13,7 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
     using System.Collections.Generic;
 
     /// <summary>
-    ///  Defines the IProjectFactory type.
+    /// Defines the IProjectFactory type.
     /// </summary>
     public interface IProjectFactory
     {
@@ -38,5 +38,12 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// Registers the wizard data.
         /// </summary>
         void RegisterWizardData();
+
+        /// <summary>
+        /// Gets the route modifier.
+        /// </summary>
+        /// <param name="frameworkType">Type of the framework.</param>
+        /// <returns></returns>
+        RouteModifier GetRouteModifier(FrameworkType frameworkType);
     }
 }

@@ -29,43 +29,6 @@ namespace NinjaCoder.MvvmCross.AddIn
         {
             TraceService.WriteLine("Connect::Constructor");
         }
-        /// <summary>
-        /// Starts up.
-        /// </summary>
-        protected override void StartUp()
-        {
-            TraceService.WriteLine("Connect::StartUp");
-        }
-
-        /// <summary>
-        /// UIs the setup.
-        /// </summary>
-        protected override void UISetup()
-        {
-            TraceService.WriteLine("Connect::UISetup");
-        }
-
-        /// <summary>
-        /// After the start up.
-        /// </summary>
-        protected override void AfterStartUp()
-        {
-            TraceService.WriteLine("Connect::AfterStartUp");
-        }
-
-        /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        protected override void Initialize()
-        {
-            TraceService.WriteLine("Connect::Initialize");
-
-            ////this.ListAllCommands();
-
-            ////this.DeleteCommand("Ninja Coder for MvvmCross");
-
-            this.AddCommands();
-        }
 
         /// <summary>
         /// Adds the commands.
@@ -121,7 +84,7 @@ namespace NinjaCoder.MvvmCross.AddIn
             {
                 AddIn = this.AddInInstance,
                 Name = "NinjaCoderforMvvmCrossAddPlugins",
-                ButtonText = "Add Plugins",
+                ButtonText = "Add MvvmCross Plugins",
                 Tooltip = "Ninja Coder for MvvmCross Add Plugins",
                 Action = this.AddPlugins,
                 ParentCommand = commandBar,
@@ -134,7 +97,7 @@ namespace NinjaCoder.MvvmCross.AddIn
             {
                 AddIn = this.AddInInstance,
                 Name = "NinjaCoderforMvvmCrossAddNugetPackages",
-                ButtonText = "Add Nuget Packages",
+                ButtonText = "Add Application Options / Nuget Packages",
                 Tooltip = "Ninja Coder for MvvmCross Add Nuget Packages",
                 Action = this.AddNugetPackages,
                 ParentCommand = commandBar,
@@ -289,12 +252,50 @@ namespace NinjaCoder.MvvmCross.AddIn
         /// <summary>
         /// Add item to the menu.
         /// </summary>
-        /// <param name="vsCommandInfo">The command info.</param>
-        protected override void AddMenuItem(VSCommandInfo vsCommandInfo)
+        /// <param name="commandInfo">The command info.</param>
+        protected override void AddMenuItem(VSCommandInfo commandInfo)
         {
-            vsCommandInfo.Position = this.commandPosition;
-            base.AddMenuItem(vsCommandInfo);
+            commandInfo.Position = this.commandPosition;
+            base.AddMenuItem(commandInfo);
             this.commandPosition++;
+        }
+
+        /// <summary>
+        /// Starts up.
+        /// </summary>
+        protected override void StartUp()
+        {
+            TraceService.WriteLine("Connect::StartUp");
+        }
+
+        /// <summary>
+        /// UIs the setup.
+        /// </summary>
+        protected override void UISetup()
+        {
+            TraceService.WriteLine("Connect::UISetup");
+        }
+
+        /// <summary>
+        /// After the start up.
+        /// </summary>
+        protected override void AfterStartUp()
+        {
+            TraceService.WriteLine("Connect::AfterStartUp");
+        }
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        protected override void Initialize()
+        {
+            TraceService.WriteLine("Connect::Initialize");
+
+            ////this.ListAllCommands();
+
+            ////this.DeleteCommand("Ninja Coder for MvvmCross");
+
+            this.AddCommands();
         }
     }
 }

@@ -103,7 +103,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         bool ReplaceVariablesInSnippets { get; }
 
         /// <summary>
-        /// Gets or sets the MVVM cross plugins wiki page.
+        /// Gets the MVVM cross plugins wiki page.
         /// </summary>
         string MvvmCrossPluginsWikiPage { get;  }
 
@@ -278,6 +278,21 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         string XamarinFormsLabsPluginsUri { get; }
 
         /// <summary>
+        /// Gets the ninja nuget packages URI.
+        /// </summary>
+        string NinjaNugetPackagesUri { get; }
+
+        /// <summary>
+        /// Gets the ninja community nuget packages URI.
+        /// </summary>
+        string NinjaCommunityNugetPackagesUri { get; }
+
+        /// <summary>
+        /// Gets the local nuget packages URI.
+        /// </summary>
+        string LocalNugetPackagesUri { get; }
+
+        /// <summary>
         /// Gets or sets the xamarin forms views.
         /// </summary>
         string XamarinFormsViews { get; set; }
@@ -356,7 +371,22 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets or sets a value indicating whether [suspend re sharper during build].
         /// </summary>
         bool SuspendReSharperDuringBuild { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether [use local nuget].
+        /// </summary>
+        bool UseLocalNuget { get;  }
+
+        /// <summary>
+        /// Gets the name of the local nuget.
+        /// </summary>
+        string LocalNugetName { get;  }
+
+        bool CreateTestProjectsSolutionFolder { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the test projects solution folder.
+        /// </summary>
+        string TestProjectsSolutionFolderName { get; set; }
     }
 }
-
-

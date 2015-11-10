@@ -15,6 +15,15 @@ namespace NinjaCoder.MvvmCross.ViewModels.Wizard
     public class NinjaWizardViewModel : WizardViewModel
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="NinjaWizardViewModel" /> class.
+        /// </summary>
+        /// <param name="steps">The steps.</param>
+        public NinjaWizardViewModel(List<WizardStepViewModel> steps)
+        {
+            this.Steps = steps;
+        }
+
+        /// <summary>
         /// Occurs when [on cancel].
         /// </summary>
         public event EventHandler OnCancel;
@@ -23,15 +32,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Wizard
         /// Occurs when [on finish].
         /// </summary>
         public event EventHandler OnFinish;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NinjaWizardViewModel" /> class.
-        /// </summary>
-        /// <param name="steps">The steps.</param>
-        public NinjaWizardViewModel(List<WizardStepViewModel> steps)
-        {
-            this.Steps = steps;
-        }
 
         /// <summary>
         /// Cancels this instance.

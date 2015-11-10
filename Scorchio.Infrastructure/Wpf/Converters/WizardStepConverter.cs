@@ -32,7 +32,7 @@ namespace Scorchio.Infrastructure.Wpf.Converters
         {
             Type viewType = ((IProvideViewType)value).ViewType;
 
-            return new DataTemplate( /*type passed in here does not have anything to do with DataContext*/ )
+            return new DataTemplate 
             {
                 VisualTree = new FrameworkElementFactory(viewType)
             };

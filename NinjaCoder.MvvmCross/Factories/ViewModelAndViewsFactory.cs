@@ -189,7 +189,6 @@ namespace NinjaCoder.MvvmCross.Factories
                     itemTemplateInfos.Add(itemTemplateInfo);
                 }                
             }
-            
             else if (view.Framework == FrameworkType.XamarinForms.GetDescription())
             {
                 ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
@@ -247,12 +246,12 @@ namespace NinjaCoder.MvvmCross.Factories
                 new WizardStepViewModel
                 {
                     ViewModel = this.resolverService.Resolve<ViewsViewModel>(),
-                    ViewType = typeof (ViewsControl)
+                    ViewType = typeof(ViewsControl)
                 },
                 new WizardStepViewModel
                 {
                     ViewModel = this.resolverService.Resolve<ViewsFinishedViewModel>(),
-                    ViewType = typeof (ViewsFinishedControl)
+                    ViewType = typeof(ViewsFinishedControl)
                 }
             };
 
@@ -346,6 +345,5 @@ namespace NinjaCoder.MvvmCross.Factories
                 type,
                 pageType);
         }
-
     }
 }

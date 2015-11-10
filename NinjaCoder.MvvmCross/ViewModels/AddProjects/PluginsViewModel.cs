@@ -5,41 +5,26 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 {
-    using System;
+    using NinjaCoder.MvvmCross.Entities;
+    using NinjaCoder.MvvmCross.Factories.Interfaces;
+    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Scorchio.Infrastructure.Wpf;
+    using Scorchio.Infrastructure.Wpf.ViewModels;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Linq;
     using System.Windows.Input;
 
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-
-    using Scorchio.Infrastructure.Wpf;
-    using Scorchio.Infrastructure.Wpf.ViewModels;
-    using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
-    using Scorchio.VisualStudio.Services;
-
     /// <summary>
     ///  Defines the PluginsViewModel type.
     /// </summary>
-    public class PluginsViewModel : BaseWizardStepViewModel
+    public class PluginsViewModel : NugetPackagesBaseViewModel
     {
         /// <summary>
         /// The settings service.
         /// </summary>
         private readonly ISettingsService settingsService;
-
-        /// <summary>
-        /// The plugins service.
-        /// </summary>
-        private readonly IPluginsService pluginsService;
-
-        /// <summary>
-        /// The plugin factory.
-        /// </summary>
-        private readonly IPluginFactory pluginFactory;
 
         /// <summary>
         /// The core plugins.
@@ -52,89 +37,47 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         private ObservableCollection<SelectableItemViewModel<Plugin>> communityPlugins;
 
         /// <summary>
-        /// The core plugins selected
-        /// </summary>
-        private bool corePluginsSelected;
-
-        /// <summary>
-        /// The community plugins selected
-        /// </summary>
-        public bool communityPluginsSelected;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="PluginsViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="pluginsService">The plugins service.</param>
+        /// <param name="projectFactory">The project factory.</param>
         /// <param name="pluginFactory">The plugin factory.</param>
         public PluginsViewModel(
             ISettingsService settingsService,
             IPluginsService pluginsService,
+            IProjectFactory projectFactory,
             IPluginFactory pluginFactory)
+            : base(
+                settingsService,
+                pluginsService,
+                projectFactory,
+                pluginFactory)
         {
-            TraceService.WriteLine("PluginsViewModel::Constructor Start");
-
             this.settingsService = settingsService;
-            this.pluginsService = pluginsService;
-            this.pluginFactory = pluginFactory;
-
-            TraceService.WriteLine("PluginsViewModel::Constructor End");
-        }
-
-        /// <summary>
-        /// Called when [initialize].
-        /// </summary>
-        public override void OnInitialize()
-        {
-            if (this.settingsService.FrameworkType != FrameworkType.NoFramework)
-            {
-                Plugins allPlugins = this.pluginFactory.GetPlugins(this.settingsService.MvvmCrossPluginsUri);
-
-                this.CorePlugins = this.GetPlugins(allPlugins, false);
-                this.CommunityPlugins = this.GetPlugins(allPlugins, true);
-
-                if (this.corePlugins.Any() == false && 
-                    this.communityPlugins.Any())
-                {
-                    this.CommunityPluginsSelected = true;
-                }
-
-                else
-                {
-                    this.CorePluginsSelected = true;
-                }
-            }
         }
 
         /// <summary>
         /// Gets or sets a value indicating whether [core plugins selected].
         /// </summary>
-        public bool CorePluginsSelected
-        {
-            get { return this.corePluginsSelected; }
-            set { this.corePluginsSelected = value; }
-        }
+        public bool CorePluginsSelected { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [community plugins selected].
         /// </summary>
-        public bool CommunityPluginsSelected
-        {
-            get { return this.communityPluginsSelected; }
-            set { this.communityPluginsSelected = value; }
-        }
+        public bool CommunityPluginsSelected { get; set; }
 
         /// <summary>
-        /// Gets the core plugins.
+        /// Gets or sets the core plugins.
         /// </summary>
         public ObservableCollection<SelectableItemViewModel<Plugin>> CorePlugins
         {
             get { return this.corePlugins; }
             set { this.SetProperty(ref this.corePlugins, value); }
         }
-
+        
         /// <summary>
-        /// Gets the community plugins.
+        /// Gets or sets the community plugins.
         /// </summary>
         public ObservableCollection<SelectableItemViewModel<Plugin>> CommunityPlugins
         {
@@ -151,60 +94,42 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         }
 
         /// <summary>
-        /// Gets the required plugins.
+        /// Called when [initialize].
         /// </summary>
-        /// <returns>The required plugins.</returns>
-        public IEnumerable<Plugin> GetRequiredPlugins()
+        public override void OnInitialize()
         {
-            TraceService.WriteLine("PluginsViewModel::GetRequiredPlugins");
+            if (this.CorePlugins == null)
+            {
+                Plugins allPlugins = this.GetPlugins();
 
-            IEnumerable<SelectableItemViewModel<Plugin>> viewModels = this.CorePlugins
-                                                                .Union(this.CommunityPlugins);
+                this.CorePlugins = this.GetPlugins(allPlugins, false);
+                this.CommunityPlugins = this.GetPlugins(allPlugins, true);
 
-            return viewModels.ToList()
-                .Where(x => x.IsSelected)
-                .Select(x => x.Item).ToList();
+                if (this.corePlugins.Any() == false && this.communityPlugins.Any())
+                {
+                    this.CommunityPluginsSelected = true;
+                }
+                else
+                {
+                    this.CorePluginsSelected = true;
+                }
+            }
         }
 
         /// <summary>
-        /// Gets the nuget commands.
+        /// Gets the nuget packages URI.
         /// </summary>
-        /// <returns></returns>
-        public string GetNugetCommands()
+        protected override string NugetPackagesUri
         {
-            List<Plugin> requiredPlugins = this.GetRequiredPlugins().ToList();
-
-            string commands = string.Empty;
-
-            if (requiredPlugins.Any())
-            {
-                commands += string.Join(
-                    Environment.NewLine,
-                    this.pluginsService.GetNugetCommands(requiredPlugins,
-                    this.settingsService.UsePreReleaseXamarinFormsNugetPackages));
-            }
-
-            return commands;
+            get { return this.settingsService.MvvmCrossPluginsUri; }
         }
 
         /// <summary>
-        /// Gets the nuget messages.
+        /// Gets the get nuget packages.
         /// </summary>
-        /// <returns></returns>
-        public List<string> GetNugetMessages()
+        protected override IEnumerable<SelectableItemViewModel<Plugin>> NugetPackages
         {
-            List<Plugin> requiredPlugins = this.GetRequiredPlugins().ToList();
-
-            List<string> messages = new List<string>();
-
-            if (requiredPlugins.Any())
-            {
-                messages.Add(string.Empty);
-
-                messages.AddRange(this.pluginsService.GetNugetMessages(requiredPlugins));
-            }
-
-            return messages;
+            get { return this.CorePlugins != null ? this.CorePlugins.Union(this.CommunityPlugins) : new List<SelectableItemViewModel<Plugin>>(); }
         }
 
         /// <summary>

@@ -106,9 +106,9 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="frameworkType">Type of the framework.</param>
         /// <param name="testingFramework">The testing framework.</param>
         /// <param name="nugetCommands">The nuget commands.</param>
+        /// <param name="preSelect">if set to <c>true</c> [pre select].</param>
         /// <param name="projectSuffix">The project suffix.</param>
         /// <param name="projectType">Type of the project.</param>
-        /// <returns></returns>
         protected ProjectTemplateInfo GetPlatFormTestsProject(
             FrameworkType frameworkType,
             string testingFramework,

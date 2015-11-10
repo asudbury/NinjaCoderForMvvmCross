@@ -5,10 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio.Services.Interfaces
 {
-    using System.Collections.Generic;
-
     using EnvDTE;
-
+    using System.Collections.Generic;
     using VSLangProj;
 
     /// <summary>
@@ -72,13 +70,25 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         Reference AddProjectReference(IProjectService referencedProjectService);
 
         /// <summary>
-        /// Adds to folder from template.
+        /// Adds the item to folder from template.
         /// </summary>
         /// <param name="templateName">Name of the template.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <returns>True or False.</returns>
-        bool AddToFolderFromTemplate(
+        bool AddItemToFolderFromTemplate(
             string templateName,
+            string fileName);
+
+        /// <summary>
+        /// Adds the project to folder from template.
+        /// </summary>
+        /// <param name="templateName">Name of the template.</param>
+        /// <param name="path">The path.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>True or False.</returns>
+        bool AddProjectToFolderFromTemplate(
+            string templateName,
+            string path,
             string fileName);
 
         /// <summary>
@@ -152,16 +162,20 @@ namespace Scorchio.VisualStudio.Services.Interfaces
             string itemName);
 
         /// <summary>
+        /// Removes the folder item.
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        void RemoveFolderItem(string itemName);
+
+        /// <summary>
         /// Gets the sub projects.
         /// </summary>
-        /// <returns></returns>
         IEnumerable<IProjectService> GetSubProjects();
 
         /// <summary>
         /// Gets the sub folders.
         /// </summary>
         /// <param name="folderName">Name of the folder.</param>
-        /// <returns></returns>
         IEnumerable<IProjectItemService> GetSubFolders(string folderName);
 
         IEnumerable<IProjectItemService> GetFolderProjectItems();
@@ -170,7 +184,6 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// Gets the folder or create.
         /// </summary>
         /// <param name="folderName">Name of the folder.</param>
-        /// <returns></returns>
         IProjectItemService GetFolderOrCreate(string folderName);
     }
 }

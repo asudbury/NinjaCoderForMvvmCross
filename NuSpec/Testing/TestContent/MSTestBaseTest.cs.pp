@@ -32,13 +32,13 @@ namespace $rootnamespace$
             this.Terminate();
         }
 
-		/// <summary>
+        /// <summary>
         /// Creates the testable object.
         /// </summary>
         public virtual void CreateTestableObject()
         {
         }
-		
+        
         /// <summary>
         /// Initializes this instance.
         /// Any specific setup code for derived classes should override this method.

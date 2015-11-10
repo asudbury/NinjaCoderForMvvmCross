@@ -420,7 +420,6 @@ namespace Scorchio.VisualStudio.Extensions
 
             codeVariable.DocComment = "<doc><summary>\r\nMock " + typeDescriptor + ".\r\n</summary></doc>";
             
-
             EditPoint startPoint = codeVariable.StartPoint.CreateEditPoint();
             EditPoint endPoint = codeVariable.EndPoint.CreateEditPoint();
 

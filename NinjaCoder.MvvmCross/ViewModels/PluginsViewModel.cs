@@ -51,7 +51,7 @@ namespace NinjaCoder.MvvmCross.ViewModels
         /// <summary>
         /// The community plugins selected
         /// </summary>
-        public bool communityPluginsSelected;
+        private bool communityPluginsSelected;
 
         /// <summary>
         /// The view model names.
@@ -90,12 +90,11 @@ namespace NinjaCoder.MvvmCross.ViewModels
             this.corePlugins = this.GetPlugins(allPlugins, false);
             this.communityPlugins = this.GetPlugins(allPlugins, true);
 
-            if (this.corePlugins.Any()== false &&
+            if (this.corePlugins.Any() == false &&
                 this.communityPlugins.Any())
             {
                 this.CommunityPluginsSelected = true;
             }
-
             else
             {
                 this.CorePluginsSelected = true;

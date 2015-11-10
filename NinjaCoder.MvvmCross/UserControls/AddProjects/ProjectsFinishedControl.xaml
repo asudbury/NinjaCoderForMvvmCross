@@ -34,6 +34,10 @@
             <CheckBox Margin="10"
                       Content="Suspend ReSharper during Ninja creation of projects"
                       IsChecked="{Binding SuspendReSharperDuringBuild}" />
+
+            <CheckBox Margin="10"
+                      Content="Create Test projects in 'TestProjects' solution folder"
+                      IsChecked="{Binding CreateTestProjectsSolutionFolder}" />
             <Separator Margin="5" />
             <TextBlock Margin="10" Text="Click 'Finish' to generate the solution." />
             <Separator Margin="5" />

@@ -5,10 +5,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Tests.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO.Abstractions;
-    using System.Runtime.InteropServices;
     using Castle.DynamicProxy.Generators;
     using Moq;
     using NinjaCoder.MvvmCross.Controllers;
@@ -16,10 +12,12 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using NinjaCoder.MvvmCross.Tests.Mocks;
     using NUnit.Framework;
-
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Services.Interfaces;
+    using System;
+    using System.IO.Abstractions;
+    using System.Runtime.InteropServices;
 
     /// <summary>
     ///  Defines the TestPluginsController type.
@@ -30,7 +28,7 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
         /// <summary>
         /// The controller.
         /// </summary>
-        public PluginsController controller;
+        public PluginsController Controller;
 
         /// <summary>
         /// The mock file system.
@@ -122,7 +120,7 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
 
             this.mockVisualStudioService.SetupGet(x => x.CoreProjectService).Returns(mockProjectService.Object);
 
-            this.controller.Run();
+            this.Controller.Run();
         }
 
         /// <summary>
@@ -133,7 +131,7 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
         {
             this.mockVisualStudioService.SetupGet(x => x.IsMvvmCrossSolution).Returns(false);
 
-            this.controller.Run();
+            this.Controller.Run();
         }
     }
 }

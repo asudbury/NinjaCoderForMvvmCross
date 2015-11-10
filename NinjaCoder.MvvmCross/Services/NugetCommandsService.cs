@@ -93,16 +93,6 @@ namespace NinjaCoder.MvvmCross.Services
         /// The xamarin forms package
         /// </summary>
         private const string XamarinFormsPackage = "Xamarin.Forms";
-        
-        /// <summary>
-        /// The xamarin android package.
-        /// </summary>
-        private const string XamarinAndroidPackage = "Xamarin.Android.Support.v4";
-
-        /// <summary>
-        /// The xamarin forms WPF package.
-        /// </summary>
-        private const string XamarinFormsWpfPackage = "Xamarin.Forms.Platform.WPF";
 
         /// <summary>
         /// The xamarin UI test package.
@@ -250,7 +240,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             TraceService.WriteLine("NugetCommandsService::GetMvvmCrossCoreCommands");
 
-            List<string> commands =  new List<string> 
+            List<string> commands = new List<string> 
                 {
                     this.GetMvvmCrossCommand(MvvmCrossPackage)
                 };
@@ -297,8 +287,7 @@ namespace NinjaCoder.MvvmCross.Services
             List<string> commands = new List<string> 
             {
                 this.GetMvvmCrossCommand(MvvmCrossPackage),
-                this.GetNinjaCommand(ScorchioMvvmCrossPackage, false),
-                Settings.NugetInstallPackage.Replace("%s", XamarinAndroidPackage)
+                this.GetNinjaCommand(ScorchioMvvmCrossPackage, false)
             };
             
             if (this.settingsService.UseXamarinTestCloud)
@@ -389,6 +378,20 @@ namespace NinjaCoder.MvvmCross.Services
             {
                 commands.Add(this.GetXamarinFormsCommand(XamarinInsightsPackage));
             }
+
+            return commands;
+        }
+
+        /// <summary>
+        /// Gets the no frameworks core commands.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<string> GetNoFrameworksCoreCommands()
+        {
+            List<string> commands = new List<string> 
+            {
+                this.GetNinjaCommand(ScorchioNoFrameworkPackage, true)
+            };
 
             return commands;
         }
@@ -517,22 +520,6 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets the xamarin forms WPF commands.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<string> GetXamarinFormsWpfCommands()
-        {
-            return new List<string> 
-            {
-                this.GetXamarinFormsCommand(XamarinFormsPackage),
-
-                this.GetNinjaCommand(ScorchioXamarinFormsWpfPackage, true),
-
-                Settings.NugetInstallPackage.Replace("%s", XamarinFormsWpfPackage)
-            };
-        }
-
-        /// <summary>
         /// Gets the MVVM cross xamarin forms core commands.
         /// </summary>
         /// <returns></returns>
@@ -606,10 +593,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <returns></returns>
         public IEnumerable<string> GetXamarinAndroidCommands()
         {
-            List<string> commands =  new List<string> 
-            {
-                Settings.NugetInstallPackage.Replace("%s", XamarinAndroidPackage),
-            };
+            List<string> commands =  new List<string>();
 
             if (this.settingsService.UseXamarinTestCloud)
             {

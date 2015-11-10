@@ -3,24 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Name="uc">
     <UserControl.Resources>
-            <Style x:Key="ListViewHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
-                <Setter Property="Visibility" Value="Collapsed" />
-            </Style>
+        <Style x:Key="ListViewHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Visibility" Value="Collapsed" />
+        </Style>
     </UserControl.Resources>
-    <GroupBox  Margin="10,0,10,0">
+    <GroupBox Margin="10,0,10,0">
         <GroupBox.HeaderTemplate>
             <DataTemplate>
-                <TextBlock Text="{Binding Path=GroupBoxTitle, ElementName=uc}" Foreground="White" />
+                <TextBlock Foreground="White" Text="{Binding Path=GroupBoxTitle, ElementName=uc}" />
             </DataTemplate>
         </GroupBox.HeaderTemplate>
         <Grid>
-            <ListView ItemsSource="{Binding Path=DataContext, ElementName=uc}" BorderThickness="0">
+            <ListView BorderThickness="0" ItemsSource="{Binding Path=DataContext, ElementName=uc}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="ToolTip" Value="{Binding Item.Description}" />
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" Width="{Binding (FrameworkElement.ActualWidth), RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
-                       ItemWidth="{Binding (ListView.View).ItemWidth, RelativeSource={RelativeSource AncestorType=ListView}}"
-                       MinWidth="{Binding ItemWidth, RelativeSource={RelativeSource Self}}"
-                       ItemHeight="{Binding (ListView.View).ItemHeight, RelativeSource={RelativeSource AncestorType=ListView}}" />
+                        <WrapPanel Width="{Binding (FrameworkElement.ActualWidth),
+                                                   RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
+                                   MinWidth="{Binding ItemWidth,
+                                                      RelativeSource={RelativeSource Self}}"
+                                   ItemHeight="{Binding (ListView.View).ItemHeight,
+                                                        RelativeSource={RelativeSource AncestorType=ListView}}"
+                                   ItemWidth="{Binding (ListView.View).ItemWidth,
+                                                       RelativeSource={RelativeSource AncestorType=ListView}}"
+                                   Orientation="Horizontal" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
 
@@ -30,7 +40,7 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel>
-                                        <CheckBox IsChecked="{Binding IsSelected}"/>
+                                        <CheckBox IsChecked="{Binding IsSelected}" />
                                     </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>

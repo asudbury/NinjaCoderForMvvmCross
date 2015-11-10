@@ -98,7 +98,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         private bool useStyleCop;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NinjaBaseViewModel" /> class.
+        /// Initializes a new instance of the <see cref="BuildOptionsViewModel"/> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="messageBoxService">The message box service.</param>
@@ -226,6 +226,14 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         }
         
         /// <summary>
+        /// Gets the display name.
+        /// </summary>
+        public override string DisplayName
+        {
+            get { return "Build Options"; }
+        }
+
+        /// <summary>
         /// Saves this instance.
         /// </summary>
         public void Save()
@@ -241,29 +249,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             this.settingsService.UseXamarinTestCloud = this.useXamarinTestCloud;
             this.settingsService.UseXamarinInsights = this.useXamarinInsights;
             this.settingsService.UseStyleCop = this.useStyleCop;
-        }
-
-        /// <summary>
-        /// Inits this instance.
-        /// </summary>
-        internal void Init()
-        {
-            this.SelectedWindowsPhoneVersion = this.settingsService.WindowsPhoneBuildVersion;
-
-            this.TestingFrameworks = this.testingServiceFactory.FrameWorks;
-            this.MockingFrameworks = this.mockingServiceFactory.FrameWorks;
-
-            this.SelectedTestingFramework = this.testingServiceFactory.CurrentFrameWork;
-            this.SelectedMockingFramework = this.mockingServiceFactory.CurrentFrameWork;
-
-            this.UsePreReleaseMvvmCrossNugetPackages = this.settingsService.UsePreReleaseMvvmCrossNugetPackages;
-            this.UsePreReleaseXamarinFormsNugetPackages = this.settingsService.UsePreReleaseXamarinFormsNugetPackages;
-            this.UsePreReleaseNinjaCoderNugetPackages = this.settingsService.UsePreReleaseNinjaNugetPackages;
-
-            this.CreatePlatformTestProjects = this.settingsService.CreatePlatformTestProjects;
-            this.UseXamarinTestCloud = this.settingsService.UseXamarinTestCloud;
-            this.UseXamarinInsights = this.settingsService.UseXamarinInsights;
-            this.UseStyleCop = this.settingsService.UseStyleCop;
         }
 
         /// <summary>
@@ -288,10 +273,28 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             this.Save();
             return base.CanMoveToNextPage();
         }
+       
+        /// <summary>
+        /// Inits this instance.
+        /// </summary>
+        internal void Init()
+        {
+            this.SelectedWindowsPhoneVersion = this.settingsService.WindowsPhoneBuildVersion;
 
-        public override string DisplayName
-        { 
-            get { return "Build Options"; }
+            this.TestingFrameworks = this.testingServiceFactory.FrameWorks;
+            this.MockingFrameworks = this.mockingServiceFactory.FrameWorks;
+
+            this.SelectedTestingFramework = this.testingServiceFactory.CurrentFrameWork;
+            this.SelectedMockingFramework = this.mockingServiceFactory.CurrentFrameWork;
+
+            this.UsePreReleaseMvvmCrossNugetPackages = this.settingsService.UsePreReleaseMvvmCrossNugetPackages;
+            this.UsePreReleaseXamarinFormsNugetPackages = this.settingsService.UsePreReleaseXamarinFormsNugetPackages;
+            this.UsePreReleaseNinjaCoderNugetPackages = this.settingsService.UsePreReleaseNinjaNugetPackages;
+
+            this.CreatePlatformTestProjects = this.settingsService.CreatePlatformTestProjects;
+            this.UseXamarinTestCloud = this.settingsService.UseXamarinTestCloud;
+            this.UseXamarinInsights = this.settingsService.UseXamarinInsights;
+            this.UseStyleCop = this.settingsService.UseStyleCop;
         }
     }
 }

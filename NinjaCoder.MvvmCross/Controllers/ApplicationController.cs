@@ -102,7 +102,6 @@ namespace NinjaCoder.MvvmCross.Controllers
                 {
                     this.CheckForUpdates();
                 }
-
                 else
                 {
                     this.ShowDialog<DownloadViewModel>(new DownloadView());
@@ -128,7 +127,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             view.DataContext = viewModel;
 
-            viewModel.VisualViewModel.Colors = translator.Translate(view.Colors);
+            viewModel.VisualViewModel.Colors = this.translator.Translate(view.Colors);
 
             //// use weak references.
             WeakEventManager<VisualViewModel, ThemeChangedEventArgs>

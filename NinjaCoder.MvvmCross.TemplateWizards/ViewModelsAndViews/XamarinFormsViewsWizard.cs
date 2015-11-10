@@ -1,4 +1,4 @@
-﻿ // --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
 //    Defines the XamarinFormsViewsWizard type.
 // </summary>
@@ -113,7 +113,6 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.ViewModelsAndViews
 
                                 projectItem.ReplaceText("<!-- BindingContextPlaceHolder -->", text);
                             }
-
                             else
                             {
                                 TraceService.WriteLine("XamarinFormsViewsWizard::UpdateFile Remove BindingContextPlaceHolder");
@@ -127,7 +126,6 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.ViewModelsAndViews
 
                                 projectItem.ReplaceText("<!-- BindingPlaceHolder -->",  "<Label Text='{Binding SampleText}' VerticalOptions='Center' HorizontalOptions='Center'/>");
                             }
-
                             else
                             {
                                 TraceService.WriteLine("XamarinFormsViewsWizard::UpdateFile Remove BindingPlaceHolder");

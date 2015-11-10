@@ -5,12 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
-    using System.Xml.Linq;
-
     using Entities;
     using EnvDTE;
     using EnvDTE80;
-
     using MahApps.Metro;
     using Scorchio.Infrastructure.Entities;
     using Scorchio.Infrastructure.Translators;
@@ -21,6 +18,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     using System.Collections.Generic;
     using System.IO.Abstractions;
     using System.Reflection;
+    using System.Xml.Linq;
     using TinyIoC;
     using Translators;
 
@@ -92,7 +90,6 @@ namespace NinjaCoder.MvvmCross.Controllers
             ResolveController<NugetPackagesController>(dte2)
                 .Run();
         }
-        
 
         /// <summary>
         /// Shows the options.
@@ -246,7 +243,6 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                 TraceService.WriteLine("NinjaController::Initialize end");
             }
-
             catch (Exception exception)
             {
                 TraceService.WriteError("Exception=" + exception);

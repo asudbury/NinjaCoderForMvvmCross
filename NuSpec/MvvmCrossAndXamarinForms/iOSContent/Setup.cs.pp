@@ -5,15 +5,15 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
-	using Cirrious.CrossCore;
-	using Cirrious.MvvmCross.Touch.Platform;
-	using Cirrious.MvvmCross.Touch.Views.Presenters;
-	using Cirrious.MvvmCross.ViewModels;
-	using Cirrious.MvvmCross.Views;
-	using CoreProject;
-	using FormsProject;
-	using $rootnamespace$.Presenters;
-	using UIKit;
+    using Cirrious.CrossCore;
+    using Cirrious.MvvmCross.Touch.Platform;
+    using Cirrious.MvvmCross.Touch.Views.Presenters;
+    using Cirrious.MvvmCross.ViewModels;
+    using Cirrious.MvvmCross.Views;
+    using CoreProject;
+    using FormsProject;
+    using $rootnamespace$.Presenters;
+    using UIKit;
 
     /// <summary>
     ///    Defines the Setup type.
@@ -39,7 +39,7 @@ namespace $rootnamespace$
             return new App();
         }
 
-		/// <summary>
+        /// <summary>
         /// Creates the presenter.
         /// </summary>
         /// <returns></returns>

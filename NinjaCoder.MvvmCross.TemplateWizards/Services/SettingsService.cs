@@ -115,7 +115,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Services
         /// </summary>
         public bool BindContextInXamlForXamarinForms
         {
-            get { return this.GetRegistryValue("Internal", "BindContextInXamlForXamarinForms", "Y") == "Y"; }
+            get { return this.GetRegistryValue("Internals", "BindContextInXamlForXamarinForms", "Y") == "Y"; }
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Services
         /// </summary>
         public bool BindXamlForXamarinForms
         {
-            get { return this.GetRegistryValue("Internal", "BindXamlForXamarinForms", "Y") == "Y"; }
+            get { return this.GetRegistryValue("Internals", "BindXamlForXamarinForms", "Y") == "Y"; }
         }
 
         /// <summary>

@@ -5,6 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.Infrastructure.Extensions
 {
+    /// <summary>
+    /// Defines the StringExtensions type.
+    /// </summary>
     public static class StringExtensions
     {
         /// <summary>

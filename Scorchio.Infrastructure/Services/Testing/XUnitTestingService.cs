@@ -36,7 +36,6 @@ namespace Scorchio.Infrastructure.Services.Testing
         {
             TraceService.WriteLine("XUnitTestingService::UpdateTestMethodAttribute");
 
-
             projectItemService.ReplaceText(
                 TestingConstants.NUnit.MethodAttribute,
                 TestingConstants.XUnit.MethodAttribute);

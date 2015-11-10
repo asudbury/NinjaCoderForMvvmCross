@@ -44,7 +44,7 @@ namespace Scorchio.VisualStudio.Services
             int dwTickCount,
             IntPtr lpInterfaceInfo)
         {
-            //Return the flag SERVERCALL_ISHANDLED.
+            // Return the flag SERVERCALL_ISHANDLED.
             return 0;
         }
 
@@ -61,13 +61,12 @@ namespace Scorchio.VisualStudio.Services
             int dwRejectType)
         {
             if (dwRejectType == 2)
-
-            // flag = SERVERCALL_RETRYLATER.
             {
                 // Retry the thread call immediately if return >=0 & 
                 // <100.
                 return 99;
             }
+
             // Too busy; cancel call.
             return -1;
         }
@@ -84,17 +83,9 @@ namespace Scorchio.VisualStudio.Services
             int dwTickCount,
             int dwPendingType)
         {
-            //Return the flag PENDINGMSG_WAITDEFPROCESS.
+            // Return the flag PENDINGMSG_WAITDEFPROCESS.
             return 2;
         }
-
-        /// <summary>
-        /// Implement the IOleMessageFilter interface.
-        /// </summary>
-        [DllImport("Ole32.dll")]
-        private static extern int
-          CoRegisterMessageFilter(IMessageFilterService newFilter, out 
-              IMessageFilterService oldFilter);
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
@@ -104,5 +95,14 @@ namespace Scorchio.VisualStudio.Services
             Revoke();
             GC.SuppressFinalize(this);
         }
+
+        /// <summary>
+        /// Implement the IOleMessageFilter interface.
+        /// </summary>
+        [DllImport("Ole32.dll")]
+        private static extern int
+          CoRegisterMessageFilter(
+              IMessageFilterService newFilter,
+              out IMessageFilterService oldFilter);
     }
 }

@@ -5,36 +5,34 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
-    using System.Windows;
-    using System.Windows.Navigation;
-
     using Microsoft.Phone.Controls;
     using Microsoft.Phone.Shell;
+    using System.Windows;
+    using System.Windows.Navigation;
 
     /// <summary>
     ///    Defines the App.xaml type.
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
         /// <summary>
-        /// Provides easy access to the root frame of the Phone Application.
+        /// The phone application initialized
         /// </summary>
-        /// <returns>The root frame of the Phone Application.</returns>
-        public PhoneApplicationFrame RootFrame { get; private set; }
+        private bool phoneApplicationInitialized;
 
         /// <summary>
-        /// Constructor for the Application object.
+        /// Initializes a new instance of the <see cref="App"/> class.
         /// </summary>
         public App()
         {
             // Global handler for uncaught exceptions. 
-            UnhandledException += Application_UnhandledException;
+            this.UnhandledException += this.Application_UnhandledException;
 
             // Standard Silverlight initialization
-            InitializeComponent();
+            this.InitializeComponent();
 
             // Phone-specific initialization
-            InitializePhoneApplication();
+            this.InitializePhoneApplication();
 
             // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)
@@ -43,11 +41,11 @@ namespace $rootnamespace$
                 Application.Current.Host.Settings.EnableFrameRateCounter = true;
 
                 // Show the areas of the app that are being redrawn in each frame.
-                //Application.Current.Host.Settings.EnableRedrawRegions = true;
+                // Application.Current.Host.Settings.EnableRedrawRegions = true;
 
                 // Enable non-production analysis visualization mode, 
                 // which shows areas of a page that are handed off to GPU with a colored overlay.
-                //Application.Current.Host.Settings.EnableCacheVisualization = true;
+                // Application.Current.Host.Settings.EnableCacheVisualization = true;
 
                 // Disable the application idle detection by setting the UserIdleDetectionMode property of the
                 // application's PhoneApplicationService object to Disabled.
@@ -55,25 +53,43 @@ namespace $rootnamespace$
                 // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
-            var setup = new Setup(RootFrame);
+
+            Setup setup = new Setup(this.RootFrame);
             setup.Initialize();
         }
 
-        // Code to execute when the application is launching (eg, from Start)
-        // This code will not execute when the application is reactivated
+        /// <summary>
+        /// Gets the root frame.
+        /// </summary>
+        public PhoneApplicationFrame RootFrame { get; private set; }
+
+        /// <summary>
+        /// Handles the Launching event of the Application control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="LaunchingEventArgs"/> instance containing the event data.</param>
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            RootFrame.Navigating += RootFrameOnNavigating;
+            this.RootFrame.Navigating += this.RootFrameOnNavigating;
         }
 
+        /// <summary>
+        /// Roots the frame on navigating.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="NavigatingCancelEventArgs"/> instance containing the event data.</param>
         private void RootFrameOnNavigating(object sender, NavigatingCancelEventArgs args)
         {
             args.Cancel = true;
-            RootFrame.Navigating -= RootFrameOnNavigating;
-            RootFrame.Dispatcher.BeginInvoke(() => { Cirrious.CrossCore.Mvx.Resolve<Cirrious.MvvmCross.ViewModels.IMvxAppStart>().Start(); });
+            this.RootFrame.Navigating -= this.RootFrameOnNavigating;
+            this.RootFrame.Dispatcher.BeginInvoke(() => { Cirrious.CrossCore.Mvx.Resolve<Cirrious.MvvmCross.ViewModels.IMvxAppStart>().Start(); });
           }
 
-        // Code to execute if a navigation fails
+        /// <summary>
+        /// Handles the NavigationFailed event of the RootFrame control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="NavigationFailedEventArgs"/> instance containing the event data.</param>
         private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             if (System.Diagnostics.Debugger.IsAttached)
@@ -83,14 +99,20 @@ namespace $rootnamespace$
             }
         }
 
-        // Code to execute when the application is activated (brought to foreground)
-        // This code will not execute when the application is first launched
+        /// <summary>
+        /// Handles the Activated event of the Application control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ActivatedEventArgs"/> instance containing the event data.</param>
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
         }
 
-        // Code to execute when the application is deactivated (sent to background)
-        // This code will not execute when the application is closing
+        /// <summary>
+        /// Handles the Deactivated event of the Application control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DeactivatedEventArgs"/> instance containing the event data.</param>
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
         }
@@ -101,7 +123,11 @@ namespace $rootnamespace$
         {
         }
 
-        // Code to execute on Unhandled Exceptions
+        /// <summary>
+        /// Handles the UnhandledException event of the Application control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ApplicationUnhandledExceptionEventArgs"/> instance containing the event data.</param>
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
             if (System.Diagnostics.Debugger.IsAttached)
@@ -111,66 +137,81 @@ namespace $rootnamespace$
             }
         }
 
-        // Avoid double-initialization
-        private bool phoneApplicationInitialized = false;
-
-        // Do not add any additional code to this method
+        /// <summary>
+        /// Initializes the phone application.
+        /// </summary>
         private void InitializePhoneApplication()
         {
-            if (phoneApplicationInitialized)
+            if (this.phoneApplicationInitialized)
             {
                 return;
             }
 
             // Create the frame but don't set it as RootVisual yet; this allows the splash
             // screen to remain active until the application is ready to render.
-            RootFrame = new PhoneApplicationFrame();
-            RootFrame.Navigated += CompleteInitializePhoneApplication;
+            this.RootFrame = new PhoneApplicationFrame();
+            this.RootFrame.Navigated += this.CompleteInitializePhoneApplication;
 
             // Handle navigation failures
-            RootFrame.NavigationFailed += RootFrame_NavigationFailed;
+            this.RootFrame.NavigationFailed += this.RootFrame_NavigationFailed;
 
             // Handle reset requests for clearing the backstack
-            RootFrame.Navigated += CheckForResetNavigation;
+            this.RootFrame.Navigated += this.CheckForResetNavigation;
 
             // Ensure we don't initialize again
-            phoneApplicationInitialized = true;
+            this.phoneApplicationInitialized = true;
         }
 
-        // Do not add any additional code to this method
+        /// <summary>
+        /// Completes the initialize phone application.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="NavigationEventArgs"/> instance containing the event data.</param>
         private void CompleteInitializePhoneApplication(object sender, NavigationEventArgs e)
         {
             // Set the root visual to allow the application to render
-            if (RootVisual != RootFrame)
+            if (this.RootVisual != this.RootFrame)
             {
-                RootVisual = RootFrame;
+                this.RootVisual = this.RootFrame;
             }
 
             // Remove this handler since it is no longer needed
-            RootFrame.Navigated -= CompleteInitializePhoneApplication;
+            this.RootFrame.Navigated -= this.CompleteInitializePhoneApplication;
         }
 
+        /// <summary>
+        /// Checks for reset navigation.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="NavigationEventArgs"/> instance containing the event data.</param>
         private void CheckForResetNavigation(object sender, NavigationEventArgs e)
         {
             // If the app has received a 'reset' navigation, then we need to check
             // on the next navigation to see if the page stack should be reset
             if (e.NavigationMode == NavigationMode.Reset)
-                RootFrame.Navigated += ClearBackStackAfterReset;
+            {
+                this.RootFrame.Navigated += this.ClearBackStackAfterReset;
+            }
         }
 
+        /// <summary>
+        /// Clears the back stack after reset.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="NavigationEventArgs"/> instance containing the event data.</param>
         private void ClearBackStackAfterReset(object sender, NavigationEventArgs e)
         {
             // Unregister the event so it doesn't get called again
-            RootFrame.Navigated -= ClearBackStackAfterReset;
+            this.RootFrame.Navigated -= this.ClearBackStackAfterReset;
 
             // Only clear the stack for 'new' (forward) and 'refresh' navigations
             if (e.NavigationMode != NavigationMode.New && e.NavigationMode != NavigationMode.Refresh)
                 return;
 
             // For UI consistency, clear the entire page stack
-            while (RootFrame.RemoveBackEntry() != null)
+            while (this.RootFrame.RemoveBackEntry() != null)
             {
-                ; // do nothing
+                // do nothing
             }
         }
     }

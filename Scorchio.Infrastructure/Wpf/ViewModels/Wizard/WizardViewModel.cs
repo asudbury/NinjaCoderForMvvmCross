@@ -101,9 +101,9 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
                 }
             }
         }
-        
+
         /// <summary>
-        /// Gets the current linked list step.
+        /// Gets or sets the current linked list step.
         /// </summary>
         public LinkedListNode<WizardStepViewModel> CurrentLinkedListStep
         {
@@ -163,7 +163,7 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         /// </summary>
         public bool IsOnLastStep
         {
-            get { return CurrentLinkedListStep.Next == null; }
+            get { return this.CurrentLinkedListStep.Next == null; }
         }
 
         /// <summary>
@@ -174,6 +174,9 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
             get { return this.CurrentLinkedListStep.Previous != null; }        
         }
 
+        /// <summary>
+        /// Gets a value indicating whether [move next command enabled].
+        /// </summary>
         public bool MoveNextCommandEnabled
         {
             get { return this.CurrentLinkedListStep.Next != null; }

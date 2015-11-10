@@ -28,11 +28,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
     public class VisualViewModel : BaseViewModel
     {
         /// <summary>
-        /// The selected langauge.
-        /// </summary>
-        private string selectedLangauge;
-
-        /// <summary>
         /// The theme factory.
         /// </summary>
         private readonly IThemeFactory themeFactory;
@@ -41,6 +36,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         /// The language factory.
         /// </summary>
         private readonly ILanguageFactory languageFactory;
+
+        /// <summary>
+        /// The selected langauge.
+        /// </summary>
+        private string selectedLangauge;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseViewModel" /> class.

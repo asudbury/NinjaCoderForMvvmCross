@@ -44,7 +44,7 @@ namespace Scorchio.Infrastructure.Services
             FolderBrowserDialog dialog = new FolderBrowserDialog
             {
                 ShowNewFolderButton = this.ShowNewFolderButton,
-                RootFolder = RootFolder
+                RootFolder = this.RootFolder
             };
 
             bool result = dialog.ShowDialog() == DialogResult.OK;

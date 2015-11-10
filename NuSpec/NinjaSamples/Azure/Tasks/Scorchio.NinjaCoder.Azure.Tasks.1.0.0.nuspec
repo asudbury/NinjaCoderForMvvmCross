@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Scorchio.NinjaCoder.Azure.Tasks</id>
+        <version>1.0.0</version>
+        <authors>Adrian Sudbury</authors>
+        <owners>Scorchio Limited</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Helper For MvvmCross and Xamarin Forms</description>
+    </metadata>
+    <files>
+        <file src="FormsContent\Views\TaskListView.xaml.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Views\TaskListView.xaml.cs.pp" />
+        <file src="FormsContent\Views\TaskListView.xaml.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Views\TaskListView.xaml.pp" />
+        <file src="FormsContent\Views\TaskItemView.xaml.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Views\TaskItemView.xaml.cs.pp" />
+        <file src="FormsContent\Views\TaskItemView.xaml.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Views\TaskItemView.xaml.pp" />
+
+		<file src="FormsContent\NinjaAzureTasksReadMe.txt" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\NinjaAzureTasksReadMe.txt" />
+    </files>
+</package>

@@ -179,7 +179,7 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets or sets the MVVM cross plugins wiki page.
+        /// Gets the MVVM cross plugins wiki page.
         /// </summary>
         public string MvvmCrossPluginsWikiPage
         {
@@ -298,6 +298,9 @@ namespace NinjaCoder.MvvmCross.Services
             set { this.SetRegistryValue("Projects", "TestingFramework", value); }
         }
 
+        /// <summary>
+        /// Gets or sets the mocking framework.
+        /// </summary>
         public string MockingFramework
         {
             get { return this.GetRegistryValue("Projects", "MockingFramework", "Moq"); }
@@ -419,6 +422,7 @@ namespace NinjaCoder.MvvmCross.Services
                 string value = this.GetRegistryValue("Internals", "FrameworkType", "MvvmCross");
                 return FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(value);
             }
+
             set
             {
                 this.SetRegistryValue("Internals", "FrameworkType", value.GetDescription());
@@ -468,6 +472,9 @@ namespace NinjaCoder.MvvmCross.Services
             }
         }
 
+        /// <summary>
+        /// Gets the xamarin forms nuget pacakges URI.
+        /// </summary>
         public string XamarinFormsNugetPackagesUri
         {
             get
@@ -489,6 +496,42 @@ namespace NinjaCoder.MvvmCross.Services
                     this.GetRegistryValue("Internals", "XamarinFormsLabsPluginsUri", this.InstalledDirectory + "XamarinFormsLabsPlugins.xml") :
                     this.GetRegistryValue("Internals", "XamarinFormsLabsPluginsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/XamarinFormsLabsPlugins.xml");
             }
+        }
+
+        /// <summary>
+        /// Gets the ninja nuget packages URI.
+        /// </summary>
+        public string NinjaNugetPackagesUri
+        {
+            get
+            {
+                return this.UseLocalUris ?
+                    this.GetRegistryValue("Internals", "NinjaNugetPackagesUri", this.InstalledDirectory + "NinjaNugetPackages.xml") :
+                    this.GetRegistryValue("Internals", "NinjaNugetPackagesUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/NinjaNugetPackages.xml");
+
+            }
+        }
+
+        /// <summary>
+        /// Gets the ninja community nuget packages URI.
+        /// </summary>
+        public string NinjaCommunityNugetPackagesUri
+        {
+            get
+            {
+                return this.UseLocalUris ?
+                    this.GetRegistryValue("Internals", "NinjaCommunityNugetPackagesUri", this.InstalledDirectory + "NinjaCommunityNugetPackages.xml") :
+                    this.GetRegistryValue("Internals", "NinjaCommunityNugetPackagesUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/NinjaCommunityNugetPackages.xml");
+
+            }
+        }
+
+        /// <summary>
+        /// Gets the local nuget packages URI.
+        /// </summary>
+        public string LocalNugetPackagesUri
+        {
+            get { return this.GetRegistryValue("Internals", "LocalNugetPackagesUri", this.InstalledDirectory + "LocalNugetPackagesUri.xml"); }
         }
 
         /// <summary>
@@ -550,17 +593,17 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public bool BindContextInXamlForXamarinForms 
         {
-            get { return this.GetRegistryValue("Internal", "BindContextInXamlForXamarinForms", "Y") == "Y"; }
-            set { this.SetRegistryValue("Internal", "BindContextInXamlForXamarinForms", value ? "Y" : "N"); }
+            get { return this.GetRegistryValue("Internals", "BindContextInXamlForXamarinForms", "Y") == "Y"; }
+            set { this.SetRegistryValue("Internals", "BindContextInXamlForXamarinForms", value ? "Y" : "N"); }
         }
 
         /// <summary>
-        /// Gets a value indicating whether [bind xaml for xamarin forms].
+        /// Gets or sets a value indicating whether [bind xaml for xamarin forms].
         /// </summary>
         public bool BindXamlForXamarinForms
         {
-            get { return this.GetRegistryValue("Internal", "BindXamlForXamarinForms", "Y") == "Y"; }
-            set { this.SetRegistryValue("Internal", "BindXamlForXamarinForms", value ? "Y" : "N"); }
+            get { return this.GetRegistryValue("Internals", "BindXamlForXamarinForms", "Y") == "Y"; }
+            set { this.SetRegistryValue("Internals", "BindXamlForXamarinForms", value ? "Y" : "N"); }
         }
 
         /// <summary>
@@ -630,6 +673,40 @@ namespace NinjaCoder.MvvmCross.Services
         {
             get { return this.GetRegistryValue("Build", "SuspendReSharperDuringBuild", "N") == "Y"; }
             set { this.SetRegistryValue("Build", "SuspendReSharperDuringBuild", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [use local nuget].
+        /// </summary>
+        public bool UseLocalNuget
+        {
+            get { return this.GetRegistryValue("Build", "UseLocalNuget", "N") == "Y"; }
+        }
+
+        /// <summary>
+        /// Gets the name of the local nuget.
+        /// </summary>
+        public string LocalNugetName
+        {
+            get { return this.GetRegistryValue("Build", "LocalNugetName", "ProGetLocal"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [create test projects solution folder].
+        /// </summary>
+        public bool CreateTestProjectsSolutionFolder
+        {
+            get { return this.GetRegistryValue("Build", "CreateTestProjectsSolutionFolder", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "CreateTestProjectsSolutionFolder", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets the name of the test projects solution folder.
+        /// </summary>
+        public string TestProjectsSolutionFolderName 
+        {
+            get { return this.GetRegistryValue("Build", "TestProjectsSolutionFolderName", "TestProjects"); }
+            set { this.SetRegistryValue("Build", "TestProjectsSolutionFolderName", value); }
         }
 
         /// <summary>

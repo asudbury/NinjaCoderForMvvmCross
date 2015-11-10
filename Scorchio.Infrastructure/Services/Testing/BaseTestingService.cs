@@ -5,10 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.Infrastructure.Services.Testing
 {
-    using System.Collections.Generic;
-
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Defines the BaseTestingService type.
@@ -28,6 +27,8 @@ namespace Scorchio.Infrastructure.Services.Testing
 
             foreach (KeyValuePair<string, string> replacementVariable in replacementVariables)
             {
+                TraceService.WriteLine("Key=" + replacementVariable.Key + " Value=" + replacementVariable.Value);
+
                 projectItemService.ReplaceText(replacementVariable.Key, replacementVariable.Value);
             }
         }

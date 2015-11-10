@@ -6,11 +6,10 @@
 namespace NinjaCoder.MvvmCross.Factories
 {
     using Entities;
-
     using Interfaces;
+    using NinjaCoder.MvvmCross.Services.Interfaces;
     using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Services;
-    using Services.Interfaces;
 
     /// <summary>
     ///  Defines the PluginFactory type.
@@ -18,37 +17,28 @@ namespace NinjaCoder.MvvmCross.Factories
     public class PluginFactory : IPluginFactory
     {
         /// <summary>
-        /// The plugin service.
-        /// </summary>
-        private readonly IPluginsService pluginsService;
-
-        /// <summary>
         /// The pluginsTranslator.
         /// </summary>
         private readonly ITranslator<string, Plugins> pluginsTranslator;
 
         /// <summary>
+        /// The caching service.
+        /// </summary>
+        private readonly ICachingService cachingService;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PluginFactory" /> class.
         /// </summary>
-        /// <param name="pluginsService">The plugins service.</param>
         /// <param name="pluginsTranslator">The pluginsTranslator.</param>
+        /// <param name="cachingService">The caching service.</param>
         public PluginFactory(
-            IPluginsService pluginsService,
-            ITranslator<string, Plugins> pluginsTranslator)
+            ITranslator<string, Plugins> pluginsTranslator,
+            ICachingService cachingService)
         {
             TraceService.WriteLine("PluginFactory::Constructor");
 
-            this.pluginsService = pluginsService;
             this.pluginsTranslator = pluginsTranslator;
-        }
-
-        /// <summary>
-        /// Gets the plugins service.
-        /// </summary>
-        /// <returns>The plugin service.</returns>
-        public IPluginsService GetPluginsService()
-        {
-            return this.pluginsService;
+            this.cachingService = cachingService;
         }
 
         /// <summary>
@@ -58,8 +48,18 @@ namespace NinjaCoder.MvvmCross.Factories
         public Plugins GetPlugins(string uri)
         {
             TraceService.WriteLine("PluginFactory::GetPlugins");
-            
-            return this.pluginsTranslator.Translate(uri);
+
+            if (this.cachingService.Plugins.ContainsKey(uri))
+            {
+                TraceService.WriteLine("Using cache");
+                return this.cachingService.Plugins[uri];
+            }
+
+            Plugins plugins =  this.pluginsTranslator.Translate(uri);
+
+            this.cachingService.Plugins.Add(uri, plugins);
+
+            return plugins;
         }
     }
 }

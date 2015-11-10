@@ -80,12 +80,39 @@ namespace NinjaCoder.MvvmCross.Factories
                 this.GetiOSProject());
 
             this.AddProjectIf(
+                (this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.iOSTestsProjectService == null),
+                this.GetPlatformTestsProject(
+                    this.nugetCommandsService.GetiOSTestCommands(),
+                    true,
+                    ProjectSuffix.iOSTests.GetDescription(),
+                    ProjectType.iOSTests.GetDescription()));
+
+            this.AddProjectIf(
                 this.visualStudioService.DroidProjectService == null,
                 this.GetDroidProject());
 
             this.AddProjectIf(
+                (this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.DroidTestsProjectService == null),
+                this.GetPlatformTestsProject(
+                    this.nugetCommandsService.GetAndroidTestCommands(),
+                    true,
+                    ProjectSuffix.DroidTests.GetDescription(),
+                    ProjectType.DroidTests.GetDescription()));
+
+            this.AddProjectIf(
                 this.visualStudioService.WindowsPhoneProjectService == null,
                 this.GetWindowsPhoneProject());
+
+            this.AddProjectIf(
+                (this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.WindowsPhoneTestsProjectService == null),
+                this.GetPlatformTestsProject(
+                    this.nugetCommandsService.GetTestCommands(),
+                    true,
+                    ProjectSuffix.WindowsPhoneTests.GetDescription(),
+                    ProjectType.WindowsPhoneTests.GetDescription()));
 
             return this.ProjectTemplateInfos; 
         }
@@ -174,7 +201,7 @@ namespace NinjaCoder.MvvmCross.Factories
             {
                 FriendlyName = ProjectType.iOS.GetDescription(),
                 ProjectSuffix = ProjectSuffix.iOS.GetDescription(),
-                TemplateName =  ProjectTemplate.iOS.GetDescription(),
+                TemplateName = ProjectTemplate.iOS.GetDescription(),
                 PreSelected = true,
                 ReferenceCoreProject = true,
                 ReferenceXamarinFormsProject = true,
@@ -217,7 +244,32 @@ namespace NinjaCoder.MvvmCross.Factories
                 NugetCommands = this.nugetCommandsService.GetMvvmCrossXamarinFormsWindowsPhoneCommands()
             };
         }
+
+        /// <summary>
+        /// Gets the core tests project.
+        /// </summary>
+        /// <param name="nugetCommands">The nuget commands.</param>
+        /// <param name="preSelect">if set to <c>true</c> [pre select].</param>
+        /// <param name="projectSuffix">The project suffix.</param>
+        /// <param name="projectType">Type of the project.</param>
+        /// <returns>
+        /// A unit tests project.
+        /// </returns>
+        internal ProjectTemplateInfo GetPlatformTestsProject(
+            IEnumerable<string> nugetCommands,
+            bool preSelect,
+            string projectSuffix,
+            string projectType)
+        {
+            ProjectTemplateInfo projectTemplateInfo = this.GetPlatFormTestsProject(
+                FrameworkType.MvvmCrossAndXamarinForms,
+                this.settingsService.TestingFramework,
+                nugetCommands,
+                preSelect,
+                projectSuffix,
+                projectType);
+
+            return projectTemplateInfo;
+        }
     }
 }
-
-

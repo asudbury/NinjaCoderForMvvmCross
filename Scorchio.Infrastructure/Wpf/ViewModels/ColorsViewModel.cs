@@ -5,22 +5,16 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.Infrastructure.Wpf.ViewModels
 {
+    using EventArguments;
+    using Infrastructure.Entities;
     using System;
     using System.Collections.Generic;
-    using Infrastructure.Entities;
-
-    using EventArguments;
 
     /// <summary>
     /// Defines the ColorsViewModel type.
     /// </summary>
     public class ColorsViewModel : BaseViewModel
     {
-        /// <summary>
-        /// Occurs when [color changed].
-        /// </summary>
-        public event EventHandler<ColorChangedEventArgs> ColorChanged;
-        
         /// <summary>
         /// The themes
         /// </summary>
@@ -30,6 +24,11 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels
         /// The selected color.
         /// </summary>
         private AccentColor selectedColor;
+
+        /// <summary>
+        /// Occurs when [color changed].
+        /// </summary>
+        public event EventHandler<ColorChangedEventArgs> ColorChanged;
 
         /// <summary>
         /// Gets or sets the themes.

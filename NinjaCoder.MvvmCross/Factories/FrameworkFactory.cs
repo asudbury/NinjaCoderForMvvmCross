@@ -64,13 +64,12 @@ namespace NinjaCoder.MvvmCross.Factories
                         },
                     new ImageItemWithDescription
                         {
-                            ImageUrl =  this.GetUrlPath("Xamarin.png"),
+                            ImageUrl = this.GetUrlPath("Xamarin.png"),
                             Name = FrameworkType.XamarinForms.GetDescription()
                         }
                 };
 
                 return frameworks.OrderBy(x => x.Name);
-
             }
         }
 

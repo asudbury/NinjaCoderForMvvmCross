@@ -122,7 +122,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             {
                 this.Path = visualStudioService.SolutionService.GetParentDirectoryName();
             }
-
             else
             {
                 this.Path = string.IsNullOrEmpty(defaultPath) == false

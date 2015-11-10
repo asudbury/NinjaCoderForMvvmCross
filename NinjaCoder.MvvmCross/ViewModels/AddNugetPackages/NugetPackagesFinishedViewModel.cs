@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
 {
+    using NinjaCoder.MvvmCross.Factories.Interfaces;
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using NinjaCoder.MvvmCross.ViewModels.AddProjects;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
@@ -20,6 +21,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         private readonly ISettingsService settingsService;
 
         /// <summary>
+        /// The project factory.
+        /// </summary>
+        private readonly IProjectFactory projectFactory;
+
+        /// <summary>
         /// The suspend re sharper during build.
         /// </summary>
         private bool suspendReSharperDuringBuild;
@@ -28,9 +34,13 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         /// Initializes a new instance of the <see cref="ProjectsFinishedViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
-        public NugetPackagesFinishedViewModel(ISettingsService settingsService)
+        /// <param name="projectFactory">The project factory.</param>
+        public NugetPackagesFinishedViewModel(
+            ISettingsService settingsService,
+            IProjectFactory projectFactory)
         {
             this.settingsService = settingsService;
+            this.projectFactory = projectFactory;
             this.Init();
         }
 
@@ -61,6 +71,18 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         internal void Init()
         {
             this.SuspendReSharperDuringBuild = this.settingsService.SuspendReSharperDuringBuild;
+        }
+
+        /// <summary>
+        /// For when yous need to save some values that can't be directly bound to UI elements.
+        /// Not called when moving previous (see WizardViewModel.MoveToNextStep).
+        /// </summary>
+        /// <returns>
+        /// An object that may modify the route
+        /// </returns>
+        public override RouteModifier OnPrevious()
+        {
+            return this.projectFactory.GetRouteModifier(this.settingsService.FrameworkType);
         }
     }
 }

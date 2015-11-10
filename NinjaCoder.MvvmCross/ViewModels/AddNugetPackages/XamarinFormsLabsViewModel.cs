@@ -10,34 +10,20 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using Scorchio.Infrastructure.Wpf;
     using Scorchio.Infrastructure.Wpf.ViewModels;
-    using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
-    using Scorchio.VisualStudio.Services;
-    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
-    using System.Linq;
     using System.Windows.Input;
 
     /// <summary>
     ///  Defines the XamarinFormsLabsViewModel type.
     /// </summary>
-    public class XamarinFormsLabsViewModel : BaseWizardStepViewModel
+    public class XamarinFormsLabsViewModel : NugetPackagesBaseViewModel
     {
         /// <summary>
         /// The settings service.
         /// </summary>
         private readonly ISettingsService settingsService;
-
-        /// <summary>
-        /// The plugins service.
-        /// </summary>
-        private readonly IPluginsService pluginsService;
-
-        /// <summary>
-        /// The plugin factory.
-        /// </summary>
-        private readonly IPluginFactory pluginFactory;
 
         /// <summary>
         /// The plugins.
@@ -49,19 +35,20 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="pluginsService">The plugins service.</param>
+        /// <param name="projectFactory">The project factory.</param>
         /// <param name="pluginFactory">The plugin factory.</param>
         public XamarinFormsLabsViewModel(
             ISettingsService settingsService,
             IPluginsService pluginsService,
+            IProjectFactory projectFactory,
             IPluginFactory pluginFactory)
+            : base(
+                settingsService,
+                pluginsService,
+                projectFactory,
+                pluginFactory)
         {
-            TraceService.WriteLine("XamarinFormsLabsViewModel::Constructor Start");
-
             this.settingsService = settingsService;
-            this.pluginsService = pluginsService;
-            this.pluginFactory = pluginFactory;
-
-            TraceService.WriteLine("XamarinFormsLabsViewModel::Constructor End");
         }
 
         /// <summary>
@@ -69,8 +56,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         /// </summary>
         public override void OnInitialize()
         {
-            Plugins allPackages = this.pluginFactory.GetPlugins(this.settingsService.XamarinFormsLabsPluginsUri);
-            this.Plugins = this.GetPlugins(allPackages);
+            if (this.Plugins == null)
+            {
+                Plugins allPackages = this.GetPlugins();
+                this.Plugins = this.GetCategoryNugetPackages(allPackages, string.Empty);
+            }
         }
 
         /// <summary>
@@ -80,26 +70,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         {
             get { return this.plugins; }
             set { this.SetProperty(ref this.plugins, value); }
-        }
-
-        /// <summary>
-        /// Gets the required plugins.
-        /// </summary>
-        /// <returns>The required plugins.</returns>
-        public IEnumerable<Plugin> GetRequiredPlugins()
-        {
-            TraceService.WriteLine("XamarinFormsLabsViewModel::GetRequiredPlugins");
-
-            IEnumerable<SelectableItemViewModel<Plugin>> viewModels = this.plugins;
-            
-            if (this.plugins != null)
-            {                       
-                return viewModels.ToList()
-                    .Where(x => x.IsSelected)
-                    .Select(x => x.Item).ToList();
-            }
-
-            return new List<Plugin>();
         }
 
         /// <summary>
@@ -117,46 +87,21 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         {
             get { return "Xamarin Forms Labs Plugins"; }
         }
-
+        
         /// <summary>
-        /// Gets the nuget commands.
+        /// Gets the nuget packages URI.
         /// </summary>
-        /// <returns></returns>
-        public string GetNugetCommands()
+        protected override string NugetPackagesUri
         {
-            List<Plugin> requiredPlugins = this.GetRequiredPlugins().ToList();
-
-            string commands = string.Empty;
-
-            if (requiredPlugins.Any())
-            {
-                commands += string.Join(
-                    Environment.NewLine,
-                    this.pluginsService.GetNugetCommands(requiredPlugins, 
-                    this.settingsService.UsePreReleaseXamarinFormsNugetPackages));
-            }
-
-            return commands;
+            get { return this.settingsService.XamarinFormsLabsPluginsUri; }
         }
 
         /// <summary>
-        /// Gets the nuget messages.
+        /// Gets the get nuget packages.
         /// </summary>
-        /// <returns></returns>
-        public List<string> GetNugetMessages()
+        protected override IEnumerable<SelectableItemViewModel<Plugin>> NugetPackages
         {
-            List<Plugin> requiredPlugins = this.GetRequiredPlugins().ToList();
-
-            List<string> messages = new List<string>();
-
-            if (requiredPlugins.Any())
-            {
-                messages.Add(string.Empty);
-
-                messages.AddRange(this.pluginsService.GetNugetMessages(requiredPlugins));
-            }
-
-            return messages;
+            get { return this.Plugins; }
         }
 
         /// <summary>
@@ -165,25 +110,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         internal void DisplayGitHubPage()
         {
             Process.Start(this.settingsService.XamarinFormsLabsNugetPackagesGitHubPage);
-        }
-
-        /// <summary>
-        /// Gets the plugins.
-        /// </summary>
-        /// <param name="selectedPlugins">The selected plugins.</param>
-        /// <returns></returns>
-        internal ObservableCollection<SelectableItemViewModel<Plugin>> GetPlugins(Plugins selectedPlugins)
-        {
-            ObservableCollection<SelectableItemViewModel<Plugin>> viewModels = new ObservableCollection<SelectableItemViewModel<Plugin>>();
-
-            foreach (SelectableItemViewModel<Plugin> viewModel in from plugin in selectedPlugins.Items
-                                                                  where plugin.Frameworks.Contains(this.settingsService.FrameworkType)
-                                                                  select new SelectableItemViewModel<Plugin>(plugin))
-            {
-                viewModels.Add(viewModel);
-            }
-
-            return new ObservableCollection<SelectableItemViewModel<Plugin>>(viewModels.OrderBy(x => x.Item.FriendlyName));
         }
     }
 }

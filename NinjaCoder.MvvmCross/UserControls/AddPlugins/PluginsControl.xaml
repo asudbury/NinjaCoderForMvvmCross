@@ -1,11 +1,11 @@
 ﻿<UserControl x:Class="NinjaCoder.MvvmCross.UserControls.AddPlugins.PluginsControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:userControls="clr-namespace:Scorchio.Infrastructure.Wpf.UserControls;assembly=Scorchio.Infrastructure"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:userControls="clr-namespace:Scorchio.Infrastructure.Wpf.UserControls;assembly=Scorchio.Infrastructure"
              mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -24,45 +24,51 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
+        <Image Grid.Row="0"
+               Grid.RowSpan="3"
+               Grid.Column="0"
+               VerticalAlignment="Top"
+               Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/lefthand.png" />
 
-            <Separator Margin="5"/>
+        <StackPanel Grid.Row="0"
+                    Grid.Column="1"
+                    Orientation="Vertical">
+
+            <Separator Margin="5" />
             <TextBlock Margin="10">Here are the MvvmCross plugins you might want to add to your solution.</TextBlock>
 
-            <Separator Margin="5"/>
-        
+            <Separator Margin="5" />
+
             <controls:MetroAnimatedTabControl Margin="1,0,0,0">
                 <TabItem Header="{DynamicResource Core}" IsSelected="{Binding CorePluginsSelected}">
-                    <userControls:PickListView 
-                        GroupBoxTitle="{DynamicResource CorePlugins}"
-                        DataContext="{Binding CorePlugins}"
-                        Height="260"
-                        Width="500"/>
+                    <userControls:PickListView Width="500"
+                                               Height="260"
+                                               DataContext="{Binding CorePlugins}"
+                                               GroupBoxTitle="{DynamicResource CorePlugins}" />
                 </TabItem>
 
                 <TabItem Header="{DynamicResource Community}" IsSelected="{Binding CommunityPluginsSelected}">
-                    <userControls:PickListView 
-                        GroupBoxTitle="{DynamicResource CommunityPlugins}"
-                        DataContext="{Binding CommunityPlugins}"
-                        Height="260"
-                        Width="500"/>
+                    <userControls:PickListView Width="500"
+                                               Height="260"
+                                               DataContext="{Binding CommunityPlugins}"
+                                               GroupBoxTitle="{DynamicResource CommunityPlugins}" />
                 </TabItem>
             </controls:MetroAnimatedTabControl>
 
             <TextBlock Margin="10">
                 <Hyperlink Command="{Binding WikiPageCommand}">
-                    <TextBlock 
-                        Text="{DynamicResource DisplayMvmmCrossPluginsWikiPage}" />
+                    <TextBlock Text="{DynamicResource DisplayMvmmCrossPluginsWikiPage}" />
                 </Hyperlink>
             </TextBlock>
 
             <Separator Margin="10" />
-            
+
         </StackPanel>
 
-        <Image Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/bottom.png" Grid.Column="1" Grid.Row="2" Width="150" />
-
-        <Image Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/lefthand.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Top" />
+        <Image Grid.Row="2"
+               Grid.Column="1"
+               Width="150"
+               Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/bottom.png" />
 
     </Grid>
 

@@ -315,7 +315,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal Project CoreTestsProject
         {
-            get {  return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.CoreTests.GetDescription())); }
+            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.CoreTests.GetDescription())); }
         }
 
         /// <summary>
@@ -426,7 +426,7 @@ namespace NinjaCoder.MvvmCross.Services
             }
         }
 
-                /// <summary>
+        /// <summary>
         /// Gets the view models project.
         /// </summary>
         internal Project PluginsProject
@@ -571,13 +571,10 @@ namespace NinjaCoder.MvvmCross.Services
 
             if (projectReferences != null)
             {
-                //// the reference will only be there once nuget has run
                 if (projectReferences.Any(projectReference => projectReference.Name.Contains("MvvmCross")))
                 {
                     projectType = 1;
                 }
-
-                //// if nuget has not yet run look for the ViewModelService
                 else if (this.CoreProjectService.GetProjectItem("ViewModelService.cs") != null)
                 {
                     projectType = 1;

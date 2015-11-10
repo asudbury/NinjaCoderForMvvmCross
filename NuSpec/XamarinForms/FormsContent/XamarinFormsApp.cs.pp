@@ -7,8 +7,8 @@ namespace $rootnamespace$
 {
     using System;
     using System.Diagnostics;
-	using Xamarin.Forms;
-	using Views;
+    using Xamarin.Forms;
+    using Views;
 
     /// <summary>
     /// Defines the XamarinFormsApp type.
@@ -36,53 +36,53 @@ namespace $rootnamespace$
         public XamarinFormsApp()
         {
             Debug.WriteLine("XamarinFormsApp::Constructor");
-            MainPage = new MainView();
+            this.MainPage = new MainView();
         }
 
-		/// <summary>
+        /// <summary>
         /// Called when [start].
         /// </summary>
-		protected override void OnStart()
-		{
+        protected override void OnStart()
+        {
             Debug.WriteLine("XamarinFormsApp::OnStart");
 
             EventHandler handler = this.Start;
 
-		    if (handler != null)
-		    {
-		        handler(this, EventArgs.Empty);
-		    }
-		}
+            if (handler != null)
+            {
+                handler(this, EventArgs.Empty);
+            }
+        }
 
-		/// <summary>
+        /// <summary>
         /// Called when [sleep].
         /// </summary>
-		protected override void OnSleep()
-		{
+        protected override void OnSleep()
+        {
             Debug.WriteLine("XamarinFormsApp::OnSleep");
 
             EventHandler handler = this.Sleep;
 
-		    if (handler != null)
-		    {
-		        handler(this, EventArgs.Empty);
-		    }
-		}
+            if (handler != null)
+            {
+                handler(this, EventArgs.Empty);
+            }
+        }
 
-		/// <summary>
+        /// <summary>
         /// Called when [resume].
         /// </summary>
-		protected override void OnResume()
-		{
+        protected override void OnResume()
+        {
             Debug.WriteLine("XamarinFormsApp::OnResume");
 
             EventHandler handler = this.Resume;
 
-		    if (handler != null)
-		    {
-		        handler(this, EventArgs.Empty);
-		    }
-		}
+            if (handler != null)
+            {
+                handler(this, EventArgs.Empty);
+            }
+        }
     }
 }
 

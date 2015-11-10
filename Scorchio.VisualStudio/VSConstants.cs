@@ -5,6 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio
 {
+    /// <summary>
+    /// Defines the VsConstants type.
+    /// </summary>
   public static class VSConstants
   {
     /// <summary>

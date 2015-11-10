@@ -387,7 +387,6 @@ namespace Scorchio.VisualStudio.Extensions
         /// Gets the output window.
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns></returns>
         public static OutputWindow GetOutputWindow(this DTE2 instance)
         {
             Window window = instance.Windows.Item(VSConstants.VsWindowKindOutput);
@@ -399,7 +398,6 @@ namespace Scorchio.VisualStudio.Extensions
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="windowName">Name of the window.</param>
-        /// <returns></returns>
         public static OutputWindowPane GetOutputWindowPane(
             this DTE2 instance,
             string windowName)

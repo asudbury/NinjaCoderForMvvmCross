@@ -4,13 +4,12 @@
         <id>Scorchio.NinjaCoder.Xamarin.Forms.Wpf</id>
         <version>1.0.3</version>
         <authors>Adrian Sudbury</authors>
-		<owners>Scorchio Limited</owners>
+        <owners>Scorchio Limited</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Helper For NinjaCoder for MvvmCross and Xamarin Forms</description>
     </metadata>
     <files>
-		<file src="WpfContent\MainWindow.xaml.pp" target="content\net45\MainWindow.xaml.pp" />
-		<file src="WpfContent\MainWindow.xaml.cs.pp" target="content\net45\MainWindow.xaml.cs.pp" />
-	
+        <file src="WpfContent\MainWindow.xaml.pp" target="content\net45\MainWindow.xaml.pp" />
+        <file src="WpfContent\MainWindow.xaml.cs.pp" target="content\net45\MainWindow.xaml.cs.pp" />
     </files>
 </package> 

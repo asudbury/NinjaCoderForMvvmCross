@@ -5,11 +5,10 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.Infrastructure.Wpf.ViewModels
 {
+    using Entities;
+    using EventArguments;
     using System;
     using System.Collections.Generic;
-
-    using EventArguments;
-    using Entities;
 
     /// <summary>
     /// Defines the ImagePickerViewModel type.

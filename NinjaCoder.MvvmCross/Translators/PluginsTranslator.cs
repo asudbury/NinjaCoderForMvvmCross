@@ -5,12 +5,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Translators
 {
-    using System.Linq;
-    using System.Xml.Linq;
-
     using Entities;
     using Scorchio.Infrastructure.Translators;
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Xml.Linq;
 
     /// <summary>
     /// Defines the PluginsTranslator type.
@@ -38,21 +38,27 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <returns></returns>
         public Plugins Translate(string from)
         {
-            XDocument doc = XDocument.Load(from);
-
-            if (doc.Root != null)
+            try
             {
-                IEnumerable<XElement> elements = doc.Root.Elements("Plugin");
+                XDocument doc = XDocument.Load(from);
 
-                List<Plugin> items = elements.Select(element => this.translator.Translate(element)).ToList();
+                if (doc.Root != null)
+                {
+                    IEnumerable<XElement> elements = doc.Root.Elements("Plugin");
 
-                Plugins plugins = new Plugins { Items = items };
+                    List<Plugin> items = elements.Select(element => this.translator.Translate(element)).ToList();
 
-                return plugins;
+                    Plugins plugins = new Plugins { Items = items };
+
+                    return plugins;
+                }
+
+                return null;
             }
-
-            return null;
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }
-

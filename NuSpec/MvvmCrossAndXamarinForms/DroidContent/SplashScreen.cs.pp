@@ -4,13 +4,13 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Android.App;
-using Android.Content.PM;
-using Android.OS;
-using Cirrious.MvvmCross.Droid.Views;
-
 namespace $rootnamespace$
 {
+    using Android.App;
+    using Android.Content.PM;
+    using Android.OS;
+    using Cirrious.MvvmCross.Droid.Views;
+
     /// <summary> 
     /// Defines the SplashScreen type.
     /// </summary>
@@ -23,16 +23,26 @@ namespace $rootnamespace$
         , ScreenOrientation = ScreenOrientation.Portrait)]
     public class SplashScreen : MvxSplashScreenActivity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SplashScreen"/> class.
+        /// </summary>
         public SplashScreen()
             : base(Resource.Layout.SplashScreen)
         {
         }
 
+        /// <summary>
+        /// Initializations the complete.
+        /// </summary>
         public override void InitializationComplete()
         {
-            StartActivity(typeof(MainActivity));
+            this.StartActivity(typeof(MainActivity));
         }
 
+        /// <summary>
+        /// Called when [create].
+        /// </summary>
+        /// <param name="bundle">The bundle.</param>
         protected override void OnCreate(Bundle bundle)
         {
             Xamarin.Forms.Forms.Init(this, bundle);

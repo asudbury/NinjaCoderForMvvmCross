@@ -19,8 +19,11 @@ namespace NinjaCoder.MvvmCross.Entities
         /// </summary>
         public Plugin()
         {
-            this.NugetCommands = new List<string>();
+            this.NugetCommands = new List<NugetCommand>();
             this.Platforms = new List<string>();
+            this.NinjaSamples = new List<Plugin>();
+            this.Commands = new List<Command>();
+            this.FileOperations = new List<FileOperation>();
         }
 
         /// <summary>
@@ -41,7 +44,7 @@ namespace NinjaCoder.MvvmCross.Entities
         /// <summary>
         /// Gets or sets the nuget commands.
         /// </summary>
-        public IEnumerable<string> NugetCommands { get; set; }
+        public IEnumerable<NugetCommand> NugetCommands { get; set; }
 
         /// <summary>
         /// Gets or sets the platforms.
@@ -57,5 +60,30 @@ namespace NinjaCoder.MvvmCross.Entities
         /// Gets or sets a value indicating whether [overwrite files].
         /// </summary>
         public bool OverwriteFiles { get; set; }
+
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the category.
+        /// </summary>
+        public string Category { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ninja samples.
+        /// </summary>
+        public IEnumerable<Plugin> NinjaSamples { get; set; }
+
+        /// <summary>
+        /// Gets or sets the commands.
+        /// </summary>
+        public IEnumerable<Command> Commands { get; set; }
+
+        /// <summary>
+        /// Gets or sets the file operations.
+        /// </summary>
+        public IEnumerable<FileOperation> FileOperations { get; set; }
     }
 }

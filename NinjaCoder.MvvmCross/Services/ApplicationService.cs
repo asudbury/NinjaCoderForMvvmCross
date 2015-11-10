@@ -6,22 +6,17 @@
 namespace NinjaCoder.MvvmCross.Services
 {
     using Interfaces;
-
+    using NinjaCoder.MvvmCross.Constants;
     using NinjaCoder.MvvmCross.Entities;
-
+    using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
+    using Scorchio.VisualStudio.Services.Interfaces;
     using System;
     using System.Diagnostics;
     using System.IO;
     using System.IO.Abstractions;
     using System.Linq;
     using System.Xml.Linq;
-
-    using NinjaCoder.MvvmCross.Constants;
-
-    using Scorchio.Infrastructure.Extensions;
-    using Scorchio.VisualStudio.Entities;
-    using Scorchio.VisualStudio.Services.Interfaces;
 
     /// <summary>
     /// Defines the ApplicationService type.

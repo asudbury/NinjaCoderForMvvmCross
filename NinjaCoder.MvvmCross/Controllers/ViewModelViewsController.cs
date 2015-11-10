@@ -104,18 +104,18 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             this.VisualStudioService.DTEService.WriteStatusBarMessage(NinjaMessages.NinjaIsRunning);
 
-            ProjectItemsEvents cSharpProjectItemsEvents = this.VisualStudioService.DTEService.GetCSharpProjectItemsEvents();
+            ProjectItemsEvents projectItemsEvents = this.VisualStudioService.DTEService.GetCSharpProjectItemsEvents();
 
-            if (cSharpProjectItemsEvents != null)
+            if (projectItemsEvents != null)
             {
-                cSharpProjectItemsEvents.ItemAdded += this.ProjectItemsEventsItemAdded;
+                projectItemsEvents.ItemAdded += this.ProjectItemsEventsItemAdded;
             }
 
             IEnumerable<string> messages = this.viewModelViewsService.AddViewModelsAndViews(views);
 
-            if (cSharpProjectItemsEvents != null)
+            if (projectItemsEvents != null)
             {
-                cSharpProjectItemsEvents.ItemAdded -= this.ProjectItemsEventsItemAdded;
+                projectItemsEvents.ItemAdded -= this.ProjectItemsEventsItemAdded;
             }
 
             this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.UpdatingFiles);

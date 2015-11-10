@@ -6,16 +6,16 @@
 
 namespace $rootnamespace$.Presenters
 {
-	using System;
-	using System.Threading.Tasks;
-	using Cirrious.CrossCore;
-	using Cirrious.MvvmCross.ViewModels;
-	using Cirrious.MvvmCross.WindowsPhone.Views;
-	using Microsoft.Phone.Controls;
-	using CoreProject.Services.ViewModel;
-	using FormsProject;
-	using FormsProject.Services.View;
-	using Xamarin.Forms;
+    using System;
+    using System.Threading.Tasks;
+    using Cirrious.CrossCore;
+    using Cirrious.MvvmCross.ViewModels;
+    using Cirrious.MvvmCross.WindowsPhone.Views;
+    using Microsoft.Phone.Controls;
+    using CoreProject.Services;
+    using FormsProject;
+    using FormsProject.Services;
+    using Xamarin.Forms;
 
     /// <summary>
     /// Defines the MvxFormsWindowsPhoneViewPresenter type.
@@ -100,11 +100,11 @@ namespace $rootnamespace$.Presenters
             Mvx.Error("Skipping request for {0}", request.ViewModelType.Name);
         }
 
-		/// <summary>
+        /// <summary>
         /// Tries the show page.
         /// </summary>
         /// <param name="request">The request.</param>
-        /// <returns></returns>
+        /// <returns>True or false.</returns>
         private async Task<bool> TryShowPage(MvxViewModelRequest request)
         {
             //// Get the ViewModel from the request
@@ -148,4 +148,3 @@ namespace $rootnamespace$.Presenters
         }
     }
 }
-

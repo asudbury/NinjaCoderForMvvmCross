@@ -26,7 +26,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Wizard
         /// <summary>
         /// The wizard data.
         /// </summary>
-        private readonly  IWizardData wizardData;
+        private readonly IWizardData wizardData;
 
         /// <summary>
         /// The window title.
@@ -75,7 +75,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Wizard
         public NinjaWizardViewModel NinjaWizardViewModel
         {
             get { return this.ninjaWizardViewModel; } 
-            set { this.SetProperty( ref this.ninjaWizardViewModel, value); }
+            set { this.SetProperty(ref this.ninjaWizardViewModel, value); }
         }
 
         /// <summary>

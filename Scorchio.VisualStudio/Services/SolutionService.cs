@@ -8,6 +8,7 @@ namespace Scorchio.VisualStudio.Services
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
 
     using Entities;
     using EnvDTE;
@@ -221,6 +222,41 @@ namespace Scorchio.VisualStudio.Services
         }
 
         /// <summary>
+        /// Gets the solution sub folder.
+        /// </summary>
+        /// <param name="solutionFolderName">Name of the solution folder.</param>
+        /// <returns></returns>
+        public Project GetSolutionSubFolder(string solutionFolderName)
+        {
+            return this.solution
+                        .Projects
+                        .Cast<Project>()
+                        .FirstOrDefault(
+                        p => string.Equals(p.Name, solutionFolderName, StringComparison.Ordinal));
+        }
+
+        /// <summary>
+        /// Adds the project to sub folder.
+        /// </summary>
+        /// <param name="solutionFolderName">Name of the solution folder.</param>
+        /// <param name="path">The path.</param>
+        /// <param name="templatePath">The template path.</param>
+        /// <param name="projectName">Name of the project.</param>
+        public void AddProjectToSubFolder(
+            string solutionFolderName, 
+            string path, 
+            string templatePath, 
+            string projectName)
+        {
+            Project project = this.GetSolutionSubFolder(solutionFolderName);
+
+            if (project != null)
+            {
+                project.AddProjectToFolderFromTemplate(templatePath, path, projectName);
+            }
+        }
+
+        /// <summary>
         /// Gets the projects.
         /// </summary>
         /// <returns>The projects.</returns>
@@ -350,6 +386,15 @@ namespace Scorchio.VisualStudio.Services
         public void OpenFile(string path)
         {
             this.solution2.Open(path);
+        }
+
+        /// <summary>
+        /// Adds the item.
+        /// </summary>
+        /// <param name="solutionFolder">The solution folder.</param>
+        public void AddSolutionFolder(string solutionFolder)
+        {
+            this.solution2.AddSolutionFolder(solutionFolder);
         }
     }
 }

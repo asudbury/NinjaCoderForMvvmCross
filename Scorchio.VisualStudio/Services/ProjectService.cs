@@ -144,12 +144,30 @@ namespace Scorchio.VisualStudio.Services
         /// <param name="templateName">Name of the template.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <returns>True or False.</returns>
-        public bool AddToFolderFromTemplate(
+        public bool AddItemToFolderFromTemplate(
             string templateName, 
             string fileName)
         {
-            return this.project.AddToFolderFromTemplate(
+            return this.project.AddItemToFolderFromTemplate(
                 templateName,
+                fileName);
+        }
+
+        /// <summary>
+        /// Adds the project to folder from template.
+        /// </summary>
+        /// <param name="templateName">Name of the template.</param>
+        /// <param name="path">The path.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>True or False.</returns>
+        public bool AddProjectToFolderFromTemplate(
+            string templateName, 
+            string path,
+            string fileName)
+        {
+            return this.project.AddProjectToFolderFromTemplate(
+                templateName,
+                path,
                 fileName);
         }
 
@@ -272,9 +290,78 @@ namespace Scorchio.VisualStudio.Services
         }
 
         /// <summary>
+        /// Removes the folder item.
+        /// </summary>
+        /// <param name="itemName">Name of the item.</param>
+        public void RemoveFolderItem(string itemName)
+        {
+            IEnumerable<IProjectItemService> projectItems = this.GetProjectItems();
+
+            IProjectItemService projectItemService = projectItems.FirstOrDefault(x => x.Name.Contains(itemName));
+
+            if (projectItemService != null)
+            {
+                projectItemService.RemoveAndDelete();
+                return;
+            }
+
+            foreach (IProjectItemService subProjectItemService in this.GetProjectItems())
+            {
+                if (subProjectItemService.Kind == VSConstants.VsProjectItemKindPhysicalFolder)
+                {
+                    IEnumerable<ProjectItem> items = subProjectItemService.GetSubProjectItems();
+
+                    ProjectItem projectItem  = items.FirstOrDefault(x => x.Name.Contains(itemName));
+
+                    if (projectItem != null)
+                    {
+                        projectItem.RemoveAndDelete();
+                        return;
+                    }
+                }
+            }
+
+            /*foreach (IProjectItemService subProjectItemService in projectItems.)
+            {
+                foreach (var VARIABLE in subProjectItemService)
+                {
+                    
+                }
+                ////subProjectItemService.RemoveAndDelete();
+                ////return;
+            }
+
+            IEnumerable<IProjectItemService> subProjectItems = this.GetFolderProjectItems();
+
+            foreach (IProjectItemService subFolderItemService in subProjectItems)
+            {
+                if (subFolderItemService.Name.Contains(itemName))
+                {
+                    subFolderItemService.RemoveAndDelete();
+                    return;
+                }
+            }
+
+            IEnumerable<IProjectService> subProjectServices = this.GetSubProjects();
+
+            foreach (IProjectService subProjectService in subProjectServices)
+            {
+                IEnumerable<IProjectItemService> projectItemServices = subProjectService.GetProjectItems();
+
+                foreach (IProjectItemService itemService in projectItemServices)
+                {
+                    if (itemService.Name.Contains(itemName))
+                    {
+                        itemService.RemoveAndDelete();
+                        return;
+                    }
+                }
+            }*/
+        }
+
+        /// <summary>
         /// Gets the sub projects.
         /// </summary>
-        /// <returns></returns>
         public IEnumerable<IProjectService> GetSubProjects()
         {
             IEnumerable<Project> items = this.project.GetSubProjects();
@@ -287,7 +374,6 @@ namespace Scorchio.VisualStudio.Services
         /// Gets the sub folders.
         /// </summary>
         /// <param name="folderName">Name of the folder.</param>
-        /// <returns></returns>
         public IEnumerable<IProjectItemService> GetSubFolders(string folderName)
         {
             IEnumerable<ProjectItem> items = this.project.GetSubFolders(folderName);
@@ -299,7 +385,6 @@ namespace Scorchio.VisualStudio.Services
         /// <summary>
         /// Gets the folder project items.
         /// </summary>
-        /// <returns></returns>
         public IEnumerable<IProjectItemService> GetFolderProjectItems()
         {
             IEnumerable<ProjectItem> items = this.project.ProjectItems.Cast<ProjectItem>()
@@ -313,7 +398,6 @@ namespace Scorchio.VisualStudio.Services
         /// Gets the folder or create.
         /// </summary>
         /// <param name="folderName">Name of the folder.</param>
-        /// <returns></returns>
         public IProjectItemService GetFolderOrCreate(string folderName)
         {
             ProjectItem projectItem = this.project.GetFolder(folderName) ?? this.project.ProjectItems.AddFolder(folderName);

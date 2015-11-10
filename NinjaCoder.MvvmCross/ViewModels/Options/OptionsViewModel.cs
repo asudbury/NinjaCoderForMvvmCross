@@ -62,7 +62,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         /// </summary>
         public CodingStyleViewModel CodingStyleViewModel { get; private set; }
 
-       
         /// <summary>
         /// Gets the visual view model.
         /// </summary>
@@ -90,7 +89,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         /// <summary>
         /// Called when ok button pressed.
         /// </summary>
-        public override void OnOk()
+        protected override void OnOk()
         {
             this.UpdateSettings();
             base.OnOk();

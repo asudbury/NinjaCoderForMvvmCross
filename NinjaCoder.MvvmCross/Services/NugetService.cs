@@ -15,6 +15,10 @@ namespace NinjaCoder.MvvmCross.Services
     using System.Collections.Generic;
     using System.Linq;
 
+    using NinjaCoder.MvvmCross.Entities;
+
+    using Command = NinjaCoder.MvvmCross.Entities.Command;
+
     /// <summary>
     /// Defines the NugetService type.
     /// </summary>
@@ -31,6 +35,11 @@ namespace NinjaCoder.MvvmCross.Services
         private readonly ISettingsService settingsService;
 
         /// <summary>
+        /// The caching service.
+        /// </summary>
+        private readonly ICachingService cachingService;
+
+        /// <summary>
         /// The document events.
         /// </summary>
         private DocumentEvents documentEvents;
@@ -45,14 +54,17 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="settingsService">The settings service.</param>
+        /// <param name="cachingService">The caching service.</param>
         public NugetService(
             IVisualStudioService visualStudioService,
-            ISettingsService settingsService)
+            ISettingsService settingsService,
+            ICachingService cachingService)
         {
             TraceService.WriteLine("NugetService::Constructor");
 
             this.visualStudioService = visualStudioService;
             this.settingsService = settingsService;
+            this.cachingService = cachingService;
         }
 
         /// <summary>
@@ -93,9 +105,21 @@ namespace NinjaCoder.MvvmCross.Services
                 {
                     foreach (string nugetCommand in projectTemplateInfo.NugetCommands)
                     {
+                        string thisNugetCommand = nugetCommand;
+                        
+                        //// check to see if we are going to use local nuget
+
+                        if (this.settingsService.UseLocalNuget && 
+                            this.settingsService.LocalNugetName != string.Empty)
+                        {
+                            thisNugetCommand = thisNugetCommand.Replace(
+                                "-ProjectName", 
+                                " -Source " + this.settingsService.LocalNugetName + " -ProjectName");
+                        }
+                        
                         nugetCommandsString += string.Format(
                             "{0} {1} {2}",
-                            nugetCommand,
+                            thisNugetCommand,
                             projectTemplateInfo.Name,
                             Environment.NewLine);
                     }
@@ -203,7 +227,6 @@ namespace NinjaCoder.MvvmCross.Services
             {
                 this.NugetCompleted();
             }
-
             else 
             {
                 //// dont show the nsubstitue readme.
@@ -225,6 +248,9 @@ namespace NinjaCoder.MvvmCross.Services
 
             this.FixUpXamarinFormHelpers();
             this.FixUpMvvmCrossXamarinForms();
+
+            this.ExecutePostNugetCommands();
+            this.ExecutePostNugetFileOperations();
 
             this.visualStudioService.DTEService.CollapseSolution();
             
@@ -437,6 +463,86 @@ namespace NinjaCoder.MvvmCross.Services
                 if (projectItemService != null)
                 {
                     projectItemService.ReplaceText(text, replacementText);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Executes the post nuget commands.
+        /// </summary>
+        internal void ExecutePostNugetCommands()
+        {
+            IEnumerable<Command> postNugetCommands = this.cachingService.PostNugetCommands;
+
+            if (postNugetCommands != null)
+            {
+                foreach (Command postNugetCommand in postNugetCommands)
+                {
+                    IProjectService projectService = this.visualStudioService.GetProjectServiceBySuffix(postNugetCommand.PlatForm);
+
+                    if (projectService != null)
+                    {
+                        switch (postNugetCommand.CommandType)
+                        {
+                            case "RemoveFolder":
+                                projectService.RemoveFolder(postNugetCommand.Name);
+                                break;
+                                
+                            case "RemoveFile":
+                                projectService.RemoveFolderItem(postNugetCommand.Name);
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Executes the post nuget file operations.
+        /// </summary>
+        internal void ExecutePostNugetFileOperations()
+        {
+            IEnumerable<FileOperation> postNugetFileOperations = this.cachingService.PostNugetFileOperations;
+
+            if (postNugetFileOperations != null)
+            {
+                foreach (FileOperation postNugetFileOperation in postNugetFileOperations)
+                {
+                    IProjectItemService fileItemService = null;
+
+                    IProjectService projectService = this.visualStudioService.GetProjectServiceBySuffix(postNugetFileOperation.PlatForm);
+
+                    if (projectService != null)
+                    {
+                        if (string.IsNullOrEmpty(postNugetFileOperation.Directory) == false)
+                        {
+                            IProjectItemService projectItemService = projectService.GetFolder(postNugetFileOperation.Directory);
+
+                            if (projectItemService != null)
+                            {
+                                fileItemService = projectItemService.GetProjectItem(postNugetFileOperation.File);
+                            }
+                        }
+
+                        else
+                        {
+                            fileItemService = projectService.GetProjectItem(postNugetFileOperation.File);
+                        }
+                        
+                        if (fileItemService != null)
+                        {
+                            switch (postNugetFileOperation.CommandType)
+                            {
+                                case "ReplaceText":
+                                    fileItemService.ReplaceText(postNugetFileOperation.From, postNugetFileOperation.To);
+                                    break;
+
+                                case "Properties":
+                                    fileItemService.ProjectItem.Properties.Item(postNugetFileOperation.From).Value = postNugetFileOperation.To;
+                                    break;
+                            }  
+                        }
+                    }
                 }
             }
         }

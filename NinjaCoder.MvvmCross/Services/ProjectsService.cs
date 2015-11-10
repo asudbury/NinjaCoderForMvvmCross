@@ -22,14 +22,14 @@ namespace NinjaCoder.MvvmCross.Services
     public class ProjectsService : BaseService, IProjectsService
     {
         /// <summary>
-        /// The settings service.
-        /// </summary>
-        private readonly ISettingsService settingsService;
-
-        /// <summary>
         /// The file system.
         /// </summary>
         protected readonly IFileSystem FileSystem;
+
+        /// <summary>
+        /// The settings service.
+        /// </summary>
+        private readonly ISettingsService settingsService;
 
         /// <summary>
         /// The visual studio service.
@@ -165,7 +165,7 @@ namespace NinjaCoder.MvvmCross.Services
                 IProjectService formsProjectService = this.visualStudioService.XamarinFormsProjectService;
 
                 if (formsProjectService != null && 
-                    projectService != null )
+                    projectService != null)
                 {
                     projectService.AddProjectReference(formsProjectService);
                 }
@@ -187,11 +187,10 @@ namespace NinjaCoder.MvvmCross.Services
                     try
                     {
                         projectService.AddProjectReference(platformProjectService);
-
                     }
                     catch (Exception exception)
                     {
-                        TraceService.WriteError("Unable to add project reference to " + platformProjectService.Name);
+                        TraceService.WriteError("Unable to add project reference to " + platformProjectService.Name + " exception=" + exception.Message);
                     }
                 }
             }
@@ -216,7 +215,6 @@ namespace NinjaCoder.MvvmCross.Services
             {
                 this.AddProject(projectInfo, projectPath);
             }
-
             else
             {
                 TraceService.WriteError("Directory " + projectPath + " not empty");
@@ -232,7 +230,7 @@ namespace NinjaCoder.MvvmCross.Services
             ProjectTemplateInfo projectInfo,
             string projectPath)
         {
-            TraceService.WriteLine("ProjectsService::AddProjectIf project=" + projectInfo.Name + " templateName=" + projectInfo.TemplateName);
+            TraceService.WriteLine("ProjectsService::AddProject project=" + projectInfo.Name + " templateName=" + projectInfo.TemplateName);
 
             try
             {
@@ -240,7 +238,15 @@ namespace NinjaCoder.MvvmCross.Services
 
                 TraceService.WriteLine("Template=" + template);
 
-                this.visualStudioService.SolutionService.AddProjectToSolution(projectPath, template, projectInfo.Name);
+                //// add to TestProjects subfolder if applicable,
+                if (this.settingsService.CreateTestProjectsSolutionFolder && projectInfo.Name.EndsWith("Tests"))
+                { 
+                    this.visualStudioService.SolutionService.AddProjectToSubFolder(this.settingsService.TestProjectsSolutionFolderName, projectPath, template, projectInfo.Name);
+                }
+                else
+                {
+                    this.visualStudioService.SolutionService.AddProjectToSolution(projectPath, template, projectInfo.Name);
+                }
 
                 this.Messages.Add(projectInfo.Name + " project successfully added. (template " + projectInfo.TemplateName + ")");
             }

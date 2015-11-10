@@ -108,9 +108,7 @@ namespace NinjaCoder.MvvmCross.Services
 
             if (addUnitTests)
             {
-                this.UpdateUnitTestFile(
-                    this.visualStudioService,
-                    viewModelName);
+                this.UpdateUnitTestFile(viewModelName);
             }
 
             if (string.IsNullOrEmpty(viewModelInitiateFrom) == false)
@@ -144,16 +142,13 @@ namespace NinjaCoder.MvvmCross.Services
             //// we need to store the xamarin forms views to change the names after nuget has run.
             IEnumerable<View> viewsArray = views as View[] ?? views.ToArray();
 
-            this.settingsService.XamarinFormsViews = viewsArray.Where(
-                x => x.Framework == FrameworkType.XamarinForms.GetDescription()).ToList().SerializeToString();
+            this.settingsService.XamarinFormsViews = viewsArray.Where(x => x.Framework == FrameworkType.XamarinForms.GetDescription()).ToList().SerializeToString();
 
             if (this.settingsService.FrameworkType == FrameworkType.MvvmCrossAndXamarinForms)
-            ////if (this.visualStudioService.GetFrameworkType() == FrameworkType.MvvmCrossAndXamarinForms)
             {
                 this.settingsService.BindXamlForXamarinForms = true;
                 this.settingsService.BindContextInXamlForXamarinForms = false;
             }
-
             else
             {
                 this.settingsService.BindXamlForXamarinForms = true;
@@ -170,7 +165,7 @@ namespace NinjaCoder.MvvmCross.Services
                             view,
                             viewModelName,
                             this.viewModelAndViewsFactory.AllowedUIViews,
-                            true,
+                            this.visualStudioService.CoreTestsProjectService != null,
                             false);
 
                     IEnumerable<string> viewModelMessages = this.AddViewModelAndViews(
@@ -252,15 +247,12 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Updates the unit test file.
         /// </summary>
-        /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="viewModelName">Name of the view model.</param>
-        internal void UpdateUnitTestFile(
-            IVisualStudioService visualStudioService,
-            string viewModelName)
+        internal void UpdateUnitTestFile(string viewModelName)
         {
             TraceService.WriteLine("ViewModelViewsService::UpdateUnitTestFile ViewModelName=" + viewModelName);
 
-            IProjectService testProjectService = visualStudioService.CoreTestsProjectService;
+            IProjectService testProjectService = this.visualStudioService.CoreTestsProjectService;
 
             if (testProjectService != null)
             {
@@ -280,6 +272,9 @@ namespace NinjaCoder.MvvmCross.Services
                     this.testingService.UpdateFile(projectItemService, replacementVariables);
                 }
             }
+
+            TraceService.WriteLine("ViewModelViewsService::UpdateUnitTestFile End");
+
         }
 
         /// <summary>

@@ -43,5 +43,19 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <param name="plugins">The plugins.</param>
         /// <returns></returns>
         IEnumerable<string> GetNugetMessages(IEnumerable<Plugin> plugins);
+
+        /// <summary>
+        /// Gets the post nuget commands.
+        /// </summary>
+        /// <param name="plugins">The plugins.</param>
+        /// <returns></returns>
+        IEnumerable<Command> GetPostNugetCommands(IEnumerable<Plugin> plugins);
+
+        /// <summary>
+        /// Gets the post nuget file operations.
+        /// </summary>
+        /// <param name="plugins">The plugins.</param>
+        /// <returns></returns>
+        IEnumerable<FileOperation> GetPostNugetFileOperations(IEnumerable<Plugin> plugins);
     }
 }

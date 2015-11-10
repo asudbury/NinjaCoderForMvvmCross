@@ -268,7 +268,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         /// <summary>
         /// Gets the MVX views.
         /// </summary>
-        public IEnumerable<ImageItemWithDescription > MvxViews
+        public IEnumerable<ImageItemWithDescription> MvxViews
         {
             get { return this.mvxViews; }
         }
@@ -362,7 +362,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
                         }
                     } 
                 }
-
                 else if (this.showMvxPages)
                 {
                     imageItemWithDescription = this.GetImageItemWithDescription(thisView, this.MvxViews);
@@ -372,7 +371,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
                         thisView.PageType = imageItemWithDescription.Name;
                     }   
                 }
-
                 else if (this.showLayouts)
                 {
                     imageItemWithDescription = this.GetImageItemWithDescription(thisView, this.Layouts);
@@ -382,7 +380,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
                         thisView.LayoutType = imageItemWithDescription.Name;
                     } 
                 }
-
                 else if (this.showFrameworks)
                 {
                     imageItemWithDescription = this.GetImageItemWithDescription(thisView, this.Frameworks);
@@ -396,7 +393,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
                                 thisView.PageType = "Content Page";
                                 thisView.LayoutType = "Content View";
                             }
-
                             else
                             {
                                 thisView.LayoutType = "Not Applicable";
@@ -406,7 +402,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
 
                         thisView.Framework = imageItemWithDescription.Name;
                     } 
-
                 }
             }
 
@@ -456,7 +451,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
                         this.Views.Add(view);
                     }
                 }
-
                 else
                 {
                     this.Add(); 
@@ -488,7 +482,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
                 view.PageType = "Content Page";
                 view.LayoutType = "Content View";
             }
-
             else
             {
                 view.Framework = FrameworkType.MvvmCross.GetDescription();
@@ -535,7 +528,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
                 {
                     imageItemWithDescription.Selected = true;
                 }
-
                 else
                 {
                     imageItemWithDescription = this.MvxViews.FirstOrDefault(x => x.Name == this.currentView.PageType);
@@ -641,7 +633,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
             {
                 this.ShowMvxPages = true;
             }
-
             else
             {
                 this.ShowXfPages = true;
@@ -676,7 +667,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
             {
                 name = viewNames[this.Views.Count()];
             }
-
             else
             {
                 name = "No" + (this.Views.Count + 1).ToString(CultureInfo.InvariantCulture);
@@ -726,7 +716,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
                         imageItemWithDescription = secondItem;
                     }                    
                 }
-
                 else if (this.showFrameworks)
                 {
                     if (view.Framework != firstItem.Name)
@@ -755,7 +744,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
                         imageItemWithDescription = secondItem;
                     }                    
                 }
-
             }
 
             return imageItemWithDescription;

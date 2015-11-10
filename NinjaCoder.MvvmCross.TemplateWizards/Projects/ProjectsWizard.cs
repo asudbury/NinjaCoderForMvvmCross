@@ -8,7 +8,6 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Projects
     using EnvDTE;
     using Scorchio.VisualStudio.Services;
 
-
     /// <summary>
     ///  Defines the ProjectsWizard type.
     /// </summary>

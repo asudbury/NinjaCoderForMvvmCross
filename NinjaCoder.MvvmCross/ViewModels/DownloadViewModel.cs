@@ -21,6 +21,10 @@ namespace NinjaCoder.MvvmCross.ViewModels
         /// </summary>
         private bool checkForUpdates;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DownloadViewModel"/> class.
+        /// </summary>
+        /// <param name="settingsService">The settings service.</param>
         public DownloadViewModel(ISettingsService settingsService)
             : base(settingsService)
         {
@@ -45,15 +49,6 @@ namespace NinjaCoder.MvvmCross.ViewModels
         }
 
         /// <summary>
-        /// Called when cancel button pressed.
-        /// </summary>
-        public override void OnCancel()
-        {
-            this.SettingsService.CheckForUpdates = this.checkForUpdates;
-            base.OnCancel();
-        }
-
-        /// <summary>
         /// Inits this instance.
         /// </summary>
         internal void Init()
@@ -69,6 +64,14 @@ namespace NinjaCoder.MvvmCross.ViewModels
             Process.Start(this.SettingsService.NinjaCoderDownloadUrl);
             this.OnCancel();
         }
+
+        /// <summary>
+        /// Called when cancel button pressed.
+        /// </summary>
+        protected override void OnCancel()
+        {
+            this.SettingsService.CheckForUpdates = this.checkForUpdates;
+            base.OnCancel();
+        }
     }
 }
- 

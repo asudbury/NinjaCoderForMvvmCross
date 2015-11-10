@@ -5,16 +5,13 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio.Extensions
 {
+    using EnvDTE;
+    using EnvDTE80;
+    using Services;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-
-    using EnvDTE;
-    using EnvDTE80;
-
-    using Services;
-
     using VSLangProj;
 
     /// <summary>
@@ -219,18 +216,18 @@ namespace Scorchio.VisualStudio.Extensions
         }
 
         /// <summary>
-        /// Adds to folder from template.
+        /// Adds the item to folder from template.
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="templateName">Name of the template.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <returns>True or False.</returns>
-        public static bool AddToFolderFromTemplate(
+        public static bool AddItemToFolderFromTemplate(
             this Project instance,
             string templateName,
             string fileName)
         {
-            TraceService.WriteLine("ProjectExtensions::AddToFolderFromTemplate project=" + instance.Name + " templateName=" + templateName + " fileName=" + fileName);
+            TraceService.WriteLine("ProjectExtensions::AddItemToFolderFromTemplate project=" + instance.Name + " templateName=" + templateName + " fileName=" + fileName);
 
             ProjectItems projectItems = instance.ProjectItems;
 
@@ -241,6 +238,38 @@ namespace Scorchio.VisualStudio.Extensions
             if (templatePath != null)
             {
                 projectItems.AddFromTemplate(templatePath, fileName);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Adds the project to folder from template.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="templateName">Name of the template.</param>
+        /// <param name="path">The path.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>True or False.</returns>
+        public static bool AddProjectToFolderFromTemplate(
+            this Project instance, 
+            string templateName, 
+            string path,
+            string fileName)
+        {
+            TraceService.WriteLine("ProjectExtensions::AddItemToFolderFromTemplate project=" + instance.Name + " templateName=" + templateName + " fileName=" + fileName);
+
+            SolutionFolder solutionFolder = (SolutionFolder)instance.Object;
+
+            Solution2 solution = instance.DTE.Solution as Solution2;
+
+            string templatePath = solution.GetProjectTemplate(templateName);
+
+            if (templatePath != null)
+            {
+                solutionFolder.AddFromTemplate(templatePath, path, fileName);
 
                 return true;
             }
@@ -490,16 +519,13 @@ namespace Scorchio.VisualStudio.Extensions
         {
             TraceService.WriteLine("ProjectExtensions::HasNugetPackages");
 
-
             return instance.GetProjectItems().FirstOrDefault(x => x.Name == "packages.config") != null;
         }
-
         
         /// <summary>
         /// Gets the sub projects.
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns></returns>
         public static IEnumerable<Project> GetSubProjects(this Project instance)
         {
             TraceService.WriteLine("ProjectExtensions::GetSubProjects");
@@ -521,7 +547,6 @@ namespace Scorchio.VisualStudio.Extensions
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="folderName">Name of the folder.</param>
-        /// <returns></returns>
         public static IEnumerable<ProjectItem> GetSubFolders(
             this Project instance,
             string folderName)
@@ -536,8 +561,6 @@ namespace Scorchio.VisualStudio.Extensions
             {
                 folders.AddRange(folderItem.ProjectItems.Cast<ProjectItem>()
                     .Where(projectItem => projectItem.Kind == VSConstants.VsProjectItemKindPhysicalFolder));
-
-                ////folders.Sort();
             }
 
             return folders;
@@ -547,7 +570,6 @@ namespace Scorchio.VisualStudio.Extensions
         /// Gets the folder project items.
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns></returns>
         public static IEnumerable<ProjectItem> GetFolderProjectItems(this Project instance)
         {
             TraceService.WriteLine("ProjectExtensions::GetFolderProjectItems");
@@ -561,7 +583,6 @@ namespace Scorchio.VisualStudio.Extensions
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="folderName">Name of the folder.</param>
-        /// <returns></returns>
         public static ProjectItem GetFolderOrCreate(this Project instance, string folderName)
         {
             TraceService.WriteLine("ProjectExtensions::GetFolderOrCreate folderName=" + folderName);
@@ -569,6 +590,37 @@ namespace Scorchio.VisualStudio.Extensions
             ProjectItem projectItem = GetFolder(instance, folderName) ?? instance.ProjectItems.AddFolder(folderName);
 
             return projectItem;
+        }
+
+        /// <summary>
+        /// Gets the solution folder projects.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        public static IEnumerable<Project> GetSolutionFolderProjects(this Project instance)
+        {
+            List<Project> list = new List<Project>();
+
+            for (int i = 1; i <= instance.ProjectItems.Count; i++)
+            {
+                Project subProject = instance.ProjectItems.Item(i).SubProject;
+
+                if (subProject == null)
+                {
+                    continue;
+                }
+
+                //// If this is another solution folder, do a recursive call, otherwise add
+                if (subProject.Kind == VSConstants.VsProjectKindSolutionItems)
+                {
+                    list.AddRange(subProject.GetSolutionFolderProjects());
+                }
+                else
+                {
+                    list.Add(subProject);
+                }
+            }
+
+            return list;
         }
     }
 }

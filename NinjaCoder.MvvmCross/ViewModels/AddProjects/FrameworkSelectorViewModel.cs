@@ -12,6 +12,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
     using System;
     using System.Collections.Generic;
 
+    using NinjaCoder.MvvmCross.Factories.Interfaces;
+
     using PluginsControl = NinjaCoder.MvvmCross.UserControls.AddPlugins.PluginsControl;
 
     /// <summary>
@@ -28,6 +30,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// The settings service.
         /// </summary>
         private readonly ISettingsService settingsService;
+
+        private readonly IProjectFactory projectFactory;
 
         /// <summary>
         /// No framework.
@@ -65,14 +69,19 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         private string mvvmCrossAndXamarinFormsLabel;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FrameworkSelectorViewModel"/> class.
+        /// Initializes a new instance of the <see cref="FrameworkSelectorViewModel" /> class.
         /// </summary>
+        /// <param name="visualStudioService">The visual studio service.</param>
+        /// <param name="settingsService">The settings service.</param>
+        /// <param name="projectFactory">The project factory.</param>
         public FrameworkSelectorViewModel(
             IVisualStudioService visualStudioService,
-            ISettingsService settingsService)
+            ISettingsService settingsService,
+            IProjectFactory projectFactory )
         {
             this.visualStudioService = visualStudioService;
             this.settingsService = settingsService;
+            this.projectFactory = projectFactory;
 
             this.Init();
         }
@@ -108,7 +117,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// </summary>
         public bool XamarinForms
         {
-            get{ return this.xamarinForms; }
+            get { return this.xamarinForms; }
             set { this.SetProperty(ref this.xamarinForms, value); }
         }
 
@@ -140,11 +149,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         }
 
         /// <summary>
-        /// Gets the MVVM cross and xamarin forms label.
+        /// Gets or sets the MVVM cross and xamarin forms label.
         /// </summary>
-        /// <value>
-        /// The MVVM cross and xamarin forms label.
-        /// </value>
         public string MvvmCrossAndXamarinFormsLabel
         {
             get { return this.mvvmCrossAndXamarinFormsLabel; }
@@ -168,31 +174,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// </returns>
         public override RouteModifier OnNext()
         {
-            //// if no framework we cant setup up the viewmodels and views.
-            if (this.noFramework)
-            {
-                return new RouteModifier
-                {
-                    ExcludeViewTypes = new List<Type>
-                        {
-                            typeof(ViewsControl), 
-                            typeof(PluginsControl)
-                        } 
-                };
-            }
-
-            if (this.xamarinForms)
-            {
-                return new RouteModifier
-                {
-                    ExcludeViewTypes = new List<Type>
-                        {
-                            typeof(PluginsControl)
-                        }
-                };
-            }
-
-            return new RouteModifier();
+            return this.projectFactory.GetRouteModifier(this.settingsService.FrameworkType);
         }
 
         /// <summary>
@@ -208,19 +190,16 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
                 this.settingsService.FrameworkType = FrameworkType.NoFramework;
                 canMove = true;
             }
-
             else if (this.mvvmCross)
             {
                 this.settingsService.FrameworkType = FrameworkType.MvvmCross;
                 canMove = true;
             }
-
             else if (this.XamarinForms)
             {
                 this.settingsService.FrameworkType = FrameworkType.XamarinForms;
                 canMove = true;
             }
-
             else if (this.MvvmCrossXamarinForms)
             {
                 this.settingsService.FrameworkType = FrameworkType.MvvmCrossAndXamarinForms;

@@ -662,7 +662,6 @@ namespace Scorchio.VisualStudio.Extensions
                 instance.GetXamlProjectItems()
                     .ToList()
                     .ForEach(x => x.RemoveComments());
-
             }
         }
         
@@ -778,7 +777,6 @@ namespace Scorchio.VisualStudio.Extensions
         /// Gets the folder project items.
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns></returns>
         public static IEnumerable<ProjectItem> GetFolderProjectItems(this ProjectItem instance)
         {
             TraceService.WriteLine("ProjectItemExtensions::GetFolderProjectItems");
@@ -792,7 +790,6 @@ namespace Scorchio.VisualStudio.Extensions
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="folderName">Name of the folder.</param>
-        /// <returns></returns>
         public static ProjectItem GetFolder(
             this ProjectItem instance, 
             string folderName)
@@ -809,7 +806,6 @@ namespace Scorchio.VisualStudio.Extensions
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="folderName">Name of the folder.</param>
-        /// <returns></returns>
         public static ProjectItem GetFolderOrCreate(
             this ProjectItem instance, 
             string folderName)
@@ -826,7 +822,6 @@ namespace Scorchio.VisualStudio.Extensions
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="name">The name.</param>
-        /// <returns></returns>
         public static ProjectItem GetProjectItem(
             this ProjectItem instance,
             string name)

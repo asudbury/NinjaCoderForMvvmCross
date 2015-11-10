@@ -79,8 +79,8 @@ namespace NinjaCoder.MvvmCross.Factories
                 this.GetDroidProject());
 
             this.AddProjectIf(
-                (this.settingsService.CreatePlatformTestProjects &&
-                this.visualStudioService.DroidTestsProjectService == null),
+                this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.DroidTestsProjectService == null,
                 this.GetPlatFormTestsProject(
                            FrameworkType.NoFramework,
                            this.settingsService.TestingFramework,
@@ -94,8 +94,8 @@ namespace NinjaCoder.MvvmCross.Factories
                 this.GetiOSProject());
 
             this.AddProjectIf(
-                (this.settingsService.CreatePlatformTestProjects &&
-                this.visualStudioService.iOSTestsProjectService == null),
+                this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.iOSTestsProjectService == null,
                 this.GetPlatFormTestsProject(
                       FrameworkType.NoFramework,
                       this.settingsService.TestingFramework,
@@ -109,8 +109,8 @@ namespace NinjaCoder.MvvmCross.Factories
                  this.GetWindowsPhoneProject());
 
             this.AddProjectIf(
-                (this.settingsService.CreatePlatformTestProjects &&
-                this.visualStudioService.WindowsPhoneTestsProjectService == null),
+                this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.WindowsPhoneTestsProjectService == null,
                 this.GetPlatFormTestsProject(
                       FrameworkType.NoFramework,
                       this.settingsService.TestingFramework,
@@ -124,8 +124,8 @@ namespace NinjaCoder.MvvmCross.Factories
                 this.GetWindowsWpfProject());
 
             this.AddProjectIf(
-                (this.settingsService.CreatePlatformTestProjects &&
-                this.visualStudioService.WpfTestsProjectService == null),
+                this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.WpfTestsProjectService == null,
                 this.GetPlatFormTestsProject(
                       FrameworkType.NoFramework,
                       this.settingsService.TestingFramework,
@@ -151,7 +151,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 ProjectSuffix = ProjectSuffix.Core.GetDescription(),
                 TemplateName = ProjectTemplate.Core.GetDescription(),
                 PreSelected = true,
-                NugetCommands = new List<string>()
+                NugetCommands = this.nugetCommandsService.GetNoFrameworksCoreCommands()
             };
         }
 

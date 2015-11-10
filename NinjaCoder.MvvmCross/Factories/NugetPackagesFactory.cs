@@ -56,18 +56,33 @@ namespace NinjaCoder.MvvmCross.Factories
             {
                 new WizardStepViewModel
                 {
+                    ViewModel = this.resolverService.Resolve<ApplicationOptionsViewModel>(),
+                    ViewType = typeof(ApplicationOptionsControl)
+                },
+                new WizardStepViewModel
+                {
+                    ViewModel = this.resolverService.Resolve<NinjaCoderOptionsViewModel>(),
+                    ViewType = typeof(NinjaCoderOptionsControl),
+                },
+                new WizardStepViewModel
+                {
+                    ViewModel = this.resolverService.Resolve<ApplicationSamplesOptionsViewModel>(),
+                    ViewType = typeof(ApplicationSamplesOptionsControl),
+                },
+                new WizardStepViewModel
+                {
                     ViewModel = this.resolverService.Resolve<NugetPackagesViewModel>(),
-                    ViewType = typeof (NugetPackagesControl)
+                    ViewType = typeof(NugetPackagesControl)
                 },
                 new WizardStepViewModel
                 {
                     ViewModel = this.resolverService.Resolve<XamarinFormsLabsViewModel>(),
-                    ViewType = typeof (XamarinFormsLabsControl)
+                    ViewType = typeof(XamarinFormsLabsControl)
                 },
                 new WizardStepViewModel
                 {
                     ViewModel = this.resolverService.Resolve<NugetPackagesFinishedViewModel>(),
-                    ViewType = typeof (NugetPackagesFinishedControl)
+                    ViewType = typeof(NugetPackagesFinishedControl)
                 }
             };
 

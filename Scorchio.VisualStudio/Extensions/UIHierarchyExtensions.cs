@@ -36,7 +36,6 @@ namespace Scorchio.VisualStudio.Extensions
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="item">The item.</param>
-        /// <returns></returns>
         public static UIHierarchyItem FindHierarchyItem(
             this UIHierarchy instance,
             ProjectItem item)
@@ -49,7 +48,6 @@ namespace Scorchio.VisualStudio.Extensions
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="item">The item.</param>
-        /// <returns></returns>
         private static UIHierarchyItem FindHierarchyItem(
             UIHierarchy instance,
             object item)
@@ -77,7 +75,6 @@ namespace Scorchio.VisualStudio.Extensions
         /// </summary>
         /// <param name="items">The items.</param>
         /// <param name="item">The item.</param>
-        /// <returns></returns>
         private static UIHierarchyItem FindHierarchyItem(
             UIHierarchyItems items,
             object item)
@@ -101,7 +98,7 @@ namespace Scorchio.VisualStudio.Extensions
                 if (!items.Expanded)
                 {
                     //// Expand dont always work without this fix
-                    UIHierarchyItem parent = ((UIHierarchyItem)items.Parent);
+                    UIHierarchyItem parent = (UIHierarchyItem)items.Parent;
                     parent.Select(vsUISelectionType.vsUISelectionTypeSelect);
 
                     //// VisualStudioServices.Dte.ToolWindows.SolutionExplorer.DoDefaultAction();

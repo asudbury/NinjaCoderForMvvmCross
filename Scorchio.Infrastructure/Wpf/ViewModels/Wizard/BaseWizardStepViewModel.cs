@@ -29,7 +29,6 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
             set { this.SetProperty(ref this.isCurrentStep, value); }
         }
 
-
         /// <summary>
         /// Called when [initialize].
         /// </summary>

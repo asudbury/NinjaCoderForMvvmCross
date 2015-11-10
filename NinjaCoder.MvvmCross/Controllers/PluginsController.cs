@@ -148,7 +148,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                 if (this.SettingsService.OutputNugetCommandsToReadMe)
                 {
                     messages.Add(this.ReadMeService.GetSeperatorLine());
-                    messages.Add(string.Join(Environment.NewLine,commands));
+                    messages.Add(string.Join(Environment.NewLine, commands));
                     messages.Add(this.ReadMeService.GetSeperatorLine());
                 }
 

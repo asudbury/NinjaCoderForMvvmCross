@@ -35,22 +35,22 @@ namespace NinjaCoder.MvvmCross.Factories
                         },
                     new ImageItemWithDescription
                         {
-                            ImageUrl =  this.GetUrlPath("MasterDetailPage.png"),
+                            ImageUrl = this.GetUrlPath("MasterDetailPage.png"),
                             Name = XamarinFormsPage.MasterDetailPage.GetDescription(),
                         },
                     new ImageItemWithDescription
                         {
-                            ImageUrl =  this.GetUrlPath("NavigationPage.png"),
+                            ImageUrl = this.GetUrlPath("NavigationPage.png"),
                             Name = XamarinFormsPage.NavigationPage.GetDescription(),
                         },
                     new ImageItemWithDescription
                         {
-                            ImageUrl =  this.GetUrlPath("TabbedPage.png"),
+                            ImageUrl = this.GetUrlPath("TabbedPage.png"),
                             Name = XamarinFormsPage.TabbedPage.GetDescription(),
                         },
                     new ImageItemWithDescription
                         {
-                            ImageUrl =  this.GetUrlPath("CarouselPage.png"),
+                            ImageUrl = this.GetUrlPath("CarouselPage.png"),
                             Name = XamarinFormsPage.CarouselPage.GetDescription(),
                         }
                 };

@@ -4,7 +4,7 @@
         <id>Scorchio.NinjaCoder.MvvmCross</id>
         <version>1.0.3</version>
         <authors>Adrian Sudbury</authors>
-		    <owners>Scorchio Limited</owners>
+        <owners>Scorchio Limited</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Helper For NinjaCoder for MvvmCross and Xamarin Forms</description>
     </metadata>
@@ -14,13 +14,13 @@
     
     <file src="DroidContent\Resources\Drawable\splash.png" target="content\MonoAndroid\Resources\Drawable\splash.png" />
     <file src="DroidContent\Resources\Values\SplashStyle.xml" target="content\MonoAndroid\Resources\Values\SplashStyle.xml" />
-			
-		<!-- iOS -->
-	
-		<file src="iOSContent\AppDelegate.cs.pp" target="content\Xamarin.iOS10\AppDelegate.cs.pp" />
-		<file src="iOSContent\LinkerPleaseInclude.cs.pp" target="content\Xamarin.iOS10\LinkerPleaseInclude.cs.pp" />
-		<file src="iOSContent\Main.cs.pp" target="content\Xamarin.iOS10\Main.cs.pp" />
-		<file src="iOSContent\Setup.cs.pp" target="content\Xamarin.iOS10\Setup.cs.pp" />
+      
+    <!-- iOS -->
+  
+    <file src="iOSContent\AppDelegate.cs.pp" target="content\Xamarin.iOS10\AppDelegate.cs.pp" />
+    <file src="iOSContent\LinkerPleaseInclude.cs.pp" target="content\Xamarin.iOS10\LinkerPleaseInclude.cs.pp" />
+    <file src="iOSContent\Main.cs.pp" target="content\Xamarin.iOS10\Main.cs.pp" />
+    <file src="iOSContent\Setup.cs.pp" target="content\Xamarin.iOS10\Setup.cs.pp" />
 
     <file src="iOSContent\Views\BaseView.cs.pp" target="content\Xamarin.iOS10\Views\BaseView.cs.pp" />
 

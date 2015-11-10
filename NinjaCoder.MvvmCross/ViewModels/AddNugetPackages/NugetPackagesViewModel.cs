@@ -12,7 +12,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
     using Scorchio.Infrastructure.Wpf;
     using Scorchio.Infrastructure.Wpf.ViewModels;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
-    using Scorchio.VisualStudio.Services;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -23,7 +22,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
     /// <summary>
     ///  Defines the NugetPackagesViewModel type.
     /// </summary>
-    public class NugetPackagesViewModel : BaseWizardStepViewModel
+    public class NugetPackagesViewModel : NugetPackagesBaseViewModel
     {
         /// <summary>
         /// The application service.
@@ -36,14 +35,14 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         private readonly ISettingsService settingsService;
 
         /// <summary>
-        /// The plugins service.
-        /// </summary>
-        private readonly IPluginsService pluginsService;
-
-        /// <summary>
         /// The plugin factory.
         /// </summary>
         private readonly IPluginFactory pluginFactory;
+
+        /// <summary>
+        /// The caching service.
+        /// </summary>
+        private readonly ICachingService cachingService;
 
         /// <summary>
         /// The core nuget packages.
@@ -66,21 +65,26 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         /// <param name="applicationService">The application service.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="pluginsService">The plugins service.</param>
+        /// <param name="projectFactory">The project factory.</param>
         /// <param name="pluginFactory">The plugin factory.</param>
+        /// <param name="cachingService">The caching service.</param>
         public NugetPackagesViewModel(
             IApplicationService applicationService,
             ISettingsService settingsService,
             IPluginsService pluginsService,
-            IPluginFactory pluginFactory)
+            IProjectFactory projectFactory,
+            IPluginFactory pluginFactory,
+            ICachingService cachingService)
+            : base(
+                settingsService,
+                pluginsService,
+                projectFactory,
+                pluginFactory)
         {
-            TraceService.WriteLine("NugetServicesViewModel::Constructor Start");
-
             this.applicationService = applicationService;
             this.settingsService = settingsService;
-            this.pluginsService = pluginsService;
             this.pluginFactory = pluginFactory;
-
-            TraceService.WriteLine("NugetServicesViewModel::Constructor End");
+            this.cachingService = cachingService;
         }
 
         /// <summary>
@@ -88,11 +92,17 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         /// </summary>
         public override void OnInitialize()
         {
-            Plugins corePlugins = this.pluginFactory.GetPlugins(this.settingsService.NugetPackagesUri);
-            this.CoreNugetPackages = this.GetPackages(corePlugins);
+            if (this.CoreNugetPackages == null)
+            {
+                Plugins corePlugins = this.pluginFactory.GetPlugins(this.settingsService.NugetPackagesUri);
+                this.CoreNugetPackages = this.GetPackages(corePlugins);
+            }
 
-            Plugins formsPlugins = this.pluginFactory.GetPlugins(this.settingsService.XamarinFormsNugetPackagesUri);
-            this.FormsNugetPackages = this.GetPackages(formsPlugins);
+            if (this.FormsNugetPackages == null)
+            {
+                Plugins formsPlugins = this.pluginFactory.GetPlugins(this.settingsService.XamarinFormsNugetPackagesUri);
+                this.FormsNugetPackages = this.GetPackages(formsPlugins);
+            }
 
             FrameworkType frameworkType = this.applicationService.GetApplicationFramework();
 
@@ -101,7 +111,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
             {
                 this.DisplayFormsNugetPackages = true;
             }
-
             else
             {
                 this.DisplayFormsNugetPackages = false;
@@ -117,15 +126,18 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         /// </returns>
         public override RouteModifier OnNext()
         {
-            IEnumerable<Plugin> plugins = this.GetRequiredPackages();
+            this.cachingService.XamarinFormsLabsNugetPackageRequested = true;
+
+            IEnumerable<Plugin> plugins = this.GetRequiredNugetPackages();
 
             if (plugins.FirstOrDefault(x => x.FriendlyName.Contains("Xamarin Forms Labs")) == null)
             {
+                this.cachingService.XamarinFormsLabsNugetPackageRequested = false;
                 return new RouteModifier
                 {
                     ExcludeViewTypes = new List<Type>
                                            {
-                                               typeof(XamarinFormsLabsControl), 
+                                               typeof(XamarinFormsLabsControl)
                                            }
                 };
             }
@@ -161,68 +173,27 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         }
 
         /// <summary>
-        /// Gets the required packages.
-        /// </summary>
-        /// <returns>The required packages.</returns>
-        public IEnumerable<Plugin> GetRequiredPackages()
-        {
-            TraceService.WriteLine("NugetPackagesViewModel::GetRequiredPackages");
-
-            IEnumerable<SelectableItemViewModel<Plugin>> viewModels = this.CoreNugetPackages.Concat(this.FormsNugetPackages);
-                                   
-            return viewModels.ToList()
-                .Where(x => x.IsSelected)
-                .Select(x => x.Item).ToList();
-        }
-
-        /// <summary>
         /// Gets the nuget web site command.
         /// </summary>
         public ICommand NugetWebSiteCommand
         {
             get { return new RelayCommand(this.DisplayWebPage); }
         }
-
-
+ 
         /// <summary>
-        /// Gets the nuget commands.
+        /// Gets the nuget packages URI.
         /// </summary>
-        /// <returns></returns>
-        public string GetNugetCommands()
+        protected override string NugetPackagesUri
         {
-            List<Plugin> requiredPlugins = this.GetRequiredPackages().ToList();
-
-            string commands = string.Empty;
-
-            if (requiredPlugins.Any())
-            {
-                commands += string.Join(
-                    Environment.NewLine,
-                    this.pluginsService.GetNugetCommands(requiredPlugins,
-                    this.settingsService.UsePreReleaseXamarinFormsNugetPackages));
-            }
-
-            return commands;
+            get { return this.settingsService.NugetPackagesUri; }
         }
 
         /// <summary>
-        /// Gets the nuget messages.
+        /// Gets the get nuget packages.
         /// </summary>
-        /// <returns></returns>
-        public List<string> GetNugetMessages()
+        protected override IEnumerable<SelectableItemViewModel<Plugin>> NugetPackages
         {
-            List<Plugin> requiredPlugins = this.GetRequiredPackages().ToList();
-
-            List<string> messages = new List<string>();
-
-            if (requiredPlugins.Any())
-            {
-                messages.Add(string.Empty);
-
-                messages.AddRange(this.pluginsService.GetNugetMessages(requiredPlugins));
-            }
-
-            return messages;
+            get { return this.CoreNugetPackages.Concat(this.FormsNugetPackages); }
         }
 
         /// <summary>
@@ -242,8 +213,10 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         {
             ObservableCollection<SelectableItemViewModel<Plugin>> viewModels = new ObservableCollection<SelectableItemViewModel<Plugin>>();
 
+            //// notice we can packages with a blank category!
             foreach (SelectableItemViewModel<Plugin> viewModel in from plugin in plugins.Items
-                                                                  where plugin.Frameworks.Contains(this.settingsService.FrameworkType)
+                                                                  where plugin.Frameworks.Contains(this.settingsService.FrameworkType) &&
+                                                                  plugin.Category == string.Empty
                                                                   select new SelectableItemViewModel<Plugin>(plugin))
             {
                 viewModels.Add(viewModel);

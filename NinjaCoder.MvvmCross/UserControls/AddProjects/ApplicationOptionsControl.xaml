@@ -1,0 +1,71 @@
+﻿
+<userControls:BaseUserControl x:Class="NinjaCoder.MvvmCross.UserControls.AddProjects.ApplicationOptionsControl"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:userControls="clr-namespace:NinjaCoder.MvvmCross.UserControls"
+                              xmlns:userControls1="clr-namespace:Scorchio.Infrastructure.Wpf.UserControls;assembly=Scorchio.Infrastructure">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\..\Resources\App.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Image Grid.Row="0"
+               Grid.RowSpan="3"
+               Grid.Column="0"
+               VerticalAlignment="Top"
+               Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/lefthand.png" />
+
+        <StackPanel Grid.Row="0"
+                    Grid.Column="1"
+                    Width="500"
+                    Height="420"
+                    Orientation="Vertical">
+
+            <Separator Margin="5" />
+
+            <Label>Select the Application options to suit your needs.</Label>
+
+            <Label />
+
+            <userControls1:PickListView Width="500"
+                                        Height="100"
+                                        DataContext="{Binding AuthenticationPlugins}"
+                                        GroupBoxTitle="Authentication" />
+            <Label />
+
+            <userControls1:PickListView Width="500"
+                                        Height="100"
+                                        DataContext="{Binding LocalStoragePlugins}"
+                                        GroupBoxTitle="Local Storage" />
+
+            <Label />
+
+            <userControls1:PickListView Width="500"
+                                        Height="150"
+                                        DataContext="{Binding CloudServicesPlugins}"
+                                        GroupBoxTitle="Cloud Services" />
+            <Label />
+
+        </StackPanel>
+
+        <Image Grid.Row="2"
+               Grid.Column="1"
+               Width="150"
+               Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/bottom.png" />
+    </Grid>
+
+</userControls:BaseUserControl>

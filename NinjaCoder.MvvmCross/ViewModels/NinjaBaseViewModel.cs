@@ -17,16 +17,7 @@ namespace NinjaCoder.MvvmCross.ViewModels
     public abstract class NinjaBaseViewModel : BaseDialogViewModel
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NinjaBaseViewModel" /> class.
-        /// </summary>
-        /// <param name="settingsService">The settings service.</param>
-        protected NinjaBaseViewModel(ISettingsService settingsService)
-        {
-            this.SettingsService = settingsService;
-        }
-
-        /// <summary>
-        /// Gets the settings service.
+        /// Gets or sets the settings service.
         /// </summary>
         protected ISettingsService SettingsService { get; set; }
 
@@ -52,6 +43,15 @@ namespace NinjaCoder.MvvmCross.ViewModels
         protected Theme CurrentTheme
         {
             get { return this.SettingsService.Theme == "Dark" ? Theme.Dark : Theme.Light; }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NinjaBaseViewModel" /> class.
+        /// </summary>
+        /// <param name="settingsService">The settings service.</param>
+        protected NinjaBaseViewModel(ISettingsService settingsService)
+        {
+            this.SettingsService = settingsService;
         }
     }
 }
