@@ -456,12 +456,16 @@ namespace NinjaCoder.MvvmCross.Services
             string text,
             string replacementText)
         {
+            TraceService.WriteLine("NugetService::ReplaceProjectItemText");
+
             if (projectService != null)
             {
                 IProjectItemService projectItemService = projectService.GetProjectItem(projectItem);
 
                 if (projectItemService != null)
                 {
+                    TraceService.WriteLine("Replacing " + text + " with " + replacementText);
+
                     projectItemService.ReplaceText(text, replacementText);
                 }
             }
@@ -472,12 +476,19 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal void ExecutePostNugetCommands()
         {
+            TraceService.WriteLine("NugetService::ExecutePostNugetCommands");
+
             IEnumerable<Command> postNugetCommands = this.cachingService.PostNugetCommands;
 
             if (postNugetCommands != null)
             {
                 foreach (Command postNugetCommand in postNugetCommands)
                 {
+                    TraceService.WriteLine("Platform=" + postNugetCommand.PlatForm);
+                    TraceService.WriteLine("CommandType=" + postNugetCommand.CommandType);
+                    TraceService.WriteLine("Platform=" + postNugetCommand.PlatForm);
+                    TraceService.WriteLine("Name=" + postNugetCommand.Name);
+
                     IProjectService projectService = this.visualStudioService.GetProjectServiceBySuffix(postNugetCommand.PlatForm);
 
                     if (projectService != null)
@@ -502,12 +513,21 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal void ExecutePostNugetFileOperations()
         {
+            TraceService.WriteLine("NugetService::ExecutePostNugetFileOperations");
+
             IEnumerable<FileOperation> postNugetFileOperations = this.cachingService.PostNugetFileOperations;
 
             if (postNugetFileOperations != null)
             {
                 foreach (FileOperation postNugetFileOperation in postNugetFileOperations)
                 {
+                    TraceService.WriteLine("Platform=" + postNugetFileOperation.PlatForm);
+                    TraceService.WriteLine("CommandType=" + postNugetFileOperation.CommandType);
+                    TraceService.WriteLine("Directory=" + postNugetFileOperation.Directory);
+                    TraceService.WriteLine("File=" + postNugetFileOperation.File);
+                    TraceService.WriteLine("From=" + postNugetFileOperation.From);
+                    TraceService.WriteLine("To="  + postNugetFileOperation.To);
+
                     IProjectItemService fileItemService = null;
 
                     IProjectService projectService = this.visualStudioService.GetProjectServiceBySuffix(postNugetFileOperation.PlatForm);
@@ -522,26 +542,47 @@ namespace NinjaCoder.MvvmCross.Services
                             {
                                 fileItemService = projectItemService.GetProjectItem(postNugetFileOperation.File);
                             }
+
+                            else
+                            {
+                                TraceService.WriteError("Directory " + postNugetFileOperation.Directory + " not found");
+                            }
                         }
 
                         else
                         {
                             fileItemService = projectService.GetProjectItem(postNugetFileOperation.File);
                         }
-                        
+
                         if (fileItemService != null)
                         {
                             switch (postNugetFileOperation.CommandType)
                             {
                                 case "ReplaceText":
                                     fileItemService.ReplaceText(postNugetFileOperation.From, postNugetFileOperation.To);
+                                    TraceService.WriteLine("**Replaced**");
                                     break;
 
                                 case "Properties":
-                                    fileItemService.ProjectItem.Properties.Item(postNugetFileOperation.From).Value = postNugetFileOperation.To;
+                                    if (fileItemService.ProjectItem != null)
+                                    {
+                                        fileItemService.ProjectItem.Properties.Item(postNugetFileOperation.From).Value = postNugetFileOperation.To;
+                                        TraceService.WriteLine("**Properties Updates**");
+                                    }
+
                                     break;
-                            }  
+                            }
                         }
+
+                        else
+                        {
+                            TraceService.WriteError("File " + postNugetFileOperation.File + " not found");
+                        }
+                    }
+
+                    else
+                    {
+                        TraceService.WriteError("Platform " + postNugetFileOperation.PlatForm + " not found");
                     }
                 }
             }

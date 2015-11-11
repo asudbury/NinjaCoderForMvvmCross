@@ -9,24 +9,24 @@
         <description>Helper For MvvmCross and Xamarin Forms</description>
     </metadata>
     <files>
-		<!-- Forms -->
-		
-	    <file src="FormsContent\Views\TodoListView.xaml.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Views\TodoListView.xaml.cs.pp" />
+        <!-- Forms -->
+        
+        <file src="FormsContent\Views\TodoListView.xaml.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Views\TodoListView.xaml.cs.pp" />
         <file src="FormsContent\Views\TodoListView.xaml.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Views\TodoListView.xaml.pp" />
         <file src="FormsContent\Views\TodoItemView.xaml.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Views\TodoItemView.xaml.cs.pp" />
         <file src="FormsContent\Views\TodoItemView.xaml.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Views\TodoItemView.xaml.pp" />
-		<file src="FormsContent\NinjaSQLiteTodoReadMe.txt" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\NinjaSQLiteTodoReadMe.txt" />
-		
-		<!-- iOS -->
-        <file src="iOSContent\DependencyServices\SqliteConnectionServiceiOS.cs.pp" target="content\MonoTouch\DependencyServices\SqliteConnectionServiceiOS.cs.pp" />
-		<file src="iOSContent\NinjaSQLiteTodoReadMe.txt" target="content\MonoTouch\NinjaSQLiteTodoReadMe.txt" />
-		
-		<!-- Droid -->
+        <file src="FormsContent\NinjaSQLiteTodoReadMe.txt" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\NinjaSQLiteTodoReadMe.txt" />
+        
+        <!-- iOS -->
+        <file src="iOSContent\DependencyServices\SqliteConnectionServiceiOS.cs.pp" target="content\Xamarin.iOS10\DependencyServices\SqliteConnectionServiceiOS.cs.pp" />
+        <file src="iOSContent\NinjaSQLiteTodoReadMe.txt" target="content\Xamarin.iOS10\NinjaSQLiteTodoReadMe.txt" />
+        
+        <!-- Droid -->
        <file src="DroidContent\DependencyServices\SqliteConnectionServiceDroid.cs.pp" target="content\MonoAndroid\DependencyServices\SqliteConnectionServiceDroid.cs.pp" />
-	   <file src="DroidContent\NinjaSQLiteTodoReadMe.txt" target="content\MonoAndroid\NinjaSQLiteTodoReadMe.txt" />
-		
-		<!-- WindowsPhone -->
+       <file src="DroidContent\NinjaSQLiteTodoReadMe.txt" target="content\MonoAndroid\NinjaSQLiteTodoReadMe.txt" />
+        
+        <!-- WindowsPhone -->
        <file src="WindowsPhoneContent\DependencyServices\SqliteConnectionServiceWindowsPhone.cs.pp" target="content\wp8\DependencyServices\SqliteConnectionServiceWindowsPhone.cs.pp" />
-	   <file src="WindowsPhoneContent\NinjaSQLiteTodoReadMe.txt" target="content\wp8\NinjaSQLiteTodoReadMe.txt" />
+       <file src="WindowsPhoneContent\NinjaSQLiteTodoReadMe.txt" target="content\wp8\NinjaSQLiteTodoReadMe.txt" />
     </files>
 </package>

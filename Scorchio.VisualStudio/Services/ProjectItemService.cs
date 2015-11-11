@@ -251,7 +251,10 @@ namespace Scorchio.VisualStudio.Services
             string text, 
             string replacementText)
         {
-           this.projectItem.ReplaceText(text, replacementText);
+            if (this.projectItem != null)
+            {
+                this.projectItem.ReplaceText(text, replacementText);
+            }
         }
 
         /// <summary>

@@ -4,16 +4,22 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-[assembly: Dependency (typeof (SqliteConnectionServiceiOS))]
+using $rootnamespace$.DependencyServices;
+
+[assembly: Xamarin.Forms.Dependency (typeof (SqliteConnectionServiceiOS))]
 
 namespace $rootnamespace$.DependencyServices
 {
+    using System;
+    using System.IO;
+    using $rootnamespace$.Core.Services;
     using SQLite.Net;
+    using SQLite.Net.Platform.XamarinIOS;
 
     /// <summary>
     /// Defines the SqliteConnectionServiceiOS type.
     /// </summary>
-    public class SqliteConnectionServiceiOS ISqliteConnectionService
+    public class SqliteConnectionServiceiOS : ISqliteConnectionService
     {
         /// <summary>
         /// Gets the connection.
@@ -31,7 +37,9 @@ namespace $rootnamespace$.DependencyServices
                 File.Copy (sqliteFilename, path);
             }
 
-            SQLiteConnection connection = new SQLite.SQLiteConnection(path);
+            SQLitePlatformIOS sqLitePlatformIos = new SQLitePlatformIOS();
+
+            SQLiteConnection connection = new SQLiteConnection(sqLitePlatformIos, path);
 
             return connection;
         }

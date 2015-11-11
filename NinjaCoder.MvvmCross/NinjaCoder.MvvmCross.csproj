@@ -180,11 +180,11 @@
     <Compile Include="UserControls\AddPlugins\PluginsControl.xaml.cs">
       <DependentUpon>PluginsControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\AddProjects\NinjaCoderOptionsControl.xaml.cs">
-      <DependentUpon>NinjaCoderOptionsControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\AddProjects\ApplicationSamplesOptionsControl.xaml.cs">
       <DependentUpon>ApplicationSamplesOptionsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AddProjects\NinjaCoderOptionsControl.xaml.cs">
+      <DependentUpon>NinjaCoderOptionsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\AddProjects\ApplicationOptionsControl.xaml.cs">
       <DependentUpon>ApplicationOptionsControl.xaml</DependentUpon>
@@ -316,11 +316,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\AddProjects\NinjaCoderOptionsControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UserControls\AddProjects\ApplicationSamplesOptionsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AddProjects\NinjaCoderOptionsControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

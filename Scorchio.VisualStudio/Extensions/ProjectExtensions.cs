@@ -115,16 +115,24 @@ namespace Scorchio.VisualStudio.Extensions
         {
             TraceService.WriteLine("ProjectExtensions::GetFolder project=" + instance.Name + " folderName=" + folderName);
 
-            List<ProjectItem> projectItems = instance.ProjectItems != null ? instance.ProjectItems.Cast<ProjectItem>().ToList() : null;
-
-            if (projectItems != null)
+            try
             {
-                return projectItems
-                    .Where(projectItem => projectItem.Kind == VSConstants.VsProjectItemKindPhysicalFolder)
-                    .FirstOrDefault(projectItem => projectItem.Name == folderName);
-            }
+                List<ProjectItem> projectItems = instance.ProjectItems != null ? instance.ProjectItems.Cast<ProjectItem>().ToList() : null;
 
-            return null;
+                if (projectItems != null)
+                {
+                    return projectItems
+                        .Where(projectItem => projectItem.Kind == VSConstants.VsProjectItemKindPhysicalFolder)
+                        .FirstOrDefault(projectItem => projectItem.Name == folderName);
+                }
+
+                return null;
+            }
+            catch (Exception exception)
+            {
+                TraceService.WriteError("exception=" + exception.Message);
+                return null;
+            }
         }
 
         /// <summary>
