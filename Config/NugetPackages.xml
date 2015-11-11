@@ -15,7 +15,7 @@
       <Framework>MvvmCross and Xamarin Forms</Framework>
     </Frameworks>
     <Description><![CDATA[
-    	This package includes HttpClient for sending requests over HTTP, as well as HttpRequestMessage and HttpResponseMessage for processing HTTP messages.
+        This package includes HttpClient for sending requests over HTTP, as well as HttpRequestMessage and HttpResponseMessage for processing HTTP messages.
     ]]></Description>
   </Plugin>
 
@@ -46,6 +46,10 @@
               <Description>A Todo example of using SQLite.Net-PCL.</Description>
               <Platforms>
                   <Platform>Core</Platform>
+                  <Platform>Forms</Platform>
+                  <Platform>iOS</Platform>
+                  <Platform>Droid</Platform>
+                  <Platform>WindowsPhone</Platform>
               </Platforms>
               <Frameworks>
                   <Framework>No Framework</Framework>
@@ -57,15 +61,20 @@
                   <Command Platform="Core" Type="RemoveFolder" Name="Helpers"/>
               </Commands>
               <FileOperations>
-                  <FileOperation Platform="Forms" Type="ReplaceText" Name="" File="SqliteView.xaml" Directory="Views" From="Forms.Core" To="Core" />
-                  <FileOperation Platform="Forms" Type="Properties" Name="" File="SqliteView.xaml" Directory="Views" From="BuildAction" To="3" />
+                  <FileOperation Platform="Droid" Type="ReplaceText" Name="" File="SqliteConnectionServiceDroid.cs" Directory="DependencyServices" From="Droid.Core" To="Core" />
+                  <FileOperation Platform="iOS" Type="ReplaceText" Name="" File="SqliteConnectionServiceiOS.cs" Directory="DependencyServices" From="iOS.Core" To="Core" />
+                  <FileOperation Platform="WindowsPhone" Type="ReplaceText" Name="" File="SqliteConnectionServiceWindowsPhone.cs" Directory="DependencyServices" From="WindowsPhone.Core" To="Core" />
+                  <FileOperation Platform="Forms" Type="Properties" Name="" File="TodoItemView.xaml" Directory="Views" From="BuildAction" To="3" />
+                  <FileOperation Platform="Forms" Type="ReplaceText" Name="" File="TodoItemView.xaml" Directory="Views" From="Forms.Core" To="Core" />
+                  <FileOperation Platform="Forms" Type="Properties" Name="" File="TodoListView.xaml" Directory="Views" From="BuildAction" To="3" />
+                  <FileOperation Platform="Forms" Type="ReplaceText" Name="" File="TodoListView.xaml" Directory="Views" From="Forms.Core" To="Core" />
               </FileOperations>
           </NinjaSample>
       </NinjaSamples>
     <Description><![CDATA[
-	SQLite.Net PCL is an open source, minimal library to allow .NET and Mono applications to store data in SQLite databases.
+    SQLite.Net PCL is an open source, minimal library to allow .NET and Mono applications to store data in SQLite databases.
 
-	This is a fork of the original sqlite-net project, which aims to cleanup and improve the code and deliver the package as PCL assemblies with some additional platform-specific implementations.
+    This is a fork of the original sqlite-net project, which aims to cleanup and improve the code and deliver the package as PCL assemblies with some additional platform-specific implementations.
 
     ]]></Description>
   </Plugin>
@@ -83,7 +92,7 @@
       <Framework>MvvmCross and Xamarin Forms</Framework>
     </Frameworks>
     <Description><![CDATA[
-	The MVVM Light Toolkit is a set of components helping people to get started in the Model-View-ViewModel pattern.    
+    The MVVM Light Toolkit is a set of components helping people to get started in the Model-View-ViewModel pattern.    
      ]]></Description>
   </Plugin>
 
@@ -121,7 +130,7 @@
     </Frameworks>
     <Category>Authentication</Category>
     <Description><![CDATA[
-	Portable Client Library and HttpClient based OAuth library, including all platform(for PCL).    
+    Portable Client Library and HttpClient based OAuth library, including all platform(for PCL).    
     ]]></Description>
   </Plugin>
 
@@ -138,15 +147,15 @@
       <Framework>MvvmCross and Xamarin Forms</Framework>
     </Frameworks>
     <Description><![CDATA[
-	PCL Crypto provides a consistent, portable set of crypto APIs for .NET, Windows Phone 8.0 & 8.1, Windows Store, Xamarin.iOS, Xamarin.Android, and Silverlight. 
+    PCL Crypto provides a consistent, portable set of crypto APIs for .NET, Windows Phone 8.0 & 8.1, Windows Store, Xamarin.iOS, Xamarin.Android, and Silverlight. 
 
-	This makes it easier to create cross-platform .NET libraries and apps. 
+    This makes it easier to create cross-platform .NET libraries and apps. 
 
-	Crypto functionality includes asymmetric and symmetric encryption and signatures, and key derivation. 
+    Crypto functionality includes asymmetric and symmetric encryption and signatures, and key derivation. 
 
-	PCLCrypto calls into each native platform's crypto API for maximum performance. 
+    PCLCrypto calls into each native platform's crypto API for maximum performance. 
 
-	For RSA operations this produces a 2-100X improvement in performance on Android and iOS over using the standard RSACryptoServiceProvider API.
+    For RSA operations this produces a 2-100X improvement in performance on Android and iOS over using the standard RSACryptoServiceProvider API.
     
      ]]></Description>
   </Plugin>
@@ -164,9 +173,9 @@
       <Framework>MvvmCross and Xamarin Forms</Framework>
     </Frameworks>
     <Description><![CDATA[
-	A library for consuming REST APIs from Portable Class Libraries (.NET 4.5, Silverlight 5, Windows Phone 8.x, and Windows 8.x). 
+    A library for consuming REST APIs from Portable Class Libraries (.NET 4.5, Silverlight 5, Windows Phone 8.x, and Windows 8.x). 
 
-	Designed to be partially drop-in compatible with RestSharp.
+    Designed to be partially drop-in compatible with RestSharp.
     ]]></Description>
   </Plugin>
 
@@ -183,12 +192,12 @@
       <Framework>MvvmCross and Xamarin Forms</Framework>
     </Frameworks>
     <Description><![CDATA[
-    	Stop writing monolithic applications that make you feel like you have to move mountains to make the simplest of changes. 
+        Stop writing monolithic applications that make you feel like you have to move mountains to make the simplest of changes. 
 
-	Ninject helps you use the technique of dependency injection to break your applications into loosely-coupled, highly-cohesive components, 
-	and then glue them back together in a flexible manner.
+    Ninject helps you use the technique of dependency injection to break your applications into loosely-coupled, highly-cohesive components, 
+    and then glue them back together in a flexible manner.
 
-	Portable version of Ninject for .NET4, SL4, WP8, Wpa 8.1, Win8, iOS (Classic and Unified) and Android
+    Portable version of Ninject for .NET4, SL4, WP8, Wpa 8.1, Win8, iOS (Classic and Unified) and Android
 
     ]]></Description>
   </Plugin>
@@ -206,7 +215,7 @@
       <Framework>MvvmCross and Xamarin Forms</Framework>
     </Frameworks>
     <Description><![CDATA[
-    	Json.NET is a popular high-performance JSON framework for .NET
+        Json.NET is a popular high-performance JSON framework for .NET
     ]]></Description>
   </Plugin>
 
@@ -240,9 +249,9 @@
     <Description><![CDATA[
         Adds official StyleCop MSBuild targets to your project for running StyleCop analysis with every build. 
 
-	Includes official StyleCop binaries. Works both on a developer workstation (with or without Visual Studio) and on a build server. 
+    Includes official StyleCop binaries. Works both on a developer workstation (with or without Visual Studio) and on a build server. 
 
-	Does not require installation of StyleCop on any machine. Compatible with NuGet package restore. 
+    Does not require installation of StyleCop on any machine. Compatible with NuGet package restore. 
     ]]></Description>
   </Plugin>
 
@@ -333,11 +342,11 @@
           </NinjaSample>
       </NinjaSamples>
     <Description><![CDATA[
-	This client library enables client applications to connect to Windows Azure Mobile Services. 
+    This client library enables client applications to connect to Windows Azure Mobile Services. 
 
-	Mobile Services allows you to develop an app with a scalable and secure backend hosted in Windows Azure. 
+    Mobile Services allows you to develop an app with a scalable and secure backend hosted in Windows Azure. 
 
-	You can incorporate structured storage, user authentication and push notifications in minutes. 
+    You can incorporate structured storage, user authentication and push notifications in minutes. 
     ]]></Description>
   </Plugin>
 
@@ -357,7 +366,7 @@
       <Framework>MvvmCross and Xamarin Forms</Framework>
     </Frameworks>
     <Description><![CDATA[
-	An implementation of ISuspensionDriver that uses Akavache to save app state on tombstoning.
+    An implementation of ISuspensionDriver that uses Akavache to save app state on tombstoning.
     ]]></Description>
   </Plugin>
 
@@ -374,7 +383,7 @@
       <Framework>MvvmCross and Xamarin Forms</Framework>
     </Frameworks>
     <Description><![CDATA[
-	An HttpClient implementation for mobile apps that efficiently schedules and prioritizes requests.    
+    An HttpClient implementation for mobile apps that efficiently schedules and prioritizes requests.    
     ]]></Description>
   </Plugin>
 
@@ -395,7 +404,7 @@
     </Frameworks>
     <Category>BuildOptions</Category>
     <Description><![CDATA[
-    	Insights for your Apps.
+        Insights for your Apps.
      ]]></Description>
   </Plugin>
 
@@ -419,8 +428,8 @@
       <Framework>MvvmCross and Xamarin Forms</Framework>
     </Frameworks>
     <Description><![CDATA[
-    	AutoFixture makes it easier for developers to do Test-Driven Development by automating non-relevant Test Fixture Setup, 
-     	allowing the Test Developer to focus on the essentials of each test case.
+        AutoFixture makes it easier for developers to do Test-Driven Development by automating non-relevant Test Fixture Setup, 
+        allowing the Test Developer to focus on the essentials of each test case.
     ]]></Description>
   </Plugin>
 
@@ -441,8 +450,8 @@
     </Frameworks>
     <Category>LocalStorage</Category>
     <Description><![CDATA[
-	Lightweight multi-platform ORM for mobile, desktop and servers. 
-	A data provider is required to use this library. Providers for Sqlite, SQL Server and MySql are available on Nuget.
+    Lightweight multi-platform ORM for mobile, desktop and servers. 
+    A data provider is required to use this library. Providers for Sqlite, SQL Server and MySql are available on Nuget.
     ]]></Description>
   </Plugin>
 
@@ -463,7 +472,7 @@
     </Frameworks>
     <Category>Authentication</Category>
     <Description><![CDATA[
-    	The Simplest OAuth client for Xamarin.
+        The Simplest OAuth client for Xamarin.
     ]]></Description>
   </Plugin>
   
@@ -483,7 +492,7 @@
       <Framework>MvvmCross and Xamarin Forms</Framework>
     </Frameworks>
     <Description><![CDATA[
-    	Xamarin and Windows plugin to make a phone call, send a sms or send an e-mail using the default messaging applications on the different Xamarin and Windows mobile platforms.
+        Xamarin and Windows plugin to make a phone call, send a sms or send an e-mail using the default messaging applications on the different Xamarin and Windows mobile platforms.
     ]]></Description>
   </Plugin>
 
