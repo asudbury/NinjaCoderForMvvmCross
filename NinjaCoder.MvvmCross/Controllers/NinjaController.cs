@@ -38,9 +38,18 @@ namespace NinjaCoder.MvvmCross.Controllers
         public static void Startup()
         {
             TraceService.WriteLine("NinjaController::Startup");
-            
+        }
+
+        /// <summary>
+        /// Sets the working directory.
+        /// </summary>
+        /// <param name="location">The location.</param>
+        public static void SetWorkingDirectory(string location)
+        {
+            TraceService.WriteLine("NinjaController::SetWorkingDirectory " + location);
+
             ResolveController<ApplicationController>(null)
-                .CheckForUpdatesIfReady();
+                .SetWorkingDirectory(location);
         }
 
         /// <summary>
@@ -88,6 +97,31 @@ namespace NinjaCoder.MvvmCross.Controllers
             TraceService.WriteLine("NinjaController::RunNugetPackagesController");
 
             ResolveController<NugetPackagesController>(dte2)
+                .Run();
+        }
+
+
+        /// <summary>
+        /// Runs the dependency services controller.
+        /// </summary>
+        /// <param name="dte2">The dte2.</param>
+        public static void RunDependencyServicesController(DTE2 dte2 = null)
+        {
+            TraceService.WriteLine("NinjaController::RunDependencyServicesController");
+
+            ResolveController<DependencyServicesController>(dte2)
+                .Run();
+        }
+
+        /// <summary>
+        /// Runs the customer renderer controller.
+        /// </summary>
+        /// <param name="dte2">The dte2.</param>
+        public static void RunCustomerRendererController(DTE2 dte2 = null)
+        {
+            TraceService.WriteLine("NinjaController::RunCustomerRendererController");
+
+            ResolveController<CustomRendererController>(dte2)
                 .Run();
         }
 
@@ -174,7 +208,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                 if (controller != null)
                 {
                     TraceService.WriteLine("**Setting DTE2**");
-                    controller.DTE2 = dte2;
+                    controller.SetDte2(dte2);
                 }
             }
 
@@ -216,7 +250,9 @@ namespace NinjaCoder.MvvmCross.Controllers
                     container.Register<ITranslator<string, CodeConfig>>(new CodeConfigTranslator());
                     container.Register<ITranslator<string, CodeSnippet>>(new CodeSnippetTranslator());
                     container.Register<ITranslator<XElement, Plugin>>(new PluginTranslator());
-                    container.Register<ITranslator<string, Plugins>>(new PluginsTranslator(new PluginTranslator()));
+                    container.Register<ITranslator<string, Plugins>>(new PluginsTranslator());
+                    container.Register<ITranslator<string, CommandsList>>(new CommandsListTranslator());
+                    container.Register<ITranslator<string, CustomRenderers>>(new CustomRenderersTranslator());
 
                     //// file io abstraction
                     container.Register<IFileSystem>(new FileSystem());

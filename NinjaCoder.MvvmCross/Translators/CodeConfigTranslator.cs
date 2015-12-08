@@ -11,6 +11,7 @@ namespace NinjaCoder.MvvmCross.Translators
 
     using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     ///  Defines the CodeConfigTranslator type.
@@ -24,6 +25,8 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <returns>The translated object.</returns>
         public CodeConfig Translate(string @from)
         {
+            TraceService.WriteLine("CodeConfigTranslator::Translate " + @from);
+
             if (File.Exists(from))
             {
                 FileStream fileStream = new FileStream(from, FileMode.Open, FileAccess.Read);

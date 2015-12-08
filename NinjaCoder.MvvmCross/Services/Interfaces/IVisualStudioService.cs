@@ -182,5 +182,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets a value indicating whether [solution already created].
         /// </summary>
         bool SolutionAlreadyCreated { get; }
+
+        /// <summary>
+        /// Gets the text transformation service.
+        /// </summary>
+        /// <returns></returns>
+        ITextTransformationService GetTextTransformationService();
     }
 }

@@ -236,9 +236,11 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The messages.</returns>
         public static IEnumerable<string> AddItemTemplateToProjects(
             this Solution2 instance,
-            IEnumerable<ItemTemplateInfo> templateInfos) 
+            IEnumerable<ItemTemplateInfo> templateInfos)
         {
-            TraceService.WriteLine("SolutionExtensions::AddItemTemplateToProjects");
+            string method = "SolutionExtensions::AddItemTemplateToProjects ";
+
+            TraceService.WriteLine(method);
 
             List<string> messages = new List<string>();
 
@@ -254,7 +256,7 @@ namespace Scorchio.VisualStudio.Extensions
                 {
                     string context = project.Name + "  (template=" + info.TemplateName + ") fileName=" + info.FileName;
 
-                    TraceService.WriteLine("AddItemTemplateToProjects"  + context);
+                    TraceService.WriteLine(method  + context);
 
                     try
                     {
@@ -265,18 +267,18 @@ namespace Scorchio.VisualStudio.Extensions
                     }
                     catch (Exception exception)
                     {
-                        TraceService.WriteError(context + " exception=" + exception.Message);
-                        messages.Add(context + " exception=" + exception.Message);
+                        TraceService.WriteError(method + context + " exception=" + exception.Message);
+                        messages.Add(method + context + " exception=" + exception.Message);
                     }
                 }
                 else
                 {
-                    TraceService.WriteError("AddItemTemplateToProjects cannot find project " + info.ProjectSuffix);
+                    TraceService.WriteError(method + " cannot find project " + info.ProjectSuffix);
 
                     foreach (string projectName in projectItems
                         .Select(projectItem => projectItem.Name))
                     {
-                        TraceService.WriteError("AddItemTemplateToProjects project " + projectName);
+                        TraceService.WriteError(method + " project " + projectName);
                         messages.Add(info.FileName + " added to " + projectName + " project (template=" + info.TemplateName + ")");
                     }
                 }

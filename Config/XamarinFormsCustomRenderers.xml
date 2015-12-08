@@ -1,0 +1,105 @@
+<CustomRenderers>
+    <HelpLink>http://developer.xamarin.com/guides/cross-platform/xamarin-forms/custom-renderer</HelpLink>
+    
+    <CustomRendererGroup Name='Pages'>
+        <CustomRenderer>
+            <Name>PageRenderer</Name>
+        </CustomRenderer>
+        <CustomRenderer>
+            <Name>NavigationPageRenderer</Name>	
+        </CustomRenderer>		
+        <CustomRenderer>
+            <Name>TabbedRenderer</Name>	
+        </CustomRenderer>		
+        <CustomRenderer>
+            <Name>CarouselPageRenderer</Name>	
+        </CustomRenderer>		
+    </CustomRendererGroup>
+
+    <CustomRendererGroup Name='Layouts'>
+        <CustomRenderer>
+            <Name>ViewRenderer</Name>	
+        </CustomRenderer>
+        <CustomRenderer>
+            <Name>FrameRenderer</Name>	
+        </CustomRenderer>		
+        <CustomRenderer>
+            <Name>ScrollViewRenderer</Name>	
+        </CustomRenderer>		
+    </CustomRendererGroup>
+
+    <CustomRendererGroup Name='Views'>
+        <CustomRenderer>
+            <Name>ActivityIndicatorRenderer</Name>	
+        </CustomRenderer>
+        <CustomRenderer>
+            <Name>BoxRenderer</Name>	
+        </CustomRenderer>		
+        <CustomRenderer>
+            <Name>ButtonRenderer</Name>	
+        </CustomRenderer>
+        <CustomRenderer>
+            <Name>DatePickerRenderer</Name>		
+        </CustomRenderer>
+        <CustomRenderer>
+            <Name>EditorRenderer</Name>
+        </CustomRenderer>
+        <CustomRenderer>
+            <Name>EntryRenderer</Name>
+        </CustomRenderer>
+        <CustomRenderer>
+            <Name>ImageRenderer</Name>
+        </CustomRenderer>
+        <CustomRenderer>
+            <Name>LabelRenderer</Name>
+        </CustomRenderer>
+        <CustomRenderer>
+            <Name>ListViewRenderer</Name>
+        </CustomRenderer>
+        <CustomRenderer>
+            <Name>PickerRenderer</Name>
+        </CustomRenderer>
+        <CustomRenderer>
+            <Name>ProgressBarRenderer</Name>
+        </CustomRenderer>
+        <CustomRenderer>
+            <Name>SearchBarRenderer</Name>
+        </CustomRenderer>
+        <CustomRenderer>
+            <Name>SliderRenderer</Name>
+        </CustomRenderer> 
+        <CustomRenderer>
+            <Name>StepperRenderer</Name>
+        </CustomRenderer>
+        <CustomRenderer>
+            <Name>SwitchRenderer</Name>
+        </CustomRenderer>
+        <CustomRenderer>
+            <Name>TableViewRenderer</Name>
+        </CustomRenderer> 
+        <CustomRenderer>
+            <Name>TimePickerRenderer</Name>
+        </CustomRenderer>
+        <CustomRenderer>
+            <Name>WebViewRenderer</Name> 
+        </CustomRenderer>
+    </CustomRendererGroup>
+
+    <CustomRendererGroup Name='Cells'>
+        <CustomRenderer>
+            <Name>EntryCellRenderer</Name>	
+        </CustomRenderer>
+        <CustomRenderer>
+            <Name>SwitchCellRenderer</Name>	
+        </CustomRenderer>		
+        <CustomRenderer>
+            <Name>TextCellRenderer</Name>	
+        </CustomRenderer>	
+        <CustomRenderer>
+            <Name>ImageCellRenderer</Name>	
+        </CustomRenderer>		
+        <CustomRenderer>
+            <Name>ViewCellRenderer</Name>	
+        </CustomRenderer>	
+    </CustomRendererGroup>
+</CustomRenderers>

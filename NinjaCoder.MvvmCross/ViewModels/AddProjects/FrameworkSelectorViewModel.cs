@@ -6,15 +6,9 @@
 namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 {
     using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-    using NinjaCoder.MvvmCross.UserControls.AddViews;
-    using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
-    using System;
-    using System.Collections.Generic;
-
     using NinjaCoder.MvvmCross.Factories.Interfaces;
-
-    using PluginsControl = NinjaCoder.MvvmCross.UserControls.AddPlugins.PluginsControl;
+    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
 
     /// <summary>
     /// Defines the FrameworkSelectorViewModel type.
@@ -31,6 +25,9 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// </summary>
         private readonly ISettingsService settingsService;
 
+        /// <summary>
+        /// The project factory.
+        /// </summary>
         private readonly IProjectFactory projectFactory;
 
         /// <summary>

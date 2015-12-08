@@ -19,6 +19,11 @@ namespace NinjaCoder.MvvmCross.Services
     public class SettingsService : ISettingsService
     {
         /// <summary>
+        /// The working directory.
+        /// </summary>
+        private string workingDirectory;
+
+        /// <summary>
         /// Gets or sets a value indicating whether [log to trace].
         /// </summary>
         public bool LogToTrace
@@ -73,19 +78,11 @@ namespace NinjaCoder.MvvmCross.Services
         }
         
         /// <summary>
-        /// Gets the services templates path.
-        /// </summary>
-        public string ServicesTemplatesPath
-        {
-            get { return this.GetItemTemplatesPath() + @"\Services"; }
-        }
-
-        /// <summary>
         /// Gets the code snippets path.
         /// </summary>
         public string CodeSnippetsPath
         {
-            get { return this.InstalledDirectory + @"CodeSnippets\"; }
+            get { return this.WorkingDirectory + @"CodeSnippets\"; }
         }
 
         /// <summary>
@@ -93,7 +90,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public string PluginsCodeSnippetsPath
         {
-            ////get { return this.InstalledDirectory + @"CodeSnippets\Plugins\"; }
+            ////get { return this.WorkingDirectory + @"CodeSnippets\Plugins\"; }
             get { return "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/CodeSnippets/Plugins/"; } 
         }
 
@@ -102,7 +99,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public string ServicesCodeSnippetsPath
         {
-            get { return this.InstalledDirectory + @"CodeSnippets\Services\"; }
+            get { return this.WorkingDirectory + @"CodeSnippets\Services\"; }
         }
 
         /// <summary>
@@ -110,7 +107,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public string PluginsConfigPath
         {
-            get { return this.InstalledDirectory + @"Config\Plugins\"; }
+            get { return this.WorkingDirectory + @"Config\Plugins\"; }
         }
 
         /// <summary>
@@ -118,7 +115,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public string ServicesConfigPath
         {
-            get { return this.InstalledDirectory + @"Config\Services\"; }
+            get { return this.WorkingDirectory + @"Config\Services\"; }
         }
 
         /// <summary>
@@ -126,7 +123,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public string ConfigPath
         {
-            get { return this.InstalledDirectory + @"Config\"; }
+            get { return this.WorkingDirectory + @"Config\"; }
         }
 
         /// <summary>
@@ -217,7 +214,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             get
             {
-                string path = this.InstalledDirectory + @"NinjaCoder.MvvmCross.dll";
+                string path = this.WorkingDirectory + @"NinjaCoder.MvvmCross.dll";
 
                 if (File.Exists(path))
                 {
@@ -339,7 +336,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public string VisualStudioVersion
         {
-            get { return this.GetRegistryValue("Internals", "VisualStudioVersion", "11.0"); }
+            get { return this.GetRegistryValue("Internals", "VisualStudioVersion", "12.0"); }
             set { this.SetRegistryValue("Internals", "VisualStudioVersion", value); }
         }
 
@@ -359,57 +356,6 @@ namespace NinjaCoder.MvvmCross.Services
         {
             get { return this.GetRegistryValue("Internals", "ShowClearLogFileOnVisualStudioMenu", "N") == "Y"; }
             set { this.SetRegistryValue("Internals", "ShowClearLogFileOnVisualStudioMenu", value ? "Y" : "N"); }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [check for updates].
-        /// </summary>
-        public bool CheckForUpdates
-        {
-            get { return this.GetRegistryValue("Internals", "CheckForUpdates", "Y") == "Y"; }
-            set { this.SetRegistryValue("Internals", "CheckForUpdates", value ? "Y" : "N"); }
-        }
-
-        /// <summary>
-        /// Gets or sets the last checked for update date time.
-        /// </summary>
-        public string LastCheckedForUpdateDateTime
-        {
-            get { return this.GetRegistryValue("Internals", "LastCheckedForUpdateDateTime", string.Empty); }
-            set { this.SetRegistryValue("Internals", "LastCheckedForUpdateDateTime", value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the latest version on gallery.
-        /// </summary>
-        public string LatestVersionOnGallery
-        {
-            get { return this.GetRegistryValue("Internals", "LatestVersionOnGallery", string.Empty); }
-            set { this.SetRegistryValue("Internals", "LatestVersionOnGallery", value); }
-        }
-
-        /// <summary>
-        /// Gets the gallery id.
-        /// </summary>
-        public string GalleryId
-        {
-            get { return this.GetRegistryValue("Internals", "GalleryId", "AB2BD8EF-571C-47dc-87D2-6CC966FC1346"); }
-        }
-
-        /// <summary>
-        /// Gets the ninja coder download URL.
-        /// </summary>
-        public string NinjaCoderDownloadUrl
-        {
-            get { return this.GetRegistryValue("Internals", "NinjaCoderDownloadUrl", "http://visualstudiogallery.msdn.microsoft.com/618b51f0-6de8-4f85-95ce-a50c658c7767"); }
-        }
-
-        /// <summary>
-        /// Gets the update checker path.
-        /// </summary>
-        public string UpdateCheckerPath
-        { 
-            get { return this.InstalledDirectory + "NinjaCoder.MvvmCross.UpdateChecker.exe"; }
         }
 
         /// <summary>
@@ -453,8 +399,8 @@ namespace NinjaCoder.MvvmCross.Services
         {
             get
             {
-                return this.UseLocalUris ? 
-                    this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", this.InstalledDirectory + "MvvmCrossPlugins.xml") :
+                return this.UseLocalUris ?
+                    this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", this.ConfigPath + "MvvmCrossPlugins.xml") :
                     this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/MvvmCrossPlugins.xml");
             }
         }
@@ -467,7 +413,7 @@ namespace NinjaCoder.MvvmCross.Services
             get
             {
                 return this.UseLocalUris ?
-                    this.GetRegistryValue("Internals", "NugetPackagesUri", this.InstalledDirectory + "NugetPackages.xml") : 
+                    this.GetRegistryValue("Internals", "NugetPackagesUri", this.ConfigPath + "NugetPackages.xml") : 
                     this.GetRegistryValue("Internals", "NugetPackagesUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/NugetPackages.xml");
             }
         }
@@ -480,7 +426,7 @@ namespace NinjaCoder.MvvmCross.Services
             get
             {
                 return this.UseLocalUris ?
-                    this.GetRegistryValue("Internals", "XamarinFormsNugetPackagesUri", this.InstalledDirectory + "XamarinFormsNugetPackages.xml") :
+                    this.GetRegistryValue("Internals", "XamarinFormsNugetPackagesUri", this.ConfigPath + "XamarinFormsNugetPackages.xml") :
                     this.GetRegistryValue("Internals", "XamarinFormsNugetPackagesUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/XamarinFormsNugetPackages.xml");
             }
         }
@@ -493,7 +439,7 @@ namespace NinjaCoder.MvvmCross.Services
             get
             {
                 return this.UseLocalUris ?
-                    this.GetRegistryValue("Internals", "XamarinFormsLabsPluginsUri", this.InstalledDirectory + "XamarinFormsLabsPlugins.xml") :
+                    this.GetRegistryValue("Internals", "XamarinFormsLabsPluginsUri", this.ConfigPath + "XamarinFormsLabsPlugins.xml") :
                     this.GetRegistryValue("Internals", "XamarinFormsLabsPluginsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/XamarinFormsLabsPlugins.xml");
             }
         }
@@ -506,7 +452,7 @@ namespace NinjaCoder.MvvmCross.Services
             get
             {
                 return this.UseLocalUris ?
-                    this.GetRegistryValue("Internals", "NinjaNugetPackagesUri", this.InstalledDirectory + "NinjaNugetPackages.xml") :
+                    this.GetRegistryValue("Internals", "NinjaNugetPackagesUri", this.ConfigPath + "NinjaNugetPackages.xml") :
                     this.GetRegistryValue("Internals", "NinjaNugetPackagesUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/NinjaNugetPackages.xml");
 
             }
@@ -520,7 +466,7 @@ namespace NinjaCoder.MvvmCross.Services
             get
             {
                 return this.UseLocalUris ?
-                    this.GetRegistryValue("Internals", "NinjaCommunityNugetPackagesUri", this.InstalledDirectory + "NinjaCommunityNugetPackages.xml") :
+                    this.GetRegistryValue("Internals", "NinjaCommunityNugetPackagesUri", this.ConfigPath + "NinjaCommunityNugetPackages.xml") :
                     this.GetRegistryValue("Internals", "NinjaCommunityNugetPackagesUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/NinjaCommunityNugetPackages.xml");
 
             }
@@ -531,7 +477,21 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public string LocalNugetPackagesUri
         {
-            get { return this.GetRegistryValue("Internals", "LocalNugetPackagesUri", this.InstalledDirectory + "LocalNugetPackagesUri.xml"); }
+            get { return this.GetRegistryValue("Internals", "LocalNugetPackagesUri", this.ConfigPath + "LocalNugetPackagesUri.xml"); }
+        }
+
+        /// <summary>
+        /// Gets the application commands URI.
+        /// </summary>
+        public string ApplicationCommandsUri
+        {
+            get
+            {
+                return this.UseLocalUris ?
+                    this.GetRegistryValue("Internals", "ApplicationCommandsUri", this.ConfigPath + "ApplicationCommands.xml") :
+                    this.GetRegistryValue("Internals", "ApplicationCommandsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/ApplicationCommands.xml");
+
+            }
         }
 
         /// <summary>
@@ -705,8 +665,178 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public string TestProjectsSolutionFolderName 
         {
-            get { return this.GetRegistryValue("Build", "TestProjectsSolutionFolderName", "TestProjects"); }
+            get { return this.GetRegistryValue("Build", "TestProjectsSolutionFolderName", "Tests"); }
             set { this.SetRegistryValue("Build", "TestProjectsSolutionFolderName", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the working directory.
+        /// </summary>
+        public string WorkingDirectory
+        {
+            get { return string.IsNullOrEmpty(this.workingDirectory) == false ? this.workingDirectory : this.InstalledDirectory; }
+            set { this.workingDirectory = value; }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [use local text templates].
+        /// </summary>
+        public bool UseLocalTextTemplates
+        {
+            get { return this.GetRegistryValue("Build", "UseLocalTextTemplates", "N") == "Y"; }
+        }
+
+        /// <summary>
+        /// Gets the local text templates directory.
+        /// </summary>
+        public string LocalTextTemplatesDirectory
+        {
+            get { return this.GetRegistryValue("Build", "LocalTextTemplatesDirectory", @"B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Config\TextTemplates"); }
+        }
+
+        /// <summary>
+        /// Gets the github templates directory.
+        /// </summary>
+        public string GithubTemplatesDirectory
+        {
+            get { return "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/TextTemplates"; }
+        }
+
+        /// <summary>
+        /// Gets the idependency text template.
+        /// </summary>
+        public string IDependencyTextTemplate 
+        {
+            get
+            {
+                string path = this.GithubTemplatesDirectory;
+                
+                if (this.UseLocalTextTemplates)
+                {
+                    path = this.LocalTextTemplatesDirectory;
+                }
+
+                string file = this.GetRegistryValue("Build", "IDependencyTextTemplate", @"DependencyService\IDependencyService.t4");
+
+                return string.Format(@"{0}\{1}", path, file);
+            }
+        }
+
+        /// <summary>
+        /// Gets the dependency text template.
+        /// </summary>
+        public string DependencyTextTemplate
+        {
+            get
+            {
+                string path = this.GithubTemplatesDirectory;
+
+                if (this.UseLocalTextTemplates)
+                {
+                    path = this.LocalTextTemplatesDirectory;
+                }
+
+                string file = this.GetRegistryValue("Build", "DependencyTextTemplate", @"DependencyService\DependencyService.t4");
+
+                return string.Format(@"{0}\{1}", path, file);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the dependency directory.
+        /// </summary>
+        public string DependencyDirectory
+        {
+            get { return this.GetRegistryValue("Build", "DependencyDirectory", "DependencyServices"); }
+            set { this.SetRegistryValue("Build", "DependencyDirectory", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [automatically add serviceto dependency].
+        /// </summary>
+        public bool AutomaticallyAddServicetoDependency
+        {
+            get { return this.GetRegistryValue("Build", "AutomaticallyAddServicetoDependency", "Y") == "Y"; }
+            set { this.SetRegistryValue("Build", "AutomaticallyAddServicetoDependency", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets the base custom renderer text template.
+        /// </summary>
+        public string BaseCustomRendererTextTemplate
+        {
+            get
+            {
+                string path = this.GithubTemplatesDirectory;
+
+                if (this.UseLocalTextTemplates)
+                {
+                    path = this.LocalTextTemplatesDirectory;
+                }
+
+                string file = this.GetRegistryValue("Build", "BaseCustomRendererTextTemplate", @"CustomRenderer\BaseCustomRenderer.t4");
+
+                return string.Format(@"{0}\{1}", path, file);
+            }
+        }
+
+        /// <summary>
+        /// Gets the custom renderer text template.
+        /// </summary>
+        public string CustomRendererTextTemplate
+        {
+            get
+            {
+                string path = this.GithubTemplatesDirectory;
+
+                if (this.UseLocalTextTemplates)
+                {
+                    path = this.LocalTextTemplatesDirectory;
+                }
+
+                string file = this.GetRegistryValue("Build", "BaseCustomRendererTextTemplate", @"CustomRenderer\CustomRenderer.t4");
+
+                return string.Format(@"{0}\{1}", path, file);
+            }
+        }
+        
+        /// <summary>
+        /// Gets or sets the customer renderer directory.
+        /// </summary>
+        public string CustomRendererDirectory
+        {
+            get { return this.GetRegistryValue("Build", "CustomerRendererDirectory", "CustomRenderers"); }
+            set { this.SetRegistryValue("Build", "CustomerRendererDirectory", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [automatically add renderer].
+        /// </summary>
+        public bool AutomaticallyAddRenderer
+        {
+            get { return this.GetRegistryValue("Build", "AutomaticallyAddRenderer", "Y") == "Y"; }
+            set { this.SetRegistryValue("Build", "AutomaticallyAddRenderer", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets the xamarin forms custom renderers URI.
+        /// </summary>
+        public string XamarinFormsCustomRenderersUri
+        {
+            get
+            {
+                return this.UseLocalUris ?
+                    this.GetRegistryValue("Internals", "NugetPackagesUri", this.ConfigPath + "XamarinFormsCustomRenderers.xml") : 
+                    this.GetRegistryValue("Internals", "NugetPackagesUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/XamarinFormsCustomRenderers.xml");
+            }            
+        }
+
+        /// <summary>
+        /// Gets the dependency services web page.
+        /// </summary>
+        public string DependencyServicesWebPage
+        {
+            get { return this.GetRegistryValue("Internals", "DependencyServicesWebPage", "http://developer.xamarin.com/guides/cross-platform/xamarin-forms/dependency-service"); }
         }
 
         /// <summary>
@@ -810,20 +940,6 @@ namespace NinjaCoder.MvvmCross.Services
              {
                  registryKey.SetValue(name, value);
              }
-        }
-
-        /// <summary>
-        /// Gets the item templates path.
-        /// </summary>
-        /// <returns>The Item templates path.</returns>
-        internal string GetItemTemplatesPath()
-        {
-            string visualStudioFolder = "Microsoft Visual Studio " + this.VisualStudioVersion;
-
-            return string.Format(
-                @"{0}\{1}\Common7\IDE\ItemTemplates\CSharp\MvvmCross", 
-                Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), 
-                visualStudioFolder);
         }
     }
 }

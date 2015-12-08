@@ -12,6 +12,8 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
     using System.Collections.Generic;
     using System.Windows.Input;
 
+    using Microsoft.Win32;
+
     /// <summary>
     ///  Defines the MainViewModel type.
     /// </summary>
@@ -32,6 +34,10 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
             try
             {
                 this.projects = NinjaController.GetProjects();
+
+                string workingDirectory = this.GetWorkingDirectory();
+
+                NinjaController.SetWorkingDirectory(workingDirectory);
             }
             catch
             {
@@ -121,6 +127,22 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets the add forms dependency service command.
+        /// </summary>
+        /// <value>
+        /// The add forms dependency service command.
+        /// </value>
+        public ICommand AddFormsDependencyServiceCommand
+        {
+            get { return new RelayCommand(this.FormsDependencyService); }
+        }
+
+        public ICommand AddFormsCustomRendererCommand
+        {
+            get { return new RelayCommand(this.FormsCustomRenderer); }
+        }
+
+        /// <summary>
         /// Adds the projects.
         /// </summary>
         internal void AddProjects()
@@ -150,7 +172,7 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         /// </summary>
         internal void AddNugetPackages()
         {
-            NinjaController.RunNugetPackagesController();    
+            NinjaController.RunNugetPackagesController();
         }
 
         /// <summary>
@@ -191,6 +213,63 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         internal void Exit()
         {
             this.OnOk();
+        }
+        
+        /// <summary>
+        /// Formses the dependency service.
+        /// </summary>
+        internal void FormsDependencyService()
+        {
+            NinjaController.RunDependencyServicesController();
+        }
+
+        /// <summary>
+        /// Formses the custom renderer.
+        /// </summary>
+        internal void FormsCustomRenderer()
+        {
+            NinjaController.RunCustomerRendererController();
+        }
+
+        /// <summary>
+        /// Gets the working directory.
+        /// </summary>
+        /// <returns></returns>
+        internal string GetWorkingDirectory()
+        {
+            RegistryKey softwareKey = Registry.CurrentUser.OpenSubKey("Software");
+
+            if (softwareKey != null)
+            {
+                RegistryKey microsoftKey = softwareKey.OpenSubKey("Microsoft");
+
+                if (microsoftKey != null)
+                {
+                    RegistryKey vsKey = microsoftKey.OpenSubKey("VisualStudio");
+
+                    if (vsKey != null)
+                    {
+                        RegistryKey versionKey = vsKey.OpenSubKey("14.0");
+
+                        if (versionKey != null)
+                        {
+                            RegistryKey extensionManagerKey = versionKey.OpenSubKey("ExtensionManager");
+
+                            if (extensionManagerKey != null)
+                            {
+                                RegistryKey enabledExtensionsKey = extensionManagerKey.OpenSubKey("EnabledExtensions");
+
+                                if (enabledExtensionsKey != null)
+                                {
+                                    return enabledExtensionsKey.GetValue("NinjaCoderMvvmCross.vsix..51ede486-dd91-4fa8-936e-9260508e97cd,3.7.2") as string;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return string.Empty;
         }
     }
 }

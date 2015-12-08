@@ -8,11 +8,9 @@ namespace NinjaCoder.MvvmCross.Services
     using Constants;
     using EnvDTE;
     using EnvDTE80;
-
     using Interfaces;
-
+    using Microsoft.VisualStudio.Shell;
     using NinjaCoder.MvvmCross.Entities;
-
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio;
     using Scorchio.VisualStudio.Entities;
@@ -23,7 +21,9 @@ namespace NinjaCoder.MvvmCross.Services
     using System.IO;
     using System.Linq;
 
-    using VSLangProj;
+    using Microsoft.VisualStudio.OLE.Interop;
+
+    using Reference = VSLangProj.Reference;
 
     /// <summary>
     /// Defines the VisualStudioService type.
@@ -77,6 +77,14 @@ namespace NinjaCoder.MvvmCross.Services
                 this.dte2 = value;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the package.
+        /// </summary>
+        /// <value>
+        /// The package.
+        /// </value>
+        public Package Package { get; set; }
 
         /// <summary>
         /// Gets the DTE service.
@@ -286,7 +294,7 @@ namespace NinjaCoder.MvvmCross.Services
             get
             {
                 Project project = this.ViewModelsProject;
-                return project != null ? new ProjectService(project) : null;                
+                return project != null ? new ProjectService(project) : null;
             }
         }
 
@@ -611,6 +619,20 @@ namespace NinjaCoder.MvvmCross.Services
         public bool SolutionAlreadyCreated
         {
             get { return this.SolutionService.GetProjects().Any(); }
+        }
+
+        /// <summary>
+        /// Gets the text transformation service.
+        /// </summary>
+        /// <returns></returns>
+        public ITextTransformationService GetTextTransformationService()
+        {
+            if (this.Package != null)
+            {
+                return new TextTransformationService(this.Package);
+            }
+
+            return new TextTransformationService((IServiceProvider)this.dte2.DTE);
         }
     }
 }

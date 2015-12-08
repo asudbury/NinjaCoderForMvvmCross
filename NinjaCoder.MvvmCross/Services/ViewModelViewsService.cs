@@ -17,7 +17,6 @@ namespace NinjaCoder.MvvmCross.Services
     using Scorchio.VisualStudio.Services.Interfaces;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Windows.Forms.VisualStyles;
 
     /// <summary>
     ///  Defines the ViewModelViewsService type.
@@ -108,11 +107,15 @@ namespace NinjaCoder.MvvmCross.Services
 
             if (addUnitTests)
             {
+                TraceService.WriteLine("ViewModelViewsService::AddViewModelAndViews adding Unit Tests");
+
                 this.UpdateUnitTestFile(viewModelName);
             }
 
             if (string.IsNullOrEmpty(viewModelInitiateFrom) == false)
             {
+                TraceService.WriteLine("ViewModelViewsService::AddViewModelAndViews updating init from");
+
                 this.UpdateInitViewModel(
                     viewModelName,
                     viewModelInitiateFrom);
@@ -120,10 +123,14 @@ namespace NinjaCoder.MvvmCross.Services
 
             if (string.IsNullOrEmpty(viewModelNavigateTo) == false)
             {
+                TraceService.WriteLine("ViewModelViewsService::AddViewModelAndViews updating nvaigate to");
+
                 this.UpdateNavigateToViewModel(
                     viewModelName,
                     viewModelNavigateTo);
             }
+
+            TraceService.WriteLine("ViewModelViewsService::AddViewModelAndViews END");
 
             return messages;
         }
@@ -135,6 +142,8 @@ namespace NinjaCoder.MvvmCross.Services
         /// <returns></returns>
         public IEnumerable<string> AddViewModelsAndViews(IEnumerable<View> views)
         {
+            TraceService.WriteLine("ViewModelViewsService::AddViewModelsAndViews");
+
             List<string> messages = new List<string>();
 
             this.visualStudioService.WriteStatusBarMessage(NinjaMessages.AddingViewModelAndViews);
@@ -179,6 +188,8 @@ namespace NinjaCoder.MvvmCross.Services
                     messages.AddRange(viewModelMessages);
                 }
             }
+
+            TraceService.WriteLine("ViewModelViewsService::AddViewModelsAndViews END");
 
             return messages;
         }
@@ -260,6 +271,8 @@ namespace NinjaCoder.MvvmCross.Services
 
                 if (projectItemService != null)
                 {
+                    TraceService.WriteLine("ViewModelViewsService::UpdateUnitTestFile test viewModel found");
+
                     this.testingService.UpdateTestClassAttribute(projectItemService);
                     this.testingService.UpdateTestMethodAttribute(projectItemService);
 
@@ -274,7 +287,6 @@ namespace NinjaCoder.MvvmCross.Services
             }
 
             TraceService.WriteLine("ViewModelViewsService::UpdateUnitTestFile End");
-
         }
 
         /// <summary>

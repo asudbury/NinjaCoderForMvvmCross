@@ -6,7 +6,6 @@
 namespace NinjaCoder.MvvmCross.Services.Interfaces
 {
     using NinjaCoder.MvvmCross.Entities;
-
     using Scorchio.VisualStudio.Entities;
 
     /// <summary>
@@ -14,22 +13,6 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     /// </summary>
     public interface IApplicationService
     {
-        /// <summary>
-        /// Checks for updates.
-        /// </summary>
-        void CheckForUpdates();
-        
-        /// <summary>
-        /// Determines whether [is update available].
-        /// </summary>
-        /// <returns>True or false.</returns>
-        bool IsUpdateAvailable();
-
-        /// <summary>
-        /// Checks for updates if ready.
-        /// </summary>
-        void CheckForUpdatesIfReady();
-
         /// <summary>
         /// Views the log file.
         /// </summary>
@@ -56,5 +39,17 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// </summary>
         /// <param name="projectTemplateInfo">The project template information.</param>
         void FixInfoPList(ProjectTemplateInfo projectTemplateInfo);
+
+        /// <summary>
+        /// Gets the commands list.
+        /// </summary>
+        /// <returns></returns>
+        CommandsList GetCommandsList();
+
+        /// <summary>
+        /// Sets the working directory.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        void SetWorkingDirectory(string path);
     }
 }

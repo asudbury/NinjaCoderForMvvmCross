@@ -13,11 +13,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
     public class BuildViewModel : NinjaBaseViewModel
     {
         /// <summary>
-        /// The check for updates.
-        /// </summary>
-        private bool checkForUpdates;
-
-        /// <summary>
         /// The user local uris.
         /// </summary>
         private bool userLocalUris;
@@ -31,21 +26,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         /// The output errors to read me.
         /// </summary>
         private bool outputErrorsToReadMe;
-
-        /// <summary>
-        /// The use pre release MVVM cross nuget packages
-        /// </summary>
-        private bool usePreReleaseMvvmCrossNugetPackages;
-
-        /// <summary>
-        /// The use pre release xamarin forms nuget packages.
-        /// </summary>
-        private bool usePreReleaseXamarinFormsNugetPackages;
-
-        /// <summary>
-        /// The use pre release ninja coder nuget packages.
-        /// </summary>
-        private bool usePreReleaseNinjaCoderNugetPackages;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NinjaBaseViewModel" /> class.
@@ -67,15 +47,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [check for updates].
-        /// </summary>
-        public bool CheckForUpdates
-        {
-            get { return this.checkForUpdates; }
-            set { this.SetProperty(ref this.checkForUpdates, value); }
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether [output nuget commands to read me].
         /// </summary>
         public bool OutputNugetCommandsToReadMe
@@ -94,47 +65,13 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [use pre release MVVM cross nuget packages].
-        /// </summary>
-        public bool UsePreReleaseMvvmCrossNugetPackages 
-        {
-            get { return this.usePreReleaseMvvmCrossNugetPackages; }
-            set { this.SetProperty(ref this.usePreReleaseMvvmCrossNugetPackages, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [use pre release xamarin forms nuget packages].
-        /// </summary>
-        public bool UsePreReleaseXamarinFormsNugetPackages
-        {
-            get { return this.usePreReleaseXamarinFormsNugetPackages; }
-            set { this.SetProperty(ref this.usePreReleaseXamarinFormsNugetPackages, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [use pre release ninja coder nuget packages].
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if [use pre release ninja coder nuget packages]; otherwise, <c>false</c>.
-        /// </value>
-        public bool UsePreReleaseNinjaCoderNugetPackages
-        {
-            get { return this.usePreReleaseNinjaCoderNugetPackages; }
-            set { this.SetProperty(ref this.usePreReleaseNinjaCoderNugetPackages, value); }
-        }
-
-        /// <summary>
         /// Saves this instance.
         /// </summary>
         public void Save()
         {
             this.SettingsService.UseLocalUris = this.UseLocalUris;
-            this.SettingsService.CheckForUpdates = this.checkForUpdates;
             this.SettingsService.OutputNugetCommandsToReadMe = this.OutputNugetCommandsToReadMe;
             this.SettingsService.OutputErrorsToReadMe = this.OutputErrorsToReadMe;
-            this.SettingsService.UsePreReleaseMvvmCrossNugetPackages = this.UsePreReleaseMvvmCrossNugetPackages;
-            this.SettingsService.UsePreReleaseXamarinFormsNugetPackages = this.UsePreReleaseXamarinFormsNugetPackages;
-            this.SettingsService.UsePreReleaseNinjaNugetPackages = this.UsePreReleaseNinjaCoderNugetPackages;
         }
 
         /// <summary>
@@ -143,12 +80,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         internal void Init()
         {
             this.UseLocalUris = this.SettingsService.UseLocalUris;
-            this.CheckForUpdates = this.SettingsService.CheckForUpdates;
             this.OutputNugetCommandsToReadMe = this.SettingsService.OutputNugetCommandsToReadMe;
             this.OutputErrorsToReadMe = this.SettingsService.OutputErrorsToReadMe;
-            this.UsePreReleaseMvvmCrossNugetPackages = this.SettingsService.UsePreReleaseMvvmCrossNugetPackages;
-            this.UsePreReleaseXamarinFormsNugetPackages = this.SettingsService.UsePreReleaseXamarinFormsNugetPackages;
-            this.UsePreReleaseNinjaCoderNugetPackages = this.SettingsService.UsePreReleaseNinjaNugetPackages;
         }
     }
 }

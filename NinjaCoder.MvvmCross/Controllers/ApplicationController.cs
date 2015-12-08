@@ -67,49 +67,6 @@ namespace NinjaCoder.MvvmCross.Controllers
         }
 
         /// <summary>
-        /// Checks for updates.
-        /// </summary>
-        public void CheckForUpdates()
-        {
-            TraceService.WriteLine("ApplicationController::CheckForUpdates");
-
-            this.applicationService.CheckForUpdates();
-        }
-
-        /// <summary>
-        /// Determines whether [is update available].
-        /// </summary>
-        /// <returns>True or false.</returns>
-        public bool IsUpdateAvailable()
-        {
-            TraceService.WriteLine("ApplicationController::IsUpdateAvailable");
-
-            return this.applicationService.IsUpdateAvailable();
-        }
-
-        /// <summary>
-        /// Checks for updates if ready.
-        /// </summary>
-        public void CheckForUpdatesIfReady()
-        {
-            TraceService.WriteLine("ApplicationController::CheckForUpdatesIfReady");
-
-            if (this.SettingsService.CheckForUpdates)
-            {
-                bool available = this.IsUpdateAvailable();
-
-                if (available == false)
-                {
-                    this.CheckForUpdates();
-                }
-                else
-                {
-                    this.ShowDialog<DownloadViewModel>(new DownloadView());
-                }
-            }
-        }
-
-        /// <summary>
         /// Shows the options.
         /// </summary>
         public void ShowOptions()
@@ -191,6 +148,17 @@ namespace NinjaCoder.MvvmCross.Controllers
             TraceService.WriteLine("ApplicationController::ClearLogFile");
             
             this.applicationService.ClearLogFile();
+        }
+
+        /// <summary>
+        /// Sets the working directory.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        public void SetWorkingDirectory(string path)
+        {
+            TraceService.WriteLine("ApplicationController::SetWorkingDirectory " + path);
+
+            this.applicationService.SetWorkingDirectory(path);
         }
     }
 }

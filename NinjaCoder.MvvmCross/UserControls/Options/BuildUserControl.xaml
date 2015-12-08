@@ -15,23 +15,11 @@
                   Content="Use Local Config Uris for Plugins and Nuget Packages"
                   IsChecked="{Binding UseLocalUris}" />
         <CheckBox Margin="10"
-                  Content="{DynamicResource CheckForNinjaCoderUpdates}"
-                  IsChecked="{Binding CheckForUpdates}" />
-        <CheckBox Margin="10"
                   Content="Output Nuget commands to Read Me file"
                   IsChecked="{Binding OutputNugetCommandsToReadMe}" />
         <CheckBox Margin="10"
                   Content="Output Errors to Read Me file"
                   IsChecked="{Binding OutputErrorsToReadMe}" />
-        <CheckBox Margin="10"
-                  Content="Use Pre release MvvmCross Nuget Packages"
-                  IsChecked="{Binding UsePreReleaseMvvmCrossNugetPackages}" />
-        <CheckBox Margin="10"
-                  Content="Use Pre release Xamarin Forms Nuget Packages"
-                  IsChecked="{Binding UsePreReleaseXamarinFormsNugetPackages}" />
-        <CheckBox Margin="10"
-                  Content="Use Pre release Ninja Coder Nuget Packages"
-                  IsChecked="{Binding UsePreReleaseNinjaCoderNugetPackages}" />
 
     </StackPanel>
 </userControls:BaseUserControl>

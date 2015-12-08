@@ -1,0 +1,25 @@
+﻿<#@ Template Language="C#" #>
+<#@ Output Extension="cs" #>
+<#@ parameter type="System.string" name="NameSpace" #>
+<#@ parameter type="System.string" name="InterfaceName" #>
+<#@ parameter type="System.string" name="MethodComment" #>
+<#@ parameter type="System.string" name="MethodReturnType" #>
+<#@ parameter type="System.string" name="MethodName" #>
+// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//  Defines the <#= InterfaceName #> type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace <#= NameSpace #>
+{
+    /// <summary>
+    /// Defines the <#= InterfaceName #> type.
+    /// </summary>
+    public interface <#= InterfaceName #>
+    {
+        /// <summary>
+        /// <#= MethodComment #>
+        ///</summary>
+        <#= MethodReturnType #> <#= MethodName #>();
+    }
+}

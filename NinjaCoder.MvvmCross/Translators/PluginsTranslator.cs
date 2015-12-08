@@ -23,6 +23,14 @@ namespace NinjaCoder.MvvmCross.Translators
         private readonly ITranslator<XElement, Plugin> translator;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="PluginsTranslator"/> class.
+        /// </summary>
+        public PluginsTranslator()
+            :this(new PluginTranslator())
+        {
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PluginsTranslator" /> class.
         /// </summary>
         /// <param name="translator">The translator.</param>

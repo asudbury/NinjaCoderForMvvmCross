@@ -67,9 +67,9 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <summary>
         /// Sets the visual studio instance.
         /// </summary>
-        public DTE2 DTE2
+        public void SetDte2(DTE2 dte2)
         {
-            set { this.VisualStudioService.DTE2 = value; }
+            this.VisualStudioService.DTE2 = dte2; 
         }
 
         /// <summary>
@@ -211,6 +211,21 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             this.MessageBoxService.Show(
                 Settings.NonMvvmCrossSolution, 
+                Settings.ApplicationName,
+                this.SettingsService.BetaTesting,
+                this.CurrentTheme,
+                this.SettingsService.ThemeColor);
+        }
+
+        /// <summary>
+        /// Shows the not MVVM cross solution message.
+        /// </summary>
+        protected void ShowNotXamarinFormsSolutionMessage()
+        {
+            TraceService.WriteLine("BaseController::.ShowNotMvvmCrossSolutionMessage");
+
+            this.MessageBoxService.Show(
+                Settings.NonXamarinFormsSolution,
                 Settings.ApplicationName,
                 this.SettingsService.BetaTesting,
                 this.CurrentTheme,

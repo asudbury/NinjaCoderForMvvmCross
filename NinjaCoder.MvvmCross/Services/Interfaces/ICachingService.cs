@@ -52,5 +52,15 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets or sets a value indicating whether this instance has local nuget packages.
         /// </summary>
         bool HasLocalNugetPackages { get; set; }
+
+        /// <summary>
+        /// Gets or sets the application commands list.
+        /// </summary>
+        CommandsList ApplicationCommandsList { get; set; }
+
+        /// <summary>
+        /// Gets the messages.
+        /// </summary>
+        IDictionary<string, string> Messages { get; } 
     }
 }

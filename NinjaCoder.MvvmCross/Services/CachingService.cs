@@ -20,6 +20,7 @@ namespace NinjaCoder.MvvmCross.Services
         public CachingService()
         {
             this.Plugins = new Dictionary<string, Plugins>();
+            this.Messages = new Dictionary<string, string>();
         }
 
         /// <summary>
@@ -61,5 +62,15 @@ namespace NinjaCoder.MvvmCross.Services
         /// Gets or sets a value indicating whether this instance has local nuget packages.
         /// </summary>
         public bool HasLocalNugetPackages { get; set; }
+
+        /// <summary>
+        /// Gets or sets the application commands list.
+        /// </summary>
+        public CommandsList ApplicationCommandsList { get; set; }
+        
+        /// <summary>
+        /// Gets the messages.
+        /// </summary>
+        public IDictionary<string, string> Messages { get; private set; }
     }
 }

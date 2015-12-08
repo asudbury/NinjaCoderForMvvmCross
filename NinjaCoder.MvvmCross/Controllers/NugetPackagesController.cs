@@ -8,7 +8,9 @@ namespace NinjaCoder.MvvmCross.Controllers
     using Constants;
     using Entities;
     using NinjaCoder.MvvmCross.Factories.Interfaces;
+    using NinjaCoder.MvvmCross.ViewModels;
     using NinjaCoder.MvvmCross.ViewModels.AddNugetPackages;
+    using NinjaCoder.MvvmCross.ViewModels.AddProjects;
     using NinjaCoder.MvvmCross.ViewModels.Wizard;
     using NinjaCoder.MvvmCross.Views.Wizard;
     using Scorchio.Infrastructure.Services;
@@ -16,21 +18,12 @@ namespace NinjaCoder.MvvmCross.Controllers
     using Services.Interfaces;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-
-    using NinjaCoder.MvvmCross.ViewModels;
-    using NinjaCoder.MvvmCross.ViewModels.AddProjects;
 
     /// <summary>
     /// Defines the NugetPackagesController type.
     /// </summary>
     internal class NugetPackagesController : BaseController
     {
-        /// <summary>
-        /// The plugins service.
-        /// </summary>
-        private readonly IPluginsService pluginsService;
-
         /// <summary>
         /// The nuget service.
         /// </summary>
@@ -64,7 +57,6 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="NugetPackagesController" /> class.
         /// </summary>
-        /// <param name="pluginsService">The plugins service.</param>
         /// <param name="nugetService">The nuget service.</param>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="settingsService">The settings service.</param>
@@ -73,7 +65,6 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="readMeService">The read me service.</param>
         /// <param name="nugetPackagesFactory">The nuget packages factory.</param>
         public NugetPackagesController(
-            IPluginsService pluginsService,
             INugetService nugetService,
             IVisualStudioService visualStudioService,
             ISettingsService settingsService,
@@ -90,7 +81,6 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("NugetPackagesController::Constructor");
 
-            this.pluginsService = pluginsService;
             this.nugetService = nugetService;
             this.nugetPackagesFactory = nugetPackagesFactory;
             
@@ -147,10 +137,6 @@ namespace NinjaCoder.MvvmCross.Controllers
              XamarinFormsLabsViewModel xamarinFormsLabsViewModel)
         {
             TraceService.WriteLine("NugetPackagesController::Process");
-
-            this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NinjaIsRunning);
-
-            TraceService.WriteLine("ProjectsController::Process");
 
             this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NinjaIsRunning);
 

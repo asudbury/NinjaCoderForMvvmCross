@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="NinjaCoder.MvvmCross.UserControls.AddCustomerRenderers.CustomRendererControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <system:Double x:Key="TabItemFontSize">16.00</system:Double>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Image Grid.Row="0"
+               Grid.RowSpan="3"
+               Grid.Column="0"
+               VerticalAlignment="Top"
+               Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/lefthand.png" />
+
+        <StackPanel Grid.Row="0"
+                    Grid.Column="1"
+                    Width="400"
+                    Height="520"
+                    Orientation="Vertical">
+
+            <Separator Margin="5" />
+
+            <TextBlock Margin="10">Add the Custom Renderer details below.</TextBlock>
+
+            <Separator Margin="5" />
+
+            <StackPanel Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="10"
+                        Orientation="Vertical">
+
+                <TextBlock Margin="5" />
+
+                <TextBlock Margin="10,1,0,0" Text="Renderer Group" />
+
+                <ComboBox Margin="10,1,160,0"
+                          ItemsSource="{Binding CustomRendererGroups}"
+                          SelectedItem="{Binding Path=SelectedCustomRendererGroup,
+                                                 Mode=TwoWay}" />
+
+                <TextBlock Margin="5" />
+
+                <TextBlock Margin="10,1,0,0" Text="Renderer Type" />
+
+                <ComboBox Margin="10,1,160,0"
+                          ItemsSource="{Binding CustomRendererItems}"
+                          SelectedItem="{Binding Path=SelectedCustomRendererItem,
+                                                 Mode=TwoWay}" />
+
+                <TextBlock Margin="5" />
+
+                <TextBlock Margin="10,1,0,0" Text="Name of Renderer" />
+
+                <TextBox Margin="10,1,160,0" Text="{Binding Name}" />
+
+                <TextBlock Margin="1" />
+
+                <TextBlock Margin="10,1,0,0" Text="Automatically append 'Renderer' to Name of the Renderer" />
+
+                <CheckBox Margin="10,1,160,0" IsChecked="{Binding AppendRendererToName}" />
+
+                <TextBlock Margin="2" />
+
+                <TextBlock Margin="10,1,0,0" Text="Renderer Directory" />
+
+                <TextBox Margin="10,1,160,0" Text="{Binding Directory}" />
+
+                <TextBlock Margin="2" />
+
+                <TextBlock Margin="10">
+                    
+                    <Hyperlink Command="{Binding CustomRenderersWebSiteCommand}">
+                        <TextBlock Text="Custom Renderers Help" />
+                    </Hyperlink>
+                </TextBlock>
+            </StackPanel>
+
+        </StackPanel>
+
+    </Grid>
+
+</UserControl>

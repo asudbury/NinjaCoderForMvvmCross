@@ -6,6 +6,7 @@
 namespace Scorchio.VisualStudio.Services.Interfaces
 {
     using EnvDTE;
+    using Scorchio.VisualStudio.Entities;
     using System.Collections.Generic;
     using VSLangProj;
 
@@ -185,5 +186,12 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// </summary>
         /// <param name="folderName">Name of the folder.</param>
         IProjectItemService GetFolderOrCreate(string folderName);
+
+        /// <summary>
+        /// Adds the text template.
+        /// </summary>
+        /// <param name="textTemplateInfo">The text template information.</param>
+        /// <returns></returns>
+        string AddTextTemplate(TextTemplateInfo textTemplateInfo);
     }
 }

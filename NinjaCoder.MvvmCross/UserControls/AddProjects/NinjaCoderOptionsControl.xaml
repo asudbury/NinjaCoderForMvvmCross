@@ -60,11 +60,6 @@
             <Label />
 
         </StackPanel>
-
-        <Image Grid.Row="2"
-               Grid.Column="1"
-               Width="150"
-               Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/bottom.png" />
     </Grid>
 
 </userControls:BaseUserControl>

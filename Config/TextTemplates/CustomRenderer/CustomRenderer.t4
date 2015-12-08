@@ -1,0 +1,37 @@
+﻿<#@ Template Language="C#" #>
+<#@ Output Extension="cs" #>
+<#@ parameter type="System.string" name="NameSpace" #>
+<#@ parameter type="System.string" name="ClassName" #>
+<#@ parameter type="System.string" name="BaseClassName" #>
+<#@ parameter type="System.string" name="MethodComment" #>
+<#@ parameter type="System.string" name="MethodReturnType" #>
+<#@ parameter type="System.string" name="MethodName" #>
+<#@ parameter type="System.string" name="MethodReturnStatement" #>
+<#@ parameter type="System.string" name="Directory" #>
+// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//  Defines the <#= ClassName #> type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+using <#= NameSpace #>;
+
+[assembly: ExportRenderer(typeof(<#= BaseClassName #>), typeof(<#= ClassName #>))] 
+namespace <#= NameSpace #>
+{
+    using Forms.<#= Directory #>;
+
+    /// <summary>
+    /// Defines the <#= ClassName #> type.
+    /// </summary>
+    public class <#= ClassName #> : <#= InterfaceName #>
+    {
+        /// <summary>
+        /// <#= MethodComment #>
+        ///</summary>
+        public <#= MethodReturnType #> <#= MethodName #>()
+        {
+            <#= MethodReturnStatement #>
+        }
+    }
+}

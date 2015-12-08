@@ -42,6 +42,19 @@
       <HintPath>..\Lib\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualStudio.Shell.14.0, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.14.0, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -71,12 +84,18 @@
     <Compile Include="Constants\Settings.cs" />
     <Compile Include="Constants\Variables.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
+    <Compile Include="Controllers\CustomRendererController.cs" />
     <Compile Include="Controllers\NinjaController.cs" />
     <Compile Include="Controllers\NugetPackagesController.cs" />
+    <Compile Include="Controllers\DependencyServicesController.cs" />
     <Compile Include="Controllers\PluginsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\ViewModelViewsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Entities\CommandsList.cs" />
+    <Compile Include="Entities\CustomerRenderer.cs" />
+    <Compile Include="Entities\CustomerRendererGroup.cs" />
+    <Compile Include="Entities\CustomRenderers.cs" />
     <Compile Include="Entities\FileOpeation.cs" />
     <Compile Include="Entities\Command.cs" />
     <Compile Include="Entities\NugetActions.cs" />
@@ -96,12 +115,17 @@
     <Compile Include="Exceptions\NinjaCoderServiceException.cs" />
     <Compile Include="Exceptions\NinjaCoderException.cs" />
     <Compile Include="Extensions\PluginExtensions.cs" />
+    <Compile Include="Factories\BaseTextTemplateFactory.cs" />
     <Compile Include="Factories\BaseProjectFactory.cs" />
     <Compile Include="Factories\CodeConfigFactory.cs" />
     <Compile Include="Factories\CodeSnippetFactory.cs" />
+    <Compile Include="Factories\CustomRendererFactory.cs" />
+    <Compile Include="Factories\DependencyServicesFactory.cs" />
     <Compile Include="Factories\FrameworkFactory.cs" />
     <Compile Include="Factories\Interfaces\ICodeConfigFactory.cs" />
     <Compile Include="Factories\Interfaces\ICodeSnippetFactory.cs" />
+    <Compile Include="Factories\Interfaces\ICustomeRendererFactory.cs" />
+    <Compile Include="Factories\Interfaces\IDependencyServicesFactory.cs" />
     <Compile Include="Factories\Interfaces\IFrameworkFactory.cs" />
     <Compile Include="Factories\Interfaces\ILanguageFactory.cs" />
     <Compile Include="Factories\Interfaces\IMockingServiceFactory.cs" />
@@ -154,7 +178,6 @@
     <Compile Include="Services\Interfaces\IRegisterService.cs" />
     <Compile Include="Services\Interfaces\IResolverService.cs" />
     <Compile Include="Services\Interfaces\ISettingsService.cs" />
-    <Compile Include="Services\Interfaces\IUpdateVersionService.cs" />
     <Compile Include="Services\Interfaces\IViewModelViewsService.cs" />
     <Compile Include="Services\Interfaces\IVisualStudioService.cs" />
     <Compile Include="Services\NugetCommandsService.cs" />
@@ -167,13 +190,30 @@
     <Compile Include="Services\ResolverService.cs" />
     <Compile Include="Services\CodeSnippetService.cs" />
     <Compile Include="Services\SettingsService.cs" />
-    <Compile Include="Services\UpdateVersionService.cs" />
     <Compile Include="Services\ViewModelViewsService.cs" />
     <Compile Include="Services\VisualStudioService.cs" />
     <Compile Include="Translators\CodeConfigTranslator.cs" />
+    <Compile Include="Translators\CommandsListTranslator.cs" />
+    <Compile Include="Translators\CommandsTranslator.cs" />
+    <Compile Include="Translators\CommandTranslator.cs" />
+    <Compile Include="Translators\CustomRenderersTranslator.cs" />
+    <Compile Include="Translators\FileOperationsTranslator.cs" />
+    <Compile Include="Translators\FileOperationTranslator.cs" />
     <Compile Include="Translators\PluginsTranslator.cs" />
     <Compile Include="Translators\CodeSnippetTranslator.cs" />
     <Compile Include="Translators\PluginTranslator.cs" />
+    <Compile Include="UserControls\AddCustomerRenderers\CustomRendererControl.xaml.cs">
+      <DependentUpon>CustomRendererControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AddCustomerRenderers\CustomRendererFinishedControl.xaml.cs">
+      <DependentUpon>CustomRendererFinishedControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AddDependencyServices\DependencyServiceControl.xaml.cs">
+      <DependentUpon>DependencyServiceControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AddDependencyServices\DependencyServiceFinishedControl.xaml.cs">
+      <DependentUpon>DependencyServiceFinishedControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AddNugetPackages\NugetPackagesFinishedControl.xaml.cs">
       <DependentUpon>NugetPackagesFinishedControl.xaml</DependentUpon>
     </Compile>
@@ -230,6 +270,10 @@
       <DependentUpon>VisualUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\AddCustomRenderers\CustomRendererViewModel.cs" />
+    <Compile Include="ViewModels\AddCustomRenderers\CustomRendererFinishedViewModel.cs" />
+    <Compile Include="ViewModels\AddDependencyServices\DependencyServiceViewModel.cs" />
+    <Compile Include="ViewModels\AddDependencyServices\DependencyServiceFinishedViewModel.cs" />
     <Compile Include="ViewModels\AddNugetPackages\NugetPackagesFinishedViewModel.cs" />
     <Compile Include="ViewModels\AddProjects\NinjaCoderOptionsViewModel.cs" />
     <Compile Include="ViewModels\AddProjects\ApplicationSamplesOptionsViewModel.cs" />
@@ -246,7 +290,6 @@
     <Compile Include="ViewModels\Wizard\NinjaWizardViewModel.cs" />
     <Compile Include="ViewModels\AddViews\ViewsViewModel.cs" />
     <Compile Include="ViewModels\NinjaBaseViewModel.cs" />
-    <Compile Include="ViewModels\DownloadViewModel.cs" />
     <Compile Include="ViewModels\Options\BuildViewModel.cs" />
     <Compile Include="ViewModels\Options\CodingStyleViewModel.cs" />
     <Compile Include="ViewModels\Options\OptionsViewModel.cs" />
@@ -259,9 +302,6 @@
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BaseView.cs" />
-    <Compile Include="Views\DownloadView.xaml.cs">
-      <DependentUpon>DownloadView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\OptionsView.xaml.cs">
       <DependentUpon>OptionsView.xaml</DependentUpon>
     </Compile>
@@ -307,6 +347,22 @@
     <Page Include="Resources\StringResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AddCustomerRenderers\CustomRendererControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AddCustomerRenderers\CustomRendererFinishedControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AddDependencyServices\DependencyServiceControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AddDependencyServices\DependencyServiceFinishedControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\AddNugetPackages\NugetPackagesFinishedControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -383,10 +439,6 @@
     <Page Include="Views\AboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\DownloadView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\OptionsView.xaml">
       <SubType>Designer</SubType>

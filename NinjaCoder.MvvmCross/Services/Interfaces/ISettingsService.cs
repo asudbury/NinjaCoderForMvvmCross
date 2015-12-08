@@ -43,11 +43,6 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         bool RemoveDefaultComments { get; set; }
 
         /// <summary>
-        /// Gets the services templates path.
-        /// </summary>
-        string ServicesTemplatesPath { get; }
-
-        /// <summary>
         /// Gets the code snippets path.
         /// </summary>
         string CodeSnippetsPath { get; }
@@ -213,36 +208,6 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         bool ShowClearLogFileOnVisualStudioMenu { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [check for updates].
-        /// </summary>
-        bool CheckForUpdates { get; set; }
-
-        /// <summary>
-        /// Gets or sets the last checked for update date time.
-        /// </summary>
-        string LastCheckedForUpdateDateTime { get; set; }
-
-        /// <summary>
-        /// Gets or sets the latest version on gallery.
-        /// </summary>
-        string LatestVersionOnGallery { get; set; }
-
-        /// <summary>
-        /// Gets the gallery id.
-        /// </summary>
-        string GalleryId { get; }
-
-        /// <summary>
-        /// Gets the ninja coder download URL.
-        /// </summary>
-        string NinjaCoderDownloadUrl { get; }
-
-        /// <summary>
-        /// Gets the update checker path.
-        /// </summary>
-        string UpdateCheckerPath { get; }
-
-        /// <summary>
         /// Gets or sets the type of the framework.
         /// </summary>
         FrameworkType FrameworkType { get; set;  }
@@ -291,6 +256,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets the local nuget packages URI.
         /// </summary>
         string LocalNugetPackagesUri { get; }
+
+        /// <summary>
+        /// Gets the application commands URI.
+        /// </summary>
+        string ApplicationCommandsUri { get; }
 
         /// <summary>
         /// Gets or sets the xamarin forms views.
@@ -388,5 +358,71 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets or sets the name of the test projects solution folder.
         /// </summary>
         string TestProjectsSolutionFolderName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the working directory.
+        /// </summary>
+        string WorkingDirectory { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether [use local text templates].
+        /// </summary>
+        bool UseLocalTextTemplates { get; }
+
+        /// <summary>
+        /// Gets the local text templates directory.
+        /// </summary>
+        string LocalTextTemplatesDirectory { get; }
+
+        /// <summary>
+        /// Gets the idependency text template.
+        /// </summary>
+        string IDependencyTextTemplate { get; }
+
+        /// <summary>
+        /// Gets the dependency text template.
+        /// </summary>
+
+        string DependencyTextTemplate { get; }
+
+        /// <summary>
+        /// Gets or sets the dependency directory.
+        /// </summary>
+        string DependencyDirectory { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [automatically add serviceto dependency].
+        /// </summary>
+        bool AutomaticallyAddServicetoDependency { get; set; }
+        
+        /// <summary>
+        /// Gets the base custom renderer text template.
+        /// </summary>
+        string BaseCustomRendererTextTemplate { get; }
+
+        /// <summary>
+        /// Gets the custom renderer text template.
+        /// </summary>
+        string CustomRendererTextTemplate { get; }
+        
+        /// <summary>
+        /// Gets or sets the custom renderer directory.
+        /// </summary>
+        string CustomRendererDirectory { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [automatically add renderer].
+        /// </summary>
+        bool AutomaticallyAddRenderer { get; set; }
+
+        /// <summary>
+        /// Gets the xamarin forms custom renderers URI.
+        /// </summary>
+        string XamarinFormsCustomRenderersUri { get; }
+
+        /// <summary>
+        /// Gets the dependency services web page.
+        /// </summary>
+        string DependencyServicesWebPage { get; }
     }
 }

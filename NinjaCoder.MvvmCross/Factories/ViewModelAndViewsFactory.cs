@@ -187,7 +187,7 @@ namespace NinjaCoder.MvvmCross.Factories
                     itemTemplateInfo.FileName = viewName;
 
                     itemTemplateInfos.Add(itemTemplateInfo);
-                }                
+                }
             }
             else if (view.Framework == FrameworkType.XamarinForms.GetDescription())
             {
@@ -288,7 +288,7 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             if (frameworkType == FrameworkType.XamarinForms)
             {
-                return string.Format("XamarinForms.ViewModel.Blank.zip");
+                return "XamarinForms.ViewModel.Blank.zip";
             }
 
             return string.Format(
@@ -337,7 +337,7 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             if (frameworkType == FrameworkType.XamarinForms)
             {
-                return "Xamarin.Forms.View.Blank.zip";
+                return "XamarinForms.View.Blank.zip";
             }
 
             return string.Format(

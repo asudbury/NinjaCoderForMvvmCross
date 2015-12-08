@@ -18,6 +18,8 @@ namespace NinjaCoder.MvvmCross.Services
     using System.Linq;
     using System.Xml.Linq;
 
+    using Scorchio.Infrastructure.Translators;
+
     /// <summary>
     /// Defines the ApplicationService type.
     /// </summary>
@@ -34,88 +36,24 @@ namespace NinjaCoder.MvvmCross.Services
         private readonly ISettingsService settingsService;
 
         /// <summary>
-        /// The file system.
+        /// The commands list translator.
         /// </summary>
-        private readonly IFileSystem fileSystem;
+        private readonly ITranslator<string, CommandsList> commandsListTranslator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationService" /> class.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="settingsService">The settings service.</param>
-        /// <param name="fileSystem">The file system.</param>
+        /// <param name="commandsListTranslator">The commands list translator.</param>
         public ApplicationService(
             IVisualStudioService visualStudioService,
             ISettingsService settingsService,
-            IFileSystem fileSystem)
+            ITranslator<string, CommandsList> commandsListTranslator)
         {
             this.visualStudioService = visualStudioService;
             this.settingsService = settingsService;
-            this.fileSystem = fileSystem;
-        }
-
-        /// <summary>
-        /// Checks for updates.
-        /// </summary>
-        public void CheckForUpdates()
-        {
-            TraceService.WriteLine("ApplicationService::CheckForUpdates");
-
-            string path = this.settingsService.UpdateCheckerPath;
-
-            bool exists = this.fileSystem.File.Exists(path);
-
-            if (exists)
-            {
-                ProcessStartInfo startInfo = new ProcessStartInfo(path)
-                                             {
-                                                 WindowStyle = ProcessWindowStyle.Hidden
-                                             };
-
-                Process.Start(startInfo);
-            }
-        }
-
-        /// <summary>
-        /// Determines whether [is update available].
-        /// </summary>
-        /// <returns>True or false.</returns>
-        public bool IsUpdateAvailable()
-        {
-            TraceService.WriteLine("ApplicationService::IsUpdateAvailable");
-
-            string currentVersionString = this.settingsService.ApplicationVersion;
-            string newVersionString = this.settingsService.LatestVersionOnGallery;
-
-            if (string.IsNullOrEmpty(currentVersionString) == false &&
-                string.IsNullOrEmpty(newVersionString) == false)
-            {
-                Version currentVersion;
-                Version newVersion;
-
-                Version.TryParse(currentVersionString, out currentVersion);
-
-                Version.TryParse(newVersionString, out newVersion);
-                 
-                if (currentVersion != null && 
-                    newVersion != null)
-                {
-                    if (newVersion > currentVersion)
-                    {
-                        TraceService.WriteLine("ApplicationService::IsUpdateAvailable Update is available");
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Checks for updates if ready.
-        /// </summary>
-        public void CheckForUpdatesIfReady()
-        {
+            this.commandsListTranslator = commandsListTranslator;
         }
 
         /// <summary>
@@ -244,6 +182,24 @@ namespace NinjaCoder.MvvmCross.Services
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets the commands list.
+        /// </summary>
+        /// <returns></returns>
+        public CommandsList GetCommandsList()
+        {
+            return this.commandsListTranslator.Translate(this.settingsService.ApplicationCommandsUri);
+        }
+
+        /// <summary>
+        /// Sets the working directory.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        public void SetWorkingDirectory(string path)
+        {
+            this.settingsService.WorkingDirectory = path;
         }
     }
 }

@@ -7,10 +7,12 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
 {
     using EnvDTE80;
     using Microsoft.VisualStudio.Shell;
+    using NinjaCoder.MvvmCross.Controllers;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using System;
     using System.ComponentModel.Design;
+    using System.IO;
     using System.Runtime.InteropServices;
 
     /// <summary>
@@ -57,15 +59,25 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
         /// </summary>
         protected override void Initialize()
         {
-            TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::Initialize");
+            TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::Initialize START");
 
             base.Initialize();
 
-            DTE2 dte2 = (DTE2)this.GetService(typeof(DTE2));
+            DTE2 dte2 = this.GetService(typeof(Microsoft.VisualStudio.Shell.Interop.SDTE)) as DTE2;
+
+            if (dte2 == null)
+            {
+                TraceService.WriteError("DTE2 is null from this.GetService(typeof(DTE2))");
+            }
 
             this.VsInstance = new VSInstance(dte2);
 
-            // Add our command handlers for menu (commands must exist in the .vsct file)
+            string assemblyPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+
+            TraceService.WriteLine("assembly path=" + assemblyPath);
+
+            NinjaController.SetWorkingDirectory(Path.GetDirectoryName(assemblyPath));
+
             OleMenuCommandService mcs = this.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
 
             if (mcs == null)
@@ -73,20 +85,157 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
                 return;
             }
 
-            // Create the command for the menu item.
-            CommandID menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIDList.NinjaCoderForMvvmCrossCommand);
-            MenuCommand menuItem = new MenuCommand(this.MenuItemCallback, menuCommandId);
+            CommandID menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIdList.AddProjects);
+            MenuCommand menuItem = new MenuCommand(this.OnAddProjects, menuCommandId);
             mcs.AddCommand(menuItem);
+
+            menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIdList.AddViewModelsAndViews);
+            menuItem = new MenuCommand(this.OnAddViewModelAndViews, menuCommandId);
+            mcs.AddCommand(menuItem);
+
+            menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIdList.AddMvvmCrossPlugins);
+            menuItem = new MenuCommand(this.OnAddMvvmCrossPlugins, menuCommandId);
+            mcs.AddCommand(menuItem);
+
+            menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIdList.AddNugetPackages);
+            menuItem = new MenuCommand(this.OnAddNugetPackages, menuCommandId);
+            mcs.AddCommand(menuItem);
+
+            menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIdList.AddDependencyService);
+            menuItem = new MenuCommand(this.OnAddDependencyService, menuCommandId);
+            mcs.AddCommand(menuItem);
+
+            menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIdList.AddCustomRenderer);
+            menuItem = new MenuCommand(this.OnAddCustomerRenderer, menuCommandId);
+            mcs.AddCommand(menuItem);
+
+            menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIdList.Options);
+            menuItem = new MenuCommand(this.OnOptions, menuCommandId);
+            mcs.AddCommand(menuItem);
+
+            menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIdList.ViewLogFile);
+            menuItem = new MenuCommand(this.OnViewLogFile, menuCommandId);
+            mcs.AddCommand(menuItem);
+            
+            menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIdList.ClearLogFile);
+            menuItem = new MenuCommand(this.OnClearLogFile, menuCommandId);
+            mcs.AddCommand(menuItem);
+
+            menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIdList.About);
+            menuItem = new MenuCommand(this.OnAbout, menuCommandId);
+            mcs.AddCommand(menuItem);
+
+            TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::Initialize END");
         }
 
         /// <summary>
-        /// This function is the callback used to execute a command when the a menu item is clicked.
-        /// See the Initialize method to see how the menu item is associated to this function using
-        /// the OleMenuCommandService service and the MenuCommand class.
+        /// Called when [add projects].
         /// </summary>
-        private void MenuItemCallback(object sender, EventArgs e)
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void OnAddProjects(object sender, EventArgs e)
         {
-            ////NinjaController.RunProjectsController(this.VsInstance.ApplicationObject);
+            TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::OnAddProjects");
+            NinjaController.RunProjectsController(this.VsInstance.ApplicationObject);
+        }
+
+        /// <summary>
+        /// Called when [add view model and views].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void OnAddViewModelAndViews(object sender, EventArgs e)
+        {
+            TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::OnAddViewModelAndViews");
+            NinjaController.RunViewModelViewsController(this.VsInstance.ApplicationObject);
+        }
+
+        /// <summary>
+        /// Called when [add MVVM cross plugins].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void OnAddMvvmCrossPlugins(object sender, EventArgs e)
+        {
+            TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::OnAddMvvmCrossPlugins");
+            NinjaController.RunPluginsController(this.VsInstance.ApplicationObject);
+        }
+
+        /// <summary>
+        /// Called when [add nuget packages].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void OnAddNugetPackages(object sender, EventArgs e)
+        {
+            TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::OnAddNugetPackages");
+            NinjaController.RunNugetPackagesController(this.VsInstance.ApplicationObject);
+        }
+
+        /// <summary>
+        /// Called when [add dependency service].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void OnAddDependencyService(object sender, EventArgs e)
+        {
+            TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::OnAddDependencyService");
+            NinjaController.RunDependencyServicesController(this.VsInstance.ApplicationObject);
+        }
+
+        /// <summary>
+        /// Called when [add customer renderer].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void OnAddCustomerRenderer(object sender, EventArgs e)
+        {
+            TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::OnAddCustomerRenderer");
+            NinjaController.RunCustomerRendererController(this.VsInstance.ApplicationObject);
+        }
+
+        /// <summary>
+        /// Called when [options].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void OnOptions(object sender, EventArgs e)
+        {
+            TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::OnOptions");
+            NinjaController.ShowOptions(this.VsInstance.ApplicationObject);
+        }
+
+        /// <summary>
+        /// Called when [about].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void OnAbout(object sender, EventArgs e)
+        {
+            TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::OnAbout");
+            NinjaController.ShowAboutBox(this.VsInstance.ApplicationObject);
+        }
+
+        /// <summary>
+        /// Called when [view log file].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void OnViewLogFile(object sender, EventArgs e)
+        {
+            TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::OnViewLogFile");
+            NinjaController.ViewLogFile();
+        }
+
+        /// <summary>
+        /// Called when [clear log file].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void OnClearLogFile(object sender, EventArgs e)
+        {
+            TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::OnClearLogFile");
+            NinjaController.ClearLogFile();
         }
     }
 }

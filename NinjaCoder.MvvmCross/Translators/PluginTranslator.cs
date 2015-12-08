@@ -9,7 +9,6 @@ namespace NinjaCoder.MvvmCross.Translators
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Translators;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using System.Xml.Linq;
 
@@ -18,6 +17,37 @@ namespace NinjaCoder.MvvmCross.Translators
     /// </summary>
     internal class PluginTranslator : ITranslator<XElement, Plugin>
     {
+        /// <summary>
+        /// The file operations translator.
+        /// </summary>
+        private readonly ITranslator<XElement, IEnumerable<FileOperation>> fileOperationsTranslator;
+
+        /// <summary>
+        /// The commands translator.
+        /// </summary>
+        private readonly ITranslator<XElement, IEnumerable<Command>> commandsTranslator;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PluginTranslator"/> class.
+        /// </summary>
+        public PluginTranslator()
+            :this(new FileOperationsTranslator(), new CommandsTranslator())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PluginTranslator" /> class.
+        /// </summary>
+        /// <param name="fileOperationsTranslator">The file operations translator.</param>
+        /// <param name="commandsTranslator">The commands translator.</param>
+        public PluginTranslator(
+            ITranslator<XElement, IEnumerable<FileOperation>> fileOperationsTranslator,
+            ITranslator<XElement, IEnumerable<Command>> commandsTranslator)
+        {
+            this.fileOperationsTranslator = fileOperationsTranslator;
+            this.commandsTranslator = commandsTranslator;
+        }
+
         /// <summary>
         /// Translates the object.
         /// </summary>
@@ -149,7 +179,7 @@ namespace NinjaCoder.MvvmCross.Translators
                 {
                     FrameworkType frameworkType = FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(e.Value);
 
-                    frameworkTypes.Add(frameworkType);    
+                    frameworkTypes.Add(frameworkType);
                 }
             }
 
@@ -226,28 +256,7 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <returns></returns>
         internal IEnumerable<Command> GetCommands(XElement element)
         {
-            List<Command> commands = new List<Command>();
-
-            XElement commandsElement = element.Element("Commands");
-
-            if (commandsElement != null)
-            {
-                IEnumerable<XElement> elements = commandsElement.Elements("Command");
-
-                foreach (XElement commandElement in elements)
-                {
-                    Command command = new Command
-                    {
-                        PlatForm = commandElement.GetSafeAttributeStringValue("Platform"),
-                        CommandType = commandElement.GetSafeAttributeStringValue("Type"),
-                        Name = commandElement.GetSafeAttributeStringValue("Name")
-                    };
-
-                    commands.Add(command);
-                }
-            }
-
-            return commands;
+            return this.commandsTranslator.Translate(element);
         }
 
         /// <summary>
@@ -257,32 +266,7 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <returns></returns>
         internal IEnumerable<FileOperation> GetFileOperations(XElement element)
         {
-            List<FileOperation> fileOperations = new List<FileOperation>();
-
-            XElement commandsElement = element.Element("FileOperations");
-
-            if (commandsElement != null)
-            {
-                IEnumerable<XElement> elements = commandsElement.Elements("FileOperation");
-
-                foreach (XElement commandElement in elements)
-                {
-                    FileOperation fileOperation = new FileOperation
-                    {
-                        PlatForm = commandElement.GetSafeAttributeStringValue("Platform"),
-                        CommandType = commandElement.GetSafeAttributeStringValue("Type"),
-                        Name = commandElement.GetSafeAttributeStringValue("Name"),
-                        File = commandElement.GetSafeAttributeStringValue("File"),
-                        Directory = commandElement.GetSafeAttributeStringValue("Directory"),
-                        From = commandElement.GetSafeAttributeStringValue("From"),
-                        To = commandElement.GetSafeAttributeStringValue("To")
-                    };
-
-                    fileOperations.Add(fileOperation);
-                }
-            }
-
-            return fileOperations;
+            return this.fileOperationsTranslator.Translate(element);
         }
     }
 }

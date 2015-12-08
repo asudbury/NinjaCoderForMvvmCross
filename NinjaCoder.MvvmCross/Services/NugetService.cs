@@ -542,13 +542,11 @@ namespace NinjaCoder.MvvmCross.Services
                             {
                                 fileItemService = projectItemService.GetProjectItem(postNugetFileOperation.File);
                             }
-
                             else
                             {
-                                TraceService.WriteError("Directory " + postNugetFileOperation.Directory + " not found");
+                                TraceService.WriteLine("Directory " + postNugetFileOperation.Directory + " not found");
                             }
                         }
-
                         else
                         {
                             fileItemService = projectService.GetProjectItem(postNugetFileOperation.File);
@@ -573,16 +571,14 @@ namespace NinjaCoder.MvvmCross.Services
                                     break;
                             }
                         }
-
                         else
                         {
-                            TraceService.WriteError("File " + postNugetFileOperation.File + " not found");
+                            TraceService.WriteLine("File " + postNugetFileOperation.File + " not found");
                         }
                     }
-
                     else
                     {
-                        TraceService.WriteError("Platform " + postNugetFileOperation.PlatForm + " not found");
+                        TraceService.WriteLine("Platform " + postNugetFileOperation.PlatForm + " not found");
                     }
                 }
             }

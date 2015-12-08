@@ -54,6 +54,11 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\..\..\..\Windows\assembly\GAC\Microsoft.VisualStudio.CommandBars\8.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.CommandBars.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualStudio.Shell.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.TextTemplating.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.TextTemplating.VSHost.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -74,12 +79,17 @@
     <Compile Include="CommandManager.cs" />
     <Compile Include="Extensions\CodeParameterExtensions.cs" />
     <Compile Include="Extensions\CodeSnippetsExtensions.cs" />
+    <Compile Include="Entities\TextTemplateInfo.cs" />
     <Compile Include="Extensions\UIHierarchyExtensions.cs" />
     <Compile Include="ScorchioConstants.cs" />
     <Compile Include="Services\DTEService.cs" />
     <Compile Include="Services\Interfaces\IDTEService.cs" />
     <Compile Include="Services\Interfaces\ISolutionService.cs" />
+    <Compile Include="Services\Interfaces\ITextTransformationService.cs" />
     <Compile Include="Services\SolutionService.cs" />
+    <Compile Include="Services\T4Cache.cs" />
+    <Compile Include="Services\T4CallBack.cs" />
+    <Compile Include="Services\TextTransformationService.cs" />
     <Compile Include="VSConstants.cs" />
     <Compile Include="Entities\BaseTemplateInfo.cs" />
     <Compile Include="Entities\CodeSnippet.cs" />

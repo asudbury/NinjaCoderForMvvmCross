@@ -127,8 +127,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteHeader("ProjectsController::Run");
           
-            //// we open the nuget package manager console so we don't have
-            //// a wait condition later!
+            //// we open the nuget package manager console so we don't have a wait condition later!
             
             this.nugetService.OpenNugetWindow();
 
@@ -201,9 +200,11 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             if (this.SettingsService.CreateTestProjectsSolutionFolder)
             {
-                this.VisualStudioService.SolutionService.AddSolutionFolder(this.SettingsService.TestProjectsSolutionFolderName);    
+                this.VisualStudioService.SolutionService.AddSolutionFolder(this.SettingsService.TestProjectsSolutionFolderName);
                 this.VisualStudioService.DTEService.SaveAll();
             }
+
+            TraceService.WriteLine("ProjectsController::Process AddProjects");
 
            this.messages = this.projectsService.AddProjects(
                     this.VisualStudioService,
@@ -227,6 +228,17 @@ namespace NinjaCoder.MvvmCross.Controllers
                 IEnumerable<string> viewModelMessages = this.viewModelViewsService.AddViewModelsAndViews(viewsViewModel.Views);
             
                 this.messages.AddRange(viewModelMessages);
+            }
+
+            TraceService.WriteLine("ProjectsController::Process GetApplication Commands");
+
+            //// we need to get the post nuget commands that are now hosted in xml file that used to be in code
+            CommandsList commandsList = this.applicationService.GetCommandsList();
+
+            if (commandsList != null)
+            {
+                this.postNugetCommands.AddRange(commandsList.Commands);
+                this.postNugetFileOperations.AddRange(commandsList.FileOperations);
             }
 
             this.PopulateNugetActions(applicationOptionsViewModel);
@@ -268,8 +280,13 @@ namespace NinjaCoder.MvvmCross.Controllers
             }
 
             this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NugetDownload);
+
+            TraceService.WriteLine("ProjectsController::Process END");
         }
 
+        /// <summary>
+        /// Outputs the nuget commands to read me.
+        /// </summary>
         private void OutputNugetCommandsToReadMe()
         {
             if (this.SettingsService.OutputNugetCommandsToReadMe)
@@ -291,6 +308,8 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             if (viewModel != null)
             {
+                TraceService.WriteLine("ProjectsController::PopulateNugetActions viewModel" + viewModel.DisplayName);
+
                 NugetActions nugetActions = viewModel.GetNugetActions();
 
                 this.commands += nugetActions.NugetCommands;

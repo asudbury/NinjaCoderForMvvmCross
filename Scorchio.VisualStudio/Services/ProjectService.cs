@@ -6,11 +6,15 @@
 namespace Scorchio.VisualStudio.Services
 {
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using EnvDTE;
     using EnvDTE80;
     using Extensions;
     using Interfaces;
+
+    using Scorchio.VisualStudio.Entities;
+
     using VSLangProj;
 
     /// <summary>
@@ -403,6 +407,37 @@ namespace Scorchio.VisualStudio.Services
             ProjectItem projectItem = this.project.GetFolder(folderName) ?? this.project.ProjectItems.AddFolder(folderName);
 
             return new ProjectItemService(projectItem);
+        }
+
+        /// <summary>
+        /// Adds the text template.
+        /// </summary>
+        /// <param name="textTemplateInfo">The text template information.</param>
+        /// <returns></returns>
+        public string AddTextTemplate(TextTemplateInfo textTemplateInfo)
+        {
+            string projectPath = this.GetProjectPath();
+            TraceService.WriteLine("projectPath=" + projectPath);
+
+            string directory = projectPath + "\\" + textTemplateInfo.ProjectFolder;
+            TraceService.WriteLine("directory=" + directory);
+
+            if (Directory.Exists(directory) == false)
+            {
+                TraceService.WriteLine("creating directory=" + directory);
+                Directory.CreateDirectory(directory);
+            }
+
+            string fileName = directory + "\\" + textTemplateInfo.FileName;
+            TraceService.WriteLine("fileName=" + fileName);
+
+            //// save to a file
+            File.WriteAllText(fileName, textTemplateInfo.TextOutput);
+
+            TraceService.WriteLine("addToFolderFromFile");
+            this.AddToFolderFromFile(textTemplateInfo.ProjectFolder, fileName);
+
+            return textTemplateInfo.FileName + " added to project " + this.Name;
         }
     }
 }

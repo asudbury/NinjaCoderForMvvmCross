@@ -6,7 +6,6 @@
 namespace NinjaCoder.MvvmCross.Translators
 {
     using System;
-    using System.IO;
     using System.Text.RegularExpressions;
     using System.Xml;
     using System.Xml.Linq;
@@ -15,6 +14,7 @@ namespace NinjaCoder.MvvmCross.Translators
 
     using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     /// Defines the SnippetTranslator type.
@@ -28,6 +28,8 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <returns>A CodeSnippet.</returns>
         public CodeSnippet Translate(string @from)
         {
+            TraceService.WriteLine("CodeSnippet::Translate " + @from);
+
             XDocument doc = XDocument.Load(from);
 
             if (doc.Root != null)

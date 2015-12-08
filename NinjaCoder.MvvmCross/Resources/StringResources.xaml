@@ -5,7 +5,6 @@
     <system:String x:Key="Build">Build</system:String>
     <system:String x:Key="BuildDate">Build Date</system:String>
     <system:String x:Key="Cancel">CANCEL</system:String>
-    <system:String x:Key="CheckForNinjaCoderUpdates">Check for Ninja Coder updates</system:String>
     <system:String x:Key="ClearLog">Clear log</system:String>
     <system:String x:Key="Close">CLOSE</system:String>
     <system:String x:Key="CodingStyle">Coding style</system:String>

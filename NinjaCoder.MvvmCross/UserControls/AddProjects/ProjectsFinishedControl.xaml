@@ -36,7 +36,7 @@
                       IsChecked="{Binding SuspendReSharperDuringBuild}" />
 
             <CheckBox Margin="10"
-                      Content="Create Test projects in 'TestProjects' solution folder"
+                      Content="Create Test projects in 'Tests' solution folder"
                       IsChecked="{Binding CreateTestProjectsSolutionFolder}" />
             <Separator Margin="5" />
             <TextBlock Margin="10" Text="Click 'Finish' to generate the solution." />
@@ -51,11 +51,6 @@
             <Separator Margin="5" FontWeight="Normal" />
 
         </StackPanel>
-
-        <Image Grid.Row="1"
-               Grid.Column="1"
-               Width="150"
-               Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/bottom.png" />
 
     </Grid>
 

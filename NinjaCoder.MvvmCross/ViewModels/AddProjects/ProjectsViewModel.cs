@@ -120,6 +120,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 
             if (this.solutionAlreadyCreated)
             {
+                TraceService.WriteLine("Solution already created");
+
                 this.Path = visualStudioService.SolutionService.GetParentDirectoryName();
             }
             else

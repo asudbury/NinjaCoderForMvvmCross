@@ -117,7 +117,7 @@ namespace Scorchio.VisualStudio.Services
         /// <param name="message">The message.</param>
         public static void WriteError(string message)
         {
-            WriteLine("--------------------------------------------------------");
+            WriteLine("ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR");
 
             string timedMessage = GetTimedMessage("** ERROR **", message);
 

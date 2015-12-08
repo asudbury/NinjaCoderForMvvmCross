@@ -26,5 +26,5 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
         /// The unique identifier ninja coder_ MVVM cross_ vs package command set.
         /// </summary>
         public static readonly Guid guidNinjaCoder_MvvmCross_VSPackageCmdSet = new Guid(guidNinjaCoder_MvvmCross_VSPackageCmdSetString);
-    };
+    }
 }
