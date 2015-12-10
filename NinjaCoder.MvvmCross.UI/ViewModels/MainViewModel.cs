@@ -7,12 +7,12 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
 {
     using Controllers;
     using EnvDTE;
+    using Microsoft.Win32;
     using Scorchio.Infrastructure.Wpf;
     using Scorchio.Infrastructure.Wpf.ViewModels;
+    using Scorchio.VisualStudio.Services;
     using System.Collections.Generic;
     using System.Windows.Input;
-
-    using Microsoft.Win32;
 
     /// <summary>
     ///  Defines the MainViewModel type.
@@ -38,6 +38,7 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
                 string workingDirectory = this.GetWorkingDirectory();
 
                 NinjaController.SetWorkingDirectory(workingDirectory);
+                NinjaController.SetTextTemplatingEngineHost(new TextTemplatingHostService());
             }
             catch
             {

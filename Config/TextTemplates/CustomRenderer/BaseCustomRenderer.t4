@@ -1,25 +1,22 @@
 ﻿<#@ Template Language="C#" #>
 <#@ Output Extension="cs" #>
 <#@ parameter type="System.string" name="NameSpace" #>
-<#@ parameter type="System.string" name="InterfaceName" #>
-<#@ parameter type="System.string" name="MethodComment" #>
-<#@ parameter type="System.string" name="MethodReturnType" #>
-<#@ parameter type="System.string" name="MethodName" #>
+<#@ parameter type="System.string" name="RendererBaseType" #>
+<#@ parameter type="System.string" name="RendererType" #>
 // --------------------------------------------------------------------------------------------------------------------
 // <summary>
-//  Defines the <#= InterfaceName #> type.
+//  Defines the <#= RendererBaseType #> type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace <#= NameSpace #>
 {
+    using Xamarin.Forms;
+
     /// <summary>
-    /// Defines the <#= InterfaceName #> type.
+    /// Defines the <#= RendererBaseType #> type.
     /// </summary>
-    public interface <#= InterfaceName #>
+    public class <#= RendererBaseType #> : <#= RendererType #>
     {
-        /// <summary>
-        /// <#= MethodComment #>
-        ///</summary>
-        <#= MethodReturnType #> <#= MethodName #>();
     }
 }
+

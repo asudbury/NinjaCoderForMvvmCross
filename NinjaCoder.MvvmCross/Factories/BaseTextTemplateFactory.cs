@@ -46,7 +46,6 @@ namespace NinjaCoder.MvvmCross.Factories
                            FileName = fileName,
                            Tokens = this.GetDictionary(baseDictionary, nameSpace, className)
                        };
-
         }
 
         /// <summary>
@@ -95,7 +94,8 @@ namespace NinjaCoder.MvvmCross.Factories
             string name, 
             ProjectSuffix projectSuffix)
         {
-            if (name.StartsWith("I"))
+            if (name.StartsWith("I") || 
+                projectSuffix == ProjectSuffix.XamarinForms)
             {
                 return name + ".cs";
             }

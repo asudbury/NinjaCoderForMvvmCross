@@ -112,30 +112,34 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                 ITextTransformationService textTransformationService = this.VisualStudioService.GetTextTransformationService();
 
+                this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.AddingDependencyService);
+
                 foreach (TextTemplateInfo textTemplateInfo in textTemplates)
                 {
                     TraceService.WriteLine("DependencyServicesController::Process textTemplate=" + textTemplateInfo.FileName);
 
-                    textTemplateInfo.TextOutput = textTransformationService.Transform(textTemplateInfo.TemplateName, textTemplateInfo.Tokens);
+                    IProjectService projectService = this.VisualStudioService.GetProjectServiceBySuffix(textTemplateInfo.ProjectSuffix);
 
-                    if (textTemplateInfo.TextOutput != string.Empty &&
-                        textTransformationService.T4CallBack.ErrorMessages.Any() == false)
+                    if (projectService != null)
                     {
-                        //// add file to the solution
-                        IProjectService projectService = this.VisualStudioService.GetProjectServiceBySuffix(textTemplateInfo.ProjectSuffix);
+                        this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.AddingDependencyService + " for " + projectService.Name);
 
-                        if (projectService != null)
+                        textTemplateInfo.TextOutput = textTransformationService.Transform(textTemplateInfo.TemplateName, textTemplateInfo.Tokens);
+
+                        if (textTemplateInfo.TextOutput != string.Empty &&
+                            textTransformationService.T4CallBack.ErrorMessages.Any() == false)
                         {
+                            //// add file to the solution
                             string message = projectService.AddTextTemplate(textTemplateInfo);
                             messages.Add(message);
                         }
-                    }
 
-                    else
-                    {
-                        foreach (string errorMessage in textTransformationService.T4CallBack.ErrorMessages)
+                        else
                         {
-                            messages.Add("T4 Error " + errorMessage);
+                            foreach (string errorMessage in textTransformationService.T4CallBack.ErrorMessages)
+                            {
+                                messages.Add("T4 Error " + errorMessage);
+                            }
                         }
                     }
                 }

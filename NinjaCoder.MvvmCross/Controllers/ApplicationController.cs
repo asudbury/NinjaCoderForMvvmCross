@@ -16,6 +16,9 @@ namespace NinjaCoder.MvvmCross.Controllers
     using Services.Interfaces;
     using System.Collections.Generic;
     using System.Windows;
+
+    using Microsoft.VisualStudio.TextTemplating;
+
     using ViewModels;
     using ViewModels.Options;
     using Views;
@@ -159,6 +162,17 @@ namespace NinjaCoder.MvvmCross.Controllers
             TraceService.WriteLine("ApplicationController::SetWorkingDirectory " + path);
 
             this.applicationService.SetWorkingDirectory(path);
+        }
+
+        /// <summary>
+        /// Sets the text templating engine host.
+        /// </summary>
+        /// <param name="textTemplatingEngineHost">The text templating engine host.</param>
+        public void SetTextTemplatingEngineHost(ITextTemplatingEngineHost textTemplatingEngineHost)
+        {
+            TraceService.WriteLine("ApplicationController::SetTextTemplatingEngineHost");
+
+            this.applicationService.SetTextTemplatingEngineHost(textTemplatingEngineHost);
         }
     }
 }

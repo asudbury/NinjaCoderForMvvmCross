@@ -33,6 +33,16 @@ namespace NinjaCoder.MvvmCross.Constants
         /// <summary>
         /// The adding view model and views.
         /// </summary>
-        public const string AddingViewModelAndViews = "Adding ViewModel and Views.";
+        public const string AddingViewModelAndViews = "Adding ViewModel and Views...";
+
+        /// <summary>
+        /// The adding dependency service.
+        /// </summary>
+        public const string AddingDependencyService = "Adding Dependency Service...";
+
+        /// <summary>
+        /// The adding custom renderer.
+        /// </summary>
+        public const string AddingCustomRenderer = "Adding Custom Renderer...";
     }
 }

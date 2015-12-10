@@ -13,6 +13,8 @@ namespace Scorchio.VisualStudio.Services
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Net;
+
     using IServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 
     /// <summary>
@@ -26,19 +28,28 @@ namespace Scorchio.VisualStudio.Services
         private readonly IServiceProvider serviceProvider;
 
         /// <summary>
+        /// The text templating engine host.
+        /// </summary>
+        private readonly ITextTemplatingEngineHost textTemplatingEngineHost;
+
+        /// <summary>
         /// The cache.
         /// </summary>
         private readonly T4Cache cache;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextTransformationService"/> class.
+        /// Initializes a new instance of the <see cref="TextTransformationService" /> class.
         /// </summary>
         /// <param name="serviceProvider">The service provider.</param>
-        public TextTransformationService(IServiceProvider serviceProvider)
+        /// <param name="textTemplatingEngineHost">The text templating engine host.</param>
+        public TextTransformationService(
+            IServiceProvider serviceProvider,
+            ITextTemplatingEngineHost textTemplatingEngineHost)
         {
             TraceService.WriteLine("TextTransformationService::Constructor");
 
             this.serviceProvider = serviceProvider;
+            this.textTemplatingEngineHost = textTemplatingEngineHost;
 
             this.cache = new T4Cache();
 
@@ -62,12 +73,6 @@ namespace Scorchio.VisualStudio.Services
         {
             TraceService.WriteLine("TextTransformationService::Transform sourceFile=" + sourceFile);
 
-            if (File.Exists(sourceFile) == false)
-            {
-                TraceService.WriteLine("File does not exist");
-                return string.Empty;
-            }
-
             string sourceText = this.GetText(sourceFile);
 
             ServiceProvider serviceProviderImpl = new ServiceProvider(this.serviceProvider, true);
@@ -78,8 +83,6 @@ namespace Scorchio.VisualStudio.Services
 
             if (sessionHost != null)
             {
-                TraceService.WriteLine("got session host");
-
                 sessionHost.Session = sessionHost.CreateSession();
 
                 foreach (KeyValuePair<string, string> keyValuePair in parameters)
@@ -92,15 +95,25 @@ namespace Scorchio.VisualStudio.Services
 
             if (t4 != null)
             {
-                TraceService.WriteLine("got t4");
-
                 this.T4CallBack = new T4CallBack();
 
                 try
                 {
                     TraceService.WriteLine("Before processing template");
 
-                    string output = t4.ProcessTemplate(sourceFile, sourceText, this.T4CallBack);
+                    string output;
+
+                    if (this.textTemplatingEngineHost != null)
+                    {
+                        Engine engine = new Engine();
+
+                        output = engine.ProcessTemplate(sourceFile, this.textTemplatingEngineHost);
+                    }
+
+                    else
+                    {
+                        output = t4.ProcessTemplate(sourceFile, sourceText, this.T4CallBack);
+                    }
 
                     TraceService.WriteLine("After processing template");
 
@@ -137,7 +150,21 @@ namespace Scorchio.VisualStudio.Services
                 return cachedFile;
             }
 
-            return File.ReadAllText(sourceFile);
+            if (sourceFile.Contains("http") == false)
+            {
+                return File.ReadAllText(sourceFile);
+            }
+
+            WebClient client = new WebClient();
+            Stream stream = client.OpenRead(sourceFile);
+
+            if (stream != null)
+            {
+                StreamReader reader = new StreamReader(stream);
+                return reader.ReadToEnd();
+            }
+
+            return string.Empty;
         }
     }
 }

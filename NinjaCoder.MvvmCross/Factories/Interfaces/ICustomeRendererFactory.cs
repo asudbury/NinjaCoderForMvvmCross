@@ -32,9 +32,11 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="directory">The directory.</param>
+        /// <param name="renderer">The renderer.</param>
         /// <returns></returns>
         IEnumerable<TextTemplateInfo> GetTextTemplates(
             string name,
-            string directory);
+            string directory,
+            string renderer);
     }
 }

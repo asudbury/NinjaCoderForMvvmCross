@@ -18,6 +18,8 @@ namespace NinjaCoder.MvvmCross.Services
     using System.Linq;
     using System.Xml.Linq;
 
+    using Microsoft.VisualStudio.TextTemplating;
+
     using Scorchio.Infrastructure.Translators;
 
     /// <summary>
@@ -200,6 +202,15 @@ namespace NinjaCoder.MvvmCross.Services
         public void SetWorkingDirectory(string path)
         {
             this.settingsService.WorkingDirectory = path;
+        }
+
+        /// <summary>
+        /// Sets the text templating engine host.
+        /// </summary>
+        /// <param name="textTemplatingEngineHost">The text templating engine host.</param>
+        public void SetTextTemplatingEngineHost(ITextTemplatingEngineHost textTemplatingEngineHost)
+        {
+            this.visualStudioService.SetTextTemplatingEngineHost(textTemplatingEngineHost);
         }
     }
 }

@@ -5,6 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
+    using System;
+
     using NinjaCoder.MvvmCross.Constants;
     using NinjaCoder.MvvmCross.Entities;
     using NinjaCoder.MvvmCross.Factories.Interfaces;
@@ -15,6 +17,10 @@ namespace NinjaCoder.MvvmCross.Controllers
     using Scorchio.Infrastructure.Services;
     using Scorchio.VisualStudio.Services;
     using System.Collections.Generic;
+    using System.Linq;
+
+    using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Services.Interfaces;
 
     /// <summary>
     ///  Defines the CustomeRendererController type.
@@ -93,10 +99,60 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NinjaIsRunning);
 
-            List<string> messages = new List<string>();
+            try
+            {
+                List<string> messages = new List<string>();
 
-            //// show the readme.
-            this.ShowReadMe("Add Xamarin Forms Custom Renderer", messages);
+                TraceService.WriteLine("CustomerRendererController::Process GetTextTemplates");
+
+                IEnumerable<TextTemplateInfo> textTemplates = this.customRendererFactory.GetTextTemplates(
+                    customRendererViewModel.RequestedName,
+                    customRendererViewModel.Directory,
+                    customRendererViewModel.SelectedCustomRendererItem);
+
+                ITextTransformationService textTransformationService = this.VisualStudioService.GetTextTransformationService();
+
+                this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.AddingCustomRenderer);
+
+                foreach (TextTemplateInfo textTemplateInfo in textTemplates)
+                {
+                    TraceService.WriteLine("CustomerRendererController::Process textTemplate=" + textTemplateInfo.FileName);
+                    
+                    IProjectService projectService = this.VisualStudioService.GetProjectServiceBySuffix(textTemplateInfo.ProjectSuffix);
+
+                    if (projectService != null)
+                    {
+                        this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.AddingCustomRenderer + "for " + projectService.Name);
+
+                        textTemplateInfo.TextOutput = textTransformationService.Transform(textTemplateInfo.TemplateName, textTemplateInfo.Tokens);
+
+                        if (textTemplateInfo.TextOutput != string.Empty &&
+                            textTransformationService.T4CallBack.ErrorMessages.Any() == false)
+                        {
+                            //// add file to the solution
+                            string message = projectService.AddTextTemplate(textTemplateInfo);
+                             messages.Add(message);
+                        }
+
+                        else
+                        {
+                            foreach (string errorMessage in textTransformationService.T4CallBack.ErrorMessages)
+                            {
+                                messages.Add("T4 Error " + errorMessage);
+                            }
+                        }
+                    }
+                }
+
+                //// show the readme.
+                this.ShowReadMe("Add Xamarin Forms Custom Renderer", messages);
+
+            }
+            catch (Exception exception)
+            {
+                TraceService.WriteError("Cannot create custom renderer exception=" + exception.Message);
+            }
+
         }
     }
 }

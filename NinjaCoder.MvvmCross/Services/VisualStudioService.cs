@@ -22,6 +22,7 @@ namespace NinjaCoder.MvvmCross.Services
     using System.Linq;
 
     using Microsoft.VisualStudio.OLE.Interop;
+    using Microsoft.VisualStudio.TextTemplating;
 
     using Reference = VSLangProj.Reference;
 
@@ -34,6 +35,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// The dte2.
         /// </summary>
         private DTE2 dte2;
+
+        /// <summary>
+        /// The ninja text templating host service.
+        /// </summary>
+        private ITextTemplatingEngineHost ninjaTextTemplatingHostService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VisualStudioService" /> class.
@@ -629,10 +635,23 @@ namespace NinjaCoder.MvvmCross.Services
         {
             if (this.Package != null)
             {
-                return new TextTransformationService(this.Package);
+                return new TextTransformationService(
+                    this.Package, 
+                    this.ninjaTextTemplatingHostService);
             }
 
-            return new TextTransformationService((IServiceProvider)this.dte2.DTE);
+            return new TextTransformationService(
+                (IServiceProvider)this.dte2.DTE, 
+                this.ninjaTextTemplatingHostService);
+        }
+
+        /// <summary>
+        /// Sets the text templating engine host.
+        /// </summary>
+        /// <param name="textTemplatingEngineHost">The text templating engine host.</param>
+        public void SetTextTemplatingEngineHost(ITextTemplatingEngineHost textTemplatingEngineHost)
+        {
+            this.ninjaTextTemplatingHostService = textTemplatingEngineHost;
         }
     }
 }

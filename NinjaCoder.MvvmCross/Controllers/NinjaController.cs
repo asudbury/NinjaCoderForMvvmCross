@@ -19,6 +19,9 @@ namespace NinjaCoder.MvvmCross.Controllers
     using System.IO.Abstractions;
     using System.Reflection;
     using System.Xml.Linq;
+
+    using Microsoft.VisualStudio.TextTemplating;
+
     using TinyIoC;
     using Translators;
 
@@ -50,6 +53,18 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             ResolveController<ApplicationController>(null)
                 .SetWorkingDirectory(location);
+        }
+
+        /// <summary>
+        /// Sets the text templating engine host.
+        /// </summary>
+        /// <param name="textTemplatingEngineHost">The text templating engine host.</param>
+        public static void SetTextTemplatingEngineHost(ITextTemplatingEngineHost textTemplatingEngineHost)
+        {
+            TraceService.WriteLine("NinjaController::SetTextTemplatingEngineHost");
+
+            ResolveController<ApplicationController>(null)
+                .SetTextTemplatingEngineHost(textTemplatingEngineHost);
         }
 
         /// <summary>

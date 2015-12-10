@@ -699,7 +699,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public string GithubTemplatesDirectory
         {
-            get { return "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/TextTemplates"; }
+            get { return "http://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/TextTemplates"; }
         }
 
         /// <summary>

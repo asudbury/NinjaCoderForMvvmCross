@@ -5,6 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services.Interfaces
 {
+    using Microsoft.VisualStudio.TextTemplating;
+
     using NinjaCoder.MvvmCross.Entities;
     using Scorchio.VisualStudio.Entities;
 
@@ -51,5 +53,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// </summary>
         /// <param name="path">The path.</param>
         void SetWorkingDirectory(string path);
+
+        /// <summary>
+        /// Sets the text templating engine host.
+        /// </summary>
+        /// <param name="textTemplatingEngineHost">The text templating engine host.</param>
+        void SetTextTemplatingEngineHost(ITextTemplatingEngineHost textTemplatingEngineHost);
     }
 }

@@ -74,11 +74,11 @@ namespace NinjaCoder.MvvmCross.Factories
                     ViewModel = this.resolverService.Resolve<CustomRendererViewModel>(),
                     ViewType = typeof(CustomRendererControl)
                 },
-                                new WizardStepViewModel
-                    {
-                        ViewModel = this.resolverService.Resolve<CustomRendererFinishedViewModel>(),
-                        ViewType =  typeof(CustomRendereFinishedControl)
-                    }
+                new WizardStepViewModel
+                {
+                    ViewModel = this.resolverService.Resolve<CustomRendererFinishedViewModel>(),
+                    ViewType =  typeof(CustomRendereFinishedControl)
+                }
             };
 
             return wizardSteps;
@@ -105,40 +105,48 @@ namespace NinjaCoder.MvvmCross.Factories
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="directory">The directory.</param>
+        /// <param name="renderer">The renderer.</param>
         /// <returns></returns>
         public IEnumerable<TextTemplateInfo> GetTextTemplates(
             string name,
-            string directory)
+            string directory,
+            string renderer)
         {
             TraceService.WriteLine("CustomRendererFactory::GetTextTemplates");
 
             List<TextTemplateInfo> textTemplates = new List<TextTemplateInfo>();
 
-            Dictionary<string, string> baseDictionary = this.GetBaseDictionary(
-                name,
-                directory);
-
             IProjectService formsProjectService = this.visualStudioService.XamarinFormsProjectService;
 
-            if (formsProjectService != null)
+            if (formsProjectService == null)
             {
-                TraceService.WriteLine("building formsProject textTemplate");
-
-                textTemplates.Add(
-                    this.GetTextTemplateInfo(
-                        formsProjectService,
-                        this.settingsService.BaseCustomRendererTextTemplate,
-                        name,
-                        directory,
-                        ProjectSuffix.XamarinForms,
-                        baseDictionary));
+                return textTemplates;
             }
+
+            Dictionary<string, string> baseDictionary = this.GetBaseDictionary(
+                name,
+                directory,
+                renderer.Replace("Renderer", string.Empty),
+                formsProjectService.Name);
+
+            TraceService.WriteLine("building formsProject textTemplate");
+
+            textTemplates.Add(
+                this.GetTextTemplateInfo(
+                    formsProjectService,
+                    this.settingsService.BaseCustomRendererTextTemplate,
+                    name,
+                    directory,
+                    ProjectSuffix.XamarinForms,
+                    baseDictionary));
 
             IProjectService iOSProjectService = this.visualStudioService.iOSProjectService;
 
             if (iOSProjectService != null)
             {
                 TraceService.WriteLine("building iosProject textTemplate");
+
+                baseDictionary["Platform"] = "iOS";
 
                 textTemplates.Add(
                     this.GetTextTemplateInfo(
@@ -156,6 +164,8 @@ namespace NinjaCoder.MvvmCross.Factories
             {
                 TraceService.WriteLine("building windowsPhoneProject textTemplate");
 
+                baseDictionary["Platform"] = "WinPhone";
+
                 textTemplates.Add(
                     this.GetTextTemplateInfo(
                         windowsPhoneProjectService,
@@ -171,6 +181,8 @@ namespace NinjaCoder.MvvmCross.Factories
             if (droidProjectService != null)
             {
                 TraceService.WriteLine("building droidProject textTemplate");
+
+                baseDictionary["Platform"] = "Android";
 
                 textTemplates.Add(
                     this.GetTextTemplateInfo(
@@ -190,18 +202,38 @@ namespace NinjaCoder.MvvmCross.Factories
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="directory">The directory.</param>
+        /// <param name="renderer">The renderer.</param>
+        /// <param name="formsProjectName">Name of the forms project.</param>
         /// <returns></returns>
         internal Dictionary<string, string> GetBaseDictionary(
             string name,
-            string directory)
+            string directory,
+            string renderer,
+            string formsProjectName)
         {
             TraceService.WriteLine("CustomRendererFactory::GetBaseDictionary");
 
             Dictionary<string, string> dictionary = new Dictionary<string, string>
                 {
                     {
+                        "RendererBaseType", 
+                        name.Replace("Renderer", string.Empty)
+                    },
+                    {
+                        "RendererType", 
+                        renderer
+                    },
+                    {
+                        "Platform", 
+                        string.Empty
+                    },
+                    {
                         "NameSpace", 
                         string.Empty
+                    },
+                    {
+                        "FormsProject",
+                        formsProjectName
                     },
                     {
                         "Directory", 
@@ -212,8 +244,8 @@ namespace NinjaCoder.MvvmCross.Factories
                         string.Empty
                     },
                     {
-                        "InterfaceName", 
-                        "I" + name
+                        "BaseClassName", 
+                        string.Empty
                     }
                 };
 

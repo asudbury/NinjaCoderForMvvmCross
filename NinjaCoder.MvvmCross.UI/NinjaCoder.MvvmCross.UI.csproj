@@ -45,6 +45,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\MahApps.Metro.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -114,6 +115,10 @@
     <ProjectReference Include="..\Scorchio.Infrastructure\Scorchio.Infrastructure.csproj">
       <Project>{8788b9f4-d0b8-406b-b0bc-dbb581b453cc}</Project>
       <Name>Scorchio.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Scorchio.VisualStudio\Scorchio.VisualStudio.csproj">
+      <Project>{012e2419-08c3-4555-af80-f101b02bbcf0}</Project>
+      <Name>Scorchio.VisualStudio</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
