@@ -34,15 +34,27 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="requiredUIViews">The required UI views.</param>
         /// <param name="unitTestsRequired">if set to <c>true</c> [unit tests required].</param>
-        /// <param name="overwriteCurrentFiles">if set to <c>true</c> [overwrite current files].</param>
         /// <returns></returns>
         IEnumerable<ItemTemplateInfo> GetRequiredViewModelAndViews(
             View view,
             string viewModelName,
             IEnumerable<ItemTemplateInfo> requiredUIViews,
-            bool unitTestsRequired,
-            bool overwriteCurrentFiles);
-        
+            bool unitTestsRequired);
+
+        /// <summary>
+        /// Gets the required text templates.
+        /// </summary>
+        /// <param name="view">The view.</param>
+        /// <param name="viewModelName">Name of the view model.</param>
+        /// <param name="requiredUIViews">The required UI views.</param>
+        /// <param name="unitTestsRequired">if set to <c>true</c> [unit tests required].</param>
+        /// <returns></returns>
+        IEnumerable<TextTemplateInfo> GetRequiredTextTemplates(
+            View view,
+            string viewModelName,
+            IEnumerable<ItemTemplateInfo> requiredUIViews,
+            bool unitTestsRequired);
+
         /// <summary>
         /// Gets the wizards steps.
         /// </summary>

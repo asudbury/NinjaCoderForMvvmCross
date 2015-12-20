@@ -10,7 +10,6 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
     using Microsoft.Win32;
     using Scorchio.Infrastructure.Wpf;
     using Scorchio.Infrastructure.Wpf.ViewModels;
-    using Scorchio.VisualStudio.Services;
     using System.Collections.Generic;
     using System.Windows.Input;
 
@@ -38,7 +37,7 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
                 string workingDirectory = this.GetWorkingDirectory();
 
                 NinjaController.SetWorkingDirectory(workingDirectory);
-                NinjaController.SetTextTemplatingEngineHost(new TextTemplatingHostService());
+                NinjaController.UseSimpleTextTemplatingEngine(true);
             }
             catch
             {
@@ -119,6 +118,11 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
             get { return new RelayCommand(this.About); }
         }
 
+        public ICommand OpenWorkingDirectoryCommand
+        {
+            get { return new RelayCommand(this.OpenWorkingDirectory); }
+        }
+
         /// <summary>
         /// Gets the exit command.
         /// </summary>
@@ -138,6 +142,9 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
             get { return new RelayCommand(this.FormsDependencyService); }
         }
 
+        /// <summary>
+        /// Gets the add forms custom renderer command.
+        /// </summary>
         public ICommand AddFormsCustomRendererCommand
         {
             get { return new RelayCommand(this.FormsCustomRenderer); }
@@ -233,6 +240,14 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         }
 
         /// <summary>
+        /// Opens the working directory.
+        /// </summary>
+        internal void OpenWorkingDirectory()
+        {
+            System.Diagnostics.Process.Start(this.GetWorkingDirectory());
+        }
+
+        /// <summary>
         /// Gets the working directory.
         /// </summary>
         /// <returns></returns>
@@ -262,7 +277,15 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
 
                                 if (enabledExtensionsKey != null)
                                 {
-                                    return enabledExtensionsKey.GetValue("NinjaCoderMvvmCross.vsix..51ede486-dd91-4fa8-936e-9260508e97cd,3.7.2") as string;
+                                    string[] valueNames = enabledExtensionsKey.GetValueNames();
+
+                                    foreach (string valueName in valueNames)
+                                    {
+                                        if (valueName.StartsWith("NinjaCoderMvvmCross.vsix"))
+                                        {
+                                            return enabledExtensionsKey.GetValue(valueName) as string;
+                                        }
+                                    }
                                 }
                             }
                         }

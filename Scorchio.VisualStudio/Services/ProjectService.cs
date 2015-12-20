@@ -416,28 +416,10 @@ namespace Scorchio.VisualStudio.Services
         /// <returns></returns>
         public string AddTextTemplate(TextTemplateInfo textTemplateInfo)
         {
-            string projectPath = this.GetProjectPath();
-            TraceService.WriteLine("projectPath=" + projectPath);
-
-            string directory = projectPath + "\\" + textTemplateInfo.ProjectFolder;
-            TraceService.WriteLine("directory=" + directory);
-
-            if (Directory.Exists(directory) == false)
-            {
-                TraceService.WriteLine("creating directory=" + directory);
-                Directory.CreateDirectory(directory);
-            }
-
-            string fileName = directory + "\\" + textTemplateInfo.FileName;
-            TraceService.WriteLine("fileName=" + fileName);
-
-            //// save to a file
-            File.WriteAllText(fileName, textTemplateInfo.TextOutput);
-
-            TraceService.WriteLine("addToFolderFromFile");
-            this.AddToFolderFromFile(textTemplateInfo.ProjectFolder, fileName);
-
-            return textTemplateInfo.FileName + " added to project " + this.Name;
+            return this.project.AddTextTemplate(
+                textTemplateInfo.ProjectFolder, 
+                textTemplateInfo.FileName, 
+                textTemplateInfo.TextOutput);
         }
     }
 }

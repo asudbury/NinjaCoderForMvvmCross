@@ -161,6 +161,15 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         IEnumerable<string> AddItemTemplateToProjects(IEnumerable<ItemTemplateInfo> templateInfos);
 
         /// <summary>
+        /// Adds the item template to project.
+        /// </summary>
+        /// <param name="textTemplateInfos">The text template infos.</param>
+        /// <returns>
+        /// The messages.
+        /// </returns>
+        IEnumerable<string> AddItemTemplateToProjects(IEnumerable<TextTemplateInfo> textTemplateInfos);
+
+        /// <summary>
         /// Removes the folder.
         /// </summary>
         /// <param name="folderName">Name of the folder.</param>

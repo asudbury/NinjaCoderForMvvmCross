@@ -9,6 +9,7 @@ namespace NinjaCoder.MvvmCross.Services
     using EnvDTE;
     using EnvDTE80;
     using Interfaces;
+    using Microsoft.VisualStudio.OLE.Interop;
     using Microsoft.VisualStudio.Shell;
     using NinjaCoder.MvvmCross.Entities;
     using Scorchio.Infrastructure.Extensions;
@@ -20,10 +21,6 @@ namespace NinjaCoder.MvvmCross.Services
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-
-    using Microsoft.VisualStudio.OLE.Interop;
-    using Microsoft.VisualStudio.TextTemplating;
-
     using Reference = VSLangProj.Reference;
 
     /// <summary>
@@ -35,11 +32,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// The dte2.
         /// </summary>
         private DTE2 dte2;
-
+        
         /// <summary>
-        /// The ninja text templating host service.
+        /// The use simple text templating engine.
         /// </summary>
-        private ITextTemplatingEngineHost ninjaTextTemplatingHostService;
+        private bool useSimpleTextTemplatingEngine;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VisualStudioService" /> class.
@@ -635,23 +632,19 @@ namespace NinjaCoder.MvvmCross.Services
         {
             if (this.Package != null)
             {
-                return new TextTransformationService(
-                    this.Package, 
-                    this.ninjaTextTemplatingHostService);
+                return new TextTransformationService(this.Package);
             }
 
-            return new TextTransformationService(
-                (IServiceProvider)this.dte2.DTE, 
-                this.ninjaTextTemplatingHostService);
+            return new TextTransformationService((IServiceProvider)this.dte2.DTE);
         }
 
         /// <summary>
-        /// Sets the text templating engine host.
+        /// Gets or sets a value indicating whether [use simple text templating engine].
         /// </summary>
-        /// <param name="textTemplatingEngineHost">The text templating engine host.</param>
-        public void SetTextTemplatingEngineHost(ITextTemplatingEngineHost textTemplatingEngineHost)
+        public bool UseSimpleTextTemplatingEngine
         {
-            this.ninjaTextTemplatingHostService = textTemplatingEngineHost;
+            get { return this.useSimpleTextTemplatingEngine; }
+            set { this.useSimpleTextTemplatingEngine = value; }
         }
     }
 }

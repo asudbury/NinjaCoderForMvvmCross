@@ -24,6 +24,11 @@ namespace Scorchio.VisualStudio.Entities
         public string TemplateName { get; set; }
 
         /// <summary>
+        /// Gets or sets the short name of the template.
+        /// </summary>
+        public string ShortTemplateName { get; set; }
+
+        /// <summary>
         /// Gets or sets the tokens.
         /// </summary>
         public Dictionary<string, string> Tokens { get; set; }

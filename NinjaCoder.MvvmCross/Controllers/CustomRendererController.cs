@@ -5,8 +5,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
-    using System;
-
     using NinjaCoder.MvvmCross.Constants;
     using NinjaCoder.MvvmCross.Entities;
     using NinjaCoder.MvvmCross.Factories.Interfaces;
@@ -15,12 +13,10 @@ namespace NinjaCoder.MvvmCross.Controllers
     using NinjaCoder.MvvmCross.ViewModels.Wizard;
     using NinjaCoder.MvvmCross.Views.Wizard;
     using Scorchio.Infrastructure.Services;
-    using Scorchio.VisualStudio.Services;
-    using System.Collections.Generic;
-    using System.Linq;
-
     using Scorchio.VisualStudio.Entities;
-    using Scorchio.VisualStudio.Services.Interfaces;
+    using Scorchio.VisualStudio.Services;
+    using System;
+    using System.Collections.Generic;
 
     /// <summary>
     ///  Defines the CustomeRendererController type.
@@ -33,7 +29,12 @@ namespace NinjaCoder.MvvmCross.Controllers
         private readonly ICustomRendererFactory customRendererFactory;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CustomRendererController"/> class.
+        /// The text templating service.
+        /// </summary>
+        private readonly ITextTemplatingService textTemplatingService;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CustomRendererController" /> class.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="settingsService">The settings service.</param>
@@ -41,13 +42,15 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="resolverService">The resolver service.</param>
         /// <param name="readMeService">The read me service.</param>
         /// <param name="customRendererFactory">The custome renderer factory.</param>
+        /// <param name="textTemplatingService">The text templating service.</param>
         public CustomRendererController(
             IVisualStudioService visualStudioService, 
             ISettingsService settingsService, 
             IMessageBoxService messageBoxService, 
             IResolverService resolverService, 
             IReadMeService readMeService,
-            ICustomRendererFactory customRendererFactory)
+            ICustomRendererFactory customRendererFactory,
+            ITextTemplatingService textTemplatingService)
             : base(
                 visualStudioService, 
                 settingsService, 
@@ -57,6 +60,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("CustomerRendererController::Constructor");
             this.customRendererFactory = customRendererFactory;
+            this.textTemplatingService = textTemplatingService;
         }
 
         /// <summary>
@@ -101,48 +105,17 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             try
             {
-                List<string> messages = new List<string>();
-
                 TraceService.WriteLine("CustomerRendererController::Process GetTextTemplates");
 
                 IEnumerable<TextTemplateInfo> textTemplates = this.customRendererFactory.GetTextTemplates(
                     customRendererViewModel.RequestedName,
                     customRendererViewModel.Directory,
-                    customRendererViewModel.SelectedCustomRendererItem);
+                    customRendererViewModel.SelectedCustomRendererItem,
+                    customRendererViewModel.CodeBlock);
 
-                ITextTransformationService textTransformationService = this.VisualStudioService.GetTextTransformationService();
-
-                this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.AddingCustomRenderer);
-
-                foreach (TextTemplateInfo textTemplateInfo in textTemplates)
-                {
-                    TraceService.WriteLine("CustomerRendererController::Process textTemplate=" + textTemplateInfo.FileName);
-                    
-                    IProjectService projectService = this.VisualStudioService.GetProjectServiceBySuffix(textTemplateInfo.ProjectSuffix);
-
-                    if (projectService != null)
-                    {
-                        this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.AddingCustomRenderer + "for " + projectService.Name);
-
-                        textTemplateInfo.TextOutput = textTransformationService.Transform(textTemplateInfo.TemplateName, textTemplateInfo.Tokens);
-
-                        if (textTemplateInfo.TextOutput != string.Empty &&
-                            textTransformationService.T4CallBack.ErrorMessages.Any() == false)
-                        {
-                            //// add file to the solution
-                            string message = projectService.AddTextTemplate(textTemplateInfo);
-                             messages.Add(message);
-                        }
-
-                        else
-                        {
-                            foreach (string errorMessage in textTransformationService.T4CallBack.ErrorMessages)
-                            {
-                                messages.Add("T4 Error " + errorMessage);
-                            }
-                        }
-                    }
-                }
+                IEnumerable<string> messages = this.textTemplatingService.AddTextTemplates(
+                    NinjaMessages.AddingCustomRenderer, 
+                    textTemplates);
 
                 //// show the readme.
                 this.ShowReadMe("Add Xamarin Forms Custom Renderer", messages);

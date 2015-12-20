@@ -12,6 +12,9 @@ namespace Scorchio.VisualStudio.Extensions
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+
+    using Scorchio.VisualStudio.Entities;
+
     using VSLangProj;
 
     /// <summary>
@@ -314,6 +317,43 @@ namespace Scorchio.VisualStudio.Extensions
             return true;
         }
 
+        /// <summary>
+        /// Adds the text template.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="projectFolder">The project folder.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="textOutput">The text output.</param>
+        /// <returns></returns>
+        public static string AddTextTemplate(
+            this Project instance,
+            string projectFolder, 
+            string fileName, 
+            string textOutput)
+        {
+            string projectPath = instance.GetProjectPath();
+            TraceService.WriteLine("projectPath=" + projectPath);
+
+            string directory = projectPath + "\\" + projectFolder;
+            TraceService.WriteLine("directory=" + directory);
+
+            if (Directory.Exists(directory) == false)
+            {
+                TraceService.WriteLine("creating directory=" + directory);
+                Directory.CreateDirectory(directory);
+            }
+
+            string path = directory + "\\" + fileName;
+            TraceService.WriteLine("path=" + path);
+
+            //// save to a file
+            File.WriteAllText(path, textOutput);
+
+            TraceService.WriteLine("addToFolderFromFile");
+            instance.AddToFolderFromFile(projectFolder, path);
+
+            return fileName + " added to project " + instance.Name;
+        }
         /// <summary>
         /// Adds the reference.
         /// </summary>

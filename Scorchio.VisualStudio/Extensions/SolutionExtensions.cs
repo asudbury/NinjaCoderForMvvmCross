@@ -288,6 +288,65 @@ namespace Scorchio.VisualStudio.Extensions
         }
 
         /// <summary>
+        /// Adds the text template to projects.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="textTemplateInfos">The text template infos.</param>
+        /// <returns></returns>
+        public static IEnumerable<string> AddTextTemplateToProjects(
+            this Solution2 instance,
+            IEnumerable<TextTemplateInfo> textTemplateInfos)
+        {
+            string method = "SolutionExtensions::AddTextTemplateToProjects ";
+
+            TraceService.WriteLine(method);
+
+            List<string> messages = new List<string>();
+
+            IEnumerable<Project> projects = instance.GetProjects();
+
+            IEnumerable<Project> projectItems = projects as Project[] ?? projects.ToArray();
+
+            foreach (TextTemplateInfo info in textTemplateInfos)
+            {
+                Project project = projectItems.FirstOrDefault(x => x.Name.EndsWith(info.ProjectSuffix));
+
+                if (project != null)
+                {
+                    string context = project.Name + "  (template=" + info.TemplateName + ") fileName=" + info.FileName;
+
+                    TraceService.WriteLine(method + context);
+
+                    try
+                    {
+                        if (project.AddTextTemplate(info.ProjectFolder, info.FileName, info.TextOutput) != string.Empty)
+                        {
+                            messages.Add(info.FileName + " added to " + project.Name + " project (template=" + info.ShortTemplateName + ")");
+                        }
+                    }
+                    catch (Exception exception)
+                    {
+                        TraceService.WriteError(method + context + " exception=" + exception.Message);
+                        messages.Add(method + context + " exception=" + exception.Message);
+                    }
+                }
+                else
+                {
+                    TraceService.WriteError(method + " cannot find project " + info.ProjectSuffix);
+
+                    foreach (string projectName in projectItems
+                        .Select(projectItem => projectItem.Name))
+                    {
+                        TraceService.WriteError(method + " project " + projectName);
+                        messages.Add(info.FileName + " added to " + projectName + " project (template=" + info.ShortTemplateName + ")");
+                    }
+                }
+            }
+
+            return messages;
+        }
+
+        /// <summary>
         /// Removes the folder.
         /// </summary>
         /// <param name="instance">The instance.</param>

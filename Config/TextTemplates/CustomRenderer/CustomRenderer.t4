@@ -8,6 +8,7 @@
 <#@ parameter type="System.string" name="RendererBaseType" #>
 <#@ parameter type="System.string" name="BaseClassName" #>
 <#@ parameter type="System.string" name="RendererType" #>
+<#@ parameter type="System.string" name="CodeBlock" #>
 // --------------------------------------------------------------------------------------------------------------------
 // <summary>
 //  Defines the <#= ClassName #> type.
@@ -27,5 +28,6 @@ namespace <#= NameSpace #>
     /// </summary>
     public class <#= ClassName #> : <#= RendererType #>Renderer
     {
+<#= CodeBlock #> 
     }
 }

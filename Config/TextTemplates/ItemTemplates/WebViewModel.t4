@@ -1,0 +1,39 @@
+<#@ Template Language="C#" #>
+<#@ Output Extension="cs" #>
+<#@ parameter type="System.string" name="NameSpace" #>
+<#@ parameter type="System.string" name="ClassName" #>
+// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//    Defines the <#= ClassName #> type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace <#= NameSpace #>
+{ 
+    /// <summary>
+    /// Define the <#= ClassName #> type.
+    /// </summary>
+    public class <#= ClassName #> : BaseViewModel
+    {
+        /// <summary>
+        /// The URL.
+        /// </summary>
+        private string url;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="<#= ClassName #>" /> class.
+        /// </summary>
+        public <#= ClassName #>()
+        {
+            this.url = "http://github.com/asudbury";
+        }
+
+        /// <summary>
+        /// Gets or sets the URL.
+        /// </summary>
+        public string Url
+        {
+            get { return this.url; }
+            set { this.SetProperty(ref this.url, value, ()=> this.Url); }
+        }
+    }
+}

@@ -424,5 +424,15 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets the dependency services web page.
         /// </summary>
         string DependencyServicesWebPage { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether [use simple text templating engine].
+        /// </summary>
+        bool UseSimpleTextTemplatingEngine { get; }
+
+        /// <summary>
+        /// Gets the item templates directory.
+        /// </summary>
+        string ItemTemplatesDirectory { get; }
     }
 }

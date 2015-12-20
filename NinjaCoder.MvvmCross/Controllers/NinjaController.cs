@@ -19,9 +19,6 @@ namespace NinjaCoder.MvvmCross.Controllers
     using System.IO.Abstractions;
     using System.Reflection;
     using System.Xml.Linq;
-
-    using Microsoft.VisualStudio.TextTemplating;
-
     using TinyIoC;
     using Translators;
 
@@ -56,15 +53,15 @@ namespace NinjaCoder.MvvmCross.Controllers
         }
 
         /// <summary>
-        /// Sets the text templating engine host.
+        /// Uses the simple text templating engine.
         /// </summary>
-        /// <param name="textTemplatingEngineHost">The text templating engine host.</param>
-        public static void SetTextTemplatingEngineHost(ITextTemplatingEngineHost textTemplatingEngineHost)
+        /// <param name="useSimpleTextTemplatingEngine">if set to <c>true</c> [use simple text templating engine].</param>
+        public static void UseSimpleTextTemplatingEngine(bool useSimpleTextTemplatingEngine)
         {
-            TraceService.WriteLine("NinjaController::SetTextTemplatingEngineHost");
+            TraceService.WriteLine("NinjaController::SetTextTemplatingEngineHost use=" + useSimpleTextTemplatingEngine);
 
             ResolveController<ApplicationController>(null)
-                .SetTextTemplatingEngineHost(textTemplatingEngineHost);
+                .UseSimpleTextTemplatingEngine(useSimpleTextTemplatingEngine);
         }
 
         /// <summary>
@@ -114,8 +111,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             ResolveController<NugetPackagesController>(dte2)
                 .Run();
         }
-
-
+        
         /// <summary>
         /// Runs the dependency services controller.
         /// </summary>

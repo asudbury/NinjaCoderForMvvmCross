@@ -19,6 +19,11 @@ namespace NinjaCoder.MvvmCross.Entities
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets the code block.
+        /// </summary>
+        public string CodeBlock { get; set; }
+
+        /// <summary>
         /// Gets or sets the renderers.
         /// </summary>
         public IEnumerable<CustomerRenderer> Renderers { get; set; }

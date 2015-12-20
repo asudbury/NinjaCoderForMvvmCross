@@ -87,10 +87,10 @@
     <Compile Include="Services\Interfaces\IDTEService.cs" />
     <Compile Include="Services\Interfaces\ISolutionService.cs" />
     <Compile Include="Services\Interfaces\ITextTransformationService.cs" />
+    <Compile Include="Services\SimpleTextTemplatingEngine.cs" />
     <Compile Include="Services\SolutionService.cs" />
     <Compile Include="Services\T4Cache.cs" />
     <Compile Include="Services\T4CallBack.cs" />
-    <Compile Include="Services\TextTemplatingHostService.cs" />
     <Compile Include="Services\TextTransformationService.cs" />
     <Compile Include="VSConstants.cs" />
     <Compile Include="Entities\BaseTemplateInfo.cs" />

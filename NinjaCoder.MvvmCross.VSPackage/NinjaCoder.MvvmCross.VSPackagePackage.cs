@@ -15,6 +15,8 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
     using System.IO;
     using System.Runtime.InteropServices;
 
+    using NinjaCoder.MvvmCross.Services;
+
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.
     ///
@@ -33,11 +35,11 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
     // This attribute is needed to let the shell know that this package exposes some menus.
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [Guid(GuidList.guidNinjaCoder_MvvmCross_VSPackagePkgString)]
+    [Guid(GuidList.GuidNinjaCoderMvvmCrossVsPackagePkgString)]
     public sealed class NinjaCoder_MvvmCross_VSPackagePackage : Package
     {
         /// <summary>
-        /// Gets the visual studio instance.
+        /// Gets or sets the vs instance.
         /// </summary>
         private VSInstance VsInstance { get; set; }
 
@@ -77,6 +79,9 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
             TraceService.WriteLine("assembly path=" + assemblyPath);
 
             NinjaController.SetWorkingDirectory(Path.GetDirectoryName(assemblyPath));
+            
+            SettingsService settingsService = new SettingsService();
+            NinjaController.UseSimpleTextTemplatingEngine(settingsService.UseSimpleTextTemplatingEngine);
 
             OleMenuCommandService mcs = this.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
 
@@ -85,43 +90,43 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
                 return;
             }
 
-            CommandID menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIdList.AddProjects);
+            CommandID menuCommandId = new CommandID(GuidList.GuidNinjaCoderMvvmCrossVsPackageCmdSet, (int)PkgCmdIdList.AddProjects);
             MenuCommand menuItem = new MenuCommand(this.OnAddProjects, menuCommandId);
             mcs.AddCommand(menuItem);
 
-            menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIdList.AddViewModelsAndViews);
+            menuCommandId = new CommandID(GuidList.GuidNinjaCoderMvvmCrossVsPackageCmdSet, (int)PkgCmdIdList.AddViewModelsAndViews);
             menuItem = new MenuCommand(this.OnAddViewModelAndViews, menuCommandId);
             mcs.AddCommand(menuItem);
 
-            menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIdList.AddMvvmCrossPlugins);
+            menuCommandId = new CommandID(GuidList.GuidNinjaCoderMvvmCrossVsPackageCmdSet, (int)PkgCmdIdList.AddMvvmCrossPlugins);
             menuItem = new MenuCommand(this.OnAddMvvmCrossPlugins, menuCommandId);
             mcs.AddCommand(menuItem);
 
-            menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIdList.AddNugetPackages);
+            menuCommandId = new CommandID(GuidList.GuidNinjaCoderMvvmCrossVsPackageCmdSet, (int)PkgCmdIdList.AddNugetPackages);
             menuItem = new MenuCommand(this.OnAddNugetPackages, menuCommandId);
             mcs.AddCommand(menuItem);
 
-            menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIdList.AddDependencyService);
+            menuCommandId = new CommandID(GuidList.GuidNinjaCoderMvvmCrossVsPackageCmdSet, (int)PkgCmdIdList.AddDependencyService);
             menuItem = new MenuCommand(this.OnAddDependencyService, menuCommandId);
             mcs.AddCommand(menuItem);
 
-            menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIdList.AddCustomRenderer);
+            menuCommandId = new CommandID(GuidList.GuidNinjaCoderMvvmCrossVsPackageCmdSet, (int)PkgCmdIdList.AddCustomRenderer);
             menuItem = new MenuCommand(this.OnAddCustomerRenderer, menuCommandId);
             mcs.AddCommand(menuItem);
 
-            menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIdList.Options);
+            menuCommandId = new CommandID(GuidList.GuidNinjaCoderMvvmCrossVsPackageCmdSet, (int)PkgCmdIdList.Options);
             menuItem = new MenuCommand(this.OnOptions, menuCommandId);
             mcs.AddCommand(menuItem);
 
-            menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIdList.ViewLogFile);
+            menuCommandId = new CommandID(GuidList.GuidNinjaCoderMvvmCrossVsPackageCmdSet, (int)PkgCmdIdList.ViewLogFile);
             menuItem = new MenuCommand(this.OnViewLogFile, menuCommandId);
             mcs.AddCommand(menuItem);
             
-            menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIdList.ClearLogFile);
+            menuCommandId = new CommandID(GuidList.GuidNinjaCoderMvvmCrossVsPackageCmdSet, (int)PkgCmdIdList.ClearLogFile);
             menuItem = new MenuCommand(this.OnClearLogFile, menuCommandId);
             mcs.AddCommand(menuItem);
 
-            menuCommandId = new CommandID(GuidList.guidNinjaCoder_MvvmCross_VSPackageCmdSet, (int)PkgCmdIdList.About);
+            menuCommandId = new CommandID(GuidList.GuidNinjaCoderMvvmCrossVsPackageCmdSet, (int)PkgCmdIdList.About);
             menuItem = new MenuCommand(this.OnAbout, menuCommandId);
             mcs.AddCommand(menuItem);
 

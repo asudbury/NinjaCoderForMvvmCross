@@ -292,10 +292,19 @@ namespace Scorchio.VisualStudio.Services
         /// </summary>
         /// <param name="templateInfos">The template infos.</param>
         /// <returns>The messages.</returns>
-        public IEnumerable<string> AddItemTemplateToProjects(
-            IEnumerable<ItemTemplateInfo> templateInfos)
+        public IEnumerable<string> AddItemTemplateToProjects(IEnumerable<ItemTemplateInfo> templateInfos)
         {
             return this.solution2.AddItemTemplateToProjects(templateInfos);
+        }
+
+        /// <summary>
+        /// Adds the item template to project.
+        /// </summary>
+        /// <param name="textTemplateInfos">The text template infos.</param>
+        /// <returns> The messages.</returns>
+        public IEnumerable<string> AddItemTemplateToProjects(IEnumerable<TextTemplateInfo> textTemplateInfos)
+        {
+            return this.solution2.AddTextTemplateToProjects(textTemplateInfos);
         }
 
         /// <summary>

@@ -5,10 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
-    using System.Windows.Shapes;
-
     using Interfaces;
-
     using Scorchio.VisualStudio.Services;
     using System;
     using System.Collections.Generic;
@@ -27,23 +24,14 @@ namespace NinjaCoder.MvvmCross.Services
         private readonly IFileSystem fileSystem;
 
         /// <summary>
-        /// The settings service.
-        /// </summary>
-        private readonly ISettingsService settingsService;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="ReadMeService" /> class.
         /// </summary>
         /// <param name="fileSystem">The file system.</param>
-        /// <param name="settingsService">The settings service.</param>
-        public ReadMeService(
-            IFileSystem fileSystem,
-            ISettingsService settingsService)
+        public ReadMeService(IFileSystem fileSystem)
         {
             TraceService.WriteLine("ReadMeService::Constructor");
 
             this.fileSystem = fileSystem;
-            this.settingsService = settingsService;
         }
 
         /// <summary>
@@ -117,7 +105,7 @@ namespace NinjaCoder.MvvmCross.Services
             {
                 string.Empty,
                 this.GetSeperatorLine(),
-                "Ninja Coder for MvvmCross and Xamarin Forms v" + this.settingsService.ApplicationVersion,
+                "Ninja Coder for MvvmCross and Xamarin Forms",
                 this.GetSeperatorLine(),
                 string.Empty,
                 "All feedback welcome, please get in touch via twitter.",

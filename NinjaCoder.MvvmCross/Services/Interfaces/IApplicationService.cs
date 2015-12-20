@@ -57,7 +57,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Sets the text templating engine host.
         /// </summary>
-        /// <param name="textTemplatingEngineHost">The text templating engine host.</param>
-        void SetTextTemplatingEngineHost(ITextTemplatingEngineHost textTemplatingEngineHost);
+        /// <param name="useSimpleTextTemplatingEngine">if set to <c>true</c> [use simple text templating engine].</param>
+        void UseSimpleTextTemplatingEngine(bool useSimpleTextTemplatingEngine);
     }
 }

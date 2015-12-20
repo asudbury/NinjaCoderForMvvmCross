@@ -7,12 +7,11 @@
 namespace NinjaCoder.MvvmCross.Translators
 {
     using NinjaCoder.MvvmCross.Entities;
+    using Scorchio.Infrastructure.Translators;
+    using Scorchio.VisualStudio.Services;
     using System.Collections.Generic;
     using System.Linq;
     using System.Xml.Linq;
-
-    using Scorchio.Infrastructure.Translators;
-    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     /// Defines the CustomRenderersTranslator type.
@@ -74,6 +73,17 @@ namespace NinjaCoder.MvvmCross.Translators
 
             group.Name = element.Attribute("Name").Value;
 
+            string codeBlock = string.Empty;
+
+            XElement codeBlockElement = element.Element("CodeBlock");
+
+            if (codeBlockElement != null)
+            {
+                codeBlock = codeBlockElement.Value;
+            }
+
+            group.CodeBlock = codeBlock;
+
             IEnumerable<XElement> rendererElements = element.Elements("CustomRenderer");
 
             List<CustomerRenderer> renderers = rendererElements.Select(this.GetRenderer).ToList();
@@ -90,9 +100,19 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <returns></returns>
         internal CustomerRenderer GetRenderer(XElement element)
         {
+            string codeBlock = string.Empty;
+
+            XElement codeBlockElement = element.Element("CodeBlock");
+
+            if (codeBlockElement != null)
+            {
+                codeBlock = codeBlockElement.Value;
+            }
+
             CustomerRenderer renderer = new CustomerRenderer
             {
-                Name = element.Element("Name").Value
+                Name = element.Element("Name").Value,
+                CodeBlock = codeBlock
             };
 
             return renderer;

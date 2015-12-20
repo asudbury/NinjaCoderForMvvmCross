@@ -178,6 +178,7 @@
     <Compile Include="Services\Interfaces\IRegisterService.cs" />
     <Compile Include="Services\Interfaces\IResolverService.cs" />
     <Compile Include="Services\Interfaces\ISettingsService.cs" />
+    <Compile Include="Services\Interfaces\ITextTemplatingService.cs" />
     <Compile Include="Services\Interfaces\IViewModelViewsService.cs" />
     <Compile Include="Services\Interfaces\IVisualStudioService.cs" />
     <Compile Include="Services\NugetCommandsService.cs" />
@@ -190,6 +191,7 @@
     <Compile Include="Services\ResolverService.cs" />
     <Compile Include="Services\CodeSnippetService.cs" />
     <Compile Include="Services\SettingsService.cs" />
+    <Compile Include="Services\TextTemplatingService.cs" />
     <Compile Include="Services\ViewModelViewsService.cs" />
     <Compile Include="Services\VisualStudioService.cs" />
     <Compile Include="Translators\CodeConfigTranslator.cs" />

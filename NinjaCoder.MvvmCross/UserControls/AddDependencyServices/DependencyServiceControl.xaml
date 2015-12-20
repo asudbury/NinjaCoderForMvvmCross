@@ -36,7 +36,7 @@
 
             <TextBlock Margin="10,1,0,0" Text="Name of Dependency Service" />
 
-            <TextBox Margin="10,1,160,0" Text="{Binding Name}" />
+            <TextBox Margin="10,1,160,0" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <TextBlock Margin="1" />
 

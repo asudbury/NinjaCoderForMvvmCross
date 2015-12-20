@@ -82,6 +82,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         /// <param name="coreProjectService">The core project service.</param>
         /// <param name="templateInfos">The template infos.</param>
+        /// <param name="textTemplateInfos">The text template infos.</param>
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="addUnitTests">if set to <c>true</c> [add unit tests].</param>
         /// <param name="viewModelInitiateFrom">The view model initiate from.</param>
@@ -92,6 +93,7 @@ namespace NinjaCoder.MvvmCross.Services
         public IEnumerable<string> AddViewModelAndViews(
             IProjectService coreProjectService,
             IEnumerable<ItemTemplateInfo> templateInfos,
+            IEnumerable<TextTemplateInfo> textTemplateInfos,
             string viewModelName,
             bool addUnitTests,
             string viewModelInitiateFrom,
@@ -101,7 +103,10 @@ namespace NinjaCoder.MvvmCross.Services
 
             this.projectService = coreProjectService;
 
-             IEnumerable<string> messages = this.visualStudioService.SolutionService.AddItemTemplateToProjects(templateInfos);
+            List<string> messages = new List<string>();
+
+            messages.AddRange(this.visualStudioService.SolutionService.AddItemTemplateToProjects(textTemplateInfos));
+            messages.AddRange(this.visualStudioService.SolutionService.AddItemTemplateToProjects(templateInfos));
 
             //// we now need to amend code in the unit test file that references FirstViewModel to this ViewModel
 
@@ -174,12 +179,18 @@ namespace NinjaCoder.MvvmCross.Services
                             view,
                             viewModelName,
                             this.viewModelAndViewsFactory.AllowedUIViews,
-                            this.visualStudioService.CoreTestsProjectService != null,
-                            false);
+                            this.visualStudioService.CoreTestsProjectService != null);
+
+                    IEnumerable<TextTemplateInfo> textTemplateInfos = this.viewModelAndViewsFactory.GetRequiredTextTemplates(
+                            view,
+                            viewModelName,
+                            this.viewModelAndViewsFactory.AllowedUIViews,
+                            this.visualStudioService.CoreTestsProjectService != null);
 
                     IEnumerable<string> viewModelMessages = this.AddViewModelAndViews(
                         this.visualStudioService.CoreProjectService,
                         itemTemplateInfos,
+                        textTemplateInfos,
                         viewModelName,
                         true,
                         null,

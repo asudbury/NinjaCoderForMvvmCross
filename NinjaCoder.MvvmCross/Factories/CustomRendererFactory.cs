@@ -106,11 +106,13 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="name">The name.</param>
         /// <param name="directory">The directory.</param>
         /// <param name="renderer">The renderer.</param>
+        /// <param name="codeBlock">The code block.</param>
         /// <returns></returns>
         public IEnumerable<TextTemplateInfo> GetTextTemplates(
             string name,
             string directory,
-            string renderer)
+            string renderer,
+            string codeBlock)
         {
             TraceService.WriteLine("CustomRendererFactory::GetTextTemplates");
 
@@ -127,7 +129,8 @@ namespace NinjaCoder.MvvmCross.Factories
                 name,
                 directory,
                 renderer.Replace("Renderer", string.Empty),
-                formsProjectService.Name);
+                formsProjectService.Name,
+                codeBlock);
 
             TraceService.WriteLine("building formsProject textTemplate");
 
@@ -204,17 +207,23 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="directory">The directory.</param>
         /// <param name="renderer">The renderer.</param>
         /// <param name="formsProjectName">Name of the forms project.</param>
+        /// <param name="codeBlock">The code block.</param>
         /// <returns></returns>
         internal Dictionary<string, string> GetBaseDictionary(
             string name,
             string directory,
             string renderer,
-            string formsProjectName)
+            string formsProjectName,
+            string codeBlock)
         {
             TraceService.WriteLine("CustomRendererFactory::GetBaseDictionary");
 
             Dictionary<string, string> dictionary = new Dictionary<string, string>
                 {
+                    {
+                        "CodeBlock",
+                        codeBlock
+                    },
                     {
                         "RendererBaseType", 
                         name.Replace("Renderer", string.Empty)

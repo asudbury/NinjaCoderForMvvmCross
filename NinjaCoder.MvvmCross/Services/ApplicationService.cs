@@ -14,11 +14,9 @@ namespace NinjaCoder.MvvmCross.Services
     using System;
     using System.Diagnostics;
     using System.IO;
-    using System.IO.Abstractions;
     using System.Linq;
     using System.Xml.Linq;
 
-    using Microsoft.VisualStudio.TextTemplating;
 
     using Scorchio.Infrastructure.Translators;
 
@@ -207,10 +205,10 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Sets the text templating engine host.
         /// </summary>
-        /// <param name="textTemplatingEngineHost">The text templating engine host.</param>
-        public void SetTextTemplatingEngineHost(ITextTemplatingEngineHost textTemplatingEngineHost)
+        /// <param name="useSimpleTextTemplatingEngine">if set to <c>true</c> [use simple text templating engine].</param>
+        public void UseSimpleTextTemplatingEngine(bool useSimpleTextTemplatingEngine)
         {
-            this.visualStudioService.SetTextTemplatingEngineHost(textTemplatingEngineHost);
+            this.visualStudioService.UseSimpleTextTemplatingEngine = useSimpleTextTemplatingEngine;
         }
     }
 }

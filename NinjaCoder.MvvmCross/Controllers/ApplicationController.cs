@@ -165,14 +165,14 @@ namespace NinjaCoder.MvvmCross.Controllers
         }
 
         /// <summary>
-        /// Sets the text templating engine host.
+        /// Uses the simple text templating engine.
         /// </summary>
-        /// <param name="textTemplatingEngineHost">The text templating engine host.</param>
-        public void SetTextTemplatingEngineHost(ITextTemplatingEngineHost textTemplatingEngineHost)
+        /// <param name="useSimpleTextTemplatingEngine">if set to <c>true</c> [use simple text templating engine].</param>
+        public void UseSimpleTextTemplatingEngine(bool useSimpleTextTemplatingEngine)
         {
-            TraceService.WriteLine("ApplicationController::SetTextTemplatingEngineHost");
+            TraceService.WriteLine("ApplicationController::SetTextTemplatingEngineHost use=" + useSimpleTextTemplatingEngine);
 
-            this.applicationService.SetTextTemplatingEngineHost(textTemplatingEngineHost);
+            this.applicationService.UseSimpleTextTemplatingEngine(useSimpleTextTemplatingEngine);
         }
     }
 }

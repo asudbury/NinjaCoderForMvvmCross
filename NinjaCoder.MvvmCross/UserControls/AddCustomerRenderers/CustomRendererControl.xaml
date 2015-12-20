@@ -67,7 +67,7 @@
 
                 <TextBlock Margin="10,1,0,0" Text="Name of Renderer" />
 
-                <TextBox Margin="10,1,160,0" Text="{Binding Name}" />
+                <TextBox Margin="10,1,160,0" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <TextBlock Margin="1" />
 
@@ -84,7 +84,7 @@
                 <TextBlock Margin="2" />
 
                 <TextBlock Margin="10">
-                    
+
                     <Hyperlink Command="{Binding CustomRenderersWebSiteCommand}">
                         <TextBlock Text="Custom Renderers Help" />
                     </Hyperlink>

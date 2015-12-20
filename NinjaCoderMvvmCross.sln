@@ -545,6 +545,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CustomRenderer", "CustomRen
 		Config\TextTemplates\CustomRenderer\CustomRenderer.t4 = Config\TextTemplates\CustomRenderer\CustomRenderer.t4
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ItemTemplates", "ItemTemplates", "{4ADDCA4F-31A1-4446-A0A9-1B1A9B48145B}"
+	ProjectSection(SolutionItems) = preProject
+		Config\TextTemplates\ItemTemplates\BlankViewModel.t4 = Config\TextTemplates\ItemTemplates\BlankViewModel.t4
+		Config\TextTemplates\ItemTemplates\MvxSampleDataViewModel.t4 = Config\TextTemplates\ItemTemplates\MvxSampleDataViewModel.t4
+		Config\TextTemplates\ItemTemplates\TestBlankViewModel.t4 = Config\TextTemplates\ItemTemplates\TestBlankViewModel.t4
+		Config\TextTemplates\ItemTemplates\TestWebViewModel.t4 = Config\TextTemplates\ItemTemplates\TestWebViewModel.t4
+		Config\TextTemplates\ItemTemplates\WebViewModel.t4 = Config\TextTemplates\ItemTemplates\WebViewModel.t4
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -1190,5 +1199,6 @@ Global
 		{A780E902-9040-4CA4-AC0B-5F234437C808} = {D8877B22-87DF-4D49-917C-AEB6EC4CDBEA}
 		{11D90738-A026-43A8-911A-DA14DB070832} = {A780E902-9040-4CA4-AC0B-5F234437C808}
 		{47107F0F-B952-4844-86AF-B5E8A9932645} = {A780E902-9040-4CA4-AC0B-5F234437C808}
+		{4ADDCA4F-31A1-4446-A0A9-1B1A9B48145B} = {A780E902-9040-4CA4-AC0B-5F234437C808}
 	EndGlobalSection
 EndGlobal

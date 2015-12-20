@@ -1,45 +1,83 @@
 <CustomRenderers>
     <HelpLink>http://developer.xamarin.com/guides/cross-platform/xamarin-forms/custom-renderer</HelpLink>
-    
+
     <CustomRendererGroup Name='Pages'>
+        <CodeBlock>
+        <![CDATA[
+        /// <summary>
+        /// Raises the <see cref="E:ElementChanged" /> event.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The instance containing the event data.</param>
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
+        }]]>
+        </CodeBlock>
         <CustomRenderer>
             <Name>PageRenderer</Name>
         </CustomRenderer>
         <CustomRenderer>
-            <Name>NavigationPageRenderer</Name>	
-        </CustomRenderer>		
+            <Name>NavigationPageRenderer</Name>
+        </CustomRenderer>
         <CustomRenderer>
-            <Name>TabbedRenderer</Name>	
-        </CustomRenderer>		
+            <Name>TabbedRenderer</Name>
+        </CustomRenderer>
         <CustomRenderer>
-            <Name>CarouselPageRenderer</Name>	
-        </CustomRenderer>		
+            <Name>CarouselPageRenderer</Name>
+        </CustomRenderer>
     </CustomRendererGroup>
 
     <CustomRendererGroup Name='Layouts'>
+        <CodeBlock>
+        <![CDATA[
+        /// <summary>
+        /// Raises the <see cref="E:ElementChanged" /> event.
+        /// </summary>
+        /// <param name="e">The <see cref="ElementChangedEventArgs{<#= RendererType #>}"/> instance containing the event data.</param>
+        protected override void OnElementChanged(ElementChangedEventArgs<<#= RendererType #>> e)
+        {
+            base.OnElementChanged(e);
+               
+            //// TODO : put in custom code here.
+        }]]>
+        </CodeBlock>
         <CustomRenderer>
-            <Name>ViewRenderer</Name>	
+            <Name>ViewRenderer</Name>
         </CustomRenderer>
         <CustomRenderer>
-            <Name>FrameRenderer</Name>	
-        </CustomRenderer>		
+            <Name>FrameRenderer</Name>
+        </CustomRenderer>
         <CustomRenderer>
-            <Name>ScrollViewRenderer</Name>	
-        </CustomRenderer>		
+            <Name>ScrollViewRenderer</Name>
+        </CustomRenderer>
     </CustomRendererGroup>
 
     <CustomRendererGroup Name='Views'>
+        <CodeBlock>
+        <![CDATA[
+        /// <summary>
+        /// Raises the <see cref="E:ElementChanged" /> event.
+        /// </summary>
+        /// <param name="e">The <see cref="ElementChangedEventArgs{<#= RendererType #>}"/> instance containing the event data.</param>
+        protected override void OnElementChanged(ElementChangedEventArgs<<#= RendererType #>> e)
+        {
+            base.OnElementChanged(e);
+               
+            //// TODO : put in custom code here.
+        }]]>
+        </CodeBlock>
         <CustomRenderer>
-            <Name>ActivityIndicatorRenderer</Name>	
+            <Name>ActivityIndicatorRenderer</Name>
         </CustomRenderer>
         <CustomRenderer>
-            <Name>BoxRenderer</Name>	
-        </CustomRenderer>		
-        <CustomRenderer>
-            <Name>ButtonRenderer</Name>	
+            <Name>BoxRenderer</Name>
         </CustomRenderer>
         <CustomRenderer>
-            <Name>DatePickerRenderer</Name>		
+            <Name>ButtonRenderer</Name>
+        </CustomRenderer>
+        <CustomRenderer>
+            <Name>DatePickerRenderer</Name>
         </CustomRenderer>
         <CustomRenderer>
             <Name>EditorRenderer</Name>
@@ -67,7 +105,7 @@
         </CustomRenderer>
         <CustomRenderer>
             <Name>SliderRenderer</Name>
-        </CustomRenderer> 
+        </CustomRenderer>
         <CustomRenderer>
             <Name>StepperRenderer</Name>
         </CustomRenderer>
@@ -76,30 +114,44 @@
         </CustomRenderer>
         <CustomRenderer>
             <Name>TableViewRenderer</Name>
-        </CustomRenderer> 
+         </CustomRenderer>
         <CustomRenderer>
             <Name>TimePickerRenderer</Name>
         </CustomRenderer>
         <CustomRenderer>
-            <Name>WebViewRenderer</Name> 
+            <Name>WebViewRenderer</Name>
         </CustomRenderer>
     </CustomRendererGroup>
 
     <CustomRendererGroup Name='Cells'>
+        <CodeBlock>
+        <![CDATA[
+        /// <summary>
+        /// Raises the <see cref="E:ElementChanged" /> event.
+        /// </summary>
+        /// <param name="e">The <see cref="ElementChangedEventArgs{<#= RendererType #>}"/> instance containing the event data.</param>
+        protected override void OnElementChanged(ElementChangedEventArgs<<#= RendererType #>> e)
+        {
+            base.OnElementChanged(e);
+               
+            //// TODO : put in custom code here.
+        }]]>
+        </CodeBlock>
         <CustomRenderer>
-            <Name>EntryCellRenderer</Name>	
+            <Name>EntryCellRenderer</Name>
         </CustomRenderer>
         <CustomRenderer>
-            <Name>SwitchCellRenderer</Name>	
-        </CustomRenderer>		
+            <Name>SwitchCellRenderer</Name>
+        </CustomRenderer>
         <CustomRenderer>
-            <Name>TextCellRenderer</Name>	
-        </CustomRenderer>	
+            <Name>TextCellRenderer</Name>
+        </CustomRenderer>
         <CustomRenderer>
-            <Name>ImageCellRenderer</Name>	
-        </CustomRenderer>		
+            <Name>ImageCellRenderer</Name>
+        </CustomRenderer>
         <CustomRenderer>
-            <Name>ViewCellRenderer</Name>	
-        </CustomRenderer>	
+            <Name>ViewCellRenderer</Name>
+        </CustomRenderer>
     </CustomRendererGroup>
 </CustomRenderers>
+

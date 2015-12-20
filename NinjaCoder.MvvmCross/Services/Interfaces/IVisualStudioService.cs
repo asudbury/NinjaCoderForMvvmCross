@@ -7,14 +7,10 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
 {
     using EnvDTE;
     using EnvDTE80;
-
     using NinjaCoder.MvvmCross.Entities;
-
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services.Interfaces;
     using System.Collections.Generic;
-
-    using Microsoft.VisualStudio.TextTemplating;
 
     /// <summary>
     /// Defines the IVisualStudioService type.
@@ -192,9 +188,8 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         ITextTransformationService GetTextTransformationService();
 
         /// <summary>
-        /// Sets the text templating engine host.
+        /// Gets or sets a value indicating whether [use simple text templating engine].
         /// </summary>
-        /// <param name="textTemplatingEngineHost">The text templating engine host.</param>
-        void SetTextTemplatingEngineHost(ITextTemplatingEngineHost textTemplatingEngineHost);
+        bool UseSimpleTextTemplatingEngine { get; set; }
     }
 }

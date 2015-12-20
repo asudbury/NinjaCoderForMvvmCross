@@ -14,5 +14,10 @@ namespace NinjaCoder.MvvmCross.Entities
         /// Gets or sets the name.
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the code block.
+        /// </summary>
+        public string CodeBlock { get; set; }
     }
 }

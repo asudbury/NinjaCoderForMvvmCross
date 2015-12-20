@@ -28,11 +28,6 @@ namespace Scorchio.VisualStudio.Services
         private readonly IServiceProvider serviceProvider;
 
         /// <summary>
-        /// The text templating engine host.
-        /// </summary>
-        private readonly ITextTemplatingEngineHost textTemplatingEngineHost;
-
-        /// <summary>
         /// The cache.
         /// </summary>
         private readonly T4Cache cache;
@@ -41,15 +36,11 @@ namespace Scorchio.VisualStudio.Services
         /// Initializes a new instance of the <see cref="TextTransformationService" /> class.
         /// </summary>
         /// <param name="serviceProvider">The service provider.</param>
-        /// <param name="textTemplatingEngineHost">The text templating engine host.</param>
-        public TextTransformationService(
-            IServiceProvider serviceProvider,
-            ITextTemplatingEngineHost textTemplatingEngineHost)
+        public TextTransformationService(IServiceProvider serviceProvider)
         {
             TraceService.WriteLine("TextTransformationService::Constructor");
 
             this.serviceProvider = serviceProvider;
-            this.textTemplatingEngineHost = textTemplatingEngineHost;
 
             this.cache = new T4Cache();
 
@@ -64,16 +55,33 @@ namespace Scorchio.VisualStudio.Services
         /// <summary>
         /// Transforms the specified source file.
         /// </summary>
+        /// <param name="useSimpleTextTemplatingEngine">if set to <c>true</c> [use simple text templating engine].</param>
         /// <param name="sourceFile">The source file.</param>
         /// <param name="parameters">The parameters.</param>
         /// <returns></returns>
         public string Transform(
+            bool useSimpleTextTemplatingEngine,
             string sourceFile,
             IDictionary<string, string> parameters)
         {
             TraceService.WriteLine("TextTransformationService::Transform sourceFile=" + sourceFile);
 
+            this.T4CallBack = new T4CallBack();
+
             string sourceText = this.GetText(sourceFile);
+
+            if (useSimpleTextTemplatingEngine)
+            {
+                SimpleTextTemplatingEngine engine = new SimpleTextTemplatingEngine();
+
+                TraceService.WriteLine("Before processing template via SimpleTextTemplatingEngine");
+
+                string output =  engine.ProcessTemplate(sourceText, parameters);
+
+                TraceService.WriteLine("After processing template via SimpleTextTemplatingEngine");
+
+                return output;
+            }
 
             ServiceProvider serviceProviderImpl = new ServiceProvider(this.serviceProvider, true);
 
@@ -95,25 +103,11 @@ namespace Scorchio.VisualStudio.Services
 
             if (t4 != null)
             {
-                this.T4CallBack = new T4CallBack();
-
                 try
                 {
                     TraceService.WriteLine("Before processing template");
 
-                    string output;
-
-                    if (this.textTemplatingEngineHost != null)
-                    {
-                        Engine engine = new Engine();
-
-                        output = engine.ProcessTemplate(sourceFile, this.textTemplatingEngineHost);
-                    }
-
-                    else
-                    {
-                        output = t4.ProcessTemplate(sourceFile, sourceText, this.T4CallBack);
-                    }
+                    string output = t4.ProcessTemplate(sourceFile, sourceText, this.T4CallBack);
 
                     TraceService.WriteLine("After processing template");
 

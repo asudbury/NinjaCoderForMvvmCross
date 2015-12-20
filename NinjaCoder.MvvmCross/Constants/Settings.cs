@@ -94,5 +94,10 @@ namespace NinjaCoder.MvvmCross.Constants
         /// The style cop ms build package.
         /// </summary>
         public const string StyleCopMsBuildPackage = "StyleCop.MSBuild";
+
+        /// <summary>
+        /// The t4 suffix.
+        /// </summary>
+        public const string T4Suffix = ".t4";
     }
 }

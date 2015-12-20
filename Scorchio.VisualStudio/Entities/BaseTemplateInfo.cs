@@ -31,11 +31,6 @@ namespace Scorchio.VisualStudio.Entities
         public bool PreSelected { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is text template.
-        /// </summary>
-        public bool IsTextTemplate { get; set; }
-
-        /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>

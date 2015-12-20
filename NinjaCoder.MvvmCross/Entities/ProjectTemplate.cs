@@ -14,49 +14,49 @@ namespace NinjaCoder.MvvmCross.Entities
     public enum ProjectTemplate
     {
         /// <summary>
-        /// The core project
+        /// The core project.
         /// </summary>
         [Description("NinjaCoder.Core.zip")]
         Core, 
 
         /// <summary>
-        /// The xamarin forms project
+        /// The xamarin forms project.
         /// </summary>
         [Description("NinjaCoder.Xamarin.Forms.zip")]
         XamarinForms,
 
         /// <summary>
-        /// The nunit tests
+        /// The nunit tests.
         /// </summary>
         [Description("NinjaCoder.NUnit.zip")]
         NUnitTests,
 
         /// <summary>
-        /// The mstest tests
+        /// The mstest tests.
         /// </summary>
         [Description("NinjaCoder.MSTest.zip")]
         MsTestTests,
 
         /// <summary>
-        /// The iOS
+        /// The iOS.
         /// </summary>
         [Description("NinjaCoder.iOS.zip")]
         iOS,
 
         /// <summary>
-        /// The droid
+        /// The droid.
         /// </summary>
         [Description("NinjaCoder.Droid.zip")]
         Droid,
 
         /// <summary>
-        /// The windows phone
+        /// The windows phone.
         /// </summary>
         [Description("NinjaCoder.WindowsPhone.zip")]
         WindowsPhone,
 
         /// <summary>
-        /// The windows phone
+        /// The windows store.
         /// </summary>
         [Description("BlankApp.zip")]
         WindowsStore,
@@ -65,6 +65,12 @@ namespace NinjaCoder.MvvmCross.Entities
         /// The wpf.
         /// </summary>
         [Description("NinjaCoder.Wpf.zip")]
-        Wpf
+        Wpf,
+
+        /// <summary>
+        /// The windows universal.
+        /// </summary>
+        [Description("NinjaCoder.WindowsUniversal.zip")]
+        WindowsUniversal
     }
 }

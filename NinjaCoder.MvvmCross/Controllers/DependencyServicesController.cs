@@ -14,11 +14,9 @@ namespace NinjaCoder.MvvmCross.Controllers
     using Scorchio.Infrastructure.Services;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
-    using Scorchio.VisualStudio.Services.Interfaces;
     using Services.Interfaces;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     /// <summary>
     /// Defines the DependencyServicesController type.
@@ -29,6 +27,11 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// The dependency services factory.
         /// </summary>
         private readonly IDependencyServicesFactory dependencyServicesFactory;
+        
+        /// <summary>
+        /// The text templating service.
+        /// </summary>
+        private readonly ITextTemplatingService textTemplatingService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyServicesController" /> class.
@@ -39,13 +42,15 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="resolverService">The resolver service.</param>
         /// <param name="readMeService">The read me service.</param>
         /// <param name="dependencyServicesFactory">The dependency services factory.</param>
+        /// <param name="textTemplatingService">The text templating service.</param>
         public DependencyServicesController(
             IVisualStudioService visualStudioService,
             ISettingsService settingsService,
             IMessageBoxService messageBoxService,
             IResolverService resolverService,
             IReadMeService readMeService,
-            IDependencyServicesFactory dependencyServicesFactory)
+            IDependencyServicesFactory dependencyServicesFactory,
+            ITextTemplatingService textTemplatingService)
             : base(
             visualStudioService, 
             settingsService, 
@@ -55,6 +60,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("DependencyServicesController::Constructor");
             this.dependencyServicesFactory = dependencyServicesFactory;
+            this.textTemplatingService = textTemplatingService;
         }
 
         /// <summary>
@@ -99,8 +105,6 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             try
             {
-                List<string> messages = new List<string>();
-
                 TraceService.WriteLine("DependencyServicesController::Process GetTextTemplates");
 
                 IEnumerable<TextTemplateInfo> textTemplates = this.dependencyServicesFactory.GetTextTemplates(
@@ -110,39 +114,9 @@ namespace NinjaCoder.MvvmCross.Controllers
                     dependencyServiceViewModel.MethodName,
                     dependencyServiceViewModel.Directory);
 
-                ITextTransformationService textTransformationService = this.VisualStudioService.GetTextTransformationService();
-
-                this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.AddingDependencyService);
-
-                foreach (TextTemplateInfo textTemplateInfo in textTemplates)
-                {
-                    TraceService.WriteLine("DependencyServicesController::Process textTemplate=" + textTemplateInfo.FileName);
-
-                    IProjectService projectService = this.VisualStudioService.GetProjectServiceBySuffix(textTemplateInfo.ProjectSuffix);
-
-                    if (projectService != null)
-                    {
-                        this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.AddingDependencyService + " for " + projectService.Name);
-
-                        textTemplateInfo.TextOutput = textTransformationService.Transform(textTemplateInfo.TemplateName, textTemplateInfo.Tokens);
-
-                        if (textTemplateInfo.TextOutput != string.Empty &&
-                            textTransformationService.T4CallBack.ErrorMessages.Any() == false)
-                        {
-                            //// add file to the solution
-                            string message = projectService.AddTextTemplate(textTemplateInfo);
-                            messages.Add(message);
-                        }
-
-                        else
-                        {
-                            foreach (string errorMessage in textTransformationService.T4CallBack.ErrorMessages)
-                            {
-                                messages.Add("T4 Error " + errorMessage);
-                            }
-                        }
-                    }
-                }
+                IEnumerable<string> messages = this.textTemplatingService.AddTextTemplates(
+                    NinjaMessages.AddingDependencyService,
+                    textTemplates);
 
                 //// show the readme.
                 this.ShowReadMe("Add Xamarin Forms Dependency Service", messages);

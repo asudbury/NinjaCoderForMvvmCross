@@ -6,7 +6,6 @@
 namespace NinjaCoder.MvvmCross.Services
 {
     using Microsoft.Win32;
-
     using NinjaCoder.MvvmCross.Entities;
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using Scorchio.Infrastructure.Extensions;
@@ -336,7 +335,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public string VisualStudioVersion
         {
-            get { return this.GetRegistryValue("Internals", "VisualStudioVersion", "12.0"); }
+            get { return this.GetRegistryValue("Internals", "VisualStudioVersion", "14.0"); }
             set { this.SetRegistryValue("Internals", "VisualStudioVersion", value); }
         }
 
@@ -826,8 +825,8 @@ namespace NinjaCoder.MvvmCross.Services
             get
             {
                 return this.UseLocalUris ?
-                    this.GetRegistryValue("Internals", "NugetPackagesUri", this.ConfigPath + "XamarinFormsCustomRenderers.xml") : 
-                    this.GetRegistryValue("Internals", "NugetPackagesUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/XamarinFormsCustomRenderers.xml");
+                    this.GetRegistryValue("Internals", "XamarinFormsCustomRenderersUri", this.ConfigPath + "XamarinFormsCustomRenderers.xml") :
+                    this.GetRegistryValue("Internals", "XamarinFormsCustomRenderersUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/XamarinFormsCustomRenderers.xml");
             }            
         }
 
@@ -837,6 +836,34 @@ namespace NinjaCoder.MvvmCross.Services
         public string DependencyServicesWebPage
         {
             get { return this.GetRegistryValue("Internals", "DependencyServicesWebPage", "http://developer.xamarin.com/guides/cross-platform/xamarin-forms/dependency-service"); }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [use simple text templating engine].
+        /// </summary>
+        public bool UseSimpleTextTemplatingEngine
+        {
+            get { return this.GetRegistryValue("Internals", "UseSimpleTextTemplatingEngine", "Y") == "Y"; }
+        }
+
+        /// <summary>
+        /// Gets or sets the item templates directory.
+        /// </summary>
+        public string ItemTemplatesDirectory
+        {
+            get
+            {
+                string path = this.GithubTemplatesDirectory;
+
+                if (this.UseLocalTextTemplates)
+                {
+                    path = this.LocalTextTemplatesDirectory;
+                }
+
+                string file = this.GetRegistryValue("Build", "ItemTemplatesDirectory", "ItemTemplates");
+
+                return string.Format(@"{0}\{1}", path, file);
+            }
         }
 
         /// <summary>

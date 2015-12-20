@@ -78,6 +78,12 @@
           <ButtonText>Options</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="About" priority="0x0100" type="Button">
+            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup" />
+            <Strings>
+                <ButtonText>About</ButtonText>
+            </Strings>
+        </Button>
     </Buttons>
     <Bitmaps>
       <Bitmap guid="guidImages" href="Resources\Images.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows"/>
