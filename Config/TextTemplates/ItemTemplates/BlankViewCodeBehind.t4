@@ -1,0 +1,25 @@
+<#@ Template Language="C#" #>
+<#@ Output Extension="cs" #>
+<#@ parameter type="System.string" name="NameSpace" #>
+<#@ parameter type="System.string" name="ClassName" #>
+// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//    Defines the <#= ClassName #>.xaml type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace <#= NameSpace #>
+{
+    /// <summary>
+    ///    Defines the <#= ClassName #>.xaml type.
+    /// </summary>
+    public partial class <#= ClassName #>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="<#= ClassName #>"/> class.
+        /// </summary>
+        public <#= ClassName #>() 
+        {
+            this.InitializeComponent();
+        }
+    }
+}
