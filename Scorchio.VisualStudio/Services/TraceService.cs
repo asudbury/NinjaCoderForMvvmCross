@@ -11,7 +11,7 @@ namespace Scorchio.VisualStudio.Services
     using System.Windows.Forms;
 
     /// <summary>
-    ///  Defines the TraceService type.
+    /// Defines the TraceService type.
     /// </summary>
     public static class TraceService
     {
@@ -57,6 +57,11 @@ namespace Scorchio.VisualStudio.Services
         internal static bool DisplayErrors { get; private set; }
 
         /// <summary>
+        /// Gets the error file.
+        /// </summary>
+        internal static string ErrorFile { get; private set; }
+
+        /// <summary>
         /// Initializes the specified settings.
         /// </summary>
         /// <param name="logToTraceSetting">if set to <c>true</c> [log to trace setting].</param>
@@ -64,18 +69,27 @@ namespace Scorchio.VisualStudio.Services
         /// <param name="logToFileSetting">if set to <c>true</c> [log to file setting].</param>
         /// <param name="logFileSetting">The log file setting.</param>
         /// <param name="displayErrorsSetting">if set to <c>true</c> [display errors setting].</param>
+        /// <param name="errorFileSetting">The error file setting.</param>
         public static void Initialize(
             bool logToTraceSetting,
             bool logToConsoleSetting,
             bool logToFileSetting,
             string logFileSetting,
-            bool displayErrorsSetting)
+            bool displayErrorsSetting,
+            string errorFileSetting)
         {
             logToTrace = logToTraceSetting;
             LogToConsole = logToConsoleSetting;
             logToFile = logToFileSetting;
             LogFile = logFileSetting;
             DisplayErrors = displayErrorsSetting;
+            ErrorFile = errorFileSetting;
+
+            if (logToTrace)
+            {
+                WriteLine("TraceService::Initialize LogFile=" + LogFile);
+                WriteLine("TraceService::Initialize ErrorFile=" + ErrorFile);
+            }
         }
 
         /// <summary>
@@ -117,8 +131,6 @@ namespace Scorchio.VisualStudio.Services
         /// <param name="message">The message.</param>
         public static void WriteError(string message)
         {
-            WriteLine("ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR");
-
             string timedMessage = GetTimedMessage("** ERROR **", message);
 
             if (LogToTrace)
@@ -134,6 +146,7 @@ namespace Scorchio.VisualStudio.Services
             if (LogToFile)
             {
                 WriteMessageToLogFile(timedMessage);
+                WriteErrorToLogFile(timedMessage);
             }
 
             if (DisplayErrors)
@@ -155,6 +168,27 @@ namespace Scorchio.VisualStudio.Services
                 if (string.IsNullOrEmpty(LogFile) == false)
                 {
                     StreamWriter sw = new StreamWriter(LogFile, true);
+                    sw.WriteLine(message);
+                    sw.Close();
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+
+        /// <summary>
+        /// Writes the error to log file.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        internal static void WriteErrorToLogFile(string message)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(ErrorFile) == false)
+                {
+                    StreamWriter sw = new StreamWriter(ErrorFile, true);
                     sw.WriteLine(message);
                     sw.Close();
                 }

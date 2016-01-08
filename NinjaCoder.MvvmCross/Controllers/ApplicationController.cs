@@ -6,7 +6,6 @@
 namespace NinjaCoder.MvvmCross.Controllers
 {
     using EnvDTE;
-
     using MahApps.Metro;
     using Scorchio.Infrastructure.Entities;
     using Scorchio.Infrastructure.EventArguments;
@@ -16,9 +15,6 @@ namespace NinjaCoder.MvvmCross.Controllers
     using Services.Interfaces;
     using System.Collections.Generic;
     using System.Windows;
-
-    using Microsoft.VisualStudio.TextTemplating;
-
     using ViewModels;
     using ViewModels.Options;
     using Views;
@@ -109,7 +105,8 @@ namespace NinjaCoder.MvvmCross.Controllers
                 false,  //// log to console.
                 this.SettingsService.LogToFile, 
                 this.SettingsService.LogFilePath, 
-                this.SettingsService.DisplayErrors);
+                this.SettingsService.DisplayErrors,
+                this.SettingsService.ErrorFilePath);
         }
 
         /// <summary>
@@ -118,7 +115,6 @@ namespace NinjaCoder.MvvmCross.Controllers
         public void ShowAboutBox()
         {
             TraceService.WriteLine("ApplicationController::ShowAboutBox");
-
             this.ShowDialog<AboutViewModel>(new AboutView());
         }
 
@@ -129,7 +125,6 @@ namespace NinjaCoder.MvvmCross.Controllers
         public IEnumerable<Project> GetProjects()
         {
             TraceService.WriteLine("ApplicationController::GetProjects");
-
             return this.VisualStudioService.SolutionService.GetProjects();
         }
 
@@ -139,8 +134,16 @@ namespace NinjaCoder.MvvmCross.Controllers
         public void ViewLogFile()
         {
             TraceService.WriteLine("ApplicationController::ViewLogFile");
-
             this.applicationService.ViewLogFile();
+        }
+
+        /// <summary>
+        /// Views the error log file.
+        /// </summary>
+        public void ViewErrorLogFile()
+        {
+            TraceService.WriteLine("ApplicationController::ViewLogFile");
+            this.applicationService.ViewErrorLogFile();
         }
 
         /// <summary>
@@ -149,8 +152,16 @@ namespace NinjaCoder.MvvmCross.Controllers
         public void ClearLogFile()
         {
             TraceService.WriteLine("ApplicationController::ClearLogFile");
-            
             this.applicationService.ClearLogFile();
+        }
+
+        /// <summary>
+        /// Clears the error log file.
+        /// </summary>
+        public void ClearErrorLogFile()
+        {
+            TraceService.WriteLine("ApplicationController::ClearErrorLogFile");
+            this.applicationService.ClearErrorLogFile();
         }
 
         /// <summary>
@@ -160,19 +171,22 @@ namespace NinjaCoder.MvvmCross.Controllers
         public void SetWorkingDirectory(string path)
         {
             TraceService.WriteLine("ApplicationController::SetWorkingDirectory " + path);
-
             this.applicationService.SetWorkingDirectory(path);
         }
 
         /// <summary>
-        /// Uses the simple text templating engine.
+        /// MVVMs the cross home page.
         /// </summary>
-        /// <param name="useSimpleTextTemplatingEngine">if set to <c>true</c> [use simple text templating engine].</param>
-        public void UseSimpleTextTemplatingEngine(bool useSimpleTextTemplatingEngine)
+        public void MvvmCrossHomePage()
         {
-            TraceService.WriteLine("ApplicationController::SetTextTemplatingEngineHost use=" + useSimpleTextTemplatingEngine);
+            TraceService.WriteLine("ApplicationController::MvvmCrossHomePage");
+            this.applicationService.ShowMvvmCrossHomePage();
+        }
 
-            this.applicationService.UseSimpleTextTemplatingEngine(useSimpleTextTemplatingEngine);
+        public void XamarinFormsHomePage()
+        {
+            TraceService.WriteLine("ApplicationController::XamarinFormsHomePage");
+            this.applicationService.ShowXamarinFormsHomePage();
         }
     }
 }

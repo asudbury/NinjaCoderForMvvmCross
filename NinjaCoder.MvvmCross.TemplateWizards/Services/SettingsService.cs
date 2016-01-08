@@ -103,14 +103,6 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Services
         }
 
         /// <summary>
-        /// Gets the xamarin forms views.
-        /// </summary>
-        public string XamarinFormsViews
-        {
-            get { return this.GetRegistryValue("Internals", "XamarinFormsViews", string.Empty); }
-        }
-
-        /// <summary>
         /// Gets a value indicating whether [bind context in xaml for xamarin forms].
         /// </summary>
         public bool BindContextInXamlForXamarinForms

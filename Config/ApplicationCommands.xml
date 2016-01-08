@@ -1,14 +1,9 @@
 <CommandsList>
     <Commands>
-        <Command Platform="Core" Type="RemoveFolder" Name="Helpers"/>
     </Commands>
     <FileOperations>
-      <FileOperation Platform="Droid" Type="ReplaceText" Name="" File="SqliteConnectionServiceDroid.cs" Directory="DependencyServices" From="Droid.Core" To="Core" />
-      <FileOperation Platform="iOS" Type="ReplaceText" Name="" File="SqliteConnectionServiceiOS.cs" Directory="DependencyServices" From="iOS.Core" To="Core" />
-      <FileOperation Platform="WindowsPhone" Type="ReplaceText" Name="" File="SqliteConnectionServiceWindowsPhone.cs" Directory="DependencyServices" From="WindowsPhone.Core" To="Core" />
-      <FileOperation Platform="Forms" Type="Properties" Name="" File="TodoItemView.xaml" Directory="Views" From="BuildAction" To="3" />
-      <FileOperation Platform="Forms" Type="ReplaceText" Name="" File="TodoItemView.xaml" Directory="Views" From="Forms.Core" To="Core" />
-      <FileOperation Platform="Forms" Type="Properties" Name="" File="TodoListView.xaml" Directory="Views" From="BuildAction" To="3" />
-      <FileOperation Platform="Forms" Type="ReplaceText" Name="" File="TodoListView.xaml" Directory="Views" From="Forms.Core" To="Core" />
+      <!-- tidy up the mock and test trace file - nuget messing things up? - not sure why we have to do this! -->
+      <FileOperation Platform="Core.Tests" Type="ReplaceText" Name="" File="MockDispatcher.cs" Directory="Mocks" From=".Mocks" To="$rootnamespace$.Mocks" />
+      <FileOperation Platform="Core.Tests" Type="ReplaceText" Name="" File="TestTrace.cs" Directory="" From="namespace " To="namespace $rootnamespace$" />
     </FileOperations> 
 </CommandsList>

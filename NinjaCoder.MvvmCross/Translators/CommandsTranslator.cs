@@ -6,21 +6,21 @@
 
 namespace NinjaCoder.MvvmCross.Translators
 {
-    using NinjaCoder.MvvmCross.Entities;
     using Scorchio.Infrastructure.Translators;
     using System.Collections.Generic;
     using System.Linq;
     using System.Xml.Linq;
+    using Scorchio.VisualStudio.Entities;
 
     /// <summary>
     ///  Defines the CommandTranslator type.
     /// </summary>
-    public class CommandsTranslator : ITranslator<XElement, IEnumerable<Command>>
+    public class CommandsTranslator : ITranslator<XElement, IEnumerable<StudioCommand>>
     {
         /// <summary>
         /// The command translator.
         /// </summary>
-        private readonly ITranslator<XElement, Command> commandTranslator;
+        private readonly ITranslator<XElement, StudioCommand> commandTranslator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandsTranslator"/> class.
@@ -34,7 +34,7 @@ namespace NinjaCoder.MvvmCross.Translators
         /// Initializes a new instance of the <see cref="CommandsTranslator"/> class.
         /// </summary>
         /// <param name="commandTranslator">The command translator.</param>
-        public CommandsTranslator(ITranslator<XElement, Command> commandTranslator)
+        public CommandsTranslator(ITranslator<XElement, StudioCommand> commandTranslator)
         {
             this.commandTranslator = commandTranslator;
         }
@@ -44,9 +44,9 @@ namespace NinjaCoder.MvvmCross.Translators
         /// </summary>
         /// <param name="from">From.</param>
         /// <returns></returns>
-        public IEnumerable<Command> Translate(XElement @from)
+        public IEnumerable<StudioCommand> Translate(XElement @from)
         {
-            List<Command> commands = new List<Command>();
+            List<StudioCommand> commands = new List<StudioCommand>();
 
             XElement commandsElement = @from.Element("Commands");
 

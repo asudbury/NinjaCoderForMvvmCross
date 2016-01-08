@@ -18,6 +18,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         private bool userLocalUris;
 
         /// <summary>
+        /// The use local text templates.
+        /// </summary>
+        private bool useLocalTextTemplates;
+
+        /// <summary>
         /// The output nuget commands to read me
         /// </summary>
         private bool outputNugetCommandsToReadMe;
@@ -47,6 +52,15 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [use local text templates].
+        /// </summary>
+        public bool UseLocalTextTemplates
+        {
+            get { return this.useLocalTextTemplates; }
+            set { this.SetProperty(ref this.useLocalTextTemplates, value); }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [output nuget commands to read me].
         /// </summary>
         public bool OutputNugetCommandsToReadMe
@@ -72,6 +86,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.SettingsService.UseLocalUris = this.UseLocalUris;
             this.SettingsService.OutputNugetCommandsToReadMe = this.OutputNugetCommandsToReadMe;
             this.SettingsService.OutputErrorsToReadMe = this.OutputErrorsToReadMe;
+            this.SettingsService.UseLocalTextTemplates = this.useLocalTextTemplates;
         }
 
         /// <summary>
@@ -82,6 +97,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.UseLocalUris = this.SettingsService.UseLocalUris;
             this.OutputNugetCommandsToReadMe = this.SettingsService.OutputNugetCommandsToReadMe;
             this.OutputErrorsToReadMe = this.SettingsService.OutputErrorsToReadMe;
+            this.useLocalTextTemplates = this.SettingsService.UseLocalTextTemplates;
         }
     }
 }

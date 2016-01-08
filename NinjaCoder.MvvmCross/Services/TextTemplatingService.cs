@@ -63,25 +63,8 @@ namespace NinjaCoder.MvvmCross.Services
                     ITextTransformationService textTransformationService = this.visualStudioService.GetTextTransformationService();
 
                     textTemplateInfo.TextOutput = textTransformationService.Transform(
-                        this.visualStudioService.UseSimpleTextTemplatingEngine,
                         textTemplateInfo.TemplateName, 
                         textTemplateInfo.Tokens);
-
-                    if (textTemplateInfo.TextOutput != string.Empty &&
-                        textTransformationService.T4CallBack.ErrorMessages.Any() == false)
-                    {
-                        //// add file to the solution
-                        string message = projectService.AddTextTemplate(textTemplateInfo);
-                        this.Messages.Add(message);
-                    }
-
-                    else
-                    {
-                        foreach (string errorMessage in textTransformationService.T4CallBack.ErrorMessages)
-                        {
-                            this.Messages.Add("T4 Error " + errorMessage);
-                        }
-                    }
                 }
             }
 

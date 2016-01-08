@@ -9,8 +9,7 @@ namespace NinjaCoder.MvvmCross.Factories
     using NinjaCoder.MvvmCross.Constants;
     using NinjaCoder.MvvmCross.Factories.Interfaces;
     using Scorchio.Infrastructure.Entities;
-    using System.Collections.Generic;
-    using System.Linq;
+    using System.Collections.ObjectModel;
 
     /// <summary>
     /// Defines the MvvmCrossViewFactory type.
@@ -20,11 +19,11 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <summary>
         /// Gets the views.
         /// </summary>
-        public IEnumerable<ImageItemWithDescription> Views
+        public ObservableCollection<ImageItemWithDescription> Views
         {
             get
             {
-                List<ImageItemWithDescription> pages = new List<ImageItemWithDescription>
+                ObservableCollection<ImageItemWithDescription> pages = new ObservableCollection<ImageItemWithDescription>
                 {
                     new ImageItemWithDescription  
                         {
@@ -47,7 +46,7 @@ namespace NinjaCoder.MvvmCross.Factories
                         }
                 };
 
-                return pages.OrderBy(x => x.Name);
+                return pages;
             }
         }
 

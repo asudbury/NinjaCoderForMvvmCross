@@ -87,6 +87,56 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Views the error log file.
+        /// </summary>
+        public void ViewErrorLogFile()
+        {
+            TraceService.WriteLine("ApplicationService::ViewLogFile");
+
+            string filePath = this.settingsService.ErrorFilePath;
+
+            if (File.Exists(filePath) == false)
+            {
+                File.Create(filePath);
+            }
+
+            Process.Start(filePath);
+        }
+
+        /// <summary>
+        /// Clears the error log file.
+        /// </summary>
+        public void ClearErrorLogFile()
+        {
+            TraceService.WriteLine("ApplicationService::ClearErrorLogFile");
+
+            if (File.Exists(this.settingsService.ErrorFilePath))
+            {
+                File.Delete(this.settingsService.ErrorFilePath);
+            }
+        }
+
+        /// <summary>
+        /// Shows the MVVM cross home page.
+        /// </summary>
+        public void ShowMvvmCrossHomePage()
+        {
+            TraceService.WriteLine("ApplicationService::ShowMvvmCrossHomePage");
+
+            Process.Start(this.settingsService.MvvmCrossHomePage);
+        }
+
+        /// <summary>
+        /// Shows the xamarin forms home page.
+        /// </summary>
+        public void ShowXamarinFormsHomePage()
+        {
+            TraceService.WriteLine("ApplicationService::ShowXamarinFormsHomePage");
+
+            Process.Start(this.settingsService.XamarinFormsHomePage);
+        }
+
+        /// <summary>
         /// Gets the application framework.
         /// </summary>
         /// <returns></returns>
@@ -200,15 +250,6 @@ namespace NinjaCoder.MvvmCross.Services
         public void SetWorkingDirectory(string path)
         {
             this.settingsService.WorkingDirectory = path;
-        }
-
-        /// <summary>
-        /// Sets the text templating engine host.
-        /// </summary>
-        /// <param name="useSimpleTextTemplatingEngine">if set to <c>true</c> [use simple text templating engine].</param>
-        public void UseSimpleTextTemplatingEngine(bool useSimpleTextTemplatingEngine)
-        {
-            this.visualStudioService.UseSimpleTextTemplatingEngine = useSimpleTextTemplatingEngine;
         }
     }
 }

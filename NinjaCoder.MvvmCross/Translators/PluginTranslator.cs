@@ -12,6 +12,8 @@ namespace NinjaCoder.MvvmCross.Translators
     using System.Linq;
     using System.Xml.Linq;
 
+    using Scorchio.VisualStudio.Entities;
+
     /// <summary>
     ///  Defines the PluginTranslator type.
     /// </summary>
@@ -25,7 +27,7 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <summary>
         /// The commands translator.
         /// </summary>
-        private readonly ITranslator<XElement, IEnumerable<Command>> commandsTranslator;
+        private readonly ITranslator<XElement, IEnumerable<StudioCommand>> commandsTranslator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PluginTranslator"/> class.
@@ -42,7 +44,7 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <param name="commandsTranslator">The commands translator.</param>
         public PluginTranslator(
             ITranslator<XElement, IEnumerable<FileOperation>> fileOperationsTranslator,
-            ITranslator<XElement, IEnumerable<Command>> commandsTranslator)
+            ITranslator<XElement, IEnumerable<StudioCommand>> commandsTranslator)
         {
             this.fileOperationsTranslator = fileOperationsTranslator;
             this.commandsTranslator = commandsTranslator;
@@ -254,7 +256,7 @@ namespace NinjaCoder.MvvmCross.Translators
         /// </summary>
         /// <param name="element">The element.</param>
         /// <returns></returns>
-        internal IEnumerable<Command> GetCommands(XElement element)
+        internal IEnumerable<StudioCommand> GetCommands(XElement element)
         {
             return this.commandsTranslator.Translate(element);
         }

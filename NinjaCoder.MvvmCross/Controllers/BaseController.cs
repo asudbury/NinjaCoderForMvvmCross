@@ -53,7 +53,8 @@ namespace NinjaCoder.MvvmCross.Controllers
                 false, //// log to console.
                 settingsService.LogToFile,
                 settingsService.LogFilePath,
-                settingsService.DisplayErrors);
+                settingsService.DisplayErrors,
+                settingsService.ErrorFilePath);
 
             TraceService.WriteLine("BaseController::Constructor");
 
@@ -170,6 +171,8 @@ namespace NinjaCoder.MvvmCross.Controllers
         protected TViewModel ShowDialog<TViewModel>(IThemedDialog themedDialog) 
             where TViewModel : class
         {
+            TraceService.WriteLine("BaseController::ShowDialog");
+
             //// set the visual studio version number
             this.SettingsService.VisualStudioVersion = this.VisualStudioService.DTE2.Version;
 

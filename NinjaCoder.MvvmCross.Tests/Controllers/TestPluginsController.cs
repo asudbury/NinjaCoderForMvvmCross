@@ -110,28 +110,6 @@ namespace NinjaCoder.MvvmCross.Tests.Controllers
 
             this.mockDialogService.Setup(x => x.ShowDialog(It.IsAny<Form>())).Returns(DialogResult.OK);
             */
-
-            MockDirectoryInfoFactory mockDirectoryInfoFactory = new MockDirectoryInfoFactory();
-            this.mockFileSystem.SetupGet(x => x.DirectoryInfo).Returns(mockDirectoryInfoFactory);
-
-            this.mockSettingsService.SetupGet(x => x.InstalledDirectory).Returns("path");
-
-            Mock<IProjectService> mockProjectService = new Mock<IProjectService>();
-
-            this.mockVisualStudioService.SetupGet(x => x.CoreProjectService).Returns(mockProjectService.Object);
-
-            this.Controller.Run();
-        }
-
-        /// <summary>
-        /// Tests the run.
-        /// </summary>
-        [Test]
-        public void TestRunNotMvvmCrossSolution()
-        {
-            this.mockVisualStudioService.SetupGet(x => x.IsMvvmCrossSolution).Returns(false);
-
-            this.Controller.Run();
         }
     }
 }

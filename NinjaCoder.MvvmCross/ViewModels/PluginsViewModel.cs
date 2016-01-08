@@ -54,21 +54,6 @@ namespace NinjaCoder.MvvmCross.ViewModels
         private bool communityPluginsSelected;
 
         /// <summary>
-        /// The view model names.
-        /// </summary>
-        private IEnumerable<string> viewModelNames;
-
-        /// <summary>
-        /// The implement in view model
-        /// </summary>
-        private string implementInViewModel;
-
-        /// <summary>
-        /// The include unit tests.
-        /// </summary>
-        private bool includeUnitTests = true;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="PluginsViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
@@ -101,32 +86,6 @@ namespace NinjaCoder.MvvmCross.ViewModels
             }
 
             TraceService.WriteLine("PluginsViewModel::Constructor End");
-        }
-
-        /// <summary>
-        /// Gets the view model names.
-        /// </summary>
-        public IEnumerable<string> ViewModelNames
-        {
-            get { return this.viewModelNames ?? (this.viewModelNames = this.visualStudioService.GetPublicViewModelNames()); }
-        }
-
-        /// <summary>
-        /// Gets or sets the implement in view model.
-        /// </summary>
-        public string ImplementInViewModel
-        {
-            get { return this.implementInViewModel; }
-            set { this.SetProperty(ref this.implementInViewModel, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [include unit tests].
-        /// </summary>
-        public bool IncludeUnitTests
-        {
-            get { return this.includeUnitTests; }
-            set { this.SetProperty(ref this.includeUnitTests, value); }
         }
 
         /// <summary>

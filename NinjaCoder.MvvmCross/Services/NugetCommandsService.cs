@@ -9,10 +9,9 @@ namespace NinjaCoder.MvvmCross.Services
     using NinjaCoder.MvvmCross.Constants;
     using NinjaCoder.MvvmCross.Entities;
     using Scorchio.Infrastructure.Constants;
+    using Scorchio.VisualStudio.Services;
     using System.Collections.Generic;
     using System.Linq;
-
-    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     /// Defines the NugetCommandsService type.
@@ -23,6 +22,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// The mvvm cross library.
         /// </summary>
         private const string MvvmCrossPackage = "MvvmCross.HotTuna.MvvmCrossLibraries";
+
+        /// <summary>
+        /// The MVVM cross package v4.
+        /// </summary>
+        private const string MvvmCrossPackagev4 = "MvvmCross.Core";
 
         /// <summary>
         /// The scorchio MVVM cross mstest tests.
@@ -616,6 +620,9 @@ namespace NinjaCoder.MvvmCross.Services
         {
             if (this.settingsService.UsePreReleaseMvvmCrossNugetPackages)
             {
+                //// temp code for Mvx 4.0 testing.
+                ////command = MvvmCrossPackagev4;
+
                 command += Settings.NugetIncludePreRelease;
             }
 

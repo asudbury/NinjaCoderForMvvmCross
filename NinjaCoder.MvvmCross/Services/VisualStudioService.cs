@@ -9,7 +9,6 @@ namespace NinjaCoder.MvvmCross.Services
     using EnvDTE;
     using EnvDTE80;
     using Interfaces;
-    using Microsoft.VisualStudio.OLE.Interop;
     using Microsoft.VisualStudio.Shell;
     using NinjaCoder.MvvmCross.Entities;
     using Scorchio.Infrastructure.Extensions;
@@ -32,11 +31,6 @@ namespace NinjaCoder.MvvmCross.Services
         /// The dte2.
         /// </summary>
         private DTE2 dte2;
-        
-        /// <summary>
-        /// The use simple text templating engine.
-        /// </summary>
-        private bool useSimpleTextTemplatingEngine;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VisualStudioService" /> class.
@@ -80,14 +74,6 @@ namespace NinjaCoder.MvvmCross.Services
                 this.dte2 = value;
             }
         }
-
-        /// <summary>
-        /// Gets or sets the package.
-        /// </summary>
-        /// <value>
-        /// The package.
-        /// </value>
-        public Package Package { get; set; }
 
         /// <summary>
         /// Gets the DTE service.
@@ -218,30 +204,6 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets the windows store project service.
-        /// </summary>
-        public IProjectService WindowsStoreProjectService
-        {
-            get
-            {
-                Project project = this.WindowsStoreProject;
-                return project != null ? new ProjectService(project) : null;
-            }
-        }
-
-        /// <summary>
-        /// Gets the windows store tests project service.
-        /// </summary>
-        public IProjectService WindowsStoreTestsProjectService
-        {
-            get
-            {
-                Project project = this.WindowsStoreTestsProject;
-                return project != null ? new ProjectService(project) : null;
-            }
-        }
-
-        /// <summary>
         /// Gets the WPF project service.
         /// </summary>
         public IProjectService WpfProjectService
@@ -285,30 +247,6 @@ namespace NinjaCoder.MvvmCross.Services
             get
             {
                 Project project = this.XamarinFormsTestsProject;
-                return project != null ? new ProjectService(project) : null;
-            }
-        }
-
-        /// <summary>
-        /// Gets the view models project service.
-        /// </summary>
-        public IProjectService ViewModelsProjectService
-        {
-            get
-            {
-                Project project = this.ViewModelsProject;
-                return project != null ? new ProjectService(project) : null;
-            }
-        }
-
-        /// <summary>
-        /// Gets the plugins project service.
-        /// </summary>
-        public IProjectService PluginsProjectService
-        {
-            get
-            {
-                Project project = this.PluginsProject;
                 return project != null ? new ProjectService(project) : null;
             }
         }
@@ -376,23 +314,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.WindowsPhoneTests.GetDescription())); }
         }
-
-        /// <summary>
-        /// Gets the windows store project.
-        /// </summary>
-        internal Project WindowsStoreProject
-        {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.WindowsStore.GetDescription())); }
-        }
-
-        /// <summary>
-        /// Gets the windows store tests project.
-        /// </summary>
-        internal Project WindowsStoreTestsProject
-        {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.WindowsStoreTests.GetDescription())); }
-        }
-
+        
         /// <summary>
         /// Gets the WPF project.
         /// </summary>
@@ -423,30 +345,6 @@ namespace NinjaCoder.MvvmCross.Services
         internal Project XamarinFormsTestsProject
         {
             get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.XamarinFormsTests.GetDescription())); }
-        }
-
-        /// <summary>
-        /// Gets the view models project.
-        /// </summary>
-        internal Project ViewModelsProject
-        {
-            get
-            {
-                Project coreProject = this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.Core.GetDescription()));
-                return coreProject;
-            }
-        }
-
-        /// <summary>
-        /// Gets the view models project.
-        /// </summary>
-        internal Project PluginsProject
-        {
-            get
-            {
-                Project pluginProject = this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.Core.GetDescription()));
-                return pluginProject;
-            }
         }
 
         /// <summary>
@@ -630,21 +528,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <returns></returns>
         public ITextTransformationService GetTextTransformationService()
         {
-            if (this.Package != null)
-            {
-                return new TextTransformationService(this.Package);
-            }
-
-            return new TextTransformationService((IServiceProvider)this.dte2.DTE);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [use simple text templating engine].
-        /// </summary>
-        public bool UseSimpleTextTemplatingEngine
-        {
-            get { return this.useSimpleTextTemplatingEngine; }
-            set { this.useSimpleTextTemplatingEngine = value; }
+            return new TextTransformationService();
         }
     }
 }

@@ -5,13 +5,11 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.Options
 {
-    using System.Windows;
-    using System.Windows.Input;
-
     using NinjaCoder.MvvmCross.Services.Interfaces;
-
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Wpf;
+    using System.Windows;
+    using System.Windows.Input;
 
     /// <summary>
     ///  Defines the TracingViewModel type.
@@ -47,6 +45,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         /// The log file path.
         /// </summary>
         private string logFilePath;
+
+        /// <summary>
+        /// The error file path.
+        /// </summary>
+        private string errorFilePath;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TracingViewModel" /> class.
@@ -108,6 +111,15 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         }
 
         /// <summary>
+        /// Gets or sets the error file path.
+        /// </summary>
+        public string ErrorFilePath
+        {
+            get { return this.errorFilePath; }
+            set { this.SetProperty(ref this.errorFilePath, value); }
+        }
+
+        /// <summary>
         /// Gets the clear log command.
         /// </summary>
         public ICommand ClearLogCommand
@@ -124,6 +136,22 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         }
 
         /// <summary>
+        /// Gets the clear error log command.
+        /// </summary>
+        public ICommand ClearErrorLogCommand
+        {
+            get { return new RelayCommand(this.ClearErrorLog); }
+        }
+
+        /// <summary>
+        /// Gets the view error log command.
+        /// </summary>
+        public ICommand ViewErrorLogCommand
+        {
+            get { return new RelayCommand(this.ViewErrorLog); }
+        }
+
+        /// <summary>
         /// Inits this instance.
         /// </summary>
         internal void Init()
@@ -132,6 +160,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.LogToFile = this.SettingsService.LogToFile;
             this.LogFilePath = this.SettingsService.LogFilePath;
             this.DisplayErrors = this.SettingsService.DisplayErrors;
+            this.ErrorFilePath = this.SettingsService.ErrorFilePath;
         }
 
         /// <summary>
@@ -143,6 +172,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.SettingsService.LogToFile = this.LogToFile;
             this.SettingsService.LogFilePath = this.LogFilePath;
             this.SettingsService.DisplayErrors = this.DisplayErrors;
+            this.SettingsService.ErrorFilePath = this.ErrorFilePath;
         }
 
         /// <summary>
@@ -153,7 +183,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.applicationService.ClearLogFile();
 
             this.messageBoxService.Show(
-                "The log has been cleared.",
+                "The trace log has been cleared.",
                 Constants.Settings.ApplicationName,
                 true,
                 this.CurrentTheme,
@@ -166,6 +196,29 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         internal void ViewLog()
         {
             this.applicationService.ViewLogFile();
+        }
+
+        /// <summary>
+        /// Clears the error log.
+        /// </summary>
+        private void ClearErrorLog()
+        {
+            this.applicationService.ClearErrorLogFile();
+
+            this.messageBoxService.Show(
+                "The error log has been cleared.",
+                Constants.Settings.ApplicationName,
+                true,
+                this.CurrentTheme,
+                this.SettingsService.ThemeColor);
+        }
+
+        /// <summary>
+        /// Views the error log.
+        /// </summary>
+        private void ViewErrorLog()
+        {
+            this.applicationService.ViewErrorLogFile();
         }
     }
 }

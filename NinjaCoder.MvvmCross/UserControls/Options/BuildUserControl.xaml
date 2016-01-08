@@ -12,14 +12,21 @@
     </UserControl.Resources>
     <StackPanel Margin="10">
         <CheckBox Margin="10"
-                  Content="Use Local Config Uris for Plugins and Nuget Packages"
+                  Content="* Use Local Config Uris for Plugins and Nuget Packages"
                   IsChecked="{Binding UseLocalUris}" />
+        <CheckBox Margin="10"
+                  Content="* Use Local Text Template files"
+                  IsChecked="{Binding UseLocalTextTemplates}" />
         <CheckBox Margin="10"
                   Content="Output Nuget commands to Read Me file"
                   IsChecked="{Binding OutputNugetCommandsToReadMe}" />
         <CheckBox Margin="10"
                   Content="Output Errors to Read Me file"
                   IsChecked="{Binding OutputErrorsToReadMe}" />
+
+        <TextBlock Margin="15"
+                   Text="* Using Local config and template files improve performance but wont be able to access the latest files from github."
+                   TextWrapping="WrapWithOverflow" />
 
     </StackPanel>
 </userControls:BaseUserControl>

@@ -6,6 +6,7 @@
 namespace NinjaCoder.MvvmCross.Services
 {
     using Interfaces;
+    using Scorchio.VisualStudio.Services;
     using TinyIoC;
 
     /// <summary>
@@ -21,6 +22,7 @@ namespace NinjaCoder.MvvmCross.Services
         public TResolveType Resolve<TResolveType>()
             where TResolveType : class
         {
+            TraceService.WriteLine("ResolverService::Resolve");
             TinyIoCContainer container = TinyIoCContainer.Current;
             return container.Resolve<TResolveType>();
         }

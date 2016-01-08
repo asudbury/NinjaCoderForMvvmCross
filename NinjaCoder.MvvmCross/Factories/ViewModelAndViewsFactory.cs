@@ -9,13 +9,14 @@ namespace NinjaCoder.MvvmCross.Factories
     using Interfaces;
     using NinjaCoder.MvvmCross.UserControls.AddViews;
     using NinjaCoder.MvvmCross.ViewModels.AddViews;
+    using Scorchio.Infrastructure.Constants;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;
+    using System;
     using System.Collections.Generic;
-
     using ViewsFinishedControl = NinjaCoder.MvvmCross.UserControls.AddViews.ViewsFinishedControl;
 
     /// <summary>
@@ -27,6 +28,21 @@ namespace NinjaCoder.MvvmCross.Factories
         /// The view model suffix.
         /// </summary>
         private const string ViewModelSuffix = "ViewModel";
+
+        /// <summary>
+        /// The blank view type.
+        /// </summary>
+        private const string BlankViewType = "Blank";
+
+        /// <summary>
+        /// The sample data view type.
+        /// </summary>
+        private const string SampleDataViewType = "SampleData";
+
+        /// <summary>
+        /// The web view type.
+        /// </summary>
+        private const string WebViewType = "Web";
 
         /// <summary>
         /// The visual studio service.
@@ -78,56 +94,44 @@ namespace NinjaCoder.MvvmCross.Factories
 
                 if (this.visualStudioService.iOSProjectService != null)
                 {
-                    itemTemplateInfos.Add(new ItemTemplateInfo
-                    {
-                        FriendlyName = ProjectType.iOS.GetDescription(),
-                        ProjectSuffix = ProjectSuffix.iOS.GetDescription(),
-                        PreSelected = true
-                    });
+                    itemTemplateInfos.Add(this.GetView(ProjectType.iOS.GetDescription(), ProjectSuffix.iOS.GetDescription()));
                 }
 
                 if (this.visualStudioService.DroidProjectService != null)
                 {
-                    itemTemplateInfos.Add(new ItemTemplateInfo
-                    {
-                        FriendlyName = ProjectType.Droid.GetDescription(),
-                        ProjectSuffix = ProjectSuffix.Droid.GetDescription(),
-                        PreSelected = true
-                    });
+                    itemTemplateInfos.Add(this.GetView(ProjectType.Droid.GetDescription(), ProjectSuffix.Droid.GetDescription()));
                 }
 
                 if (this.visualStudioService.WindowsPhoneProjectService != null)
                 {
-                    itemTemplateInfos.Add(new ItemTemplateInfo
-                    {
-                        FriendlyName = ProjectType.WindowsPhone.GetDescription(),
-                        ProjectSuffix = ProjectSuffix.WindowsPhone.GetDescription(),
-                        PreSelected = true
-                    });
-                }
-
-                if (this.visualStudioService.WindowsStoreProjectService != null)
-                {
-                    itemTemplateInfos.Add(new ItemTemplateInfo
-                    {
-                        FriendlyName = ProjectType.WindowsStore.GetDescription(),
-                        ProjectSuffix = ProjectSuffix.WindowsStore.GetDescription(),
-                        PreSelected = true
-                    });
+                    itemTemplateInfos.Add(this.GetView(ProjectType.WindowsPhone.GetDescription(), ProjectSuffix.WindowsPhone.GetDescription()));
                 }
 
                 if (this.visualStudioService.WpfProjectService != null)
                 {
-                    itemTemplateInfos.Add(new ItemTemplateInfo
-                    {
-                        FriendlyName = ProjectType.WindowsWpf.GetDescription(),
-                        ProjectSuffix = ProjectSuffix.Wpf.GetDescription(),
-                        PreSelected = true
-                    });
+                    itemTemplateInfos.Add(this.GetView(ProjectType.WindowsWpf.GetDescription(), ProjectSuffix.Wpf.GetDescription()));
                 }
 
                 return itemTemplateInfos;
             }
+        }
+
+        /// <summary>
+        /// Gets the view.
+        /// </summary>
+        /// <param name="friendlyName">Name of the friendly.</param>
+        /// <param name="projectSuffix">The project suffix.</param>
+        /// <returns></returns>
+        public ItemTemplateInfo GetView(
+            string friendlyName,
+            string projectSuffix)
+        {
+            return new ItemTemplateInfo
+                       {
+                           FriendlyName = friendlyName,
+                           ProjectSuffix = projectSuffix,
+                           PreSelected = true
+                       };
         }
 
         /// <summary>
@@ -138,9 +142,9 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             return new List<string>
             {
-                "Blank", 
-                "SampleData", 
-                "Web"
+                BlankViewType, 
+                SampleDataViewType, 
+                WebViewType
             };
         }
 
@@ -186,52 +190,72 @@ namespace NinjaCoder.MvvmCross.Factories
 
                 foreach (ItemTemplateInfo itemTemplateInfo in requiredUIViews)
                 {
-                    itemTemplateInfo.TemplateName = this.GetViewTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), 
-                        itemTemplateInfo.ProjectSuffix, 
-                        view.PageType);
+                    string viewTemplateName = this.GetViewTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework),
+                                                                itemTemplateInfo.ProjectSuffix,
+                                                                 view.PageType);
 
-                    itemTemplateInfo.FileName = viewName;
+                     if (viewTemplateName.EndsWith(Constants.Settings.T4Suffix))
+                     {
+                        itemTemplateInfo.TemplateName = viewTemplateName;
 
-                    itemTemplateInfos.Add(itemTemplateInfo);
+                        itemTemplateInfo.FileName = viewName;
+
+                        itemTemplateInfos.Add(itemTemplateInfo);
+                    }
                 }
             }
             else if (view.Framework == FrameworkType.XamarinForms.GetDescription())
             {
-                ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
+                string templateName = this.GetViewModelTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), view.PageType);
+
+                if (templateName.EndsWith(Constants.Settings.T4Suffix) == false)
                 {
-                    ProjectSuffix = ProjectSuffix.Core.GetDescription(),
-                    TemplateName = this.GetViewModelTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), view.PageType),
-                    FileName = viewModelName + ".cs",
-                };
+                    ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
+                    {
+                        ProjectSuffix = ProjectSuffix.Core.GetDescription(),
+                        TemplateName = templateName,
+                        FileName = viewModelName + ".cs",
+                    };
 
-                itemTemplateInfos.Add(viewModelTemplateInfo);
+                    itemTemplateInfos.Add(viewModelTemplateInfo);
+                }
 
-                string viewName = viewModelName.Remove(viewModelName.Length - ViewModelSuffix.Length) + "View.cs";
+                string viewTemplateName = this.GetViewTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), string.Empty, view.PageType);
 
-                ItemTemplateInfo viewTemplateInfo = new ItemTemplateInfo
+                if (viewTemplateName.EndsWith(Constants.Settings.T4Suffix) == false)
                 {
-                    ProjectSuffix = ProjectSuffix.XamarinForms.GetDescription(),
-                    TemplateName = this.GetViewTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), 
-                    string.Empty, 
+                    string viewName = viewModelName.Remove(viewModelName.Length - ViewModelSuffix.Length) + "View.cs";
+
+                    ItemTemplateInfo viewTemplateInfo = new ItemTemplateInfo
+                    {
+                        ProjectSuffix = ProjectSuffix.XamarinForms.GetDescription(),
+                        TemplateName = this.GetViewTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework),
+                        string.Empty,
                         view.PageType),
-                    FileName = viewName,
-                };
+                        FileName = viewName,
+                    };
 
-                itemTemplateInfos.Add(viewTemplateInfo);
+                    itemTemplateInfos.Add(viewTemplateInfo);
+                }
             }
 
             //// do we require a Test ViewModel?
 
             if (unitTestsRequired)
             {
-                ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
+                string templateName = this.GetTestViewModelTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), view.PageType);
+
+                if (templateName.EndsWith(Constants.Settings.T4Suffix) == false)
+                {
+                    ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
                                             {
                                                 ProjectSuffix = ProjectSuffix.CoreTests.GetDescription(),
-                                                TemplateName = this.GetTestViewModelTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), view.PageType),
+                                                TemplateName = templateName,
                                                 FileName = "Test" + viewModelName + ".cs",
                                             };
 
-                itemTemplateInfos.Add(viewModelTemplateInfo);
+                    itemTemplateInfos.Add(viewModelTemplateInfo);
+                }
             }
 
             return itemTemplateInfos;
@@ -255,7 +279,8 @@ namespace NinjaCoder.MvvmCross.Factories
 
             List<TextTemplateInfo> textTemplateInfos = new List<TextTemplateInfo>();
 
-            if (view.Framework == FrameworkType.MvvmCross.GetDescription())
+            if (view.Framework == FrameworkType.MvvmCross.GetDescription() ||
+                view.Framework == FrameworkType.XamarinForms.GetDescription())
             {
                 string templateName = this.GetViewModelTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), view.PageType);
 
@@ -274,15 +299,117 @@ namespace NinjaCoder.MvvmCross.Factories
                                                                 ProjectFolder = "ViewModels",
                                                                 Tokens = tokens,
                                                                 ShortTemplateName = templateName,
-                                                                TemplateName = this.settingsService.ItemTemplatesDirectory + "\\" + templateName
+                                                                TemplateName = this.settingsService.ItemTemplatesDirectory + "\\ViewModels\\" + templateName
                                                             };
 
                     textTemplateInfo.TextOutput = this.visualStudioService.GetTextTransformationService().Transform(
-                                                                this.settingsService.UseSimpleTextTemplatingEngine,
                                                                 textTemplateInfo.TemplateName,
                                                                 textTemplateInfo.Tokens);
 
                     textTemplateInfos.Add(textTemplateInfo);
+                }
+
+                if (view.Framework == FrameworkType.MvvmCross.GetDescription())
+                {
+                    string viewName = viewModelName.Remove(viewModelName.Length - ViewModelSuffix.Length) + "View.cs";
+
+                    foreach (ItemTemplateInfo itemTemplateInfo in requiredUIViews)
+                    {
+                        string viewTemplateName = this.GetViewTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework),
+                                                        itemTemplateInfo.ProjectSuffix,
+                                                        view.PageType);
+
+                        if (templateName.EndsWith(Constants.Settings.T4Suffix))
+                        {
+                            Dictionary<string, string> tokens = new Dictionary<string, string>
+                            {
+                                { "ClassName", viewName },
+                                { "NameSpace",  this.visualStudioService.GetProjectServiceBySuffix(itemTemplateInfo.ProjectSuffix).Name + ".Views"}
+                            };
+                        
+                            TextTemplateInfo textTemplateInfo = new TextTemplateInfo
+                            {
+                                ProjectSuffix = itemTemplateInfo.ProjectSuffix,
+                                FileName = viewName + ".cs",
+                                ProjectFolder = "Views",
+                                Tokens = tokens,
+                                ShortTemplateName = viewTemplateName,
+                                TemplateName = this.settingsService.ItemTemplatesDirectory + "\\" + viewTemplateName
+                            };
+
+                            textTemplateInfo.TextOutput = this.visualStudioService.GetTextTransformationService().Transform(
+                                                                        textTemplateInfo.TemplateName,
+                                                                        textTemplateInfo.Tokens);
+
+                            textTemplateInfos.Add(textTemplateInfo);
+                        }
+                    }
+                }
+                else if (view.Framework == FrameworkType.XamarinForms.GetDescription())
+                {
+                    string viewTemplateName = this.GetViewTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), string.Empty, view.PageType);
+
+                    if (viewTemplateName.EndsWith(Constants.Settings.T4Suffix))
+                    {
+                        string viewName = viewModelName.Remove(viewModelName.Length - ViewModelSuffix.Length) + "View";
+                        string pageType = view.PageType.Replace(" ", string.Empty);
+
+                        Dictionary<string, string> tokens = new Dictionary<string, string>
+                            {
+                                { "ClassName", viewName },
+                                { "CoreProjectName", this.visualStudioService.CoreProjectService.Name },
+                                { "NameSpace",  this.visualStudioService.XamarinFormsProjectService.Name + ".Views" },
+                                { "PageType", pageType },
+                                { "Content", this.GetFormsViewContent(view)}
+                            };
+                        
+                       TextTemplateInfo textTemplateInfo = new TextTemplateInfo
+                       {
+                           ProjectSuffix = ProjectSuffix.XamarinForms.GetDescription(),
+                           FileName = viewName + ".xaml",
+                           ProjectFolder = "Views",
+                           Tokens = tokens,
+                           ShortTemplateName = viewTemplateName,
+                           TemplateName = this.settingsService.ItemTemplatesDirectory + "\\XamarinForms\\" + viewTemplateName
+                       };
+
+                       textTemplateInfo.TextOutput = this.visualStudioService.GetTextTransformationService().Transform(
+                                                                   textTemplateInfo.TemplateName,
+                                                                   textTemplateInfo.Tokens);
+
+                       textTemplateInfos.Add(textTemplateInfo);
+
+                       //// we also need to add a build action for the xaml file!
+
+                        textTemplateInfo.FileOperations = new List<FileOperation>
+                                                              {
+                                                                  new FileOperation
+                                                                      {
+                                                                          PlatForm = ProjectSuffix.XamarinForms.GetDescription(),
+                                                                          CommandType = "Properties",
+                                                                          Directory = "Views",
+                                                                          File = textTemplateInfo.FileName,
+                                                                          From = "BuildAction",
+                                                                          To = "3"
+                                                                      }
+                                                              };
+                        
+                        TextTemplateInfo childtextTemplateInfo = new TextTemplateInfo
+                       {
+                           ProjectSuffix = ProjectSuffix.XamarinForms.GetDescription(),
+                           FileName = viewName + ".xaml.cs",
+                           ProjectFolder = "Views",
+                           Tokens = tokens,
+                           ShortTemplateName = viewTemplateName,
+                           TemplateName = this.settingsService.ItemTemplatesDirectory + "\\" + "BlankViewCodeBehind.t4"
+                       };
+
+                       childtextTemplateInfo.TextOutput = this.visualStudioService.GetTextTransformationService().Transform(
+                                                                   textTemplateInfo.TemplateName,
+                                                                   textTemplateInfo.Tokens);
+
+                        textTemplateInfo.ChildItem = childtextTemplateInfo;
+                    }
                 }
             }
 
@@ -290,35 +417,37 @@ namespace NinjaCoder.MvvmCross.Factories
 
             if (unitTestsRequired)
             {
-                Dictionary<string, string> tokens = new Dictionary<string, string>
-                        {
-                            { "ClassName", viewModelName },
-                            { "NameSpace",  this.visualStudioService.CoreTestsProjectService.Name + ".ViewModels" },
-                            { "TestingLibrary",  string.Empty },
-                            { "TestingClassAttribute",  string.Empty },
-                            { "TestingMethodAttribute",  string.Empty },
-                            { "TestableObject",  string.Empty },
-                            { "TestableObjectInstance",  string.Empty }
-                        };
-
                 string templateName = this.GetTestViewModelTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), view.PageType);
 
-                TextTemplateInfo textTemplateInfo = new TextTemplateInfo
+                if (templateName.EndsWith(Constants.Settings.T4Suffix))
                 {
-                    ProjectSuffix = ProjectSuffix.Core.GetDescription(),
-                    FileName = "Test" + viewModelName + ".cs",
-                    ProjectFolder = "ViewModels",
-                    Tokens = tokens,
-                    ShortTemplateName = templateName,
-                    TemplateName = this.settingsService.ItemTemplatesDirectory + "\\" + templateName
-                };
+                    Dictionary<string, string> tokens = new Dictionary<string, string>
+                        {
+                            { "ClassName", "Test" + viewModelName },
+                            { "NameSpace",  this.visualStudioService.CoreTestsProjectService.Name + ".ViewModels" },
+                            { "TestingLibrary",  this.GetTestingLibrary() },
+                            { "TestingClassAttribute",  this.GetTestingClassAttribute() },
+                            { "TestingMethodAttribute",  this.GetTestingMethodAttribute() },
+                            { "TestableObject",  viewModelName },
+                            { "TestableObjectInstance",  viewModelName.LowerCaseFirstCharacter() }
+                        };
 
-                textTemplateInfo.TextOutput = this.visualStudioService.GetTextTransformationService().Transform(
-                                                            this.settingsService.UseSimpleTextTemplatingEngine,
-                                                            textTemplateInfo.TemplateName,
-                                                            textTemplateInfo.Tokens);
+                    TextTemplateInfo textTemplateInfo = new TextTemplateInfo
+                    {
+                        ProjectSuffix = ProjectSuffix.CoreTests.GetDescription(),
+                        FileName = "Test" + viewModelName + ".cs",
+                        ProjectFolder = "ViewModels",
+                        Tokens = tokens,
+                        ShortTemplateName = templateName,
+                        TemplateName = this.settingsService.ItemTemplatesDirectory + "\\TestViewModels\\" + templateName
+                    };
 
-                textTemplateInfos.Add(textTemplateInfo);
+                    textTemplateInfo.TextOutput = this.visualStudioService.GetTextTransformationService().Transform(
+                                                                textTemplateInfo.TemplateName,
+                                                                textTemplateInfo.Tokens);
+
+                    textTemplateInfos.Add(textTemplateInfo);
+                }
             }
 
             return textTemplateInfos;
@@ -377,26 +506,23 @@ namespace NinjaCoder.MvvmCross.Factories
             FrameworkType frameworkType,
             string pageType)
         {
-            if (frameworkType == FrameworkType.XamarinForms)
-            {
-                return "XamarinForms.ViewModel.Blank.zip";
-            }
-
             switch (pageType)
             {
-                case "Blank":
-                    return "BlankViewModel.t4";
+                case SampleDataViewType:
 
-                case "SampleData":
+                    if (frameworkType == FrameworkType.XamarinForms)
+                    {
+                        return "SampleDataViewModel.t4";
+                    }
+
                     return "MvxSampleDataViewModel.t4";
 
-                case "Web":
+                case WebViewType:
                     return "WebViewModel.t4";
+
+                default:
+                    return "BlankViewModel.t4";
             }
-            
-            return string.Format(
-                "MvvmCross.ViewModel.{0}.zip",
-                pageType);
         }
 
         /// <summary>
@@ -411,29 +537,17 @@ namespace NinjaCoder.MvvmCross.Factories
             FrameworkType frameworkType,
             string pageType)
         {
-            if (frameworkType == FrameworkType.XamarinForms)
-            {
-                return string.Format(
-                    "MvvmCross.{0}.TestViewModel.Blank.zip",
-                    this.settingsService.TestingFramework);
-            }
-
             switch (pageType)
             {
-                case "Blank":
-                    return "TestBlankViewModel.t4";
+                case SampleDataViewType:
+                    return frameworkType == FrameworkType.XamarinForms ? "TestSampleDataViewModel.t4" : "TestMvxSampleDataViewModel.t4";
 
-                case "SampleData":
-                    return "TestMvxSampleDataViewModel.t4";
-
-                case "Web":
+                case WebViewType:
                     return "TestWebViewModel.t4";
-            }
 
-            return string.Format(
-                "MvvmCross.{0}.TestViewModel.{1}.zip",
-                this.settingsService.TestingFramework,
-                pageType);
+                default:
+                    return "TestBlankViewModel.t4";
+            }
         }
 
         /// <summary>
@@ -452,13 +566,103 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             if (frameworkType == FrameworkType.XamarinForms)
             {
-                return "XamarinForms.View.Blank.zip";
+                return "XamarinFormsBlankView.t4";
+                ////return "XamarinForms.View.Blank.zip";
             }
 
             return string.Format(
                 "MvvmCross{0}.View.{1}.zip",
                 type,
                 pageType);
+        }
+
+        /// <summary>
+        /// Gets the testing class attribute.
+        /// </summary>
+        /// <returns></returns>
+        internal string GetTestingClassAttribute()
+        {
+            switch (this.settingsService.TestingFramework)
+            {
+                case TestingConstants.MsTest.Name:
+                    return TestingConstants.MsTest.ClassAttribute;
+
+                case TestingConstants.XUnit.Name:
+                    return TestingConstants.XUnit.ClassAttribute;
+
+                default:
+                    return TestingConstants.NUnit.ClassAttribute;
+            }
+        }
+
+        /// <summary>
+        /// Gets the testing method attribute.
+        /// </summary>
+        /// <returns></returns>
+        internal string GetTestingMethodAttribute()
+        {
+            switch (this.settingsService.TestingFramework)
+            {
+                case TestingConstants.MsTest.Name:
+                    return TestingConstants.MsTest.MethodAttribute;
+
+                case TestingConstants.XUnit.Name:
+                    return TestingConstants.XUnit.MethodAttribute;
+
+                default:
+                    return TestingConstants.NUnit.MethodAttribute;
+            }
+        }
+
+        /// <summary>
+        /// Gets the testing library.
+        /// </summary>
+        /// <returns></returns>
+        internal string GetTestingLibrary()
+        {
+            switch (this.settingsService.TestingFramework)
+            {
+                case TestingConstants.MsTest.Name:
+                    return TestingConstants.MsTest.Library;
+
+                case TestingConstants.XUnit.Name:
+                    return TestingConstants.XUnit.Library;
+
+                default:
+                    return TestingConstants.NUnit.Library;
+            }
+        }
+
+        /// <summary>
+        /// Updates the file.
+        /// </summary>
+        /// <param name="view">The view.</param>
+        internal string GetFormsViewContent(View view)
+        {
+            TraceService.WriteLine("ViewModelAndViewsFactory::GetFormsViewContent");
+
+            string page = view.PageType.Replace(" ", string.Empty);
+            string layout = view.LayoutType.Replace(" ", string.Empty);
+
+            string bindingContext = string.Empty;
+            string binding = string.Empty;
+
+            if (this.settingsService.BindContextInXamlForXamarinForms)
+            {
+                bindingContext = string.Format("<{0}.BindingContext>{1}        <viewModels:{2} />{1}        </{0}.BindingContext>{1}",
+                                                page,
+                                                Environment.NewLine,
+                                                view.Name + "ViewModel");
+            }
+
+            if (this.settingsService.BindXamlForXamarinForms)
+            {
+                binding = "<Label Text='{Binding SampleText}' VerticalOptions='Center' HorizontalOptions='Center'/>";
+            }
+
+            string content = string.Format("{1}<{0}>{2}</{0}>", layout, bindingContext, binding);
+
+            return content;
         }
     }
 }

@@ -37,7 +37,6 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
                 string workingDirectory = this.GetWorkingDirectory();
 
                 NinjaController.SetWorkingDirectory(workingDirectory);
-                NinjaController.UseSimpleTextTemplatingEngine(true);
             }
             catch
             {
@@ -103,11 +102,43 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets the view error log command.
+        /// </summary>
+        public ICommand ViewErrorLogCommand
+        {
+            get { return new RelayCommand(this.ViewErrorLog); }
+        }
+
+        /// <summary>
+        /// Gets the clear error log command.
+        /// </summary>
+        public ICommand ClearErrorLogCommand
+        {
+            get { return new RelayCommand(this.ClearErrorLog); }
+        }
+
+        /// <summary>
         /// Gets the options command.
         /// </summary>
         public ICommand OptionsCommand
         {
             get { return new RelayCommand(this.Options); }
+        }
+
+        /// <summary>
+        /// Gets the xamarin forms command.
+        /// </summary>
+        public ICommand XamarinFormsCommand
+        {
+            get { return new RelayCommand(this.XamarinForms); }
+        }
+
+        /// <summary>
+        /// Gets the MVVM cross command.
+        /// </summary>
+        public ICommand MvvmCrossCommand
+        {
+            get { return new RelayCommand(this.MvvmCross); }
         }
 
         /// <summary>
@@ -200,6 +231,14 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         }
 
         /// <summary>
+        /// Views the error log.
+        /// </summary>
+        internal void ViewErrorLog()
+        {
+            NinjaController.ViewErrorLogFile();
+        }
+
+        /// <summary>
         /// Options this instance.
         /// </summary>
         internal void Options()
@@ -207,6 +246,21 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
             NinjaController.ShowOptions();
         }
 
+        /// <summary>
+        /// Xamarins the forms.
+        /// </summary>
+        internal void XamarinForms()
+        {
+            NinjaController.XamarinFormsHomePage();
+        }
+
+        /// <summary>
+        /// MVVMs the cross.
+        /// </summary>
+        internal void MvvmCross()
+        {
+            NinjaController.MvvmCrossHomePage();
+        }
         /// <summary>
         /// Abouts this instance.
         /// </summary>
@@ -237,6 +291,14 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         internal void FormsCustomRenderer()
         {
             NinjaController.RunCustomerRendererController();
+        }
+
+        /// <summary>
+        /// Clears the error log.
+        /// </summary>
+        internal void ClearErrorLog()
+        {
+            NinjaController.ClearErrorLogFile();
         }
 
         /// <summary>

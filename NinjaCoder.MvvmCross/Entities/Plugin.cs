@@ -8,6 +8,8 @@ namespace NinjaCoder.MvvmCross.Entities
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
+    using Scorchio.VisualStudio.Entities;
+
     /// <summary>
     ///  Defines the Plugin type.
     /// </summary>
@@ -22,7 +24,7 @@ namespace NinjaCoder.MvvmCross.Entities
             this.NugetCommands = new List<NugetCommand>();
             this.Platforms = new List<string>();
             this.NinjaSamples = new List<Plugin>();
-            this.Commands = new List<Command>();
+            this.Commands = new List<StudioCommand>();
             this.FileOperations = new List<FileOperation>();
         }
 
@@ -79,7 +81,7 @@ namespace NinjaCoder.MvvmCross.Entities
         /// <summary>
         /// Gets or sets the commands.
         /// </summary>
-        public IEnumerable<Command> Commands { get; set; }
+        public IEnumerable<StudioCommand> Commands { get; set; }
 
         /// <summary>
         /// Gets or sets the file operations.

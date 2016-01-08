@@ -1,16 +1,34 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-//      Defines the FileOperation type.
+//      Defines the StudioCommand type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace NinjaCoder.MvvmCross.Entities
+namespace Scorchio.VisualStudio.Entities
 {
     /// <summary>
-    /// Defines the Command type.
+    /// Defines the StudioCommand type.
     /// </summary>
-    public class FileOperation : Command
+    public class StudioCommand
     {
+        /// <summary>
+        /// Gets or sets the plat form.
+        /// </summary>
+        public string PlatForm { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the command.
+        /// </summary>
+        public string CommandType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the file.
+        /// </summary>
         public string File { get; set; }
 
         /// <summary>

@@ -6,17 +6,22 @@
 
         <DataTemplate x:Key="Template">
             <StackPanel>
-                <Image Source="{Binding ImageUrl}" Margin="8,8,8,8" Height="100" Width="100" />
-                <RadioButton Content="{Binding Name}" Margin="5" GroupName="Options" HorizontalAlignment="Center" IsChecked="{Binding Selected}"></RadioButton>
+                <Image Width="100"
+                       Height="100"
+                       Margin="8,8,8,8"
+                       Source="{Binding ImageUrl}" />
+                <RadioButton Margin="5"
+                             HorizontalAlignment="Center"
+                             Content="{Binding Name}"
+                             GroupName="Options"
+                             IsChecked="{Binding Selected}" />
             </StackPanel>
         </DataTemplate>
 
     </UserControl.Resources>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-        <ItemsControl 
-                ItemsSource="{Binding ElementName=uc, Path=DataContext}" 
-                ItemTemplate="{StaticResource Template}">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <ItemsControl ItemTemplate="{StaticResource Template}" ItemsSource="{Binding ElementName=uc, Path=DataContext}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" />

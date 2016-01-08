@@ -84,16 +84,6 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         IProjectService WindowsPhoneTestsProjectService { get; }
 
         /// <summary>
-        /// Gets the windows store project service.
-        /// </summary>
-        IProjectService WindowsStoreProjectService { get; }
-
-        /// <summary>
-        /// Gets the windows store tests project service.
-        /// </summary>
-        IProjectService WindowsStoreTestsProjectService { get; }
-
-        /// <summary>
         /// Gets the WPF project service.
         /// </summary>
         IProjectService WpfProjectService { get; }
@@ -112,16 +102,6 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets the xamarin forms tests project service.
         /// </summary>
         IProjectService XamarinFormsTestsProjectService { get; }
-
-        /// <summary>
-        /// Gets the view models project service.
-        /// </summary>
-        IProjectService ViewModelsProjectService { get; }
-
-        /// <summary>
-        /// Gets the plugins project service.
-        /// </summary>
-        IProjectService PluginsProjectService { get; }
 
         /// <summary>
         /// Gets the folder template infos.
@@ -186,10 +166,5 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// </summary>
         /// <returns></returns>
         ITextTransformationService GetTextTransformationService();
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [use simple text templating engine].
-        /// </summary>
-        bool UseSimpleTextTemplatingEngine { get; set; }
     }
 }

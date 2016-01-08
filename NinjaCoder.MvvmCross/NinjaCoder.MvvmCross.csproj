@@ -53,8 +53,6 @@
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-    <Reference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.14.0, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -96,8 +94,6 @@
     <Compile Include="Entities\CustomerRenderer.cs" />
     <Compile Include="Entities\CustomerRendererGroup.cs" />
     <Compile Include="Entities\CustomRenderers.cs" />
-    <Compile Include="Entities\FileOpeation.cs" />
-    <Compile Include="Entities\Command.cs" />
     <Compile Include="Entities\NugetActions.cs" />
     <Compile Include="Entities\NugetCommand.cs" />
     <Compile Include="Entities\XamarinLayout.cs" />
@@ -118,12 +114,10 @@
     <Compile Include="Factories\BaseTextTemplateFactory.cs" />
     <Compile Include="Factories\BaseProjectFactory.cs" />
     <Compile Include="Factories\CodeConfigFactory.cs" />
-    <Compile Include="Factories\CodeSnippetFactory.cs" />
     <Compile Include="Factories\CustomRendererFactory.cs" />
     <Compile Include="Factories\DependencyServicesFactory.cs" />
     <Compile Include="Factories\FrameworkFactory.cs" />
     <Compile Include="Factories\Interfaces\ICodeConfigFactory.cs" />
-    <Compile Include="Factories\Interfaces\ICodeSnippetFactory.cs" />
     <Compile Include="Factories\Interfaces\ICustomeRendererFactory.cs" />
     <Compile Include="Factories\Interfaces\IDependencyServicesFactory.cs" />
     <Compile Include="Factories\Interfaces\IFrameworkFactory.cs" />
@@ -165,13 +159,13 @@
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\CachingService.cs" />
     <Compile Include="Services\CodeConfigService.cs" />
+    <Compile Include="Services\FileOperationService.cs" />
     <Compile Include="Services\Interfaces\IApplicationService.cs" />
     <Compile Include="Services\Interfaces\ICachingService.cs" />
     <Compile Include="Services\Interfaces\ICodeConfigService.cs" />
-    <Compile Include="Services\Interfaces\ICodeSnippetService.cs" />
+    <Compile Include="Services\Interfaces\IFileOperationService.cs" />
     <Compile Include="Services\Interfaces\INugetCommandsService.cs" />
     <Compile Include="Services\Interfaces\INugetService.cs" />
-    <Compile Include="Services\Interfaces\IPluginService.cs" />
     <Compile Include="Services\Interfaces\IPluginsService.cs" />
     <Compile Include="Services\Interfaces\IProjectsService.cs" />
     <Compile Include="Services\Interfaces\IReadMeService.cs" />
@@ -183,13 +177,11 @@
     <Compile Include="Services\Interfaces\IVisualStudioService.cs" />
     <Compile Include="Services\NugetCommandsService.cs" />
     <Compile Include="Services\NugetService.cs" />
-    <Compile Include="Services\PluginService.cs" />
     <Compile Include="Services\PluginsService.cs" />
     <Compile Include="Services\ProjectsService.cs" />
     <Compile Include="Services\ReadMeService.cs" />
     <Compile Include="Services\RegisterService.cs" />
     <Compile Include="Services\ResolverService.cs" />
-    <Compile Include="Services\CodeSnippetService.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\TextTemplatingService.cs" />
     <Compile Include="Services\ViewModelViewsService.cs" />

@@ -21,6 +21,11 @@ namespace Scorchio.Infrastructure.Constants
             public const string Name = "NUnit";
 
             /// <summary>
+            /// The library.
+            /// </summary>
+            public const string Library = "NUnit.Framework";
+
+            /// <summary>
             /// The class attribute.
             /// </summary>
             public const string ClassAttribute = "[TestFixture]";
@@ -42,6 +47,11 @@ namespace Scorchio.Infrastructure.Constants
             public const string Name = "MSTest";
 
             /// <summary>
+            /// The library.
+            /// </summary>
+            public const string Library = "Microsoft.VisualStudio.TestTools.UnitTesting";
+
+            /// <summary>
             /// The class attribute.
             /// </summary>
             public const string ClassAttribute = "[TestClass]";
@@ -61,6 +71,11 @@ namespace Scorchio.Infrastructure.Constants
             /// The name.
             /// </summary>
             public const string Name = "XUnit";
+            
+            /// <summary>
+            /// The library.
+            /// </summary>
+            public const string Library = "Xunit";
 
             /// <summary>
             /// The class attribute.

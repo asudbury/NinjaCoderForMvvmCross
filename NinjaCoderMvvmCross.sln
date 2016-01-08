@@ -31,63 +31,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{D8877B
 		Config\XamarinFormsNugetPackages.xml = Config\XamarinFormsNugetPackages.xml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeSnippets", "CodeSnippets", "{090C89C7-94C7-4F18-A81A-FB35605C9EAA}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{AB0A8FF3-1853-4ED8-9AEF-D1B355C9C249}"
-	ProjectSection(SolutionItems) = preProject
-		Config\CodeSnippets\Plugins\Plugins.Accelerometer.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Accelerometer.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.Accelerometer.xml = Config\CodeSnippets\Plugins\Plugins.Accelerometer.xml
-		Config\CodeSnippets\Plugins\Plugins.AppId.Tests.xml = Config\CodeSnippets\Plugins\Plugins.AppId.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.AppId.xml = Config\CodeSnippets\Plugins\Plugins.AppId.xml
-		Config\CodeSnippets\Plugins\Plugins.Bitmap.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Bitmap.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.Bitmap.xml = Config\CodeSnippets\Plugins\Plugins.Bitmap.xml
-		Config\CodeSnippets\Plugins\Plugins.Bookmarks.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Bookmarks.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.Bookmarks.xml = Config\CodeSnippets\Plugins\Plugins.Bookmarks.xml
-		Config\CodeSnippets\Plugins\Plugins.Color.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Color.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.Color.xml = Config\CodeSnippets\Plugins\Plugins.Color.xml
-		Config\CodeSnippets\Plugins\Plugins.Connectivity.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Connectivity.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.Connectivity.xml = Config\CodeSnippets\Plugins\Plugins.Connectivity.xml
-		Config\CodeSnippets\Plugins\Plugins.DownloadCache.Tests.xml = Config\CodeSnippets\Plugins\Plugins.DownloadCache.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.DownloadCache.xml = Config\CodeSnippets\Plugins\Plugins.DownloadCache.xml
-		Config\CodeSnippets\Plugins\Plugins.Email.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Email.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.Email.xml = Config\CodeSnippets\Plugins\Plugins.Email.xml
-		Config\CodeSnippets\Plugins\Plugins.FaceTime.Tests.xml = Config\CodeSnippets\Plugins\Plugins.FaceTime.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.FaceTime.xml = Config\CodeSnippets\Plugins\Plugins.FaceTime.xml
-		Config\CodeSnippets\Plugins\Plugins.FieldBinding.xml = Config\CodeSnippets\Plugins\Plugins.FieldBinding.xml
-		Config\CodeSnippets\Plugins\Plugins.File.Tests.xml = Config\CodeSnippets\Plugins\Plugins.File.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.File.xml = Config\CodeSnippets\Plugins\Plugins.File.xml
-		Config\CodeSnippets\Plugins\Plugins.Json.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Json.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.Json.xml = Config\CodeSnippets\Plugins\Plugins.Json.xml
-		Config\CodeSnippets\Plugins\Plugins.Network.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Network.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.Network.xml = Config\CodeSnippets\Plugins\Plugins.Network.xml
-		Config\CodeSnippets\Plugins\Plugins.PhoneCall.Tests.xml = Config\CodeSnippets\Plugins\Plugins.PhoneCall.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.PhoneCall.xml = Config\CodeSnippets\Plugins\Plugins.PhoneCall.xml
-		Config\CodeSnippets\Plugins\Plugins.PictureChooser.Tests.xml = Config\CodeSnippets\Plugins\Plugins.PictureChooser.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.PictureChooser.xml = Config\CodeSnippets\Plugins\Plugins.PictureChooser.xml
-		Config\CodeSnippets\Plugins\Plugins.ReflectionEx.Tests.xml = Config\CodeSnippets\Plugins\Plugins.ReflectionEx.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.ReflectionEx.xml = Config\CodeSnippets\Plugins\Plugins.ReflectionEx.xml
-		Config\CodeSnippets\Plugins\Plugins.ResourceLoader.Tests.xml = Config\CodeSnippets\Plugins\Plugins.ResourceLoader.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.ResourceLoader.xml = Config\CodeSnippets\Plugins\Plugins.ResourceLoader.xml
-		Config\CodeSnippets\Plugins\Plugins.Settings.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Settings.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.Settings.xml = Config\CodeSnippets\Plugins\Plugins.Settings.xml
-		Config\CodeSnippets\Plugins\Plugins.Share.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Share.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.Share.xml = Config\CodeSnippets\Plugins\Plugins.Share.xml
-		Config\CodeSnippets\Plugins\Plugins.SimpleWebToken.Tests.xml = Config\CodeSnippets\Plugins\Plugins.SimpleWebToken.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.SimpleWebToken.xml = Config\CodeSnippets\Plugins\Plugins.SimpleWebToken.xml
-		Config\CodeSnippets\Plugins\Plugins.SMS.Tests.xml = Config\CodeSnippets\Plugins\Plugins.SMS.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.SMS.xml = Config\CodeSnippets\Plugins\Plugins.SMS.xml
-		Config\CodeSnippets\Plugins\Plugins.SoundEffects.Tests.xml = Config\CodeSnippets\Plugins\Plugins.SoundEffects.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.SoundEffects.xml = Config\CodeSnippets\Plugins\Plugins.SoundEffects.xml
-		Config\CodeSnippets\Plugins\Plugins.ThreadUtils.Tests.xml = Config\CodeSnippets\Plugins\Plugins.ThreadUtils.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.ThreadUtils.xml = Config\CodeSnippets\Plugins\Plugins.ThreadUtils.xml
-		Config\CodeSnippets\Plugins\Plugins.UserInteraction.Tests.xml = Config\CodeSnippets\Plugins\Plugins.UserInteraction.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.UserInteraction.xml = Config\CodeSnippets\Plugins\Plugins.UserInteraction.xml
-		Config\CodeSnippets\Plugins\Plugins.Vibration.Tests.xml = Config\CodeSnippets\Plugins\Plugins.Vibration.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.Vibration.xml = Config\CodeSnippets\Plugins\Plugins.Vibration.xml
-		Config\CodeSnippets\Plugins\Plugins.WebBrowser.Tests.xml = Config\CodeSnippets\Plugins\Plugins.WebBrowser.Tests.xml
-		Config\CodeSnippets\Plugins\Plugins.WebBrowser.xml = Config\CodeSnippets\Plugins\Plugins.WebBrowser.xml
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuSpec", "NuSpec", "{6487A2BF-47FE-41C6-9B7F-D33363630C95}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvvmCross", "MvvmCross", "{00EB0871-7621-4000-8CA1-0EB308F81E82}"
@@ -547,11 +490,28 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CustomRenderer", "CustomRen
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ItemTemplates", "ItemTemplates", "{4ADDCA4F-31A1-4446-A0A9-1B1A9B48145B}"
 	ProjectSection(SolutionItems) = preProject
-		Config\TextTemplates\ItemTemplates\BlankViewModel.t4 = Config\TextTemplates\ItemTemplates\BlankViewModel.t4
-		Config\TextTemplates\ItemTemplates\MvxSampleDataViewModel.t4 = Config\TextTemplates\ItemTemplates\MvxSampleDataViewModel.t4
-		Config\TextTemplates\ItemTemplates\TestBlankViewModel.t4 = Config\TextTemplates\ItemTemplates\TestBlankViewModel.t4
-		Config\TextTemplates\ItemTemplates\TestWebViewModel.t4 = Config\TextTemplates\ItemTemplates\TestWebViewModel.t4
-		Config\TextTemplates\ItemTemplates\WebViewModel.t4 = Config\TextTemplates\ItemTemplates\WebViewModel.t4
+		Config\TextTemplates\ItemTemplates\BlankViewCodeBehind.t4 = Config\TextTemplates\ItemTemplates\BlankViewCodeBehind.t4
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestViewModels", "TestViewModels", "{FA195545-B248-4AB7-A3CC-2687B3D69901}"
+	ProjectSection(SolutionItems) = preProject
+		Config\TextTemplates\ItemTemplates\TestViewModels\TestBlankViewModel.t4 = Config\TextTemplates\ItemTemplates\TestViewModels\TestBlankViewModel.t4
+		Config\TextTemplates\ItemTemplates\TestViewModels\TestMvxSampleDataViewModel.t4 = Config\TextTemplates\ItemTemplates\TestViewModels\TestMvxSampleDataViewModel.t4
+		Config\TextTemplates\ItemTemplates\TestViewModels\TestSampleDataViewModel.t4 = Config\TextTemplates\ItemTemplates\TestViewModels\TestSampleDataViewModel.t4
+		Config\TextTemplates\ItemTemplates\TestViewModels\TestWebViewModel.t4 = Config\TextTemplates\ItemTemplates\TestViewModels\TestWebViewModel.t4
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModels", "ViewModels", "{91311C76-F098-4B06-8C35-6CCB32026C55}"
+	ProjectSection(SolutionItems) = preProject
+		Config\TextTemplates\ItemTemplates\ViewModels\BlankViewModel.t4 = Config\TextTemplates\ItemTemplates\ViewModels\BlankViewModel.t4
+		Config\TextTemplates\ItemTemplates\ViewModels\MvxSampleDataViewModel.t4 = Config\TextTemplates\ItemTemplates\ViewModels\MvxSampleDataViewModel.t4
+		Config\TextTemplates\ItemTemplates\ViewModels\SampleDataViewModel.t4 = Config\TextTemplates\ItemTemplates\ViewModels\SampleDataViewModel.t4
+		Config\TextTemplates\ItemTemplates\ViewModels\WebViewModel.t4 = Config\TextTemplates\ItemTemplates\ViewModels\WebViewModel.t4
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XamarinForms", "XamarinForms", "{87301887-ED8F-4C7C-B4FF-3C8D2E728A08}"
+	ProjectSection(SolutionItems) = preProject
+		Config\TextTemplates\ItemTemplates\XamarinForms\XamarinFormsBlankView.t4 = Config\TextTemplates\ItemTemplates\XamarinForms\XamarinFormsBlankView.t4
 	EndProjectSection
 EndProject
 Global
@@ -1116,8 +1076,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{090C89C7-94C7-4F18-A81A-FB35605C9EAA} = {D8877B22-87DF-4D49-917C-AEB6EC4CDBEA}
-		{AB0A8FF3-1853-4ED8-9AEF-D1B355C9C249} = {090C89C7-94C7-4F18-A81A-FB35605C9EAA}
 		{00EB0871-7621-4000-8CA1-0EB308F81E82} = {6487A2BF-47FE-41C6-9B7F-D33363630C95}
 		{91FC43D9-2BAF-43F8-A49E-DF84E5315198} = {6487A2BF-47FE-41C6-9B7F-D33363630C95}
 		{4157C2D6-6BC2-4514-B7E8-395BA9FA129F} = {6487A2BF-47FE-41C6-9B7F-D33363630C95}
@@ -1200,5 +1158,8 @@ Global
 		{11D90738-A026-43A8-911A-DA14DB070832} = {A780E902-9040-4CA4-AC0B-5F234437C808}
 		{47107F0F-B952-4844-86AF-B5E8A9932645} = {A780E902-9040-4CA4-AC0B-5F234437C808}
 		{4ADDCA4F-31A1-4446-A0A9-1B1A9B48145B} = {A780E902-9040-4CA4-AC0B-5F234437C808}
+		{FA195545-B248-4AB7-A3CC-2687B3D69901} = {4ADDCA4F-31A1-4446-A0A9-1B1A9B48145B}
+		{91311C76-F098-4B06-8C35-6CCB32026C55} = {4ADDCA4F-31A1-4446-A0A9-1B1A9B48145B}
+		{87301887-ED8F-4C7C-B4FF-3C8D2E728A08} = {4ADDCA4F-31A1-4446-A0A9-1B1A9B48145B}
 	EndGlobalSection
 EndGlobal

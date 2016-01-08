@@ -12,9 +12,6 @@ namespace Scorchio.VisualStudio.Extensions
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-
-    using Scorchio.VisualStudio.Entities;
-
     using VSLangProj;
 
     /// <summary>
@@ -295,7 +292,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="folderName">Name of the folder.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <returns> True or False.</returns>
-        public static bool AddToFolderFromFile(
+        public static ProjectItem AddToFolderFromFile(
             this Project instance,
             string folderName,
             string fileName)
@@ -312,9 +309,7 @@ namespace Scorchio.VisualStudio.Extensions
                 folderProjectItem = instance.ProjectItems.AddFolder(folderName);
             }
 
-            folderProjectItem.ProjectItems.AddFromFile(fileName);
-
-            return true;
+            return folderProjectItem.ProjectItems.AddFromFile(fileName);
         }
 
         /// <summary>
@@ -331,10 +326,16 @@ namespace Scorchio.VisualStudio.Extensions
             string fileName, 
             string textOutput)
         {
+            TraceService.WriteLine("ProjectExtensions::AddTextTemplate projectFolder=" + projectFolder + " fileName=" + fileName);
+
+            TraceService.WriteLine("textOutput=" + textOutput);
+
             string projectPath = instance.GetProjectPath();
+
             TraceService.WriteLine("projectPath=" + projectPath);
 
             string directory = projectPath + "\\" + projectFolder;
+
             TraceService.WriteLine("directory=" + directory);
 
             if (Directory.Exists(directory) == false)
@@ -344,16 +345,19 @@ namespace Scorchio.VisualStudio.Extensions
             }
 
             string path = directory + "\\" + fileName;
+
             TraceService.WriteLine("path=" + path);
 
             //// save to a file
             File.WriteAllText(path, textOutput);
 
             TraceService.WriteLine("addToFolderFromFile");
+
             instance.AddToFolderFromFile(projectFolder, path);
 
             return fileName + " added to project " + instance.Name;
         }
+
         /// <summary>
         /// Adds the reference.
         /// </summary>

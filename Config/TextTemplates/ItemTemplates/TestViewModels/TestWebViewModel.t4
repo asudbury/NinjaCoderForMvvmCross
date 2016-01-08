@@ -47,7 +47,7 @@ namespace <#= NameSpace #>
             //// arrange
             bool changed = false;
 
-            this.firstViewModel.PropertyChanged += (sender, args) =>
+            this.<#= TestableObjectInstance #>.PropertyChanged += (sender, args) =>
                 {
                     if (args.PropertyName == "Url")
                     {
@@ -55,8 +55,9 @@ namespace <#= NameSpace #>
                     }
                 };
             
+
             //// act
-            this.firstViewModel.Url = "http://github.com/asudbury";
+            this.<#= TestableObjectInstance #>.Url = "http://github.com/asudbury";
 
             //// assert
             Assert.AreEqual(changed, true);

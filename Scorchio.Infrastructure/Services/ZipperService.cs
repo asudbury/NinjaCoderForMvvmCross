@@ -40,7 +40,8 @@ namespace Scorchio.Infrastructure.Services
                 true, //// log to console.
                 false,
                 string.Empty,
-                false);
+                false,
+                string.Empty);
 
             TraceService.WriteLine("ZipperService::Constructor");
 

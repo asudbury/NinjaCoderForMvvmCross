@@ -8,25 +8,13 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     using Entities;
     using System.Collections.Generic;
 
+    using Scorchio.VisualStudio.Entities;
+
     /// <summary>
     /// Defines the IPluginsService type.
     /// </summary>
     public interface IPluginsService
     {
-        /// <summary>
-        /// Adds the plugins.
-        /// </summary>
-        /// <param name="plugins">The plugins.</param>
-        /// <param name="viewModelName">Name of the view model.</param>
-        /// <param name="createUnitTests">if set to <c>true</c> [create unit tests].</param>
-        /// <returns>
-        /// The messages.
-        /// </returns>
-        IEnumerable<string> AddPlugins(
-            IEnumerable<Plugin> plugins, 
-            string viewModelName,
-            bool createUnitTests);
-
         /// <summary>
         /// Gets the nuget commands.
         /// </summary>
@@ -49,7 +37,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// </summary>
         /// <param name="plugins">The plugins.</param>
         /// <returns></returns>
-        IEnumerable<Command> GetPostNugetCommands(IEnumerable<Plugin> plugins);
+        IEnumerable<StudioCommand> GetPostNugetCommands(IEnumerable<Plugin> plugins);
 
         /// <summary>
         /// Gets the post nuget file operations.

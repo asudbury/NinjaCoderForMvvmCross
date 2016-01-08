@@ -62,18 +62,6 @@ namespace NinjaCoder.MvvmCross.Entities
         WindowsPhoneTests,
 
         /// <summary>
-        /// The windows store
-        /// </summary>
-        [Description(".WindowsStore")]
-        WindowsStore,
-
-        /// <summary>
-        /// The windows store tests.
-        /// </summary>
-        [Description(".WindowsStore.Tests")]
-        WindowsStoreTests,
-
-        /// <summary>
         /// The windows WPF
         /// </summary>
         [Description(".Wpf")]

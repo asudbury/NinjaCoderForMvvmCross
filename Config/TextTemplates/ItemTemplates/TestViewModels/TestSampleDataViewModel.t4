@@ -37,5 +37,29 @@ namespace <#= NameSpace #>
         {
             this.<#= TestableObjectInstance #> = new <#= TestableObject #>();
         }
+
+        /// <summary>
+        /// Tests my property.
+        /// </summary>
+        <#= TestingMethodAttribute #>
+        public void TestMyProperty()
+        {
+            //// arrange
+            bool changed = false;
+
+            this.<#= TestableObjectInstance #>.PropertyChanged += (sender, args) =>
+                {
+                    if (args.PropertyName == "SampleText")
+                    {
+                        changed = true;
+                    }
+                };
+            
+            //// act
+            this.<#= TestableObjectInstance #>.SampleText = "Hello MvvmCross";
+
+            //// assert
+            Assert.AreEqual(changed, true);
+        }
     }
 }

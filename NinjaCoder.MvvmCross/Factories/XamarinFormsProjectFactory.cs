@@ -121,19 +121,6 @@ namespace NinjaCoder.MvvmCross.Factories
                     ProjectSuffix.WindowsPhoneTests.GetDescription(),
                     ProjectType.WindowsPhoneTests.GetDescription()));
 
-            this.AddProjectIf(
-                this.visualStudioService.WindowsStoreProjectService == null,
-                this.GetWindowsStoreProject());
-
-            this.AddProjectIf(
-                this.settingsService.CreatePlatformTestProjects &&
-                this.visualStudioService.WindowsStoreTestsProjectService == null,
-                this.GetPlatformTestsProject(
-                    this.nugetCommandsService.GetTestCommands(),
-                    false,
-                    ProjectSuffix.WindowsStoreTests.GetDescription(),
-                    ProjectType.WindowsStoreTests.GetDescription()));
-
             return this.ProjectTemplateInfos;
         }
 
@@ -290,24 +277,6 @@ namespace NinjaCoder.MvvmCross.Factories
                 projectType);
 
             return projectTemplateInfo;
-        }
-
-        /// <summary>
-        /// Gets the windows store project.
-        /// </summary>
-        /// <returns></returns>
-        internal ProjectTemplateInfo GetWindowsStoreProject()
-        {
-            return new ProjectTemplateInfo
-            {
-                FriendlyName = ProjectType.WindowsStore.GetDescription(),
-                ProjectSuffix = ProjectSuffix.WindowsStore.GetDescription(),
-                TemplateName = ProjectTemplate.WindowsStore.GetDescription(),
-                ReferenceXamarinFormsProject = true,
-                ReferenceCoreProject = true,
-                PreSelected = false,
-                NugetCommands = this.nugetCommandsService.GetXamarinFormsCommands()
-            };
         }
     }
 }

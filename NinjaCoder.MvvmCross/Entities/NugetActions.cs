@@ -7,6 +7,8 @@ namespace NinjaCoder.MvvmCross.Entities
 {
     using System.Collections.Generic;
 
+    using Scorchio.VisualStudio.Entities;
+
     /// <summary>
     ///  Defines the NugetActions type.
     /// </summary>
@@ -20,7 +22,7 @@ namespace NinjaCoder.MvvmCross.Entities
         /// <summary>
         /// Gets or sets the post nuget commands.
         /// </summary>
-        public IEnumerable<Command> PostNugetCommands { get; set; }
+        public IEnumerable<StudioCommand> PostNugetCommands { get; set; }
 
         /// <summary>
         /// Gets or sets the post nuget file operations.

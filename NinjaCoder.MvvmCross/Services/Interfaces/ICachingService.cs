@@ -8,6 +8,8 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
     using NinjaCoder.MvvmCross.Entities;
     using System.Collections.Generic;
 
+    using Scorchio.VisualStudio.Entities;
+
     /// <summary>
     ///  Defines the ICachingService type.
     /// </summary>
@@ -26,7 +28,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Gets or sets the post nuget commands.
         /// </summary>
-        IEnumerable<Command> PostNugetCommands { get; set; }
+        IEnumerable<StudioCommand> PostNugetCommands { get; set; }
 
         /// <summary>
         /// Gets or sets the post nuget file operations.

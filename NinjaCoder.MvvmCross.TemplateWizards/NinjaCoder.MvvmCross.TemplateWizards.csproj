@@ -66,9 +66,6 @@
     <Compile Include="..\Scorchio.VisualStudio\Entities\ItemTemplateInfo.cs">
       <Link>Entities\ItemTemplateInfo.cs</Link>
     </Compile>
-    <Compile Include="..\Scorchio.VisualStudio\Entities\TextTemplateInfo.cs">
-      <Link>Entities\TextTemplateInfo.cs</Link>
-    </Compile>
     <Compile Include="..\Scorchio.VisualStudio\Extensions\CodeClassExtensions.cs">
       <Link>Extensions\CodeClassExtensions.cs</Link>
     </Compile>
@@ -89,9 +86,6 @@
     </Compile>
     <Compile Include="..\Scorchio.VisualStudio\Extensions\ProjectItemExtensions.cs">
       <Link>Extensions\ProjectItemExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Scorchio.VisualStudio\Extensions\SolutionExtensions.cs">
-      <Link>Extensions\SolutionExtensions.cs</Link>
     </Compile>
     <Compile Include="..\Scorchio.VisualStudio\ScorchioConstants.cs">
       <Link>Constants\ScorchioConstants.cs</Link>

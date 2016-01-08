@@ -19,6 +19,8 @@ namespace NinjaCoder.MvvmCross.Controllers
     using System;
     using System.Collections.Generic;
 
+    using Scorchio.VisualStudio.Entities;
+
     /// <summary>
     /// Defines the NugetPackagesController type.
     /// </summary>
@@ -47,7 +49,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <summary>
         /// The post nuget commands.
         /// </summary>
-        private readonly List<Command> postNugetCommands;
+        private readonly List<StudioCommand> postNugetCommands;
 
         /// <summary>
         /// The post nuget file operations.
@@ -85,7 +87,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             this.nugetPackagesFactory = nugetPackagesFactory;
             
             this.commands = string.Empty;
-            this.postNugetCommands = new List<Command>();
+            this.postNugetCommands = new List<StudioCommand>();
             this.postNugetFileOperations = new List<FileOperation>();
         }
 
@@ -171,7 +173,14 @@ namespace NinjaCoder.MvvmCross.Controllers
                     this.SettingsService.SuspendReSharperDuringBuild);
             }
 
-            this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NugetDownload);
+            string message = NinjaMessages.NugetDownload;
+
+            if (this.SettingsService.UseLocalNuget)
+            {
+                message += " (using local " + this.SettingsService.LocalNugetName + ")";
+            }
+
+            this.VisualStudioService.WriteStatusBarMessage(message);
         }
 
         /// <summary>

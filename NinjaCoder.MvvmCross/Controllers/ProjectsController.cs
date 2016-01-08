@@ -20,6 +20,9 @@ namespace NinjaCoder.MvvmCross.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
+    using Scorchio.VisualStudio.Entities;
+
     using ViewModels.AddProjects;
     using PluginsViewModel = NinjaCoder.MvvmCross.ViewModels.AddProjects.PluginsViewModel;
 
@@ -71,7 +74,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <summary>
         /// The post nuget commands.
         /// </summary>
-        private readonly List<Command> postNugetCommands;
+        private readonly List<StudioCommand> postNugetCommands;
 
         /// <summary>
         /// The post nuget file operations.
@@ -116,7 +119,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             this.cachingService = cachingService;
 
             this.commands = string.Empty;
-            this.postNugetCommands = new List<Command>();
+            this.postNugetCommands = new List<StudioCommand>();
             this.postNugetFileOperations = new List<FileOperation>();
         }
 
@@ -221,8 +224,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                         .FirstOrDefault(x => x.ProjectSuffix == ProjectSuffix.iOS.GetDescription()));
             }
 
-            if (this.SettingsService.ProcessViewModelAndViews && 
-                this.SettingsService.FrameworkType != FrameworkType.NoFramework &&
+            if (this.SettingsService.FrameworkType != FrameworkType.NoFramework &&
                 viewsViewModel != null)
             {
                 IEnumerable<string> viewModelMessages = this.viewModelViewsService.AddViewModelsAndViews(viewsViewModel.Views);
@@ -230,6 +232,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                 this.messages.AddRange(viewModelMessages);
             }
 
+            
             TraceService.WriteLine("ProjectsController::Process GetApplication Commands");
 
             //// we need to get the post nuget commands that are now hosted in xml file that used to be in code
@@ -279,7 +282,14 @@ namespace NinjaCoder.MvvmCross.Controllers
                     this.SettingsService.SuspendReSharperDuringBuild);
             }
 
-            this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NugetDownload);
+            string message = NinjaMessages.NugetDownload;
+
+            if (this.SettingsService.UseLocalNuget)
+            {
+                message += " (using local " + this.SettingsService.LocalNugetName + ")";
+            }
+
+            this.VisualStudioService.WriteStatusBarMessage(message);
 
             TraceService.WriteLine("ProjectsController::Process END");
         }

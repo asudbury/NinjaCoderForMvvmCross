@@ -98,7 +98,7 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// <param name="folderName">Name of the folder.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <returns>True or False.</returns>
-        bool AddToFolderFromFile(
+        ProjectItem AddToFolderFromFile(
              string folderName,
              string fileName);
 

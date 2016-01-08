@@ -30,16 +30,22 @@
             <MenuItem Header="File">
                 <MenuItem Command="{Binding AddProjectsCommand}" Header="Add Projects" />
                 <MenuItem Command="{Binding AddViewModelAndViewCommand}" Header="Add View Model and Views" />
-                <MenuItem Command="{Binding AddPluginsCommand}" Header="Add Plugins" />
+                <MenuItem Command="{Binding AddPluginsCommand}" Header="Add MvvmCross Plugins" />
                 <MenuItem Command="{Binding AddNugetPackagesCommand}" Header="Add Nuget Packages" />
-                <MenuItem Command="{Binding AddFormsDependencyServiceCommand}" Header="Add Forms Dependency Service" />
-                <MenuItem Command="{Binding AddFormsCustomRendererCommand}" Header="Add Forms Custom Renderer" />
-                <Separator />
-                <MenuItem Command="{Binding ViewLogCommand}" Header="View Log" />
-                <MenuItem Command="{Binding ClearLogCommand}" Header="Clear Log" />
+                <MenuItem Command="{Binding AddFormsDependencyServiceCommand}" Header="Add Xamarin Forms Dependency Service" />
+                <MenuItem Command="{Binding AddFormsCustomRendererCommand}" Header="Add Xamarin Forms Custom Renderer" />
                 <Separator />
                 <MenuItem Command="{Binding OptionsCommand}" Header="Options" />
+                <Separator />
+                <MenuItem Command="{Binding ViewLogCommand}" Header="View Trace Log" />
+                <MenuItem Command="{Binding ClearLogCommand}" Header="Clear Trace Log" />
+                <MenuItem Command="{Binding ViewErrorLogCommand}" Header="View Error Log" />
+                <MenuItem Command="{Binding ClearErrorLogCommand}" Header="Clear Error Log" />
+                <Separator />
+                <MenuItem Command="{Binding XamarinFormsCommand}" Header="Xamarin Forms Home Page" />
+                <MenuItem Command="{Binding MvvmCrossCommand}" Header="MvvmCross Home Page" />
                 <MenuItem Command="{Binding AboutCommand}" Header="About" />
+                <Separator />
                 <MenuItem Command="{Binding OpenWorkingDirectoryCommand}" Header="Open Working Directory" />
                 <MenuItem Command="{Binding ExitCommand}" Header="Exit" />
             </MenuItem>

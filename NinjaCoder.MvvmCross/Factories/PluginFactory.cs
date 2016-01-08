@@ -5,6 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories
 {
+    using System.Linq;
+
     using Entities;
     using Interfaces;
     using NinjaCoder.MvvmCross.Services.Interfaces;
@@ -47,7 +49,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <returns>The plugins.</returns>
         public Plugins GetPlugins(string uri)
         {
-            TraceService.WriteLine("PluginFactory::GetPlugins");
+            TraceService.WriteLine("PluginFactory::GetPlugins url=" + uri);
 
             if (this.cachingService.Plugins.ContainsKey(uri))
             {
@@ -57,8 +59,25 @@ namespace NinjaCoder.MvvmCross.Factories
 
             Plugins plugins =  this.pluginsTranslator.Translate(uri);
 
-            this.cachingService.Plugins.Add(uri, plugins);
+            if (plugins != null)
+            {
+                if (plugins.Items != null)
+                {
+                    TraceService.WriteLine("PluginFactory::GetPlugins pluginCount=" + plugins.Items.Count());
+                    this.cachingService.Plugins.Add(uri, plugins);
+                }
 
+                else
+                {
+                    TraceService.WriteLine("PluginFactory::GetPlugins has no plugins");
+                }
+            }
+
+            else
+            {
+                TraceService.WriteError("PluginFactory::GetPlugins is null url=" + uri);
+                
+            }
             return plugins;
         }
     }

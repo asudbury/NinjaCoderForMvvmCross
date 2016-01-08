@@ -5,16 +5,13 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio.Services
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
     using EnvDTE;
     using EnvDTE80;
     using Extensions;
     using Interfaces;
-
     using Scorchio.VisualStudio.Entities;
-
+    using System.Collections.Generic;
+    using System.Linq;
     using VSLangProj;
 
     /// <summary>
@@ -181,7 +178,7 @@ namespace Scorchio.VisualStudio.Services
         /// <param name="folderName">Name of the folder.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <returns>True or False.</returns>
-        public bool AddToFolderFromFile(
+        public ProjectItem AddToFolderFromFile(
             string folderName, 
             string fileName)
         {
@@ -416,10 +413,20 @@ namespace Scorchio.VisualStudio.Services
         /// <returns></returns>
         public string AddTextTemplate(TextTemplateInfo textTemplateInfo)
         {
-            return this.project.AddTextTemplate(
+            string output = this.project.AddTextTemplate(
                 textTemplateInfo.ProjectFolder, 
                 textTemplateInfo.FileName, 
                 textTemplateInfo.TextOutput);
+
+            if (textTemplateInfo.ChildItem != null)
+            {
+                this.project.AddTextTemplate(
+                    textTemplateInfo.ChildItem.ProjectFolder,
+                    textTemplateInfo.ChildItem.FileName,
+                    textTemplateInfo.ChildItem.TextOutput);
+            }
+
+            return output;
         }
     }
 }

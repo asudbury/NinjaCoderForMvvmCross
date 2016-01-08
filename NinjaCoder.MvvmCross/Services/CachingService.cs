@@ -9,6 +9,8 @@ namespace NinjaCoder.MvvmCross.Services
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using System.Collections.Generic;
 
+    using Scorchio.VisualStudio.Entities;
+
     /// <summary>
     ///  Defines the CachingService type.
     /// </summary>
@@ -36,7 +38,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets or sets the post nuget commands.
         /// </summary>
-        public IEnumerable<Command> PostNugetCommands { get; set; }
+        public IEnumerable<StudioCommand> PostNugetCommands { get; set; }
 
         /// <summary>
         /// Gets or sets the post nuget file operations.

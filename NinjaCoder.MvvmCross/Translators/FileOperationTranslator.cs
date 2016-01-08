@@ -6,10 +6,11 @@
 
 namespace NinjaCoder.MvvmCross.Translators
 {
-    using NinjaCoder.MvvmCross.Entities;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Translators;
     using System.Xml.Linq;
+
+    using Scorchio.VisualStudio.Entities;
 
     /// <summary>
     /// Defines the FileOperationTranslator type.

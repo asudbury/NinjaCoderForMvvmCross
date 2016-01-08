@@ -54,20 +54,28 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             get
             {
-                List<ImageItemWithDescription> frameworks = new List<ImageItemWithDescription>
+                List<ImageItemWithDescription> frameworks = new List<ImageItemWithDescription>();
+
+                if (this.settingsService.FrameworkType == FrameworkType.MvvmCross ||
+                    this.settingsService.FrameworkType == FrameworkType.MvvmCrossAndXamarinForms)
                 {
-                    new ImageItemWithDescription  
+                    frameworks.Add(new ImageItemWithDescription
                         {
                             ImageUrl = this.GetUrlPath("MvvmCross.png"),
                             Name = FrameworkType.MvvmCross.GetDescription(),
                             Selected = true
-                        },
-                    new ImageItemWithDescription
+                        });
+                }
+
+                if (this.settingsService.FrameworkType == FrameworkType.XamarinForms ||
+                    this.settingsService.FrameworkType == FrameworkType.MvvmCrossAndXamarinForms)
+                {
+                    frameworks.Add(new ImageItemWithDescription
                         {
                             ImageUrl = this.GetUrlPath("Xamarin.png"),
                             Name = FrameworkType.XamarinForms.GetDescription()
-                        }
-                };
+                        });
+                }
 
                 return frameworks.OrderBy(x => x.Name);
             }

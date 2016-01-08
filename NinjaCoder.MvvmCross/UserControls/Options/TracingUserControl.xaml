@@ -24,7 +24,7 @@
                   Content="{DynamicResource DisplayErrors}"
                   IsChecked="{Binding DisplayErrors}" />
 
-        <TextBlock Margin="10,1,0,0" Text="Log File" />
+        <TextBlock Margin="10,1,0,0" Text="Trace Log File" />
 
         <TextBox Margin="10,1,0,0" Text="{Binding LogFilePath}" />
 
@@ -32,13 +32,33 @@
 
             <TextBlock Margin="10">
                 <Hyperlink Command="{Binding ClearLogCommand}">
-                    <TextBlock Text="{DynamicResource ClearLog}" />
+                    <TextBlock Text="Clear Trace Log" />
                 </Hyperlink>
             </TextBlock>
 
             <TextBlock Margin="10">
                 <Hyperlink Command="{Binding ViewLogCommand}">
-                    <TextBlock Text="{DynamicResource ViewLog}" />
+                    <TextBlock Text="View Trace Log" />
+                </Hyperlink>
+            </TextBlock>
+
+        </StackPanel>
+
+        <TextBlock Margin="10,10,0,0" Text="Error Log File" />
+
+        <TextBox Margin="10,1,0,0" Text="{Binding ErrorFilePath}" />
+
+        <StackPanel Margin="10" Orientation="Horizontal">
+
+            <TextBlock Margin="10">
+                <Hyperlink Command="{Binding ClearErrorLogCommand}">
+                    <TextBlock Text="Clear Error Log" />
+                </Hyperlink>
+            </TextBlock>
+
+            <TextBlock Margin="10">
+                <Hyperlink Command="{Binding ViewErrorLogCommand}">
+                    <TextBlock Text="View Error Log" />
                 </Hyperlink>
             </TextBlock>
 

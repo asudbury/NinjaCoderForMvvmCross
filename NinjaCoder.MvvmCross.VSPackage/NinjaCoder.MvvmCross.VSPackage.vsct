@@ -13,6 +13,18 @@
         <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenu"/>
       </Group>
 
+      <Group guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup2" priority="0x0000">
+            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenu"/>
+      </Group>
+      
+        <Group guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup3" priority="0x0000">
+            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenu"/>
+        </Group>
+        
+      <Group guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup4" priority="0x0000">
+            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenu"/>
+      </Group>
+    
     </Groups>
 
       <Menus>
@@ -60,26 +72,55 @@
                 <ButtonText>Add Xamarin Forms Custom Renderer</ButtonText>
             </Strings>
         </Button>
+
+        <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="Options" priority="0x0100" type="Button">
+            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup2" />
+            <Strings>
+                <ButtonText>Options</ButtonText>
+            </Strings>
+        </Button>
+        
       <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="ViewLogFile" priority="0x0100" type="Button">
-        <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup" />
+        <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup3" />
         <Strings>
-          <ButtonText>View Log</ButtonText>
+          <ButtonText>View Trace Log</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="ClearLogFile" priority="0x0100" type="Button">
-        <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup" />
+        <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup3" />
         <Strings>
-          <ButtonText>Clear Log</ButtonText>
+          <ButtonText>Clear Trace Log</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="Options" priority="0x0100" type="Button">
-        <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup" />
-        <Strings>
-          <ButtonText>Options</ButtonText>
-        </Strings>
+      <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="ViewErrorLog" priority="0x0100" type="Button">
+            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup3" />
+            <Strings>
+                <ButtonText>View Error Log</ButtonText>
+            </Strings>
       </Button>
+        <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="ClearErrorLog" priority="0x0100" type="Button">
+            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup3" />
+            <Strings>
+                <ButtonText>Clear Error Log</ButtonText>
+            </Strings>
+        </Button>
+
+        <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="XamarinFormsHomePage" priority="0x0100" type="Button">
+            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup4" />
+            <Strings>
+                <ButtonText>Xamarin Forms Home Page</ButtonText>
+            </Strings>
+        </Button>
+       
+      <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="MvvmCrossHomePage" priority="0x0100" type="Button">
+            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup4" />
+            <Strings>
+                <ButtonText>MvvmCross Home Page</ButtonText>
+            </Strings>
+      </Button>
+        
       <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="About" priority="0x0100" type="Button">
-            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup" />
+            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup4" />
             <Strings>
                 <ButtonText>About</ButtonText>
             </Strings>
@@ -99,6 +140,9 @@
       <IDSymbol name="MyMenuGroup" value="0x1020" />
       <IDSymbol name="SubMenu" value="0x1100"/>
       <IDSymbol name="SubMenuGroup" value="0x1150"/>
+      <IDSymbol name="SubMenuGroup2" value="0x1151"/>
+      <IDSymbol name="SubMenuGroup3" value="0x1152"/>
+      <IDSymbol name="SubMenuGroup4" value="0x1153"/>
       <IDSymbol name="AddProjects" value="0x0100" />
       <IDSymbol name="AddViewModelsAndViews" value="0x0101" />
       <IDSymbol name="AddMvvmCrossPlugins" value="0x0102" />
@@ -108,7 +152,11 @@
       <IDSymbol name="Options" value="0x0106" />
       <IDSymbol name="ViewLogFile" value="0x0107" />
       <IDSymbol name="ClearLogFile" value="0x0108" />
-      <IDSymbol name="About" value="0x0109" />
+      <IDSymbol name="ViewErrorLog" value="0x0109" />
+      <IDSymbol name="ClearErrorLog" value="0x0110" />
+      <IDSymbol name="XamarinFormsHomePage" value="0x0111" />
+      <IDSymbol name="MvvmCrossHomePage" value="0x0112" />
+      <IDSymbol name="About" value="0x0113" />
     </GuidSymbol>
     <GuidSymbol name="guidImages" value="{c9f1bf5c-c682-42c6-9cf1-900ca9f032ef}" >
       <IDSymbol name="bmpPic1" value="1" />

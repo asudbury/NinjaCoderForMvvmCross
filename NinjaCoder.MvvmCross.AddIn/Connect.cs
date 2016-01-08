@@ -119,10 +119,6 @@ namespace NinjaCoder.MvvmCross.AddIn
 
             this.AddMenuItem(commandInfo);
 
-            SettingsService settingsService = new SettingsService();
-
-            if (settingsService.ShowViewLogFileOnVisualStudioMenu)
-            {
                 commandInfo = new VSCommandInfo
                 {
                     AddIn = this.AddInInstance,
@@ -135,10 +131,7 @@ namespace NinjaCoder.MvvmCross.AddIn
                 };
 
                 this.AddMenuItem(commandInfo);
-            }
 
-            if (settingsService.ShowClearLogFileOnVisualStudioMenu)
-            {
                 commandInfo = new VSCommandInfo
                 {
                     AddIn = this.AddInInstance,
@@ -151,7 +144,6 @@ namespace NinjaCoder.MvvmCross.AddIn
                 };
 
                 this.AddMenuItem(commandInfo);
-            }
 
             commandInfo = new VSCommandInfo
             {

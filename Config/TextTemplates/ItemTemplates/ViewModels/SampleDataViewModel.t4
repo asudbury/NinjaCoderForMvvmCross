@@ -1,0 +1,31 @@
+<#@ Template Language="C#" #>
+<#@ Output Extension="cs" #>
+<#@ parameter type="System.string" name="NameSpace" #>
+<#@ parameter type="System.string" name="ClassName" #>
+// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//    Defines the <#= ClassName #> type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace <#= NameSpace #>
+{ 
+    /// <summary>
+    /// Define the <#= ClassName #> type.
+    /// </summary>
+    public class <#= ClassName #> : BaseViewModel
+    {
+        /// <summary>
+        /// The sample text.
+        /// </summary>
+        private string sampleText = "Hello from the Ninja Coder!";
+
+        /// <summary>
+        /// Gets or sets the sample text.
+        /// </summary>
+        public string SampleText
+        {
+            get { return this.sampleText; }
+            set { this.SetProperty(ref this.sampleText, value); }
+        }
+    }
+}

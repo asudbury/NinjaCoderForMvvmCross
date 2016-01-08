@@ -1,0 +1,41 @@
+<#@ Template Language="C#" #>
+<#@ Output Extension="cs" #>
+<#@ parameter type="System.string" name="NameSpace" #>
+<#@ parameter type="System.string" name="ClassName" #>
+<#@ parameter type="System.string" name="TestingLibrary" #>
+<#@ parameter type="System.string" name="TestingClassAttribute" #>
+<#@ parameter type="System.string" name="TestingMethodAttribute" #>
+<#@ parameter type="System.string" name="TestableObject" #>
+<#@ parameter type="System.string" name="TestableObjectInstance" #>
+// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//    Defines the <#= ClassName #> type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace <#= NameSpace #>
+{
+    using Core.ViewModels;
+    using <#= TestingLibrary #>;
+
+    /// <summary>
+    /// Defines the <#= ClassName #> type.
+    /// </summary>
+    <#= TestingClassAttribute #>
+    public class <#= ClassName #> : BaseTest
+    {
+        /// <summary>
+        /// The <#= TestableObject #>.
+        /// </summary>
+        private <#= TestableObject #> <#= TestableObjectInstance #>;
+
+        /// <summary>
+        /// Creates an instance of the object to test.
+        /// To allow Ninja automatically create the unit tests
+        /// this method should not be changed.
+        /// </summary>
+        public override void CreateTestableObject()
+        {
+            this.<#= TestableObjectInstance #> = new <#= TestableObject #>();
+        }
+    }
+}

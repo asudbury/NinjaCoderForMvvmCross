@@ -34,19 +34,6 @@ namespace NinjaCoder.MvvmCross.TemplateWizards.Plugins
         {
             TraceService.WriteLine("PluginsWizard::OnShouldAddProjectItem path=" + filePath);
 
-            Project activeProject = this.GetActiveProject();
-
-            if (activeProject != null)
-            {
-                string projectPath = activeProject.GetProjectPath();
-                string path = string.Format(@"{0}\{1}", projectPath, filePath);
-
-                if (File.Exists(path))
-                {
-                    return false;
-                }
-            }
-
             string pluginsString = this.SettingsService.PluginsToAdd;
 
             if (string.IsNullOrEmpty(pluginsString) == false)

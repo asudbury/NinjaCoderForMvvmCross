@@ -48,6 +48,15 @@ namespace NinjaCoder.MvvmCross.Services
             get { return this.GetRegistryValue("Tracing", "LogFilePath", Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\ninja-coder-for-mvvmcross.log"); }
             set { this.SetRegistryValue("Tracing", "LogFilePath", value); }
         }
+
+        /// <summary>
+        /// Gets or sets the error file path.
+        /// </summary>
+        public string ErrorFilePath
+        {
+            get { return this.GetRegistryValue("Tracing", "ErrorFilePath", Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\ninja-coder-for-mvvmcross-errors.log"); }
+            set { this.SetRegistryValue("Tracing", "ErrorFilePath", value); }
+        }
         
         /// <summary>
         /// Gets or sets a value indicating whether [display errors].
@@ -130,7 +139,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public string ApplicationVersion 
         { 
-            get { return this.GetRegistryValue(string.Empty, "Version", "Unknown"); }
+            get { return this.GetVersion(); }
         }
 
         /// <summary>
@@ -175,6 +184,24 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets the MVVM cross home page.
+        /// </summary>
+        public string MvvmCrossHomePage
+        {
+            get { return this.GetRegistryValue(string.Empty, "MvvmCrossHomePage", "http://mvvmcross.com"); }
+        }
+
+
+        /// <summary>
+        /// Gets or sets the xamarin forms home page.
+        /// </summary>
+        public string XamarinFormsHomePage
+        {
+            get { return this.GetRegistryValue(string.Empty, "XamarinFormsHomePage", "http://xamarin.com/forms"); }
+        }
+
+
+        /// <summary>
         /// Gets the MVVM cross plugins wiki page.
         /// </summary>
         public string MvvmCrossPluginsWikiPage
@@ -199,14 +226,6 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets the installed directory.
-        /// </summary>
-        public string InstalledDirectory
-        {
-            get { return this.GetRegistryValue(string.Empty, "InstalledDirectory", string.Empty); }
-        }
-
-        /// <summary>
         /// Gets the build date time.
         /// </summary>
         public string BuildDateTime
@@ -222,24 +241,8 @@ namespace NinjaCoder.MvvmCross.Services
                     return fileInfo.CreationTime.ToString("dd-MMM-yyyy HH:mm");
                 }
 
-                return string.Empty;
+                return "Not Known";
             }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether [process view model and views].
-        /// </summary>
-        public bool ProcessViewModelAndViews
-        {
-            get { return this.GetRegistryValue("Internals", "ProcessViewModelAndViews", "Y") == "Y"; }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether [process wizard].
-        /// </summary>
-        public bool ProcessWizard
-        {
-            get { return this.GetRegistryValue("Internals", "ProcessWizard", "Y") == "Y"; }
         }
 
         /// <summary>
@@ -337,24 +340,6 @@ namespace NinjaCoder.MvvmCross.Services
         {
             get { return this.GetRegistryValue("Internals", "VisualStudioVersion", "14.0"); }
             set { this.SetRegistryValue("Internals", "VisualStudioVersion", value); }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [show view log file on visual studio menu].
-        /// </summary>
-        public bool ShowViewLogFileOnVisualStudioMenu
-        {
-            get { return this.GetRegistryValue("Internals", "ShowViewLogFileOnVisualStudioMenu", "N") == "Y"; }
-            set { this.SetRegistryValue("Internals", "ShowViewLogFileOnVisualStudioMenu", value ? "Y" : "N"); }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [show clear log file on visual studio menu].
-        /// </summary>
-        public bool ShowClearLogFileOnVisualStudioMenu
-        {
-            get { return this.GetRegistryValue("Internals", "ShowClearLogFileOnVisualStudioMenu", "N") == "Y"; }
-            set { this.SetRegistryValue("Internals", "ShowClearLogFileOnVisualStudioMenu", value ? "Y" : "N"); }
         }
 
         /// <summary>
@@ -467,7 +452,6 @@ namespace NinjaCoder.MvvmCross.Services
                 return this.UseLocalUris ?
                     this.GetRegistryValue("Internals", "NinjaCommunityNugetPackagesUri", this.ConfigPath + "NinjaCommunityNugetPackages.xml") :
                     this.GetRegistryValue("Internals", "NinjaCommunityNugetPackagesUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/NinjaCommunityNugetPackages.xml");
-
             }
         }
 
@@ -476,7 +460,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public string LocalNugetPackagesUri
         {
-            get { return this.GetRegistryValue("Internals", "LocalNugetPackagesUri", this.ConfigPath + "LocalNugetPackagesUri.xml"); }
+            get { return this.GetRegistryValue("Internals", "LocalNugetPackagesUri", this.ConfigPath + "LocalNugetPackages.xml"); }
         }
 
         /// <summary>
@@ -489,17 +473,7 @@ namespace NinjaCoder.MvvmCross.Services
                 return this.UseLocalUris ?
                     this.GetRegistryValue("Internals", "ApplicationCommandsUri", this.ConfigPath + "ApplicationCommands.xml") :
                     this.GetRegistryValue("Internals", "ApplicationCommandsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/ApplicationCommands.xml");
-
             }
-        }
-
-        /// <summary>
-        /// Gets or sets the xamarin forms views.
-        /// </summary>
-        public string XamarinFormsViews 
-        {
-            get { return this.GetRegistryValue("Internals", "XamarinFormsViews", string.Empty); }
-            set { this.SetRegistryValue("Internals", "XamarinFormsViews", value); }
         }
         
         /// <summary>
@@ -673,8 +647,23 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public string WorkingDirectory
         {
-            get { return string.IsNullOrEmpty(this.workingDirectory) == false ? this.workingDirectory : this.InstalledDirectory; }
-            set { this.workingDirectory = value; }
+            get
+            {
+                return this.workingDirectory;
+            }
+
+            set
+            {
+                string directory = value;
+
+                if (directory.EndsWith(@"\") == false)
+                {
+                    directory += @"\";
+
+                }
+
+                this.workingDirectory = directory;
+            }
         }
 
         /// <summary>
@@ -683,6 +672,8 @@ namespace NinjaCoder.MvvmCross.Services
         public bool UseLocalTextTemplates
         {
             get { return this.GetRegistryValue("Build", "UseLocalTextTemplates", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "UseLocalTextTemplates", value ? "Y" : "N"); }
+
         }
 
         /// <summary>
@@ -839,14 +830,6 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets a value indicating whether [use simple text templating engine].
-        /// </summary>
-        public bool UseSimpleTextTemplatingEngine
-        {
-            get { return this.GetRegistryValue("Internals", "UseSimpleTextTemplatingEngine", "Y") == "Y"; }
-        }
-
-        /// <summary>
         /// Gets or sets the item templates directory.
         /// </summary>
         public string ItemTemplatesDirectory
@@ -875,15 +858,6 @@ namespace NinjaCoder.MvvmCross.Services
             set { this.SetRegistryValue("Internals", "ActiveProject", value); }
         }
         
-        /// <summary>
-        /// Gets or sets the plugins to add.
-        /// </summary>
-        public string PluginsToAdd
-        {
-            get { return this.GetRegistryValue("Internals", "PluginsToAdd", string.Empty); }
-            set { this.SetRegistryValue("Internals", "PluginsToAdd", value); }
-        }
-
         /// <summary>
         /// Gets the registry key.
         /// </summary>
@@ -967,6 +941,57 @@ namespace NinjaCoder.MvvmCross.Services
              {
                  registryKey.SetValue(name, value);
              }
+        }
+
+        /// <summary>
+        /// Gets the version.
+        /// </summary>
+        /// <returns></returns>
+        internal string GetVersion()
+        {
+            RegistryKey softwareKey = Registry.CurrentUser.OpenSubKey("Software");
+
+            if (softwareKey != null)
+            {
+                RegistryKey microsoftKey = softwareKey.OpenSubKey("Microsoft");
+
+                if (microsoftKey != null)
+                {
+                    RegistryKey vsKey = microsoftKey.OpenSubKey("VisualStudio");
+
+                    if (vsKey != null)
+                    {
+                        RegistryKey versionKey = vsKey.OpenSubKey("14.0");
+
+                        if (versionKey != null)
+                        {
+                            RegistryKey extensionManagerKey = versionKey.OpenSubKey("ExtensionManager");
+
+                            if (extensionManagerKey != null)
+                            {
+                                RegistryKey enabledExtensionsKey = extensionManagerKey.OpenSubKey("EnabledExtensions");
+
+                                if (enabledExtensionsKey != null)
+                                {
+                                    string[] valueNames = enabledExtensionsKey.GetValueNames();
+
+                                    foreach (string valueName in valueNames)
+                                    {
+                                        if (valueName.StartsWith("NinjaCoderMvvmCross.vsix"))
+                                        {
+                                            string[] parts = valueName.Split(',');
+
+                                            return parts[1];
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return string.Empty;
         }
     }
 }

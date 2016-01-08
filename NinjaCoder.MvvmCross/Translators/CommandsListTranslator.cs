@@ -11,6 +11,7 @@ namespace NinjaCoder.MvvmCross.Translators
     using System.Collections.Generic;
     using System.Xml.Linq;
 
+    using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
 
     /// <summary>
@@ -21,7 +22,7 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <summary>
         /// The commands translator.
         /// </summary>
-        private readonly ITranslator<XElement, IEnumerable<Command>> commandsTranslator;
+        private readonly ITranslator<XElement, IEnumerable<StudioCommand>> commandsTranslator;
 
         /// <summary>
         /// The file operations translator.
@@ -42,7 +43,7 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <param name="commandsTranslator">The commands translator.</param>
         /// <param name="fileOperationsTranslator">The file operations translator.</param>
         public CommandsListTranslator(
-            ITranslator<XElement, IEnumerable<Command>> commandsTranslator,
+            ITranslator<XElement, IEnumerable<StudioCommand>> commandsTranslator,
             ITranslator<XElement, IEnumerable<FileOperation>> fileOperationsTranslator)
         {
             this.commandsTranslator = commandsTranslator;

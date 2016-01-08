@@ -30,11 +30,5 @@ namespace NinjaCoder.MvvmCross.Entities
         /// </summary>
         [Description("MvvmCross.WindowsPhone.zip")]
         WindowsPhone,
-
-        /// <summary>
-        /// The windows store
-        /// </summary>
-        [Description("MvvmCross.WindowsStore.zip")]
-        WindowsStore,
     }
 }

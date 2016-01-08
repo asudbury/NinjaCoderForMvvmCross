@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories.Interfaces
 {
-    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using Scorchio.Infrastructure.Entities;
 
     /// <summary>
@@ -16,6 +16,6 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// <summary>
         /// Gets the views.
         /// </summary>
-        IEnumerable<ImageItemWithDescription> Views { get; }
+        ObservableCollection<ImageItemWithDescription> Views { get; }
     }
 }

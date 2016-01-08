@@ -28,6 +28,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         string LogFilePath { get; set; }
 
         /// <summary>
+        /// Gets or sets the error file path.
+        /// </summary>
+        string ErrorFilePath { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [display errors].
         /// </summary>
         bool DisplayErrors { get; set; }
@@ -98,6 +103,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         bool ReplaceVariablesInSnippets { get; }
 
         /// <summary>
+        /// Gets the MVVM cross home page.
+        /// </summary>
+        string MvvmCrossHomePage { get; }
+        
+        /// <summary>
         /// Gets the MVVM cross plugins wiki page.
         /// </summary>
         string MvvmCrossPluginsWikiPage { get;  }
@@ -113,34 +123,14 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         string XamarinFormsLabsNugetPackagesGitHubPage { get; }
 
         /// <summary>
-        /// Gets the installed directory.
-        /// </summary>
-        string InstalledDirectory { get; }
-
-        /// <summary>
         /// Gets the build date time.
         /// </summary>
         string BuildDateTime { get; }
 
         /// <summary>
-        /// Gets a value indicating whether [process view model and views].
-        /// </summary>
-        bool ProcessViewModelAndViews { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether [process wizard].
-        /// </summary>
-        bool ProcessWizard { get; }
-
-        /// <summary>
         /// Gets or sets the active project.
         /// </summary>
         string ActiveProject { get; set; }
-
-        /// <summary>
-        /// Gets or sets the plugins to add.
-        /// </summary>
-        string PluginsToAdd { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether [process nuget commands].
@@ -198,16 +188,6 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         string VisualStudioVersion { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [show view log file on visual studio menu].
-        /// </summary>
-        bool ShowViewLogFileOnVisualStudioMenu { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [show clear log file on visual studio menu].
-        /// </summary>
-        bool ShowClearLogFileOnVisualStudioMenu { get; set; }
-
-        /// <summary>
         /// Gets or sets the type of the framework.
         /// </summary>
         FrameworkType FrameworkType { get; set;  }
@@ -261,11 +241,6 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets the application commands URI.
         /// </summary>
         string ApplicationCommandsUri { get; }
-
-        /// <summary>
-        /// Gets or sets the xamarin forms views.
-        /// </summary>
-        string XamarinFormsViews { get; set; }
         
         /// <summary>
         /// Gets or sets a value indicating whether [output nuget commands to read me].
@@ -367,7 +342,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Gets a value indicating whether [use local text templates].
         /// </summary>
-        bool UseLocalTextTemplates { get; }
+        bool UseLocalTextTemplates { get; set; }
 
         /// <summary>
         /// Gets the local text templates directory.
@@ -426,13 +401,13 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         string DependencyServicesWebPage { get; }
 
         /// <summary>
-        /// Gets a value indicating whether [use simple text templating engine].
-        /// </summary>
-        bool UseSimpleTextTemplatingEngine { get; }
-
-        /// <summary>
         /// Gets the item templates directory.
         /// </summary>
         string ItemTemplatesDirectory { get; }
+
+        /// <summary>
+        /// Gets the xamarin forms home page.
+        /// </summary>
+        string XamarinFormsHomePage { get; }
     }
 }

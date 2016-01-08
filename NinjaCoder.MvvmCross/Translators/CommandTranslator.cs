@@ -6,24 +6,26 @@
 
 namespace NinjaCoder.MvvmCross.Translators
 {
-    using NinjaCoder.MvvmCross.Entities;
+    using System.Data;
+
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Translators;
     using System.Xml.Linq;
+    using Scorchio.VisualStudio.Entities;
 
     /// <summary>
     /// Defines the CommandTranslator type.
     /// </summary>
-    public class CommandTranslator : ITranslator<XElement, Command>
+    public class CommandTranslator : ITranslator<XElement, StudioCommand>
     {
         /// <summary>
         /// Translates the specified from.
         /// </summary>
         /// <param name="from">From.</param>
         /// <returns></returns>
-        public Command Translate(XElement @from)
+        public StudioCommand Translate(XElement @from)
         {
-            return new Command
+            return new StudioCommand
             {
                 PlatForm = @from.GetSafeAttributeStringValue("Platform"),
                 CommandType = @from.GetSafeAttributeStringValue("Type"),

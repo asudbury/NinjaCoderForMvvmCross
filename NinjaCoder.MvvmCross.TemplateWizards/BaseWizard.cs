@@ -9,7 +9,6 @@ namespace NinjaCoder.MvvmCross.TemplateWizards
     using EnvDTE80;
     using Microsoft.VisualStudio.TemplateWizard;
     using NinjaCoder.MvvmCross.TemplateWizards.Services;
-    using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
     using System.Collections.Generic;
     using System.Linq;
@@ -56,7 +55,8 @@ namespace NinjaCoder.MvvmCross.TemplateWizards
                 false,
                 this.SettingsService.LogToFile,
                 this.SettingsService.LogFilePath,
-                this.SettingsService.DisplayErrors);
+                this.SettingsService.DisplayErrors,
+                string.Empty);
 
             this.Dte = automationObject as DTE;
             this.ReplacementsDictionary = replacementsDictionary;

@@ -6,7 +6,6 @@
 namespace Scorchio.Infrastructure.Services.Testing.Interfaces
 {
     using Scorchio.VisualStudio.Entities;
-    using Scorchio.VisualStudio.Services.Interfaces;
 
     /// <summary>
     ///  Defines the IMockingService type.

@@ -16,6 +16,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     using Services;
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.IO.Abstractions;
     using System.Reflection;
     using System.Xml.Linq;
@@ -50,18 +51,6 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             ResolveController<ApplicationController>(null)
                 .SetWorkingDirectory(location);
-        }
-
-        /// <summary>
-        /// Uses the simple text templating engine.
-        /// </summary>
-        /// <param name="useSimpleTextTemplatingEngine">if set to <c>true</c> [use simple text templating engine].</param>
-        public static void UseSimpleTextTemplatingEngine(bool useSimpleTextTemplatingEngine)
-        {
-            TraceService.WriteLine("NinjaController::SetTextTemplatingEngineHost use=" + useSimpleTextTemplatingEngine);
-
-            ResolveController<ApplicationController>(null)
-                .UseSimpleTextTemplatingEngine(useSimpleTextTemplatingEngine);
         }
 
         /// <summary>
@@ -196,6 +185,47 @@ namespace NinjaCoder.MvvmCross.Controllers
         }
 
         /// <summary>
+        /// Views the error log file.
+        /// </summary>
+        public static void ViewErrorLogFile()
+        {
+            TraceService.WriteLine("NinjaController::ViewErrorLogFile");
+
+            ResolveController<ApplicationController>(null)
+                .ViewErrorLogFile();
+        }
+
+        public static void ClearErrorLogFile()
+        {
+            TraceService.WriteLine("NinjaController::ClearErrorLogFile");
+
+            ResolveController<ApplicationController>(null)
+                .ClearErrorLogFile();
+        }
+
+        /// <summary>
+        /// MVVMs the cross home page.
+        /// </summary>
+        public static void MvvmCrossHomePage()
+        {
+            TraceService.WriteLine("NinjaController::MvvmCrossHomePage");
+
+            ResolveController<ApplicationController>(null)
+                .MvvmCrossHomePage();
+        }
+
+        /// <summary>
+        /// Xamarins the forms home page.
+        /// </summary>
+        public static void XamarinFormsHomePage()
+        {
+            TraceService.WriteLine("NinjaController::XamarinFormsHomePage");
+
+            ResolveController<ApplicationController>(null)
+                .XamarinFormsHomePage();
+        }
+
+        /// <summary>
         /// Attempts to resolve a type using default options.
         /// </summary>
         /// <typeparam name="T">The type of the controller</typeparam>
@@ -244,6 +274,8 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                     string location = Assembly.GetExecutingAssembly().Location;
 
+                    TraceService.WriteLine("NinjaController::Initialize Assembly Location=" + location);
+                    
                     PathBase pathBase = new PathWrapper();
                     string directory = pathBase.GetDirectoryName(location);
 
@@ -251,12 +283,19 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                     string path = directory + @"\NinjaCoder.MvvmCross.dll";
 
-                    //// NinjaCoder for MvvmCross interfaces.
-                    container.AutoRegister(Assembly.LoadFrom(path));
+                    if (File.Exists(path))
+                    {
+                        //// NinjaCoder for MvvmCross interfaces.
+                        container.AutoRegister(Assembly.LoadFrom(path));
+                    }
+                    else
+                    {
+                        TraceService.WriteError(path + " does not exist");
+                    }
 
                     //// we only want one instance of the VisualStudio class.
                     container.Register<VisualStudioService>().AsSingleton();
-                    
+
                     //// register the types that aren't auto-registered by TinyIoC.
                     container.Register<ITranslator<string, CodeConfig>>(new CodeConfigTranslator());
                     container.Register<ITranslator<string, CodeSnippet>>(new CodeSnippetTranslator());
@@ -272,8 +311,17 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                     path = directory + @"\Scorchio.Infrastructure.dll";
 
-                    //// Scorchio.Infrastructure interfaces.
-                    container.AutoRegister(Assembly.LoadFrom(path));
+                    if (File.Exists(path))
+                    {
+                        //// Scorchio.Infrastructure interfaces.
+                        container.AutoRegister(Assembly.LoadFrom(path));
+                    }
+                    else
+                    {
+                        TraceService.WriteError(path + " does not exist");
+                    }
+
+                    TraceService.WriteLine("NinjaController::Initialize AccentTranslator");
 
                     //// register the types that aren't auto-registered by TinyIoC.
                     container.Register<ITranslator<IList<Accent>, IEnumerable<AccentColor>>>(new AccentTranslator());
@@ -282,17 +330,47 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                     path = directory + @"\Scorchio.VisualStudio.dll";
 
-                    //// Scorchio.Infrastructure interfaces.
-                    container.AutoRegister(Assembly.LoadFrom(path));
+                    if (File.Exists(path))
+                    {
+                        //// Scorchio.VisualStudio interfaces.
+                        container.AutoRegister(Assembly.LoadFrom(path));
+                    }
+                    else
+                    {
+                        TraceService.WriteError(path + " does not exist");
+                    }
 
                     initialized = true;
                 }
 
                 TraceService.WriteLine("NinjaController::Initialize end");
             }
+            catch (ReflectionTypeLoadException exception)
+            {
+                TraceService.WriteError("ReflectionTypeLoadException=" + exception);
+
+                foreach (Exception ex in exception.LoaderExceptions)
+                {
+                    TraceService.WriteError("ReflectionTypeLoadException=" + ex);
+                }
+            }    
+
             catch (Exception exception)
             {
                 TraceService.WriteError("Exception=" + exception);
+
+                if (exception.InnerException != null)
+                {
+                    ReflectionTypeLoadException loadException = exception.InnerException as ReflectionTypeLoadException;
+
+                    if (loadException != null)
+                    {
+                        foreach (Exception ex in loadException.LoaderExceptions)
+                        {
+                            TraceService.WriteError("ReflectionTypeLoadException=" + ex);
+                        }
+                    }
+                }
             }
         }
     }

@@ -105,7 +105,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         /// <summary>
         /// The allow framework selection.
         /// </summary>
-        private readonly bool allowFrameworkSelection;
+        private bool allowFrameworkSelection;
 
         /// <summary>
         /// The show frameworks.
@@ -433,6 +433,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         public override void OnInitialize()
         {
             this.frameworks = this.frameworkFactory.AllowedFrameworks;
+
+            this.allowFrameworkSelection = this.frameworks.Count() > 1;
 
             if (!this.views.Any())
             {

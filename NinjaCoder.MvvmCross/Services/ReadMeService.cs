@@ -24,14 +24,23 @@ namespace NinjaCoder.MvvmCross.Services
         private readonly IFileSystem fileSystem;
 
         /// <summary>
+        /// The settings service.
+        /// </summary>
+        private readonly ISettingsService settingsService;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ReadMeService" /> class.
         /// </summary>
         /// <param name="fileSystem">The file system.</param>
-        public ReadMeService(IFileSystem fileSystem)
+        /// <param name="settingsService">The settings service.</param>
+        public ReadMeService(
+            IFileSystem fileSystem,
+            ISettingsService settingsService)
         {
             TraceService.WriteLine("ReadMeService::Constructor");
 
             this.fileSystem = fileSystem;
+            this.settingsService = settingsService;
         }
 
         /// <summary>
@@ -65,11 +74,11 @@ namespace NinjaCoder.MvvmCross.Services
 
             sw.WriteLine(string.Empty);
             sw.WriteLine(this.GetSeperatorLine());
-            sw.WriteLine(DateTime.Now.ToString("dd MMM yy HH:mm")  + " " + functionName);
+            sw.WriteLine(DateTime.Now.ToString("dd MMM yy HH:mm") + " " + functionName);
             sw.WriteLine(this.GetSeperatorLine());
 
             lines.ToList().ForEach(sw.WriteLine);
-  
+
             //// now write the old lines or add footer
 
             if (string.IsNullOrEmpty(currentLines) == false)
@@ -105,7 +114,7 @@ namespace NinjaCoder.MvvmCross.Services
             {
                 string.Empty,
                 this.GetSeperatorLine(),
-                "Ninja Coder for MvvmCross and Xamarin Forms",
+                "Ninja Coder for MvvmCross and Xamarin Forms v" + this.settingsService.ApplicationVersion,
                 this.GetSeperatorLine(),
                 string.Empty,
                 "All feedback welcome, please get in touch via twitter.",

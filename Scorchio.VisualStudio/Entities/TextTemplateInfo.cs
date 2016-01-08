@@ -47,5 +47,15 @@ namespace Scorchio.VisualStudio.Entities
         /// Gets or sets the text output.
         /// </summary>
         public string TextOutput { get; set; }
+
+        /// <summary>
+        /// Gets or sets the file operations.
+        /// </summary>
+        public List<FileOperation> FileOperations { get; set; }
+
+        /// <summary>
+        /// Gets or sets the child item.
+        /// </summary>
+        public TextTemplateInfo ChildItem { get; set; }
     }
 }

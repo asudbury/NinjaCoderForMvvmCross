@@ -28,19 +28,6 @@
     </Window.Resources>
     <StackPanel Margin="10" Orientation="Vertical">
 
-        <TextBlock Margin="10,0,0,3" Text="{DynamicResource ViewModelImplementPlugins}" />
-
-        <ComboBox Width="250"
-                  Margin="10,0,0,0"
-                  HorizontalAlignment="Left"
-                  ItemsSource="{Binding Path=ViewModelNames}"
-                  SelectedItem="{Binding Path=ImplementInViewModel}" />
-        <CheckBox Margin="10"
-                  Content="{DynamicResource ViewModelUnitTests}"
-                  IsChecked="{Binding Path=IncludeUnitTests}"
-                  Visibility="{Binding ImplementInViewModel,
-                                       Converter={StaticResource StringToVisibilityConverter}}" />
-
         <controls:MetroAnimatedTabControl Margin="1,0,0,0">
             <TabItem Header="{DynamicResource Core}" IsSelected="{Binding CorePluginsSelected}">
                 <userControls:PickListView Height="370"

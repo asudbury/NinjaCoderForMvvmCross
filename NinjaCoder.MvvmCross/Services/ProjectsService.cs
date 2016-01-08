@@ -82,6 +82,21 @@ namespace NinjaCoder.MvvmCross.Services
                 this.settingsService.MockingFramework + " mocking framework selected.",
             };
 
+            if (this.settingsService.UseLocalUris)
+            {
+                this.Messages.Add("Use Local Config files selected.");
+            }
+
+            if (this.settingsService.UseLocalTextTemplates)
+            {
+                this.Messages.Add("Use Local Text Templates selected.");
+            }
+
+            if (this.settingsService.UseLocalNuget)
+            {
+                this.Messages.Add("Use Local Nuget selected.");
+            }
+
             if (this.settingsService.CreatePlatformTestProjects)
             {
                 this.Messages.Add("Create Test Projects selected.");

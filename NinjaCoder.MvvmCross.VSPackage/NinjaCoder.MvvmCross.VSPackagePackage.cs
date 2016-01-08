@@ -15,11 +15,8 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
     using System.IO;
     using System.Runtime.InteropServices;
 
-    using NinjaCoder.MvvmCross.Services;
-
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.
-    ///
     /// The minimum requirement for a class to be considered a valid package for Visual Studio
     /// is to implement the IVsPackage interface and register itself with the shell.
     /// This package uses the helper classes defined inside the Managed Package Framework (MPF)
@@ -27,13 +24,8 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
     /// IVsPackage interface and uses the registration attributes defined in the framework to 
     /// register itself and its components with the shell.
     /// </summary>
-    // This attribute tells the PkgDef creation utility (CreatePkgDef.exe) that this class is
-    // a package.
     [PackageRegistration(UseManagedResourcesOnly = true)]
-    // This attribute is used to register the information needed to show this package
-    // in the Help/About dialog of Visual Studio.
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
-    // This attribute is needed to let the shell know that this package exposes some menus.
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(GuidList.GuidNinjaCoderMvvmCrossVsPackagePkgString)]
     public sealed class NinjaCoder_MvvmCross_VSPackagePackage : Package
@@ -44,11 +36,7 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
         private VSInstance VsInstance { get; set; }
 
         /// <summary>
-        /// Default constructor of the package.
-        /// Inside this method you can place any initialization code that does not require 
-        /// any Visual Studio service because at this point the package object is created but 
-        /// not sited yet inside Visual Studio environment. The place to do all the other 
-        /// initialization is the Initialize method.
+        /// Initializes a new instance of the <see cref="NinjaCoder_MvvmCross_VSPackagePackage"/> class.
         /// </summary>
         public NinjaCoder_MvvmCross_VSPackagePackage()
         {
@@ -80,13 +68,11 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
 
             NinjaController.SetWorkingDirectory(Path.GetDirectoryName(assemblyPath));
             
-            SettingsService settingsService = new SettingsService();
-            NinjaController.UseSimpleTextTemplatingEngine(settingsService.UseSimpleTextTemplatingEngine);
-
             OleMenuCommandService mcs = this.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
 
             if (mcs == null)
             {
+                TraceService.WriteError("NinjaCoder_MvvmCross_VSPackagePackage::menuCommandService is null");
                 return;
             }
 
@@ -124,6 +110,22 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
             
             menuCommandId = new CommandID(GuidList.GuidNinjaCoderMvvmCrossVsPackageCmdSet, (int)PkgCmdIdList.ClearLogFile);
             menuItem = new MenuCommand(this.OnClearLogFile, menuCommandId);
+            mcs.AddCommand(menuItem);
+
+            menuCommandId = new CommandID(GuidList.GuidNinjaCoderMvvmCrossVsPackageCmdSet, (int)PkgCmdIdList.ViewErrorLog);
+            menuItem = new MenuCommand(this.OnViewErrorLogFile, menuCommandId);
+            mcs.AddCommand(menuItem);
+
+            menuCommandId = new CommandID(GuidList.GuidNinjaCoderMvvmCrossVsPackageCmdSet, (int)PkgCmdIdList.ClearErrorLog);
+            menuItem = new MenuCommand(this.OnClearErrorLogFile, menuCommandId);
+            mcs.AddCommand(menuItem);
+
+            menuCommandId = new CommandID(GuidList.GuidNinjaCoderMvvmCrossVsPackageCmdSet, (int)PkgCmdIdList.XamarinFormsHomePage);
+            menuItem = new MenuCommand(this.OnXamarinFormsHomePage, menuCommandId);
+            mcs.AddCommand(menuItem);
+
+            menuCommandId = new CommandID(GuidList.GuidNinjaCoderMvvmCrossVsPackageCmdSet, (int)PkgCmdIdList.MvvmCrossHomePage);
+            menuItem = new MenuCommand(this.OnMvvmCrossHomePage, menuCommandId);
             mcs.AddCommand(menuItem);
 
             menuCommandId = new CommandID(GuidList.GuidNinjaCoderMvvmCrossVsPackageCmdSet, (int)PkgCmdIdList.About);
@@ -241,6 +243,45 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
         {
             TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::OnClearLogFile");
             NinjaController.ClearLogFile();
+        }
+
+        /// <summary>
+        /// Called when [view error log file].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void OnViewErrorLogFile(object sender, EventArgs e)
+        {
+            TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::OnViewErrorLogFile");
+            NinjaController.ViewErrorLogFile();
+        }
+
+        /// <summary>
+        /// Called when [clear error log file].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void OnClearErrorLogFile(object sender, EventArgs e)
+        {
+            TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::OnClearErrorLogFile");
+            NinjaController.ClearErrorLogFile();
+        }
+
+        /// <summary>
+        /// Called when [MVVM cross home page].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void OnMvvmCrossHomePage(object sender, EventArgs e)
+        {
+            TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::OnMvvmCrossHomePage");
+            NinjaController.MvvmCrossHomePage();
+        }
+
+        private void OnXamarinFormsHomePage(object sender, EventArgs e)
+        {
+            TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::OnXamarinFormsHomePage");
+            NinjaController.XamarinFormsHomePage();
         }
     }
 }

@@ -5,8 +5,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services.Interfaces
 {
-    using Microsoft.VisualStudio.TextTemplating;
-
     using NinjaCoder.MvvmCross.Entities;
     using Scorchio.VisualStudio.Entities;
 
@@ -24,7 +22,12 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Clears the log file.
         /// </summary>
         void ClearLogFile();
-        
+
+        /// <summary>
+        /// Views the error log file.
+        /// </summary>
+        void ViewErrorLogFile();
+
         /// <summary>
         /// Gets the application framework.
         /// </summary>
@@ -55,9 +58,18 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         void SetWorkingDirectory(string path);
 
         /// <summary>
-        /// Sets the text templating engine host.
+        /// Clears the error log file.
         /// </summary>
-        /// <param name="useSimpleTextTemplatingEngine">if set to <c>true</c> [use simple text templating engine].</param>
-        void UseSimpleTextTemplatingEngine(bool useSimpleTextTemplatingEngine);
+        void ClearErrorLogFile();
+
+        /// <summary>
+        /// Shows the MVVM cross home page.
+        /// </summary>
+        void ShowMvvmCrossHomePage();
+
+        /// <summary>
+        /// Shows the xamarin forms home page.
+        /// </summary>
+        void ShowXamarinFormsHomePage();
     }
 }

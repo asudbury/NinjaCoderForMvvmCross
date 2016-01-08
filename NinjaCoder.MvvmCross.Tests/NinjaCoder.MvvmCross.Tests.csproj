@@ -66,7 +66,6 @@
     <Compile Include="Controllers\TestPluginsController.cs" />
     <Compile Include="Controllers\TestProjectsController.cs" />
     <Compile Include="Factories\TestCodeConfigFactory.cs" />
-    <Compile Include="Factories\TestCodeSnippetFactory.cs" />
     <Compile Include="Factories\TestMockingServiceFactory.cs" />
     <Compile Include="Factories\GenerateProjectTemplatesXml.cs" />
     <Compile Include="Factories\TestTestingServiceFactory.cs" />
@@ -80,11 +79,8 @@
     <Compile Include="Mocks\MockPathBase.cs" />
     <Compile Include="Services\TestApplicationService.cs" />
     <Compile Include="Services\TestCodeConfigService.cs" />
-    <Compile Include="Services\TestPluginService.cs" />
     <Compile Include="Services\TestNugetService.cs" />
-    <Compile Include="Services\TestPluginsService.cs" />
     <Compile Include="Services\TestProjectsService.cs" />
-    <Compile Include="Services\TestSnippetService.cs" />
     <Compile Include="Services\TestZipperService.cs" />
     <Compile Include="Translators\TestCodeConfigTranslator.cs" />
     <Compile Include="Translators\TestCodeSnippetTranslator.cs" />

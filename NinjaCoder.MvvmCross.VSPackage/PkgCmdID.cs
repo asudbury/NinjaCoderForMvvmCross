@@ -8,7 +8,7 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
     /// <summary>
     /// Defines the PkgCmdIdList type.
     /// </summary>
-    static class PkgCmdIdList
+    internal static class PkgCmdIdList
     {
         /// <summary>
         /// The add projects.
@@ -56,8 +56,28 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
         public const uint ClearLogFile = 0x108;
 
         /// <summary>
+        /// The view error log.
+        /// </summary>
+        public const uint ViewErrorLog = 0x109;
+
+        /// <summary>
+        /// The clear error log.
+        /// </summary>
+        public const uint ClearErrorLog = 0x110;
+
+        /// <summary>
+        /// The xamarin forms home page.
+        /// </summary>
+        public const uint XamarinFormsHomePage = 0x111;
+
+        /// <summary>
+        /// The MVVM cross home page.
+        /// </summary>
+        public const uint MvvmCrossHomePage = 0x112;
+
+        /// <summary>
         /// The about.
         /// </summary>
-        public const uint About = 0x109;
+        public const uint About = 0x113;
     }
 }
