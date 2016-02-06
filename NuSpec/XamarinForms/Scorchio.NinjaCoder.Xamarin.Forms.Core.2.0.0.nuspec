@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Scorchio.NinjaCoder.Xamarin.Forms.Core</id>
-        <version>1.0.6-beta1</version>
+        <version>2.0.0</version>
         <authors>Adrian Sudbury</authors>
             <owners>Scorchio Limited</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>

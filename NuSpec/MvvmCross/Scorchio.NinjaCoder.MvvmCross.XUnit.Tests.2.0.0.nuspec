@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-        <id>Scorchio.NinjaCoder.MvvmCross.MSTests.Tests</id>
-        <version>1.0.3-beta2</version>
+        <id>Scorchio.NinjaCoder.MvvmCross.XUnit.Tests</id>
+        <version>2.0.0</version>
         <authors>Adrian Sudbury</authors>
         <owners>Scorchio Limited</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -11,6 +11,6 @@
     <files>
         <file src="TestContent\Mocks\MockDispatcher.cs.pp" target="content\net45\Mocks\MockDispatcher.cs.pp" />
         <file src="TestContent\TestTrace.cs.pp" target="content\net45\TestTrace.cs.pp" />
-        <file src="TestContent\MSTestsBaseTest.cs.pp" target="content\net45\BaseTest.cs.pp" />
+        <file src="TestContent\XUnitBaseTest.cs.pp" target="content\net45\BaseTest.cs.pp" />
     </files>
 </package> 
