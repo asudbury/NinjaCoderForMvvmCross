@@ -19,6 +19,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     using System.IO;
     using System.IO.Abstractions;
     using System.Reflection;
+    using System.Windows;
     using System.Xml.Linq;
     using TinyIoC;
     using Translators;
@@ -114,14 +115,25 @@ namespace NinjaCoder.MvvmCross.Controllers
         }
 
         /// <summary>
-        /// Runs the customer renderer controller.
+        /// Runs the custom renderer controller.
         /// </summary>
         /// <param name="dte2">The dte2.</param>
-        public static void RunCustomerRendererController(DTE2 dte2 = null)
+        public static void RunCustomRendererController(DTE2 dte2 = null)
         {
             TraceService.WriteLine("NinjaController::RunCustomerRendererController");
 
             ResolveController<CustomRendererController>(dte2)
+                .Run();
+        }
+
+        /// <summary>
+        /// Runs the forms effects controller.
+        /// </summary>
+        public static void RunFormsEffectsController(DTE2 dte2 = null)
+        {
+            TraceService.WriteLine("NinjaController::RunFormsEffectsController");
+
+            ResolveController<EffectsController>(dte2)
                 .Run();
         }
 

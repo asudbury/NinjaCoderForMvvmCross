@@ -5,14 +5,11 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
+    using Forms;
     using Foundation;
     using UIKit;
-
     using Xamarin.Forms;
-
-	using $rootnamespace$.Forms;
-		
-	using Xamarin.Forms.Platform.iOS;
+    using Xamarin.Forms.Platform.iOS;
 
     /// <summary>
     /// The UIApplicationDelegate for the application. This class is responsible for launching the 

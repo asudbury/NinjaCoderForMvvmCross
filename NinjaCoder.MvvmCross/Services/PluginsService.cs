@@ -24,25 +24,14 @@ namespace NinjaCoder.MvvmCross.Services
         private readonly IVisualStudioService visualStudioService;
 
         /// <summary>
-        /// The nuget service.
-        /// </summary>
-        private readonly INugetService nugetService;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="PluginsService" /> class.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
-        /// <param name="settingsService">The settings service.</param>
-        /// <param name="nugetService">The nuget service.</param>
-        public PluginsService(
-            IVisualStudioService visualStudioService,
-            ISettingsService settingsService,
-            INugetService nugetService)
+        public PluginsService(IVisualStudioService visualStudioService)
         {
             TraceService.WriteLine("PluginsService::Constructor");
 
             this.visualStudioService = visualStudioService;
-            this.nugetService = nugetService;
         }
 
         /// <summary>
@@ -55,24 +44,13 @@ namespace NinjaCoder.MvvmCross.Services
             IEnumerable<Plugin> plugins, 
             bool usePreRelease)
         {
+            TraceService.WriteLine("PluginsService::GetNugetCommands");
+
             IEnumerable<Plugin> pluginsArray = plugins as Plugin[] ?? plugins.ToArray();
 
             return pluginsArray.Select(plugin => plugin.GetNugetCommandStrings(
                 this.visualStudioService,
                 usePreRelease)).ToList();
-        }
-
-        /// <summary>
-        /// Gets the nuget messages.
-        /// </summary>
-        /// <param name="plugins">The plugins.</param>
-        /// <returns></returns>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public IEnumerable<string> GetNugetMessages(IEnumerable<Plugin> plugins)
-        {
-            IEnumerable<Plugin> pluginsArray = plugins as Plugin[] ?? plugins.ToArray();
-
-            return pluginsArray.Select(plugin => plugin.GetNugetCommandMessages(this.visualStudioService)).ToList();
         }
 
         /// <summary>
@@ -82,16 +60,20 @@ namespace NinjaCoder.MvvmCross.Services
         /// <returns></returns>
         public IEnumerable<StudioCommand> GetPostNugetCommands(IEnumerable<Plugin> plugins)
         {
+            TraceService.WriteLine("PluginsService::GetPostNugetCommands");
+
             List<StudioCommand> commands = new List<StudioCommand>();
 
-            List<Plugin> requiredPlugins = plugins.ToList();
-
-            if (requiredPlugins.Any())
+            if (plugins != null)
             {
-                foreach (Plugin requiredPlugin in requiredPlugins
-                    .Where(requiredPlugin => requiredPlugin.Commands.Any()))
+                List<Plugin> requiredPlugins = plugins.ToList();
+
+                if (requiredPlugins.Any())
                 {
-                    commands.AddRange(requiredPlugin.Commands);
+                    foreach (Plugin requiredPlugin in requiredPlugins.Where(requiredPlugin => requiredPlugin.Commands.Any()))
+                    {
+                        commands.AddRange(requiredPlugin.Commands);
+                    }
                 }
             }
 
@@ -105,16 +87,21 @@ namespace NinjaCoder.MvvmCross.Services
         /// <returns></returns>
         public IEnumerable<FileOperation> GetPostNugetFileOperations(IEnumerable<Plugin> plugins)
         {
+            TraceService.WriteLine("PluginsService::GetPostNugetFileOperations");
+
             List<FileOperation> fileOperations = new List<FileOperation>();
 
-            List<Plugin> requiredPlugins = plugins.ToList();
+            if (plugins != null)
+            { 
+                List<Plugin> requiredPlugins = plugins.ToList();
 
-            if (requiredPlugins.Any())
-            {
-                foreach (Plugin requiredPlugin in requiredPlugins
-                    .Where(requiredPlugin => requiredPlugin.FileOperations.Any()))
+                if (requiredPlugins.Any())
                 {
-                    fileOperations.AddRange(requiredPlugin.FileOperations);
+                    foreach (Plugin requiredPlugin in requiredPlugins
+                        .Where(requiredPlugin => requiredPlugin.FileOperations.Any()))
+                    {
+                        fileOperations.AddRange(requiredPlugin.FileOperations);
+                    }
                 }
             }
 

@@ -19,14 +19,19 @@ namespace NinjaCoder.MvvmCross.Services
     public class NugetCommandsService : INugetCommandsService
     {
         /// <summary>
-        /// The mvvm cross library.
+        /// The MVVM cross.
         /// </summary>
-        private const string MvvmCrossPackage = "MvvmCross.HotTuna.MvvmCrossLibraries";
+        private const string MvvmCross = "MvvmCross";
 
         /// <summary>
-        /// The MVVM cross package v4.
+        /// The MVVM cross core.
         /// </summary>
-        private const string MvvmCrossPackagev4 = "MvvmCross.Core";
+        private const string MvvmCrossCore = "MvvmCross.Core";
+
+        /// <summary>
+        /// The MVVM cross tests.
+        /// </summary>
+        private const string MvvmCrossTests = "MvvmCross.Tests";
 
         /// <summary>
         /// The scorchio MVVM cross mstest tests.
@@ -49,6 +54,11 @@ namespace NinjaCoder.MvvmCross.Services
         private const string ScorchioXUnitTests = "Scorchio.NinjaCoder.XUnit.Tests";
 
         /// <summary>
+        /// The scorchio MVVM cross core package.
+        /// </summary>
+        private const string ScorchioMvvmCrossCorePackage = "Scorchio.NinjaCoder.MvvmCross.Core";
+
+        /// <summary>
         /// The scorchio MVVM cross.
         /// </summary>
         private const string ScorchioMvvmCrossPackage = "Scorchio.NinjaCoder.MvvmCross";
@@ -57,6 +67,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// The scorchio MVVM cross nunit tests.
         /// </summary>
         private const string ScorchioMvvmCrossNUnitTests = "Scorchio.NinjaCoder.MvvmCross.NUnit.Tests";
+
+        /// <summary>
+        /// The scorchio MVVM cross xunit tests.
+        /// </summary>
+        private const string ScorchioMvvmCrossXUnitTests = "Scorchio.NinjaCoder.MvvmCross.XUnit.Tests";
 
         /// <summary>
         /// The scorchio no framework package
@@ -244,9 +259,10 @@ namespace NinjaCoder.MvvmCross.Services
         {
             TraceService.WriteLine("NugetCommandsService::GetMvvmCrossCoreCommands");
 
-            List<string> commands = new List<string> 
+            List<string> commands = new List<string>
                 {
-                    this.GetMvvmCrossCommand(MvvmCrossPackage)
+                    this.GetMvvmCrossCommand(MvvmCross),
+                    this.GetNinjaCommand(ScorchioMvvmCrossCorePackage, true)
                 };
 
             if (this.settingsService.UseXamarinInsights)
@@ -266,14 +282,22 @@ namespace NinjaCoder.MvvmCross.Services
 
             string testingFrameworkNugetPackage = ScorchioMvvmCrossMsTestTests;
 
-            if (this.settingsService.TestingFramework == TestingConstants.NUnit.Name)
+            switch (this.settingsService.TestingFramework)
             {
-                testingFrameworkNugetPackage = ScorchioMvvmCrossNUnitTests;
+                case TestingConstants.NUnit.Name:
+                    testingFrameworkNugetPackage = ScorchioMvvmCrossNUnitTests;
+                    break;
+
+                case TestingConstants.XUnit.Name:
+                    testingFrameworkNugetPackage = ScorchioMvvmCrossXUnitTests;
+                    break;
             }
 
             List<string> commands = new List<string>
             {
-                this.GetNinjaCommand(testingFrameworkNugetPackage, false)
+                this.GetMvvmCrossCommand(MvvmCrossCore),
+                this.GetMvvmCrossCommand(MvvmCrossTests),
+                this.GetNinjaCommand(testingFrameworkNugetPackage, false),
             };
 
             IEnumerable<string> testCommands = this.GetTestCommands();
@@ -290,7 +314,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             List<string> commands = new List<string> 
             {
-                this.GetMvvmCrossCommand(MvvmCrossPackage),
+                this.GetMvvmCrossCommand(MvvmCross),
                 this.GetNinjaCommand(ScorchioMvvmCrossPackage, false)
             };
             
@@ -314,7 +338,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             List<string> commands = new List<string>
             {
-                this.GetMvvmCrossCommand(MvvmCrossPackage),
+                this.GetMvvmCrossCommand(MvvmCross),
                 this.GetNinjaCommand(ScorchioMvvmCrossPackage, false)
             };
             
@@ -338,8 +362,10 @@ namespace NinjaCoder.MvvmCross.Services
         {
             List<string> commands = new List<string> 
             {
-                this.GetMvvmCrossCommand(MvvmCrossPackage)
+                this.GetMvvmCrossCommand(MvvmCross)
             };
+
+            commands.Add(this.GetNinjaCommand(ScorchioMvvmCrossPackage, true));
 
             if (this.settingsService.UseXamarinInsights)
             {
@@ -356,7 +382,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             List<string> commands = new List<string> 
             {
-                this.GetMvvmCrossCommand(MvvmCrossPackage)
+                this.GetMvvmCrossCommand(MvvmCross)
             };
 
             if (this.settingsService.UseXamarinInsights)
@@ -374,7 +400,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             List<string> commands = new List<string> 
             {
-                this.GetMvvmCrossCommand(MvvmCrossPackage),
+                this.GetMvvmCrossCommand(MvvmCross),
                 this.GetNinjaCommand(ScorchioMvvmCrossWpfPackage, true)
             };
 
@@ -620,9 +646,6 @@ namespace NinjaCoder.MvvmCross.Services
         {
             if (this.settingsService.UsePreReleaseMvvmCrossNugetPackages)
             {
-                //// temp code for Mvx 4.0 testing.
-                ////command = MvvmCrossPackagev4;
-
                 command += Settings.NugetIncludePreRelease;
             }
 

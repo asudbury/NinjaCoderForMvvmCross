@@ -5,11 +5,10 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
+    using MvvmCross.Core.ViewModels;
+    using MvvmCross.Platform;
+    using MvvmCross.Wpf.Views;
     using System;
-
-    using Cirrious.CrossCore;
-    using Cirrious.MvvmCross.ViewModels;
-    using Cirrious.MvvmCross.Wpf.Views;
 
     /// <summary>
     /// Interaction logic for App.xaml
@@ -26,9 +25,9 @@ namespace $rootnamespace$
         /// </summary>
         private void DoSetup()
         {
-            MvxSimpleWpfViewPresenter presenter = new MvxSimpleWpfViewPresenter(MainWindow);
+            MvxSimpleWpfViewPresenter presenter = new MvxSimpleWpfViewPresenter(this.MainWindow);
 
-            Setup setup = new Setup(Dispatcher, presenter);
+            Setup setup = new Setup(this.Dispatcher, presenter);
             setup.Initialize();
 
             IMvxAppStart start = Mvx.Resolve<IMvxAppStart>();
@@ -50,5 +49,5 @@ namespace $rootnamespace$
 
             base.OnActivated(e);
         }
-	}
+    }
 }

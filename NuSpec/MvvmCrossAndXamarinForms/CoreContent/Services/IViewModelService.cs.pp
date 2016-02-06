@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$.Services
 {
-    using Cirrious.MvvmCross.ViewModels;
+    using MvvmCross.Core.ViewModels;
 
     /// <summary>
     ///  Defines the IViewModelService type.

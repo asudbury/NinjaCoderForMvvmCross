@@ -17,14 +17,17 @@
             <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenu"/>
       </Group>
       
-        <Group guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup3" priority="0x0000">
+      <Group guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup3" priority="0x0000">
             <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenu"/>
-        </Group>
+      </Group>
         
       <Group guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup4" priority="0x0000">
             <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenu"/>
       </Group>
-    
+
+        <Group guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup5" priority="0x0000">
+            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenu"/>
+        </Group>
     </Groups>
 
       <Menus>
@@ -35,100 +38,126 @@
               </Strings>
           </Menu>
       </Menus>
+      
     <Buttons>
       <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="AddProjects" priority="0x0100" type="Button">
         <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup" />
+        <Icon guid="guidImages" id="bmpAddProjects"/>
         <Strings>
           <ButtonText>Add Projects</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="AddViewModelsAndViews" priority="0x0100" type="Button">
         <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup" />
-        <Strings>
+          <Icon guid="guidImages2" id="bmpAddViews"/>
+          <Strings>
           <ButtonText>Add View Models and View</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="AddMvvmCrossPlugins" priority="0x0100" type="Button">
         <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup" />
+        <Icon guid="guidImages2" id="bmpMvx"/>
         <Strings>
           <ButtonText>Add MvvmCross Plugins</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="AddNugetPackages" priority="0x0100" type="Button">
         <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup" />
-        <Strings>
+          <Icon guid="guidImages" id="bmpNuget"/>
+          <Strings>
           <ButtonText>Add Nuget Packages</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="AddDependencyService" priority="0x0100" type="Button">
-            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup" />
-            <Strings>
+            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup2" />
+          <Icon guid="guidImages" id="bmpXamarin"/>
+          <Strings>
                 <ButtonText>Add Xamarin Forms Dependency Service</ButtonText>
             </Strings>
       </Button>
       <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="AddCustomerRenderer" priority="0x0100" type="Button">
-            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup" />
-            <Strings>
+            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup2" />
+          <Icon guid="guidImages" id="bmpXamarin"/>
+          <Strings>
                 <ButtonText>Add Xamarin Forms Custom Renderer</ButtonText>
             </Strings>
         </Button>
 
-        <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="Options" priority="0x0100" type="Button">
+        <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="AddEffect" priority="0x0100" type="Button">
             <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup2" />
+            <Icon guid="guidImages" id="bmpXamarin"/>
+            <Strings>
+                <ButtonText>Add Xamarin Forms Effect</ButtonText>
+            </Strings>
+        </Button>
+        
+        <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="Options" priority="0x0100" type="Button">
+            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup3" />
+            <Icon guid="guidImages" id="bmpOptions"/>
             <Strings>
                 <ButtonText>Options</ButtonText>
             </Strings>
         </Button>
+      
         
       <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="ViewLogFile" priority="0x0100" type="Button">
-        <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup3" />
-        <Strings>
-          <ButtonText>View Trace Log</ButtonText>
+        <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup4" />
+          <Icon guid="guidImages2" id="bmpViewLog"/>
+          <Strings>
+            <ButtonText>View Trace Log</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="ClearLogFile" priority="0x0100" type="Button">
-        <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup3" />
-        <Strings>
+        <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup4" />
+          <Icon guid="guidImages2" id="bmpClearLog"/>
+          <Strings>
           <ButtonText>Clear Trace Log</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="ViewErrorLog" priority="0x0100" type="Button">
-            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup3" />
-            <Strings>
+            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup4" />
+          <Icon guid="guidImages2" id="bmpViewLog"/>
+          <Strings>
                 <ButtonText>View Error Log</ButtonText>
             </Strings>
       </Button>
         <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="ClearErrorLog" priority="0x0100" type="Button">
-            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup3" />
+            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup4" />
+            <Icon guid="guidImages2" id="bmpClearLog"/>
             <Strings>
                 <ButtonText>Clear Error Log</ButtonText>
             </Strings>
         </Button>
 
         <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="XamarinFormsHomePage" priority="0x0100" type="Button">
-            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup4" />
+            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup5" />
+            <Icon guid="guidImages" id="bmpWeb"/>
             <Strings>
                 <ButtonText>Xamarin Forms Home Page</ButtonText>
             </Strings>
         </Button>
        
       <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="MvvmCrossHomePage" priority="0x0100" type="Button">
-            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup4" />
-            <Strings>
+            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup5" />
+          <Icon guid="guidImages" id="bmpWeb"/>
+          <Strings>
                 <ButtonText>MvvmCross Home Page</ButtonText>
             </Strings>
       </Button>
         
       <Button guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="About" priority="0x0100" type="Button">
-            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup4" />
-            <Strings>
+            <Parent guid="guidNinjaCoder_MvvmCross_VSPackageCmdSet" id="SubMenuGroup5" />
+          <Icon guid="guidImages" id="bmpHelp"/>
+          <Strings>
                 <ButtonText>About</ButtonText>
             </Strings>
         </Button>
     </Buttons>
     <Bitmaps>
-      <Bitmap guid="guidImages" href="Resources\Images.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows"/>
+      <Bitmap guid="guidImages" href="Resources\Images.png" usedList="bmpOptions, bmpNuget, bmpHelp, bmpWeb, bmpXamarin, bmpAddProjects"/>
+      <Bitmap guid="guidImages2" href="Resources\Images2.png" usedList="bmpClearLog, bmpViewLog, bmpMvx, bmpAddViews, bmpAddPlugins"/>
     </Bitmaps>
+
  </Commands>
   <Symbols>
     <!-- This is the package guid. -->
@@ -143,28 +172,37 @@
       <IDSymbol name="SubMenuGroup2" value="0x1151"/>
       <IDSymbol name="SubMenuGroup3" value="0x1152"/>
       <IDSymbol name="SubMenuGroup4" value="0x1153"/>
+      <IDSymbol name="SubMenuGroup5" value="0x1154"/>
       <IDSymbol name="AddProjects" value="0x0100" />
       <IDSymbol name="AddViewModelsAndViews" value="0x0101" />
       <IDSymbol name="AddMvvmCrossPlugins" value="0x0102" />
       <IDSymbol name="AddNugetPackages" value="0x0103" />
       <IDSymbol name="AddDependencyService" value="0x0104" />
       <IDSymbol name="AddCustomerRenderer" value="0x0105" />
-      <IDSymbol name="Options" value="0x0106" />
-      <IDSymbol name="ViewLogFile" value="0x0107" />
-      <IDSymbol name="ClearLogFile" value="0x0108" />
-      <IDSymbol name="ViewErrorLog" value="0x0109" />
-      <IDSymbol name="ClearErrorLog" value="0x0110" />
-      <IDSymbol name="XamarinFormsHomePage" value="0x0111" />
-      <IDSymbol name="MvvmCrossHomePage" value="0x0112" />
-      <IDSymbol name="About" value="0x0113" />
+      <IDSymbol name="AddEffect" value="0x0106" />
+      <IDSymbol name="Options" value="0x0107" />
+      <IDSymbol name="ViewLogFile" value="0x0108" />
+      <IDSymbol name="ClearLogFile" value="0x0109" />
+      <IDSymbol name="ViewErrorLog" value="0x0110" />
+      <IDSymbol name="ClearErrorLog" value="0x0111" />
+      <IDSymbol name="XamarinFormsHomePage" value="0x0112" />
+      <IDSymbol name="MvvmCrossHomePage" value="0x0113" />
+      <IDSymbol name="About" value="0x0114" />
     </GuidSymbol>
     <GuidSymbol name="guidImages" value="{c9f1bf5c-c682-42c6-9cf1-900ca9f032ef}" >
-      <IDSymbol name="bmpPic1" value="1" />
-      <IDSymbol name="bmpPic2" value="2" />
-      <IDSymbol name="bmpPicSearch" value="3" />
-      <IDSymbol name="bmpPicX" value="4" />
-      <IDSymbol name="bmpPicArrows" value="5" />
-      <IDSymbol name="bmpPicStrikethrough" value="6" />
+      <IDSymbol name="bmpOptions" value="1" />
+      <IDSymbol name="bmpNuget" value="2" />
+      <IDSymbol name="bmpHelp" value="3" />
+      <IDSymbol name="bmpWeb" value="4" />
+      <IDSymbol name="bmpXamarin" value="5" />
+      <IDSymbol name="bmpAddProjects" value="6" />
     </GuidSymbol>
+      <GuidSymbol name="guidImages2" value="{c9f1bf5c-c682-42c6-9cf1-900ca9f032e2}" >
+          <IDSymbol name="bmpClearLog" value="1" />
+          <IDSymbol name="bmpViewLog" value="2" />
+          <IDSymbol name="bmpMvx" value="3" />
+          <IDSymbol name="bmpAddViews" value="4" />
+          <IDSymbol name="bmpAddPlugins" value="5" />
+      </GuidSymbol>
   </Symbols>
 </CommandTable>

@@ -10,6 +10,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
+    using Scorchio.VisualStudio.Services;
     using System.Collections.Generic;
 
     /// <summary>
@@ -98,6 +99,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         private bool useStyleCop;
 
         /// <summary>
+        /// The expand pre release options.
+        /// </summary>
+        private bool expandPreReleaseOptions;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="BuildOptionsViewModel"/> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
@@ -110,6 +116,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             ITestingServiceFactory testingServiceFactory,
             IMockingServiceFactory mockingServiceFactory)
         {
+            TraceService.WriteLine("BuildOptionsViewModel::Constructor");
+
             this.settingsService = settingsService;
             this.messageBoxService = messageBoxService;
             this.testingServiceFactory = testingServiceFactory;
@@ -224,7 +232,16 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             get { return this.useStyleCop; }
             set { this.SetProperty(ref this.useStyleCop, value); }
         }
-        
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [expand pre release options].
+        /// </summary>
+        public bool ExpandPreReleaseOptions
+        {
+            get { return this.expandPreReleaseOptions; }
+            set { this.SetProperty(ref this.expandPreReleaseOptions, value); }
+        }
+
         /// <summary>
         /// Gets the display name.
         /// </summary>
@@ -279,6 +296,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// </summary>
         internal void Init()
         {
+            TraceService.WriteLine("BuildOptionsViewModel::Init");
+
             this.SelectedWindowsPhoneVersion = this.settingsService.WindowsPhoneBuildVersion;
 
             this.TestingFrameworks = this.testingServiceFactory.FrameWorks;
@@ -290,6 +309,13 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             this.UsePreReleaseMvvmCrossNugetPackages = this.settingsService.UsePreReleaseMvvmCrossNugetPackages;
             this.UsePreReleaseXamarinFormsNugetPackages = this.settingsService.UsePreReleaseXamarinFormsNugetPackages;
             this.UsePreReleaseNinjaCoderNugetPackages = this.settingsService.UsePreReleaseNinjaNugetPackages;
+
+            if (this.usePreReleaseMvvmCrossNugetPackages || 
+                this.usePreReleaseNinjaCoderNugetPackages || 
+                this.usePreReleaseXamarinFormsNugetPackages)
+            {
+                this.ExpandPreReleaseOptions = true;
+            }
 
             this.CreatePlatformTestProjects = this.settingsService.CreatePlatformTestProjects;
             this.UseXamarinTestCloud = this.settingsService.UseXamarinTestCloud;

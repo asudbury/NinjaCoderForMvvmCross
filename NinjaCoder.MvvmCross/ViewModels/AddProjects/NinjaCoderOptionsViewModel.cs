@@ -45,6 +45,21 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         private ObservableCollection<SelectableItemViewModel<Plugin>> localPlugins;
 
         /// <summary>
+        /// The display ninja plugins.
+        /// </summary>
+        private bool displayNinjaPlugins;
+
+        /// <summary>
+        /// The display community plugins.
+        /// </summary>
+        private bool displayCommunityPlugins;
+
+        /// <summary>
+        /// The display local plugins.
+        /// </summary>
+        private bool displayLocalPlugins;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="NinjaCoderOptionsViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
@@ -107,22 +122,54 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [display ninja plugins].
+        /// </summary>
+        public bool DisplayNinjaPlugins
+        {
+            get { return this.displayNinjaPlugins; }
+            set { this.SetProperty(ref this.displayNinjaPlugins, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [display community plugins].
+        /// </summary>
+        public bool DisplayCommunityPlugins
+        {
+            get { return this.displayCommunityPlugins; }
+            set { this.SetProperty(ref this.displayCommunityPlugins, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [display local plugins].
+        /// </summary>
+        public bool DisplayLocalPlugins
+        {
+            get { return this.displayLocalPlugins; }
+            set { this.SetProperty(ref this.displayLocalPlugins, value); }
+        }
+        /// <summary>
         /// Called when [initialize].
         /// </summary>
         public override void OnInitialize()
         {
             if (this.NinjaPlugins == null)
             {
-                //// TODO : this code is repeated in the ApplicationOptionsViewModel - refactor!
+                //// TODO : part of this code is repeated in the ApplicationOptionsViewModel - refactor!
 
                 Plugins plugins = this.GetPlugins(this.settingsService.NinjaNugetPackagesUri);
                 this.NinjaPlugins = this.GetCategoryNugetPackages(plugins, string.Empty);
 
+                this.DisplayNinjaPlugins = this.NinjaPlugins.Count > 0;
+
                 plugins = this.GetPlugins(this.settingsService.NinjaCommunityNugetPackagesUri);
                 this.NinjaCommumityPlugins = this.GetCategoryNugetPackages(plugins, string.Empty);
 
+                this.DisplayCommunityPlugins = this.NinjaCommumityPlugins.Count > 0;
+                
                 plugins = this.GetPlugins(this.settingsService.LocalNugetPackagesUri);
                 this.LocalPlugins = this.GetCategoryNugetPackages(plugins, string.Empty);
+
+                this.DisplayLocalPlugins = this.LocalPlugins.Count > 0;
             }
         }
 

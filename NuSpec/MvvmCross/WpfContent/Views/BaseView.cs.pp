@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$.Views
 {
-    using Cirrious.MvvmCross.Wpf.Views;
+    using MvvmCross.Wpf.Views;
 
     /// <summary>
     ///  Defines the BaseView type.

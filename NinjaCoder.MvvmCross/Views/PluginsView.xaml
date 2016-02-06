@@ -9,7 +9,7 @@
                 xmlns:wpf="clr-namespace:Scorchio.Infrastructure.Wpf;assembly=Scorchio.Infrastructure"
                 Title="{DynamicResource NinjaPlugins}"
                 Width="500"
-                Height="655"
+                Height="520"
                 BorderBrush="{DynamicResource AccentColorBrush}"
                 BorderThickness="1"
                 ShowMaxRestoreButton="False"

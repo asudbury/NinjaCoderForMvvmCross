@@ -3,7 +3,6 @@
 //    Defines the PluginExtensions type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Extensions
 {
     using NinjaCoder.MvvmCross.Constants;
@@ -56,38 +55,6 @@ namespace NinjaCoder.MvvmCross.Extensions
                             {
                                 commands += Settings.NugetInstallPackage.Replace("%s", pluginNugetCommand) + " " + projectService.Name + Environment.NewLine;
                             }
-                        }
-                    }
-                }
-            }
-
-            return commands;
-        }
-
-        /// <summary>
-        /// Gets the nuget command messages.
-        /// </summary>
-        /// <param name="instance">The instance.</param>
-        /// <param name="visualStudioService">The visual studio service.</param>
-        /// <returns></returns>
-        internal static string GetNugetCommandMessages(
-            this Plugin instance,
-            IVisualStudioService visualStudioService)
-        {
-            string commands = string.Empty;
-
-            foreach (string platform in instance.Platforms)
-            {
-                IProjectService projectService = visualStudioService.GetProjectServiceBySuffix(platform);
-
-                if (projectService != null)
-                {
-                    foreach (NugetCommand nugetCommand in instance.NugetCommands)
-                    {
-                        if (IsCommandRequired(nugetCommand, platform))
-                        {
-                            commands += nugetCommand.Command + " nuget package added to " + projectService.Name
-                                        + " project.";
                         }
                     }
                 }

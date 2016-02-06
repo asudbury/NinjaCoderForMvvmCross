@@ -5,9 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$.Views
 {
-    using Cirrious.MvvmCross.Touch.Views;
-
     using Foundation;
+    using MvvmCross.iOS.Views;
     using UIKit;
 
     /// <summary>

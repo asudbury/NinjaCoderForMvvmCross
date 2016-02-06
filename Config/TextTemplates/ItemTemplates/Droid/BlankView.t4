@@ -1,0 +1,27 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//    Defines the <#= ClassName #> type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace <#= NameSpace #>
+{
+    using Android.App;
+    using Android.OS;
+
+    /// <summary>
+    /// Defines the <#= ClassName #> type.
+    /// </summary>
+    [Activity(Label = "View for <#= ClassName #>")]
+    public class  <#= ClassName #> : BaseView
+    {
+        /// <summary>
+        /// Called when [create].
+        /// </summary>
+        /// <param name="bundle">The bundle.</param>
+        protected override void OnCreate(Bundle bundle)
+        {
+            base.OnCreate(bundle);
+            this.SetContentView(Resource.Layout.<#= ClassName #>);
+        }
+    }
+}

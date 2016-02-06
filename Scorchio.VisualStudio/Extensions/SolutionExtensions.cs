@@ -313,15 +313,28 @@ namespace Scorchio.VisualStudio.Extensions
 
                 if (project != null)
                 {
-                    string context = project.Name + "  (template=" + info.TemplateName + ") fileName=" + info.FileName;
+                    string context = project.Name + "  (template=" + info.ShortTemplateName + ") fileName=" + info.FileName;
 
                     TraceService.WriteLine(method + context);
 
                     try
                     {
+                        instance.DTE.StatusBar.Text = "Adding Text Template to project " + project.Name;
+
                         if (project.AddTextTemplate(info.ProjectFolder, info.FileName, info.TextOutput) != string.Empty)
                         {
                             messages.Add(info.FileName + " added to " + project.Name + " project (template=" + info.ShortTemplateName + ")");
+                        }
+
+                        if (info.ChildItems != null)
+                        {
+                            foreach (TextTemplateInfo childItem in info.ChildItems)
+                            {
+                                project.AddTextTemplate(
+                                    childItem.ProjectFolder,
+                                    childItem.FileName,
+                                    childItem.TextOutput);
+                            }
                         }
                     }
                     catch (Exception exception)

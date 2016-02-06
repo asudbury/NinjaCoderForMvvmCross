@@ -9,7 +9,6 @@ namespace NinjaCoder.MvvmCross.Factories
     using Interfaces;
     using NinjaCoder.MvvmCross.UserControls.AddViews;
     using NinjaCoder.MvvmCross.ViewModels.AddViews;
-    using Scorchio.Infrastructure.Constants;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Entities;
@@ -22,38 +21,8 @@ namespace NinjaCoder.MvvmCross.Factories
     /// <summary>
     ///  Defines the ViewModelAndViewsFactory type.
     /// </summary>
-    public class ViewModelAndViewsFactory : IViewModelAndViewsFactory
+    public class ViewModelAndViewsFactory : BaseViewFactory, IViewModelAndViewsFactory
     {
-        /// <summary>
-        /// The view model suffix.
-        /// </summary>
-        private const string ViewModelSuffix = "ViewModel";
-
-        /// <summary>
-        /// The blank view type.
-        /// </summary>
-        private const string BlankViewType = "Blank";
-
-        /// <summary>
-        /// The sample data view type.
-        /// </summary>
-        private const string SampleDataViewType = "SampleData";
-
-        /// <summary>
-        /// The web view type.
-        /// </summary>
-        private const string WebViewType = "Web";
-
-        /// <summary>
-        /// The visual studio service.
-        /// </summary>
-        private readonly IVisualStudioService visualStudioService;
-
-        /// <summary>
-        /// The settings service.
-        /// </summary>
-        private readonly ISettingsService settingsService;
-
         /// <summary>
         /// The resolver service.
         /// </summary>
@@ -65,22 +34,39 @@ namespace NinjaCoder.MvvmCross.Factories
         private readonly IRegisterService registerService;
 
         /// <summary>
+        /// The testing framework factory.
+        /// </summary>
+        private readonly ITestingFrameworkFactory testingFrameworkFactory;
+
+        /// <summary>
+        /// The MVVM cross view factory.
+        /// </summary>
+        private readonly IMvvmCrossViewFactory mvvmCrossViewFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ViewModelAndViewsFactory" /> class.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="resolverService">The resolver service.</param>
         /// <param name="registerService">The register service.</param>
+        /// <param name="testingFrameworkFactory">The testing framework factory.</param>
+        /// <param name="mvvmCrossViewFactory">The MVVM cross view factory.</param>
         public ViewModelAndViewsFactory(
             IVisualStudioService visualStudioService,
             ISettingsService settingsService,
             IResolverService resolverService,
-            IRegisterService registerService)
+            IRegisterService registerService,
+            ITestingFrameworkFactory testingFrameworkFactory,
+            IMvvmCrossViewFactory mvvmCrossViewFactory)
+            :base(
+            settingsService, 
+            visualStudioService)
         {
-            this.visualStudioService = visualStudioService;
-            this.settingsService = settingsService;
             this.resolverService = resolverService;
             this.registerService = registerService;
+            this.testingFrameworkFactory = testingFrameworkFactory;
+            this.mvvmCrossViewFactory = mvvmCrossViewFactory;
         }
 
         /// <summary>
@@ -92,24 +78,30 @@ namespace NinjaCoder.MvvmCross.Factories
             {
                 List<ItemTemplateInfo> itemTemplateInfos = new List<ItemTemplateInfo>();
 
-                if (this.visualStudioService.iOSProjectService != null)
+                if (this.VisualStudioService.iOSProjectService != null)
                 {
-                    itemTemplateInfos.Add(this.GetView(ProjectType.iOS.GetDescription(), ProjectSuffix.iOS.GetDescription()));
+                    itemTemplateInfos.Add(
+                        this.GetView(ProjectType.iOS.GetDescription(), ProjectSuffix.iOS.GetDescription()));
                 }
 
-                if (this.visualStudioService.DroidProjectService != null)
+                if (this.VisualStudioService.DroidProjectService != null)
                 {
-                    itemTemplateInfos.Add(this.GetView(ProjectType.Droid.GetDescription(), ProjectSuffix.Droid.GetDescription()));
+                    itemTemplateInfos.Add(
+                        this.GetView(ProjectType.Droid.GetDescription(), ProjectSuffix.Droid.GetDescription()));
                 }
 
-                if (this.visualStudioService.WindowsPhoneProjectService != null)
+                if (this.VisualStudioService.WindowsPhoneProjectService != null)
                 {
-                    itemTemplateInfos.Add(this.GetView(ProjectType.WindowsPhone.GetDescription(), ProjectSuffix.WindowsPhone.GetDescription()));
+                    itemTemplateInfos.Add(
+                        this.GetView(
+                            ProjectType.WindowsPhone.GetDescription(),
+                            ProjectSuffix.WindowsPhone.GetDescription()));
                 }
 
-                if (this.visualStudioService.WpfProjectService != null)
+                if (this.VisualStudioService.WpfProjectService != null)
                 {
-                    itemTemplateInfos.Add(this.GetView(ProjectType.WindowsWpf.GetDescription(), ProjectSuffix.Wpf.GetDescription()));
+                    itemTemplateInfos.Add(
+                        this.GetView(ProjectType.WindowsWpf.GetDescription(), ProjectSuffix.Wpf.GetDescription()));
                 }
 
                 return itemTemplateInfos;
@@ -122,9 +114,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="friendlyName">Name of the friendly.</param>
         /// <param name="projectSuffix">The project suffix.</param>
         /// <returns></returns>
-        public ItemTemplateInfo GetView(
-            string friendlyName,
-            string projectSuffix)
+        public ItemTemplateInfo GetView(string friendlyName, string projectSuffix)
         {
             return new ItemTemplateInfo
                        {
@@ -141,124 +131,20 @@ namespace NinjaCoder.MvvmCross.Factories
         public IEnumerable<string> GetAvailableViewTypes()
         {
             return new List<string>
-            {
-                BlankViewType, 
-                SampleDataViewType, 
-                WebViewType
-            };
+                       {
+                           ViewType.Blank.GetDescription(),
+                           ViewType.SampleData.GetDescription(),
+                           ViewType.Web.GetDescription()
+                       };
         }
 
         /// <summary>
-        /// Gets the required templates.
+        /// Gets the available MVVM crossi os sample data view types.
         /// </summary>
-        /// <param name="view">The view.</param>
-        /// <param name="viewModelName">Name of the view model.</param>
-        /// <param name="requiredUIViews">The required UI views.</param>
-        /// <param name="unitTestsRequired">if set to <c>true</c> [unit tests required].</param>
-        /// <returns>
-        /// The required template.
-        /// </returns>
-        public IEnumerable<ItemTemplateInfo> GetRequiredViewModelAndViews(
-            View view,
-            string viewModelName,
-            IEnumerable<ItemTemplateInfo> requiredUIViews,
-            bool unitTestsRequired)
+        /// <returns></returns>
+        public IEnumerable<string> GetAvailableMvvmCrossiOSSampleDataViewTypes()
         {
-            TraceService.WriteLine("ViewModelAndViewsFactory::GetRequiredViewModelAndViews");
-
-            List<ItemTemplateInfo> itemTemplateInfos = new List<ItemTemplateInfo>();
-
-            //// first add the view model
-
-            if (view.Framework == FrameworkType.MvvmCross.GetDescription())
-            {
-                string templateName = this.GetViewModelTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), view.PageType);
-
-                if (templateName.EndsWith(Constants.Settings.T4Suffix) == false)
-                {
-                    ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
-                    {
-                        ProjectSuffix = ProjectSuffix.Core.GetDescription(),
-                        TemplateName = templateName,
-                        FileName = viewModelName + ".cs"
-                    };
-
-                    itemTemplateInfos.Add(viewModelTemplateInfo);
-                }
-
-                string viewName = viewModelName.Remove(viewModelName.Length - ViewModelSuffix.Length) + "View.cs";
-
-                foreach (ItemTemplateInfo itemTemplateInfo in requiredUIViews)
-                {
-                    string viewTemplateName = this.GetViewTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework),
-                                                                itemTemplateInfo.ProjectSuffix,
-                                                                 view.PageType);
-
-                     if (viewTemplateName.EndsWith(Constants.Settings.T4Suffix))
-                     {
-                        itemTemplateInfo.TemplateName = viewTemplateName;
-
-                        itemTemplateInfo.FileName = viewName;
-
-                        itemTemplateInfos.Add(itemTemplateInfo);
-                    }
-                }
-            }
-            else if (view.Framework == FrameworkType.XamarinForms.GetDescription())
-            {
-                string templateName = this.GetViewModelTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), view.PageType);
-
-                if (templateName.EndsWith(Constants.Settings.T4Suffix) == false)
-                {
-                    ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
-                    {
-                        ProjectSuffix = ProjectSuffix.Core.GetDescription(),
-                        TemplateName = templateName,
-                        FileName = viewModelName + ".cs",
-                    };
-
-                    itemTemplateInfos.Add(viewModelTemplateInfo);
-                }
-
-                string viewTemplateName = this.GetViewTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), string.Empty, view.PageType);
-
-                if (viewTemplateName.EndsWith(Constants.Settings.T4Suffix) == false)
-                {
-                    string viewName = viewModelName.Remove(viewModelName.Length - ViewModelSuffix.Length) + "View.cs";
-
-                    ItemTemplateInfo viewTemplateInfo = new ItemTemplateInfo
-                    {
-                        ProjectSuffix = ProjectSuffix.XamarinForms.GetDescription(),
-                        TemplateName = this.GetViewTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework),
-                        string.Empty,
-                        view.PageType),
-                        FileName = viewName,
-                    };
-
-                    itemTemplateInfos.Add(viewTemplateInfo);
-                }
-            }
-
-            //// do we require a Test ViewModel?
-
-            if (unitTestsRequired)
-            {
-                string templateName = this.GetTestViewModelTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), view.PageType);
-
-                if (templateName.EndsWith(Constants.Settings.T4Suffix) == false)
-                {
-                    ItemTemplateInfo viewModelTemplateInfo = new ItemTemplateInfo
-                                            {
-                                                ProjectSuffix = ProjectSuffix.CoreTests.GetDescription(),
-                                                TemplateName = templateName,
-                                                FileName = "Test" + viewModelName + ".cs",
-                                            };
-
-                    itemTemplateInfos.Add(viewModelTemplateInfo);
-                }
-            }
-
-            return itemTemplateInfos;
+            return new List<string> { "HardCoded", "Xib", "StoryBoard" };
         }
 
         /// <summary>
@@ -279,137 +165,25 @@ namespace NinjaCoder.MvvmCross.Factories
 
             List<TextTemplateInfo> textTemplateInfos = new List<TextTemplateInfo>();
 
-            if (view.Framework == FrameworkType.MvvmCross.GetDescription() ||
-                view.Framework == FrameworkType.XamarinForms.GetDescription())
+            if (view.Framework == FrameworkType.MvvmCross.GetDescription()
+                || view.Framework == FrameworkType.XamarinForms.GetDescription())
             {
-                string templateName = this.GetViewModelTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), view.PageType);
-
-                if (templateName.EndsWith(Constants.Settings.T4Suffix))
-                {
-                    Dictionary<string, string> tokens = new Dictionary<string, string>
-                        {
-                            { "ClassName", viewModelName },
-                            { "NameSpace",  this.visualStudioService.CoreProjectService.Name + ".ViewModels" }
-                        };
-
-                    TextTemplateInfo textTemplateInfo = new TextTemplateInfo
-                                                            {
-                                                                ProjectSuffix = ProjectSuffix.Core.GetDescription(),
-                                                                FileName = viewModelName + ".cs",
-                                                                ProjectFolder = "ViewModels",
-                                                                Tokens = tokens,
-                                                                ShortTemplateName = templateName,
-                                                                TemplateName = this.settingsService.ItemTemplatesDirectory + "\\ViewModels\\" + templateName
-                                                            };
-
-                    textTemplateInfo.TextOutput = this.visualStudioService.GetTextTransformationService().Transform(
-                                                                textTemplateInfo.TemplateName,
-                                                                textTemplateInfo.Tokens);
-
-                    textTemplateInfos.Add(textTemplateInfo);
-                }
+                textTemplateInfos.Add(this.GetViewModelTextTemplateInfo(view, viewModelName));
 
                 if (view.Framework == FrameworkType.MvvmCross.GetDescription())
                 {
-                    string viewName = viewModelName.Remove(viewModelName.Length - ViewModelSuffix.Length) + "View.cs";
-
                     foreach (ItemTemplateInfo itemTemplateInfo in requiredUIViews)
                     {
-                        string viewTemplateName = this.GetViewTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework),
-                                                        itemTemplateInfo.ProjectSuffix,
-                                                        view.PageType);
+                        TextTemplateInfo textTemplateInfo = this.mvvmCrossViewFactory.GetMvvmCrossView(viewModelName, itemTemplateInfo, view);
 
-                        if (templateName.EndsWith(Constants.Settings.T4Suffix))
-                        {
-                            Dictionary<string, string> tokens = new Dictionary<string, string>
-                            {
-                                { "ClassName", viewName },
-                                { "NameSpace",  this.visualStudioService.GetProjectServiceBySuffix(itemTemplateInfo.ProjectSuffix).Name + ".Views"}
-                            };
-                        
-                            TextTemplateInfo textTemplateInfo = new TextTemplateInfo
-                            {
-                                ProjectSuffix = itemTemplateInfo.ProjectSuffix,
-                                FileName = viewName + ".cs",
-                                ProjectFolder = "Views",
-                                Tokens = tokens,
-                                ShortTemplateName = viewTemplateName,
-                                TemplateName = this.settingsService.ItemTemplatesDirectory + "\\" + viewTemplateName
-                            };
-
-                            textTemplateInfo.TextOutput = this.visualStudioService.GetTextTransformationService().Transform(
-                                                                        textTemplateInfo.TemplateName,
-                                                                        textTemplateInfo.Tokens);
-
-                            textTemplateInfos.Add(textTemplateInfo);
-                        }
+                        textTemplateInfos.Add(textTemplateInfo);
                     }
                 }
                 else if (view.Framework == FrameworkType.XamarinForms.GetDescription())
                 {
-                    string viewTemplateName = this.GetViewTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), string.Empty, view.PageType);
+                    TextTemplateInfo textTemplateInfo = this.GetXamarinFormsView(viewModelName, view);
 
-                    if (viewTemplateName.EndsWith(Constants.Settings.T4Suffix))
-                    {
-                        string viewName = viewModelName.Remove(viewModelName.Length - ViewModelSuffix.Length) + "View";
-                        string pageType = view.PageType.Replace(" ", string.Empty);
-
-                        Dictionary<string, string> tokens = new Dictionary<string, string>
-                            {
-                                { "ClassName", viewName },
-                                { "CoreProjectName", this.visualStudioService.CoreProjectService.Name },
-                                { "NameSpace",  this.visualStudioService.XamarinFormsProjectService.Name + ".Views" },
-                                { "PageType", pageType },
-                                { "Content", this.GetFormsViewContent(view)}
-                            };
-                        
-                       TextTemplateInfo textTemplateInfo = new TextTemplateInfo
-                       {
-                           ProjectSuffix = ProjectSuffix.XamarinForms.GetDescription(),
-                           FileName = viewName + ".xaml",
-                           ProjectFolder = "Views",
-                           Tokens = tokens,
-                           ShortTemplateName = viewTemplateName,
-                           TemplateName = this.settingsService.ItemTemplatesDirectory + "\\XamarinForms\\" + viewTemplateName
-                       };
-
-                       textTemplateInfo.TextOutput = this.visualStudioService.GetTextTransformationService().Transform(
-                                                                   textTemplateInfo.TemplateName,
-                                                                   textTemplateInfo.Tokens);
-
-                       textTemplateInfos.Add(textTemplateInfo);
-
-                       //// we also need to add a build action for the xaml file!
-
-                        textTemplateInfo.FileOperations = new List<FileOperation>
-                                                              {
-                                                                  new FileOperation
-                                                                      {
-                                                                          PlatForm = ProjectSuffix.XamarinForms.GetDescription(),
-                                                                          CommandType = "Properties",
-                                                                          Directory = "Views",
-                                                                          File = textTemplateInfo.FileName,
-                                                                          From = "BuildAction",
-                                                                          To = "3"
-                                                                      }
-                                                              };
-                        
-                        TextTemplateInfo childtextTemplateInfo = new TextTemplateInfo
-                       {
-                           ProjectSuffix = ProjectSuffix.XamarinForms.GetDescription(),
-                           FileName = viewName + ".xaml.cs",
-                           ProjectFolder = "Views",
-                           Tokens = tokens,
-                           ShortTemplateName = viewTemplateName,
-                           TemplateName = this.settingsService.ItemTemplatesDirectory + "\\" + "BlankViewCodeBehind.t4"
-                       };
-
-                       childtextTemplateInfo.TextOutput = this.visualStudioService.GetTextTransformationService().Transform(
-                                                                   textTemplateInfo.TemplateName,
-                                                                   textTemplateInfo.Tokens);
-
-                        textTemplateInfo.ChildItem = childtextTemplateInfo;
-                    }
+                    textTemplateInfos.Add(textTemplateInfo);
                 }
             }
 
@@ -417,40 +191,116 @@ namespace NinjaCoder.MvvmCross.Factories
 
             if (unitTestsRequired)
             {
-                string templateName = this.GetTestViewModelTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), view.PageType);
-
-                if (templateName.EndsWith(Constants.Settings.T4Suffix))
-                {
-                    Dictionary<string, string> tokens = new Dictionary<string, string>
-                        {
-                            { "ClassName", "Test" + viewModelName },
-                            { "NameSpace",  this.visualStudioService.CoreTestsProjectService.Name + ".ViewModels" },
-                            { "TestingLibrary",  this.GetTestingLibrary() },
-                            { "TestingClassAttribute",  this.GetTestingClassAttribute() },
-                            { "TestingMethodAttribute",  this.GetTestingMethodAttribute() },
-                            { "TestableObject",  viewModelName },
-                            { "TestableObjectInstance",  viewModelName.LowerCaseFirstCharacter() }
-                        };
-
-                    TextTemplateInfo textTemplateInfo = new TextTemplateInfo
-                    {
-                        ProjectSuffix = ProjectSuffix.CoreTests.GetDescription(),
-                        FileName = "Test" + viewModelName + ".cs",
-                        ProjectFolder = "ViewModels",
-                        Tokens = tokens,
-                        ShortTemplateName = templateName,
-                        TemplateName = this.settingsService.ItemTemplatesDirectory + "\\TestViewModels\\" + templateName
-                    };
-
-                    textTemplateInfo.TextOutput = this.visualStudioService.GetTextTransformationService().Transform(
-                                                                textTemplateInfo.TemplateName,
-                                                                textTemplateInfo.Tokens);
-
-                    textTemplateInfos.Add(textTemplateInfo);
-                }
+                textTemplateInfos.Add(this.GetUnitTestingItemTemplate(view, viewModelName));
             }
 
             return textTemplateInfos;
+        }
+
+        /// <summary>
+        /// Gets the xamarin forms view.
+        /// </summary>
+        /// <param name="viewModelName">Name of the view model.</param>
+        /// <param name="view">The view.</param>
+        /// <returns></returns>
+        internal TextTemplateInfo GetXamarinFormsView(string viewModelName, View view)
+        {
+            string viewTemplateName =
+                this.GetViewTemplate(
+                    FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework),
+                    string.Empty,
+                    view.PageType);
+
+            string viewName = viewModelName.Remove(viewModelName.Length - ViewModelSuffix.Length) + "View";
+            string pageType = view.PageType.Replace(" ", string.Empty);
+
+            Dictionary<string, string> tokens = new Dictionary<string, string>
+                                                    {
+                                                        { "ClassName", viewName },
+                                                        {
+                                                            "CoreProjectName",
+                                                            this.VisualStudioService.CoreProjectService.Name
+                                                        },
+                                                        {
+                                                            "NameSpace",
+                                                            this.VisualStudioService
+                                                                .XamarinFormsProjectService.Name+ ".Views"
+                                                        },
+                                                        { "PageType", pageType },
+                                                        {
+                                                            "Content",
+                                                            this.GetFormsViewContent(view)
+                                                        }
+                                                    };
+
+            TextTemplateInfo textTemplateInfo = new TextTemplateInfo
+                {
+                    ProjectSuffix = ProjectSuffix.XamarinForms.GetDescription(),
+                    ProjectFolder = "Views",
+                    Tokens = tokens,
+                    ShortTemplateName = viewTemplateName,
+                    TemplateName = this.SettingsService.ItemTemplatesDirectory + "\\XamarinForms\\" + viewTemplateName
+                };
+
+            TextTransformation textTransformation = this.GetTextTransformationService().Transform(textTemplateInfo.TemplateName, textTemplateInfo.Tokens);
+
+            textTemplateInfo.TextOutput = textTransformation.Output;
+            textTemplateInfo.FileName = viewName + "." + textTransformation.FileExtension;
+
+            //// we also need to add a build action for the xaml file!
+
+            textTemplateInfo.FileOperations.Add(
+                this.GetEmbeddedResourceFileOperation(
+                    ProjectSuffix.XamarinForms.GetDescription(),
+                    textTemplateInfo.FileName));
+
+            //// add code behind file
+
+            TextTemplateInfo childTextTemplateInfo =
+                this.GetCodeBehindTextTemplateInfo(
+                    ProjectSuffix.XamarinForms.GetDescription(),
+                    viewName,
+                    viewTemplateName,
+                    tokens);
+
+            textTemplateInfo.ChildItems.Add(childTextTemplateInfo);
+
+            return textTemplateInfo;
+        }
+
+        /// <summary>
+        /// Gets the MVVM cross view.
+        /// </summary>
+        /// <param name="itemTemplateInfo">The item template information.</param>
+        /// <param name="tokens">The tokens.</param>
+        /// <param name="viewTemplateName">Name of the view template.</param>
+        /// <param name="viewName">Name of the view.</param>
+        /// <returns></returns>
+        private TextTemplateInfo GetMvvmCrossViewxx(
+            ItemTemplateInfo itemTemplateInfo,
+            Dictionary<string, string> tokens,
+            string viewTemplateName,
+            string viewName)
+        {
+            TextTemplateInfo textTemplateInfo = new TextTemplateInfo
+            {
+                ProjectSuffix = itemTemplateInfo.ProjectSuffix,
+                ProjectFolder = "Views",
+                Tokens = tokens,
+                ShortTemplateName = viewTemplateName,
+                TemplateName =this.SettingsService.ItemTemplatesDirectory + "\\"  + itemTemplateInfo.ProjectSuffix.Substring(1) + "\\" + viewTemplateName
+            };
+
+            TextTransformation textTransformation = this.GetTextTransformationService()
+                .Transform(textTemplateInfo.TemplateName, textTemplateInfo.Tokens);
+
+            textTemplateInfo.TextOutput = textTransformation.Output;
+            textTemplateInfo.FileName = viewName + "." + textTransformation.FileExtension;
+
+            textTemplateInfo.FileOperations.Add(
+                this.GetEmbeddedResourceFileOperation(textTemplateInfo.ProjectSuffix, textTemplateInfo.FileName));
+
+            return textTemplateInfo;
         }
 
         /// <summary>
@@ -495,6 +345,100 @@ namespace NinjaCoder.MvvmCross.Factories
         }
 
         /// <summary>
+        /// Gets the view model text template information.
+        /// </summary>
+        /// <param name="view">The view.</param>
+        /// <param name="viewModelName">Name of the view model.</param>
+        /// <returns></returns>
+        internal TextTemplateInfo GetViewModelTextTemplateInfo(
+            View view, 
+            string viewModelName)
+        {
+            TextTemplateInfo textTemplateInfo = new TextTemplateInfo();
+
+            string templateName = this.GetViewModelTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), view.PageType);
+
+            Dictionary<string, string> tokens = new Dictionary<string, string>
+                                                    {
+                                                        { "ClassName", 
+                                                            viewModelName 
+                                                        },
+                                                        {
+                                                            "NameSpace", 
+                                                            this.VisualStudioService.CoreProjectService.Name+ ".ViewModels"
+                                                        }
+                                                    };
+
+            textTemplateInfo = new TextTemplateInfo
+                                                    {
+                                                        ProjectSuffix = ProjectSuffix.Core.GetDescription(),
+                                                        FileName = viewModelName + ".cs",
+                                                        ProjectFolder = "ViewModels",
+                                                        Tokens = tokens,
+                                                        ShortTemplateName = templateName,
+                                                        TemplateName = this.SettingsService.ItemTemplatesDirectory + "\\ViewModels\\" + templateName
+                                                    };
+
+            textTemplateInfo.TextOutput = this.GetTextTransformationService().Transform(textTemplateInfo.TemplateName, textTemplateInfo.Tokens).Output;
+
+            return textTemplateInfo;
+        }
+
+        /// <summary>
+        /// Gets the unit testing item template.
+        /// </summary>
+        /// <param name="view">The view.</param>
+        /// <param name="viewModelName">Name of the view model.</param>
+        /// <returns></returns>
+        internal TextTemplateInfo GetUnitTestingItemTemplate(
+            View view,
+            string viewModelName)
+        {
+            string templateName = this.GetTestViewModelTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), view.PageType);
+
+            Dictionary<string, string> tokens = new Dictionary<string, string>
+                    {
+                        { "ClassName", "Test" + viewModelName },
+                        {
+                            "NameSpace",
+                            this.VisualStudioService.CoreTestsProjectService.Name + ".ViewModels"
+                        },
+                        {
+                            "TestingLibrary",
+                            this.testingFrameworkFactory.GetTestingLibrary()
+                        },
+                        {
+                            "TestingClassAttribute",
+                            this.testingFrameworkFactory.GetTestingClassAttribute()
+                        },
+                        {
+                            "TestingMethodAttribute",
+                            this.testingFrameworkFactory.GetTestingMethodAttribute()
+                        },
+                        { "TestableObject", viewModelName },
+                        {
+                            "TestableObjectInstance",
+                            viewModelName.LowerCaseFirstCharacter()
+                        }
+                    };
+
+            TextTemplateInfo textTemplateInfo = new TextTemplateInfo
+                                                    {
+                                                        ProjectSuffix = ProjectSuffix.CoreTests.GetDescription(),
+                                                        FileName = "Test" + viewModelName + ".cs",
+                                                        ProjectFolder = "ViewModels",
+                                                        Tokens = tokens,
+                                                        ShortTemplateName = templateName,
+                                                        TemplateName = this.SettingsService.ItemTemplatesDirectory + "\\TestViewModels\\" + templateName
+                                                    };
+
+            textTemplateInfo.TextOutput = this.GetTextTransformationService()
+                    .Transform(textTemplateInfo.TemplateName, textTemplateInfo.Tokens).Output;
+
+            return textTemplateInfo;
+        }
+
+        /// <summary>
         /// Gets the view model template.
         /// </summary>
         /// <param name="frameworkType">Type of the framework.</param>
@@ -506,23 +450,12 @@ namespace NinjaCoder.MvvmCross.Factories
             FrameworkType frameworkType,
             string pageType)
         {
-            switch (pageType)
+            if (pageType == ViewType.SampleData.GetDescription())
             {
-                case SampleDataViewType:
-
-                    if (frameworkType == FrameworkType.XamarinForms)
-                    {
-                        return "SampleDataViewModel.t4";
-                    }
-
-                    return "MvxSampleDataViewModel.t4";
-
-                case WebViewType:
-                    return "WebViewModel.t4";
-
-                default:
-                    return "BlankViewModel.t4";
+                return frameworkType == FrameworkType.XamarinForms ? "SampleDataViewModel.t4" : "MvxSampleDataViewModel.t4";
             }
+
+            return pageType == ViewType.Web.GetDescription() ? "WebViewModel.t4" : "BlankViewModel.t4";
         }
 
         /// <summary>
@@ -537,100 +470,12 @@ namespace NinjaCoder.MvvmCross.Factories
             FrameworkType frameworkType,
             string pageType)
         {
-            switch (pageType)
+            if (pageType == ViewType.SampleData.GetDescription())
             {
-                case SampleDataViewType:
-                    return frameworkType == FrameworkType.XamarinForms ? "TestSampleDataViewModel.t4" : "TestMvxSampleDataViewModel.t4";
-
-                case WebViewType:
-                    return "TestWebViewModel.t4";
-
-                default:
-                    return "TestBlankViewModel.t4";
-            }
-        }
-
-        /// <summary>
-        /// Gets the view template.
-        /// </summary>
-        /// <param name="frameworkType">Type of the framework.</param>
-        /// <param name="type">The type.</param>
-        /// <param name="pageType">Type of the page.</param>
-        /// <returns>
-        /// The View Template.
-        /// </returns>
-        internal string GetViewTemplate(
-            FrameworkType frameworkType,
-            string type,
-            string pageType)
-        {
-            if (frameworkType == FrameworkType.XamarinForms)
-            {
-                return "XamarinFormsBlankView.t4";
-                ////return "XamarinForms.View.Blank.zip";
+                return frameworkType == FrameworkType.XamarinForms ? "TestSampleDataViewModel.t4" : "TestMvxSampleDataViewModel.t4";
             }
 
-            return string.Format(
-                "MvvmCross{0}.View.{1}.zip",
-                type,
-                pageType);
-        }
-
-        /// <summary>
-        /// Gets the testing class attribute.
-        /// </summary>
-        /// <returns></returns>
-        internal string GetTestingClassAttribute()
-        {
-            switch (this.settingsService.TestingFramework)
-            {
-                case TestingConstants.MsTest.Name:
-                    return TestingConstants.MsTest.ClassAttribute;
-
-                case TestingConstants.XUnit.Name:
-                    return TestingConstants.XUnit.ClassAttribute;
-
-                default:
-                    return TestingConstants.NUnit.ClassAttribute;
-            }
-        }
-
-        /// <summary>
-        /// Gets the testing method attribute.
-        /// </summary>
-        /// <returns></returns>
-        internal string GetTestingMethodAttribute()
-        {
-            switch (this.settingsService.TestingFramework)
-            {
-                case TestingConstants.MsTest.Name:
-                    return TestingConstants.MsTest.MethodAttribute;
-
-                case TestingConstants.XUnit.Name:
-                    return TestingConstants.XUnit.MethodAttribute;
-
-                default:
-                    return TestingConstants.NUnit.MethodAttribute;
-            }
-        }
-
-        /// <summary>
-        /// Gets the testing library.
-        /// </summary>
-        /// <returns></returns>
-        internal string GetTestingLibrary()
-        {
-            switch (this.settingsService.TestingFramework)
-            {
-                case TestingConstants.MsTest.Name:
-                    return TestingConstants.MsTest.Library;
-
-                case TestingConstants.XUnit.Name:
-                    return TestingConstants.XUnit.Library;
-
-                default:
-                    return TestingConstants.NUnit.Library;
-            }
+            return pageType == ViewType.Web.GetDescription() ? "TestWebViewModel.t4" : "TestBlankViewModel.t4";
         }
 
         /// <summary>
@@ -647,7 +492,7 @@ namespace NinjaCoder.MvvmCross.Factories
             string bindingContext = string.Empty;
             string binding = string.Empty;
 
-            if (this.settingsService.BindContextInXamlForXamarinForms)
+            if (this.SettingsService.BindContextInXamlForXamarinForms)
             {
                 bindingContext = string.Format("<{0}.BindingContext>{1}        <viewModels:{2} />{1}        </{0}.BindingContext>{1}",
                                                 page,
@@ -655,7 +500,7 @@ namespace NinjaCoder.MvvmCross.Factories
                                                 view.Name + "ViewModel");
             }
 
-            if (this.settingsService.BindXamlForXamarinForms)
+            if (this.SettingsService.BindXamlForXamarinForms)
             {
                 binding = "<Label Text='{Binding SampleText}' VerticalOptions='Center' HorizontalOptions='Center'/>";
             }

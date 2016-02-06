@@ -24,7 +24,7 @@ namespace <#= NameSpace #>
         /// </summary>
         public <#= ClassName #>()
         {
-            this.url = "http://github.com/asudbury";
+            this.url = "http://github.com/asudbury/NinjaCoderForMvvmCross";
         }
 
         /// <summary>

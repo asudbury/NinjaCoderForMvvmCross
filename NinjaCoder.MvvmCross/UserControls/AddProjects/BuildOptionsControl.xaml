@@ -74,7 +74,9 @@
 
             <Separator Margin="5" />
 
-            <Expander Margin="8,5,10,5" Header="Pre-Release Nuget Package Options">
+            <Expander Margin="8,5,10,5"
+                      Header="Pre-Release Nuget Package Options"
+                      IsExpanded="{Binding ExpandPreReleaseOptions}">
                 <StackPanel Margin="8,4,0,0">
                     <CheckBox Margin="8,5,10,5"
                               Content="Use Pre release MvvmCross Nuget Packages"

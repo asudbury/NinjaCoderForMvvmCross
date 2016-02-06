@@ -28,20 +28,12 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         IEnumerable<string> GetAvailableViewTypes();
 
         /// <summary>
-        /// Gets the required view model and views.
+        /// Gets the available MVVM crossi os sample data view types.
         /// </summary>
-        /// <param name="view">The view.</param>
-        /// <param name="viewModelName">Name of the view model.</param>
-        /// <param name="requiredUIViews">The required UI views.</param>
-        /// <param name="unitTestsRequired">if set to <c>true</c> [unit tests required].</param>
         /// <returns></returns>
-        IEnumerable<ItemTemplateInfo> GetRequiredViewModelAndViews(
-            View view,
-            string viewModelName,
-            IEnumerable<ItemTemplateInfo> requiredUIViews,
-            bool unitTestsRequired);
+        IEnumerable<string> GetAvailableMvvmCrossiOSSampleDataViewTypes();
 
-        /// <summary>
+            /// <summary>
         /// Gets the required text templates.
         /// </summary>
         /// <param name="view">The view.</param>

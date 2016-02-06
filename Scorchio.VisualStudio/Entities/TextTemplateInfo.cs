@@ -14,6 +14,15 @@ namespace Scorchio.VisualStudio.Entities
     public class TextTemplateInfo
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="TextTemplateInfo"/> class.
+        /// </summary>
+        public TextTemplateInfo()
+        {
+            this.FileOperations = new List<FileOperation>();
+            this.ChildItems = new List<TextTemplateInfo>();
+        }
+
+        /// <summary>
         /// Gets or sets the project suffix.
         /// </summary>
         public string  ProjectSuffix { get; set; }
@@ -54,8 +63,8 @@ namespace Scorchio.VisualStudio.Entities
         public List<FileOperation> FileOperations { get; set; }
 
         /// <summary>
-        /// Gets or sets the child item.
+        /// Gets or sets the child items.
         /// </summary>
-        public TextTemplateInfo ChildItem { get; set; }
+        public List<TextTemplateInfo> ChildItems { get; set; }
     }
 }

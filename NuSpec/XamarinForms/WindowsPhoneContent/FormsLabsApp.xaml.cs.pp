@@ -11,7 +11,7 @@ namespace $rootnamespace$
     using Microsoft.Phone.Controls;
     using Microsoft.Phone.Shell;
 
-	using Xamarin.Forms.Labs.WP8;
+    using Xamarin.Forms.Labs.WP8;
 
     /// <summary>
     ///    Defines the App.xaml type.

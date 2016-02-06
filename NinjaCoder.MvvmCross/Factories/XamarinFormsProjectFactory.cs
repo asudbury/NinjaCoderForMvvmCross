@@ -150,7 +150,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 FrameworkType.XamarinForms,
                 this.settingsService.TestingFramework,
                 this.nugetCommandsService.GetTestCommands(),
-                true,
+                this.settingsService.AddCoreTestsProject,
                 ProjectSuffix.CoreTests.GetDescription(),
                 ProjectType.CoreTests.GetDescription());
         }
@@ -182,7 +182,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 FrameworkType.XamarinForms,
                 this.settingsService.TestingFramework,
                 this.nugetCommandsService.GetTestCommands(),
-                true,
+                this.settingsService.AddXamarinFormsTestsProject,
                 ProjectSuffix.XamarinFormsTests.GetDescription(),
                 ProjectType.XamarinFormsTests.GetDescription());
 
@@ -209,7 +209,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 FriendlyName = "Android",
                 ProjectSuffix = ProjectSuffix.Droid.GetDescription(),
                 TemplateName = ProjectTemplate.Droid.GetDescription(),
-                PreSelected = true,
+                PreSelected = this.settingsService.AddAndroidProject,
                 ReferenceXamarinFormsProject = true,
                 ReferenceCoreProject = true,
                 NugetCommands = this.nugetCommandsService.GetXamarinFormsAndroidCommands()
@@ -227,7 +227,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 FriendlyName = ProjectType.iOS.GetDescription(),
                 ProjectSuffix = ProjectSuffix.iOS.GetDescription(),
                 TemplateName = ProjectTemplate.iOS.GetDescription(),
-                PreSelected = true,
+                PreSelected = this.settingsService.AddiOSProject,
                 ReferenceXamarinFormsProject = true,
                 ReferenceCoreProject = true,
                 NugetCommands = this.nugetCommandsService.GetXamarinFormsiOSCommands()
@@ -247,7 +247,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 TemplateName = ProjectTemplate.WindowsPhone.GetDescription(),
                 ReferenceXamarinFormsProject = true,
                 ReferenceCoreProject = true,
-                PreSelected = true,
+                PreSelected = this.settingsService.AddWindowsPhoneProject,
                 NugetCommands = this.nugetCommandsService.GetXamarinFormsCommands()
             };
         }

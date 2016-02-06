@@ -36,48 +36,53 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
         public const uint AddDependencyService = 0x104;
 
         /// <summary>
-        /// The add custom renderer
+        /// The add custom renderer.
         /// </summary>
         public const uint AddCustomRenderer = 0x105;
 
         /// <summary>
+        /// The add effect.
+        /// </summary>
+        public const uint AddEffect = 0x106;
+
+        /// <summary>
         /// The options.
         /// </summary>
-        public const uint Options = 0x106;
+        public const uint Options = 0x107;
 
         /// <summary>
         /// The view log file.
         /// </summary>
-        public const uint ViewLogFile = 0x107;
+        public const uint ViewLogFile = 0x108;
 
         /// <summary>
         /// The clear log file.
         /// </summary>
-        public const uint ClearLogFile = 0x108;
+        public const uint ClearLogFile = 0x109;
 
         /// <summary>
         /// The view error log.
         /// </summary>
-        public const uint ViewErrorLog = 0x109;
+        public const uint ViewErrorLog = 0x110;
 
         /// <summary>
         /// The clear error log.
         /// </summary>
-        public const uint ClearErrorLog = 0x110;
+        public const uint ClearErrorLog = 0x111;
 
         /// <summary>
         /// The xamarin forms home page.
         /// </summary>
-        public const uint XamarinFormsHomePage = 0x111;
+        public const uint XamarinFormsHomePage = 0x112;
 
         /// <summary>
         /// The MVVM cross home page.
         /// </summary>
-        public const uint MvvmCrossHomePage = 0x112;
+        public const uint MvvmCrossHomePage = 0x113;
 
         /// <summary>
         /// The about.
         /// </summary>
-        public const uint About = 0x113;
+        public const uint About = 0x114;
     }
 }

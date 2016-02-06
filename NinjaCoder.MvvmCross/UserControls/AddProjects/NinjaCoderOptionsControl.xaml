@@ -8,6 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="..\..\Resources\App.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -40,23 +41,36 @@
 
             <Label />
 
-            <userControls1:PickListView Width="500"
-                                        Height="110"
-                                        DataContext="{Binding NinjaPlugins}"
-                                        GroupBoxTitle="Ninja Coder" />
-            <Label />
+            <StackPanel Visibility="{Binding DisplayNinjaPlugins, Converter={StaticResource BoolToVisibility}}">
 
-            <userControls1:PickListView Width="500"
-                                        Height="110"
-                                        DataContext="{Binding NinjaCommumnityPlugins}"
-                                        GroupBoxTitle="Ninja Coder Community" />
+                <userControls1:PickListView Width="500"
+                                            Height="110"
+                                            DataContext="{Binding NinjaPlugins}"
+                                            GroupBoxTitle="Ninja Coder" />
+            </StackPanel>
+
 
             <Label />
 
-            <userControls1:PickListView Width="500"
-                                        Height="110"
-                                        DataContext="{Binding LocalPlugind}"
-                                        GroupBoxTitle="Local" />
+            <StackPanel Visibility="{Binding DisplayCommunityPlugins, Converter={StaticResource BoolToVisibility}}">
+
+                <userControls1:PickListView Width="500"
+                                            Height="110"
+                                            DataContext="{Binding NinjaCommumnityPlugins}"
+                                            GroupBoxTitle="Ninja Coder Community" />
+
+            </StackPanel>
+
+            <Label />
+
+            <StackPanel Visibility="{Binding DisplayLocalPlugins, Converter={StaticResource BoolToVisibility}}">
+
+                <userControls1:PickListView Width="500"
+                                            Height="110"
+                                            DataContext="{Binding LocalPlugins}"
+                                            GroupBoxTitle="Local" />
+            </StackPanel>
+
             <Label />
 
         </StackPanel>

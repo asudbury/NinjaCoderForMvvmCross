@@ -29,7 +29,7 @@
                     Orientation="Vertical">
             <Separator Margin="5" />
 
-            <TextBlock Margin="10" Text="Click 'Finish' to add the dependency service." />
+            <TextBlock Margin="10" Text="Click 'Finish' to add the xamarin forms dependency service." />
 
             <Separator Margin="5" />
 

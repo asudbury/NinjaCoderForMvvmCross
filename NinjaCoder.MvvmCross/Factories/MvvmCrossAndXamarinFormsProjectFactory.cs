@@ -126,7 +126,7 @@ namespace NinjaCoder.MvvmCross.Factories
             {
                 FriendlyName = ProjectType.Core.GetDescription() + " (Profile " + this.settingsService.PCLProfile + ")",
                 ProjectSuffix = ProjectSuffix.Core.GetDescription(),
-                TemplateName = MvvmCrossProjectTemplate.Core.GetDescription(),
+                TemplateName = ProjectTemplate.Core.GetDescription(),
                 PreSelected = true,
                 NugetCommands = this.nugetCommandsService.GetMvvmCrossXamarinFormsCoreCommands()
             };
@@ -142,7 +142,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 FrameworkType.MvvmCrossAndXamarinForms,
                 this.settingsService.TestingFramework,
                 this.nugetCommandsService.GetMvvmCrossTestsCommands(),
-                true,
+                this.settingsService.AddCoreTestsProject,
                 ProjectSuffix.CoreTests.GetDescription(),
                 ProjectType.CoreTests.GetDescription());
         }
@@ -163,8 +163,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 NugetCommands = this.nugetCommandsService.GetMvvmCrossXamarinFormsCommands()
             };
         }
-
-
+        
         /// <summary>
         /// Gets the forms tests project.
         /// </summary>
@@ -175,7 +174,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 FrameworkType.XamarinForms,
                 this.settingsService.TestingFramework,
                 this.nugetCommandsService.GetTestCommands(),
-                true,
+                this.settingsService.AddXamarinFormsTestsProject,
                 ProjectSuffix.XamarinFormsTests.GetDescription(),
                 ProjectType.XamarinFormsTests.GetDescription());
 
@@ -202,7 +201,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 FriendlyName = ProjectType.iOS.GetDescription(),
                 ProjectSuffix = ProjectSuffix.iOS.GetDescription(),
                 TemplateName = ProjectTemplate.iOS.GetDescription(),
-                PreSelected = true,
+                PreSelected = this.settingsService.AddiOSProject,
                 ReferenceCoreProject = true,
                 ReferenceXamarinFormsProject = true,
                 NugetCommands = this.nugetCommandsService.GetMvvmCrossXamarinFormsiOSCommands()
@@ -219,10 +218,10 @@ namespace NinjaCoder.MvvmCross.Factories
             {
                 FriendlyName = "Android",
                 ProjectSuffix = ProjectSuffix.Droid.GetDescription(),
-                TemplateName = MvvmCrossProjectTemplate.Droid.GetDescription(),
+                TemplateName = ProjectTemplate.Droid.GetDescription(),
                 ReferenceCoreProject = true,
                 ReferenceXamarinFormsProject = true,
-                PreSelected = true,
+                PreSelected = this.settingsService.AddAndroidProject,
                 NugetCommands = this.nugetCommandsService.GetMvvmCrossXamarinFormDroidCommands()
             };
         }
@@ -237,10 +236,10 @@ namespace NinjaCoder.MvvmCross.Factories
             {
                 FriendlyName = ProjectType.WindowsPhone.GetDescription() + " " + this.settingsService.WindowsPhoneBuildVersion,
                 ProjectSuffix = ProjectSuffix.WindowsPhone.GetDescription(),
-                TemplateName = MvvmCrossProjectTemplate.WindowsPhone.GetDescription(),
+                TemplateName = ProjectTemplate.WindowsPhone.GetDescription(),
                 ReferenceCoreProject = true,
                 ReferenceXamarinFormsProject = true,
-                PreSelected = true,
+                PreSelected = this.settingsService.AddWindowsPhoneProject,
                 NugetCommands = this.nugetCommandsService.GetMvvmCrossXamarinFormsWindowsPhoneCommands()
             };
         }

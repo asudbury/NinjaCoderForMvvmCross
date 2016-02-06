@@ -30,7 +30,7 @@
                     Orientation="Vertical">
             <Separator Margin="5" />
 
-            <TextBlock Margin="10" Text="Click 'Finish' to add the custom renderer." />
+            <TextBlock Margin="10" Text="Click 'Finish' to add the xamarin forms custom renderer." />
 
             <Separator Margin="5" />
 

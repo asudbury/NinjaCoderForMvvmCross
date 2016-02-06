@@ -152,10 +152,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             if (this.SettingsService.OutputNugetCommandsToReadMe)
             {
-                this.messages.Add(Environment.NewLine);
-                this.messages.Add(this.ReadMeService.GetSeperatorLine());
                 this.messages.Add(this.commands);
-                this.messages.Add(this.ReadMeService.GetSeperatorLine());
             }
 
             this.ReadMeService.AddLines(
@@ -194,7 +191,6 @@ namespace NinjaCoder.MvvmCross.Controllers
                 NugetActions nugetActions = viewModel.GetNugetActions();
 
                 this.commands += nugetActions.NugetCommands;
-                this.messages.AddRange(nugetActions.NugetMessages);
                 this.postNugetCommands.AddRange(nugetActions.PostNugetCommands);
                 this.postNugetFileOperations.AddRange(nugetActions.PostNugetFileOperations);
             }

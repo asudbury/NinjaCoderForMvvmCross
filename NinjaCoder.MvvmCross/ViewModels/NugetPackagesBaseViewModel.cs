@@ -10,6 +10,7 @@ namespace NinjaCoder.MvvmCross.ViewModels
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using Scorchio.Infrastructure.Wpf.ViewModels;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
+    using Scorchio.VisualStudio.Services;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -65,12 +66,13 @@ namespace NinjaCoder.MvvmCross.ViewModels
         /// <returns></returns>
         public NugetActions GetNugetActions()
         {
+            TraceService.WriteLine("NugetPackagesBaseViewModel::GetNugetActions");
+
             NugetActions nugetActions = new NugetActions
             {
                 NugetCommands = this.GetNugetCommands(),
                 PostNugetCommands = this.pluginsService.GetPostNugetCommands(this.GetRequiredNugetPackages()),
                 PostNugetFileOperations = this.pluginsService.GetPostNugetFileOperations(this.GetRequiredNugetPackages()),
-                NugetMessages = this.GetNugetMessages()
             };
 
             return nugetActions;
@@ -99,8 +101,10 @@ namespace NinjaCoder.MvvmCross.ViewModels
         /// Gets the required nuget packages.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Plugin> GetRequiredNugetPackages()
+        protected IEnumerable<Plugin> GetRequiredNugetPackages()
         {
+            TraceService.WriteLine("NugetPackagesBaseViewModel::GetRequiredNugetPackages");
+
             if (this.NugetPackages != null)
             {
                 return this.NugetPackages.ToList().Where(x => x.IsSelected).Select(x => x.Item).ToList();
@@ -115,39 +119,27 @@ namespace NinjaCoder.MvvmCross.ViewModels
         /// <returns></returns>
         protected string GetNugetCommands()
         {
-            List<Plugin> requiredPlugins = this.GetRequiredNugetPackages().ToList();
+            TraceService.WriteLine("NugetPackagesBaseViewModel::GetNugetCommands");
 
             string commands = string.Empty;
 
-            if (requiredPlugins.Any())
+            IEnumerable<Plugin> requiredPlugins = this.GetRequiredNugetPackages();
+
+            if (requiredPlugins != null)
             {
-                commands += string.Join(
-                    Environment.NewLine,
-                    this.pluginsService.GetNugetCommands(requiredPlugins,
-                    this.settingsService.UsePreReleaseXamarinFormsNugetPackages));
+                List<Plugin> plugins = requiredPlugins.ToList();
+
+                if (plugins.Any())
+                {
+                    commands += string.Join(
+                        Environment.NewLine,
+                        this.pluginsService.GetNugetCommands(
+                        plugins,
+                        this.settingsService.UsePreReleaseXamarinFormsNugetPackages));
+                }
             }
 
             return commands;
-        }
-
-        /// <summary>
-        /// Gets the nuget messages.
-        /// </summary>
-        /// <returns></returns>
-        protected List<string> GetNugetMessages()
-        {
-            List<Plugin> requiredPlugins = this.GetRequiredNugetPackages().ToList();
-
-            List<string> messages = new List<string>();
-
-            if (requiredPlugins.Any())
-            {
-                messages.Add(string.Empty);
-
-                messages.AddRange(this.pluginsService.GetNugetMessages(requiredPlugins));
-            }
-
-            return messages;
         }
 
         /// <summary>

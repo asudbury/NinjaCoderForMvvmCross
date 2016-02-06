@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Scorchio.NinjaCoder.Xamarin.Forms.Labs</id>
+        <version>1.0.4-beta1</version>
+        <authors>Adrian Sudbury</authors>
+        <owners>Scorchio Limited</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Helper For Xamarin Forms Labs.</description>
+      <dependencies>
+        <dependency id="Xamarin.Forms.Labs" />
+      </dependencies>
+    </metadata>
+    <files>
+
+        <!-- Droid -->
+
+     <file src="DroidContent\FormsLabsMainActivity.cs.pp" target="content\MonoAndroid\MainActivity.cs.pp" />
+
+      <!-- iOS -->
+
+    <file src="iOSContent\LabsAppDelegate.cs.pp" target="content\MonoTouch\AppDelegate.cs.pp" />
+
+    <!-- WindowsPhoneContent -->
+
+    <file src="WindowsPhoneContent\FormsLabsApp.xaml.pp" target="content\wp8\App.xaml.pp" />
+    <file src="WindowsPhoneContent\FormsLabsApp.xaml.cs.pp" target="content\wp8\App.xaml.cs.pp" />  
+      
+     </files>
+</package> 

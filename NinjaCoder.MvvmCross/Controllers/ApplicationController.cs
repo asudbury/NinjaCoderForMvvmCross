@@ -8,7 +8,6 @@ namespace NinjaCoder.MvvmCross.Controllers
     using EnvDTE;
     using MahApps.Metro;
     using Scorchio.Infrastructure.Entities;
-    using Scorchio.Infrastructure.EventArguments;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Services;
@@ -76,28 +75,12 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             ResourceDictionary resourceDictionary = this.GetLanguageDictionary();
             
-            view.SetLanguageDictionary(resourceDictionary);
-
             OptionsViewModel viewModel = this.ResolverService.Resolve<OptionsViewModel>();
             viewModel.LanguageDictionary = resourceDictionary;
 
             view.DataContext = viewModel;
 
-            viewModel.VisualViewModel.Colors = this.translator.Translate(view.Colors);
-
-            //// use weak references.
-            WeakEventManager<VisualViewModel, ThemeChangedEventArgs>
-                .AddHandler(viewModel.VisualViewModel, "ThemeChanged", view.ThemeChanged);
-
-            //// set the theme.
-            view.ChangeTheme(
-                this.CurrentTheme, 
-                this.SettingsService.ThemeColor);
-
             view.ShowDialog();
-
-            WeakEventManager<VisualViewModel, ThemeChangedEventArgs>
-                    .RemoveHandler(viewModel.VisualViewModel, "ThemeChanged", view.ThemeChanged);
 
             //// in case any of the setting have changed to do with logging reset them!
             TraceService.Initialize(

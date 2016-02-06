@@ -22,6 +22,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
     using System.Linq;
     using System.Windows.Input;
 
+    using NinjaCoder.MvvmCross.Entities;
+
     /// <summary>
     /// Defines the ProjectsViewModel type.
     /// </summary>
@@ -267,6 +269,39 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 
             this.settingsService.DefaultProjectsPath = this.Path;
 
+            foreach (SelectableItemViewModel<ProjectTemplateInfo> templateInfo in this.projects)
+            {
+                if (templateInfo.Item.ProjectSuffix == ProjectSuffix.CoreTests.GetDescription())
+                {
+                    this.settingsService.AddCoreTestsProject = templateInfo.IsSelected;
+                } 
+                
+                else if (templateInfo.Item.ProjectSuffix == ProjectSuffix.Droid.GetDescription())
+                {
+                    this.settingsService.AddAndroidProject = templateInfo.IsSelected;
+                }
+
+                else if (templateInfo.Item.ProjectSuffix == ProjectSuffix.iOS.GetDescription())
+                {
+                    this.settingsService.AddiOSProject = templateInfo.IsSelected;
+                }
+
+                else if (templateInfo.Item.ProjectSuffix == ProjectSuffix.WindowsPhone.GetDescription())
+                {
+                    this.settingsService.AddWindowsPhoneProject = templateInfo.IsSelected;
+                }
+
+                else if (templateInfo.Item.ProjectSuffix == ProjectSuffix.Wpf.GetDescription())
+                {
+                    this.settingsService.AddWpfProject = templateInfo.IsSelected;
+                }
+
+                else if (templateInfo.Item.ProjectSuffix == ProjectSuffix.XamarinFormsTests.GetDescription())
+                {
+                    this.settingsService.AddXamarinFormsTestsProject = templateInfo.IsSelected;
+                }
+            }
+            
             return true;
         }
 

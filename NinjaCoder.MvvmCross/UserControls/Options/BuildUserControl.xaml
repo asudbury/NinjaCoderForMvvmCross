@@ -11,22 +11,48 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel Margin="10">
-        <CheckBox Margin="10"
+        <CheckBox Margin="8"
                   Content="* Use Local Config Uris for Plugins and Nuget Packages"
                   IsChecked="{Binding UseLocalUris}" />
-        <CheckBox Margin="10"
+        <CheckBox Margin="8"
                   Content="* Use Local Text Template files"
                   IsChecked="{Binding UseLocalTextTemplates}" />
-        <CheckBox Margin="10"
+        <CheckBox Margin="8"
                   Content="Output Nuget commands to Read Me file"
                   IsChecked="{Binding OutputNugetCommandsToReadMe}" />
-        <CheckBox Margin="10"
+        <CheckBox Margin="8"
                   Content="Output Errors to Read Me file"
                   IsChecked="{Binding OutputErrorsToReadMe}" />
 
-        <TextBlock Margin="15"
+        <TextBlock Margin="12"
                    Text="* Using Local config and template files improve performance but wont be able to access the latest files from github."
                    TextWrapping="WrapWithOverflow" />
+
+        <StackPanel>
+            <TextBlock Margin="7"
+                       FontWeight="Bold"
+                       Text="Add Project Options" />
+
+            <CheckBox Margin="7"
+                      Content="Skip ViewModel and View Options"
+                      IsChecked="{Binding AddProjectsSkipViewsOptions}" />
+
+            <CheckBox Margin="7"
+                      Content="Skip Application Options"
+                      IsChecked="{Binding AddProjectsSkipApplicationOptions}" />
+
+            <CheckBox Margin="7"
+                      Content="Skip Ninja Coder Options"
+                      IsChecked="{Binding AddProjectsSkipNinjaCoderOptions}" />
+
+            <CheckBox Margin="7"
+                      Content="Skip MvvmCross Plugin Options"
+                      IsChecked="{Binding AddProjectsSkipMvvmCrossPluginOptions}" />
+
+            <CheckBox Margin="7"
+                      Content="Skip Nuget Package Options"
+                      IsChecked="{Binding AddProjectsSkipNugetPackageOptions}" />
+        </StackPanel>
 
     </StackPanel>
 </userControls:BaseUserControl>

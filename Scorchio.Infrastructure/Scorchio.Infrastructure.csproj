@@ -58,7 +58,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="bin\Constants\TestingConstants.cs" />
+    <Compile Include="Constants\TestingConstants.cs" />
     <Compile Include="Entities\AccentColor.cs" />
     <Compile Include="Entities\ImageItemWithDescription.cs" />
     <Compile Include="Entities\ImageItem.cs" />
@@ -71,7 +71,6 @@
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\ResourceDictionaryExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Extensions\ThemeManagerExtensions.cs" />
     <Compile Include="Extensions\XElementExtensions.cs" />
     <Compile Include="Factories\IThemeFactory.cs" />
     <Compile Include="Factories\ThemeFactory.cs" />
@@ -161,7 +160,6 @@
     <Compile Include="Wpf\ViewModels\Wizard\BaseWizardStepViewModel.cs" />
     <Compile Include="Wpf\ViewModels\Wizard\WizardViewModel.cs" />
     <Compile Include="Wpf\Views\IDialog.cs" />
-    <Compile Include="Wpf\Views\IThemedDialog.cs" />
     <Compile Include="Wpf\Views\MessageBoxView.xaml.cs">
       <DependentUpon>MessageBoxView.xaml</DependentUpon>
     </Compile>
@@ -205,10 +203,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf\Views\Themes.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Scorchio.VisualStudio\Scorchio.VisualStudio.csproj">
@@ -217,6 +211,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="bin\" />
     <Folder Include="Wpf\Entities\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

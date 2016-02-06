@@ -165,9 +165,6 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         /// <summary>
         /// Gets the add forms dependency service command.
         /// </summary>
-        /// <value>
-        /// The add forms dependency service command.
-        /// </value>
         public ICommand AddFormsDependencyServiceCommand
         {
             get { return new RelayCommand(this.FormsDependencyService); }
@@ -179,6 +176,14 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         public ICommand AddFormsCustomRendererCommand
         {
             get { return new RelayCommand(this.FormsCustomRenderer); }
+        }
+
+        /// <summary>
+        /// Gets the add forms effect command.
+        /// </summary>
+        public ICommand AddFormsEffectCommand
+        {
+            get { return new RelayCommand(this.AddFormsEffect); }
         }
 
         /// <summary>
@@ -290,7 +295,15 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         /// </summary>
         internal void FormsCustomRenderer()
         {
-            NinjaController.RunCustomerRendererController();
+            NinjaController.RunCustomRendererController();
+        }
+
+        /// <summary>
+        /// Adds the forms effect.
+        /// </summary>
+        internal void AddFormsEffect()
+        {
+            NinjaController.RunFormsEffectsController();
         }
 
         /// <summary>

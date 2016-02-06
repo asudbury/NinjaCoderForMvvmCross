@@ -5,10 +5,10 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
-    using Cirrious.MvvmCross.ViewModels;
-    using Cirrious.MvvmCross.WindowsPhone.Platform;
     using Microsoft.Phone.Controls;
-
+    using MvvmCross.Core.ViewModels;
+    using MvvmCross.WindowsPhone.Platform;
+    
     /// <summary>
     ///    Defines the Setup type.
     /// </summary>

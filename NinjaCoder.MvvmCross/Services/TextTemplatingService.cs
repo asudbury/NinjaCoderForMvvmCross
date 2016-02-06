@@ -10,7 +10,6 @@ namespace NinjaCoder.MvvmCross.Services
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
     using System.Collections.Generic;
-    using System.Linq;
 
     /// <summary>
     ///  Defines the TextTemplatingService type.
@@ -64,7 +63,11 @@ namespace NinjaCoder.MvvmCross.Services
 
                     textTemplateInfo.TextOutput = textTransformationService.Transform(
                         textTemplateInfo.TemplateName, 
-                        textTemplateInfo.Tokens);
+                        textTemplateInfo.Tokens).Output;
+
+                    string message = projectService.AddTextTemplate(textTemplateInfo);
+
+                    this.Messages.Add(message);
                 }
             }
 

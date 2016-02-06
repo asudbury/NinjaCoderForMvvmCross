@@ -100,6 +100,10 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
             menuItem = new MenuCommand(this.OnAddCustomerRenderer, menuCommandId);
             mcs.AddCommand(menuItem);
 
+            menuCommandId = new CommandID(GuidList.GuidNinjaCoderMvvmCrossVsPackageCmdSet, (int)PkgCmdIdList.AddEffect);
+            menuItem = new MenuCommand(this.OnAddEffect, menuCommandId);
+            mcs.AddCommand(menuItem);
+
             menuCommandId = new CommandID(GuidList.GuidNinjaCoderMvvmCrossVsPackageCmdSet, (int)PkgCmdIdList.Options);
             menuItem = new MenuCommand(this.OnOptions, menuCommandId);
             mcs.AddCommand(menuItem);
@@ -198,7 +202,18 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
         private void OnAddCustomerRenderer(object sender, EventArgs e)
         {
             TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::OnAddCustomerRenderer");
-            NinjaController.RunCustomerRendererController(this.VsInstance.ApplicationObject);
+            NinjaController.RunCustomRendererController(this.VsInstance.ApplicationObject);
+        }
+
+        /// <summary>
+        /// Called when [add effect].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void OnAddEffect(object sender, EventArgs e)
+        {
+            TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::OnAddEffect");
+            NinjaController.RunFormsEffectsController(this.VsInstance.ApplicationObject);
         }
 
         /// <summary>

@@ -80,6 +80,7 @@
     <Compile Include="CommandManager.cs" />
     <Compile Include="Entities\StudioCommand.cs" />
     <Compile Include="Entities\FileOperation.cs" />
+    <Compile Include="Entities\TextTransformation.cs" />
     <Compile Include="Extensions\CodeParameterExtensions.cs" />
     <Compile Include="Extensions\CodeSnippetsExtensions.cs" />
     <Compile Include="Entities\TextTemplateInfo.cs" />

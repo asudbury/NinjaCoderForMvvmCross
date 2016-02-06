@@ -5,9 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
-    using Cirrious.CrossCore.IoC;
-    using Cirrious.MvvmCross.ViewModels;
-    using $rootnamespace$.ViewModels;
+    using MvvmCross.Core.ViewModels;
+    using MvvmCross.Platform.IoC;
+    using ViewModels;
 
     /// <summary>
     /// Define the App type.

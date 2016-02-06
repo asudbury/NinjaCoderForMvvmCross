@@ -9,7 +9,7 @@ namespace $rootnamespace$
     using Android.App;
     using Android.Content.PM;
     using Android.OS;
-    using Cirrious.MvvmCross.Droid.Views;
+    using MvvmCross.Droid.Views;
 
     /// <summary> 
     /// Defines the SplashScreen type.

@@ -1,7 +1,9 @@
 ﻿<UserControl x:Class="NinjaCoder.MvvmCross.UserControls.AddDependencyServices.DependencyServiceControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:behaviors="clr-namespace:Scorchio.Infrastructure.Wpf.Behaviors;assembly=Scorchio.Infrastructure"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d">
     <Grid>
@@ -30,13 +32,17 @@
                     Orientation="Vertical">
 
 
-            <TextBlock Margin="10">Add details for Dependency Service.</TextBlock>
+            <TextBlock Margin="10">Add details for Xamarin Forms Dependency Service.</TextBlock>
 
             <Separator Margin="5" />
 
             <TextBlock Margin="10,1,0,0" Text="Name of Dependency Service" />
 
-            <TextBox Margin="10,1,160,0" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Margin="10,1,160,0" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <i:Interaction.Behaviors>
+                    <behaviors:FocusBehavior HasInitialFocus="True" />
+                </i:Interaction.Behaviors>
+            </TextBox>
 
             <TextBlock Margin="1" />
 

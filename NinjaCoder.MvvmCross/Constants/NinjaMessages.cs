@@ -44,5 +44,10 @@ namespace NinjaCoder.MvvmCross.Constants
         /// The adding custom renderer.
         /// </summary>
         public const string AddingCustomRenderer = "Adding Custom Renderer...";
+
+        /// <summary>
+        /// The adding effect.
+        /// </summary>
+        public const string AddingEffect = "Adding Effect...";
     }
 }

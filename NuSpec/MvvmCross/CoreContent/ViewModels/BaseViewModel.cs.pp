@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$.ViewModels
 {
-    using Cirrious.MvvmCross.ViewModels;
+    using MvvmCross.Core.ViewModels;
     using System;
     using System.Linq.Expressions;
 

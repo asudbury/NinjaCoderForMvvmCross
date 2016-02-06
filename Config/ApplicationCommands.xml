@@ -2,8 +2,5 @@
     <Commands>
     </Commands>
     <FileOperations>
-      <!-- tidy up the mock and test trace file - nuget messing things up? - not sure why we have to do this! -->
-      <FileOperation Platform="Core.Tests" Type="ReplaceText" Name="" File="MockDispatcher.cs" Directory="Mocks" From=".Mocks" To="$rootnamespace$.Mocks" />
-      <FileOperation Platform="Core.Tests" Type="ReplaceText" Name="" File="TestTrace.cs" Directory="" From="namespace " To="namespace $rootnamespace$" />
     </FileOperations> 
 </CommandsList>

@@ -7,10 +7,6 @@ namespace Scorchio.Infrastructure.Wpf.Views
 {
     using System.Windows;
 
-    using MahApps.Metro;
-
-    using Scorchio.Infrastructure.Extensions;
-
     /// <summary>
     /// Interaction logic for MessageBoxView.xaml
     /// </summary>
@@ -22,21 +18,6 @@ namespace Scorchio.Infrastructure.Wpf.Views
         public MessageBoxView()
         {
             this.InitializeComponent();
-        }
-
-        /// <summary>
-        /// Changes the theme.
-        /// </summary>
-        /// <param name="theme">The theme.</param>
-        /// <param name="themeColor">Color of the theme.</param>
-        public void ChangeTheme(
-            Theme theme,
-            string themeColor)
-        {
-            ThemeManagerExtensions.ChangeTheme(
-                this, 
-                theme, 
-                themeColor);
         }
 
         /// <summary>

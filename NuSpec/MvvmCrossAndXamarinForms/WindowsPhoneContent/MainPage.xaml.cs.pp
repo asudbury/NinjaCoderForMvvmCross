@@ -5,9 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
-    using Cirrious.CrossCore;
-    using Cirrious.MvvmCross.Views;
-    using $rootnamespace$.Presenters;
+    using MvvmCross.Core.Views;
+    using MvvmCross.Platform;
+    using Presenters;
     using Xamarin.Forms.Platform.WinPhone;
 
     /// <summary>

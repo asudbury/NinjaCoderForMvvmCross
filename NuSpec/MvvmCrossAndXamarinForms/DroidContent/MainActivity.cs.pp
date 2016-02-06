@@ -1,16 +1,16 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <summary>
-//    Defines the LinkerPleaseInclude type.
+//    Defines the MainActivity type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
     using Android.App;
     using Android.OS;
-    using Cirrious.CrossCore;
-    using Cirrious.MvvmCross.ViewModels;
-    using Cirrious.MvvmCross.Views;
-    using $rootnamespace$.Presenters;
+    using MvvmCross.Core.ViewModels;
+    using MvvmCross.Core.Views;
+    using MvvmCross.Platform;
+    using Presenters;
     using Xamarin.Forms.Platform.Android;
 
     /// <summary>

@@ -4,6 +4,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:behaviors="clr-namespace:Scorchio.Infrastructure.Wpf.Behaviors;assembly=Scorchio.Infrastructure"
              mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -36,7 +38,7 @@
 
             <Separator Margin="5" />
 
-            <TextBlock Margin="10">Add the Custom Renderer details below.</TextBlock>
+            <TextBlock Margin="10">Add the Xamarin Forms Custom Renderer details below.</TextBlock>
 
             <Separator Margin="5" />
 
@@ -47,12 +49,16 @@
 
                 <TextBlock Margin="5" />
 
-                <TextBlock Margin="10,1,0,0" Text="Renderer Group" />
+                <TextBlock Margin="10,1,0,0" Text="Renderer Group"/>
 
                 <ComboBox Margin="10,1,160,0"
                           ItemsSource="{Binding CustomRendererGroups}"
                           SelectedItem="{Binding Path=SelectedCustomRendererGroup,
-                                                 Mode=TwoWay}" />
+                                                 Mode=TwoWay}">
+                    <i:Interaction.Behaviors>
+                        <behaviors:FocusBehavior HasInitialFocus="True" />
+                    </i:Interaction.Behaviors>
+                </ComboBox>
 
                 <TextBlock Margin="5" />
 

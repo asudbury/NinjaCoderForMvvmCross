@@ -5,13 +5,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$.Presenters
 {
+    using Core.Services;
+    using Forms;
+    using Forms.Services;
+    using MvvmCross.Core.ViewModels;
+    using MvvmCross.Droid.Views;
+    using MvvmCross.Platform;
+    using System;
     using System.Threading.Tasks;
-    using Cirrious.CrossCore;
-    using Cirrious.MvvmCross.Droid.Views;
-    using Cirrious.MvvmCross.ViewModels;
-    using CoreProject.Services;
-    using FormsProject;
-    using FormsProject.Services;
     using Xamarin.Forms;
 
     /// <summary>
@@ -70,6 +71,14 @@ namespace $rootnamespace$.Presenters
                 // TODO - perhaps we should do more here... also async void is a boo boo
                 await mainPage.PopAsync();
             }
+        }
+
+        /// <summary>
+        /// Add Presentation Hint Handler.
+        /// </summary>
+        /// <param name="hint">The hint.</param>
+        public void AddPresentationHintHandler<THint>(Func<THint, bool> action) where THint : MvxPresentationHint
+        {
         }
 
         /// <summary>

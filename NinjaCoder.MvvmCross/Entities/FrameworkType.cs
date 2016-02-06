@@ -3,7 +3,6 @@
 // 		Defines the FrameworkType type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Entities
 {
     using System.ComponentModel;

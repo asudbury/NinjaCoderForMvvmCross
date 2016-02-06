@@ -6,15 +6,15 @@
 
 namespace $rootnamespace$.Presenters
 {
+    using Core.Services;
+    using Forms.Services;
+    using Forms;
+    using Microsoft.Phone.Controls;
+    using MvvmCross.Core.ViewModels;
+    using MvvmCross.Platform;
+    using MvvmCross.WindowsPhone.Views;
     using System;
     using System.Threading.Tasks;
-    using Cirrious.CrossCore;
-    using Cirrious.MvvmCross.ViewModels;
-    using Cirrious.MvvmCross.WindowsPhone.Views;
-    using Microsoft.Phone.Controls;
-    using CoreProject.Services;
-    using FormsProject;
-    using FormsProject.Services;
     using Xamarin.Forms;
 
     /// <summary>
@@ -77,13 +77,20 @@ namespace $rootnamespace$.Presenters
 
             if (mainPage == null)
             {
-                Mvx.TaggedTrace("MvxFormsViewPresenter:ChangePresentation()", "Shit, son! Don't know what to do");
+                Mvx.TaggedTrace("MvxFormsViewPresenter:ChangePresentation()", "mainPage is null!!");
             }
             else
             {
-                //// TODO - perhaps we should do more here... also async void is a boo boo
                 await mainPage.PopAsync();
             }
+        }
+
+        /// <summary>
+        /// Add Presentation Hint Handler.
+        /// </summary>
+        /// <param name="action">The action.</param>
+        public void AddPresentationHintHandler<THint>(Func<THint, bool> action) where THint : MvxPresentationHint
+        {
         }
 
         /// <summary>

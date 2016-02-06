@@ -3,7 +3,6 @@
 // 		Defines the ProjectSuffix type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Entities
 {
     using System.ComponentModel;

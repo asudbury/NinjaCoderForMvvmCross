@@ -5,11 +5,11 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
-    using Cirrious.CrossCore.Core;
-    using Cirrious.CrossCore.Platform;
-    using Cirrious.MvvmCross.Platform;
-    using Cirrious.MvvmCross.Test.Core;
-    using Cirrious.MvvmCross.Views;
+    using MvvmCross.Core.Platform;
+    using MvvmCross.Core.Views;
+    using MvvmCross.Platform.Core;
+    using MvvmCross.Platform.Platform;
+    using MvvmCross.Test.Core;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Mocks;
 
@@ -34,10 +34,10 @@ namespace $rootnamespace$
 
             this.mockDispatcher = new MockDispatcher();
 
-            Ioc.RegisterSingleton<IMvxViewDispatcher>(this.mockDispatcher);
-            Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(this.mockDispatcher);
-            Ioc.RegisterSingleton<IMvxTrace>(new TestTrace());
-            Ioc.RegisterSingleton<IMvxSettings>(new MvxSettings());
+            this.Ioc.RegisterSingleton<IMvxViewDispatcher>(this.mockDispatcher);
+            this.Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(this.mockDispatcher);
+            this.Ioc.RegisterSingleton<IMvxTrace>(new TestTrace());
+            this.Ioc.RegisterSingleton<IMvxSettings>(new MvxSettings());
 
             this.Initialize();
             this.CreateTestableObject();

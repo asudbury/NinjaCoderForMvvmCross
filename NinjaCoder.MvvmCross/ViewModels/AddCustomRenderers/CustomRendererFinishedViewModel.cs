@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-//    Defines the CustomRendererFinishedViewModel.cs type.
+//    Defines the CustomRendererFinishedViewModel type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddCustomRenderers
@@ -9,7 +9,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddCustomRenderers
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
 
     /// <summary>
-    /// Defines the CustomRendererFinishedViewModel.cs type.
+    /// Defines the CustomRendererFinishedViewModel type.
     /// </summary>
     public class CustomRendererFinishedViewModel : BaseWizardStepViewModel
     {

@@ -83,6 +83,7 @@
     <Compile Include="Constants\Variables.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\CustomRendererController.cs" />
+    <Compile Include="Controllers\EffectsController.cs" />
     <Compile Include="Controllers\NinjaController.cs" />
     <Compile Include="Controllers\NugetPackagesController.cs" />
     <Compile Include="Controllers\DependencyServicesController.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Entities\CustomRenderers.cs" />
     <Compile Include="Entities\NugetActions.cs" />
     <Compile Include="Entities\NugetCommand.cs" />
+    <Compile Include="Entities\ViewType.cs" />
     <Compile Include="Entities\XamarinLayout.cs" />
     <Compile Include="Entities\XamarinFormsPage.cs" />
     <Compile Include="Entities\ProjectTemplate.cs" />
@@ -103,22 +105,23 @@
     <Compile Include="Entities\Plugins.cs" />
     <Compile Include="Entities\View.cs" />
     <Compile Include="Entities\FrameworkType.cs" />
-    <Compile Include="Entities\MvvmCrossProjectTemplate.cs" />
     <Compile Include="Entities\ProjectSuffix.cs" />
     <Compile Include="Entities\ProjectType.cs" />
     <Compile Include="Entities\WizardData.cs" />
     <Compile Include="Entities\IWizardData.cs" />
     <Compile Include="Exceptions\NinjaCoderServiceException.cs" />
     <Compile Include="Exceptions\NinjaCoderException.cs" />
+    <Compile Include="Extensions\FrameworkTypeExtensions.cs" />
     <Compile Include="Extensions\PluginExtensions.cs" />
     <Compile Include="Factories\BaseTextTemplateFactory.cs" />
     <Compile Include="Factories\BaseProjectFactory.cs" />
-    <Compile Include="Factories\CodeConfigFactory.cs" />
+    <Compile Include="Factories\BaseViewFactory.cs" />
     <Compile Include="Factories\CustomRendererFactory.cs" />
     <Compile Include="Factories\DependencyServicesFactory.cs" />
+    <Compile Include="Factories\EffectFactory.cs" />
     <Compile Include="Factories\FrameworkFactory.cs" />
-    <Compile Include="Factories\Interfaces\ICodeConfigFactory.cs" />
     <Compile Include="Factories\Interfaces\ICustomeRendererFactory.cs" />
+    <Compile Include="Factories\Interfaces\IEffectFactory.cs" />
     <Compile Include="Factories\Interfaces\IDependencyServicesFactory.cs" />
     <Compile Include="Factories\Interfaces\IFrameworkFactory.cs" />
     <Compile Include="Factories\Interfaces\ILanguageFactory.cs" />
@@ -127,6 +130,7 @@
     <Compile Include="Factories\Interfaces\INoFrameworkProjectFactory.cs" />
     <Compile Include="Factories\Interfaces\IMvvmCrossViewFactory.cs" />
     <Compile Include="Factories\Interfaces\INugetPackagesFactory.cs" />
+    <Compile Include="Factories\Interfaces\ITestingFrameworkFactory.cs" />
     <Compile Include="Factories\Interfaces\IXamarinFormsProjectFactory.cs" />
     <Compile Include="Factories\Interfaces\IMvvmCrossProjectFactory.cs" />
     <Compile Include="Factories\Interfaces\IPluginFactory.cs" />
@@ -144,6 +148,7 @@
     <Compile Include="Factories\NugetPackagesFactory.cs" />
     <Compile Include="Factories\PluginFactory.cs" />
     <Compile Include="Factories\ProjectFactory.cs" />
+    <Compile Include="Factories\TestingFrameworkFactory.cs" />
     <Compile Include="Factories\TestingServiceFactory.cs" />
     <Compile Include="Factories\ViewModelAndViewsFactory.cs" />
     <Compile Include="Factories\XamarinFormsProjectFactory.cs" />
@@ -208,6 +213,12 @@
     <Compile Include="UserControls\AddDependencyServices\DependencyServiceFinishedControl.xaml.cs">
       <DependentUpon>DependencyServiceFinishedControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\AddEffects\EffectControl.xaml.cs">
+      <DependentUpon>EffectControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AddEffects\EffectFinishedControl.xaml.cs">
+      <DependentUpon>EffectFinishedControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AddNugetPackages\NugetPackagesFinishedControl.xaml.cs">
       <DependentUpon>NugetPackagesFinishedControl.xaml</DependentUpon>
     </Compile>
@@ -260,14 +271,13 @@
     <Compile Include="UserControls\Options\TracingUserControl.xaml.cs">
       <DependentUpon>TracingUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Options\VisualUserControl.xaml.cs">
-      <DependentUpon>VisualUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\AddCustomRenderers\CustomRendererViewModel.cs" />
     <Compile Include="ViewModels\AddCustomRenderers\CustomRendererFinishedViewModel.cs" />
     <Compile Include="ViewModels\AddDependencyServices\DependencyServiceViewModel.cs" />
     <Compile Include="ViewModels\AddDependencyServices\DependencyServiceFinishedViewModel.cs" />
+    <Compile Include="ViewModels\AddEffects\EffectFinishedViewModel.cs" />
+    <Compile Include="ViewModels\AddEffects\EffectViewModel.cs" />
     <Compile Include="ViewModels\AddNugetPackages\NugetPackagesFinishedViewModel.cs" />
     <Compile Include="ViewModels\AddProjects\NinjaCoderOptionsViewModel.cs" />
     <Compile Include="ViewModels\AddProjects\ApplicationSamplesOptionsViewModel.cs" />
@@ -289,7 +299,6 @@
     <Compile Include="ViewModels\Options\OptionsViewModel.cs" />
     <Compile Include="ViewModels\Options\ProjectsViewModel.cs" />
     <Compile Include="ViewModels\Options\TracingViewModel.cs" />
-    <Compile Include="ViewModels\Options\VisualViewModel.cs" />
     <Compile Include="ViewModels\PluginsViewModel.cs" />
     <Compile Include="ViewModels\Wizard\WizardFrameViewModel.cs" />
     <Compile Include="Views\AboutView.xaml.cs">
@@ -358,6 +367,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UserControls\AddEffects\EffectControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AddEffects\EffectFinishedControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControls\AddNugetPackages\NugetPackagesFinishedControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -423,10 +440,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Options\TracingUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\Options\VisualUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

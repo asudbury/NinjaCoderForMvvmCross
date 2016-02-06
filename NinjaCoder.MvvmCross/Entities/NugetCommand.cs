@@ -3,7 +3,6 @@
 // 		Defines the NugetCommand type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Entities
 {
     /// <summary>

@@ -5,11 +5,10 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
-    using System.Collections.Specialized;
-    using System.Windows.Input;
-
     using Android.Views;
     using Android.Widget;
+    using System.Collections.Specialized;
+    using System.Windows.Input;
 
     /// <summary>
     /// Defines the LinkerPleaseInclude type.

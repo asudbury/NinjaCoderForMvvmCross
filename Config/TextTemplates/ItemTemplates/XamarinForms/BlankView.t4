@@ -1,0 +1,15 @@
+<#@ Template Language="C#" #>
+<#@ Output Extension="xaml" #>
+<#@ parameter type="System.string" name="PageType" #>
+<#@ parameter type="System.string" name="NameSpace" #>
+<#@ parameter type="System.string" name="ClassName" #>
+<#@ parameter type="System.string" name="CoreProjectName" #>
+<#@ parameter type="System.string" name="Content" #>
+<?xml version="1.0" encoding="utf-8" ?>
+<<#= PageType #> x:Class="<#= NameSpace #>.<#= ClassName #>"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:<#= CoreProjectName #>.ViewModels;assembly=<#= CoreProjectName #>"
+             Title="<#= ClassName #> Page">
+    <#= Content #> 
+</<#= PageType #>>

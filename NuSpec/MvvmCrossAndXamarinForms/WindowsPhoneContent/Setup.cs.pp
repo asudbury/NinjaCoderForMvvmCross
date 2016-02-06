@@ -6,14 +6,14 @@
 
 namespace $rootnamespace$
 {
-    using Cirrious.CrossCore;
-    using Cirrious.MvvmCross.ViewModels;
-    using Cirrious.MvvmCross.Views;
-    using Cirrious.MvvmCross.WindowsPhone.Platform;
-    using Cirrious.MvvmCross.WindowsPhone.Views;
+    using Forms;
     using Microsoft.Phone.Controls;
-    using FormsProject;
-    using $rootnamespace$.Presenters;
+    using MvvmCross.Core.ViewModels;
+    using MvvmCross.Core.Views;
+    using MvvmCross.Platform;
+    using MvvmCross.WindowsPhone.Platform;
+    using MvvmCross.WindowsPhone.Views;
+    using Presenters;
 
     /// <summary>
     ///    Defines the Setup type.

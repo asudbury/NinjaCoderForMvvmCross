@@ -94,7 +94,7 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             WizardData wizardData = new WizardData
             {
-                WindowTitle = "Add Dependency Service",
+                WindowTitle = "Add Xamarin Forms Dependency Service",
                 WindowHeight = 600,
                 WindowWidth = 600,
                 WizardSteps = this.GetWizardsSteps()
@@ -143,7 +143,8 @@ namespace NinjaCoder.MvvmCross.Factories
                         "I" + name,
                         directory,
                         ProjectSuffix.XamarinForms,
-                        baseDictionary));
+                        baseDictionary,
+                        true));
             }
 
             IProjectService iOSProjectService = this.visualStudioService.iOSProjectService;
@@ -159,7 +160,8 @@ namespace NinjaCoder.MvvmCross.Factories
                         name,
                         directory,
                         ProjectSuffix.iOS,
-                        baseDictionary));
+                        baseDictionary,
+                        true));
             }
 
             IProjectService windowsPhoneProjectService = this.visualStudioService.WindowsPhoneProjectService;
@@ -175,7 +177,8 @@ namespace NinjaCoder.MvvmCross.Factories
                         name,
                         directory,
                         ProjectSuffix.WindowsPhone,
-                        baseDictionary));
+                        baseDictionary,
+                        true));
             }
 
             IProjectService droidProjectService = this.visualStudioService.DroidProjectService;
@@ -191,7 +194,8 @@ namespace NinjaCoder.MvvmCross.Factories
                         name,
                         directory,
                         ProjectSuffix.Droid,
-                        baseDictionary));
+                        baseDictionary,
+                        true));
             }
 
             return textTemplates;

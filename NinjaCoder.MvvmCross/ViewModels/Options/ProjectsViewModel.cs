@@ -5,27 +5,20 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.Options
 {
-    using System.Collections.Generic;
-    using System.Windows;
-
     using NinjaCoder.MvvmCross.Factories.Interfaces;
     using NinjaCoder.MvvmCross.Services.Interfaces;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Windows;
+    using System.Windows.Input;
+
+    using Scorchio.Infrastructure.Wpf;
 
     /// <summary>
     ///  Defines the ProjectsViewModel type.
     /// </summary>
     public class ProjectsViewModel : NinjaBaseViewModel
     {
-        /// <summary>
-        /// The testing service factory
-        /// </summary>
-        private readonly ITestingServiceFactory testingServiceFactory;
-
-        /// <summary>
-        /// The mocking service factory
-        /// </summary>
-        private readonly IMockingServiceFactory mockingServiceFactory;
-
         /// <summary>
         /// The view model and views factory.
         /// </summary>
@@ -47,16 +40,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         private IEnumerable<string> windowsPhoneVersions;
 
         /// <summary>
-        /// The testing frameworks.
-        /// </summary>
-        private IEnumerable<string> testingFrameworks;
-
-        /// <summary>
-        /// The mocking frameworks.
-        /// </summary>
-        private IEnumerable<string> mockingFrameworks;
-
-        /// <summary>
         /// The view types
         /// </summary>
         private IEnumerable<string> viewTypes;
@@ -67,36 +50,30 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         private string selectedWindowsPhoneVersion;
 
         /// <summary>
-        /// The selected testing framework.
-        /// </summary>
-        private string selectedTestingFramework;
-
-        /// <summary>
-        /// The selected mocking framework.
-        /// </summary>
-        private string selectedMockingFramework;
-
-        /// <summary>
         /// The selected view type.
         /// </summary>
         private string selectedViewType;
 
         /// <summary>
+        /// The MVVM crossi os sample data view types.
+        /// </summary>
+        private IEnumerable<string> mvvmCrossiOSSampleDataViewTypes;
+
+        /// <summary>
+        /// The selected MVVM crossi os sample data view type
+        /// </summary>
+        private string selectedMvvmCrossiOSSampleDataViewType;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="NinjaBaseViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
-        /// <param name="testingServiceFactory">The testing service factory.</param>
-        /// <param name="mockingServiceFactory">The mocking service factory.</param>
         /// <param name="viewModelAndViewsFactory">The view model and views factory.</param>
         public ProjectsViewModel(
             ISettingsService settingsService,
-            ITestingServiceFactory testingServiceFactory,
-            IMockingServiceFactory mockingServiceFactory,
             IViewModelAndViewsFactory viewModelAndViewsFactory)
             : base(settingsService)
         {
-            this.testingServiceFactory = testingServiceFactory;
-            this.mockingServiceFactory = mockingServiceFactory;
             this.viewModelAndViewsFactory = viewModelAndViewsFactory;
             this.Init();
         }
@@ -143,42 +120,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         }
 
         /// <summary>
-        /// Gets or sets the testing frameworks.
-        /// </summary>
-        public IEnumerable<string> TestingFrameworks
-        {
-            get { return this.testingFrameworks; }
-            set { this.SetProperty(ref this.testingFrameworks, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the selected testing framework.
-        /// </summary>
-        public string SelectedTestingFramework
-        {
-            get { return this.selectedTestingFramework; }
-            set { this.SetProperty(ref this.selectedTestingFramework, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the mocking frameworks.
-        /// </summary>
-        public IEnumerable<string> MockingFrameworks
-        {
-            get { return this.mockingFrameworks; }
-            set { this.SetProperty(ref this.mockingFrameworks, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the selected mocking framework.
-        /// </summary>
-        public string SelectedMockingFramework
-        {
-            get { return this.selectedMockingFramework; }
-            set { this.SetProperty(ref this.selectedMockingFramework, value); }
-        }
-
-        /// <summary>
         /// Gets or sets the view types.
         /// </summary>
         public IEnumerable<string> ViewTypes
@@ -197,12 +138,37 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         }
 
         /// <summary>
+        /// Gets or sets the MVVM crossi os sample data view types.
+        /// </summary>
+        public IEnumerable<string> MvvmCrossiOSSampleDataViewTypes
+        {
+            get { return this.mvvmCrossiOSSampleDataViewTypes; }
+            set { this.SetProperty(ref this.mvvmCrossiOSSampleDataViewTypes, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the type of the selected view.
+        /// </summary>
+        public string SelectedMvvmCrossiOSSampleDataViewType
+        {
+            get { return this.selectedMvvmCrossiOSSampleDataViewType; }
+            set { this.SetProperty(ref this.selectedMvvmCrossiOSSampleDataViewType, value); }
+        }
+
+        /// <summary>
+        /// Gets the UI help page command.
+        /// </summary>
+        public ICommand UIHelpPageCommand
+        {
+            get { return new RelayCommand(this.DisplayUIHelpPage); }
+        }
+
+        /// <summary>
         /// Saves this instance.
         /// </summary>
         public void Save()
         {
-            this.testingServiceFactory.CurrentFrameWork = this.SelectedTestingFramework;
-            this.mockingServiceFactory.CurrentFrameWork = this.SelectedMockingFramework;
+            this.SettingsService.SelectedMvvmCrossiOSSampleDataViewType = this.selectedMvvmCrossiOSSampleDataViewType;
         }
 
         /// <summary>
@@ -217,13 +183,19 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.PCLProfiles = new List<string> { this.selectedPCLProfile };
             this.WindowsPhoneVersions = new List<string> { this.selectedWindowsPhoneVersion };
 
-            this.TestingFrameworks = this.testingServiceFactory.FrameWorks;
-            this.MockingFrameworks = this.mockingServiceFactory.FrameWorks;
-
-            this.SelectedTestingFramework = this.testingServiceFactory.CurrentFrameWork;
-            this.SelectedMockingFramework = this.mockingServiceFactory.CurrentFrameWork;
-
             this.ViewTypes = this.viewModelAndViewsFactory.GetAvailableViewTypes();
+            this.MvvmCrossiOSSampleDataViewTypes = this.viewModelAndViewsFactory.GetAvailableMvvmCrossiOSSampleDataViewTypes();
+
+            this.SelectedMvvmCrossiOSSampleDataViewType = this.SettingsService.SelectedMvvmCrossiOSSampleDataViewType;
+        }
+
+        /// <summary>
+        /// Displays the UI help page.
+        /// </summary>
+        internal void DisplayUIHelpPage()
+        {
+            Process.Start(this.SettingsService.MvvmCrossiOSSampleDataWebPage);
+
         }
     }
 }

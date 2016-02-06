@@ -5,11 +5,11 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
+   using Microsoft.Phone.Controls;
+    using Microsoft.Phone.Shell;
+    using MvvmCross.Platform;
     using System.Windows;
     using System.Windows.Navigation;
-
-    using Microsoft.Phone.Controls;
-    using Microsoft.Phone.Shell;
 
     /// <summary>
     ///    Defines the App.xaml type.
@@ -28,13 +28,13 @@ namespace $rootnamespace$
         public App()
         {
             // Global handler for uncaught exceptions. 
-            UnhandledException += Application_UnhandledException;
+            this.UnhandledException += this.Application_UnhandledException;
 
             // Standard Silverlight initialization
-            InitializeComponent();
+            this.InitializeComponent();
 
             // Phone-specific initialization
-            InitializePhoneApplication();
+            this.InitializePhoneApplication();
 
             // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)
@@ -55,8 +55,8 @@ namespace $rootnamespace$
                 // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
-            
-            Setup setup = new Setup(RootFrame);
+
+            Setup setup = new Setup(this.RootFrame);
 
             setup.Initialize();
 
@@ -68,14 +68,14 @@ namespace $rootnamespace$
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            RootFrame.Navigating += RootFrameOnNavigating;
+            this.RootFrame.Navigating += this.RootFrameOnNavigating;
         }
 
         private void RootFrameOnNavigating(object sender, NavigatingCancelEventArgs args)
         {
             args.Cancel = true;
-            RootFrame.Navigating -= RootFrameOnNavigating;
-            RootFrame.Dispatcher.BeginInvoke(() => Cirrious.CrossCore.Mvx.Resolve<Cirrious.MvvmCross.ViewModels.IMvxAppStart>().Start());
+            this.RootFrame.Navigating -= this.RootFrameOnNavigating;
+            this.RootFrame.Dispatcher.BeginInvoke(() => Mvx.Resolve<MvvmCross.Core.ViewModels.IMvxAppStart>().Start());
         }
 
         // Code to execute if a navigation fails
@@ -122,34 +122,34 @@ namespace $rootnamespace$
         // Do not add any additional code to this method
         private void InitializePhoneApplication()
         {
-            if (phoneApplicationInitialized)
+            if (this.phoneApplicationInitialized)
             {
                 return;
             }
 
             // Create the frame but don't set it as RootVisual yet; this allows the splash
             // screen to remain active until the application is ready to render.
-            RootFrame = new PhoneApplicationFrame();
-            RootFrame.Navigated += CompleteInitializePhoneApplication;
+            this.RootFrame = new PhoneApplicationFrame();
+            this.RootFrame.Navigated += this.CompleteInitializePhoneApplication;
 
             // Handle navigation failures
-            RootFrame.NavigationFailed += RootFrame_NavigationFailed;
+            this.RootFrame.NavigationFailed += this.RootFrame_NavigationFailed;
 
             // Ensure we don't initialize again
-            phoneApplicationInitialized = true;
+            this.phoneApplicationInitialized = true;
         }
 
         // Do not add any additional code to this method
         private void CompleteInitializePhoneApplication(object sender, NavigationEventArgs e)
         {
             // Set the root visual to allow the application to render
-            if (RootVisual != RootFrame)
+            if (this.RootVisual != this.RootFrame)
             {
-                RootVisual = RootFrame;
+                this.RootVisual = this.RootFrame;
             }
 
             // Remove this handler since it is no longer needed
-            RootFrame.Navigated -= CompleteInitializePhoneApplication;
+            this.RootFrame.Navigated -= this.CompleteInitializePhoneApplication;
         }
     }
 }

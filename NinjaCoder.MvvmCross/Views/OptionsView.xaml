@@ -1,99 +1,89 @@
 ﻿<views:BaseView x:Class="NinjaCoder.MvvmCross.Views.OptionsView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:wpf="clr-namespace:Scorchio.Infrastructure.Wpf;assembly=Scorchio.Infrastructure"
-             xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
-             xmlns:options="clr-namespace:NinjaCoder.MvvmCross.UserControls.Options"
-             xmlns:resources="clr-namespace:Scorchio.Infrastructure.Wpf.Resources;assembly=Scorchio.Infrastructure"
-             xmlns:views="clr-namespace:NinjaCoder.MvvmCross.Views"
-             Title="{DynamicResource NinjaOptions}" 
-             TitleCaps="False"
-             wpf:DialogCloser.DialogResult="{Binding DialogResult}"
-             ShowMinButton="False"
-             ShowMaxRestoreButton="False"
-             BorderThickness="1" 
-             WindowStartupLocation="CenterScreen"
-             BorderBrush="{DynamicResource AccentColorBrush}"
-             Height="540" 
-             Width="580">
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                xmlns:options="clr-namespace:NinjaCoder.MvvmCross.UserControls.Options"
+                xmlns:resources="clr-namespace:Scorchio.Infrastructure.Wpf.Resources;assembly=Scorchio.Infrastructure"
+                xmlns:system="clr-namespace:System;assembly=mscorlib"
+                xmlns:views="clr-namespace:NinjaCoder.MvvmCross.Views"
+                xmlns:wpf="clr-namespace:Scorchio.Infrastructure.Wpf;assembly=Scorchio.Infrastructure"
+                Title="{DynamicResource NinjaOptions}"
+                Width="580"
+                Height="560"
+                BorderBrush="{DynamicResource AccentColorBrush}"
+                BorderThickness="1"
+                ShowMaxRestoreButton="False"
+                ShowMinButton="False"
+                TitleCaps="False"
+                WindowStartupLocation="CenterScreen"
+                wpf:DialogCloser.DialogResult="{Binding DialogResult}">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <resources:SharedResourceDictionary Source="..\Resources\App.xaml"/>
+                <resources:SharedResourceDictionary Source="..\Resources\App.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <system:Double x:Key="TabHeight">410</system:Double>
+            <system:Double x:Key="TabHeight">435</system:Double>
             <system:Double x:Key="TabItemFontSize">16.00</system:Double>
         </ResourceDictionary>
-    </Window.Resources> 
-    <StackPanel Orientation="Vertical" Margin="10">
+    </Window.Resources>
+    <StackPanel Margin="10" Orientation="Vertical">
 
         <controls:MetroAnimatedTabControl>
             <TabItem Header="{DynamicResource Tracing}">
                 <GroupBox Height="{StaticResource TabHeight}">
                     <GroupBox.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{DynamicResource Tracing}" Foreground="White" />
+                            <TextBlock Foreground="White" Text="{DynamicResource Tracing}" />
                         </DataTemplate>
                     </GroupBox.HeaderTemplate>
-                    <options:TracingUserControl 
-                        DataContext="{Binding TracingViewModel}" 
-                        LanguageDictionary="{Binding LanguageDictionary}"/>
+                    <options:TracingUserControl DataContext="{Binding TracingViewModel}" LanguageDictionary="{Binding LanguageDictionary}" />
                 </GroupBox>
             </TabItem>
             <TabItem Header="{DynamicResource Build}">
                 <GroupBox Height="{StaticResource TabHeight}">
                     <GroupBox.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{DynamicResource Build}" Foreground="White" />
+                            <TextBlock Foreground="White" Text="{DynamicResource Build}" />
                         </DataTemplate>
                     </GroupBox.HeaderTemplate>
-                    <options:BuildUserControl 
-                        DataContext="{Binding BuildViewModel}" 
-                        LanguageDictionary="{Binding LanguageDictionary}"/>
+                    <options:BuildUserControl DataContext="{Binding BuildViewModel}" LanguageDictionary="{Binding LanguageDictionary}" />
                 </GroupBox>
             </TabItem>
             <TabItem Header="{DynamicResource Projects}">
                 <GroupBox Height="{StaticResource TabHeight}">
                     <GroupBox.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{DynamicResource Projects}" Foreground="White" />
+                            <TextBlock Foreground="White" Text="{DynamicResource Projects}" />
                         </DataTemplate>
                     </GroupBox.HeaderTemplate>
-                    <options:ProjectsUserControl 
-                        DataContext="{Binding ProjectsViewModel}" 
-                        LanguageDictionary="{Binding LanguageDictionary}"/>
+                    <options:ProjectsUserControl DataContext="{Binding ProjectsViewModel}" LanguageDictionary="{Binding LanguageDictionary}" />
                 </GroupBox>
             </TabItem>
             <TabItem Header="{DynamicResource CodingStyle}">
                 <GroupBox Height="{StaticResource TabHeight}">
                     <GroupBox.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{DynamicResource CodingStyle}" Foreground="White" />
+                            <TextBlock Foreground="White" Text="{DynamicResource CodingStyle}" />
                         </DataTemplate>
                     </GroupBox.HeaderTemplate>
-                    <options:CodingStyleUserControl 
-                        DataContext="{Binding CodingStyleViewModel}" 
-                        LanguageDictionary="{Binding LanguageDictionary}"/>
-                </GroupBox>
-            </TabItem>
-            <TabItem Header="{DynamicResource Visual}">
-                <GroupBox Height="{StaticResource TabHeight}">
-                    <GroupBox.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{DynamicResource Visual}" Foreground="White" />
-                        </DataTemplate>
-                    </GroupBox.HeaderTemplate>
-                    <options:VisualUserControl  
-                        DataContext="{Binding VisualViewModel}" 
-                        LanguageDictionary="{Binding LanguageDictionary}"/>
+                    <options:CodingStyleUserControl DataContext="{Binding CodingStyleViewModel}" LanguageDictionary="{Binding LanguageDictionary}" />
                 </GroupBox>
             </TabItem>
         </controls:MetroAnimatedTabControl>
 
-        <StackPanel Margin="1" HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button Command="{Binding OkCommand}" Content="{DynamicResource Ok}" IsDefault="True" Margin="0,10,5,10" Width="70"/>
-            <Button Command="{Binding CancelCommand}" Content="{DynamicResource Cancel}" IsCancel="True" Margin="0,10,10,10" Width="70" />
+        <StackPanel Margin="1"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <Button Width="70"
+                    Margin="0,10,5,10"
+                    Command="{Binding OkCommand}"
+                    Content="{DynamicResource Ok}"
+                    IsDefault="True" />
+            <Button Width="70"
+                    Margin="0,10,10,10"
+                    Command="{Binding CancelCommand}"
+                    Content="{DynamicResource Cancel}"
+                    IsCancel="True" />
         </StackPanel>
 
     </StackPanel>

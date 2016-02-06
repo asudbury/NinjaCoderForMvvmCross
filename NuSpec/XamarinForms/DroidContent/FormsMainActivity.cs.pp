@@ -8,10 +8,9 @@ namespace $rootnamespace$
     using Android.App;
     using Android.Content.PM;
     using Android.OS;
+    using Forms;
     using Xamarin.Forms.Platform.Android;
 
-	using $rootnamespace$.Forms;
-		
     /// <summary>
     /// Defines the MainActivity type.
     /// </summary>

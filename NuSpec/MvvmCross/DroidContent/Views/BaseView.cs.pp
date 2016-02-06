@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$.Views
 {
-    using Cirrious.MvvmCross.Droid.Views;
+    using MvvmCross.Droid.Views;
 
     /// <summary>
     ///    Defines the BaseView type.

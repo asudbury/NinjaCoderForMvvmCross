@@ -5,11 +5,10 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
+    using MvvmCross.Core.ViewModels;
+    using MvvmCross.Wpf.Platform;
+    using MvvmCross.Wpf.Views;
     using System.Windows.Threading;
-
-    using Cirrious.MvvmCross.ViewModels;
-    using Cirrious.MvvmCross.Wpf.Platform;
-    using Cirrious.MvvmCross.Wpf.Views;
 
     /// <summary>
     ///  Defines the Setup type.

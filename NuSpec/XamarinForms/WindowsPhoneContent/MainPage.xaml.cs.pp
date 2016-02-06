@@ -5,10 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
+    using Forms;
     using Xamarin.Forms;
-	using Xamarin.Forms.Platform.WinPhone;
-
-	using FormsProject;
+    using Xamarin.Forms.Platform.WinPhone;
 
     /// <summary>
     ///    Defines the MainPage.xaml type.

@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
-    using Xamarin.Forms;
+    using Forms;
 
     /// <summary>
     ///    Defines the MainPage.xaml type.

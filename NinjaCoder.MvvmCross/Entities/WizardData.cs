@@ -3,7 +3,6 @@
 //  Defines the WizardData type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Entities
 {
     using System.Collections.Generic;

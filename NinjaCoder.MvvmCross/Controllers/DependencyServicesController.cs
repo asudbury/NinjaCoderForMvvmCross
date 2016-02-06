@@ -18,6 +18,8 @@ namespace NinjaCoder.MvvmCross.Controllers
     using System;
     using System.Collections.Generic;
 
+    using NinjaCoder.MvvmCross.Extensions;
+
     /// <summary>
     /// Defines the DependencyServicesController type.
     /// </summary>
@@ -72,8 +74,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             FrameworkType frameworkType = this.VisualStudioService.GetFrameworkType();
 
-            if (frameworkType == FrameworkType.XamarinForms || 
-                frameworkType == FrameworkType.MvvmCrossAndXamarinForms)
+            if (frameworkType.IsXamarinFormsSolutionType())
             {
                 this.dependencyServicesFactory.RegisterWizardData();
 

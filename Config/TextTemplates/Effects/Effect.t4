@@ -1,0 +1,43 @@
+﻿<#@ Template Language="C#" #>
+<#@ Output Extension="cs" #>
+<#@ parameter type="System.string" name="Platform" #>
+<#@ parameter type="System.string" name="NameSpace" #>
+<#@ parameter type="System.string" name="ClassName" #>
+// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//  Defines the <#= ClassName #> type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace <#= NameSpace #>
+{
+    using System.ComponentModel;
+    using Xamarin.Forms.Platform<#= Platform #>;
+ 
+    /// <summary>
+    /// Defines the <#= ClassName #> type.
+    /// </summary>
+    public class <#= ClassName #> : PlatformEffect
+    {
+        /// <summary>
+        /// The OnAttached method.
+        /// </summary>
+        protected override void OnAttached()
+        {
+        }
+
+        /// <summary>
+        ///  The OnDetached method.
+        /// </summary>
+        protected override void OnDetached()
+        {
+        }
+    
+        /// <summary>
+        /// Raises the <see cref="E:ElementPropertyChanged" /> event.
+        /// </summary>
+        /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
+        protected override void OnElementPropertyChanged(PropertyChangedEventArgs e)
+        {
+        }
+    }
+}

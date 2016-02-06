@@ -1,5 +1,5 @@
 <#@ Template Language="C#" #>
-<#@ Output Extension="cs" #>
+<#@ Output Extension="xaml.cs" #>
 <#@ parameter type="System.string" name="NameSpace" #>
 <#@ parameter type="System.string" name="ClassName" #>
 // --------------------------------------------------------------------------------------------------------------------

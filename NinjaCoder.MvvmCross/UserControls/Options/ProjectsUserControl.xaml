@@ -25,20 +25,6 @@
                   ItemsSource="{Binding WindowsPhoneVersions}"
                   SelectedItem="{Binding Path=SelectedWindowsPhoneVersion,
                                          Mode=TwoWay}" />
-        <TextBlock Margin="10,10,0,4" Text="Testing Framework" />
-        <ComboBox Width="200"
-                  Margin="10,0,0,3"
-                  HorizontalAlignment="Left"
-                  ItemsSource="{Binding TestingFrameworks}"
-                  SelectedItem="{Binding Path=SelectedTestingFramework,
-                                         Mode=TwoWay}" />
-        <TextBlock Margin="10,10,0,4" Text="Mocking Framework" />
-        <ComboBox Width="200"
-                  Margin="10,0,0,3"
-                  HorizontalAlignment="Left"
-                  ItemsSource="{Binding MockingFrameworks}"
-                  SelectedItem="{Binding Path=SelectedMockingFramework,
-                                         Mode=TwoWay}" />
         <TextBlock Margin="10,10,0,4" Text="Default View Type" />
         <ComboBox Width="200"
                   Margin="10,0,0,3"
@@ -46,5 +32,19 @@
                   ItemsSource="{Binding ViewTypes}"
                   SelectedItem="{Binding Path=SelectedViewType,
                                          Mode=TwoWay}" />
+        <TextBlock Margin="10,10,0,4" Text="MvvmCross iOS Sample Data View Type" />
+        <ComboBox Width="200"
+                  Margin="10,0,0,3"
+                  HorizontalAlignment="Left"
+                  ItemsSource="{Binding MvvmCrossiOSSampleDataViewTypes}"
+                  SelectedItem="{Binding Path=SelectedMvvmCrossiOSSampleDataViewType,
+                                         Mode=TwoWay}" />
+
+        <TextBlock Margin="10">
+            <Hyperlink Command="{Binding UIHelpPageCommand}">
+                <TextBlock Text="iOS UI Help Page" />
+            </Hyperlink>
+        </TextBlock>
     </StackPanel>
+
 </userControls:BaseUserControl>

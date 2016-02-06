@@ -7,6 +7,7 @@ namespace $rootnamespace$
 {
     using Microsoft.Phone.Controls;
     using Microsoft.Phone.Shell;
+    using MvvmCross.Platform;
     using System.Windows;
     using System.Windows.Navigation;
 
@@ -82,8 +83,8 @@ namespace $rootnamespace$
         {
             args.Cancel = true;
             this.RootFrame.Navigating -= this.RootFrameOnNavigating;
-            this.RootFrame.Dispatcher.BeginInvoke(() => { Cirrious.CrossCore.Mvx.Resolve<Cirrious.MvvmCross.ViewModels.IMvxAppStart>().Start(); });
-          }
+            this.RootFrame.Dispatcher.BeginInvoke(() => { Mvx.Resolve<MvvmCross.Core.ViewModels.IMvxAppStart>().Start(); });
+        }
 
         /// <summary>
         /// Handles the NavigationFailed event of the RootFrame control.

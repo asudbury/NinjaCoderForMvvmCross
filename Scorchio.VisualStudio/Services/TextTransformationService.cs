@@ -11,6 +11,8 @@ namespace Scorchio.VisualStudio.Services
     using System.IO;
     using System.Net;
 
+    using Scorchio.VisualStudio.Entities;
+
     /// <summary>
     ///  Defines the TextTransformationService type.
     /// </summary>
@@ -39,7 +41,7 @@ namespace Scorchio.VisualStudio.Services
         /// <param name="sourceFile">The source file.</param>
         /// <param name="parameters">The parameters.</param>
         /// <returns></returns>
-        public string Transform(
+        public TextTransformation Transform(
             string sourceFile,
             IDictionary<string, string> parameters)
         {
@@ -51,11 +53,11 @@ namespace Scorchio.VisualStudio.Services
 
             TraceService.WriteLine("Before processing template via SimpleTextTemplatingEngine");
 
-            string output =  engine.ProcessTemplate(sourceText, parameters);
+            TextTransformation textTransformation =  engine.ProcessTemplate(sourceText, parameters);
 
-            TraceService.WriteLine("After processing template via SimpleTextTemplatingEngine");
+            TraceService.WriteLine("After processing template via SimpleTextTemplatingEngine = SUCCESS!");
 
-            return output;
+            return textTransformation;
         }
 
         /// <summary>

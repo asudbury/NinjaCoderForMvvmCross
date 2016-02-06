@@ -3,7 +3,6 @@
 //  Defines the NoFrameworkProjectTemplate type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Entities
 {
     using System.ComponentModel;
@@ -54,12 +53,6 @@ namespace NinjaCoder.MvvmCross.Entities
         /// </summary>
         [Description("NinjaCoder.WindowsPhone.zip")]
         WindowsPhone,
-
-        /// <summary>
-        /// The windows store.
-        /// </summary>
-        [Description("BlankApp.zip")]
-        WindowsStore,
 
         /// <summary>
         /// The wpf.

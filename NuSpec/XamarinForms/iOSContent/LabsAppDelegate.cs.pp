@@ -5,14 +5,11 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
+    using Forms;
     using MonoTouch.Foundation;
     using MonoTouch.UIKit;
-
     using Xamarin.Forms;
-
-	using $rootnamespace$.Forms;
-	
-	using Xamarin.Forms.Labs.iOS;
+    using Xamarin.Forms.Labs.iOS;
 
     /// <summary>
     /// The UIApplicationDelegate for the application. This class is responsible for launching the 

@@ -6,11 +6,12 @@
 namespace NinjaCoder.MvvmCross.Factories
 {
     using NinjaCoder.MvvmCross.Entities;
+    using NinjaCoder.MvvmCross.Extensions;
     using Scorchio.Infrastructure.Constants;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Entities;
-    using System.Collections.Generic;
     using Scorchio.VisualStudio.Services;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Defines the BaseProjectFactory type.
@@ -73,11 +74,10 @@ namespace NinjaCoder.MvvmCross.Factories
 
             if (testingFramework == TestingConstants.MsTest.Name)
             {
-                templateName = ProjectTemplate.MsTestTests.GetDescription();   
+                templateName = ProjectTemplate.MsTestTests.GetDescription();
             }
-            
-            if (frameworkType == FrameworkType.MvvmCross ||
-                frameworkType == FrameworkType.MvvmCrossAndXamarinForms)
+
+            if (frameworkType.IsMvvmCrossSolutionType())
             {
                 templateName = ProjectTemplate.NUnitTests.GetDescription();
 

@@ -5,20 +5,20 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
-    using Cirrious.CrossCore;
-    using Cirrious.MvvmCross.Touch.Platform;
-    using Cirrious.MvvmCross.Touch.Views.Presenters;
-    using Cirrious.MvvmCross.ViewModels;
-    using Cirrious.MvvmCross.Views;
-    using CoreProject;
-    using FormsProject;
-    using $rootnamespace$.Presenters;
+    using Core;
+    using Forms;
+    using MvvmCross.Core.ViewModels;
+    using MvvmCross.Core.Views;
+    using MvvmCross.iOS.Platform;
+    using MvvmCross.iOS.Views.Presenters;
+    using MvvmCross.Platform;
+    using Presenters;
     using UIKit;
 
     /// <summary>
     ///    Defines the Setup type.
     /// </summary>
-    public class Setup : MvxTouchSetup
+    public class Setup : MvxIosSetup
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Setup"/> class.
@@ -43,11 +43,11 @@ namespace $rootnamespace$
         /// Creates the presenter.
         /// </summary>
         /// <returns></returns>
-        protected override IMvxTouchViewPresenter CreatePresenter()
+        protected override IMvxIosViewPresenter CreatePresenter()
         {
             Xamarin.Forms.Forms.Init();
 
-            MvxFormsTouchViewPresenter presenter = new MvxFormsTouchViewPresenter(
+            MvxFormsIosViewPresenter presenter = new MvxFormsIosViewPresenter(
                 new XamarinFormsApp(), 
                 this.Window);
 

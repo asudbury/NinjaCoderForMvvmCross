@@ -114,6 +114,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         {
             ObservableCollection<SelectableItemViewModel<Plugin>> viewModels = new ObservableCollection<SelectableItemViewModel<Plugin>>();
 
+            if (plugins == null)
+            {
+                return viewModels;
+            }
+
             foreach (SelectableItemViewModel<Plugin> viewModel in from plugin in plugins
                                                                   where plugin.Frameworks.Contains(this.settingsService.FrameworkType) 
                                                                   select new SelectableItemViewModel<Plugin>(plugin))

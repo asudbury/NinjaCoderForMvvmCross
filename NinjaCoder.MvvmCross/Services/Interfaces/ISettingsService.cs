@@ -46,27 +46,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets or sets a value indicating whether [remove default comments].
         /// </summary>
         bool RemoveDefaultComments { get; set; }
-
-        /// <summary>
-        /// Gets the code snippets path.
-        /// </summary>
-        string CodeSnippetsPath { get; }
-
-        /// <summary>
-        /// Gets the plugins code snippets path.
-        /// </summary>
-        string PluginsCodeSnippetsPath { get; }
-
-        /// <summary>
-        /// Gets the services code snippets path.
-        /// </summary>
-        string ServicesCodeSnippetsPath { get; }
-        
-        /// <summary>
-        /// Gets the services config path.
-        /// </summary>
-        string ServicesConfigPath { get; }
-
+      
         /// <summary>
         /// Gets the config path.
         /// </summary>
@@ -78,29 +58,9 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         string ApplicationVersion { get; }
 
         /// <summary>
-        /// Gets the unit testing assemblies.
-        /// </summary>
-        string UnitTestingAssemblies { get; }
-
-        /// <summary>
-        /// Gets the unit testing init method.
-        /// </summary>
-        string UnitTestingInitMethod { get; }
-
-        /// <summary>
-        /// Gets the view model navigation snippet file.
-        /// </summary>
-        string ViewModelNavigationSnippetFile { get; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether [format function parameters].
         /// </summary>
         bool FormatFunctionParameters { get; set; }
-
-        /// <summary>
-        /// Gets a value indicating whether [replace variables in snippets].
-        /// </summary>
-        bool ReplaceVariablesInSnippets { get; }
 
         /// <summary>
         /// Gets the MVVM cross home page.
@@ -146,16 +106,16 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets or sets the default projects path.
         /// </summary>
         string DefaultProjectsPath { get; set; }
+        
+        /// <summary>
+        /// Gets the theme.
+        /// </summary>
+        string Theme { get; }
 
         /// <summary>
-        /// Gets or sets the theme.
+        /// Gets the color of the theme.
         /// </summary>
-        string Theme { get; set; }
-
-        /// <summary>
-        /// Gets or sets the color of the theme.
-        /// </summary>
-        string ThemeColor { get; set; }
+        string ThemeColor { get; }
 
         /// <summary>
         /// Gets or sets the testing framework.
@@ -379,7 +339,12 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets the custom renderer text template.
         /// </summary>
         string CustomRendererTextTemplate { get; }
-        
+
+        /// <summary>
+        /// Gets the effects text template.
+        /// </summary>
+        string EffectsTextTemplate { get; }
+
         /// <summary>
         /// Gets or sets the custom renderer directory.
         /// </summary>
@@ -389,6 +354,16 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets or sets a value indicating whether [automatically add renderer].
         /// </summary>
         bool AutomaticallyAddRenderer { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [automatically add effect].
+        /// </summary>
+        bool AutomaticallyAddEffect { get; set; }
+
+        /// <summary>
+        /// Gets or sets the effect directory.
+        /// </summary>
+        string EffectDirectory { get; set; }
 
         /// <summary>
         /// Gets the xamarin forms custom renderers URI.
@@ -409,5 +384,70 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets the xamarin forms home page.
         /// </summary>
         string XamarinFormsHomePage { get; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add core tests project].
+        /// </summary>
+        bool AddCoreTestsProject { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add android project].
+        /// </summary>
+        bool AddAndroidProject { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [addi os project].
+        /// </summary>
+        bool AddiOSProject { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add windows phone project].
+        /// </summary>
+        bool AddWindowsPhoneProject { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add WPF project].
+        /// </summary>
+        bool AddWpfProject { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add xamarin forms tests project].
+        /// </summary>
+        bool AddXamarinFormsTestsProject { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the selected MVVM crossi os sample data view.
+        /// </summary>
+        string SelectedMvvmCrossiOSSampleDataViewType { get; set; }
+        
+        /// <summary>
+        /// Gets the MVVM crossi os sample data web page.
+        /// </summary>
+        string MvvmCrossiOSSampleDataWebPage { get; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add projects skip application options].
+        /// </summary>
+        bool AddProjectsSkipApplicationOptions { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add projects skip ninja coder options].
+        /// </summary>
+        bool AddProjectsSkipNinjaCoderOptions { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add projects skip MVVM cross plugin options].
+        /// </summary>
+        bool AddProjectsSkipMvvmCrossPluginOptions { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add projects skip nuget package options].
+        /// </summary>
+        bool AddProjectsSkipNugetPackageOptions { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add projects skip view options].
+        /// </summary>
+        bool AddProjectsSkipViewOptions { get; set; }
     }
 }

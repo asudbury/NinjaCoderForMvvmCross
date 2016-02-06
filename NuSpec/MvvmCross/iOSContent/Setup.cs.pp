@@ -5,15 +5,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
-    using Cirrious.MvvmCross.Touch.Platform;
-    using Cirrious.MvvmCross.ViewModels;
-
+    using MvvmCross.Core.ViewModels;
+    using MvvmCross.iOS.Platform;
     using UIKit;
 
     /// <summary>
     ///    Defines the Setup type.
     /// </summary>
-    public class Setup : MvxTouchSetup
+    public class Setup : MvxIosSetup
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Setup"/> class.

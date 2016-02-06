@@ -65,7 +65,6 @@
   <ItemGroup>
     <Compile Include="Controllers\TestPluginsController.cs" />
     <Compile Include="Controllers\TestProjectsController.cs" />
-    <Compile Include="Factories\TestCodeConfigFactory.cs" />
     <Compile Include="Factories\TestMockingServiceFactory.cs" />
     <Compile Include="Factories\GenerateProjectTemplatesXml.cs" />
     <Compile Include="Factories\TestTestingServiceFactory.cs" />

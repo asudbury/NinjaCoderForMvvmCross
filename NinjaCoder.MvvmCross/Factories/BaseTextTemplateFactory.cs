@@ -25,6 +25,8 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="directory">The directory.</param>
         /// <param name="projectSuffix">The project suffix.</param>
         /// <param name="baseDictionary">The base dictionary.</param>
+        /// <param name="useProjectSuffix">if set to <c>true</c> [use project suffix].</param>
+        /// <param name="projectSuffixOverride">The project suffix override.</param>
         /// <returns></returns>
         protected TextTemplateInfo GetTextTemplateInfo(
             IProjectService projectService,
@@ -32,11 +34,20 @@ namespace NinjaCoder.MvvmCross.Factories
             string name,
             string directory,
             ProjectSuffix projectSuffix,
-            Dictionary<string, string> baseDictionary)
+            Dictionary<string, string> baseDictionary,
+            bool useProjectSuffix,
+            string projectSuffixOverride = "")
         {
+            string projectSuffixString = projectSuffix.GetDescription();
+
+            if (projectSuffixOverride != string.Empty)
+            {
+                projectSuffixString = projectSuffixOverride;
+            }
+
             string nameSpace = this.GetNameSpace(projectService, directory);
-            string className = this.GetClassName(name, projectSuffix);
-            string fileName = this.GetFileName(name, projectSuffix);
+            string className = this.GetClassName(name, projectSuffix, useProjectSuffix);
+            string fileName = this.GetFileName(name, projectSuffix, useProjectSuffix);
 
             return new TextTemplateInfo
                        {
@@ -44,7 +55,7 @@ namespace NinjaCoder.MvvmCross.Factories
                            ProjectFolder = directory,
                            ProjectSuffix = projectSuffix.GetDescription(),
                            FileName = fileName,
-                           Tokens = this.GetDictionary(baseDictionary, nameSpace, className)
+                           Tokens = this.GetDictionary(baseDictionary, nameSpace, className, projectSuffixString)
                        };
         }
 
@@ -76,12 +87,19 @@ namespace NinjaCoder.MvvmCross.Factories
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="projectSuffix">The project suffix.</param>
+        /// <param name="useProjectSuffix">if set to <c>true</c> [use project suffix].</param>
         /// <returns></returns>
-        protected string GetClassName(
+        internal string GetClassName(
             string name,
-            ProjectSuffix projectSuffix)
+            ProjectSuffix projectSuffix,
+            bool useProjectSuffix)
         {
-            return name + this.GetProjectType(projectSuffix);
+            if (useProjectSuffix)
+            {
+                return name + this.GetProjectType(projectSuffix);
+            }
+
+            return name;
         }
 
         /// <summary>
@@ -89,11 +107,18 @@ namespace NinjaCoder.MvvmCross.Factories
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="projectSuffix">The project suffix.</param>
+        /// <param name="useProjectSuffix">if set to <c>true</c> [use project suffix].</param>
         /// <returns></returns>
-        protected string GetFileName(
+        internal string GetFileName(
             string name, 
-            ProjectSuffix projectSuffix)
+            ProjectSuffix projectSuffix,
+            bool useProjectSuffix)
         {
+            if (useProjectSuffix == false)
+            {
+                return name + ".cs";
+            }
+
             if (name.StartsWith("I") || 
                 projectSuffix == ProjectSuffix.XamarinForms)
             {
@@ -109,17 +134,20 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="baseDictionary">The base dictionary.</param>
         /// <param name="nameSpace">The name space.</param>
         /// <param name="className">Name of the class.</param>
+        /// <param name="platForm">The plat form.</param>
         /// <returns></returns>
         internal Dictionary<string, string> GetDictionary(
             Dictionary<string, string> baseDictionary,
             string nameSpace,
-            string className)
+            string className,
+            string platForm)
         {
             Dictionary<string, string> dictionary = new Dictionary<string, string>(baseDictionary);
 
             dictionary["NameSpace"] = nameSpace;
             dictionary["ClassName"] = className;
-
+            dictionary["Platform"] = platForm;
+            
             return dictionary;
         }
     }

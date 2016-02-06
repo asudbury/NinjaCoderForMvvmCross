@@ -1,2 +1,36 @@
 <Plugins>
+    <Plugin>
+        <Name>MvvmHelper Core</Name>
+        <NugetPackage>Scorchio.NinjaCoder.MvvmHelper.Core</NugetPackage>
+        <Platforms>
+            <Platform>Core</Platform>
+        </Platforms>
+        <Frameworks>
+            <Framework>No Framework</Framework>
+            <Framework>MvvmCross</Framework>
+            <Framework>Xamarin Forms</Framework>
+            <Framework>MvvmCross and Xamarin Forms</Framework>
+        </Frameworks>
+        <Description>
+            <![CDATA[
+        This package includes core Mvvm Helper functions.
+    ]]>
+        </Description>
+    </Plugin>
+    <Plugin>
+        <Name>Xamarin Forms Value Converters</Name>
+        <NugetPackage>Scorchio.NinjaCoder.XamarinForms.Converters</NugetPackage>
+        <Platforms>
+            <Platform>Forms</Platform>
+        </Platforms>
+        <Frameworks>
+            <Framework>Xamarin Forms</Framework>
+            <Framework>MvvmCross and Xamarin Forms</Framework>
+        </Frameworks>
+        <Description>
+            <![CDATA[
+        This package includes value converters for xamarin forms.
+    ]]>
+        </Description>
+    </Plugin>
  </Plugins>

@@ -26,13 +26,6 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
             bool usePreRelease);
 
         /// <summary>
-        /// Gets the nuget messages.
-        /// </summary>
-        /// <param name="plugins">The plugins.</param>
-        /// <returns></returns>
-        IEnumerable<string> GetNugetMessages(IEnumerable<Plugin> plugins);
-
-        /// <summary>
         /// Gets the post nuget commands.
         /// </summary>
         /// <param name="plugins">The plugins.</param>

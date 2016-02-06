@@ -63,13 +63,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Adds the view model and views.
         /// </summary>
-        /// <param name="templateInfos">The template infos.</param>
         /// <param name="textTemplateInfos">The text template infos.</param>
         /// <returns>
         /// The messages.
         /// </returns>
         public IEnumerable<string> AddViewModelAndViews(
-            IEnumerable<ItemTemplateInfo> templateInfos,
             IEnumerable<TextTemplateInfo> textTemplateInfos)
         {
             TraceService.WriteLine("ViewModelViewsService::AddViewModelAndViews");
@@ -79,7 +77,6 @@ namespace NinjaCoder.MvvmCross.Services
             List<TextTemplateInfo> textTemplates = textTemplateInfos.ToList();
 
             messages.AddRange(this.visualStudioService.SolutionService.AddItemTemplateToProjects(textTemplates));
-            messages.AddRange(this.visualStudioService.SolutionService.AddItemTemplateToProjects(templateInfos));
 
             //// now add any post action commands
 
@@ -90,6 +87,14 @@ namespace NinjaCoder.MvvmCross.Services
                     foreach (FileOperation fileOperation in textTemplateInfo.FileOperations)
                     {
                         this.fileOperationService.ProcessCommand(fileOperation);
+
+                        foreach (TextTemplateInfo childTemplateInfo in textTemplateInfo.ChildItems)
+                        {
+                            foreach (FileOperation childFileOperation in childTemplateInfo.FileOperations)
+                            {
+                                this.fileOperationService.ProcessCommand(childFileOperation); 
+                            }
+                        }
                     }
                 }
             }
@@ -129,11 +134,7 @@ namespace NinjaCoder.MvvmCross.Services
                 {
                     string viewModelName = view.Name + "ViewModel";
 
-                    IEnumerable<ItemTemplateInfo> itemTemplateInfos = this.viewModelAndViewsFactory.GetRequiredViewModelAndViews(
-                            view,
-                            viewModelName,
-                            this.viewModelAndViewsFactory.AllowedUIViews,
-                            this.visualStudioService.CoreTestsProjectService != null);
+                    this.visualStudioService.WriteStatusBarMessage(NinjaMessages.AddingViewModelAndViews + " (" + viewModelName + ")");
 
                     IEnumerable<TextTemplateInfo> textTemplateInfos = this.viewModelAndViewsFactory.GetRequiredTextTemplates(
                             view,
@@ -142,7 +143,6 @@ namespace NinjaCoder.MvvmCross.Services
                             this.visualStudioService.CoreTestsProjectService != null);
 
                     IEnumerable<string> viewModelMessages = this.AddViewModelAndViews(
-                        itemTemplateInfos,
                         textTemplateInfos);
 
                     messages.AddRange(viewModelMessages);

@@ -5,15 +5,15 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$
 {
-	using Android.Content;
-	using Cirrious.CrossCore;
-	using Cirrious.MvvmCross.Droid.Platform;
-	using Cirrious.MvvmCross.Droid.Views;
-	using Cirrious.MvvmCross.ViewModels;
-	using Cirrious.MvvmCross.Views;
-	using CoreProject;
-	using FormsProject;
-	using $rootnamespace$.Presenters;
+    using Android.Content;
+    using Core;
+    using Forms;
+    using MvvmCross.Core.ViewModels;
+    using MvvmCross.Core.Views;
+    using MvvmCross.Droid.Platform;
+    using MvvmCross.Droid.Views;
+    using MvvmCross.Platform;
+    using Presenters;
 
     /// <summary>
     /// Defines the Setup type.

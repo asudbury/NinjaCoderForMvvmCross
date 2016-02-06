@@ -28,10 +28,5 @@ namespace NinjaCoder.MvvmCross.Entities
         /// Gets or sets the post nuget file operations.
         /// </summary>
         public IEnumerable<FileOperation> PostNugetFileOperations { get; set; }
-
-        /// <summary>
-        /// Gets or sets the nuget messages.
-        /// </summary>
-        public IEnumerable<string> NugetMessages { get; set; }
     }
 }

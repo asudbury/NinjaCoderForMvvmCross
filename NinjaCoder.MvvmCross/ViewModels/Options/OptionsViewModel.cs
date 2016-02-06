@@ -6,11 +6,8 @@
 namespace NinjaCoder.MvvmCross.ViewModels.Options
 {
     using System.Windows;
-
     using NinjaCoder.MvvmCross.Services.Interfaces;
-
     using Scorchio.VisualStudio.Services;
-
     using BaseViewModel = NinjaCoder.MvvmCross.ViewModels.NinjaBaseViewModel;
 
     /// <summary>
@@ -39,7 +36,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.BuildViewModel = resolverService.Resolve<BuildViewModel>();
             this.ProjectsViewModel = resolverService.Resolve<ProjectsViewModel>();
             this.CodingStyleViewModel = resolverService.Resolve<CodingStyleViewModel>();
-            this.VisualViewModel = resolverService.Resolve<VisualViewModel>();
         }
 
         /// <summary>
@@ -61,11 +57,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         /// Gets the coding style view model.
         /// </summary>
         public CodingStyleViewModel CodingStyleViewModel { get; private set; }
-
-        /// <summary>
-        /// Gets the visual view model.
-        /// </summary>
-        public VisualViewModel VisualViewModel { get; private set; }
 
         /// <summary>
         /// Gets or sets the language dictionary.
@@ -104,7 +95,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.BuildViewModel.Save();
             this.ProjectsViewModel.Save();
             this.CodingStyleViewModel.Save();
-            this.VisualViewModel.Save();
         }
     }
 }

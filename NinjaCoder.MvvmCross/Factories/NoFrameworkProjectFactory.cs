@@ -192,7 +192,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 ProjectSuffix = ProjectSuffix.Droid.GetDescription(),
                 TemplateName = ProjectTemplate.Droid.GetDescription(),
                 ReferenceCoreProject = true,
-                PreSelected = true,
+                PreSelected = this.settingsService.AddAndroidProject,
                 NugetCommands = this.nugetCommandsService.GetNoFrameworksCommands()
             };
         }
@@ -211,7 +211,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 ProjectSuffix = ProjectSuffix.iOS.GetDescription(),
                 TemplateName = ProjectTemplate.iOS.GetDescription(),
                 ReferenceCoreProject = true,
-                PreSelected = true,
+                PreSelected = this.settingsService.AddiOSProject,
                 NugetCommands = this.nugetCommandsService.GetNoFrameworksiOSCommands()
             };
         }
@@ -230,7 +230,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 ProjectSuffix = ProjectSuffix.WindowsPhone.GetDescription(),
                 TemplateName = ProjectTemplate.WindowsPhone.GetDescription(),
                 ReferenceCoreProject = true,
-                PreSelected = true,
+                PreSelected = this.settingsService.AddWindowsPhoneProject,
                 NugetCommands = this.nugetCommandsService.GetNoFrameworksCommands()
             };
         }
@@ -248,7 +248,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 TemplateName = ProjectTemplate.Wpf.GetDescription(),
                 ReferenceXamarinFormsProject = true,
                 ReferenceCoreProject = true,
-                PreSelected = true
+                PreSelected = this.settingsService.AddWpfProject
             };
         }
     }

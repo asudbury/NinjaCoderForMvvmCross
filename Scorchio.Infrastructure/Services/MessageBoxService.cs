@@ -39,8 +39,6 @@ namespace Scorchio.Infrastructure.Services
                                               Message = { Text = text }
                                           };
 
-                view.ChangeTheme(theme, themeColor);
-
                 view.ShowDialog();
             }
             else

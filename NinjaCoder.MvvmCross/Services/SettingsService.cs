@@ -86,47 +86,6 @@ namespace NinjaCoder.MvvmCross.Services
         }
         
         /// <summary>
-        /// Gets the code snippets path.
-        /// </summary>
-        public string CodeSnippetsPath
-        {
-            get { return this.WorkingDirectory + @"CodeSnippets\"; }
-        }
-
-        /// <summary>
-        /// Gets the plugins code snippets path.
-        /// </summary>
-        public string PluginsCodeSnippetsPath
-        {
-            ////get { return this.WorkingDirectory + @"CodeSnippets\Plugins\"; }
-            get { return "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/CodeSnippets/Plugins/"; } 
-        }
-
-        /// <summary>
-        /// Gets the services code snippets path.
-        /// </summary>
-        public string ServicesCodeSnippetsPath
-        {
-            get { return this.WorkingDirectory + @"CodeSnippets\Services\"; }
-        }
-
-        /// <summary>
-        /// Gets the plugins config path.
-        /// </summary>
-        public string PluginsConfigPath
-        {
-            get { return this.WorkingDirectory + @"Config\Plugins\"; }
-        }
-
-        /// <summary>
-        /// Gets the services config path.
-        /// </summary>
-        public string ServicesConfigPath
-        {
-            get { return this.WorkingDirectory + @"Config\Services\"; }
-        }
-
-        /// <summary>
         /// Gets the config path.
         /// </summary>
         public string ConfigPath
@@ -143,30 +102,6 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets the unit testing assemblies.
-        /// </summary>
-        public string UnitTestingAssemblies
-        {
-            get { return this.GetRegistryValue(string.Empty, "UnitTestingAssemblies", "Cirrious.CrossCore"); } 
-        }
-
-        /// <summary>
-        /// Gets the unit testing init method.
-        /// </summary>
-        public string UnitTestingInitMethod
-        {
-            get { return this.GetRegistryValue(string.Empty, "UnitTestingInitMethod", "CreateTestableObject"); } 
-        }
-
-        /// <summary>
-        /// Gets the view model navigation snippet file.
-        /// </summary>
-        public string ViewModelNavigationSnippetFile
-        {
-            get { return this.GetRegistryValue(string.Empty, "ViewModelNavigationSnippetFile", this.CodeSnippetsPath + @"\ViewModelNavigation.xml"); } 
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether [format function parameters].
         /// </summary>
         public bool FormatFunctionParameters
@@ -176,22 +111,13 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets a value indicating whether [replace variables in snippets].
-        /// </summary>
-        public bool ReplaceVariablesInSnippets
-        {
-            get { return this.GetRegistryValue(string.Empty, "ReplaceVariablesInSnippets", "Y") == "Y"; }
-        }
-
-        /// <summary>
         /// Gets the MVVM cross home page.
         /// </summary>
         public string MvvmCrossHomePage
         {
             get { return this.GetRegistryValue(string.Empty, "MvvmCrossHomePage", "http://mvvmcross.com"); }
         }
-
-
+        
         /// <summary>
         /// Gets or sets the xamarin forms home page.
         /// </summary>
@@ -200,6 +126,121 @@ namespace NinjaCoder.MvvmCross.Services
             get { return this.GetRegistryValue(string.Empty, "XamarinFormsHomePage", "http://xamarin.com/forms"); }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [add core tests project].
+        /// </summary>
+        public bool AddCoreTestsProject 
+        {
+            get { return this.GetRegistryValue("Add Projects", "CoreTestsProject", "N") == "Y"; }
+            set { this.SetRegistryValue("Add Projects", "CoreTestsProject", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add android project].
+        /// </summary>
+        public bool AddAndroidProject
+        {
+            get { return this.GetRegistryValue("Add Projects", "AndroidProject", "Y") == "Y"; }
+            set { this.SetRegistryValue("Add Projects", "AndroidProject", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [addi os project].
+        /// </summary>
+        public bool AddiOSProject
+        {
+            get { return this.GetRegistryValue("Add Projects", "iOSProject", "Y") == "Y"; }
+            set { this.SetRegistryValue("Add Projects", "iOSProject", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add windows phone project].
+        /// </summary>
+        public bool AddWindowsPhoneProject
+        {
+            get { return this.GetRegistryValue("Add Projects", "WindowsPhoneProject", "Y") == "Y"; }
+            set { this.SetRegistryValue("Add Projects", "WindowsPhoneProject", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add WPF project].
+        /// </summary>
+        public bool AddWpfProject
+        {
+            get { return this.GetRegistryValue("Add Projects", "WpfProject", "N") == "Y"; }
+            set { this.SetRegistryValue("Add Projects", "WpfProject", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add xamarin forms tests project].
+        /// </summary>
+        public bool AddXamarinFormsTestsProject
+        {
+            get { return this.GetRegistryValue("Add Projects", "XamarinFormsTestsProject", "N") == "Y"; }
+            set { this.SetRegistryValue("Add Projects", "XamarinFormsTestsProject", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets the type of the selected MVVM crossi os sample data view.
+        /// </summary>
+        public string SelectedMvvmCrossiOSSampleDataViewType
+        {
+            get { return this.GetRegistryValue("Build", "SelectedMvvmCrossiOSSampleDataViewType", "HardCoded"); }
+            set { this.SetRegistryValue("Build", "SelectedMvvmCrossiOSSampleDataViewType", value); }
+        }
+
+        /// <summary>
+        /// Gets the MVVM cross ios sample data web page.
+        /// </summary>
+        public string MvvmCrossiOSSampleDataWebPage
+        {
+            get { return this.GetRegistryValue(string.Empty, "MvvmCrossiOSSampleDataWebPage", "http://kerry.lothrop.de/ios-ui-with-mvvmcross"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add projects skip application options].
+        /// </summary>
+        public bool AddProjectsSkipApplicationOptions
+        {
+            get { return this.GetRegistryValue("Build", "AddProjectsSkipApplicationOptions", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "AddProjectsSkipApplicationOptions", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add projects skip ninja coder options].
+        /// </summary>
+        public bool AddProjectsSkipNinjaCoderOptions
+        {
+            get { return this.GetRegistryValue("Build", "AddProjectsSkipNinjaCoderOptions", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "AddProjectsSkipNinjaCoderOptions", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add projects skip MVVM cross plugin options].
+        /// </summary>
+        public bool AddProjectsSkipMvvmCrossPluginOptions
+        {
+            get { return this.GetRegistryValue("Build", "AddProjectsSkipMvvmCrossPluginOptions", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "AddProjectsSkipMvvmCrossPluginOptions", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add projects skip nuget package options].
+        /// </summary>
+        public bool AddProjectsSkipNugetPackageOptions
+        {
+            get { return this.GetRegistryValue("Build", "AddProjectsSkipNugetPackageOptions", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "AddProjectsSkipNugetPackageOptions", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add projects skip view options].
+        /// </summary>
+        public bool AddProjectsSkipViewOptions
+        {
+            get { return this.GetRegistryValue("Build", "AddProjectsSkipViewOptions", "N") == "Y"; }
+            set { this.SetRegistryValue("Build", "AddProjectsSkipViewOptions", value ? "Y" : "N"); }
+        }
 
         /// <summary>
         /// Gets the MVVM cross plugins wiki page.
@@ -285,7 +326,6 @@ namespace NinjaCoder.MvvmCross.Services
         public string ThemeColor
         {
             get { return this.GetRegistryValue("Visual", "ThemeColor", "Blue"); }
-            set { this.SetRegistryValue("Visual", "ThemeColor", value); }
         }
 
         /// <summary>
@@ -673,7 +713,6 @@ namespace NinjaCoder.MvvmCross.Services
         {
             get { return this.GetRegistryValue("Build", "UseLocalTextTemplates", "N") == "Y"; }
             set { this.SetRegistryValue("Build", "UseLocalTextTemplates", value ? "Y" : "N"); }
-
         }
 
         /// <summary>
@@ -784,12 +823,32 @@ namespace NinjaCoder.MvvmCross.Services
                     path = this.LocalTextTemplatesDirectory;
                 }
 
-                string file = this.GetRegistryValue("Build", "BaseCustomRendererTextTemplate", @"CustomRenderer\CustomRenderer.t4");
+                string file = this.GetRegistryValue("Build", "CustomRendererTextTemplate", @"CustomRenderer\CustomRenderer.t4");
 
                 return string.Format(@"{0}\{1}", path, file);
             }
         }
-        
+
+        /// <summary>
+        /// Gets the effects text template.
+        /// </summary>
+        public string EffectsTextTemplate
+        {
+            get
+            {
+                string path = this.GithubTemplatesDirectory;
+
+                if (this.UseLocalTextTemplates)
+                {
+                    path = this.LocalTextTemplatesDirectory;
+                }
+
+                string file = this.GetRegistryValue("Build", "EffectsTextTemplate", @"Effects\Effect.t4");
+
+                return string.Format(@"{0}\{1}", path, file);
+            }
+        }
+
         /// <summary>
         /// Gets or sets the customer renderer directory.
         /// </summary>
@@ -806,6 +865,24 @@ namespace NinjaCoder.MvvmCross.Services
         {
             get { return this.GetRegistryValue("Build", "AutomaticallyAddRenderer", "Y") == "Y"; }
             set { this.SetRegistryValue("Build", "AutomaticallyAddRenderer", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [automatically add effect].
+        /// </summary>
+        public bool AutomaticallyAddEffect
+        {
+            get { return this.GetRegistryValue("Build", "AutomaticallyAddEffect", "Y") == "Y"; }
+            set { this.SetRegistryValue("Build", "AutomaticallyAddEffect", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets the effect directory.
+        /// </summary>
+        public string EffectDirectory
+        {
+            get { return this.GetRegistryValue("Build", "EffectDirectory", "Effects"); }
+            set { this.SetRegistryValue("Build", "EffectDirectory", value); }
         }
 
         /// <summary>

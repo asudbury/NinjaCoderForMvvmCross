@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Scorchio.NinjaCoder.MvvmCross</id>
+        <version>1.0.4-beta9</version>
+        <authors>Adrian Sudbury</authors>
+        <owners>Scorchio Limited</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Helper For NinjaCoder for MvvmCross and Xamarin Forms</description>
+    </metadata>
+    <files>
+
+    <!-- Droid -->
+    
+     <file src="DroidContent\Resources\Drawable\splash.png" target="content\MonoAndroid\Resources\Drawable\splash.png" />
+     <file src="DroidContent\Resources\Values\SplashStyle.xml" target="content\MonoAndroid\Resources\Values\SplashStyle.xml" />
+     <file src="DroidContent\Resources\Layout\SplashScreen.axml" target="content\MonoAndroid\Resources\Layout\SplashScreen.axml" />
+
+     <file src="DroidContent\LinkerPleaseInclude.cs.pp" target="content\MonoAndroid\LinkerPleaseInclude.cs.pp" />
+    <file src="DroidContent\Setup.cs.pp" target="content\MonoAndroid\Setup.cs.pp" />
+    <file src="DroidContent\SplashScreen.cs.pp" target="content\MonoAndroid\SplashScreen.cs.pp" />
+
+    <file src="DroidContent\Views\BaseView.cs.pp" target="content\MonoAndroid\Views\BaseView.cs.pp" />
+
+    <!-- iOS -->
+  
+    <file src="iOSContent\AppDelegate.cs.pp" target="content\Xamarin.iOS10\AppDelegate.cs.pp" />
+    <file src="iOSContent\LinkerPleaseInclude.cs.pp" target="content\Xamarin.iOS10\LinkerPleaseInclude.cs.pp" />
+    <file src="iOSContent\Main.cs.pp" target="content\Xamarin.iOS10\Main.cs.pp" />
+    <file src="iOSContent\Setup.cs.pp" target="content\Xamarin.iOS10\Setup.cs.pp" />
+
+    <file src="iOSContent\Views\BaseView.cs.pp" target="content\Xamarin.iOS10\Views\BaseView.cs.pp" />
+        
+    <!-- WindowsPhone -->
+
+    <file src="WindowsPhoneContent\App.xaml.pp" target="content\wp8\App.xaml.pp" />
+    <file src="WindowsPhoneContent\App.xaml.cs.pp" target="content\wp8\App.xaml.cs.pp" />
+
+    <file src="WindowsPhoneContent\MainPage.xaml.pp" target="content\wp8\MainPage.xaml.pp" />
+    <file src="WindowsPhoneContent\MainPage.xaml.cs.pp" target="content\wp8\MainPage.xaml.cs.pp" />
+    
+    <file src="WindowsPhoneContent\Setup.cs.pp" target="content\wp8\Setup.cs.pp" />
+
+    <file src="WindowsPhoneContent\Views\BaseView.cs.pp" target="content\wp8\Views\BaseView.cs.pp" />
+
+    </files>
+</package> 

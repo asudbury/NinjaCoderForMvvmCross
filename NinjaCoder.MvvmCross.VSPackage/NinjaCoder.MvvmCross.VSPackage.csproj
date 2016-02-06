@@ -113,7 +113,21 @@
     <None Include="Resources\Images.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\AboutBox.png" />
+    <Resource Include="Resources\AddToCollection.png" />
+    <Resource Include="Resources\ClearWindowContent.png" />
+    <Resource Include="Resources\CodeReview.png" />
+    <Resource Include="Resources\CompiledHelpFile.png" />
+    <Resource Include="Resources\F1Help.png" />
+    <Resource Include="Resources\NuGet.png" />
+    <Resource Include="Resources\Options.png" />
+    <Resource Include="Resources\Images2.png" />
+    <Resource Include="Resources\mvx.png" />
     <Content Include="Resources\Package.ico" />
+    <Resource Include="Resources\StatusHelp.png" />
+    <Resource Include="Resources\Web.png" />
+    <Resource Include="Resources\xamarin.png" />
+    <Resource Include="Resources\Zoom.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NinjaCoder.MvvmCross\NinjaCoder.MvvmCross.csproj">

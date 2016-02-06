@@ -5,8 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$.Services
 {
-    using Cirrious.CrossCore;
-    using Cirrious.MvvmCross.ViewModels;
+    using MvvmCross.Core.ViewModels;
+    using MvvmCross.Platform;
 
     /// <summary>
     ///  Defines the ViewModelService type.

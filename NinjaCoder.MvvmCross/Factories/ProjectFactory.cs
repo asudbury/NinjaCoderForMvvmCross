@@ -43,21 +43,29 @@ namespace NinjaCoder.MvvmCross.Factories
         private readonly ICachingService cachingService;
 
         /// <summary>
+        /// The settings service.
+        /// </summary>
+        private readonly ISettingsService settingsService;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ProjectFactory" /> class.
         /// </summary>
         /// <param name="resolverService">The resolver service.</param>
         /// <param name="registerService">The register service.</param>
         /// <param name="cachingService">The caching service.</param>
+        /// <param name="settingsService">The settings service.</param>
         public ProjectFactory(
             IResolverService resolverService,
             IRegisterService registerService,
-            ICachingService cachingService)
+            ICachingService cachingService,
+            ISettingsService settingsService)
         {
             TraceService.WriteLine("ProjectFactory::Constructor");
 
             this.resolverService = resolverService;
             this.registerService = registerService;
             this.cachingService = cachingService;
+            this.settingsService = settingsService;
         }
 
         /// <summary>
@@ -231,6 +239,32 @@ namespace NinjaCoder.MvvmCross.Factories
             if (this.cachingService.XamarinFormsLabsNugetPackageRequested == false)
             {
                 routeModifier.ExcludeViewTypes.Add(typeof(XamarinFormsLabsControl));
+            }
+
+            if (this.settingsService.AddProjectsSkipViewOptions)
+            {
+                routeModifier.ExcludeViewTypes.Add(typeof(ViewsControl));
+            }
+
+            if (this.settingsService.AddProjectsSkipNinjaCoderOptions)
+            {
+                routeModifier.ExcludeViewTypes.Add(typeof(NinjaCoderOptionsControl));
+            }
+
+            if (this.settingsService.AddProjectsSkipApplicationOptions)
+            {
+                routeModifier.ExcludeViewTypes.Add(typeof(ApplicationOptionsControl));
+                routeModifier.ExcludeViewTypes.Add(typeof(ApplicationSamplesOptionsControl));
+            }
+
+            if (this.settingsService.AddProjectsSkipMvvmCrossPluginOptions)
+            {
+                routeModifier.ExcludeViewTypes.Add(typeof(PluginsControl));
+            }
+
+            if (this.settingsService.AddProjectsSkipNugetPackageOptions)
+            {
+                routeModifier.ExcludeViewTypes.Add(typeof(NugetPackagesControl));
             }
 
             return routeModifier;

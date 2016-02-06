@@ -17,14 +17,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Adds the view model and views.
         /// </summary>
-        /// <param name="templateInfos">The template infos.</param>
         /// <param name="textTemplateInfos">The text template infos.</param>
         /// <returns>
         /// The messages.
         /// </returns>
-        IEnumerable<string> AddViewModelAndViews(
-            IEnumerable<ItemTemplateInfo> templateInfos,
-            IEnumerable<TextTemplateInfo> textTemplateInfos);
+        IEnumerable<string> AddViewModelAndViews(IEnumerable<TextTemplateInfo> textTemplateInfos);
 
         /// <summary>
         /// Adds the view models and views.

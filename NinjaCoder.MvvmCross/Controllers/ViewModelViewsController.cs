@@ -6,13 +6,11 @@
 namespace NinjaCoder.MvvmCross.Controllers
 {
     using Constants;
-    using EnvDTE;
     using NinjaCoder.MvvmCross.Entities;
     using NinjaCoder.MvvmCross.Factories.Interfaces;
     using NinjaCoder.MvvmCross.ViewModels.AddViews;
     using NinjaCoder.MvvmCross.ViewModels.Wizard;
     using NinjaCoder.MvvmCross.Views.Wizard;
-
     using Scorchio.Infrastructure.Services;
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;
@@ -104,19 +102,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             this.VisualStudioService.DTEService.WriteStatusBarMessage(NinjaMessages.NinjaIsRunning);
 
-            ProjectItemsEvents projectItemsEvents = this.VisualStudioService.DTEService.GetCSharpProjectItemsEvents();
-
-            if (projectItemsEvents != null)
-            {
-                projectItemsEvents.ItemAdded += this.ProjectItemsEventsItemAdded;
-            }
-
             IEnumerable<string> messages = this.viewModelViewsService.AddViewModelsAndViews(views);
-
-            if (projectItemsEvents != null)
-            {
-                projectItemsEvents.ItemAdded -= this.ProjectItemsEventsItemAdded;
-            }
 
             this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.UpdatingFiles);
 

@@ -8,7 +8,6 @@ namespace NinjaCoder.MvvmCross.Controllers
     using Constants;
     using Entities;
     using Extensions;
-
     using Scorchio.Infrastructure.Services;
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;
@@ -69,8 +68,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             FrameworkType frameworkType = this.VisualStudioService.GetFrameworkType();
 
-            if (frameworkType == FrameworkType.MvvmCross || 
-                frameworkType == FrameworkType.MvvmCrossAndXamarinForms)
+            if (frameworkType.IsMvvmCrossSolutionType())
             {
                 PluginsViewModel viewModel = this.ShowDialog<PluginsViewModel>(new PluginsView());
 
@@ -134,13 +132,13 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                 if (this.SettingsService.OutputNugetCommandsToReadMe)
                 {
-                    messages.Add(this.ReadMeService.GetSeperatorLine());
                     messages.Add(string.Join(Environment.NewLine, commands));
-                    messages.Add(this.ReadMeService.GetSeperatorLine());
                 }
 
-                //// show the readme.
-                this.ShowReadMe("Add Plugins", messages);
+                this.ReadMeService.AddLines(
+                        this.GetReadMePath(),
+                        "Add MvvmCross Plugins",
+                        messages);
             }
             catch (Exception exception)
             {

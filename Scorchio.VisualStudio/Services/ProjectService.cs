@@ -418,12 +418,15 @@ namespace Scorchio.VisualStudio.Services
                 textTemplateInfo.FileName, 
                 textTemplateInfo.TextOutput);
 
-            if (textTemplateInfo.ChildItem != null)
+            if (textTemplateInfo.ChildItems != null)
             {
-                this.project.AddTextTemplate(
-                    textTemplateInfo.ChildItem.ProjectFolder,
-                    textTemplateInfo.ChildItem.FileName,
-                    textTemplateInfo.ChildItem.TextOutput);
+                foreach (TextTemplateInfo childItem in textTemplateInfo.ChildItems)
+                {
+                    this.project.AddTextTemplate(
+                        childItem.ProjectFolder,
+                        childItem.FileName,
+                        childItem.TextOutput);
+                }
             }
 
             return output;

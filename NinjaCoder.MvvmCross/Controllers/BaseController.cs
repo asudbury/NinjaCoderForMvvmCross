@@ -166,9 +166,11 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// Shows the dialog.
         /// </summary>
         /// <typeparam name="TViewModel">The type of the view model.</typeparam>
-        /// <param name="themedDialog">The themed dialog.</param>
-        /// <returns>The view model.</returns>
-        protected TViewModel ShowDialog<TViewModel>(IThemedDialog themedDialog) 
+        /// <param name="dialog">The dialog.</param>
+        /// <returns>
+        /// The view model.
+        /// </returns>
+        protected TViewModel ShowDialog<TViewModel>(IDialog dialog) 
             where TViewModel : class
         {
             TraceService.WriteLine("BaseController::ShowDialog");
@@ -176,17 +178,11 @@ namespace NinjaCoder.MvvmCross.Controllers
             //// set the visual studio version number
             this.SettingsService.VisualStudioVersion = this.VisualStudioService.DTE2.Version;
 
-            themedDialog.SetLanguageDictionary(this.GetLanguageDictionary());
-
             TViewModel viewModel = this.ResolverService.Resolve<TViewModel>();
 
-            themedDialog.DataContext = viewModel;
+            dialog.DataContext = viewModel;
 
-            themedDialog.ChangeTheme(
-                this.CurrentTheme, 
-                this.SettingsService.ThemeColor);
-
-            themedDialog.ShowDialog();
+            dialog.ShowDialog();
 
             return viewModel;
         }

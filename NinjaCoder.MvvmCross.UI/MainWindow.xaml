@@ -32,8 +32,10 @@
                 <MenuItem Command="{Binding AddViewModelAndViewCommand}" Header="Add View Model and Views" />
                 <MenuItem Command="{Binding AddPluginsCommand}" Header="Add MvvmCross Plugins" />
                 <MenuItem Command="{Binding AddNugetPackagesCommand}" Header="Add Nuget Packages" />
+                <Separator />
                 <MenuItem Command="{Binding AddFormsDependencyServiceCommand}" Header="Add Xamarin Forms Dependency Service" />
                 <MenuItem Command="{Binding AddFormsCustomRendererCommand}" Header="Add Xamarin Forms Custom Renderer" />
+                <MenuItem Command="{Binding AddFormsEffectCommand}" Header="Add Xamarin Forms Effect" />
                 <Separator />
                 <MenuItem Command="{Binding OptionsCommand}" Header="Options" />
                 <Separator />

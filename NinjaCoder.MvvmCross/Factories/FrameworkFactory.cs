@@ -11,10 +11,10 @@ namespace NinjaCoder.MvvmCross.Factories
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Services;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Linq;
 
     using NinjaCoder.MvvmCross.Constants;
+    using NinjaCoder.MvvmCross.Extensions;
 
     using Scorchio.Infrastructure.Entities;
 
@@ -56,8 +56,7 @@ namespace NinjaCoder.MvvmCross.Factories
             {
                 List<ImageItemWithDescription> frameworks = new List<ImageItemWithDescription>();
 
-                if (this.settingsService.FrameworkType == FrameworkType.MvvmCross ||
-                    this.settingsService.FrameworkType == FrameworkType.MvvmCrossAndXamarinForms)
+                if (this.settingsService.FrameworkType.IsMvvmCrossSolutionType())
                 {
                     frameworks.Add(new ImageItemWithDescription
                         {
@@ -67,8 +66,7 @@ namespace NinjaCoder.MvvmCross.Factories
                         });
                 }
 
-                if (this.settingsService.FrameworkType == FrameworkType.XamarinForms ||
-                    this.settingsService.FrameworkType == FrameworkType.MvvmCrossAndXamarinForms)
+                if (this.settingsService.FrameworkType.IsXamarinFormsSolutionType())
                 {
                     frameworks.Add(new ImageItemWithDescription
                         {

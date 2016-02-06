@@ -15,14 +15,12 @@ namespace NinjaCoder.MvvmCross.Controllers
     using NinjaCoder.MvvmCross.Views.Wizard;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Services;
+    using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
-    using Scorchio.VisualStudio.Entities;
-
     using ViewModels.AddProjects;
     using PluginsViewModel = NinjaCoder.MvvmCross.ViewModels.AddProjects.PluginsViewModel;
 
@@ -227,11 +225,17 @@ namespace NinjaCoder.MvvmCross.Controllers
             if (this.SettingsService.FrameworkType != FrameworkType.NoFramework &&
                 viewsViewModel != null)
             {
+                //// if we dont have a viewmodel and view in memory - add one
+                //// user will have dont show views and viewmodel options selected.
+                if (!viewsViewModel.Views.Any())
+                {
+                    viewsViewModel.Add();
+                }
+
                 IEnumerable<string> viewModelMessages = this.viewModelViewsService.AddViewModelsAndViews(viewsViewModel.Views);
             
                 this.messages.AddRange(viewModelMessages);
             }
-
             
             TraceService.WriteLine("ProjectsController::Process GetApplication Commands");
 
@@ -244,20 +248,27 @@ namespace NinjaCoder.MvvmCross.Controllers
                 this.postNugetFileOperations.AddRange(commandsList.FileOperations);
             }
 
-            this.PopulateNugetActions(applicationOptionsViewModel);
-            this.PopulateNugetActions(ninjaCoderOptionsViewModel);
-            this.PopulateNugetActions(applicationSamplesOptionsViewModel);
-            this.PopulateNugetActions(pluginsViewModel);
-            this.PopulateNugetActions(nugetPackagesViewModel);
-            this.PopulateNugetActions(xamarinFormsLabsViewModel);
+            this.commands += this.nugetService.GetNugetCommands(projectsViewModel.GetFormattedRequiredTemplates());
+
+            try
+            {
+                this.PopulateNugetActions(applicationOptionsViewModel);
+                this.PopulateNugetActions(ninjaCoderOptionsViewModel);
+                this.PopulateNugetActions(applicationSamplesOptionsViewModel);
+                this.PopulateNugetActions(pluginsViewModel);
+                this.PopulateNugetActions(nugetPackagesViewModel);
+                this.PopulateNugetActions(xamarinFormsLabsViewModel);
+            }
+            catch (Exception exception)
+            {
+                TraceService.WriteError("Error Adding Nuget Actions exception=" + exception.Message);
+            }
 
             this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.UpdatingFiles);
 
             this.VisualStudioService.CodeTidyUp(
                 this.SettingsService.RemoveDefaultFileHeaders,
                 this.SettingsService.RemoveDefaultComments);
-
-            this.commands += this.nugetService.GetNugetCommands(projectsViewModel.GetFormattedRequiredTemplates());
 
             this.cachingService.PostNugetCommands = this.postNugetCommands;
             this.cachingService.PostNugetFileOperations = this.postNugetFileOperations;
@@ -318,14 +329,24 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             if (viewModel != null)
             {
-                TraceService.WriteLine("ProjectsController::PopulateNugetActions viewModel" + viewModel.DisplayName);
+                TraceService.WriteLine("ProjectsController::PopulateNugetActions viewModel=" + viewModel.DisplayName);
 
                 NugetActions nugetActions = viewModel.GetNugetActions();
 
-                this.commands += nugetActions.NugetCommands;
-                this.messages.AddRange(nugetActions.NugetMessages);
-                this.postNugetCommands.AddRange(nugetActions.PostNugetCommands);
-                this.postNugetFileOperations.AddRange(nugetActions.PostNugetFileOperations);
+                if (nugetActions.NugetCommands != string.Empty)
+                {
+                    this.commands += nugetActions.NugetCommands;
+                }
+
+                if (nugetActions.PostNugetCommands != null)
+                {
+                    this.postNugetCommands.AddRange(nugetActions.PostNugetCommands);
+                }
+
+                if (nugetActions.PostNugetFileOperations != null)
+                {
+                    this.postNugetFileOperations.AddRange(nugetActions.PostNugetFileOperations);
+                }
             }
         }
     }
