@@ -1,0 +1,11 @@
+B:\Users\Adrian\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Scorchio Limited\NinjaCoder.MvvmCross.VSPackage\4.0\\NinjaCoder.MvvmCross.VSPackage.dll
+B:\Users\Adrian\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Scorchio Limited\NinjaCoder.MvvmCross.VSPackage\4.0\\NinjaCoder.MvvmCross.dll
+B:\Users\Adrian\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Scorchio Limited\NinjaCoder.MvvmCross.VSPackage\4.0\\Scorchio.VisualStudio.dll
+B:\Users\Adrian\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Scorchio Limited\NinjaCoder.MvvmCross.VSPackage\4.0\\NinjaCoder.MvvmCross.VSPackage.pkgdef
+B:\Users\Adrian\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Scorchio Limited\NinjaCoder.MvvmCross.VSPackage\4.0\\extension.vsixmanifest
+B:\Users\Adrian\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Scorchio Limited\NinjaCoder.MvvmCross.VSPackage\4.0\\MahApps.Metro.dll
+B:\Users\Adrian\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Scorchio Limited\NinjaCoder.MvvmCross.VSPackage\4.0\\Scorchio.Infrastructure.dll
+B:\Users\Adrian\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Scorchio Limited\NinjaCoder.MvvmCross.VSPackage\4.0\\System.IO.Abstractions.dll
+B:\Users\Adrian\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Scorchio Limited\NinjaCoder.MvvmCross.VSPackage\4.0\\NinjaCoder.MvvmCross.VSPackage.pdb
+B:\Users\Adrian\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Scorchio Limited\NinjaCoder.MvvmCross.VSPackage\4.0\\NinjaCoder.MvvmCross.pdb
+B:\Users\Adrian\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\Scorchio Limited\NinjaCoder.MvvmCross.VSPackage\4.0\\Scorchio.VisualStudio.pdb

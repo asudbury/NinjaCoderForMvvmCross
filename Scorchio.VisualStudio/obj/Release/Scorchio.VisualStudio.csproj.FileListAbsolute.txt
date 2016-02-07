@@ -1,0 +1,8 @@
+C:\Projects\c#\NinjaCoderForMvvmCross\Scorchio.VisualStudio\bin\Release\Scorchio.VisualStudio.dll
+C:\Projects\c#\NinjaCoderForMvvmCross\Scorchio.VisualStudio\bin\Release\Scorchio.VisualStudio.pdb
+C:\Projects\c#\NinjaCoderForMvvmCross\Scorchio.VisualStudio\obj\Release\Scorchio.VisualStudio.dll
+C:\Projects\c#\NinjaCoderForMvvmCross\Scorchio.VisualStudio\obj\Release\Scorchio.VisualStudio.pdb
+B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.VisualStudio\bin\Release\Scorchio.VisualStudio.dll
+B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.VisualStudio\bin\Release\Scorchio.VisualStudio.pdb
+B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.VisualStudio\obj\Release\Scorchio.VisualStudio.dll
+B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.VisualStudio\obj\Release\Scorchio.VisualStudio.pdb

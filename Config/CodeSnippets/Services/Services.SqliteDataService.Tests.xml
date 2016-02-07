@@ -1,0 +1,32 @@
+﻿<CodeSnippet>
+  <UsingStatements>
+    <Statement>Services</Statement>
+  </UsingStatements>
+  <MockVariables>
+    <MockVariable>InterfaceSqlite mockSqliteDataService</MockVariable>
+  </MockVariables>
+  <MockInitCode>
+    <![CDATA[this.mockSqliteDataService = new Mock<InterfaceSqlite>();]]>
+  </MockInitCode>
+  <MockConstructorCode>
+    <![CDATA[this.mockSqliteDataService.Object]]>
+  </MockConstructorCode>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Tests Get SqliteData.
+        /// </summary>
+        [Test]
+        public void TestSqliteData()
+        {
+            //// arrange
+            
+            //// act
+            this.TestableObject.GetSqliteData();
+            
+            //// assert
+        }
+    ]]>
+  </Code>
+</CodeSnippet>
+

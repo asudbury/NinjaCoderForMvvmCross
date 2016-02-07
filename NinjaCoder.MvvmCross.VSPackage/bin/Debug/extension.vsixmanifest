@@ -1,0 +1,19 @@
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011">
+  <Metadata>
+    <Identity Id="8349cb06-a1d4-4255-b66f-d5e98e0e2ca3" Version="4.0" Language="en-US" Publisher="Scorchio Limited" />
+    <DisplayName>NinjaCoder.MvvmCross.VSPackage</DisplayName>
+    <Description>NinjaCoder for MvvmCross and Xamarin Forms</Description>
+  </Metadata>
+  <Installation InstalledByMsi="false">
+    <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[14.0]" />
+    <InstallationTarget Version="[14.0]" Id="Microsoft.VisualStudio.Ultimate" />
+    <InstallationTarget Version="[14.0]" Id="Microsoft.VisualStudio.Premium" />
+  </Installation>
+  <Dependencies>
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" Version="[4.5,)" />
+    <Dependency Id="Microsoft.VisualStudio.MPF.12.0" DisplayName="Visual Studio MPF 12.0" Version="[12.0]" />
+  </Dependencies>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.VsPackage" Path="NinjaCoder.MvvmCross.VSPackage.pkgdef" />
+  </Assets>
+</PackageManifest>

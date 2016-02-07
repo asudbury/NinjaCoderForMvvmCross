@@ -1,0 +1,19 @@
+﻿<CodeSnippet>
+  <UsingStatements>
+    <Statement>Services</Statement>
+  </UsingStatements>
+  <Interfaces>
+    <Interface>InterfaceSqlite sqliteInstance</Interface>
+  </Interfaces>
+  <Code>
+    <![CDATA[
+        /// <summary>
+        /// Get SqliteData.
+        /// </summary>
+        public void GetSqliteData()
+        {
+            this.sqliteInstance.GetAll();
+        }
+    ]]>
+  </Code>
+</CodeSnippet>
