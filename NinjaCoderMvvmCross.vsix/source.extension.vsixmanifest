@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+    <Metadata>
+        <Identity Id="NinjaCoderMvvmCross.vsix..51ede486-dd91-4fa8-936e-9260508e97cd" Version="3.9.0" Language="en-US" Publisher="Scorchio Limited" />
+        <DisplayName>Ninja Coder For MvvmCross and Xamarin Forms</DisplayName>
+        <Description xml:space="preserve">Ninja Coder for MvvmCross and Xamarin Forms</Description>
+    </Metadata>
+    <Installation>
+        <InstallationTarget Id="Microsoft.VisualStudio.Ultimate" Version="[14.0]" />
+        <InstallationTarget Version="[14.0)" Id="Microsoft.VisualStudio.Pro" />
+        <InstallationTarget Version="[14.0)" Id="Microsoft.VisualStudio.Premium" />
+        <InstallationTarget Version="[14.0)" Id="Microsoft.VisualStudio.Community" />
+    </Installation>
+    <Dependencies>
+        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+    </Dependencies>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates\CSharp\Ninja Coder" d:TargetPath="ProjectTemplates\CSharp\Ninja Coder\MvvmCross.Droid.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates\CSharp\Ninja Coder" d:TargetPath="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.Core.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates\CSharp\Ninja Coder" d:TargetPath="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.Droid.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates\CSharp\Ninja Coder" d:TargetPath="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.iOS.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates\CSharp\Ninja Coder" d:TargetPath="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.MSTest.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates\CSharp\Ninja Coder" d:TargetPath="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.NUnit.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates\CSharp\Ninja Coder" d:TargetPath="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.WindowsPhone.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates\CSharp\Ninja Coder" d:TargetPath="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.Wpf.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates\CSharp\Ninja Coder" d:TargetPath="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.Xamarin.Forms.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates\CSharp\Ninja Coder" d:TargetPath="ProjectTemplates\CSharp\Ninja Coder\Xamarin.WindowsPhone.zip" />
+
+        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="File" Path="NinjaCoder.MvvmCross.VSPackage.pkgdef" />
+        <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="NinjaCoder.MvvmCross.TemplateWizards.dll" AssemblyName="NinjaCoder.MvvmCross.TemplateWizards, Version=1.0.0.1, Culture=neutral, PublicKeyToken=0cfd3f30dfd5b768" />
+    </Assets>
+</PackageManifest>

@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>12.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{EAD418EE-3692-413C-9F39-56E83F097D57}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NinjaCoderMvvmCross.vsix</RootNamespace>
+    <AssemblyName>NinjaCoderMvvmCross.vsix</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <GeneratePkgDefFile>false</GeneratePkgDefFile>
+    <IncludeAssemblyInVSIXContainer>false</IncludeAssemblyInVSIXContainer>
+    <IncludeDebugSymbolsInVSIXContainer>false</IncludeDebugSymbolsInVSIXContainer>
+    <IncludeDebugSymbolsInLocalVSIXDeployment>false</IncludeDebugSymbolsInLocalVSIXDeployment>
+    <CopyBuildOutputToOutputDirectory>false</CopyBuildOutputToOutputDirectory>
+    <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\ApplicationCommands.xml">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\ApplicationCommands.xml</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\ApplicationConfig.xml">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\ApplicationConfig.xml</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\LocalNugetPackages.xml">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\LocalNugetPackages.xml</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\MvvmCrossPlugins.xml">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\MvvmCrossPlugins.xml</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\NinjaCommunityNugetPackages.xml">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\NinjaCommunityNugetPackages.xml</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\NinjaNugetPackages.xml">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\NinjaNugetPackages.xml</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\NugetPackages.xml">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\NugetPackages.xml</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\XamarinFormsCustomRenderers.xml">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\XamarinFormsCustomRenderers.xml</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\XamarinFormsLabsPlugins.xml">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\XamarinFormsLabsPlugins.xml</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\XamarinFormsNugetPackages.xml">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\XamarinFormsNugetPackages.xml</Link>
+    </Content>
+    <!--Custom Renderers -->
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\CustomRenderer\BaseCustomRenderer.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\CustomRenderer\BaseCustomRenderer.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\CustomRenderer\CustomRenderer.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\CustomRenderer\CustomRenderer.t4</Link>
+    </Content>
+    <!--Dependency Services -->
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\DependencyService\DependencyService.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\DependencyService\DependencyService.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\DependencyService\IDependencyService.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\DependencyService\IDependencyService.t4</Link>
+    </Content>
+    <!--Item Templates -->
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\ViewModels\BlankViewModel.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\ViewModels\BlankViewModel.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\ViewModels\MvxSampleDataViewModel.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\ViewModels\MvxSampleDataViewModel.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\ViewModels\WebViewModel.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\ViewModels\WebViewModel.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\ViewModels\SampleDataViewModel.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\ViewModels\SampleDataViewModel.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\BlankViewCodeBehind.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\BlankViewCodeBehind.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\TestViewModels\TestBlankViewModel.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\TestViewModels\TestBlankViewModel.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\TestViewModels\TestMvxSampleDataViewModel.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\TestViewModels\TestMvxSampleDataViewModel.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\TestViewModels\TestSampleDataViewModel.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\TestViewModels\TestSampleDataViewModel.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\TestViewModels\TestWebViewModel.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\TestViewModels\TestWebViewModel.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\WindowsPhone\BlankView.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\WindowsPhone\BlankView.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\WindowsPhone\SampleDataView.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\WindowsPhone\SampleDataView.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\WindowsPhone\WebView.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\WindowsPhone\WebView.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\Wpf\BlankView.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\Wpf\BlankView.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\Wpf\SampleDataView.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\Wpf\SampleDataView.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\Wpf\WebView.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\Wpf\WebView.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\XamarinForms\BlankView.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\XamarinForms\BlankView.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\iOS\BlankView.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\BlankView.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\iOS\WebView.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\WebView.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\Droid\BlankView.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\Droid\BlankView.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\Droid\SampleDataView.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\Droid\SampleDataView.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\Droid\WebView.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\Droid\WebView.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\Droid\BlankView.axml.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\Droid\BlankView.axml.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\Droid\SampleDataView.axml.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\Droid\SampleDataView.axml.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\Droid\WebView.axml.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\Droid\WebView.axml.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\iOS\HardCodedSampleDataView.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\HardCodedSampleDataView.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\iOS\StoryBoardSampleDataView.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\StoryBoardSampleDataView.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\iOS\XibSampleDataView.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\XibSampleDataView.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\Effects\Effect.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\Effects\Effect.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\iOS\SampleDataViewStoryBoard.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\SampleDataViewStoryBoard.t4</Link>
+    </Content>
+    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\iOS\SampleDataViewXib.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\SampleDataViewXib.t4</Link>
+    </Content>
+    <None Include="source.extension.vsixmanifest">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="NinjaCoder.MvvmCross.VSPackage.pkgdef">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.Core.zip">
+      <OutputSubPath>Ninja Coder</OutputSubPath>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.Droid.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.iOS.zip">
+      <OutputSubPath>Ninja Coder</OutputSubPath>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.MSTest.zip">
+      <OutputSubPath>Ninja Coder</OutputSubPath>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.NUnit.zip">
+      <OutputSubPath>Ninja Coder</OutputSubPath>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.WindowsPhone.zip">
+      <OutputSubPath>Ninja Coder</OutputSubPath>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.Wpf.zip">
+      <OutputSubPath>Ninja Coder</OutputSubPath>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.Xamarin.Forms.zip">
+      <OutputSubPath>Ninja Coder</OutputSubPath>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\CSharp\Ninja Coder\Xamarin.WindowsPhone.zip">
+      <OutputSubPath>Ninja Coder</OutputSubPath>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MahApps.Metro">
+      <HintPath>..\..\NinjaCoderForMvvmCross\NinjaCoder.MvvmCross\bin\Debug\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="NinjaCoder.MvvmCross">
+      <HintPath>..\..\NinjaCoderForMvvmCross\NinjaCoder.MvvmCross\bin\Debug\NinjaCoder.MvvmCross.dll</HintPath>
+    </Reference>
+    <Reference Include="NinjaCoder.MvvmCross.VSPackage">
+      <HintPath>..\..\NinjaCoderForMvvmCross\NinjaCoder.MvvmCross.VSPackage\bin\Debug\NinjaCoder.MvvmCross.VSPackage.dll</HintPath>
+    </Reference>
+    <Reference Include="Scorchio.Infrastructure">
+      <HintPath>..\..\NinjaCoderForMvvmCross\NinjaCoder.MvvmCross\bin\Debug\Scorchio.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Scorchio.VisualStudio">
+      <HintPath>..\..\NinjaCoderForMvvmCross\NinjaCoder.MvvmCross\bin\Debug\Scorchio.VisualStudio.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Abstractions">
+      <HintPath>..\..\NinjaCoderForMvvmCross\NinjaCoder.MvvmCross\bin\Debug\System.IO.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\NinjaCoderForMvvmCross\NinjaCoder.MvvmCross.VSPackage\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
