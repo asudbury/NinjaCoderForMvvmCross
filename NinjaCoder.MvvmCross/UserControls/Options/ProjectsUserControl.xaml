@@ -25,7 +25,7 @@
                   ItemsSource="{Binding WindowsPhoneVersions}"
                   SelectedItem="{Binding Path=SelectedWindowsPhoneVersion,
                                          Mode=TwoWay}" />
-        <TextBlock Margin="10,10,0,4" Text="Default View Type" />
+        <TextBlock Margin="10,10,0,4" Text="Default MvvmCross View Type" />
         <ComboBox Width="200"
                   Margin="10,0,0,3"
                   HorizontalAlignment="Left"

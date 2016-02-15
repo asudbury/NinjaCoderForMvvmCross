@@ -191,7 +191,10 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// Adds the text template.
         /// </summary>
         /// <param name="textTemplateInfo">The text template information.</param>
+        /// <param name="outputTextTemplateContentToTraceFile">if set to <c>true</c> [output text template content to trace file].</param>
         /// <returns></returns>
-        string AddTextTemplate(TextTemplateInfo textTemplateInfo);
+        string AddTextTemplate(
+            TextTemplateInfo textTemplateInfo,
+            bool outputTextTemplateContentToTraceFile);
     }
 }

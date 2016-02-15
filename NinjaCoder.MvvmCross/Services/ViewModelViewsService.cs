@@ -76,7 +76,7 @@ namespace NinjaCoder.MvvmCross.Services
 
             List<TextTemplateInfo> textTemplates = textTemplateInfos.ToList();
 
-            messages.AddRange(this.visualStudioService.SolutionService.AddItemTemplateToProjects(textTemplates));
+            messages.AddRange(this.visualStudioService.SolutionService.AddItemTemplateToProjects(textTemplates, this.settingsService.OutputTextTemplateContentToTraceFile));
 
             //// now add any post action commands
 

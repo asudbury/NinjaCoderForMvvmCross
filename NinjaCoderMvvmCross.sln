@@ -31,11 +31,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuSpec", "NuSpec", "{6487A2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvvmCross", "MvvmCross", "{00EB0871-7621-4000-8CA1-0EB308F81E82}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.2.0.0.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.2.0.0.nuspec
+		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.2.0.1.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.2.0.1.nuspec
 		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Core.2.0.0.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Core.2.0.0.nuspec
 		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.MSTests.2.0.0.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.MSTests.2.0.0.nuspec
 		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.NUnit.Tests.2.0.0.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.NUnit.Tests.2.0.0.nuspec
-		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Wpf.2.0.0.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Wpf.2.0.0.nuspec
+		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Wpf.2.0.1.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Wpf.2.0.1.nuspec
 		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.XUnit.Tests.2.0.0.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.XUnit.Tests.2.0.0.nuspec
 	EndProjectSection
 EndProject
@@ -278,7 +278,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Drawable", "Drawable", "{41
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Values", "Values", "{357EDA28-821D-4AEB-B725-328E7EE4E8A8}"
 	ProjectSection(SolutionItems) = preProject
-		NuSpec\MvvmCross\DroidContent\Resources\Values\MvxBindingAttributes.xml = NuSpec\MvvmCross\DroidContent\Resources\Values\MvxBindingAttributes.xml
 		NuSpec\MvvmCross\DroidContent\Resources\Values\SplashStyle.xml = NuSpec\MvvmCross\DroidContent\Resources\Values\SplashStyle.xml
 	EndProjectSection
 EndProject
@@ -590,6 +589,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XamarinForms", "XamarinForm
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaCoderMvvmCross.vsix", "NinjaCoderMvvmCross.vsix\NinjaCoderMvvmCross.vsix.csproj", "{EAD418EE-3692-413C-9F39-56E83F097D57}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Behaviours", "Behaviours", "{58379B4D-25D1-4592-AC8F-4EB81DDBB6B2}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\MvvmCross\WpfContent\Behaviours\WebBrowserBehaviour.cs.pp = NuSpec\MvvmCross\WpfContent\Behaviours\WebBrowserBehaviour.cs.pp
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1189,5 +1193,6 @@ Global
 		{F2F340F9-5E44-49FD-BDAF-A2D8E0FFB674} = {AF709887-1227-4A48-BDB0-886492A6FD30}
 		{288C7ACF-08A1-4BE6-90DF-9D26BF5995DB} = {F2F340F9-5E44-49FD-BDAF-A2D8E0FFB674}
 		{9E70B8FF-AF79-4A85-B75E-886B33FB5A2C} = {288C7ACF-08A1-4BE6-90DF-9D26BF5995DB}
+		{58379B4D-25D1-4592-AC8F-4EB81DDBB6B2} = {F70595F7-5472-4EAE-A57B-550ED68B1827}
 	EndGlobalSection
 EndGlobal

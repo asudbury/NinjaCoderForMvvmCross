@@ -16,6 +16,8 @@ namespace NinjaCoder.MvvmCross.Factories
     using Services.Interfaces;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+
     using ViewsFinishedControl = NinjaCoder.MvvmCross.UserControls.AddViews.ViewsFinishedControl;
 
     /// <summary>
@@ -80,28 +82,22 @@ namespace NinjaCoder.MvvmCross.Factories
 
                 if (this.VisualStudioService.iOSProjectService != null)
                 {
-                    itemTemplateInfos.Add(
-                        this.GetView(ProjectType.iOS.GetDescription(), ProjectSuffix.iOS.GetDescription()));
+                    itemTemplateInfos.Add(this.GetView(ProjectType.iOS.GetDescription(), ProjectSuffix.iOS.GetDescription()));
                 }
 
                 if (this.VisualStudioService.DroidProjectService != null)
                 {
-                    itemTemplateInfos.Add(
-                        this.GetView(ProjectType.Droid.GetDescription(), ProjectSuffix.Droid.GetDescription()));
+                    itemTemplateInfos.Add(this.GetView(ProjectType.Droid.GetDescription(), ProjectSuffix.Droid.GetDescription()));
                 }
 
                 if (this.VisualStudioService.WindowsPhoneProjectService != null)
                 {
-                    itemTemplateInfos.Add(
-                        this.GetView(
-                            ProjectType.WindowsPhone.GetDescription(),
-                            ProjectSuffix.WindowsPhone.GetDescription()));
+                    itemTemplateInfos.Add(this.GetView(ProjectType.WindowsPhone.GetDescription(), ProjectSuffix.WindowsPhone.GetDescription()));
                 }
 
                 if (this.VisualStudioService.WpfProjectService != null)
                 {
-                    itemTemplateInfos.Add(
-                        this.GetView(ProjectType.WindowsWpf.GetDescription(), ProjectSuffix.Wpf.GetDescription()));
+                    itemTemplateInfos.Add(this.GetView(ProjectType.WindowsWpf.GetDescription(), ProjectSuffix.Wpf.GetDescription()));
                 }
 
                 return itemTemplateInfos;
@@ -130,21 +126,18 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <returns>The list of available views.</returns>
         public IEnumerable<string> GetAvailableViewTypes()
         {
-            return new List<string>
-                       {
-                           ViewType.Blank.GetDescription(),
-                           ViewType.SampleData.GetDescription(),
-                           ViewType.Web.GetDescription()
-                       };
+            return (from ViewType enumValue in Enum.GetValues(typeof(ViewType))
+                    select enumValue.GetDescription()).ToList();
         }
 
         /// <summary>
-        /// Gets the available MVVM crossi os sample data view types.
+        /// Gets the available MVVM cross ios sample data view types.
         /// </summary>
         /// <returns></returns>
         public IEnumerable<string> GetAvailableMvvmCrossiOSSampleDataViewTypes()
         {
-            return new List<string> { "HardCoded", "Xib", "StoryBoard" };
+            return (from MvvmCrossSampleViewType enumValue in Enum.GetValues(typeof(MvvmCrossSampleViewType)) 
+                                   select enumValue.GetDescription()).ToList();
         }
 
         /// <summary>
@@ -215,23 +208,14 @@ namespace NinjaCoder.MvvmCross.Factories
             string pageType = view.PageType.Replace(" ", string.Empty);
 
             Dictionary<string, string> tokens = new Dictionary<string, string>
-                                                    {
-                                                        { "ClassName", viewName },
-                                                        {
-                                                            "CoreProjectName",
-                                                            this.VisualStudioService.CoreProjectService.Name
-                                                        },
-                                                        {
-                                                            "NameSpace",
-                                                            this.VisualStudioService
-                                                                .XamarinFormsProjectService.Name+ ".Views"
-                                                        },
-                                                        { "PageType", pageType },
-                                                        {
-                                                            "Content",
-                                                            this.GetFormsViewContent(view)
-                                                        }
-                                                    };
+            {
+                { "ClassName", viewName },
+                { "CoreProjectName", this.VisualStudioService.CoreProjectService.Name },
+                { "NameSpace", this.VisualStudioService.XamarinFormsProjectService.Name+ ".Views" },
+                { "PageType", pageType },
+                { "Content", this.GetFormsViewContent(view)
+                }
+            };
 
             TextTemplateInfo textTemplateInfo = new TextTemplateInfo
                 {
@@ -264,41 +248,6 @@ namespace NinjaCoder.MvvmCross.Factories
                     tokens);
 
             textTemplateInfo.ChildItems.Add(childTextTemplateInfo);
-
-            return textTemplateInfo;
-        }
-
-        /// <summary>
-        /// Gets the MVVM cross view.
-        /// </summary>
-        /// <param name="itemTemplateInfo">The item template information.</param>
-        /// <param name="tokens">The tokens.</param>
-        /// <param name="viewTemplateName">Name of the view template.</param>
-        /// <param name="viewName">Name of the view.</param>
-        /// <returns></returns>
-        private TextTemplateInfo GetMvvmCrossViewxx(
-            ItemTemplateInfo itemTemplateInfo,
-            Dictionary<string, string> tokens,
-            string viewTemplateName,
-            string viewName)
-        {
-            TextTemplateInfo textTemplateInfo = new TextTemplateInfo
-            {
-                ProjectSuffix = itemTemplateInfo.ProjectSuffix,
-                ProjectFolder = "Views",
-                Tokens = tokens,
-                ShortTemplateName = viewTemplateName,
-                TemplateName =this.SettingsService.ItemTemplatesDirectory + "\\"  + itemTemplateInfo.ProjectSuffix.Substring(1) + "\\" + viewTemplateName
-            };
-
-            TextTransformation textTransformation = this.GetTextTransformationService()
-                .Transform(textTemplateInfo.TemplateName, textTemplateInfo.Tokens);
-
-            textTemplateInfo.TextOutput = textTransformation.Output;
-            textTemplateInfo.FileName = viewName + "." + textTransformation.FileExtension;
-
-            textTemplateInfo.FileOperations.Add(
-                this.GetEmbeddedResourceFileOperation(textTemplateInfo.ProjectSuffix, textTemplateInfo.FileName));
 
             return textTemplateInfo;
         }
@@ -354,30 +303,23 @@ namespace NinjaCoder.MvvmCross.Factories
             View view, 
             string viewModelName)
         {
-            TextTemplateInfo textTemplateInfo = new TextTemplateInfo();
-
             string templateName = this.GetViewModelTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), view.PageType);
 
             Dictionary<string, string> tokens = new Dictionary<string, string>
-                                                    {
-                                                        { "ClassName", 
-                                                            viewModelName 
-                                                        },
-                                                        {
-                                                            "NameSpace", 
-                                                            this.VisualStudioService.CoreProjectService.Name+ ".ViewModels"
-                                                        }
-                                                    };
+            {
+                { "ClassName", viewModelName },
+                { "NameSpace",  this.VisualStudioService.CoreProjectService.Name+ ".ViewModels" }
+            };
 
-            textTemplateInfo = new TextTemplateInfo
-                                                    {
-                                                        ProjectSuffix = ProjectSuffix.Core.GetDescription(),
-                                                        FileName = viewModelName + ".cs",
-                                                        ProjectFolder = "ViewModels",
-                                                        Tokens = tokens,
-                                                        ShortTemplateName = templateName,
-                                                        TemplateName = this.SettingsService.ItemTemplatesDirectory + "\\ViewModels\\" + templateName
-                                                    };
+            TextTemplateInfo textTemplateInfo = new TextTemplateInfo
+            {
+                ProjectSuffix = ProjectSuffix.Core.GetDescription(),
+                FileName = viewModelName + ".cs",
+                ProjectFolder = "ViewModels",
+                Tokens = tokens,
+                ShortTemplateName = templateName,
+                TemplateName = this.SettingsService.ItemTemplatesDirectory + "\\ViewModels\\" + templateName
+            };
 
             textTemplateInfo.TextOutput = this.GetTextTransformationService().Transform(textTemplateInfo.TemplateName, textTemplateInfo.Tokens).Output;
 
@@ -397,40 +339,25 @@ namespace NinjaCoder.MvvmCross.Factories
             string templateName = this.GetTestViewModelTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), view.PageType);
 
             Dictionary<string, string> tokens = new Dictionary<string, string>
-                    {
-                        { "ClassName", "Test" + viewModelName },
-                        {
-                            "NameSpace",
-                            this.VisualStudioService.CoreTestsProjectService.Name + ".ViewModels"
-                        },
-                        {
-                            "TestingLibrary",
-                            this.testingFrameworkFactory.GetTestingLibrary()
-                        },
-                        {
-                            "TestingClassAttribute",
-                            this.testingFrameworkFactory.GetTestingClassAttribute()
-                        },
-                        {
-                            "TestingMethodAttribute",
-                            this.testingFrameworkFactory.GetTestingMethodAttribute()
-                        },
-                        { "TestableObject", viewModelName },
-                        {
-                            "TestableObjectInstance",
-                            viewModelName.LowerCaseFirstCharacter()
-                        }
-                    };
+            {
+                { "ClassName", "Test" + viewModelName },
+                { "NameSpace", this.VisualStudioService.CoreTestsProjectService.Name + ".ViewModels" },
+                { "TestingLibrary", this.testingFrameworkFactory.GetTestingLibrary() },
+                { "TestingClassAttribute", this.testingFrameworkFactory.GetTestingClassAttribute() },
+                { "TestingMethodAttribute", this.testingFrameworkFactory.GetTestingMethodAttribute() },
+                { "TestableObject", viewModelName },
+                { "TestableObjectInstance", viewModelName.LowerCaseFirstCharacter() }
+            };
 
             TextTemplateInfo textTemplateInfo = new TextTemplateInfo
-                                                    {
-                                                        ProjectSuffix = ProjectSuffix.CoreTests.GetDescription(),
-                                                        FileName = "Test" + viewModelName + ".cs",
-                                                        ProjectFolder = "ViewModels",
-                                                        Tokens = tokens,
-                                                        ShortTemplateName = templateName,
-                                                        TemplateName = this.SettingsService.ItemTemplatesDirectory + "\\TestViewModels\\" + templateName
-                                                    };
+            {
+                ProjectSuffix = ProjectSuffix.CoreTests.GetDescription(),
+                FileName = "Test" + viewModelName + ".cs",
+                ProjectFolder = "ViewModels",
+                Tokens = tokens,
+                ShortTemplateName = templateName,
+                TemplateName = this.SettingsService.ItemTemplatesDirectory + "\\TestViewModels\\" + templateName
+            };
 
             textTemplateInfo.TextOutput = this.GetTextTransformationService()
                     .Transform(textTemplateInfo.TemplateName, textTemplateInfo.Tokens).Output;

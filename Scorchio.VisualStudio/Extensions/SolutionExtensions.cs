@@ -5,14 +5,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio.Extensions
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
     using Entities;
     using EnvDTE;
     using EnvDTE80;
     using Services;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
     using Project = EnvDTE.Project;
 
     /// <summary>
@@ -233,7 +233,9 @@ namespace Scorchio.VisualStudio.Extensions
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="templateInfos">The template infos.</param>
-        /// <returns>The messages.</returns>
+        /// <returns>
+        /// The messages.
+        /// </returns>
         public static IEnumerable<string> AddItemTemplateToProjects(
             this Solution2 instance,
             IEnumerable<ItemTemplateInfo> templateInfos)
@@ -292,10 +294,12 @@ namespace Scorchio.VisualStudio.Extensions
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="textTemplateInfos">The text template infos.</param>
+        /// <param name="outputTextTemplateContentToTraceFile">if set to <c>true</c> [output text template content to trace file].</param>
         /// <returns></returns>
         public static IEnumerable<string> AddTextTemplateToProjects(
             this Solution2 instance,
-            IEnumerable<TextTemplateInfo> textTemplateInfos)
+            IEnumerable<TextTemplateInfo> textTemplateInfos,
+            bool outputTextTemplateContentToTraceFile)
         {
             string method = "SolutionExtensions::AddTextTemplateToProjects ";
 
@@ -321,7 +325,7 @@ namespace Scorchio.VisualStudio.Extensions
                     {
                         instance.DTE.StatusBar.Text = "Adding Text Template to project " + project.Name;
 
-                        if (project.AddTextTemplate(info.ProjectFolder, info.FileName, info.TextOutput) != string.Empty)
+                        if (project.AddTextTemplate(info.ProjectFolder, info.FileName, info.TextOutput, outputTextTemplateContentToTraceFile) != string.Empty)
                         {
                             messages.Add(info.FileName + " added to " + project.Name + " project (template=" + info.ShortTemplateName + ")");
                         }
@@ -330,10 +334,21 @@ namespace Scorchio.VisualStudio.Extensions
                         {
                             foreach (TextTemplateInfo childItem in info.ChildItems)
                             {
-                                project.AddTextTemplate(
-                                    childItem.ProjectFolder,
-                                    childItem.FileName,
-                                    childItem.TextOutput);
+                                TraceService.WriteLine("Adding child Text Template projectFolder=" + childItem.ProjectFolder + " fileName=" + childItem.FileName);
+
+                                try
+                                {
+                                    project.AddTextTemplate(
+                                        childItem.ProjectFolder,
+                                        childItem.FileName,
+                                        childItem.TextOutput,
+                                        outputTextTemplateContentToTraceFile);
+                                }
+                                catch (Exception exception)
+                                {
+                                    TraceService.WriteError(method + " Adding child Text Template exception=" + exception.Message);
+                                    messages.Add(method + " Adding child Text Template exception=" + exception.Message);
+                                }
                             }
                         }
                     }

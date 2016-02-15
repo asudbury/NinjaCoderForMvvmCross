@@ -22,14 +22,23 @@ namespace NinjaCoder.MvvmCross.Services
         private readonly IVisualStudioService visualStudioService;
 
         /// <summary>
+        /// The settings service.
+        /// </summary>
+        private readonly ISettingsService settingsService;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="TextTemplatingService" /> class.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
-        public TextTemplatingService(IVisualStudioService visualStudioService)
+        /// <param name="settingsService">The settings service.</param>
+        public TextTemplatingService(
+            IVisualStudioService visualStudioService,
+            ISettingsService settingsService)
         {
             TraceService.WriteLine("TextTemplatingService::Constructor");
 
             this.visualStudioService = visualStudioService;
+            this.settingsService = settingsService;
         }
 
         /// <summary>
@@ -65,7 +74,7 @@ namespace NinjaCoder.MvvmCross.Services
                         textTemplateInfo.TemplateName, 
                         textTemplateInfo.Tokens).Output;
 
-                    string message = projectService.AddTextTemplate(textTemplateInfo);
+                    string message = projectService.AddTextTemplate(textTemplateInfo, this.settingsService.OutputTextTemplateContentToTraceFile);
 
                     this.Messages.Add(message);
                 }

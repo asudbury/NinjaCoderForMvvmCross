@@ -243,6 +243,10 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <Link>Config\TextTemplates\ItemTemplates\iOS\SampleDataViewXib.t4</Link>
     </Content>
+    <Content Include="..\..\Ninja\NinjaCodeMvvmCrossTemplates\ProjectTemplates\NinjaCoder.Droid\bin\Debug\ProjectTemplates\CSharp\1033\NinjaCoder.Droid.zip">
+      <Link>ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.Droid.zip</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
@@ -252,9 +256,6 @@
     </Content>
     <Content Include="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.Core.zip">
       <OutputSubPath>Ninja Coder</OutputSubPath>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.Droid.zip">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.iOS.zip">

@@ -10,6 +10,7 @@ namespace NinjaCoder.MvvmCross.Factories
     using NinjaCoder.MvvmCross.Entities;
     using NinjaCoder.MvvmCross.Services.Interfaces;
 
+    using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
@@ -64,22 +65,46 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <summary>
         /// Gets the embedded resource file operation.
         /// </summary>
-        /// <param name="platForm">The plat form.</param>
+        /// <param name="platForm">The platform.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <returns></returns>
         protected FileOperation GetEmbeddedResourceFileOperation(
             string platForm,
             string fileName)
         {
-            return new FileOperation
+            return this.GetFileOperation(platForm, fileName, "3");
+        }
+
+        /// <summary>
+        /// Gets the embedded resource file operation.
+        /// </summary>
+        /// <param name="platForm">The platform.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns></returns>
+        protected FileOperation GetPageFileOperation(
+            string platForm,
+            string fileName)
+        {
+            string operation = "4";
+
+            if (platForm == ProjectSuffix.Wpf.GetDescription())
             {
-                PlatForm = platForm,
-                CommandType = "Properties",
-                Directory = "Views",
-                File = fileName,
-                From = "BuildAction",
-                To = "3"
-            };
+                operation = "5";
+            }
+            return this.GetFileOperation(platForm, fileName, operation);
+        }
+
+        /// <summary>
+        /// Gets the compile file operation.
+        /// </summary>
+        /// <param name="platForm">The platform.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns></returns>
+        protected FileOperation GetCompileFileOperation(
+            string platForm,
+            string fileName)
+        {
+            return this.GetFileOperation(platForm, fileName, "1");
         }
 
         /// <summary>
@@ -152,8 +177,32 @@ namespace NinjaCoder.MvvmCross.Factories
             return new Dictionary<string, string>
                         {
                             { "ClassName", viewName },
+                            { "ProjectName",  this.VisualStudioService.GetProjectServiceBySuffix(projectSuffix).Name },
                             { "NameSpace",  this.VisualStudioService.GetProjectServiceBySuffix(projectSuffix).Name + ".Views"}
                         };
+        }
+
+        /// <summary>
+        /// Gets the file operation.
+        /// </summary>
+        /// <param name="platForm">The platform.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="operation">The operation.</param>
+        /// <returns></returns>
+        internal FileOperation GetFileOperation(
+            string platForm,
+            string fileName,
+            string operation)
+        {
+            return new FileOperation
+            {
+                PlatForm = platForm,
+                CommandType = "Properties",
+                Directory = "Views",
+                File = fileName,
+                From = "BuildAction",
+                To = operation
+            };
         }
     }
 }

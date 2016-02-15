@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Scorchio.NinjaCoder.MvvmCross</id>
-        <version>2.0.0</version>
+        <version>2.0.1</version>
         <authors>Adrian Sudbury</authors>
         <owners>Scorchio Limited</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -17,10 +17,10 @@
      <file src="DroidContent\Resources\Layout\SplashScreen.axml" target="content\MonoAndroid\Resources\Layout\SplashScreen.axml" />
 
      <file src="DroidContent\LinkerPleaseInclude.cs.pp" target="content\MonoAndroid\LinkerPleaseInclude.cs.pp" />
-    <file src="DroidContent\Setup.cs.pp" target="content\MonoAndroid\Setup.cs.pp" />
-    <file src="DroidContent\SplashScreen.cs.pp" target="content\MonoAndroid\SplashScreen.cs.pp" />
+     <file src="DroidContent\Setup.cs.pp" target="content\MonoAndroid\Setup.cs.pp" />
+     <file src="DroidContent\SplashScreen.cs.pp" target="content\MonoAndroid\SplashScreen.cs.pp" />
 
-    <file src="DroidContent\Views\BaseView.cs.pp" target="content\MonoAndroid\Views\BaseView.cs.pp" />
+     <file src="DroidContent\Views\BaseView.cs.pp" target="content\MonoAndroid\Views\BaseView.cs.pp" />
 
     <!-- iOS -->
   

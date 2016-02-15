@@ -100,9 +100,19 @@ namespace NinjaCoder.MvvmCross.Factories
             textTemplateInfo.TextOutput = textTransformation.Output;
             textTemplateInfo.FileName = viewName + "." + textTransformation.FileExtension;
 
-            textTemplateInfo.FileOperations.Add(
-                this.GetEmbeddedResourceFileOperation(textTemplateInfo.ProjectSuffix, textTemplateInfo.FileName));
+            if (itemTemplateInfo.ProjectSuffix == ProjectSuffix.iOS.GetDescription() ||
+                itemTemplateInfo.ProjectSuffix == ProjectSuffix.Droid.GetDescription())
+            {
+                textTemplateInfo.FileOperations.Add(
+                    this.GetCompileFileOperation(textTemplateInfo.ProjectSuffix, textTemplateInfo.FileName));
+            }
 
+            else
+            {
+                textTemplateInfo.FileOperations.Add(
+                    this.GetPageFileOperation(textTemplateInfo.ProjectSuffix, textTemplateInfo.FileName));
+            }
+            
             //// now handle xib and story board options!
 
             if (viewTemplateName.Contains("XibSampleDataView") ||

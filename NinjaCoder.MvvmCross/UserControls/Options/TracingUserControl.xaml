@@ -24,6 +24,10 @@
                   Content="{DynamicResource DisplayErrors}"
                   IsChecked="{Binding DisplayErrors}" />
 
+        <CheckBox Margin="10"
+                  Content="Write Text Template Output to Trace File"
+                  IsChecked="{Binding OutputTextTemplateContentToTraceFile}" />
+
         <TextBlock Margin="10,1,0,0" Text="Trace Log File" />
 
         <TextBox Margin="10,1,0,0" Text="{Binding LogFilePath}" />

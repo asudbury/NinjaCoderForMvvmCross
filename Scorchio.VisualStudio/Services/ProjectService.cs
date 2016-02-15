@@ -410,13 +410,17 @@ namespace Scorchio.VisualStudio.Services
         /// Adds the text template.
         /// </summary>
         /// <param name="textTemplateInfo">The text template information.</param>
+        /// <param name="outputTextTemplateContentToTraceFile">if set to <c>true</c> [output text template content to trace file].</param>
         /// <returns></returns>
-        public string AddTextTemplate(TextTemplateInfo textTemplateInfo)
+        public string AddTextTemplate(
+            TextTemplateInfo textTemplateInfo,
+            bool outputTextTemplateContentToTraceFile)
         {
             string output = this.project.AddTextTemplate(
                 textTemplateInfo.ProjectFolder, 
                 textTemplateInfo.FileName, 
-                textTemplateInfo.TextOutput);
+                textTemplateInfo.TextOutput,
+                outputTextTemplateContentToTraceFile);
 
             if (textTemplateInfo.ChildItems != null)
             {
@@ -425,7 +429,8 @@ namespace Scorchio.VisualStudio.Services
                     this.project.AddTextTemplate(
                         childItem.ProjectFolder,
                         childItem.FileName,
-                        childItem.TextOutput);
+                        childItem.TextOutput,
+                        outputTextTemplateContentToTraceFile);
                 }
             }
 

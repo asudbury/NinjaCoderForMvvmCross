@@ -299,10 +299,38 @@ namespace Scorchio.VisualStudio.Extensions
         {
             TraceService.WriteLine("ProjectExtensions::AddToFolderFromFile folderName=" + folderName + " fileName=" + fileName);
 
-            ProjectItem folderProjectItem = instance.ProjectItems
-                .Cast<ProjectItem>()
-                .FirstOrDefault(projectItem => projectItem.Name == folderName);
+            ProjectItem folderProjectItem;
 
+            string[] folders = folderName.Split('\\');
+
+            if (folders.Length > 1)
+            {
+                //// we need to handle multipe subfolders (Resources\Layout for Android for example!)
+
+                folderProjectItem = instance.ProjectItems
+                    .Cast<ProjectItem>()
+                    .FirstOrDefault(projectItem => projectItem.Name == folders[0]);
+
+                ProjectItem subFolderProjectItem = folderProjectItem.GetFolder(folders[1]);
+
+                if (subFolderProjectItem == null)
+                {
+                    subFolderProjectItem = folderProjectItem.ProjectItems.AddFolder(folders[1]);
+                }
+
+                if (subFolderProjectItem != null)
+                {
+                    folderProjectItem = subFolderProjectItem;
+                }
+            }
+
+            else
+            {
+                folderProjectItem = instance.ProjectItems
+                    .Cast<ProjectItem>()
+                    .FirstOrDefault(projectItem => projectItem.Name == folderName);
+            }
+            
             //// if the folder doesn't exist create it.
             if (folderProjectItem == null)
             {
@@ -319,16 +347,21 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="projectFolder">The project folder.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="textOutput">The text output.</param>
+        /// <param name="outputTextTemplateContentToTraceFile">if set to <c>true</c> [output text template content to trace file].</param>
         /// <returns></returns>
         public static string AddTextTemplate(
             this Project instance,
             string projectFolder, 
             string fileName, 
-            string textOutput)
+            string textOutput,
+            bool outputTextTemplateContentToTraceFile)
         {
             TraceService.WriteLine("ProjectExtensions::AddTextTemplate projectFolder=" + projectFolder + " fileName=" + fileName);
 
-            TraceService.WriteLine("textOutput=" + textOutput);
+            if (outputTextTemplateContentToTraceFile)
+            {
+                TraceService.WriteLine("textOutput=" + textOutput);
+            }
 
             string projectPath = instance.GetProjectPath();
 

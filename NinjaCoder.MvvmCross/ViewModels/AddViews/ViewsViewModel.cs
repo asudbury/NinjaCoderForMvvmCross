@@ -488,7 +488,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
             {
                 view.Framework = FrameworkType.MvvmCross.GetDescription();
                 view.LayoutType = "Not Applicable";
-                view.PageType = "SampleData";
+                view.PageType = this.settingsService.DefaultViewType;
             }
             
             this.Views.Add(view);

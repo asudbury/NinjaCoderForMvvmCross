@@ -52,6 +52,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         private string errorFilePath;
 
         /// <summary>
+        /// The output text template content to trace file.
+        /// </summary>
+        private bool outputTextTemplateContentToTraceFile;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="TracingViewModel" /> class.
         /// </summary>
         /// <param name="applicationService">The application service.</param>
@@ -120,6 +125,15 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [output text template content to trace file].
+        /// </summary>
+        public bool OutputTextTemplateContentToTraceFile
+        {
+            get { return this.outputTextTemplateContentToTraceFile; }
+            set { this.SetProperty(ref this.outputTextTemplateContentToTraceFile, value); }
+        }
+
+        /// <summary>
         /// Gets the clear log command.
         /// </summary>
         public ICommand ClearLogCommand
@@ -161,6 +175,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.LogFilePath = this.SettingsService.LogFilePath;
             this.DisplayErrors = this.SettingsService.DisplayErrors;
             this.ErrorFilePath = this.SettingsService.ErrorFilePath;
+            this.OutputTextTemplateContentToTraceFile = this.SettingsService.OutputTextTemplateContentToTraceFile;
         }
 
         /// <summary>
@@ -173,6 +188,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.SettingsService.LogFilePath = this.LogFilePath;
             this.SettingsService.DisplayErrors = this.DisplayErrors;
             this.SettingsService.ErrorFilePath = this.ErrorFilePath;
+            this.SettingsService.OutputTextTemplateContentToTraceFile = this.OutputTextTemplateContentToTraceFile;
         }
 
         /// <summary>

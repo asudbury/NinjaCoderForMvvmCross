@@ -7,12 +7,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
 {
     using NinjaCoder.MvvmCross.Factories.Interfaces;
     using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Scorchio.Infrastructure.Wpf;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Windows;
     using System.Windows.Input;
-
-    using Scorchio.Infrastructure.Wpf;
 
     /// <summary>
     ///  Defines the ProjectsViewModel type.
@@ -168,6 +167,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         /// </summary>
         public void Save()
         {
+            this.SettingsService.DefaultViewType = this.selectedViewType;
             this.SettingsService.SelectedMvvmCrossiOSSampleDataViewType = this.selectedMvvmCrossiOSSampleDataViewType;
         }
 
@@ -178,7 +178,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         {
             this.SelectedPCLProfile = this.SettingsService.PCLProfile;
             this.SelectedWindowsPhoneVersion = this.SettingsService.WindowsPhoneBuildVersion;
-            
+          
             //// for now there are no real options for these - maybe change in the future
             this.PCLProfiles = new List<string> { this.selectedPCLProfile };
             this.WindowsPhoneVersions = new List<string> { this.selectedWindowsPhoneVersion };
@@ -186,6 +186,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.ViewTypes = this.viewModelAndViewsFactory.GetAvailableViewTypes();
             this.MvvmCrossiOSSampleDataViewTypes = this.viewModelAndViewsFactory.GetAvailableMvvmCrossiOSSampleDataViewTypes();
 
+            this.SelectedViewType = this.SettingsService.DefaultViewType;
             this.SelectedMvvmCrossiOSSampleDataViewType = this.SettingsService.SelectedMvvmCrossiOSSampleDataViewType;
         }
 
@@ -195,7 +196,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         internal void DisplayUIHelpPage()
         {
             Process.Start(this.SettingsService.MvvmCrossiOSSampleDataWebPage);
-
         }
     }
 }

@@ -10,7 +10,7 @@ namespace <#= NameSpace #>
     using UIKit;
 
     /// <summary>
-    /// Defines the "<#= ClassName #> type.
+    /// Defines the <#= ClassName #> type.
     /// </summary>
     [Register("<#= ClassName #>")]
     public class <#= ClassName #> : BaseView
@@ -27,7 +27,7 @@ namespace <#= NameSpace #>
 
             base.ViewDidLoad();
                         
-            <#= ClassName #>$Model viewModel = (<#= ClassName #>Model)ViewModel;
+            <#= ClassName #>Model viewModel = (<#= ClassName #>Model)ViewModel;
 
             UIWebView webView = new UIWebView();
             webView.LoadRequest(new NSUrlRequest(new NSUrl(viewModel.Url)));

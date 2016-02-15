@@ -449,5 +449,15 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets or sets a value indicating whether [add projects skip view options].
         /// </summary>
         bool AddProjectsSkipViewOptions { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default type of the view.
+        /// </summary>
+        string DefaultViewType { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [output text template content to trace file].
+        /// </summary>
+        bool OutputTextTemplateContentToTraceFile { get; set; }
     }
 }

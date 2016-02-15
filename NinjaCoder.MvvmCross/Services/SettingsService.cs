@@ -243,6 +243,24 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets or sets the default type of the view.
+        /// </summary>
+        public string DefaultViewType
+        {
+            get { return this.GetRegistryValue("Build", "DefaultViewType", "SampleData"); }
+            set { this.SetRegistryValue("Build", "DefaultViewType", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [output text template content to trace file].
+        /// </summary>
+        public bool OutputTextTemplateContentToTraceFile
+        {
+            get { return this.GetRegistryValue("Tracing", "OutputTextTemplateContentToTraceFile", "N") == "Y"; }
+            set { this.SetRegistryValue("Tracing", "OutputTextTemplateContentToTraceFile", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
         /// Gets the MVVM cross plugins wiki page.
         /// </summary>
         public string MvvmCrossPluginsWikiPage
