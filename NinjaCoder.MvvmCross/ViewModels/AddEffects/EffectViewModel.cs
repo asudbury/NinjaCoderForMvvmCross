@@ -165,6 +165,17 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddEffects
                 return false;
             }
 
+            return true;
+        }
+
+        /// <summary>
+        /// Called when [save].
+        /// </summary>
+        public override void OnSave()
+        {
+            base.OnSave();
+
+
             this.settingsService.AutomaticallyAddEffect = this.appendEffectToName;
             this.settingsService.EffectDirectory = this.directory;
 
@@ -180,7 +191,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddEffects
             }
 
             this.cachingService.Messages["EffectFinishMessage"] = message;
-            return true;
         }
     }
 }

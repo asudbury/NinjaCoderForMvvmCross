@@ -1,0 +1,41 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//    Defines the <#= ClassName #> type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace <#= NameSpace #>
+{
+    using Core.ViewModels;
+    using Foundation;
+    using UIKit;
+
+    /// <summary>
+    /// Defines the <#= ClassName #> type.
+    /// </summary>
+    [Register("<#= ClassName #>")]
+    public class <#= ClassName #> : BaseView
+    {
+        /// <summary>
+        /// Views the did load.
+        /// </summary>
+        /// <summary>
+        /// Called when the View is first loaded
+        /// </summary>
+        public override void ViewDidLoad()
+        {
+            this.View = new UIView { BackgroundColor = UIColor.White };
+
+            base.ViewDidLoad();
+                        
+            <#= ClassName #>Model viewModel = (<#= ClassName #>Model)ViewModel;
+
+            UIWebView webView = new UIWebView();
+            webView.LoadRequest(new NSUrlRequest(new NSUrl(viewModel.Url)));
+
+            this.View = webView;
+
+            UITapGestureRecognizer tap = new UITapGestureRecognizer(() => this.View.ResignFirstResponder());
+            this.View.AddGestureRecognizer(tap);
+        }
+    }
+}

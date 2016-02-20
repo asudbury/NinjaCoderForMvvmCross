@@ -16,6 +16,8 @@ namespace NinjaCoder.MvvmCross.Services
     using System.IO.Abstractions;
     using System.Linq;
 
+    using NinjaCoder.MvvmCross.Extensions;
+
     /// <summary>
     ///  Defines the ProjectsService type.
     /// </summary>
@@ -113,15 +115,13 @@ namespace NinjaCoder.MvvmCross.Services
             }
 
             if (this.settingsService.UsePreReleaseMvvmCrossNugetPackages &&
-               (this.settingsService.FrameworkType == FrameworkType.MvvmCross ||
-                 this.settingsService.FrameworkType == FrameworkType.MvvmCrossAndXamarinForms))
+                this.settingsService.FrameworkType.IsMvvmCrossSolutionType())
             {
                 this.Messages.Add("Pre Release MvvmCross Nuget Packages selected.");
             }
 
             if (this.settingsService.UsePreReleaseMvvmCrossNugetPackages &&
-               (this.settingsService.FrameworkType == FrameworkType.XamarinForms ||
-                this.settingsService.FrameworkType == FrameworkType.MvvmCrossAndXamarinForms))
+               this.settingsService.FrameworkType.IsXamarinFormsSolutionType())
             {
                 this.Messages.Add("Pre Release Xamarin Forms Nuget Packages selected.");
             }

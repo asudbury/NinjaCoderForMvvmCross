@@ -233,5 +233,11 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// </summary>
         /// <param name="solutionFolder">The solution folder.</param>
         void AddSolutionFolder(string solutionFolder);
+        
+        /// <summary>
+        /// Sets the start up project.
+        /// </summary>
+        /// <param name="projectName">Name of the project.</param>
+        void SetStartUpProject(string projectName);
     }
 }

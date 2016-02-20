@@ -128,14 +128,14 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         string MockingFramework { get; set; }
 
         /// <summary>
-        /// Gets or sets the PCL profile.
+        /// Gets the PCL profile.
         /// </summary>
-        string PCLProfile { get; set; }
+        string PCLProfile { get; }
 
         /// <summary>
-        /// Gets or sets the windows phone version.
+        /// Gets the windows phone build version.
         /// </summary>
-        string WindowsPhoneBuildVersion { get; set; }
+        string WindowsPhoneBuildVersion { get; }
 
         /// <summary>
         /// Gets or sets the langugage override.
@@ -416,14 +416,14 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         bool AddXamarinFormsTestsProject { get; set; }
 
         /// <summary>
-        /// Gets or sets the type of the selected MVVM crossi os sample data view.
+        /// Gets or sets the type of the selected MVVM cross ios view.
         /// </summary>
-        string SelectedMvvmCrossiOSSampleDataViewType { get; set; }
-        
+        string SelectedMvvmCrossiOSViewType { get; set; }
+
         /// <summary>
-        /// Gets the MVVM crossi os sample data web page.
+        /// Gets the MVVM crossi os view web page.
         /// </summary>
-        string MvvmCrossiOSSampleDataWebPage { get; }
+        string MvvmCrossiOSViewWebPage { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [add projects skip application options].
@@ -459,5 +459,10 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets or sets a value indicating whether [output text template content to trace file].
         /// </summary>
         bool OutputTextTemplateContentToTraceFile { get; set; }
+
+        /// <summary>
+        /// Gets or sets the start up project.
+        /// </summary>
+        string StartUpProject { get; set; }
     }
 }

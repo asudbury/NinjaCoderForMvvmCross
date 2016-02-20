@@ -94,6 +94,11 @@ namespace NinjaCoder.MvvmCross.Services
         private const string ScorchioMvvmCrossWpfPackage = "Scorchio.NinjaCoder.MvvmCross.Wpf";
 
         /// <summary>
+        /// The scorchio MVVM cross ios story board package,
+        /// </summary>
+        private const string ScorchioMvvmCrossIosStoryBoardPackage = "Scorchio.NinjaCoder.MvvmCross.iOS.StoryBoard";
+
+        /// <summary>
         /// The moq package.
         /// </summary>
         private const string MoqPackage = "Moq";
@@ -360,13 +365,12 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public IEnumerable<string> GetMvvmCrossWindowsPhoneCommands()
         {
-            List<string> commands = new List<string> 
-            {
-                this.GetMvvmCrossCommand(MvvmCross)
-            };
-
-            commands.Add(this.GetNinjaCommand(ScorchioMvvmCrossPackage, true));
-
+            List<string> commands = new List<string>
+                                        {
+                                            this.GetMvvmCrossCommand(MvvmCross),
+                                            this.GetNinjaCommand(ScorchioMvvmCrossPackage, true)
+                                        };
+            
             if (this.settingsService.UseXamarinInsights)
             {
                 commands.Add(this.GetXamarinFormsCommand(XamarinInsightsPackage));
@@ -636,6 +640,14 @@ namespace NinjaCoder.MvvmCross.Services
             }
 
             return commands;
+        }
+
+        /// <summary>
+        /// Gets the MVVM cross ios story board command.
+        /// </summary>
+        public string GetMvvmCrossIosStoryBoardCommand()
+        {
+            return this.GetNinjaCommand(ScorchioMvvmCrossIosStoryBoardPackage, true);
         }
 
         /// <summary>

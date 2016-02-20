@@ -306,6 +306,13 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddCustomRenderers
 
                 return false;
             }
+            return true;
+        }
+
+        public override void OnSave()
+        {
+            base.OnSave();
+
 
             this.settingsService.AutomaticallyAddRenderer = this.appendRendererToName;
             this.settingsService.CustomRendererDirectory = this.directory;
@@ -324,7 +331,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddCustomRenderers
             }
 
             this.cachingService.Messages["CustomRendererFinishMessage"] = message;
-            return true;
         }
     }
 }

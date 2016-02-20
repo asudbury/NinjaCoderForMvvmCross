@@ -131,5 +131,10 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets the xamarin android commands.
         /// </summary>
         IEnumerable<string> GetXamarinAndroidCommands();
+
+        /// <summary>
+        /// Gets the MVVM cross ios story board command.
+        /// </summary>
+        string GetMvvmCrossIosStoryBoardCommand();
     }
 }

@@ -29,5 +29,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <param name="views">The views.</param>
         /// <returns></returns>
         IEnumerable<string> AddViewModelsAndViews(IEnumerable<View> views);
+        
+        /// <summary>
+        /// Gets the nuget commands.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<string> GetNugetCommands();
     }
 }

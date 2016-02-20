@@ -120,6 +120,7 @@
     </Compile>
     <Compile Include="Wpf\Behaviors\FocusBehavior.cs" />
     <Compile Include="Wpf\BindingProxy.cs" />
+    <Compile Include="Wpf\Converters\BoolToVisibleOrCollapsedConverter.cs" />
     <Compile Include="Wpf\Converters\ResourceFromKeyConverter.cs" />
     <Compile Include="Wpf\Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Wpf\Converters\InverseBooleanConverter.cs" />

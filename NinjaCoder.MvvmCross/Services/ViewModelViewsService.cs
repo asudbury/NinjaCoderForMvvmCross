@@ -14,6 +14,8 @@ namespace NinjaCoder.MvvmCross.Services
     using System.Collections.Generic;
     using System.Linq;
 
+    using Scorchio.Infrastructure.Extensions;
+
     /// <summary>
     ///  Defines the ViewModelViewsService type.
     /// </summary>
@@ -40,17 +42,24 @@ namespace NinjaCoder.MvvmCross.Services
         private readonly IFileOperationService fileOperationService;
 
         /// <summary>
+        /// The nuget commands service.
+        /// </summary>
+        private readonly INugetCommandsService nugetCommandsService;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ViewModelViewsService" /> class.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="viewModelAndViewsFactory">The view model and views factory.</param>
         /// <param name="fileOperationService">The file operation service.</param>
+        /// <param name="nugetCommandsService">The nuget commands service.</param>
         public ViewModelViewsService(
             IVisualStudioService visualStudioService,
             ISettingsService settingsService,
             IViewModelAndViewsFactory viewModelAndViewsFactory,
-            IFileOperationService fileOperationService)
+            IFileOperationService fileOperationService,
+            INugetCommandsService nugetCommandsService)
         {
             TraceService.WriteLine("ViewModelViewsService::Constructor");
 
@@ -58,6 +67,7 @@ namespace NinjaCoder.MvvmCross.Services
             this.settingsService = settingsService;
             this.viewModelAndViewsFactory = viewModelAndViewsFactory;
             this.fileOperationService = fileOperationService;
+            this.nugetCommandsService = nugetCommandsService;
         }
 
         /// <summary>
@@ -116,7 +126,7 @@ namespace NinjaCoder.MvvmCross.Services
             List<string> messages = new List<string>();
 
             this.visualStudioService.WriteStatusBarMessage(NinjaMessages.AddingViewModelAndViews);
-
+            
             if (this.settingsService.FrameworkType == FrameworkType.MvvmCrossAndXamarinForms)
             {
                 this.settingsService.BindXamlForXamarinForms = true;
@@ -152,6 +162,34 @@ namespace NinjaCoder.MvvmCross.Services
             TraceService.WriteLine("ViewModelViewsService::AddViewModelsAndViews END");
 
             return messages;
+        }
+
+        /// <summary>
+        /// Gets the nuget commands.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<string> GetNugetCommands()
+        {
+            List<string> commands = new List<string>();
+
+            //// get the ios storyboard nuget command
+
+            if (this.settingsService.AddiOSProject &&
+                this.settingsService.SelectedMvvmCrossiOSViewType == MvvmCrossSampleViewType.StoryBoard.GetDescription())
+            {
+                switch (this.settingsService.FrameworkType)
+                {
+                    case FrameworkType.MvvmCross:
+                    case FrameworkType.MvvmCrossAndXamarinForms:
+
+                        string mvxCommand = this.nugetCommandsService.GetMvvmCrossIosStoryBoardCommand();
+                        mvxCommand += " " + this.visualStudioService.iOSProjectService.Name;
+                        commands.Add(mvxCommand);
+                        break;
+                }
+            }
+
+            return commands;
         }
     }
 }

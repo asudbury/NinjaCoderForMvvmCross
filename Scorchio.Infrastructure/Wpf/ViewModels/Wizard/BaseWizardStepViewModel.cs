@@ -37,6 +37,13 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         }
 
         /// <summary>
+        /// Called when [save].
+        /// </summary>
+        public virtual void OnSave()
+        {
+        }
+
+        /// <summary>
         /// For when yous need to save some values that can't be directly bound to UI elements.
         /// Not called when moving previous (see WizardViewModel.MoveToNextStep).
         /// </summary>

@@ -85,6 +85,15 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             TraceService.WriteLine("MvvmCrossViewFactory::GetMvvmCrossView viewTemplateName=" + viewTemplateName);
 
+            if (itemTemplateInfo.ProjectSuffix == ProjectSuffix.iOS.GetDescription())
+            {
+                return this.GetiOSMvvmCrossView(
+                    itemTemplateInfo, 
+                    tokens, 
+                    viewTemplateName, 
+                    viewName);
+            }
+
             TextTemplateInfo textTemplateInfo = new TextTemplateInfo
             {
                 ProjectSuffix = itemTemplateInfo.ProjectSuffix,
@@ -100,8 +109,7 @@ namespace NinjaCoder.MvvmCross.Factories
             textTemplateInfo.TextOutput = textTransformation.Output;
             textTemplateInfo.FileName = viewName + "." + textTransformation.FileExtension;
 
-            if (itemTemplateInfo.ProjectSuffix == ProjectSuffix.iOS.GetDescription() ||
-                itemTemplateInfo.ProjectSuffix == ProjectSuffix.Droid.GetDescription())
+            if (itemTemplateInfo.ProjectSuffix == ProjectSuffix.Droid.GetDescription())
             {
                 textTemplateInfo.FileOperations.Add(
                     this.GetCompileFileOperation(textTemplateInfo.ProjectSuffix, textTemplateInfo.FileName));
@@ -113,33 +121,6 @@ namespace NinjaCoder.MvvmCross.Factories
                     this.GetPageFileOperation(textTemplateInfo.ProjectSuffix, textTemplateInfo.FileName));
             }
             
-            //// now handle xib and story board options!
-
-            if (viewTemplateName.Contains("XibSampleDataView") ||
-                viewTemplateName.Contains("StoryBoardSampleDataView"))
-            {
-                viewTemplateName = viewTemplateName.ToLower().Contains("xib") ? "SampleDataViewXib.t4" : "SampleDataViewStoryBoard.t4";
-
-                TraceService.WriteLine("Adding ChildTextTemplate ViewTemplateName=" + viewTemplateName);
-
-                TextTemplateInfo childTextTemplateInfo = new TextTemplateInfo
-                {
-                    ProjectSuffix = itemTemplateInfo.ProjectSuffix,
-                    ProjectFolder = "Views",
-                    Tokens = tokens,
-                    ShortTemplateName = viewTemplateName,
-                    TemplateName = this.SettingsService.ItemTemplatesDirectory + "\\" + itemTemplateInfo.ProjectSuffix.Substring(1) + "\\" + viewTemplateName
-                };
-
-                textTransformation = this.GetTextTransformationService()
-                    .Transform(childTextTemplateInfo.TemplateName, textTemplateInfo.Tokens);
-
-                childTextTemplateInfo.TextOutput = textTransformation.Output;
-                childTextTemplateInfo.FileName = viewName + "." + textTransformation.FileExtension;
-                
-                textTemplateInfo.ChildItems.Add(childTextTemplateInfo);
-            }
-
             return textTemplateInfo;
         }
 
@@ -166,11 +147,9 @@ namespace NinjaCoder.MvvmCross.Factories
 
             TraceService.WriteLine("ViewTemplateName=" + viewTemplateName);
 
-            if (itemTemplateInfo.ProjectSuffix == ProjectSuffix.iOS.GetDescription()
-                && viewTemplateName == "SampleDataView.t4")
+            if (itemTemplateInfo.ProjectSuffix == ProjectSuffix.iOS.GetDescription())
             {
-                viewTemplateName = this.SettingsService.SelectedMvvmCrossiOSSampleDataViewType
-                                   + viewTemplateName;
+                viewTemplateName = this.SettingsService.SelectedMvvmCrossiOSViewType + viewTemplateName;
             }
 
             Dictionary<string, string> tokens = this.GetBaseDictionary(
@@ -203,6 +182,102 @@ namespace NinjaCoder.MvvmCross.Factories
 
             return textTemplateInfo;
         }
+
+        /// <summary>
+        /// Getis the os MVVM cross view.
+        /// </summary>
+        /// <param name="itemTemplateInfo">The item template information.</param>
+        /// <param name="tokens">The tokens.</param>
+        /// <param name="viewTemplateName">Name of the view template.</param>
+        /// <param name="viewName">Name of the view.</param>
+        /// <returns></returns>
+        internal TextTemplateInfo GetiOSMvvmCrossView(
+            ItemTemplateInfo itemTemplateInfo,
+            Dictionary<string, string> tokens,
+            string viewTemplateName,
+            string viewName)
+        {
+            string folder = viewTemplateName.Replace("View.t4", string.Empty);
+            
+            string subFolder = this.SettingsService.SelectedMvvmCrossiOSViewType;
+            folder = folder.Replace(subFolder, string.Empty);
+
+            string t4Folder = this.SettingsService.ItemTemplatesDirectory + "\\iOS\\" + folder + "\\" + subFolder + "\\";
+            string shortFolderName = folder + "\\" + subFolder + "\\";
+
+            TextTemplateInfo textTemplateInfo = new TextTemplateInfo
+            {
+                ProjectSuffix = ProjectSuffix.iOS.GetDescription(),
+                ProjectFolder = "Views",
+                Tokens = tokens,
+                ShortTemplateName = shortFolderName + "View.t4",
+                TemplateName = t4Folder + "View.t4"
+            };
+
+            TextTransformation textTransformation = this.GetTextTransformationService()
+                     .Transform(textTemplateInfo.TemplateName, textTemplateInfo.Tokens);
+
+            textTemplateInfo.TextOutput = textTransformation.Output;
+            textTemplateInfo.FileName = viewName + "." + textTransformation.FileExtension;
+
+            textTemplateInfo.FileOperations.Add(this.GetCompileFileOperation(
+                textTemplateInfo.ProjectSuffix, 
+                textTemplateInfo.FileName));
+            
+            //// now handle xib and story board options!
+
+            if (viewTemplateName.Contains("Xib") ||
+                viewTemplateName.Contains("StoryBoard"))
+            {
+                viewTemplateName = viewTemplateName.ToLower().Contains("xib") ? "ViewXib.t4" : "ViewStoryBoard.t4";
+
+                TraceService.WriteLine("Adding ChildTextTemplate ViewTemplateName=" + viewTemplateName);
+
+                TextTemplateInfo childTextTemplateInfo = new TextTemplateInfo
+                {
+                    ProjectSuffix = itemTemplateInfo.ProjectSuffix,
+                    ProjectFolder = "Views",
+                    Tokens = tokens,
+                    ShortTemplateName = shortFolderName + viewTemplateName,
+                    TemplateName = t4Folder + viewTemplateName
+                };
+
+                textTransformation = this.GetTextTransformationService()
+                    .Transform(childTextTemplateInfo.TemplateName, textTemplateInfo.Tokens);
+
+                childTextTemplateInfo.TextOutput = textTransformation.Output;
+                childTextTemplateInfo.FileName = viewName + "." + textTransformation.FileExtension;
+
+                textTemplateInfo.ChildItems.Add(childTextTemplateInfo);
+
+                //// add in designer file
+
+                viewTemplateName = "ViewDesigner.t4";
+
+                TraceService.WriteLine("Adding ChildTextTemplate ViewTemplateName=" + viewTemplateName);
+
+                childTextTemplateInfo = new TextTemplateInfo
+                {
+                    ProjectSuffix = itemTemplateInfo.ProjectSuffix,
+                    ProjectFolder = "Views",
+                    Tokens = tokens,
+                    ShortTemplateName = shortFolderName + viewTemplateName,
+                    TemplateName = t4Folder + viewTemplateName
+                };
+
+                textTransformation = this.GetTextTransformationService()
+                    .Transform(childTextTemplateInfo.TemplateName, textTemplateInfo.Tokens);
+
+                childTextTemplateInfo.TextOutput = textTransformation.Output;
+                childTextTemplateInfo.FileName = viewName + ".designer." + textTransformation.FileExtension;
+
+                textTemplateInfo.ChildItems.Add(childTextTemplateInfo);
+            }
+
+
+            return textTemplateInfo;
+        }
+
         /// <summary>
         /// Gets the droid MVVM cross view layout.
         /// </summary>

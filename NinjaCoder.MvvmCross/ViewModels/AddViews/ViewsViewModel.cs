@@ -22,6 +22,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
     using System.Linq;
     using System.Windows.Input;
 
+    using NinjaCoder.MvvmCross.Extensions;
+
     /// <summary>
     /// Defines the ViewsViewModel type.
     /// </summary>
@@ -46,6 +48,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         /// The message box service.
         /// </summary>
         private readonly IMessageBoxService messageBoxService;
+
+        /// <summary>
+        /// The view model and views factory.
+        /// </summary>
+        private readonly IViewModelAndViewsFactory viewModelAndViewsFactory;
 
         /// <summary>
         /// The views.
@@ -103,6 +110,16 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         private readonly IEnumerable<ImageItemWithDescription> mvxViews;
 
         /// <summary>
+        /// The MVVM cross ios view types.
+        /// </summary>
+        private IEnumerable<string> mvvmCrossiOSViewTypes;
+
+        /// <summary>
+        /// The selected MVVM cross ios view type
+        /// </summary>
+        private string selectedMvvmCrossiOSViewType;
+
+        /// <summary>
         /// The allow framework selection.
         /// </summary>
         private bool allowFrameworkSelection;
@@ -133,6 +150,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         private bool showLayouts;
 
         /// <summary>
+        /// The show MVVM cross view types.
+        /// </summary>
+        private bool showMvvmCrossViewTypes;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ViewsViewModel" /> class.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
@@ -142,6 +164,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         /// <param name="layoutFactory">The layout factory.</param>
         /// <param name="messageBoxService">The message box service.</param>
         /// <param name="mvvmCrossViewFactory">The MVVM cross view factory.</param>
+        /// <param name="viewModelAndViewsFactory">The view model and views factory.</param>
         public ViewsViewModel(
             IVisualStudioService visualStudioService,
             ISettingsService settingsService,
@@ -149,7 +172,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
             IXamarinPageFactory pageFactory,
             IXamarinLayoutFactory layoutFactory,
             IMessageBoxService messageBoxService,
-            IMvvmCrossViewFactory mvvmCrossViewFactory)
+            IMvvmCrossViewFactory mvvmCrossViewFactory,
+            IViewModelAndViewsFactory viewModelAndViewsFactory)
         {
             this.views = new ObservableCollection<View>();
 
@@ -159,6 +183,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
             this.pageTypes = pageFactory.Pages;
             this.layoutTypes = layoutFactory.Layouts;
             this.messageBoxService = messageBoxService;
+            this.viewModelAndViewsFactory = viewModelAndViewsFactory;
             this.mvxViews = mvvmCrossViewFactory.Views;
 
             this.frameworks = frameworkFactory.AllowedFrameworks;
@@ -166,6 +191,22 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
             this.allowFrameworkSelection = this.Frameworks.Count() > 1;
 
             this.DisplayGrid();
+
+            this.MvvmCrossiOSViewTypes = this.viewModelAndViewsFactory.GetAvailableMvvmCrossiOSViewTypes();
+            this.SelectedMvvmCrossiOSViewType = this.settingsService.SelectedMvvmCrossiOSViewType;
+
+             this.showMvvmCrossViewTypes = false;
+
+            if (this.visualStudioService.SolutionAlreadyCreated == false)
+            {
+                if (this.settingsService.FrameworkType.IsMvvmCrossSolutionType())
+                {
+                    if (this.settingsService.AddiOSProject)
+                    {
+                        this.showMvvmCrossViewTypes = true;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -327,6 +368,40 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         }
 
         /// <summary>
+        /// Gets or sets the MVVM cross ios view types.
+        /// </summary>
+        public IEnumerable<string> MvvmCrossiOSViewTypes
+        {
+            get { return this.mvvmCrossiOSViewTypes; }
+            set { this.SetProperty(ref this.mvvmCrossiOSViewTypes, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the type of the selected view.
+        /// </summary>
+        public string SelectedMvvmCrossiOSViewType
+        {
+            get { return this.selectedMvvmCrossiOSViewType; }
+            set { this.SetProperty(ref this.selectedMvvmCrossiOSViewType, value); }
+        }
+
+        /// <summary>
+        /// Gets the UI help page command.
+        /// </summary>
+        public ICommand UIHelpPageCommand
+        {
+            get { return new RelayCommand(this.DisplayUIHelpPage); }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [show MVVM cross view types].
+        /// </summary>
+        public bool ShowMvvmCrossViewTypes
+        {
+            get { return this.showMvvmCrossViewTypes; }
+        }
+
+        /// <summary>
         /// Determines whether this instance [can move to next page].
         /// </summary>
         public override bool CanMoveToNextPage()
@@ -458,6 +533,19 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
                     this.Add(); 
                 }
             }
+        }
+
+        /// <summary>
+        /// For when yous need to save some values that can't be directly bound to UI elements.
+        /// Not called when moving previous (see WizardViewModel.MoveToNextStep).
+        /// </summary>
+        /// <returns>
+        /// An object that may modify the route
+        /// </returns>
+        public override RouteModifier OnNext()
+        {
+            this.settingsService.SelectedMvvmCrossiOSViewType = this.selectedMvvmCrossiOSViewType;
+            return base.OnNext();
         }
 
         /// <summary>
@@ -765,6 +853,15 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         internal void DisplayLayoutsWebPage(object parameter)
         {
             Process.Start(this.settingsService.XamarinLayoutsHelp);
+        }
+
+
+        /// <summary>
+        /// Displays the UI help page.
+        /// </summary>
+        internal void DisplayUIHelpPage()
+        {
+            Process.Start(this.settingsService.MvvmCrossiOSViewWebPage);
         }
     }
 }

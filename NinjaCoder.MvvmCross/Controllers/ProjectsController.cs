@@ -21,6 +21,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
     using ViewModels.AddProjects;
     using PluginsViewModel = NinjaCoder.MvvmCross.ViewModels.AddProjects.PluginsViewModel;
 
@@ -212,7 +213,14 @@ namespace NinjaCoder.MvvmCross.Controllers
                     projectsViewModel.GetSolutionPath(),
                     projectsViewModel.GetFormattedRequiredTemplates())
                     .ToList();
-            
+
+            string startUpProject = this.SettingsService.StartUpProject;
+
+            if (startUpProject != string.Empty)
+            {
+                this.VisualStudioService.SolutionService.SetStartUpProject(projectsViewModel.Project + "." + startUpProject);
+            }
+
             //// there is a bug in the xamarin iOS code that means it doesnt apply a couple of xml elements
             //// in the info.plist - here we fix that issue.
 
@@ -221,6 +229,8 @@ namespace NinjaCoder.MvvmCross.Controllers
                 this.applicationService.FixInfoPList(projectsViewModel.GetFormattedRequiredTemplates()
                         .FirstOrDefault(x => x.ProjectSuffix == ProjectSuffix.iOS.GetDescription()));
             }
+
+            IEnumerable<string> viewNugetCommands = new List<string>();
 
             if (this.SettingsService.FrameworkType != FrameworkType.NoFramework &&
                 viewsViewModel != null)
@@ -235,6 +245,8 @@ namespace NinjaCoder.MvvmCross.Controllers
                 IEnumerable<string> viewModelMessages = this.viewModelViewsService.AddViewModelsAndViews(viewsViewModel.Views);
             
                 this.messages.AddRange(viewModelMessages);
+
+                viewNugetCommands = this.viewModelViewsService.GetNugetCommands();
             }
             
             TraceService.WriteLine("ProjectsController::Process GetApplication Commands");
@@ -248,7 +260,17 @@ namespace NinjaCoder.MvvmCross.Controllers
                 this.postNugetFileOperations.AddRange(commandsList.FileOperations);
             }
 
-            this.commands += this.nugetService.GetNugetCommands(projectsViewModel.GetFormattedRequiredTemplates());
+            IEnumerable<ProjectTemplateInfo> projectTemplateInfos = projectsViewModel.GetFormattedRequiredTemplates();
+
+            this.commands += this.nugetService.GetNugetCommands(projectTemplateInfos);
+
+            if (viewNugetCommands.Any())
+            {
+                foreach (string viewNugetCommand in viewNugetCommands)
+                {
+                    this.commands += viewNugetCommand + Environment.NewLine;
+                }
+            }
 
             try
             {
@@ -287,12 +309,22 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             if (this.SettingsService.ProcessNugetCommands)
             {
-                this.nugetService.Execute(
+                this.ProcessNugetCommands();
+            }
+
+            TraceService.WriteLine("ProjectsController::Process END");
+        }
+
+        /// <summary>
+        /// Processes the nuget commands.
+        /// </summary>
+        private void ProcessNugetCommands()
+        {
+           this.nugetService.Execute(
                     this.GetReadMePath(), 
                     this.commands,
                     this.SettingsService.SuspendReSharperDuringBuild);
-            }
-
+            
             string message = NinjaMessages.NugetDownload;
 
             if (this.SettingsService.UseLocalNuget)
@@ -301,8 +333,6 @@ namespace NinjaCoder.MvvmCross.Controllers
             }
 
             this.VisualStudioService.WriteStatusBarMessage(message);
-
-            TraceService.WriteLine("ProjectsController::Process END");
         }
 
         /// <summary>

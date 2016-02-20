@@ -266,6 +266,16 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
                 this.ProjectIsFocused = true;
                 return false;
             }
+          
+            return true;
+        }
+
+        /// <summary>
+        /// Called when [save].
+        /// </summary>
+        public override void OnSave()
+        {
+            base.OnSave();
 
             this.settingsService.DefaultProjectsPath = this.Path;
 
@@ -274,8 +284,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
                 if (templateInfo.Item.ProjectSuffix == ProjectSuffix.CoreTests.GetDescription())
                 {
                     this.settingsService.AddCoreTestsProject = templateInfo.IsSelected;
-                } 
-                
+                }
+
                 else if (templateInfo.Item.ProjectSuffix == ProjectSuffix.Droid.GetDescription())
                 {
                     this.settingsService.AddAndroidProject = templateInfo.IsSelected;
@@ -301,8 +311,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
                     this.settingsService.AddXamarinFormsTestsProject = templateInfo.IsSelected;
                 }
             }
-            
-            return true;
         }
 
         /// <summary>

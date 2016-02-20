@@ -8,6 +8,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Wizard
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     ///  Defines the NinjaWizardViewModel.cs type.
@@ -52,6 +53,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.Wizard
         protected override void Finish()
         {
             EventHandler handler = this.OnFinish;
+
+            if (this.Steps.Any())
+            {
+                this.Steps[this.Steps.Count - 1].ViewModel.OnSave();
+            }
 
             if (handler != null)
             {

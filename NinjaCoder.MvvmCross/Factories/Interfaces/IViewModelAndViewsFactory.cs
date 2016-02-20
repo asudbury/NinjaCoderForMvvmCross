@@ -28,10 +28,10 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         IEnumerable<string> GetAvailableViewTypes();
 
         /// <summary>
-        /// Gets the available MVVM crossi os sample data view types.
+        /// Gets the available MVVM cross ios view types.
         /// </summary>
         /// <returns></returns>
-        IEnumerable<string> GetAvailableMvvmCrossiOSSampleDataViewTypes();
+        IEnumerable<string> GetAvailableMvvmCrossiOSViewTypes();
 
             /// <summary>
         /// Gets the required text templates.

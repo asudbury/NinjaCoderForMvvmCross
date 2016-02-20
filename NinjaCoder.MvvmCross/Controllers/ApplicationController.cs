@@ -14,6 +14,9 @@ namespace NinjaCoder.MvvmCross.Controllers
     using Services.Interfaces;
     using System.Collections.Generic;
     using System.Windows;
+
+    using NinjaCoder.MvvmCross.Constants;
+
     using ViewModels;
     using ViewModels.Options;
     using Views;
@@ -136,6 +139,13 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("ApplicationController::ClearLogFile");
             this.applicationService.ClearLogFile();
+
+            this.MessageBoxService.Show(
+                "Log File has been cleared.", 
+                Settings.ApplicationName,
+                false,
+                Theme.Light,
+                this.SettingsService.ThemeColor);
         }
 
         /// <summary>
@@ -145,6 +155,13 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("ApplicationController::ClearErrorLogFile");
             this.applicationService.ClearErrorLogFile();
+
+            this.MessageBoxService.Show(
+                "Error Log File has been cleared.",
+                Settings.ApplicationName,
+                false,
+                Theme.Light,
+                this.SettingsService.ThemeColor);
         }
 
         /// <summary>

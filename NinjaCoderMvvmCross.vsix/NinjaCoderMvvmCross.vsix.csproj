@@ -187,14 +187,6 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <Link>Config\TextTemplates\ItemTemplates\XamarinForms\BlankView.t4</Link>
     </Content>
-    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\iOS\BlankView.t4">
-      <IncludeInVSIX>true</IncludeInVSIX>
-      <Link>Config\TextTemplates\ItemTemplates\iOS\BlankView.t4</Link>
-    </Content>
-    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\iOS\WebView.t4">
-      <IncludeInVSIX>true</IncludeInVSIX>
-      <Link>Config\TextTemplates\ItemTemplates\iOS\WebView.t4</Link>
-    </Content>
     <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\Droid\BlankView.t4">
       <IncludeInVSIX>true</IncludeInVSIX>
       <Link>Config\TextTemplates\ItemTemplates\Droid\BlankView.t4</Link>
@@ -219,33 +211,97 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <Link>Config\TextTemplates\ItemTemplates\Droid\WebView.axml.t4</Link>
     </Content>
-    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\iOS\HardCodedSampleDataView.t4">
-      <IncludeInVSIX>true</IncludeInVSIX>
-      <Link>Config\TextTemplates\ItemTemplates\iOS\HardCodedSampleDataView.t4</Link>
-    </Content>
-    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\iOS\StoryBoardSampleDataView.t4">
-      <IncludeInVSIX>true</IncludeInVSIX>
-      <Link>Config\TextTemplates\ItemTemplates\iOS\StoryBoardSampleDataView.t4</Link>
-    </Content>
-    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\iOS\XibSampleDataView.t4">
-      <IncludeInVSIX>true</IncludeInVSIX>
-      <Link>Config\TextTemplates\ItemTemplates\iOS\XibSampleDataView.t4</Link>
-    </Content>
     <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\Effects\Effect.t4">
       <IncludeInVSIX>true</IncludeInVSIX>
       <Link>Config\TextTemplates\Effects\Effect.t4</Link>
     </Content>
-    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\iOS\SampleDataViewStoryBoard.t4">
-      <IncludeInVSIX>true</IncludeInVSIX>
-      <Link>Config\TextTemplates\ItemTemplates\iOS\SampleDataViewStoryBoard.t4</Link>
-    </Content>
-    <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\ItemTemplates\iOS\SampleDataViewXib.t4">
-      <IncludeInVSIX>true</IncludeInVSIX>
-      <Link>Config\TextTemplates\ItemTemplates\iOS\SampleDataViewXib.t4</Link>
-    </Content>
     <Content Include="..\..\Ninja\NinjaCodeMvvmCrossTemplates\ProjectTemplates\NinjaCoder.Droid\bin\Debug\ProjectTemplates\CSharp\1033\NinjaCoder.Droid.zip">
       <Link>ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.Droid.zip</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Blank\HardCoded\View.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\Blank\HardCoded\View.t4</Link>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Blank\StoryBoard\View.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\Blank\StoryBoard\View.t4</Link>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Blank\StoryBoard\ViewDesigner.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\Blank\StoryBoard\ViewDesigner.t4</Link>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Blank\StoryBoard\ViewStoryBoard.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\Blank\StoryBoard\ViewStoryBoard.t4</Link>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Blank\Xib\View.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\Blank\Xib\View.t4</Link>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Blank\Xib\ViewDesigner.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\Blank\Xib\ViewDesigner.t4</Link>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Blank\Xib\ViewXib.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\Blank\Xib\ViewXib.t4</Link>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\SampleData\HardCoded\View.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\SampleData\HardCoded\View.t4</Link>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\SampleData\StoryBoard\View.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\SampleData\StoryBoard\View.t4</Link>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\SampleData\StoryBoard\ViewDesigner.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\SampleData\StoryBoard\ViewDesigner.t4</Link>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\SampleData\StoryBoard\ViewStoryBoard.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\SampleData\StoryBoard\ViewStoryBoard.t4</Link>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\SampleData\Xib\View.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\SampleData\Xib\View.t4</Link>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\SampleData\Xib\ViewDesigner.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\SampleData\Xib\ViewDesigner.t4</Link>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\SampleData\Xib\ViewXib.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\SampleData\Xib\ViewXib.t4</Link>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Web\HardCoded\View.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\Web\HardCoded\View.t4</Link>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Web\StoryBoard\View.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\Web\StoryBoard\View.t4</Link>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Web\StoryBoard\ViewDesigner.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\Web\StoryBoard\ViewDesigner.t4</Link>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Web\StoryBoard\ViewStoryBoard.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\Web\StoryBoard\ViewStoryBoard.t4</Link>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Web\Xib\View.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\Web\Xib\View.t4</Link>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Web\Xib\ViewDesigner.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\Web\Xib\ViewDesigner.t4</Link>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Web\Xib\ViewXib.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\Web\Xib\ViewXib.t4</Link>
     </Content>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>

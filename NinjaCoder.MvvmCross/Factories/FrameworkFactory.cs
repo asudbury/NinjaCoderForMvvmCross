@@ -6,17 +6,15 @@
 namespace NinjaCoder.MvvmCross.Factories
 {
     using Interfaces;
+    using NinjaCoder.MvvmCross.Constants;
     using NinjaCoder.MvvmCross.Entities;
+    using NinjaCoder.MvvmCross.Extensions;
     using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Scorchio.Infrastructure.Entities;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Services;
     using System.Collections.Generic;
     using System.Linq;
-
-    using NinjaCoder.MvvmCross.Constants;
-    using NinjaCoder.MvvmCross.Extensions;
-
-    using Scorchio.Infrastructure.Entities;
 
     /// <summary>
     /// Defines the FrameworkFactory type.

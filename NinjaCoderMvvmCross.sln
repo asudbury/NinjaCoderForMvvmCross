@@ -33,6 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvvmCross", "MvvmCross", "{
 	ProjectSection(SolutionItems) = preProject
 		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.2.0.1.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.2.0.1.nuspec
 		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Core.2.0.0.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Core.2.0.0.nuspec
+		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.iOS.StoryBoard.1.0.0.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.iOS.StoryBoard.1.0.0.nuspec
 		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.MSTests.2.0.0.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.MSTests.2.0.0.nuspec
 		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.NUnit.Tests.2.0.0.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.NUnit.Tests.2.0.0.nuspec
 		NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Wpf.2.0.1.nuspec = NuSpec\MvvmCross\Scorchio.NinjaCoder.MvvmCross.Wpf.2.0.1.nuspec
@@ -81,6 +82,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iOSContent", "iOSContent", 
 		NuSpec\MvvmCross\iOSContent\LinkerPleaseInclude.cs.pp = NuSpec\MvvmCross\iOSContent\LinkerPleaseInclude.cs.pp
 		NuSpec\MvvmCross\iOSContent\Main.cs.pp = NuSpec\MvvmCross\iOSContent\Main.cs.pp
 		NuSpec\MvvmCross\iOSContent\Setup.cs.pp = NuSpec\MvvmCross\iOSContent\Setup.cs.pp
+		NuSpec\MvvmCross\iOSContent\SetupStoryBoard.cs.pp = NuSpec\MvvmCross\iOSContent\SetupStoryBoard.cs.pp
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestContent", "TestContent", "{FCE95796-5609-498F-8A7D-0FA014692ABD}"
@@ -111,6 +113,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Views", "Views", "{3E3B2A5E-C151-4772-9E37-2389BACF585C}"
 	ProjectSection(SolutionItems) = preProject
 		NuSpec\MvvmCross\iOSContent\Views\BaseView.cs.pp = NuSpec\MvvmCross\iOSContent\Views\BaseView.cs.pp
+		NuSpec\MvvmCross\iOSContent\Views\StoryBoardViewContainer.cs.pp = NuSpec\MvvmCross\iOSContent\Views\StoryBoardViewContainer.cs.pp
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Views", "Views", "{D41E581F-7FC1-41B0-8491-6CFDE8E74C5A}"
@@ -519,15 +522,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Droid", "Droid", "{ACD90A18
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iOS", "iOS", "{49A45E61-028F-49BC-A80F-27D22AE8FEC4}"
-	ProjectSection(SolutionItems) = preProject
-		Config\TextTemplates\ItemTemplates\iOS\BlankView.t4 = Config\TextTemplates\ItemTemplates\iOS\BlankView.t4
-		Config\TextTemplates\ItemTemplates\iOS\HardCodedSampleDataView.t4 = Config\TextTemplates\ItemTemplates\iOS\HardCodedSampleDataView.t4
-		Config\TextTemplates\ItemTemplates\iOS\SampleDataViewStoryBoard.t4 = Config\TextTemplates\ItemTemplates\iOS\SampleDataViewStoryBoard.t4
-		Config\TextTemplates\ItemTemplates\iOS\SampleDataViewXib.t4 = Config\TextTemplates\ItemTemplates\iOS\SampleDataViewXib.t4
-		Config\TextTemplates\ItemTemplates\iOS\StoryBoardSampleDataView.t4 = Config\TextTemplates\ItemTemplates\iOS\StoryBoardSampleDataView.t4
-		Config\TextTemplates\ItemTemplates\iOS\WebView.t4 = Config\TextTemplates\ItemTemplates\iOS\WebView.t4
-		Config\TextTemplates\ItemTemplates\iOS\XibSampleDataView.t4 = Config\TextTemplates\ItemTemplates\iOS\XibSampleDataView.t4
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsPhone", "WindowsPhone", "{6D2734E9-6555-4ABC-898E-ADCABD8D459E}"
 	ProjectSection(SolutionItems) = preProject
@@ -593,6 +587,69 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Behaviours", "Behaviours", "{58379B4D-25D1-4592-AC8F-4EB81DDBB6B2}"
 	ProjectSection(SolutionItems) = preProject
 		NuSpec\MvvmCross\WpfContent\Behaviours\WebBrowserBehaviour.cs.pp = NuSpec\MvvmCross\WpfContent\Behaviours\WebBrowserBehaviour.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blank", "Blank", "{E2701E6E-F666-431C-B021-C3B8DDB9C939}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SampleData", "SampleData", "{05AF7A53-4038-48C3-B1F8-22BDC4DF44C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{51E1D68F-620F-4105-A922-9836DF1FADF3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HardCoded", "HardCoded", "{ED97A791-6BFE-480C-83B6-F3C98F991C63}"
+	ProjectSection(SolutionItems) = preProject
+		Config\TextTemplates\ItemTemplates\iOS\Blank\HardCoded\View.t4 = Config\TextTemplates\ItemTemplates\iOS\Blank\HardCoded\View.t4
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HardCoded", "HardCoded", "{5CEA3CE4-D9DF-4A1B-8791-877BCA1A6896}"
+	ProjectSection(SolutionItems) = preProject
+		Config\TextTemplates\ItemTemplates\iOS\SampleData\HardCoded\View.t4 = Config\TextTemplates\ItemTemplates\iOS\SampleData\HardCoded\View.t4
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HardCoded", "HardCoded", "{78C8D16E-99BE-4311-BD38-9FEA65BB57E3}"
+	ProjectSection(SolutionItems) = preProject
+		Config\TextTemplates\ItemTemplates\iOS\Web\HardCoded\View.t4 = Config\TextTemplates\ItemTemplates\iOS\Web\HardCoded\View.t4
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StoryBoard", "StoryBoard", "{F325DEFE-C7DC-4A0E-ABD6-B07AAD62A982}"
+	ProjectSection(SolutionItems) = preProject
+		Config\TextTemplates\ItemTemplates\iOS\Blank\StoryBoard\View.t4 = Config\TextTemplates\ItemTemplates\iOS\Blank\StoryBoard\View.t4
+		Config\TextTemplates\ItemTemplates\iOS\Blank\StoryBoard\ViewDesigner.t4 = Config\TextTemplates\ItemTemplates\iOS\Blank\StoryBoard\ViewDesigner.t4
+		Config\TextTemplates\ItemTemplates\iOS\Blank\StoryBoard\ViewStoryBoard.t4 = Config\TextTemplates\ItemTemplates\iOS\Blank\StoryBoard\ViewStoryBoard.t4
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StoryBoard", "StoryBoard", "{A86F34EA-1347-4475-A98C-BA3A6BC1C841}"
+	ProjectSection(SolutionItems) = preProject
+		Config\TextTemplates\ItemTemplates\iOS\SampleData\StoryBoard\View.t4 = Config\TextTemplates\ItemTemplates\iOS\SampleData\StoryBoard\View.t4
+		Config\TextTemplates\ItemTemplates\iOS\SampleData\StoryBoard\ViewDesigner.t4 = Config\TextTemplates\ItemTemplates\iOS\SampleData\StoryBoard\ViewDesigner.t4
+		Config\TextTemplates\ItemTemplates\iOS\SampleData\StoryBoard\ViewStoryBoard.t4 = Config\TextTemplates\ItemTemplates\iOS\SampleData\StoryBoard\ViewStoryBoard.t4
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StoryBoard", "StoryBoard", "{6482323D-BC2C-4533-83C8-3B9BCF8445B1}"
+	ProjectSection(SolutionItems) = preProject
+		Config\TextTemplates\ItemTemplates\iOS\Web\StoryBoard\View.t4 = Config\TextTemplates\ItemTemplates\iOS\Web\StoryBoard\View.t4
+		Config\TextTemplates\ItemTemplates\iOS\Web\StoryBoard\ViewDesigner.t4 = Config\TextTemplates\ItemTemplates\iOS\Web\StoryBoard\ViewDesigner.t4
+		Config\TextTemplates\ItemTemplates\iOS\Web\StoryBoard\ViewStoryBoard.t4 = Config\TextTemplates\ItemTemplates\iOS\Web\StoryBoard\ViewStoryBoard.t4
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xib", "Xib", "{251E931F-2D8F-4D1F-B9CF-020FEA9AF613}"
+	ProjectSection(SolutionItems) = preProject
+		Config\TextTemplates\ItemTemplates\iOS\Blank\Xib\View.t4 = Config\TextTemplates\ItemTemplates\iOS\Blank\Xib\View.t4
+		Config\TextTemplates\ItemTemplates\iOS\Blank\Xib\ViewDesigner.t4 = Config\TextTemplates\ItemTemplates\iOS\Blank\Xib\ViewDesigner.t4
+		Config\TextTemplates\ItemTemplates\iOS\Blank\Xib\ViewXib.t4 = Config\TextTemplates\ItemTemplates\iOS\Blank\Xib\ViewXib.t4
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xib", "Xib", "{25D009AF-74AA-4299-BA6A-DD0ACB34D1B5}"
+	ProjectSection(SolutionItems) = preProject
+		Config\TextTemplates\ItemTemplates\iOS\SampleData\Xib\View.t4 = Config\TextTemplates\ItemTemplates\iOS\SampleData\Xib\View.t4
+		Config\TextTemplates\ItemTemplates\iOS\SampleData\Xib\ViewDesigner.t4 = Config\TextTemplates\ItemTemplates\iOS\SampleData\Xib\ViewDesigner.t4
+		Config\TextTemplates\ItemTemplates\iOS\SampleData\Xib\ViewXib.t4 = Config\TextTemplates\ItemTemplates\iOS\SampleData\Xib\ViewXib.t4
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xib", "Xib", "{05746D5D-B082-4DA3-895D-D5A750A402ED}"
+	ProjectSection(SolutionItems) = preProject
+		Config\TextTemplates\ItemTemplates\iOS\Web\Xib\View.t4 = Config\TextTemplates\ItemTemplates\iOS\Web\Xib\View.t4
+		Config\TextTemplates\ItemTemplates\iOS\Web\Xib\ViewDesigner.t4 = Config\TextTemplates\ItemTemplates\iOS\Web\Xib\ViewDesigner.t4
+		Config\TextTemplates\ItemTemplates\iOS\Web\Xib\ViewXib.t4 = Config\TextTemplates\ItemTemplates\iOS\Web\Xib\ViewXib.t4
 	EndProjectSection
 EndProject
 Global
@@ -1194,5 +1251,17 @@ Global
 		{288C7ACF-08A1-4BE6-90DF-9D26BF5995DB} = {F2F340F9-5E44-49FD-BDAF-A2D8E0FFB674}
 		{9E70B8FF-AF79-4A85-B75E-886B33FB5A2C} = {288C7ACF-08A1-4BE6-90DF-9D26BF5995DB}
 		{58379B4D-25D1-4592-AC8F-4EB81DDBB6B2} = {F70595F7-5472-4EAE-A57B-550ED68B1827}
+		{E2701E6E-F666-431C-B021-C3B8DDB9C939} = {49A45E61-028F-49BC-A80F-27D22AE8FEC4}
+		{05AF7A53-4038-48C3-B1F8-22BDC4DF44C9} = {49A45E61-028F-49BC-A80F-27D22AE8FEC4}
+		{51E1D68F-620F-4105-A922-9836DF1FADF3} = {49A45E61-028F-49BC-A80F-27D22AE8FEC4}
+		{ED97A791-6BFE-480C-83B6-F3C98F991C63} = {E2701E6E-F666-431C-B021-C3B8DDB9C939}
+		{5CEA3CE4-D9DF-4A1B-8791-877BCA1A6896} = {05AF7A53-4038-48C3-B1F8-22BDC4DF44C9}
+		{78C8D16E-99BE-4311-BD38-9FEA65BB57E3} = {51E1D68F-620F-4105-A922-9836DF1FADF3}
+		{F325DEFE-C7DC-4A0E-ABD6-B07AAD62A982} = {E2701E6E-F666-431C-B021-C3B8DDB9C939}
+		{A86F34EA-1347-4475-A98C-BA3A6BC1C841} = {05AF7A53-4038-48C3-B1F8-22BDC4DF44C9}
+		{6482323D-BC2C-4533-83C8-3B9BCF8445B1} = {51E1D68F-620F-4105-A922-9836DF1FADF3}
+		{251E931F-2D8F-4D1F-B9CF-020FEA9AF613} = {E2701E6E-F666-431C-B021-C3B8DDB9C939}
+		{25D009AF-74AA-4299-BA6A-DD0ACB34D1B5} = {05AF7A53-4038-48C3-B1F8-22BDC4DF44C9}
+		{05746D5D-B082-4DA3-895D-D5A750A402ED} = {51E1D68F-620F-4105-A922-9836DF1FADF3}
 	EndGlobalSection
 EndGlobal

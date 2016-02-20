@@ -24,29 +24,9 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         private readonly IViewModelAndViewsFactory viewModelAndViewsFactory;
 
         /// <summary>
-        /// The PCL profiles.
-        /// </summary>
-        private IEnumerable<string> pclProfiles;
-
-        /// <summary>
-        /// The selected PCL profile.
-        /// </summary>
-        private string selectedPCLProfile;
-
-        /// <summary>
-        /// The windows phone versions.
-        /// </summary>
-        private IEnumerable<string> windowsPhoneVersions;
-
-        /// <summary>
         /// The view types
         /// </summary>
         private IEnumerable<string> viewTypes;
-
-        /// <summary>
-        /// The selected phone version.
-        /// </summary>
-        private string selectedWindowsPhoneVersion;
 
         /// <summary>
         /// The selected view type.
@@ -54,14 +34,39 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         private string selectedViewType;
 
         /// <summary>
-        /// The MVVM crossi os sample data view types.
+        /// The MVVM cross ios view types.
         /// </summary>
-        private IEnumerable<string> mvvmCrossiOSSampleDataViewTypes;
+        private IEnumerable<string> mvvmCrossiOSViewTypes;
 
         /// <summary>
-        /// The selected MVVM crossi os sample data view type
+        /// The selected MVVM cross ios view type
         /// </summary>
-        private string selectedMvvmCrossiOSSampleDataViewType;
+        private string selectedMvvmCrossiOSViewType;
+        
+        /// <summary>
+        /// The add projects skip views options.
+        /// </summary>
+        private bool addProjectsSkipViewsOptions;
+
+        /// <summary>
+        /// The add projects skip application options.
+        /// </summary>
+        private bool addProjectsSkipApplicationOptions;
+
+        /// <summary>
+        /// The add projects skip ninja coder options.
+        /// </summary>
+        private bool addProjectsSkipNinjaCoderOptions;
+
+        /// <summary>
+        /// The add projects skip MVVM cross plugin options
+        /// </summary>
+        private bool addProjectsSkipMvvmCrossPluginOptions;
+
+        /// <summary>
+        /// The add projects skip nuget package options.
+        /// </summary>
+        private bool addProjectsSkipNugetPackageOptions;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NinjaBaseViewModel" /> class.
@@ -83,42 +88,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         public ResourceDictionary LanguageDictionary { get; set; }
 
         /// <summary>
-        /// Gets or sets the PCL profiles.
-        /// </summary>
-        public IEnumerable<string> PCLProfiles
-        {
-            get { return this.pclProfiles; }
-            set { this.SetProperty(ref this.pclProfiles, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the selected PCL profile.
-        /// </summary>
-        public string SelectedPCLProfile
-        {
-            get { return this.selectedPCLProfile; }
-            set { this.SetProperty(ref this.selectedPCLProfile, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the windows phone versions.
-        /// </summary>
-        public IEnumerable<string> WindowsPhoneVersions
-        {
-            get { return this.windowsPhoneVersions; }
-            set { this.SetProperty(ref this.windowsPhoneVersions, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the selected windows phone version.
-        /// </summary>
-        public string SelectedWindowsPhoneVersion
-        {
-            get { return this.selectedWindowsPhoneVersion; }
-            set { this.SetProperty(ref this.selectedWindowsPhoneVersion, value); }
-        }
-
-        /// <summary>
         /// Gets or sets the view types.
         /// </summary>
         public IEnumerable<string> ViewTypes
@@ -137,21 +106,66 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         }
 
         /// <summary>
-        /// Gets or sets the MVVM crossi os sample data view types.
+        /// Gets or sets the MVVM cross ios view types.
         /// </summary>
-        public IEnumerable<string> MvvmCrossiOSSampleDataViewTypes
+        public IEnumerable<string> MvvmCrossiOSViewTypes
         {
-            get { return this.mvvmCrossiOSSampleDataViewTypes; }
-            set { this.SetProperty(ref this.mvvmCrossiOSSampleDataViewTypes, value); }
+            get { return this.mvvmCrossiOSViewTypes; }
+            set { this.SetProperty(ref this.mvvmCrossiOSViewTypes, value); }
         }
 
         /// <summary>
         /// Gets or sets the type of the selected view.
         /// </summary>
-        public string SelectedMvvmCrossiOSSampleDataViewType
+        public string SelectedMvvmCrossiOSViewType
         {
-            get { return this.selectedMvvmCrossiOSSampleDataViewType; }
-            set { this.SetProperty(ref this.selectedMvvmCrossiOSSampleDataViewType, value); }
+            get { return this.selectedMvvmCrossiOSViewType; }
+            set { this.SetProperty(ref this.selectedMvvmCrossiOSViewType, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add projects skip views options].
+        /// </summary>
+        public bool AddProjectsSkipViewsOptions
+        {
+            get { return this.addProjectsSkipViewsOptions; }
+            set { this.SetProperty(ref this.addProjectsSkipViewsOptions, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add projects skip application options].
+        /// </summary>
+        public bool AddProjectsSkipApplicationOptions
+        {
+            get { return this.addProjectsSkipApplicationOptions; }
+            set { this.SetProperty(ref this.addProjectsSkipApplicationOptions, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add projects skip ninja coder options].
+        /// </summary>
+        public bool AddProjectsSkipNinjaCoderOptions
+        {
+            get { return this.addProjectsSkipNinjaCoderOptions; }
+            set { this.SetProperty(ref this.addProjectsSkipNinjaCoderOptions, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add projects skip MVVM cross plugin options].
+        /// </summary>
+        public bool AddProjectsSkipMvvmCrossPluginOptions
+        {
+            get { return this.addProjectsSkipMvvmCrossPluginOptions; }
+            set { this.SetProperty(ref this.addProjectsSkipMvvmCrossPluginOptions, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add projects skip nuget package options].
+        /// </summary>
+        public bool AddProjectsSkipNugetPackageOptions
+        {
+            get { return this.addProjectsSkipNugetPackageOptions; }
+            set { this.SetProperty(ref this.addProjectsSkipNugetPackageOptions, value); }
         }
 
         /// <summary>
@@ -168,7 +182,12 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         public void Save()
         {
             this.SettingsService.DefaultViewType = this.selectedViewType;
-            this.SettingsService.SelectedMvvmCrossiOSSampleDataViewType = this.selectedMvvmCrossiOSSampleDataViewType;
+            this.SettingsService.SelectedMvvmCrossiOSViewType = this.selectedMvvmCrossiOSViewType;
+            this.SettingsService.AddProjectsSkipViewOptions = this.addProjectsSkipViewsOptions;
+            this.SettingsService.AddProjectsSkipNinjaCoderOptions = this.addProjectsSkipNinjaCoderOptions;
+            this.SettingsService.AddProjectsSkipApplicationOptions = this.addProjectsSkipApplicationOptions;
+            this.SettingsService.AddProjectsSkipMvvmCrossPluginOptions = this.addProjectsSkipMvvmCrossPluginOptions;
+            this.SettingsService.AddProjectsSkipNugetPackageOptions = this.addProjectsSkipNugetPackageOptions;
         }
 
         /// <summary>
@@ -176,18 +195,17 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         /// </summary>
         internal void Init()
         {
-            this.SelectedPCLProfile = this.SettingsService.PCLProfile;
-            this.SelectedWindowsPhoneVersion = this.SettingsService.WindowsPhoneBuildVersion;
-          
-            //// for now there are no real options for these - maybe change in the future
-            this.PCLProfiles = new List<string> { this.selectedPCLProfile };
-            this.WindowsPhoneVersions = new List<string> { this.selectedWindowsPhoneVersion };
-
             this.ViewTypes = this.viewModelAndViewsFactory.GetAvailableViewTypes();
-            this.MvvmCrossiOSSampleDataViewTypes = this.viewModelAndViewsFactory.GetAvailableMvvmCrossiOSSampleDataViewTypes();
+            this.MvvmCrossiOSViewTypes = this.viewModelAndViewsFactory.GetAvailableMvvmCrossiOSViewTypes();
 
             this.SelectedViewType = this.SettingsService.DefaultViewType;
-            this.SelectedMvvmCrossiOSSampleDataViewType = this.SettingsService.SelectedMvvmCrossiOSSampleDataViewType;
+            this.SelectedMvvmCrossiOSViewType = this.SettingsService.SelectedMvvmCrossiOSViewType;
+
+            this.addProjectsSkipViewsOptions = this.SettingsService.AddProjectsSkipViewOptions;
+            this.addProjectsSkipNinjaCoderOptions = this.SettingsService.AddProjectsSkipNinjaCoderOptions;
+            this.addProjectsSkipApplicationOptions = this.SettingsService.AddProjectsSkipApplicationOptions;
+            this.addProjectsSkipMvvmCrossPluginOptions = this.SettingsService.AddProjectsSkipMvvmCrossPluginOptions;
+            this.addProjectsSkipNugetPackageOptions = this.SettingsService.AddProjectsSkipNugetPackageOptions;
         }
 
         /// <summary>
@@ -195,7 +213,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         /// </summary>
         internal void DisplayUIHelpPage()
         {
-            Process.Start(this.SettingsService.MvvmCrossiOSSampleDataWebPage);
+            Process.Start(this.SettingsService.MvvmCrossiOSViewWebPage);
         }
     }
 }

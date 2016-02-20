@@ -38,7 +38,16 @@
             <CheckBox Margin="10"
                       Content="Create Test projects in 'Tests' solution folder"
                       IsChecked="{Binding CreateTestProjectsSolutionFolder}" />
+
+            <TextBlock Margin="10, 0, 0 ,2" Text="Startup Project" />
+            <ComboBox Width="250"
+                      Margin="10,0,0,3"
+                      HorizontalAlignment="Left"
+                      ItemsSource="{Binding StartUpProjects}"
+                      SelectedItem="{Binding Path=SelectedStartUpProject,
+                                             Mode=TwoWay}" />
             <Separator Margin="5" />
+
             <TextBlock Margin="10" Text="Click 'Finish' to generate the solution." />
             <Separator Margin="5" />
 

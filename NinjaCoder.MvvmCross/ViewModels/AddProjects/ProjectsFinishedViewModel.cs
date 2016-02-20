@@ -5,8 +5,11 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 {
+    using System.Collections.Generic;
+    using NinjaCoder.MvvmCross.Entities;
     using NinjaCoder.MvvmCross.Factories.Interfaces;
     using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
 
     /// <summary>
@@ -33,6 +36,16 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// The create test projects solution folder.
         /// </summary>
         private bool createTestProjectsSolutionFolder;
+
+        /// <summary>
+        /// The start up projects.
+        /// </summary>
+        private List<string> startUpProjects;
+
+        /// <summary>
+        /// The selected start up project.
+        /// </summary>
+        private string selectedStartUpProject;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectsFinishedViewModel" /> class.
@@ -83,6 +96,24 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         }
 
         /// <summary>
+        /// Gets or sets the start up projects.
+        /// </summary>
+        public List<string> StartUpProjects
+        {
+            get { return this.startUpProjects; }
+            set { this.SetProperty(ref this.startUpProjects, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the selected start up project.
+        /// </summary>
+        public string SelectedStartUpProject
+        {
+            get { return this.selectedStartUpProject; }
+            set { this.SetProperty(ref this.selectedStartUpProject, value); }
+        }
+
+        /// <summary>
         /// Gets the display name.
         /// </summary>
         public override string DisplayName
@@ -102,6 +133,48 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             return this.projectFactory.GetRouteModifier(this.settingsService.FrameworkType);
         }
 
+        public override void OnInitialize()
+        {
+            base.OnInitialize();
+
+            this.startUpProjects = new List<string>();
+            
+            if (this.settingsService.AddWpfProject)
+            {
+                this.AddStartUpProject(ProjectSuffix.Wpf);
+            }
+
+            if (this.settingsService.AddWindowsPhoneProject)
+            {
+                this.AddStartUpProject(ProjectSuffix.WindowsPhone);
+            }
+
+            if (this.settingsService.AddAndroidProject)
+            {
+                this.AddStartUpProject(ProjectSuffix.Droid);
+            }
+
+            if (this.settingsService.AddiOSProject)
+            {
+                this.AddStartUpProject(ProjectSuffix.iOS);
+            }
+
+            //// we try and use the project the customer used before if in the list!
+            if (this.settingsService.StartUpProject != string.Empty)
+            {
+                this.SelectedStartUpProject = this.settingsService.StartUpProject;
+            }
+        }
+
+        /// <summary>
+        /// Called when [save].
+        /// </summary>
+        public override void OnSave()
+        {
+            base.OnSave();
+            this.settingsService.StartUpProject = this.selectedStartUpProject;
+        }
+
         /// <summary>
         /// Initializes this instance.
         /// </summary>
@@ -109,6 +182,16 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         {
             this.SuspendReSharperDuringBuild = this.settingsService.SuspendReSharperDuringBuild;
             this.CreateTestProjectsSolutionFolder = this.settingsService.CreateTestProjectsSolutionFolder;
+        }
+
+        /// <summary>
+        /// Adds the start up project.
+        /// </summary>
+        /// <param name="projectSuffix">The project suffix.</param>
+        internal void AddStartUpProject(ProjectSuffix projectSuffix)
+        {
+            this.StartUpProjects.Insert(0, projectSuffix.GetDescription().Substring(1));
+            this.SelectedStartUpProject = projectSuffix.GetDescription().Substring(1);
         }
     }
 }

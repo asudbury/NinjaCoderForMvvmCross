@@ -131,10 +131,10 @@ namespace NinjaCoder.MvvmCross.Factories
         }
 
         /// <summary>
-        /// Gets the available MVVM cross ios sample data view types.
+        /// Gets the available MVVM cross ios view types.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<string> GetAvailableMvvmCrossiOSSampleDataViewTypes()
+        public IEnumerable<string> GetAvailableMvvmCrossiOSViewTypes()
         {
             return (from MvvmCrossSampleViewType enumValue in Enum.GetValues(typeof(MvvmCrossSampleViewType)) 
                                    select enumValue.GetDescription()).ToList();
@@ -158,8 +158,8 @@ namespace NinjaCoder.MvvmCross.Factories
 
             List<TextTemplateInfo> textTemplateInfos = new List<TextTemplateInfo>();
 
-            if (view.Framework == FrameworkType.MvvmCross.GetDescription()
-                || view.Framework == FrameworkType.XamarinForms.GetDescription())
+            if (view.Framework == FrameworkType.MvvmCross.GetDescription() || 
+                view.Framework == FrameworkType.XamarinForms.GetDescription())
             {
                 textTemplateInfos.Add(this.GetViewModelTextTemplateInfo(view, viewModelName));
 

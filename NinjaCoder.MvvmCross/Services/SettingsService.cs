@@ -181,20 +181,20 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets or sets the type of the selected MVVM crossi os sample data view.
+        /// Gets or sets the type of the selected MVVM cross ios view type
         /// </summary>
-        public string SelectedMvvmCrossiOSSampleDataViewType
+        public string SelectedMvvmCrossiOSViewType
         {
-            get { return this.GetRegistryValue("Build", "SelectedMvvmCrossiOSSampleDataViewType", "HardCoded"); }
-            set { this.SetRegistryValue("Build", "SelectedMvvmCrossiOSSampleDataViewType", value); }
+            get { return this.GetRegistryValue("Build", "SelectedMvvmCrossiOSViewType", "Xib"); }
+            set { this.SetRegistryValue("Build", "SelectedMvvmCrossiOSViewType", value); }
         }
 
         /// <summary>
         /// Gets the MVVM cross ios sample data web page.
         /// </summary>
-        public string MvvmCrossiOSSampleDataWebPage
+        public string MvvmCrossiOSViewWebPage
         {
-            get { return this.GetRegistryValue(string.Empty, "MvvmCrossiOSSampleDataWebPage", "http://kerry.lothrop.de/ios-ui-with-mvvmcross"); }
+            get { return this.GetRegistryValue(string.Empty, "MvvmCrossiOSViewWebPage", "http://kerry.lothrop.de/ios-ui-with-mvvmcross"); }
         }
 
         /// <summary>
@@ -258,6 +258,15 @@ namespace NinjaCoder.MvvmCross.Services
         {
             get { return this.GetRegistryValue("Tracing", "OutputTextTemplateContentToTraceFile", "N") == "Y"; }
             set { this.SetRegistryValue("Tracing", "OutputTextTemplateContentToTraceFile", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets the start up project.
+        /// </summary>
+        public string StartUpProject
+        {
+            get { return this.GetRegistryValue("Build", "StartUpProject", string.Empty); }
+            set { this.SetRegistryValue("Build", "StartUpProject", value); }
         }
 
         /// <summary>
@@ -370,16 +379,14 @@ namespace NinjaCoder.MvvmCross.Services
         public string PCLProfile
         {
             get { return this.GetRegistryValue("Projects", "PCLProfile", "259"); }
-            set { this.SetRegistryValue("Projects", "PCLProfile", value); }
         }
 
         /// <summary>
-        /// Gets or sets the windows phone version.
+        /// Gets the windows phone build version.
         /// </summary>
         public string WindowsPhoneBuildVersion
         {
             get { return this.GetRegistryValue("Projects", "WindowsPhoneBuildVersion", "8"); }
-            set { this.SetRegistryValue("Projects", "WindowsPhoneBuildVersion", value); }
         }
 
         /// <summary>

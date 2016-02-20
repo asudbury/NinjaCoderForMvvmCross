@@ -412,5 +412,14 @@ namespace Scorchio.VisualStudio.Services
         {
             this.solution2.AddSolutionFolder(solutionFolder);
         }
+
+        /// <summary>
+        /// Sets the start up project.
+        /// </summary>
+        /// <param name="projectName">Name of the project.</param>
+        public void SetStartUpProject(string projectName)
+        {
+            this.solution2.SetStartUpProject(projectName);
+        }
     }
 }

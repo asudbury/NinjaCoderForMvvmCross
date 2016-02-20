@@ -7,14 +7,14 @@ namespace <#= NameSpace #>
 {
     using Core.ViewModels;
     using Foundation;
-    using MvvmCross.Binding.BindingContext;
+    using MvvmCross.iOS.Views;
     using UIKit;
 
     /// <summary>
     /// Defines the <#= ClassName #> type.
     /// </summary>
-    [Register("<#= ClassName #>")]
-    public class <#= ClassName #> : BaseView
+    [MvxFromStoryboard]
+    public partial class <#= ClassName #> : BaseView
     {
         /// <summary>
         /// Views the did load.
@@ -27,11 +27,13 @@ namespace <#= NameSpace #>
             this.View = new UIView { BackgroundColor = UIColor.White };
 
             base.ViewDidLoad();
+                        
+            <#= ClassName #>Model viewModel = (<#= ClassName #>Model)this.ViewModel;
 
-            MvxFluentBindingDescriptionSet<<#= ClassName #>, <#= ClassName #>Model> set = this.CreateBindingSet<<#= ClassName #>, <#= ClassName #>Model>();
-            set.Bind(uiLabel).To(vm => vm.MyProperty);
-            set.Bind(uiTextField).To(vm => vm.MyProperty);
-            set.Apply();
+            UIWebView webView = new UIWebView();
+            webView.LoadRequest(new NSUrlRequest(new NSUrl(viewModel.Url)));
+
+            this.View = webView;
 
             UITapGestureRecognizer tap = new UITapGestureRecognizer(() => this.View.ResignFirstResponder());
             this.View.AddGestureRecognizer(tap);

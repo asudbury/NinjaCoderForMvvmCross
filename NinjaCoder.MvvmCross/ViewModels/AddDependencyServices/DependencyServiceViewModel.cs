@@ -220,6 +220,16 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddDependencyServices
                 return false;
             }
 
+            return true;
+        }
+
+        /// <summary>
+        /// Called when [save].
+        /// </summary>
+        public override void OnSave()
+        {
+            base.OnSave();
+
             this.settingsService.AutomaticallyAddServicetoDependency = this.appendServiceToName;
             this.settingsService.DependencyDirectory = this.directory;
 
@@ -238,8 +248,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddDependencyServices
             }
 
             this.cachingService.Messages["DependencyServicesFinishMessage"] = message;
-
-            return true;
         }
 
         /// <summary>

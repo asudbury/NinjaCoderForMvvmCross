@@ -469,5 +469,17 @@ namespace Scorchio.VisualStudio.Extensions
                 sw.Close();
             }
         }
+
+        /// <summary>
+        /// Sets the start up project.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="projectName">Name of the project.</param>
+        public static void SetStartUpProject(
+            this Solution2 instance,
+            string projectName)
+        {
+            instance.Properties.Item("StartupProject").Value = projectName;
+        }
     }
 }

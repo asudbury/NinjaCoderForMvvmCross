@@ -171,7 +171,7 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         /// </summary>
         public bool MovePreviousCommandEnabled
         {
-            get { return this.CurrentLinkedListStep.Previous != null; }        
+            get { return this.CurrentLinkedListStep.Previous != null; }
         }
 
         /// <summary>
@@ -231,6 +231,8 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         {
             if (this.CurrentLinkedListStep.Value.ViewModel.CanMoveToNextPage())
             {
+                this.CurrentLinkedListStep.Value.ViewModel.OnSave();
+
                 this.wizardStepManager.ReworkListBasedOn(this.CurrentLinkedListStep.Value.ViewModel.OnNext());
                 this.CurrentLinkedListStep = this.CurrentLinkedListStep.Next;
 

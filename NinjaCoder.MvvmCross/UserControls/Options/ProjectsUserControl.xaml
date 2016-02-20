@@ -11,20 +11,6 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel Margin="10">
-        <TextBlock Margin="10,10,0,4" Text="PCL Profile" />
-        <ComboBox Width="200"
-                  Margin="10,0,0,3"
-                  HorizontalAlignment="Left"
-                  ItemsSource="{Binding PCLProfiles}"
-                  SelectedItem="{Binding Path=SelectedPCLProfile,
-                                         Mode=TwoWay}" />
-        <TextBlock Margin="10,10,0,4" Text="Windows Phone Version" />
-        <ComboBox Width="200"
-                  Margin="10,0,0,3"
-                  HorizontalAlignment="Left"
-                  ItemsSource="{Binding WindowsPhoneVersions}"
-                  SelectedItem="{Binding Path=SelectedWindowsPhoneVersion,
-                                         Mode=TwoWay}" />
         <TextBlock Margin="10,10,0,4" Text="Default MvvmCross View Type" />
         <ComboBox Width="200"
                   Margin="10,0,0,3"
@@ -32,19 +18,44 @@
                   ItemsSource="{Binding ViewTypes}"
                   SelectedItem="{Binding Path=SelectedViewType,
                                          Mode=TwoWay}" />
-        <TextBlock Margin="10,10,0,4" Text="MvvmCross iOS Sample Data View Type" />
+        <TextBlock Margin="10,10,0,4" Text="Default MvvmCross iOS View Type" />
         <ComboBox Width="200"
                   Margin="10,0,0,3"
                   HorizontalAlignment="Left"
-                  ItemsSource="{Binding MvvmCrossiOSSampleDataViewTypes}"
-                  SelectedItem="{Binding Path=SelectedMvvmCrossiOSSampleDataViewType,
+                  ItemsSource="{Binding MvvmCrossiOSViewTypes}"
+                  SelectedItem="{Binding Path=SelectedMvvmCrossiOSViewType,
                                          Mode=TwoWay}" />
-
         <TextBlock Margin="10">
             <Hyperlink Command="{Binding UIHelpPageCommand}">
                 <TextBlock Text="iOS UI Help Page" />
             </Hyperlink>
         </TextBlock>
+
+        <StackPanel>
+            <TextBlock Margin="7"
+                       FontWeight="Bold"
+                       Text="Add Project Options" />
+
+            <CheckBox Margin="7"
+                      Content="Skip ViewModel and View Options"
+                      IsChecked="{Binding AddProjectsSkipViewsOptions}" />
+
+            <CheckBox Margin="7"
+                      Content="Skip Application Options"
+                      IsChecked="{Binding AddProjectsSkipApplicationOptions}" />
+
+            <CheckBox Margin="7"
+                      Content="Skip Ninja Coder Options"
+                      IsChecked="{Binding AddProjectsSkipNinjaCoderOptions}" />
+
+            <CheckBox Margin="7"
+                      Content="Skip MvvmCross Plugin Options"
+                      IsChecked="{Binding AddProjectsSkipMvvmCrossPluginOptions}" />
+
+            <CheckBox Margin="7"
+                      Content="Skip Nuget Package Options"
+                      IsChecked="{Binding AddProjectsSkipNugetPackageOptions}" />
+        </StackPanel>
     </StackPanel>
 
 </userControls:BaseUserControl>
