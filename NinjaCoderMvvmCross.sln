@@ -509,6 +509,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XamarinForms", "XamarinForms", "{87301887-ED8F-4C7C-B4FF-3C8D2E728A08}"
 	ProjectSection(SolutionItems) = preProject
 		Config\TextTemplates\ItemTemplates\XamarinForms\BlankView.t4 = Config\TextTemplates\ItemTemplates\XamarinForms\BlankView.t4
+		Config\TextTemplates\ItemTemplates\XamarinForms\BlankViewCodeBehind.t4 = Config\TextTemplates\ItemTemplates\XamarinForms\BlankViewCodeBehind.t4
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Droid", "Droid", "{ACD90A18-57FD-4758-ABA9-2018385B2C55}"

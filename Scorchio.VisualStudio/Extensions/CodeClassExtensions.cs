@@ -446,7 +446,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         public static void RemoveComments(this CodeClass instance)
         {
-            TraceService.WriteLine("CodeClassExtensions::RemoveComments");
+            TraceService.WriteLine("CodeClassExtensions::RemoveComments Name=" + instance.Name);
 
             instance.DocComment = ScorchioConstants.BlankDocComment;
 

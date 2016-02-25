@@ -191,6 +191,15 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         void RemoveComments();
 
         /// <summary>
+        /// Replaces the text.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="replacementText">The replacement text.</param>
+        void ReplaceText(
+            string text,
+            string replacementText);
+
+        /// <summary>
         /// Gets the solution item path.
         /// </summary>
         /// <param name="file">The file.</param>

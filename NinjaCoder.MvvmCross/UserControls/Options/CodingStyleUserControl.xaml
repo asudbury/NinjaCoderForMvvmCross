@@ -18,6 +18,9 @@
                   Content="{DynamicResource RemoveCodeComments}"
                   IsChecked="{Binding RemoveDefaultComments}" />
         <CheckBox Margin="10"
+                  Content="Remove use of 'this' pointer"
+                  IsChecked="{Binding RemoveThisPointer}" />
+        <CheckBox Margin="10"
                   Content="{DynamicResource FormatFunctionParametersOnToNewLines}"
                   IsChecked="{Binding FormatFunctionParameters}" />
     </StackPanel>

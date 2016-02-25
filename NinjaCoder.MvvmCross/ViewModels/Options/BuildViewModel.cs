@@ -31,7 +31,12 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         /// The output errors to read me.
         /// </summary>
         private bool outputErrorsToReadMe;
-        
+
+        /// <summary>
+        /// The use xamarin forms xaml compilation.
+        /// </summary>
+        private bool useXamarinFormsXamlCompilation;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="NinjaBaseViewModel" /> class.
         /// </summary>
@@ -79,6 +84,15 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [use xamarin forms xaml compilation].
+        /// </summary>
+        public bool UseXamarinFormsXamlCompilation
+        {
+            get { return this.useXamarinFormsXamlCompilation; }
+            set { this.SetProperty(ref this.useXamarinFormsXamlCompilation, value); }
+        }
+        
+        /// <summary>
         /// Saves this instance.
         /// </summary>
         public void Save()
@@ -87,6 +101,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.SettingsService.OutputNugetCommandsToReadMe = this.OutputNugetCommandsToReadMe;
             this.SettingsService.OutputErrorsToReadMe = this.OutputErrorsToReadMe;
             this.SettingsService.UseLocalTextTemplates = this.useLocalTextTemplates;
+            this.SettingsService.UseXamarinFormsXamlCompilation = this.useXamarinFormsXamlCompilation;
         }
 
         /// <summary>
@@ -98,6 +113,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.OutputNugetCommandsToReadMe = this.SettingsService.OutputNugetCommandsToReadMe;
             this.OutputErrorsToReadMe = this.SettingsService.OutputErrorsToReadMe;
             this.useLocalTextTemplates = this.SettingsService.UseLocalTextTemplates;
+            this.useXamarinFormsXamlCompilation = this.SettingsService.UseXamarinFormsXamlCompilation;
         }
     }
 }

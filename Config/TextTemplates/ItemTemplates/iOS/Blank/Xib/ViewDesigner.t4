@@ -15,5 +15,8 @@ namespace <#= NameSpace #>
     [Register ("<#= ClassName #>")]
     partial class <#= ClassName #>
     {
+        void ReleaseDesignerOutlets ()
+        {
+        }
     }
 }

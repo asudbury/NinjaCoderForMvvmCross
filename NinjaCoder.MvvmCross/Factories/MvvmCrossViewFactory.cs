@@ -16,6 +16,8 @@ namespace NinjaCoder.MvvmCross.Factories
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
+    using Scorchio.VisualStudio.Extensions;
+
     /// <summary>
     /// Defines the MvvmCrossViewFactory type.
     /// </summary>
@@ -103,8 +105,16 @@ namespace NinjaCoder.MvvmCross.Factories
                 TemplateName = this.SettingsService.ItemTemplatesDirectory + "\\" + itemTemplateInfo.ProjectSuffix.Substring(1) + "\\" + viewTemplateName
             };
 
-            TextTransformation textTransformation = this.GetTextTransformationService()
-                .Transform(textTemplateInfo.TemplateName, textTemplateInfo.Tokens);
+            TextTransformationRequest textTransformationRequest = new TextTransformationRequest
+            {
+                SourceFile = textTemplateInfo.TemplateName,
+                Parameters = textTemplateInfo.Tokens,
+                RemoveFileHeaders = this.SettingsService.RemoveDefaultFileHeaders,
+                RemoveXmlComments = this.SettingsService.RemoveDefaultComments,
+                RemoveThisPointer = this.SettingsService.RemoveThisPointer
+            };
+             
+            TextTransformation textTransformation = this.GetTextTransformationService().Transform(textTransformationRequest);
 
             textTemplateInfo.TextOutput = textTransformation.Output;
             textTemplateInfo.FileName = viewName + "." + textTransformation.FileExtension;
@@ -214,8 +224,17 @@ namespace NinjaCoder.MvvmCross.Factories
                 TemplateName = t4Folder + "View.t4"
             };
 
-            TextTransformation textTransformation = this.GetTextTransformationService()
-                     .Transform(textTemplateInfo.TemplateName, textTemplateInfo.Tokens);
+
+            TextTransformationRequest textTransformationRequest = new TextTransformationRequest
+            {
+                SourceFile = textTemplateInfo.TemplateName,
+                Parameters = tokens,
+                RemoveFileHeaders = this.SettingsService.RemoveDefaultFileHeaders,
+                RemoveXmlComments = this.SettingsService.RemoveDefaultComments,
+                RemoveThisPointer = this.SettingsService.RemoveThisPointer
+            };
+
+            TextTransformation textTransformation = this.GetTextTransformationService().Transform(textTransformationRequest);
 
             textTemplateInfo.TextOutput = textTransformation.Output;
             textTemplateInfo.FileName = viewName + "." + textTransformation.FileExtension;
@@ -242,8 +261,16 @@ namespace NinjaCoder.MvvmCross.Factories
                     TemplateName = t4Folder + viewTemplateName
                 };
 
-                textTransformation = this.GetTextTransformationService()
-                    .Transform(childTextTemplateInfo.TemplateName, textTemplateInfo.Tokens);
+                TextTransformationRequest childTextTransformationRequest = new TextTransformationRequest
+                {
+                    SourceFile = childTextTemplateInfo.TemplateName,
+                    Parameters = tokens,
+                    RemoveFileHeaders = this.SettingsService.RemoveDefaultFileHeaders,
+                    RemoveXmlComments = this.SettingsService.RemoveDefaultComments,
+                    RemoveThisPointer = this.SettingsService.RemoveThisPointer
+                };
+
+                textTransformation = this.GetTextTransformationService().Transform(childTextTransformationRequest);
 
                 childTextTemplateInfo.TextOutput = textTransformation.Output;
                 childTextTemplateInfo.FileName = viewName + "." + textTransformation.FileExtension;
@@ -265,16 +292,23 @@ namespace NinjaCoder.MvvmCross.Factories
                     TemplateName = t4Folder + viewTemplateName
                 };
 
-                textTransformation = this.GetTextTransformationService()
-                    .Transform(childTextTemplateInfo.TemplateName, textTemplateInfo.Tokens);
+                childTextTransformationRequest = new TextTransformationRequest
+                {
+                    SourceFile = childTextTemplateInfo.TemplateName,
+                    Parameters = tokens,
+                    RemoveFileHeaders = this.SettingsService.RemoveDefaultFileHeaders,
+                    RemoveXmlComments = this.SettingsService.RemoveDefaultComments,
+                    RemoveThisPointer = this.SettingsService.RemoveThisPointer
+                };
+
+                textTransformation = this.GetTextTransformationService().Transform(childTextTransformationRequest);
 
                 childTextTemplateInfo.TextOutput = textTransformation.Output;
                 childTextTemplateInfo.FileName = viewName + ".designer." + textTransformation.FileExtension;
 
                 textTemplateInfo.ChildItems.Add(childTextTemplateInfo);
             }
-
-
+            
             return textTemplateInfo;
         }
 
@@ -299,8 +333,17 @@ namespace NinjaCoder.MvvmCross.Factories
                 ShortTemplateName = viewTemplateName,
                 TemplateName = this.SettingsService.ItemTemplatesDirectory + "\\Droid\\" + viewTemplateName
             };
+            
+            TextTransformationRequest textTransformationRequest = new TextTransformationRequest
+            {
+                SourceFile = childTextTemplateInfo.TemplateName,
+                Parameters = tokens,
+                RemoveFileHeaders = this.SettingsService.RemoveDefaultFileHeaders,
+                RemoveXmlComments = this.SettingsService.RemoveDefaultComments,
+                RemoveThisPointer = this.SettingsService.RemoveThisPointer
+            };
 
-            TextTransformation textTransformation = this.GetTextTransformationService().Transform(childTextTemplateInfo.TemplateName, childTextTemplateInfo.Tokens);
+            TextTransformation textTransformation = this.GetTextTransformationService().Transform(textTransformationRequest);
 
             childTextTemplateInfo.TextOutput = textTransformation.Output;
             childTextTemplateInfo.FileName = viewName + "." + textTransformation.FileExtension;

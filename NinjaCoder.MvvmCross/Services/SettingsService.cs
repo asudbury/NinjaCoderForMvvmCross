@@ -84,7 +84,16 @@ namespace NinjaCoder.MvvmCross.Services
             get { return this.GetRegistryValue("Coding Style", "RemoveDefaultComments", "N") == "Y"; }
             set { this.SetRegistryValue("Coding Style", "RemoveDefaultComments", value ? "Y" : "N"); }
         }
-        
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [remove this pointer].
+        /// </summary>
+        public bool RemoveThisPointer
+        {
+            get { return this.GetRegistryValue("Coding Style", "RemoveThisPointer", "N") == "Y"; }
+            set { this.SetRegistryValue("Coding Style", "RemoveThisPointer", value ? "Y" : "N"); }
+        }
+
         /// <summary>
         /// Gets the config path.
         /// </summary>
@@ -267,6 +276,15 @@ namespace NinjaCoder.MvvmCross.Services
         {
             get { return this.GetRegistryValue("Build", "StartUpProject", string.Empty); }
             set { this.SetRegistryValue("Build", "StartUpProject", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use xamarin forms xaml compiliation].
+        /// </summary>
+        public bool UseXamarinFormsXamlCompilation
+        {
+            get { return this.GetRegistryValue("Build", "UseXamarinFormsXamlCompilation", "Y") == "Y"; }
+            set { this.SetRegistryValue("Build", "UseXamarinFormsXamlCompilation", value ? "Y" : "N"); }
         }
 
         /// <summary>

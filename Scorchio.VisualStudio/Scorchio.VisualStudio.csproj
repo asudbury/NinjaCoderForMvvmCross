@@ -84,6 +84,7 @@
     <Compile Include="Extensions\CodeParameterExtensions.cs" />
     <Compile Include="Extensions\CodeSnippetsExtensions.cs" />
     <Compile Include="Entities\TextTemplateInfo.cs" />
+    <Compile Include="Extensions\TextTransformationRequest.cs" />
     <Compile Include="Extensions\UIHierarchyExtensions.cs" />
     <Compile Include="ScorchioConstants.cs" />
     <Compile Include="Services\DTEService.cs" />

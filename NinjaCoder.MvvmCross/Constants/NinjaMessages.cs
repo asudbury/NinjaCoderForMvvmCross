@@ -21,6 +21,11 @@ namespace NinjaCoder.MvvmCross.Constants
         public const string UpdatingFiles = "The Ninja Coder is updating files...";
 
         /// <summary>
+        /// The finished projects.
+        /// </summary>
+        public const string FinishedProjects = "The Ninja Coder has finished the creation of the projects.";
+
+        /// <summary>
         /// The nuget download message.
         /// </summary>
         public const string NugetDownload = "The Ninja Coder is now downloading content from Nuget...";

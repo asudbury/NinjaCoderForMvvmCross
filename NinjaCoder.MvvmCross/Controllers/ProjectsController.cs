@@ -22,6 +22,10 @@ namespace NinjaCoder.MvvmCross.Controllers
     using System.Collections.Generic;
     using System.Linq;
 
+    using EnvDTE;
+
+    using Scorchio.VisualStudio.Extensions;
+
     using ViewModels.AddProjects;
     using PluginsViewModel = NinjaCoder.MvvmCross.ViewModels.AddProjects.PluginsViewModel;
 
@@ -216,7 +220,8 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             string startUpProject = this.SettingsService.StartUpProject;
 
-            if (startUpProject != string.Empty)
+            if (startUpProject != string.Empty && 
+                this.VisualStudioService.GetProjectServiceBySuffix(startUpProject) != null)
             {
                 this.VisualStudioService.SolutionService.SetStartUpProject(projectsViewModel.Project + "." + startUpProject);
             }
@@ -272,26 +277,13 @@ namespace NinjaCoder.MvvmCross.Controllers
                 }
             }
 
-            try
-            {
-                this.PopulateNugetActions(applicationOptionsViewModel);
-                this.PopulateNugetActions(ninjaCoderOptionsViewModel);
-                this.PopulateNugetActions(applicationSamplesOptionsViewModel);
-                this.PopulateNugetActions(pluginsViewModel);
-                this.PopulateNugetActions(nugetPackagesViewModel);
-                this.PopulateNugetActions(xamarinFormsLabsViewModel);
-            }
-            catch (Exception exception)
-            {
-                TraceService.WriteError("Error Adding Nuget Actions exception=" + exception.Message);
-            }
-
-            this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.UpdatingFiles);
-
-            this.VisualStudioService.CodeTidyUp(
-                this.SettingsService.RemoveDefaultFileHeaders,
-                this.SettingsService.RemoveDefaultComments);
-
+            this.PopulateNugetActions(applicationOptionsViewModel);
+            this.PopulateNugetActions(ninjaCoderOptionsViewModel);
+            this.PopulateNugetActions(applicationSamplesOptionsViewModel);
+            this.PopulateNugetActions(pluginsViewModel);
+            this.PopulateNugetActions(nugetPackagesViewModel);
+            this.PopulateNugetActions(xamarinFormsLabsViewModel);
+ 
             this.cachingService.PostNugetCommands = this.postNugetCommands;
             this.cachingService.PostNugetFileOperations = this.postNugetFileOperations;
 
@@ -357,26 +349,44 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="viewModel">The view model.</param>
         internal void PopulateNugetActions(NugetPackagesBaseViewModel viewModel)
         {
-            if (viewModel != null)
+            string viewModelName = string.Empty;
+            string step = string.Empty;
+
+            try
             {
-                TraceService.WriteLine("ProjectsController::PopulateNugetActions viewModel=" + viewModel.DisplayName);
-
-                NugetActions nugetActions = viewModel.GetNugetActions();
-
-                if (nugetActions.NugetCommands != string.Empty)
+                if (viewModel != null)
                 {
-                    this.commands += nugetActions.NugetCommands;
-                }
+                    viewModelName = viewModel.DisplayName;
 
-                if (nugetActions.PostNugetCommands != null)
-                {
-                    this.postNugetCommands.AddRange(nugetActions.PostNugetCommands);
-                }
+                    TraceService.WriteLine("ProjectsController::PopulateNugetActions viewModel=" + viewModelName);
 
-                if (nugetActions.PostNugetFileOperations != null)
-                {
-                    this.postNugetFileOperations.AddRange(nugetActions.PostNugetFileOperations);
+                    NugetActions nugetActions = viewModel.GetNugetActions();
+
+                    step = "NugetCommands";
+
+                    if (nugetActions.NugetCommands != string.Empty)
+                    {
+                        this.commands += nugetActions.NugetCommands;
+                    }
+
+                    step = "PostNugetCommands";
+
+                    if (nugetActions.PostNugetCommands != null)
+                    {
+                        this.postNugetCommands.AddRange(nugetActions.PostNugetCommands);
+                    }
+
+                    step = "PostNugetFileOperations";
+
+                    if (nugetActions.PostNugetFileOperations != null)
+                    {
+                        this.postNugetFileOperations.AddRange(nugetActions.PostNugetFileOperations);
+                    }
                 }
+            }
+            catch (Exception exception)
+            {
+                TraceService.WriteError("Error Adding Nuget Actions viewModel=" + viewModelName + "step=" + step + "  exception=" + exception.Message);
             }
         }
     }

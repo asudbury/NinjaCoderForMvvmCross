@@ -46,7 +46,12 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets or sets a value indicating whether [remove default comments].
         /// </summary>
         bool RemoveDefaultComments { get; set; }
-      
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [remove this pointer].
+        /// </summary>
+        bool RemoveThisPointer { get; set; }
+
         /// <summary>
         /// Gets the config path.
         /// </summary>
@@ -464,5 +469,10 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets or sets the start up project.
         /// </summary>
         string StartUpProject { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [use xamarin forms xaml compilation].
+        /// </summary>
+        bool UseXamarinFormsXamlCompilation { get; set; }
     }
 }

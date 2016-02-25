@@ -7,6 +7,7 @@ namespace NinjaCoder.MvvmCross.Services
 {
     using Interfaces;
     using NinjaCoder.MvvmCross.Entities;
+    using NinjaCoder.MvvmCross.Extensions;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
@@ -15,8 +16,6 @@ namespace NinjaCoder.MvvmCross.Services
     using System.Collections.Generic;
     using System.IO.Abstractions;
     using System.Linq;
-
-    using NinjaCoder.MvvmCross.Extensions;
 
     /// <summary>
     ///  Defines the ProjectsService type.
@@ -75,6 +74,23 @@ namespace NinjaCoder.MvvmCross.Services
             
             TraceService.WriteLine(message);
 
+            this.visualStudioService = visualStudioServiceInstance;
+            
+            foreach (ProjectTemplateInfo projectInfo in projectTemplateInfos)
+            {
+                this.AddProject(path, projectInfo);
+            }
+
+            this.CreateMessages();
+
+            return this.Messages;
+        }
+
+        /// <summary>
+        /// Creates the messages.
+        /// </summary>
+        internal void CreateMessages()
+        {
             //// reset the messages.
             this.Messages = new List<string>
             {
@@ -114,6 +130,11 @@ namespace NinjaCoder.MvvmCross.Services
                 this.Messages.Add("Use Xamarin Insights selected.");
             }
 
+            if (this.settingsService.FrameworkType.IsXamarinFormsSolutionType())
+            {
+                this.Messages.Add("Xamarin Forms Compile Option=" + this.settingsService.UseXamarinFormsXamlCompilation == "Y" ? XamarinFormsCompileOption.Compile.GetDescription() : XamarinFormsCompileOption.Skip.GetDescription());
+            }
+
             if (this.settingsService.UsePreReleaseMvvmCrossNugetPackages &&
                 this.settingsService.FrameworkType.IsMvvmCrossSolutionType())
             {
@@ -132,15 +153,6 @@ namespace NinjaCoder.MvvmCross.Services
             }
 
             this.Messages.Add(string.Empty);
-
-            this.visualStudioService = visualStudioServiceInstance;
-            
-            foreach (ProjectTemplateInfo projectInfo in projectTemplateInfos)
-            {
-                this.AddProject(path, projectInfo);
-            }
-
-            return this.Messages;
         }
 
         /// <summary>

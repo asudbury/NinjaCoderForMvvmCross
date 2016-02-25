@@ -340,6 +340,18 @@ namespace Scorchio.VisualStudio.Services
         }
 
         /// <summary>
+        /// Replaces the text.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="replacementText">The replacement text.</param>
+        public void ReplaceText(
+            string text,
+            string replacementText)
+        {
+            this.solution2.ReplaceText(text, replacementText);
+        }
+
+        /// <summary>
         /// Gets the solution item path.
         /// </summary>
         /// <param name="file">The file.</param>

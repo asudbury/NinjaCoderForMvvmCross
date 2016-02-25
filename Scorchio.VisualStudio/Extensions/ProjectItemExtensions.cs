@@ -5,15 +5,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio.Extensions
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-
     using Entities;
     using EnvDTE;
     using EnvDTE80;
     using Services;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
 
     /// <summary>
     ///  Defines the ProjectItemExtensions type.
@@ -137,6 +136,11 @@ namespace Scorchio.VisualStudio.Extensions
         public static CodeClass GetFirstClass(this ProjectItem instance)
         {
             TraceService.WriteLine("ProjectItemExtensions::GetFirstClass file=" + instance.Name);
+
+            if (instance.FileCodeModel == null)
+            {
+                return null;
+            }
 
             IEnumerable<CodeClass> codeClasses = instance.FileCodeModel.CodeElements.OfType<CodeClass>();
 
@@ -492,23 +496,42 @@ namespace Scorchio.VisualStudio.Extensions
         {
             TraceService.WriteLine("ProjectItemExtensions::ReplaceText in file " + instance.Name  + " from '" + text + "' to '" + replacementText + "'");
 
-            Window window = instance.Open(VSConstants.VsViewKindCode);
-
-            if (window != null)
+            if (instance.Kind == VSConstants.VsProjectItemKindPhysicalFolder)
             {
-                window.Activate();
-
-                TextSelection textSelection = instance.DTE.ActiveDocument.Selection;
-                textSelection.SelectAll();
-
-                bool replaced = textSelection.ReplacePattern(text, replacementText, findOptions);
-               
-                if (replaced)
+                foreach (ProjectItem projectItem in instance.ProjectItems.Cast<ProjectItem>())
                 {
-                    TraceService.WriteLine("Replaced");
+                    projectItem.ReplaceText(text, replacementText);
                 }
 
-                instance.Save();
+                return;
+            }
+
+            try
+            {
+                Window window = instance.Open(VSConstants.VsViewKindCode);
+
+                if (window != null)
+                {
+                    window.Activate();
+
+                    TextSelection textSelection = instance.DTE.ActiveDocument.Selection;
+                    textSelection.SelectAll();
+
+                    bool replaced = textSelection.ReplacePattern(text, replacementText, findOptions);
+
+                    TraceService.WriteLine(replaced ? "Replaced" : "NOT replaced");
+
+                    instance.Save();
+                }
+
+                else
+                {
+                    TraceService.WriteLine("Could not open window to do replacement for " + instance.Name);
+                }
+            }
+            catch (Exception exception)
+            {
+                TraceService.WriteError("Replacing Text failed for " + instance.Name + " exception=" + exception);
             }
         }
 
@@ -639,7 +662,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         public static void RemoveComments(this ProjectItem instance)
         {
-            TraceService.WriteLine("ProjectItemExtensions::RemoveComments");
+            TraceService.WriteLine("ProjectItemExtensions::RemoveComments Name=" + instance.Name);
 
             if (instance.IsCSharpFile())
             {
@@ -671,7 +694,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         public static void RemoveHeader(this ProjectItem instance)
         {
-            TraceService.WriteLine("ProjectItemExtensions::RemoveHeader");
+            TraceService.WriteLine("ProjectItemExtensions::RemoveHeader Name=" + instance.Name);
 
             if (instance.IsCSharpFile())
             {
@@ -679,8 +702,17 @@ namespace Scorchio.VisualStudio.Extensions
                 
                 if (window != null)
                 {
-                    window.Activate();
-
+                    try
+                    {
+                        window.Activate();
+                    }
+                    catch (Exception exception)
+                    {
+                        ///// i think this happens when i am debugging (i could be wrong!)
+                        TraceService.WriteError("Cant Remove Header Window Activate wont work exception=" + exception.Message);
+                        return;
+                    }
+                    
                     TextSelection selection = (TextSelection)instance.Document.Selection;
 
                     bool continueLoop = true;
@@ -691,22 +723,28 @@ namespace Scorchio.VisualStudio.Extensions
                         //// just in case we get infinity loop problem!
                         if (loopCounter > 100)
                         {
+                            TraceService.WriteLine("breaking out of loop");
                             continueLoop = false;
                         }
 
                         selection.GotoLine(1, true);
                         selection.SelectLine();
 
-                        if (selection.Text.StartsWith("//"))
+                        TraceService.WriteLine("text=" + selection.Text);
+
+                        if (selection.Text.TrimStart().StartsWith("//"))
                         {
+                            TraceService.WriteLine("*** deleting selection");
                             selection.Delete();
                             loopCounter++;
                         }
                         else
                         {
+                            TraceService.WriteLine("*** NOT deleting selection");
                             continueLoop = false;
                         }
                     }
+
                     while (continueLoop);
                 }
             }

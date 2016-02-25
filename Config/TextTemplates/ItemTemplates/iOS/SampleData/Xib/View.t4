@@ -6,7 +6,6 @@
 namespace <#= NameSpace #>
 {
     using Core.ViewModels;
-    using Foundation;
     using MvvmCross.Binding.BindingContext;
     using UIKit;
 
@@ -16,10 +15,10 @@ namespace <#= NameSpace #>
     public partial class <#= ClassName #> : BaseView
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MainView"/> class.
+        /// Initializes a new instance of the <see cref="<#= ClassName #>"/> class.
         /// </summary>
-        public MainView() 
-            : base("MainView", null)
+        public <#= ClassName #>() 
+            : base("<#= ClassName #>", null)
         {
         }
 

@@ -389,7 +389,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         /// <param name="removeHeader">if set to <c>true</c> [remove header].</param>
         /// <param name="removeComments">if set to <c>true</c> [remove comments].</param>
-        public void CodeTidyUp(bool removeHeader, bool removeComments)
+        /// <param name="removeThisPointer">if set to <c>true</c> [remove this pointer].</param>
+        public void CodeTidyUp(
+            bool removeHeader,
+            bool removeComments,
+            bool removeThisPointer)
         {
             TraceService.WriteLine("VisualStudioService::CodeTidyUp");
 
@@ -401,6 +405,11 @@ namespace NinjaCoder.MvvmCross.Services
             if (removeComments)
             {
                 this.SolutionService.RemoveComments();
+            }
+
+            if (removeThisPointer)
+            {
+                this.SolutionService.ReplaceText("this.", string.Empty);
             }
 
             this.DTEService.SaveAll();

@@ -28,5 +28,8 @@
                    Text="* Using Local config and template files improve performance but wont be able to access the latest files from github."
                    TextWrapping="WrapWithOverflow" />
 
+        <CheckBox Margin="8"
+                  Content="Use Xaml Compilation at build time for Xamarin Forms"
+                  IsChecked="{Binding UseXamarinFormsXamlCompilation}" />
     </StackPanel>
 </userControls:BaseUserControl>

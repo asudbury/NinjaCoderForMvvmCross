@@ -18,6 +18,8 @@ namespace NinjaCoder.MvvmCross.Factories
     using System.Collections.Generic;
     using System.Linq;
 
+    using Scorchio.VisualStudio.Extensions;
+
     using ViewsFinishedControl = NinjaCoder.MvvmCross.UserControls.AddViews.ViewsFinishedControl;
 
     /// <summary>
@@ -213,6 +215,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 { "CoreProjectName", this.VisualStudioService.CoreProjectService.Name },
                 { "NameSpace", this.VisualStudioService.XamarinFormsProjectService.Name+ ".Views" },
                 { "PageType", pageType },
+                { "CompileOption", this.SettingsService.UseXamarinFormsXamlCompilation ? XamarinFormsCompileOption.Compile.GetDescription() : XamarinFormsCompileOption.Skip.GetDescription() },
                 { "Content", this.GetFormsViewContent(view)
                 }
             };
@@ -226,7 +229,16 @@ namespace NinjaCoder.MvvmCross.Factories
                     TemplateName = this.SettingsService.ItemTemplatesDirectory + "\\XamarinForms\\" + viewTemplateName
                 };
 
-            TextTransformation textTransformation = this.GetTextTransformationService().Transform(textTemplateInfo.TemplateName, textTemplateInfo.Tokens);
+            TextTransformationRequest textTransformationRequest = new TextTransformationRequest
+            {
+                SourceFile = textTemplateInfo.TemplateName,
+                Parameters = textTemplateInfo.Tokens,
+                RemoveFileHeaders = this.SettingsService.RemoveDefaultFileHeaders,
+                RemoveXmlComments = this.SettingsService.RemoveDefaultComments,
+                RemoveThisPointer = this.SettingsService.RemoveThisPointer
+            };
+
+            TextTransformation textTransformation = this.GetTextTransformationService().Transform(textTransformationRequest);
 
             textTemplateInfo.TextOutput = textTransformation.Output;
             textTemplateInfo.FileName = viewName + "." + textTransformation.FileExtension;
@@ -321,7 +333,16 @@ namespace NinjaCoder.MvvmCross.Factories
                 TemplateName = this.SettingsService.ItemTemplatesDirectory + "\\ViewModels\\" + templateName
             };
 
-            textTemplateInfo.TextOutput = this.GetTextTransformationService().Transform(textTemplateInfo.TemplateName, textTemplateInfo.Tokens).Output;
+            TextTransformationRequest textTransformationRequest = new TextTransformationRequest
+            {
+                SourceFile = textTemplateInfo.TemplateName,
+                Parameters = textTemplateInfo.Tokens,
+                RemoveFileHeaders = this.SettingsService.RemoveDefaultFileHeaders,
+                RemoveXmlComments = this.SettingsService.RemoveDefaultComments,
+                RemoveThisPointer = this.SettingsService.RemoveThisPointer
+            };
+
+            textTemplateInfo.TextOutput = this.GetTextTransformationService().Transform(textTransformationRequest).Output;
 
             return textTemplateInfo;
         }
@@ -358,9 +379,17 @@ namespace NinjaCoder.MvvmCross.Factories
                 ShortTemplateName = templateName,
                 TemplateName = this.SettingsService.ItemTemplatesDirectory + "\\TestViewModels\\" + templateName
             };
+            
+            TextTransformationRequest textTransformationRequest = new TextTransformationRequest
+            {
+                SourceFile = textTemplateInfo.TemplateName,
+                Parameters = textTemplateInfo.Tokens,
+                RemoveFileHeaders = this.SettingsService.RemoveDefaultFileHeaders,
+                RemoveXmlComments = this.SettingsService.RemoveDefaultComments,
+                RemoveThisPointer = this.SettingsService.RemoveThisPointer
+            };
 
-            textTemplateInfo.TextOutput = this.GetTextTransformationService()
-                    .Transform(textTemplateInfo.TemplateName, textTemplateInfo.Tokens).Output;
+            textTemplateInfo.TextOutput = this.GetTextTransformationService().Transform(textTransformationRequest).Output;
 
             return textTemplateInfo;
         }

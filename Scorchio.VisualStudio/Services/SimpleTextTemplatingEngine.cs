@@ -20,16 +20,29 @@ namespace Scorchio.VisualStudio.Services
         /// </summary>
         /// <param name="sourceText">The source text.</param>
         /// <param name="parameters">The parameters.</param>
+        /// <param name="removeFileHeaders">if set to <c>true</c> [remove file headers].</param>
+        /// <param name="removeXmlComments">if set to <c>true</c> [remove XML comments].</param>
+        /// <param name="removeThisPointer">if set to <c>true</c> [remove this pointer].</param>
         /// <returns></returns>
         public TextTransformation ProcessTemplate(
             string sourceText,
-            IDictionary<string, string> parameters)
+            IDictionary<string, string> parameters,
+            bool removeFileHeaders,
+            bool removeXmlComments,
+            bool removeThisPointer)
         {
             TraceService.WriteLine("SimpleTextTemplatingEngine::ProcessTemplate");
 
             TextTransformation textTransformation = new TextTransformation();
 
-           //// first remove all the parameter definitions!
+            //// first remove the this pointer if required
+            
+            if (removeThisPointer)
+            {
+                sourceText = sourceText.Replace("this.", string.Empty);
+            }
+
+            //// now remove all the parameter definitions!
 
             string[] lines = sourceText.Split('\n');
 
@@ -52,6 +65,16 @@ namespace Scorchio.VisualStudio.Services
             }
             
             IEnumerable<string> newLines = lines.Where(x => x.StartsWith("<#@ ") == false);
+
+            if (removeFileHeaders)
+            {
+                newLines = newLines.Where(x => x.TrimStart().StartsWith("//") == false);
+            }
+
+            if (removeXmlComments)
+            {
+                newLines = newLines.Where(x => x.TrimStart().StartsWith("///") == false);
+            }
 
             string output = string.Empty;
 

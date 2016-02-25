@@ -30,6 +30,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         private bool formatFunctionParameters;
 
         /// <summary>
+        /// The remove this pointer.
+        /// </summary>
+        private bool removeThisPointer;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="NinjaBaseViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
@@ -61,6 +66,15 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             get { return this.removeDefaultComments; }
             set { this.SetProperty(ref this.removeDefaultComments, value); }
         }
+        
+        /// <summary>
+        /// Gets or sets a value indicating whether [remove this pointer].
+        /// </summary>
+        public bool RemoveThisPointer
+        {
+            get { return this.removeThisPointer; }
+            set { this.SetProperty(ref this.removeThisPointer, value); }
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether [format function parameters].
@@ -79,6 +93,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.SettingsService.RemoveDefaultComments = this.RemoveDefaultComments;
             this.SettingsService.RemoveDefaultFileHeaders = this.RemoveDefaultFileHeaders;
             this.SettingsService.FormatFunctionParameters = this.FormatFunctionParameters;
+            this.SettingsService.RemoveThisPointer = this.RemoveThisPointer;
         }
 
         /// <summary>
@@ -89,6 +104,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.RemoveDefaultComments = this.SettingsService.RemoveDefaultComments;
             this.RemoveDefaultFileHeaders = this.SettingsService.RemoveDefaultFileHeaders;
             this.FormatFunctionParameters = this.SettingsService.FormatFunctionParameters;
+            this.RemoveThisPointer = this.SettingsService.RemoveThisPointer;
         }
     }
 }

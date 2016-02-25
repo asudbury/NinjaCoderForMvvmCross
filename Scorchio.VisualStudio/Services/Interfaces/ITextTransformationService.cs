@@ -5,8 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio.Services.Interfaces
 {
-    using System.Collections.Generic;
     using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Extensions;
 
     /// <summary>
     ///  Defines the ITextTransformationService type.
@@ -16,11 +16,8 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// <summary>
         /// Transforms the specified source file.
         /// </summary>
-        /// <param name="sourceFile">The source file.</param>
-        /// <param name="parameters">The parameters.</param>
+        /// <param name="textTransformationRequest">The text transformation request.</param>
         /// <returns></returns>
-        TextTransformation Transform(
-            string sourceFile,
-            IDictionary<string, string> parameters);
+        TextTransformation Transform(TextTransformationRequest textTransformationRequest);
     }
 }

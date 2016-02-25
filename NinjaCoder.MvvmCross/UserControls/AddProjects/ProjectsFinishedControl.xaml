@@ -46,18 +46,30 @@
                       ItemsSource="{Binding StartUpProjects}"
                       SelectedItem="{Binding Path=SelectedStartUpProject,
                                              Mode=TwoWay}" />
-            <Separator Margin="5" />
+            <Expander Margin="10"
+                      Header="Code Formatting options"
+                      IsExpanded="False">
+
+                <StackPanel Margin="10">
+
+                    <CheckBox Margin="10,5,0,0"
+                              Content="Remove File Headers"
+                              IsChecked="{Binding RemoveDefaultFileHeaders}" />
+
+                    <CheckBox Margin="10,5,0,0"
+                              Content="Remove Xml Code Comments"
+                              IsChecked="{Binding RemoveDefaultComments}" />
+
+                    <CheckBox Margin="10,5,0,0"
+                              Content="Remove use of 'this' pointer"
+                              IsChecked="{Binding RemoveThisPointer}" />
+                </StackPanel>
+            </Expander>
+
+
+            <Separator Margin="10" />
 
             <TextBlock Margin="10" Text="Click 'Finish' to generate the solution." />
-            <Separator Margin="5" />
-
-            <TextBlock Margin="10" FontSize="12">
-                Note:- All frameworks and supporting packages are downloaded from Nuget
-                <LineBreak />
-                Internet connection required.
-            </TextBlock>
-
-            <Separator Margin="5" FontWeight="Normal" />
 
         </StackPanel>
 

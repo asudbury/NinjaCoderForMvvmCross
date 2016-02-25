@@ -48,6 +48,21 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         private string selectedStartUpProject;
 
         /// <summary>
+        /// The remove default file headers.
+        /// </summary>
+        private bool removeDefaultFileHeaders;
+
+        /// <summary>
+        /// The remove default comments.
+        /// </summary>
+        private bool removeDefaultComments;
+
+        /// <summary>
+        /// The remove this pointer.
+        /// </summary>
+        private bool removeThisPointer;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ProjectsFinishedViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
@@ -112,6 +127,33 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             get { return this.selectedStartUpProject; }
             set { this.SetProperty(ref this.selectedStartUpProject, value); }
         }
+        
+        /// <summary>
+        /// Gets or sets a value indicating whether [remove default file headers].
+        /// </summary>
+        public bool RemoveDefaultFileHeaders
+        {
+            get { return this.removeDefaultFileHeaders; }
+            set { this.SetProperty(ref this.removeDefaultFileHeaders, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [remove default comments].
+        /// </summary>
+        public bool RemoveDefaultComments
+        {
+            get { return this.removeDefaultComments; }
+            set { this.SetProperty(ref this.removeDefaultComments, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [remove this pointer].
+        /// </summary>
+        public bool RemoveThisPointer
+        {
+            get { return this.removeThisPointer; }
+            set { this.SetProperty(ref this.removeThisPointer, value); }
+        }
 
         /// <summary>
         /// Gets the display name.
@@ -173,6 +215,9 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         {
             base.OnSave();
             this.settingsService.StartUpProject = this.selectedStartUpProject;
+            this.settingsService.RemoveDefaultFileHeaders = this.removeDefaultFileHeaders;
+            this.settingsService.RemoveDefaultComments = this.removeDefaultComments;
+            this.settingsService.RemoveThisPointer = this.removeThisPointer;
         }
 
         /// <summary>
@@ -182,6 +227,9 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         {
             this.SuspendReSharperDuringBuild = this.settingsService.SuspendReSharperDuringBuild;
             this.CreateTestProjectsSolutionFolder = this.settingsService.CreateTestProjectsSolutionFolder;
+            this.RemoveDefaultFileHeaders = this.settingsService.RemoveDefaultFileHeaders;
+            this.RemoveDefaultComments = this.settingsService.RemoveDefaultComments;
+            this.RemoveThisPointer = this.settingsService.RemoveThisPointer;
         }
 
         /// <summary>

@@ -5,15 +5,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace <#= NameSpace #>
 {
-    using Core.ViewModels;
-    using Foundation;
     using UIKit;
 
     /// <summary>
     /// Defines the <#= ClassName #> type.
     /// </summary>
-    [Register("<#= ClassName #>")]
-    public class <#= ClassName #> : BaseView
+    public partial class <#= ClassName #> : BaseView
     {
         /// <summary>
         /// Views the did load.

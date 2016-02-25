@@ -5,11 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio.Extensions
 {
-    using System;
-    using System.Text.RegularExpressions;
-
     using EnvDTE;
     using Services;
+    using System;
 
     /// <summary>
     /// Defines the CodeFunctionExtensions type.
@@ -80,7 +78,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <param name="instance">The instance.</param>
         public static void RemoveComments(this CodeFunction instance)
         {
-            TraceService.WriteLine("CodeFunctionExtensions::RemoveComments");
+            TraceService.WriteLine("CodeFunctionExtensions::RemoveComments Name=" + instance.Name);
 
             instance.DocComment = ScorchioConstants.BlankDocComment;
         }

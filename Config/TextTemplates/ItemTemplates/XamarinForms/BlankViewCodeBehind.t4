@@ -1,0 +1,29 @@
+<#@ Template Language="C#" #>
+<#@ Output Extension="xaml.cs" #>
+<#@ parameter type="System.string" name="NameSpace" #>
+<#@ parameter type="System.string" name="ClassName" #>
+<#@ parameter type="System.string" name="CompileOption" #>
+// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+// Defines the <#= ClassName #>.xaml type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace <#= NameSpace #>
+{
+    using Xamarin.Forms.Xaml;
+
+    /// <summary>
+    /// Defines the <#= ClassName #>.xaml type.
+    /// </summary>
+    [XamlCompilation(XamlCompilationOptions.<#= CompileOption #>)]
+    public partial class <#= ClassName #>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="<#= ClassName #>"/> class.
+        /// </summary>
+        public <#= ClassName #>() 
+        {
+            this.InitializeComponent();
+        }
+    }
+}

@@ -3,15 +3,13 @@
 //  Defines the TextTransformationService type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace Scorchio.VisualStudio.Services
 {
+    using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services.Interfaces;
-    using System.Collections.Generic;
     using System.IO;
     using System.Net;
-
-    using Scorchio.VisualStudio.Entities;
 
     /// <summary>
     ///  Defines the TextTransformationService type.
@@ -38,22 +36,25 @@ namespace Scorchio.VisualStudio.Services
         /// <summary>
         /// Transforms the specified source file.
         /// </summary>
-        /// <param name="sourceFile">The source file.</param>
-        /// <param name="parameters">The parameters.</param>
+        /// <param name="textTransformationRequest">The text transformation request.</param>
         /// <returns></returns>
-        public TextTransformation Transform(
-            string sourceFile,
-            IDictionary<string, string> parameters)
-        {
-            TraceService.WriteLine("TextTransformationService::Transform sourceFile=" + sourceFile);
 
-            string sourceText = this.GetText(sourceFile);
+        public TextTransformation Transform(TextTransformationRequest textTransformationRequest)
+        {
+            TraceService.WriteLine("TextTransformationService::Transform sourceFile=" + textTransformationRequest.SourceFile);
+
+            string sourceText = this.GetText(textTransformationRequest.SourceFile);
 
             SimpleTextTemplatingEngine engine = new SimpleTextTemplatingEngine();
 
             TraceService.WriteLine("Before processing template via SimpleTextTemplatingEngine");
 
-            TextTransformation textTransformation =  engine.ProcessTemplate(sourceText, parameters);
+            TextTransformation textTransformation =  engine.ProcessTemplate(
+                                                            sourceText, 
+                                                            textTransformationRequest.Parameters, 
+                                                            textTransformationRequest.RemoveFileHeaders, 
+                                                            textTransformationRequest.RemoveXmlComments,
+                                                            textTransformationRequest.RemoveThisPointer);
 
             TraceService.WriteLine("After processing template via SimpleTextTemplatingEngine = SUCCESS!");
 

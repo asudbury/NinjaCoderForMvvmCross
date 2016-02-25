@@ -5,15 +5,15 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories
 {
-    using System.Collections.Generic;
-
     using NinjaCoder.MvvmCross.Entities;
     using NinjaCoder.MvvmCross.Services.Interfaces;
-
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
+    using System.Collections.Generic;
+
+    using Scorchio.VisualStudio.Extensions;
 
     /// <summary>
     ///  Defines the BaseViewFactory type.
@@ -121,18 +121,32 @@ namespace NinjaCoder.MvvmCross.Factories
             string viewTemplateName,
             Dictionary<string, string> tokens)
         {
+            string templateDirectory = this.SettingsService.ItemTemplatesDirectory;
+
+            if (projectSuffix == ProjectSuffix.XamarinForms.GetDescription())
+            {
+                templateDirectory += "\\XamarinForms";
+            }
+
             TextTemplateInfo textTemplateInfo = new TextTemplateInfo
             {
                 ProjectSuffix = projectSuffix,
                 ProjectFolder = "Views",
                 Tokens = tokens,
                 ShortTemplateName = viewTemplateName,
-                TemplateName = this.SettingsService.ItemTemplatesDirectory + "\\" + "BlankViewCodeBehind.t4",
+                TemplateName = templateDirectory + "\\" + "BlankViewCodeBehind.t4",
             };
 
-            TextTransformation textTransformation = this.GetTextTransformationService().Transform(
-                                           textTemplateInfo.TemplateName,
-                                           textTemplateInfo.Tokens);
+            TextTransformationRequest textTransformationRequest = new TextTransformationRequest
+            {
+                SourceFile = textTemplateInfo.TemplateName,
+                Parameters = textTemplateInfo.Tokens,
+                RemoveFileHeaders = this.SettingsService.RemoveDefaultFileHeaders,
+                RemoveXmlComments = this.SettingsService.RemoveDefaultComments,
+                RemoveThisPointer = this.SettingsService.RemoveThisPointer
+            };
+
+            TextTransformation textTransformation = this.GetTextTransformationService().Transform(textTransformationRequest);
 
             textTemplateInfo.TextOutput = textTransformation.Output;
             textTemplateInfo.FileName = viewName + "." + textTransformation.FileExtension;

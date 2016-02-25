@@ -204,7 +204,6 @@ namespace NinjaCoder.MvvmCross.Services
             TraceService.WriteLine("NugetService::SetupEventHandlers");
 
             this.documentEvents = this.visualStudioService.DTEService.GetDocumentEvents();
-            
             this.documentEvents.DocumentOpened += this.DocumentEventsDocumentOpened;
         }
 
@@ -217,6 +216,15 @@ namespace NinjaCoder.MvvmCross.Services
 
             this.documentEvents.DocumentOpened -= this.DocumentEventsDocumentOpened;
             this.documentEvents = null;
+
+            this.visualStudioService.WriteStatusBarMessage(NinjaMessages.UpdatingFiles);
+
+            this.visualStudioService.CodeTidyUp(
+                this.settingsService.RemoveDefaultFileHeaders,
+                this.settingsService.RemoveDefaultComments,
+                this.settingsService.RemoveThisPointer);
+
+            this.visualStudioService.WriteStatusBarMessage(NinjaMessages.FinishedProjects);
         }
 
         /// <summary>

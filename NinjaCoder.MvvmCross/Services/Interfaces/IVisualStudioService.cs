@@ -117,12 +117,15 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         void WriteStatusBarMessage(string message);
 
         /// <summary>
-        /// Tidy the code up. </summary>
+        /// Tidy the code up.
+        /// </summary>
         /// <param name="removeHeader">if set to <c>true</c> [remove header].</param>
         /// <param name="removeComments">if set to <c>true</c> [remove comments].</param>
+        /// <param name="removeThisPointer">if set to <c>true</c> [remove this pointer].</param>
         void CodeTidyUp(
             bool removeHeader, 
-            bool removeComments);
+            bool removeComments,
+            bool removeThisPointer);
 
         /// <summary>
         /// Gets the default name of the project.

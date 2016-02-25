@@ -11,6 +11,8 @@ namespace NinjaCoder.MvvmCross.Services
     using Scorchio.VisualStudio.Services.Interfaces;
     using System.Collections.Generic;
 
+    using Scorchio.VisualStudio.Extensions;
+
     /// <summary>
     ///  Defines the TextTemplatingService type.
     /// </summary>
@@ -70,9 +72,16 @@ namespace NinjaCoder.MvvmCross.Services
 
                     ITextTransformationService textTransformationService = this.visualStudioService.GetTextTransformationService();
 
-                    textTemplateInfo.TextOutput = textTransformationService.Transform(
-                        textTemplateInfo.TemplateName, 
-                        textTemplateInfo.Tokens).Output;
+                    TextTransformationRequest textTransformationRequest = new TextTransformationRequest
+                                                                            {
+                                                                                SourceFile = textTemplateInfo.TemplateName,
+                                                                                Parameters = textTemplateInfo.Tokens,
+                                                                                RemoveFileHeaders = this.settingsService.RemoveDefaultFileHeaders,
+                                                                                RemoveXmlComments = this.settingsService.RemoveDefaultComments,
+                                                                                RemoveThisPointer = this.settingsService.RemoveThisPointer
+                                                                            };
+                    
+                    textTemplateInfo.TextOutput = textTransformationService.Transform(textTransformationRequest).Output;
 
                     string message = projectService.AddTextTemplate(textTemplateInfo, this.settingsService.OutputTextTemplateContentToTraceFile);
 

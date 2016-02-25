@@ -417,6 +417,24 @@ namespace Scorchio.VisualStudio.Extensions
         }
 
         /// <summary>
+        /// Replaces the text.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="replacementText">The replacement text.</param>
+        public static void ReplaceText(
+            this Solution2 instance,
+            string text,
+            string replacementText)
+        {
+            TraceService.WriteLine("SolutionExtensions::ReplaceText");
+
+            instance.Projects.Cast<Project>()
+                .ToList()
+                .ForEach(x => x.ReplaceText(text, replacementText));
+        }
+
+        /// <summary>
         /// Gets the solution item path.
         /// </summary>
         /// <param name="instance">The instance.</param>
