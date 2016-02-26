@@ -200,6 +200,15 @@ namespace Scorchio.VisualStudio.Services.Interfaces
             string replacementText);
 
         /// <summary>
+        /// Replaces the text in c sharp files.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="replacementText">The replacement text.</param>
+        void ReplaceTextInCSharpFiles(
+            string text,
+            string replacementText);
+        
+        /// <summary>
         /// Gets the solution item path.
         /// </summary>
         /// <param name="file">The file.</param>

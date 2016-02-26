@@ -63,6 +63,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         private bool removeThisPointer;
 
         /// <summary>
+        /// The expand code formatting options.
+        /// </summary>
+        private bool expandCodeFormattingOptions;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ProjectsFinishedViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
@@ -164,6 +169,15 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [expand pre release options].
+        /// </summary>
+        public bool ExpandCodeFormattingOptions
+        {
+            get { return this.expandCodeFormattingOptions; }
+            set { this.SetProperty(ref this.expandCodeFormattingOptions, value); }
+        }
+
+        /// <summary>
         /// For when yous need to save some values that can't be directly bound to UI elements.
         /// Not called when moving previous (see WizardViewModel.MoveToNextStep).
         /// </summary>
@@ -205,6 +219,13 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             if (this.settingsService.StartUpProject != string.Empty)
             {
                 this.SelectedStartUpProject = this.settingsService.StartUpProject;
+            }
+
+            if (this.settingsService.RemoveDefaultComments ||
+                this.settingsService.RemoveDefaultFileHeaders ||
+                this.settingsService.RemoveThisPointer)
+            {
+                this.ExpandCodeFormattingOptions = true;
             }
         }
 

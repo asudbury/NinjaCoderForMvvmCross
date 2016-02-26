@@ -352,6 +352,18 @@ namespace Scorchio.VisualStudio.Services
         }
 
         /// <summary>
+        /// Replaces the text in c sharp files.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="replacementText">The replacement text.</param>
+        public void ReplaceTextInCSharpFiles(
+            string text,
+            string replacementText)
+        {
+            this.solution2.ReplaceTextInCSharpFiles(text, replacementText);
+        }
+
+        /// <summary>
         /// Gets the solution item path.
         /// </summary>
         /// <param name="file">The file.</param>

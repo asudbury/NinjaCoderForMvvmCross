@@ -555,6 +555,24 @@ namespace Scorchio.VisualStudio.Extensions
         }
 
         /// <summary>
+        /// Replaces the text.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="replacementText">The replacement text.</param>
+        public static void ReplaceTextInCSharpFiles(
+            this Project instance, 
+            string text, 
+            string replacementText)
+        {
+            TraceService.WriteLine("ProjectExtensions::ReplaceTextInCSharpFiles project=" + instance.Name);
+
+            instance.GetCSharpProjectItems()
+                .ToList()
+                .ForEach(x => x.ReplaceText(text, replacementText));
+        }
+        
+        /// <summary>
         /// Gets the folder items.
         /// </summary>
         /// <param name="instance">The instance.</param>

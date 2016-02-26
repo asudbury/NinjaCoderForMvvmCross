@@ -48,7 +48,7 @@
                                              Mode=TwoWay}" />
             <Expander Margin="10"
                       Header="Code Formatting options"
-                      IsExpanded="False">
+                      IsExpanded="{Binding ExpandCodeFormattingOptions}">
 
                 <StackPanel Margin="10">
 

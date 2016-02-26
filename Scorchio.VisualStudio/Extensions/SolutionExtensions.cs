@@ -435,6 +435,24 @@ namespace Scorchio.VisualStudio.Extensions
         }
 
         /// <summary>
+        /// Replaces the text in c sharp files.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="replacementText">The replacement text.</param>
+        public static void ReplaceTextInCSharpFiles(
+            this Solution2 instance,
+            string text,
+            string replacementText)
+        {
+            TraceService.WriteLine("SolutionExtensions::ReplaceTextInCSharpFiles");
+
+            instance.Projects.Cast<Project>()
+                .ToList()
+                .ForEach(x => x.ReplaceTextInCSharpFiles(text, replacementText));
+        }
+
+        /// <summary>
         /// Gets the solution item path.
         /// </summary>
         /// <param name="instance">The instance.</param>

@@ -231,9 +231,9 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <Link>Config\TextTemplates\ItemTemplates\iOS\Blank\StoryBoard\ViewDesigner.t4</Link>
     </Content>
-      <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Blank\StoryBoard\ViewStoryBoard.t4">
-          <IncludeInVSIX>true</IncludeInVSIX>
-          <Link>Config\TextTemplates\ItemTemplates\iOS\Blank\StoryBoard\ViewStoryBoard.t4</Link>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Blank\StoryBoard\ViewStoryBoard.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\Blank\StoryBoard\ViewStoryBoard.t4</Link>
     </Content>
     <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Blank\Xib\View.t4">
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -260,8 +260,8 @@
       <Link>Config\TextTemplates\ItemTemplates\iOS\SampleData\StoryBoard\ViewDesigner.t4</Link>
     </Content>
     <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\SampleData\StoryBoard\ViewStoryBoard.t4">
-        <IncludeInVSIX>true</IncludeInVSIX>
-        <Link>Config\TextTemplates\ItemTemplates\iOS\SampleData\StoryBoard\ViewStoryBoard.t4</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\SampleData\StoryBoard\ViewStoryBoard.t4</Link>
     </Content>
     <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\SampleData\Xib\View.t4">
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -287,9 +287,9 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <Link>Config\TextTemplates\ItemTemplates\iOS\Web\StoryBoard\ViewDesigner.t4</Link>
     </Content>
-      <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Web\StoryBoard\ViewStoryBoard.t4">
-          <IncludeInVSIX>true</IncludeInVSIX>
-          <Link>Config\TextTemplates\ItemTemplates\iOS\Web\StoryBoard\ViewStoryBoard.t4</Link>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Web\StoryBoard\ViewStoryBoard.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\iOS\Web\StoryBoard\ViewStoryBoard.t4</Link>
     </Content>
     <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Web\Xib\View.t4">
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -303,9 +303,9 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <Link>Config\TextTemplates\ItemTemplates\iOS\Web\Xib\ViewXib.t4</Link>
     </Content>
-      <Content Include="..\Config\TextTemplates\ItemTemplates\XamarinForms\BlankViewCodeBehind.t4">
-          <IncludeInVSIX>true</IncludeInVSIX>
-          <Link>Config\TextTemplates\ItemTemplates\XamarinForms\BlankViewCodeBehind.t4</Link>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\XamarinForms\BlankViewCodeBehind.t4">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\TextTemplates\ItemTemplates\XamarinForms\BlankViewCodeBehind.t4</Link>
     </Content>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>

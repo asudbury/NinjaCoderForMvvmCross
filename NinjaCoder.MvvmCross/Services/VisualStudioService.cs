@@ -9,7 +9,6 @@ namespace NinjaCoder.MvvmCross.Services
     using EnvDTE;
     using EnvDTE80;
     using Interfaces;
-    using Microsoft.VisualStudio.Shell;
     using NinjaCoder.MvvmCross.Entities;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio;
@@ -409,7 +408,7 @@ namespace NinjaCoder.MvvmCross.Services
 
             if (removeThisPointer)
             {
-                this.SolutionService.ReplaceText("this.", string.Empty);
+                this.SolutionService.ReplaceTextInCSharpFiles("this.", string.Empty);
             }
 
             this.DTEService.SaveAll();
