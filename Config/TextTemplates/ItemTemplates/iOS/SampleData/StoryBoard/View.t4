@@ -24,8 +24,6 @@ namespace <#= NameSpace #>
         /// </summary>
         public override void ViewDidLoad()
         {
-            this.View = new UIView { BackgroundColor = UIColor.White };
-
             base.ViewDidLoad();
 
             MvxFluentBindingDescriptionSet<<#= ClassName #>, <#= ClassName #>Model> set = this.CreateBindingSet<<#= ClassName #>, <#= ClassName #>Model>();

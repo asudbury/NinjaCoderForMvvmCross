@@ -25,8 +25,6 @@ namespace <#= NameSpace #>
         /// </summary>
         public override void ViewDidLoad()
         {
-            this.View = new UIView { BackgroundColor = UIColor.White };
-
             base.ViewDidLoad();
 
             UILabel uiLabel = new UILabel(new RectangleF(10, 10, 300, 40));

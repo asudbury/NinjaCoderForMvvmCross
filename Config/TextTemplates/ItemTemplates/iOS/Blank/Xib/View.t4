@@ -20,8 +20,6 @@ namespace <#= NameSpace #>
         /// </summary>
         public override void ViewDidLoad()
         {
-            this.View = new UIView { BackgroundColor = UIColor.White };
-
             base.ViewDidLoad();
                         
             UITapGestureRecognizer tap = new UITapGestureRecognizer(() => this.View.ResignFirstResponder());
