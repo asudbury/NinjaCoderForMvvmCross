@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Scorchio.NinjaCoder.Mvvm.XamarinForms.Core</id>
+        <version>1.0.0</version>
+        <authors>Adrian Sudbury</authors>
+        <owners>Scorchio Limited</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Helper For MvvmCross and Xamarin Forms</description>
+    </metadata>
+    <files>
+    </files>
+</package>

@@ -1,18 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25029.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorchio.VisualStudio", "Scorchio.VisualStudio\Scorchio.VisualStudio.csproj", "{012E2419-08C3-4555-AF80-F101B02BBCF0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaCoder.MvvmCross", "NinjaCoder.MvvmCross\NinjaCoder.MvvmCross.csproj", "{678643F4-34D9-43AC-AC1B-55FC0D58B598}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaCoder.MvvmCross.Tests", "NinjaCoder.MvvmCross.Tests\NinjaCoder.MvvmCross.Tests.csproj", "{1767BD7C-66AF-4864-9B13-1910399B305A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorchio.Infrastructure", "Scorchio.Infrastructure\Scorchio.Infrastructure.csproj", "{8788B9F4-D0B8-406B-B0BC-DBB581B453CC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaCoder.MvvmCross.UI", "NinjaCoder.MvvmCross.UI\NinjaCoder.MvvmCross.UI.csproj", "{5A464EDD-AEFE-4864-816A-A0E3E6C88B4C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{D8877B22-87DF-4D49-917C-AEB6EC4CDBEA}"
 	ProjectSection(SolutionItems) = preProject
 		Config\ApplicationCommands.xml = Config\ApplicationCommands.xml
@@ -283,8 +273,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Values", "Values", "{357EDA
 	ProjectSection(SolutionItems) = preProject
 		NuSpec\MvvmCross\DroidContent\Resources\Values\SplashStyle.xml = NuSpec\MvvmCross\DroidContent\Resources\Values\SplashStyle.xml
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaCoder.MvvmCross.VSPackage", "NinjaCoder.MvvmCross.VSPackage\NinjaCoder.MvvmCross.VSPackage.csproj", "{CA7D2A7E-6493-4F5B-9A83-8565C260D508}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NinjaSamples", "NinjaSamples", "{D99D5A91-CC14-4224-A1E8-0B3E23F5DE5A}"
 EndProject
@@ -583,8 +571,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XamarinForms", "XamarinForm
 		NuSpec\Ninja\Converters\CoreContent\Converters\XamarinForms\StringToBoolConverter.cs.pp = NuSpec\Ninja\Converters\CoreContent\Converters\XamarinForms\StringToBoolConverter.cs.pp
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaCoderMvvmCross.vsix", "NinjaCoderMvvmCross.vsix\NinjaCoderMvvmCross.vsix.csproj", "{EAD418EE-3692-413C-9F39-56E83F097D57}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Behaviours", "Behaviours", "{58379B4D-25D1-4592-AC8F-4EB81DDBB6B2}"
 	ProjectSection(SolutionItems) = preProject
 		NuSpec\MvvmCross\WpfContent\Behaviours\WebBrowserBehaviour.cs.pp = NuSpec\MvvmCross\WpfContent\Behaviours\WebBrowserBehaviour.cs.pp
@@ -652,6 +638,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xib", "Xib", "{05746D5D-B08
 		Config\TextTemplates\ItemTemplates\iOS\Web\Xib\ViewDesigner.t4 = Config\TextTemplates\ItemTemplates\iOS\Web\Xib\ViewDesigner.t4
 		Config\TextTemplates\ItemTemplates\iOS\Web\Xib\ViewXib.t4 = Config\TextTemplates\ItemTemplates\iOS\Web\Xib\ViewXib.t4
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorchio.VisualStudio", "Scorchio.VisualStudio\Scorchio.VisualStudio.csproj", "{012E2419-08C3-4555-AF80-F101B02BBCF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaCoder.MvvmCross", "NinjaCoder.MvvmCross\NinjaCoder.MvvmCross.csproj", "{678643F4-34D9-43AC-AC1B-55FC0D58B598}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaCoder.MvvmCross.Tests", "NinjaCoder.MvvmCross.Tests\NinjaCoder.MvvmCross.Tests.csproj", "{1767BD7C-66AF-4864-9B13-1910399B305A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorchio.Infrastructure", "Scorchio.Infrastructure\Scorchio.Infrastructure.csproj", "{8788B9F4-D0B8-406B-B0BC-DBB581B453CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaCoder.MvvmCross.UI", "NinjaCoder.MvvmCross.UI\NinjaCoder.MvvmCross.UI.csproj", "{5A464EDD-AEFE-4864-816A-A0E3E6C88B4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaCoder.MvvmCross.VSPackage", "NinjaCoder.MvvmCross.VSPackage\NinjaCoder.MvvmCross.VSPackage.csproj", "{CA7D2A7E-6493-4F5B-9A83-8565C260D508}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaCoderMvvmCross.vsix", "NinjaCoderMvvmCross.vsix\NinjaCoderMvvmCross.vsix.csproj", "{EAD418EE-3692-413C-9F39-56E83F097D57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

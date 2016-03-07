@@ -115,6 +115,11 @@ namespace NinjaCoder.MvvmCross.Services
                 this.Messages.Add("Use Local Nuget selected.");
             }
 
+            if (this.settingsService.StartUpProject != string.Empty)
+            {
+                this.Messages.Add("StartUp Project set to " + this.settingsService.StartUpProject + ".");
+            }
+
             if (this.settingsService.CreatePlatformTestProjects)
             {
                 this.Messages.Add("Create Test Projects selected.");

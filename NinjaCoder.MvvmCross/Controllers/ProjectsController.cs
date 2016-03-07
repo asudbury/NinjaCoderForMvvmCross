@@ -220,10 +220,12 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             string startUpProject = this.SettingsService.StartUpProject;
 
-            if (startUpProject != string.Empty && 
-                this.VisualStudioService.GetProjectServiceBySuffix(startUpProject) != null)
+            if (startUpProject != string.Empty)
             {
-                this.VisualStudioService.SolutionService.SetStartUpProject(projectsViewModel.Project + "." + startUpProject);
+                if (this.VisualStudioService.GetProjectServiceBySuffix(startUpProject) != null)
+                {
+                    this.VisualStudioService.SolutionService.SetStartUpProject(projectsViewModel.Project + "." + startUpProject);
+                }
             }
 
             //// there is a bug in the xamarin iOS code that means it doesnt apply a couple of xml elements

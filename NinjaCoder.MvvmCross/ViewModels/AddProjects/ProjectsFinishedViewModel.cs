@@ -5,12 +5,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 {
-    using System.Collections.Generic;
     using NinjaCoder.MvvmCross.Entities;
     using NinjaCoder.MvvmCross.Factories.Interfaces;
     using NinjaCoder.MvvmCross.Services.Interfaces;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Defines the ProjectsFinishedViewModel type.
@@ -216,11 +216,12 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             }
 
             //// we try and use the project the customer used before if in the list!
-            if (this.settingsService.StartUpProject != string.Empty)
+            if (this.settingsService.StartUpProject != string.Empty &&
+                this.StartUpProjects.Contains(this.settingsService.StartUpProject))
             {
                 this.SelectedStartUpProject = this.settingsService.StartUpProject;
             }
-
+            
             if (this.settingsService.RemoveDefaultComments ||
                 this.settingsService.RemoveDefaultFileHeaders ||
                 this.settingsService.RemoveThisPointer)
