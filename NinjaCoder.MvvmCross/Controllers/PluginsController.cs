@@ -108,6 +108,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                 List<string> commands = plugins.Select(plugin => plugin.GetNugetCommandStrings(
                     this.VisualStudioService, 
+                    this.SettingsService,
                     this.SettingsService.UsePreReleaseMvvmCrossNugetPackages)).ToList();
 
                 if (commands.Any())

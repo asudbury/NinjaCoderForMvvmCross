@@ -36,7 +36,10 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
 
                 string workingDirectory = this.GetWorkingDirectory();
 
-                NinjaController.SetWorkingDirectory(workingDirectory);
+                if (workingDirectory != string.Empty)
+                { 
+                    NinjaController.SetWorkingDirectory(workingDirectory);
+                }
             }
             catch
             {
@@ -319,7 +322,12 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         /// </summary>
         internal void OpenWorkingDirectory()
         {
-            System.Diagnostics.Process.Start(this.GetWorkingDirectory());
+            string workingDirectory = this.GetWorkingDirectory();
+
+            if (workingDirectory != string.Empty)
+            {
+                System.Diagnostics.Process.Start(workingDirectory);
+            }
         }
 
         /// <summary>
@@ -330,40 +338,25 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         {
             RegistryKey softwareKey = Registry.CurrentUser.OpenSubKey("Software");
 
-            if (softwareKey != null)
+            RegistryKey microsoftKey = softwareKey?.OpenSubKey("Microsoft");
+
+            RegistryKey vsKey = microsoftKey?.OpenSubKey("VisualStudio");
+
+            RegistryKey versionKey = vsKey?.OpenSubKey("14.0");
+
+            RegistryKey extensionManagerKey = versionKey?.OpenSubKey("ExtensionManager");
+
+            RegistryKey enabledExtensionsKey = extensionManagerKey?.OpenSubKey("EnabledExtensions");
+
+            if (enabledExtensionsKey != null)
             {
-                RegistryKey microsoftKey = softwareKey.OpenSubKey("Microsoft");
+                string[] valueNames = enabledExtensionsKey.GetValueNames();
 
-                if (microsoftKey != null)
+                foreach (string valueName in valueNames)
                 {
-                    RegistryKey vsKey = microsoftKey.OpenSubKey("VisualStudio");
-
-                    if (vsKey != null)
+                    if (valueName.StartsWith("NinjaCoderMvvmCross.vsix"))
                     {
-                        RegistryKey versionKey = vsKey.OpenSubKey("14.0");
-
-                        if (versionKey != null)
-                        {
-                            RegistryKey extensionManagerKey = versionKey.OpenSubKey("ExtensionManager");
-
-                            if (extensionManagerKey != null)
-                            {
-                                RegistryKey enabledExtensionsKey = extensionManagerKey.OpenSubKey("EnabledExtensions");
-
-                                if (enabledExtensionsKey != null)
-                                {
-                                    string[] valueNames = enabledExtensionsKey.GetValueNames();
-
-                                    foreach (string valueName in valueNames)
-                                    {
-                                        if (valueName.StartsWith("NinjaCoderMvvmCross.vsix"))
-                                        {
-                                            return enabledExtensionsKey.GetValue(valueName) as string;
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        return enabledExtensionsKey.GetValue(valueName) as string;
                     }
                 }
             }

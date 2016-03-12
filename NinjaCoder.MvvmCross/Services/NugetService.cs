@@ -1,13 +1,13 @@
-﻿ // --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
 //    Defines the NugetService type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
+    using Constants;
     using EnvDTE;
     using Interfaces;
-    using NinjaCoder.MvvmCross.Constants;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;

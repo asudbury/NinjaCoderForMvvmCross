@@ -24,14 +24,23 @@ namespace NinjaCoder.MvvmCross.Services
         private readonly IVisualStudioService visualStudioService;
 
         /// <summary>
+        /// The settings service.
+        /// </summary>
+        private readonly ISettingsService settingsService;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PluginsService" /> class.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
-        public PluginsService(IVisualStudioService visualStudioService)
+        /// <param name="settingsService">The settings service.</param>
+        public PluginsService(
+            IVisualStudioService visualStudioService,
+            ISettingsService settingsService)
         {
             TraceService.WriteLine("PluginsService::Constructor");
 
             this.visualStudioService = visualStudioService;
+            this.settingsService = settingsService;
         }
 
         /// <summary>
@@ -50,6 +59,7 @@ namespace NinjaCoder.MvvmCross.Services
 
             return pluginsArray.Select(plugin => plugin.GetNugetCommandStrings(
                 this.visualStudioService,
+                this.settingsService,
                 usePreRelease)).ToList();
         }
 

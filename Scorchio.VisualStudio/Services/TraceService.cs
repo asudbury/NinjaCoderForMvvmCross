@@ -26,6 +26,11 @@ namespace Scorchio.VisualStudio.Services
         private static bool logToFile;
 
         /// <summary>
+        /// The last trace message.
+        /// </summary>
+        private static string lastTraceMessage;
+
+        /// <summary>
         /// Gets a value indicating whether to log to trace.
         /// </summary>
         internal static bool LogToTrace
@@ -98,6 +103,8 @@ namespace Scorchio.VisualStudio.Services
         /// <param name="message">The message.</param>
         public static void WriteLine(string message)
         {
+            lastTraceMessage = message;
+
             if (LogToTrace)
             {
                 Trace.WriteLine(GetTimedMessage(string.Empty, message));
@@ -124,7 +131,17 @@ namespace Scorchio.VisualStudio.Services
             WriteLine(message);
             WriteLine("--------------------------------------------------------");
         }
-        
+
+        /// <summary>
+        /// Writes the error.
+        /// </summary>
+        /// <param name="exception">The exception.</param>
+        public static void WriteError(Exception exception)
+        {
+            WriteError(exception.Message);
+            WriteError(exception.StackTrace);
+        }
+
         /// <summary>
         /// Writes the Error.
         /// </summary>
@@ -146,6 +163,8 @@ namespace Scorchio.VisualStudio.Services
             if (LogToFile)
             {
                 WriteMessageToLogFile(timedMessage);
+
+                WriteErrorToLogFile("Last Trace message=" + lastTraceMessage);
                 WriteErrorToLogFile(timedMessage);
             }
 
@@ -212,5 +231,5 @@ namespace Scorchio.VisualStudio.Services
         {
             return string.Format("{0} {1} {2}", DateTime.Now.ToString("dd MMM yy HH:mm:ss fff"), type, message);
         }
-   }
+    }
 }

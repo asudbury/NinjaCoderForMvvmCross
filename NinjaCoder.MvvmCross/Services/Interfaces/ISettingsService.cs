@@ -218,6 +218,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         bool OutputErrorsToReadMe { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [output read me to log file].
+        /// </summary>
+        bool OutputReadMeToLogFile { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [use pre release MVVM cross nuget packages].
         /// </summary>
         bool UsePreReleaseMvvmCrossNugetPackages { get; set; }

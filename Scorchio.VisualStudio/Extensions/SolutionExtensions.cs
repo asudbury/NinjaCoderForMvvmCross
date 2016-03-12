@@ -67,24 +67,21 @@ namespace Scorchio.VisualStudio.Extensions
             
             if (directoryName == string.Empty)
             {
-                Project project = instance.GetProjects().FirstOrDefault();
+                Project project = instance.GetProjects().First(x => x.FullName.Contains("."));
 
-                if (project != null)
+                string projectPath = Path.GetDirectoryName(project?.FullName);
+
+                if (projectPath != null)
                 {
-                    string projectPath = Path.GetDirectoryName(project.FullName);
+                    string path = projectPath.Replace(project.Name, string.Empty);
 
-                    if (projectPath != null)
+                    if (path.EndsWith(@"\") == false)
                     {
-                        string path = projectPath.Replace(project.Name, string.Empty);
-
-                        if (path.EndsWith(@"\") == false)
-                        {
-                            path += @"\";
-                        }
-
-                        directoryName = path;
+                        path += @"\";
                     }
-                } 
+
+                    directoryName = path;
+                }
             }
 
             TraceService.WriteLine("SolutionExtensions::GetDirectoryName directoryName=" + directoryName);

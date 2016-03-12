@@ -6,8 +6,8 @@
 namespace NinjaCoder.MvvmCross.Services
 {
     using Microsoft.Win32;
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Entities;
+    using Interfaces;
     using Scorchio.Infrastructure.Extensions;
     using System;
     using System.IO;
@@ -575,6 +575,15 @@ namespace NinjaCoder.MvvmCross.Services
         {
             get { return this.GetRegistryValue("Build", "OutputErrorsToReadMe", "N") == "Y"; }
             set { this.SetRegistryValue("Build", "OutputErrorsToReadMe", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [output read me to log file].
+        /// </summary>
+        public bool OutputReadMeToLogFile 
+        {
+            get { return this.GetRegistryValue("Build", "OutputReadMeToLogFile", "Y") == "Y"; }
+            set { this.SetRegistryValue("Build", "OutputReadMeToLogFile", value? "Y" : "N"); }
         }
 
         /// <summary>

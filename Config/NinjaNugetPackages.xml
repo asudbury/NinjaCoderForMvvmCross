@@ -17,6 +17,24 @@
     ]]>
         </Description>
     </Plugin>
+  <Plugin>
+    <Name>Mvvm Helper for Xamarin Forms</Name>
+    <NugetPackage Platform="Core">Scorchio.NinjaCoder.Mvvm.XamarinForms.Core</NugetPackage>
+    <NugetPackage Platform="Forms">Scorchio.NinjaCoder.Mvvm.XamarinForms</NugetPackage>
+    <Platforms>
+      <Platform>Core</Platform>
+      <Platform>Forms</Platform>
+    </Platforms>
+    <Frameworks>
+      <Framework>Xamarin Forms</Framework>
+      <Framework>MvvmCross and Xamarin Forms</Framework>
+    </Frameworks>
+    <Description>
+      <![CDATA[
+        This package includes view model navigation for xamarin forms.
+    ]]>
+    </Description>
+  </Plugin>
     <Plugin>
         <Name>Xamarin Forms Value Converters</Name>
         <NugetPackage>Scorchio.NinjaCoder.XamarinForms.Converters</NugetPackage>

@@ -5,19 +5,19 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
 {
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-    using NinjaCoder.MvvmCross.UserControls.AddProjects;
+    using Entities;
+    using Factories.Interfaces;
     using Scorchio.Infrastructure.Wpf;
     using Scorchio.Infrastructure.Wpf.ViewModels;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
+    using Services.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Linq;
     using System.Windows.Input;
+    using UserControls.AddProjects;
 
     /// <summary>
     ///  Defines the NugetPackagesViewModel type.
@@ -213,13 +213,15 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         {
             ObservableCollection<SelectableItemViewModel<Plugin>> viewModels = new ObservableCollection<SelectableItemViewModel<Plugin>>();
 
-            //// notice we can packages with a blank category!
-            foreach (SelectableItemViewModel<Plugin> viewModel in from plugin in plugins.Items
-                                                                  where plugin.Frameworks.Contains(this.settingsService.FrameworkType) &&
-                                                                  plugin.Category == string.Empty
-                                                                  select new SelectableItemViewModel<Plugin>(plugin))
-            {
-                viewModels.Add(viewModel);
+            if (plugins != null)
+            { 
+                foreach (SelectableItemViewModel<Plugin> viewModel in from plugin in plugins.Items
+                                                                      where plugin.Frameworks.Contains(this.settingsService.FrameworkType) &&
+                                                                      plugin.Category == string.Empty
+                                                                      select new SelectableItemViewModel<Plugin>(plugin))
+                {
+                    viewModels.Add(viewModel);
+                }
             }
 
             return new ObservableCollection<SelectableItemViewModel<Plugin>>(viewModels.OrderBy(x => x.Item.FriendlyName));

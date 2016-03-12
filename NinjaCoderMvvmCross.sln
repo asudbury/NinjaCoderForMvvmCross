@@ -653,6 +653,26 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaCoder.MvvmCross.VSPack
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaCoderMvvmCross.vsix", "NinjaCoderMvvmCross.vsix\NinjaCoderMvvmCross.vsix.csproj", "{EAD418EE-3692-413C-9F39-56E83F097D57}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvvmXamarinForms", "MvvmXamarinForms", "{325F9785-CA93-4642-A884-B7ADA7B49E38}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\Ninja\MvvmXamarinForms\Scorchio.NinjaCoder.Mvvm.XamarinForms.1.0.1.nuspec = NuSpec\Ninja\MvvmXamarinForms\Scorchio.NinjaCoder.Mvvm.XamarinForms.1.0.1.nuspec
+		NuSpec\Ninja\MvvmXamarinForms\Scorchio.NinjaCoder.Mvvm.XamarinForms.Core.1.0.1.nuspec = NuSpec\Ninja\MvvmXamarinForms\Scorchio.NinjaCoder.Mvvm.XamarinForms.Core.1.0.1.nuspec
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreContent", "CoreContent", "{CBD0968E-7FFE-4F31-9902-4813A63971E0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interfaces", "Interfaces", "{F68DF209-BAE6-451A-B530-60233A7BD66A}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\Ninja\MvvmXamarinForms\CoreContent\Interfaces\INavigationService.cs.pp = NuSpec\Ninja\MvvmXamarinForms\CoreContent\Interfaces\INavigationService.cs.pp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FormsContent", "FormsContent", "{71868932-200A-40A5-AE33-196228C6A82F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A1384B90-8FBB-4551-B422-BDAB3DC17A48}"
+	ProjectSection(SolutionItems) = preProject
+		NuSpec\Ninja\MvvmXamarinForms\FormsContent\Services\NavigationService.cs.pp = NuSpec\Ninja\MvvmXamarinForms\FormsContent\Services\NavigationService.cs.pp
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -1264,5 +1284,10 @@ Global
 		{251E931F-2D8F-4D1F-B9CF-020FEA9AF613} = {E2701E6E-F666-431C-B021-C3B8DDB9C939}
 		{25D009AF-74AA-4299-BA6A-DD0ACB34D1B5} = {05AF7A53-4038-48C3-B1F8-22BDC4DF44C9}
 		{05746D5D-B082-4DA3-895D-D5A750A402ED} = {51E1D68F-620F-4105-A922-9836DF1FADF3}
+		{325F9785-CA93-4642-A884-B7ADA7B49E38} = {C1DDAB72-0090-4C14-BF69-E12378E4A871}
+		{CBD0968E-7FFE-4F31-9902-4813A63971E0} = {325F9785-CA93-4642-A884-B7ADA7B49E38}
+		{F68DF209-BAE6-451A-B530-60233A7BD66A} = {CBD0968E-7FFE-4F31-9902-4813A63971E0}
+		{71868932-200A-40A5-AE33-196228C6A82F} = {325F9785-CA93-4642-A884-B7ADA7B49E38}
+		{A1384B90-8FBB-4551-B422-BDAB3DC17A48} = {71868932-200A-40A5-AE33-196228C6A82F}
 	EndGlobalSection
 EndGlobal

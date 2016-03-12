@@ -5,9 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Extensions
 {
-    using NinjaCoder.MvvmCross.Constants;
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Constants;
+    using Entities;
+    using Services.Interfaces;
     using Scorchio.VisualStudio.Services.Interfaces;
     using System;
 
@@ -21,11 +21,13 @@ namespace NinjaCoder.MvvmCross.Extensions
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="visualStudioService">The visual studio service.</param>
+        /// <param name="settingsService">The settings service.</param>
         /// <param name="usePreRelease">if set to <c>true</c> [use pre release].</param>
         /// <returns></returns>
         internal static string GetNugetCommandStrings(
             this Plugin instance,
             IVisualStudioService visualStudioService,
+            ISettingsService settingsService,
             bool usePreRelease)
         {
             string commands = string.Empty;
@@ -41,6 +43,16 @@ namespace NinjaCoder.MvvmCross.Extensions
                         if (IsCommandRequired(nugetCommand, platform))
                         {
                             string pluginNugetCommand = nugetCommand.Command;
+
+                            //// check to see if we are going to use local nuget
+
+                            if (settingsService.UseLocalNuget &&
+                                settingsService.LocalNugetName != string.Empty)
+                            {
+                                pluginNugetCommand = pluginNugetCommand.Replace(
+                                    "-ProjectName",
+                                    " -Source " + settingsService.LocalNugetName + " -ProjectName");
+                            }
 
                             if (usePreRelease)
                             {

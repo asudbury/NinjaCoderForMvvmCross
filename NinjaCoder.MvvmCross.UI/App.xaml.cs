@@ -6,8 +6,7 @@
 namespace NinjaCoder.MvvmCross.UI
 {
     using System.Windows;
-
-    using NinjaCoder.MvvmCross.UI.ViewModels;
+    using ViewModels;
 
     /// <summary>
     /// Interaction logic for App.xaml

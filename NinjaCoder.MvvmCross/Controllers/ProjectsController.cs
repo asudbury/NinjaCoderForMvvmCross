@@ -7,12 +7,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 {
     using Constants;
     using Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.ViewModels;
-    using NinjaCoder.MvvmCross.ViewModels.AddNugetPackages;
-    using NinjaCoder.MvvmCross.ViewModels.AddViews;
-    using NinjaCoder.MvvmCross.ViewModels.Wizard;
-    using NinjaCoder.MvvmCross.Views.Wizard;
+    using Factories.Interfaces;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Services;
     using Scorchio.VisualStudio.Entities;
@@ -21,13 +16,13 @@ namespace NinjaCoder.MvvmCross.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
-    using EnvDTE;
-
-    using Scorchio.VisualStudio.Extensions;
-
+    using ViewModels;
+    using ViewModels.AddNugetPackages;
     using ViewModels.AddProjects;
-    using PluginsViewModel = NinjaCoder.MvvmCross.ViewModels.AddProjects.PluginsViewModel;
+    using ViewModels.AddViews;
+    using ViewModels.Wizard;
+    using Views.Wizard;
+    using PluginsViewModel = ViewModels.AddProjects.PluginsViewModel;
 
     /// <summary>
     /// Defines the ProjectsController type.
@@ -38,7 +33,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// The projects service.
         /// </summary>
         private readonly IProjectsService projectsService;
-
+        
         /// <summary>
         /// The nuget service.
         /// </summary>
@@ -167,7 +162,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             }
             catch (Exception exception)
             {
-                TraceService.WriteError(exception.Message);
+                TraceService.WriteError(exception);
             }
         }
 
@@ -294,6 +289,18 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             this.OutputNugetCommandsToReadMe();
 
+            if (this.SettingsService.OutputReadMeToLogFile)
+            {
+                TraceService.WriteHeader("Start of NinjaReadMe.txt");
+
+                foreach (string message in this.messages)
+                {
+                    TraceService.WriteLine(message);
+                }
+
+                TraceService.WriteHeader("End of NinjaReadMe.txt");
+            }
+
             this.ReadMeService.AddLines(
                 this.GetReadMePath(),
                 "Add Projects",
@@ -314,7 +321,9 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         private void ProcessNugetCommands()
         {
-           this.nugetService.Execute(
+            TraceService.WriteLine("ProjectsController::ProcessNugetCommands");
+
+            this.nugetService.Execute(
                     this.GetReadMePath(), 
                     this.commands,
                     this.SettingsService.SuspendReSharperDuringBuild);
@@ -334,6 +343,8 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// </summary>
         private void OutputNugetCommandsToReadMe()
         {
+            TraceService.WriteLine("ProjectsController::OutputNugetCommandsToReadMe");
+
             if (this.SettingsService.OutputNugetCommandsToReadMe)
             {
                 this.messages.Add(string.Empty);
