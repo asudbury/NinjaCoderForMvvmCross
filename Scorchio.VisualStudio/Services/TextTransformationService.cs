@@ -38,7 +38,6 @@ namespace Scorchio.VisualStudio.Services
         /// </summary>
         /// <param name="textTransformationRequest">The text transformation request.</param>
         /// <returns></returns>
-
         public TextTransformation Transform(TextTransformationRequest textTransformationRequest)
         {
             TraceService.WriteLine("TextTransformationService::Transform sourceFile=" + textTransformationRequest.SourceFile);
@@ -49,7 +48,7 @@ namespace Scorchio.VisualStudio.Services
 
             TraceService.WriteLine("Before processing template via SimpleTextTemplatingEngine");
 
-            TextTransformation textTransformation =  engine.ProcessTemplate(
+            TextTransformation textTransformation = engine.ProcessTemplate(
                                                             sourceText, 
                                                             textTransformationRequest.Parameters, 
                                                             textTransformationRequest.RemoveFileHeaders, 

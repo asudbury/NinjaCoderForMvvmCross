@@ -46,11 +46,6 @@ namespace NinjaCoder.MvvmCross.Services
         private DocumentEvents documentEvents;
 
         /// <summary>
-        /// Gets or sets a value indicating whether [resume re sharper].
-        /// </summary>
-        private bool ResumeReSharper { get; set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="NugetService" /> class.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
@@ -70,6 +65,11 @@ namespace NinjaCoder.MvvmCross.Services
             this.cachingService = cachingService;
             this.fileOperationService = fileOperationService;
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [resume re sharper].
+        /// </summary>
+        private bool ResumeReSharper { get; set; }
 
         /// <summary>
         /// Gets the init nuget messages.
@@ -181,7 +181,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="readMePath">The read me path.</param>
         /// <param name="commands">The commands.</param>
         /// <param name="resumeReSharper">if set to <c>true</c> [resume re sharper].</param>
-        public void  Execute(
+        public void Execute(
             string readMePath,
             string commands,
             bool resumeReSharper)
@@ -276,7 +276,6 @@ namespace NinjaCoder.MvvmCross.Services
                 }
             }
         }
-
  
         /// <summary>
         /// Replaces the project item text.

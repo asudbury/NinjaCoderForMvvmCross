@@ -1,15 +1,14 @@
-﻿ // --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
 //    Defines the WizardFrameViewModel type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.Wizard
 {
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-    using NinjaCoder.MvvmCross.ViewModels.AddProjects;
+    using Entities;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Services;
+    using Services.Interfaces;
     using System;
     using System.Linq;
 
@@ -19,14 +18,14 @@ namespace NinjaCoder.MvvmCross.ViewModels.Wizard
     internal class WizardFrameViewModel : NinjaBaseViewModel
     {
         /// <summary>
-        /// The ninja wizard view model.
-        /// </summary>
-        private NinjaWizardViewModel ninjaWizardViewModel;
-
-        /// <summary>
         /// The wizard data.
         /// </summary>
         private readonly IWizardData wizardData;
+
+        /// <summary>
+        /// The ninja wizard view model.
+        /// </summary>
+        private NinjaWizardViewModel ninjaWizardViewModel;
 
         /// <summary>
         /// The window title.
@@ -44,7 +43,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Wizard
         private double windowWidth;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProjectsViewModel" /> class.
+        /// Initializes a new instance of the <see cref="WizardFrameViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="wizardData">The wizard data.</param>

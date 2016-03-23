@@ -19,19 +19,19 @@ namespace Scorchio.VisualStudio.Services
         private readonly Dictionary<string, string> files;
 
         /// <summary>
-        /// The files.
-        /// </summary>
-        public Dictionary<string, string> Files
-        {
-            get { return this.files; }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T4CallBack" /> class.
+        /// Initializes a new instance of the <see cref="T4Cache" /> class.
         /// </summary>
         public T4Cache()
         {
             this.files = new Dictionary<string, string>();
+        }
+
+        /// <summary>
+        /// Gets the files.
+        /// </summary>
+        public Dictionary<string, string> Files
+        {
+            get { return this.files; }
         }
     }
 }

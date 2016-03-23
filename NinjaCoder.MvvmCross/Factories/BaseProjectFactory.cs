@@ -5,8 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories
 {
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Extensions;
+    using Entities;
+    using Extensions;
     using Scorchio.Infrastructure.Constants;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Entities;
@@ -19,7 +19,7 @@ namespace NinjaCoder.MvvmCross.Factories
     public abstract class BaseProjectFactory
     {
         /// <summary>
-        /// Prevents a default instance of the <see cref="BaseProjectFactory"/> class from being created.
+        /// Initializes a new instance of the <see cref="BaseProjectFactory"/> class.
         /// </summary>
         protected BaseProjectFactory()
         {

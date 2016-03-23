@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-// 		Defines the TextTemplateInfo type.
+//  Defines the TextTemplateInfo type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -25,7 +25,7 @@ namespace Scorchio.VisualStudio.Entities
         /// <summary>
         /// Gets or sets the project suffix.
         /// </summary>
-        public string  ProjectSuffix { get; set; }
+        public string ProjectSuffix { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the template.

@@ -5,9 +5,9 @@
 // ------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
-    using Microsoft.Win32;
     using Entities;
     using Interfaces;
+    using Microsoft.Win32;
     using Scorchio.Infrastructure.Extensions;
     using System;
     using System.IO;
@@ -128,7 +128,7 @@ namespace NinjaCoder.MvvmCross.Services
         }
         
         /// <summary>
-        /// Gets or sets the xamarin forms home page.
+        /// Gets the xamarin forms home page.
         /// </summary>
         public string XamarinFormsHomePage
         {
@@ -366,7 +366,7 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets or sets the color of the theme.
+        /// Gets the color of the theme.
         /// </summary>
         public string ThemeColor
         {
@@ -392,7 +392,7 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets or sets the PCL profile.
+        /// Gets the PCL profile.
         /// </summary>
         public string PCLProfile
         {
@@ -521,7 +521,6 @@ namespace NinjaCoder.MvvmCross.Services
                 return this.UseLocalUris ?
                     this.GetRegistryValue("Internals", "NinjaNugetPackagesUri", this.ConfigPath + "NinjaNugetPackages.xml") :
                     this.GetRegistryValue("Internals", "NinjaNugetPackagesUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/NinjaNugetPackages.xml");
-
             }
         }
 
@@ -583,7 +582,7 @@ namespace NinjaCoder.MvvmCross.Services
         public bool OutputReadMeToLogFile 
         {
             get { return this.GetRegistryValue("Build", "OutputReadMeToLogFile", "Y") == "Y"; }
-            set { this.SetRegistryValue("Build", "OutputReadMeToLogFile", value? "Y" : "N"); }
+            set { this.SetRegistryValue("Build", "OutputReadMeToLogFile", value ? "Y" : "N"); }
         }
 
         /// <summary>
@@ -751,7 +750,6 @@ namespace NinjaCoder.MvvmCross.Services
                 if (directory.EndsWith(@"\") == false)
                 {
                     directory += @"\";
-
                 }
 
                 this.workingDirectory = directory;
@@ -759,8 +757,11 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets a value indicating whether [use local text templates].
+        /// Gets or sets a value indicating whether [use local text templates].
         /// </summary>
+        /// <value>
+        /// <c>true</c> if [use local text templates]; otherwise, <c>false</c>.
+        /// </value>
         public bool UseLocalTextTemplates
         {
             get { return this.GetRegistryValue("Build", "UseLocalTextTemplates", "N") == "Y"; }
@@ -959,7 +960,7 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets or sets the item templates directory.
+        /// Gets the item templates directory.
         /// </summary>
         public string ItemTemplatesDirectory
         {

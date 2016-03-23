@@ -17,7 +17,7 @@ namespace NinjaCoder.MvvmCross.Translators
     /// <summary>
     /// Defines the CommandsListTranslator type.
     /// </summary>
-    public class CommandsListTranslator :  ITranslator<string, CommandsList>
+    public class CommandsListTranslator : ITranslator<string, CommandsList>
     {
         /// <summary>
         /// The commands translator.
@@ -33,7 +33,7 @@ namespace NinjaCoder.MvvmCross.Translators
         /// Initializes a new instance of the <see cref="CommandsListTranslator"/> class.
         /// </summary>
         public CommandsListTranslator()
-            :this(new CommandsTranslator(), new FileOperationsTranslator())
+            : this(new CommandsTranslator(), new FileOperationsTranslator())
         {
         }
 
@@ -65,12 +65,11 @@ namespace NinjaCoder.MvvmCross.Translators
 
                 if (doc.Root != null)
                 {
-                    return  new CommandsList
+                    return new CommandsList
                                 {
                                     Commands = this.commandsTranslator.Translate(doc.Root),
                                     FileOperations = this.fileOperationsTranslator.Translate(doc.Root)
                                 };
-
                 }
 
                 return null;

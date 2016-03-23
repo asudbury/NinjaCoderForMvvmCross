@@ -1,11 +1,12 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
+// <summary>
 //    Defines the CachingService type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Entities;
+    using Interfaces;
     using System.Collections.Generic;
 
     using Scorchio.VisualStudio.Entities;

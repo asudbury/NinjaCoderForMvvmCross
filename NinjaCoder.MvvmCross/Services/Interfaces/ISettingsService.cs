@@ -310,8 +310,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         string WorkingDirectory { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether [use local text templates].
+        /// Gets or sets a value indicating whether [use local text templates].
         /// </summary>
+        /// <value>
+        /// <c>true</c> if [use local text templates]; otherwise, <c>false</c>.
+        /// </value>
         bool UseLocalTextTemplates { get; set; }
 
         /// <summary>

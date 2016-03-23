@@ -195,7 +195,6 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <summary>
         /// Gets the access control.
         /// </summary>
-        /// <returns></returns>
         public override DirectorySecurity GetAccessControl()
         {
             return null;
@@ -205,7 +204,6 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the access control.
         /// </summary>
         /// <param name="includeSections">The include sections.</param>
-        /// <returns></returns>
         public override DirectorySecurity GetAccessControl(AccessControlSections includeSections)
         {
             return null;
@@ -214,7 +212,6 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <summary>
         /// Gets the directories.
         /// </summary>
-        /// <returns></returns>
         public override DirectoryInfoBase[] GetDirectories()
         {
             return new DirectoryInfoBase[] { };
@@ -224,7 +221,6 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the directories.
         /// </summary>
         /// <param name="searchPattern">The search pattern.</param>
-        /// <returns></returns>
         public override DirectoryInfoBase[] GetDirectories(string searchPattern)
         {
             return new DirectoryInfoBase[] { };
@@ -235,7 +231,6 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         /// <param name="searchPattern">The search pattern.</param>
         /// <param name="searchOption">The search option.</param>
-        /// <returns></returns>
         public override DirectoryInfoBase[] GetDirectories(string searchPattern, SearchOption searchOption)
         {
             return new DirectoryInfoBase[] { };
@@ -244,7 +239,6 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <summary>
         /// Gets the files.
         /// </summary>
-        /// <returns></returns>
         public override FileInfoBase[] GetFiles()
         {
             return new FileInfoBase[] { };
@@ -254,7 +248,6 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the files.
         /// </summary>
         /// <param name="searchPattern">The search pattern.</param>
-        /// <returns></returns>
         public override FileInfoBase[] GetFiles(string searchPattern)
         {
             return new FileInfoBase[] { };
@@ -265,7 +258,6 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         /// <param name="searchPattern">The search pattern.</param>
         /// <param name="searchOption">The search option.</param>
-        /// <returns></returns>
         public override FileInfoBase[] GetFiles(string searchPattern, SearchOption searchOption)
         {
             return new FileInfoBase[] { };
@@ -274,12 +266,15 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <summary>
         /// Gets the file system infos.
         /// </summary>
-        /// <returns></returns>
         public override FileSystemInfoBase[] GetFileSystemInfos()
         {
             return new FileSystemInfoBase[] { };
         }
 
+        /// <summary>
+        /// Gets the file system infos.
+        /// </summary>
+        /// <param name="searchPattern">The search pattern.</param>
         public override FileSystemInfoBase[] GetFileSystemInfos(string searchPattern)
         {
             return new FileSystemInfoBase[] { };

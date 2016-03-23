@@ -21,7 +21,6 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// </returns>
         List<WizardStepViewModel> GetWizardsSteps();
 
-
         /// <summary>
         /// Registers the wizard data.
         /// </summary>

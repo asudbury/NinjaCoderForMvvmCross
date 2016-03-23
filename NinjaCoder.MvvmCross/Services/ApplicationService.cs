@@ -17,7 +17,6 @@ namespace NinjaCoder.MvvmCross.Services
     using System.Linq;
     using System.Xml.Linq;
 
-
     using Scorchio.Infrastructure.Translators;
 
     /// <summary>

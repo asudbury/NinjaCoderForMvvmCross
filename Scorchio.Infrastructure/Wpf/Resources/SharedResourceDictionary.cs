@@ -22,7 +22,6 @@ namespace Scorchio.Infrastructure.Wpf.Resources
         /// <summary>
         /// Gets or sets the uniform resource identifier (URI) to load resources from.
         /// </summary>
-        /// <returns>The source location of an external resource dictionary. </returns>
         public new Uri Source
         {
             set

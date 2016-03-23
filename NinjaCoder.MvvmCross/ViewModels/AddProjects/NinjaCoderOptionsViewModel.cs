@@ -5,11 +5,11 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 {
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Entities;
+    using Factories.Interfaces;
     using Scorchio.Infrastructure.Wpf.ViewModels;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
+    using Services.Interfaces;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
@@ -73,7 +73,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             IPluginFactory pluginFactory,
             ICachingService cachingService,
             IProjectFactory projectFactory)
-            :base(
+            : base(
                 settingsService,
                 pluginsService,
                 projectFactory,
@@ -147,6 +147,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             get { return this.displayLocalPlugins; }
             set { this.SetProperty(ref this.displayLocalPlugins, value); }
         }
+
         /// <summary>
         /// Called when [initialize].
         /// </summary>

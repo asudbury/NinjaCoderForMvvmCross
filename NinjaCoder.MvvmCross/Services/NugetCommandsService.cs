@@ -509,7 +509,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <returns></returns>
         public IEnumerable<string> GetXamarinFormsiOSCommands()
         {
-            List<string> commands =  new List<string>
+            List<string> commands = new List<string>
             {
                 this.GetXamarinFormsCommand(XamarinFormsPackage),
                 this.GetNinjaCommand(ScorchioXamarinFormsPackage, true)
@@ -627,7 +627,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <returns></returns>
         public IEnumerable<string> GetXamarinAndroidCommands()
         {
-            List<string> commands =  new List<string>();
+            List<string> commands = new List<string>();
 
             if (this.settingsService.UseXamarinTestCloud)
             {
@@ -653,6 +653,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the MVVM cross command.
         /// </summary>
+        /// <param name="command">The command.</param>
         /// <returns></returns>
         internal string GetMvvmCrossCommand(string command)
         {
@@ -667,6 +668,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the xamarin forms command.
         /// </summary>
+        /// <param name="command">The command.</param>
         /// <returns></returns>
         internal string GetXamarinFormsCommand(string command)
         {

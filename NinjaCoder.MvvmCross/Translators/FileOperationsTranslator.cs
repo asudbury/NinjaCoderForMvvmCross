@@ -27,7 +27,7 @@ namespace NinjaCoder.MvvmCross.Translators
         /// Initializes a new instance of the <see cref="FileOperationsTranslator"/> class.
         /// </summary>
         public FileOperationsTranslator()
-            :this(new FileOperationTranslator())
+            : this(new FileOperationTranslator())
         {
         }
 

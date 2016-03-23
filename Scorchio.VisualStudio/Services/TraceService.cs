@@ -196,7 +196,6 @@ namespace Scorchio.VisualStudio.Services
             }
         }
 
-
         /// <summary>
         /// Writes the error to log file.
         /// </summary>

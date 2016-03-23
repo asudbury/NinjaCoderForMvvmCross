@@ -1,11 +1,9 @@
 ﻿namespace NinjaCoder.MvvmCross.UserControls.AddEffects
 {
-    using System.Windows.Controls;
-
     /// <summary>
     /// Interaction logic for EffectFinishedControl.xaml
     /// </summary>
-    public partial class EffectFinishedControl : UserControl
+    public partial class EffectFinishedControl
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EffectFinishedControl"/> class.

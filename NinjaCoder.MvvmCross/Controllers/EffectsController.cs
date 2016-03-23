@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-// 	Defines the EffectsController type.
+//  Defines the EffectsController type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
@@ -118,7 +118,6 @@ namespace NinjaCoder.MvvmCross.Controllers
                 //// show the readme.
                 this.ShowReadMe("Add Xamarin Forms Effect", messages);
             }
-
             catch (Exception exception)
             {
                 TraceService.WriteError("Cannot create effect exception=" + exception.Message);

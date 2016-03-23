@@ -7,20 +7,18 @@ namespace NinjaCoder.MvvmCross.Factories
 {
     using Entities;
     using Interfaces;
-    using NinjaCoder.MvvmCross.UserControls.AddViews;
-    using NinjaCoder.MvvmCross.ViewModels.AddViews;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
-    using Scorchio.VisualStudio.Extensions;
-
-    using ViewsFinishedControl = NinjaCoder.MvvmCross.UserControls.AddViews.ViewsFinishedControl;
+    using UserControls.AddViews;
+    using ViewModels.AddViews;
+    using ViewsFinishedControl = UserControls.AddViews.ViewsFinishedControl;
 
     /// <summary>
     ///  Defines the ViewModelAndViewsFactory type.
@@ -63,7 +61,7 @@ namespace NinjaCoder.MvvmCross.Factories
             IRegisterService registerService,
             ITestingFrameworkFactory testingFrameworkFactory,
             IMvvmCrossViewFactory mvvmCrossViewFactory)
-            :base(
+            : base(
             settingsService, 
             visualStudioService)
         {
@@ -138,8 +136,8 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <returns></returns>
         public IEnumerable<string> GetAvailableMvvmCrossiOSViewTypes()
         {
-            return (from MvvmCrossSampleViewType enumValue in Enum.GetValues(typeof(MvvmCrossSampleViewType)) 
-                                   select enumValue.GetDescription()).ToList();
+            return (from MvvmCrossViewType enumValue in Enum.GetValues(typeof(MvvmCrossViewType))
+                    select enumValue.GetDescription()).ToList();
         }
 
         /// <summary>
@@ -213,7 +211,7 @@ namespace NinjaCoder.MvvmCross.Factories
             {
                 { "ClassName", viewName },
                 { "CoreProjectName", this.VisualStudioService.CoreProjectService.Name },
-                { "NameSpace", this.VisualStudioService.XamarinFormsProjectService.Name+ ".Views" },
+                { "NameSpace", this.VisualStudioService.XamarinFormsProjectService.Name + ".Views" },
                 { "PageType", pageType },
                 { "CompileOption", this.SettingsService.UseXamarinFormsXamlCompilation ? XamarinFormsCompileOption.Compile.GetDescription() : XamarinFormsCompileOption.Skip.GetDescription() },
                 { "Content", this.GetFormsViewContent(view)
@@ -320,7 +318,7 @@ namespace NinjaCoder.MvvmCross.Factories
             Dictionary<string, string> tokens = new Dictionary<string, string>
             {
                 { "ClassName", viewModelName },
-                { "NameSpace",  this.VisualStudioService.CoreProjectService.Name+ ".ViewModels" }
+                { "NameSpace",  this.VisualStudioService.CoreProjectService.Name + ".ViewModels" }
             };
 
             TextTemplateInfo textTemplateInfo = new TextTemplateInfo

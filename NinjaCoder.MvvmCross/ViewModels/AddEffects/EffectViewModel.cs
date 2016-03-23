@@ -5,13 +5,13 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddEffects
 {
+    using Factories.Interfaces;
     using MahApps.Metro;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Entities;
+    using Services.Interfaces;
     using System.Collections.Generic;
 
     /// <summary>
@@ -75,15 +75,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddEffects
         }
 
         /// <summary>
-        /// Called when [initialize].
-        /// </summary>
-        internal void Init()
-        {
-            this.AppendEffectToName = this.settingsService.AutomaticallyAddEffect;
-            this.Directory = this.settingsService.EffectDirectory;
-        }
-
-        /// <summary>
         /// Gets or sets the name.
         /// </summary>
         public string Name
@@ -97,6 +88,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddEffects
 
                 return null;
             }
+
             set
             {
                 this.SetProperty(ref this.name, value);
@@ -175,7 +167,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddEffects
         {
             base.OnSave();
 
-
             this.settingsService.AutomaticallyAddEffect = this.appendEffectToName;
             this.settingsService.EffectDirectory = this.directory;
 
@@ -191,6 +182,15 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddEffects
             }
 
             this.cachingService.Messages["EffectFinishMessage"] = message;
+        }
+
+        /// <summary>
+        /// Called when [initialize].
+        /// </summary>
+        internal void Init()
+        {
+            this.AppendEffectToName = this.settingsService.AutomaticallyAddEffect;
+            this.Directory = this.settingsService.EffectDirectory;
         }
     }
 }

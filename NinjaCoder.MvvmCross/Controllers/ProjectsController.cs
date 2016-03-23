@@ -58,6 +58,16 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// The caching service.
         /// </summary>
         private readonly ICachingService cachingService;
+        
+        /// <summary>
+        /// The post nuget commands.
+        /// </summary>
+        private readonly List<StudioCommand> postNugetCommands;
+
+        /// <summary>
+        /// The post nuget file operations.
+        /// </summary>
+        private readonly List<FileOperation> postNugetFileOperations;
 
         /// <summary>
         /// The commands.
@@ -68,16 +78,6 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// The messages.
         /// </summary>
         private List<string> messages;
-
-        /// <summary>
-        /// The post nuget commands.
-        /// </summary>
-        private readonly List<StudioCommand> postNugetCommands;
-
-        /// <summary>
-        /// The post nuget file operations.
-        /// </summary>
-        private readonly List<FileOperation> postNugetFileOperations;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectsController" /> class.
@@ -319,7 +319,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <summary>
         /// Processes the nuget commands.
         /// </summary>
-        private void ProcessNugetCommands()
+        internal void ProcessNugetCommands()
         {
             TraceService.WriteLine("ProjectsController::ProcessNugetCommands");
 
@@ -341,7 +341,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <summary>
         /// Outputs the nuget commands to read me.
         /// </summary>
-        private void OutputNugetCommandsToReadMe()
+        internal void OutputNugetCommandsToReadMe()
         {
             TraceService.WriteLine("ProjectsController::OutputNugetCommandsToReadMe");
 

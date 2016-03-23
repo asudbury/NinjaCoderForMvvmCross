@@ -5,9 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.Options
 {
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Factories.Interfaces;
     using Scorchio.Infrastructure.Wpf;
+    using Services.Interfaces;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Windows;
@@ -69,7 +69,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         private bool addProjectsSkipNugetPackageOptions;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NinjaBaseViewModel" /> class.
+        /// Initializes a new instance of the <see cref="ProjectsViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="viewModelAndViewsFactory">The view model and views factory.</param>

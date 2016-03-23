@@ -523,7 +523,6 @@ namespace Scorchio.VisualStudio.Extensions
 
                     instance.Save();
                 }
-
                 else
                 {
                     TraceService.WriteLine("Could not open window to do replacement for " + instance.Name);
@@ -744,7 +743,6 @@ namespace Scorchio.VisualStudio.Extensions
                             continueLoop = false;
                         }
                     }
-
                     while (continueLoop);
                 }
             }

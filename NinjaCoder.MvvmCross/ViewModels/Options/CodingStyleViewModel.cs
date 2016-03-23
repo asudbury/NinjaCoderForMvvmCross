@@ -5,9 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.Options
 {
+    using Services.Interfaces;
     using System.Windows;
-
-    using NinjaCoder.MvvmCross.Services.Interfaces;
 
     /// <summary>
     ///  Defines the CodingStyleViewModel type.
@@ -35,7 +34,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         private bool removeThisPointer;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NinjaBaseViewModel" /> class.
+        /// Initializes a new instance of the <see cref="CodingStyleViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
         public CodingStyleViewModel(ISettingsService settingsService)

@@ -1,11 +1,11 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-// 	Defines the ICachingService type.
+//  Defines the ICachingService type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services.Interfaces
 {
-    using NinjaCoder.MvvmCross.Entities;
+    using Entities;
     using System.Collections.Generic;
 
     using Scorchio.VisualStudio.Entities;

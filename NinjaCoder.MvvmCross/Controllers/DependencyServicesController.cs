@@ -87,7 +87,6 @@ namespace NinjaCoder.MvvmCross.Controllers
                     this.Process(dependencyServiceViewModel);
                 }
             }
-
             else
             {
                 this.ShowNotXamarinFormsSolutionMessage();
@@ -122,7 +121,6 @@ namespace NinjaCoder.MvvmCross.Controllers
                 //// show the readme.
                 this.ShowReadMe("Add Xamarin Forms Dependency Service", messages);
             }
-
             catch (Exception exception)
             {
                 TraceService.WriteError("Cannot create dependency service exception=" + exception.Message);

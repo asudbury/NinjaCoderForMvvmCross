@@ -74,7 +74,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         public FrameworkSelectorViewModel(
             IVisualStudioService visualStudioService,
             ISettingsService settingsService,
-            IProjectFactory projectFactory )
+            IProjectFactory projectFactory)
         {
             this.visualStudioService = visualStudioService;
             this.settingsService = settingsService;

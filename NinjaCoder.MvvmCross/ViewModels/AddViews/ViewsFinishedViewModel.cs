@@ -5,10 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddViews
 {
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-    using NinjaCoder.MvvmCross.ViewModels.AddProjects;
-
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
+    using Services.Interfaces;
 
     /// <summary>
     /// Defines the ViewsFinishedViewModel.cs type.
@@ -26,7 +24,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         private bool suspendReSharperDuringBuild;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProjectsFinishedViewModel" /> class.
+        /// Initializes a new instance of the <see cref="ViewsFinishedViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
         public ViewsFinishedViewModel(ISettingsService settingsService)

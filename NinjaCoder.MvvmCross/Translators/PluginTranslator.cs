@@ -33,7 +33,7 @@ namespace NinjaCoder.MvvmCross.Translators
         /// Initializes a new instance of the <see cref="PluginTranslator"/> class.
         /// </summary>
         public PluginTranslator()
-            :this(new FileOperationsTranslator(), new CommandsTranslator())
+            : this(new FileOperationsTranslator(), new CommandsTranslator())
         {
         }
 

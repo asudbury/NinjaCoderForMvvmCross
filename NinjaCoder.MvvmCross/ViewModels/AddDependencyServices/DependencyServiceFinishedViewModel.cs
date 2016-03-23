@@ -34,20 +34,12 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddDependencyServices
         }
 
         /// <summary>
-        /// Called when [initialize].
-        /// </summary>
-        public override void OnInitialize()
-        {
-            this.Message = this.cachingService.Messages["DependencyServicesFinishMessage"];
-        }
-
-        /// <summary>
         /// Gets or sets the message.
         /// </summary>
         public string Message
         {
             get { return this.message; }
-            set {  this.SetProperty(ref this.message, value);}
+            set { this.SetProperty(ref this.message, value); }
         }
 
         /// <summary>
@@ -56,6 +48,14 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddDependencyServices
         public override string DisplayName
         {
             get { return "Finished"; }
+        }
+
+        /// <summary>
+        /// Called when [initialize].
+        /// </summary>
+        public override void OnInitialize()
+        {
+            this.Message = this.cachingService.Messages["DependencyServicesFinishMessage"];
         }
     }
 }

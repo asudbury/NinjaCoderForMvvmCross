@@ -293,6 +293,11 @@ namespace ScorchioLimited.NinjaCoder_MvvmCross_VSPackage
             NinjaController.MvvmCrossHomePage();
         }
 
+        /// <summary>
+        /// Called when [xamarin forms home page].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void OnXamarinFormsHomePage(object sender, EventArgs e)
         {
             TraceService.WriteLine("NinjaCoder_MvvmCross_VSPackagePackage::OnXamarinFormsHomePage");

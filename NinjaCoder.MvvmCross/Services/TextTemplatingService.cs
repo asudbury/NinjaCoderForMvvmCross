@@ -48,8 +48,6 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         /// <param name="statusBarMessage">The status bar message.</param>
         /// <param name="textTemplates">The text templates.</param>
-        /// <returns></returns>
-        /// <exception cref="System.NotImplementedException"></exception>
         public IEnumerable<string> AddTextTemplates(
            string statusBarMessage,
            IEnumerable<TextTemplateInfo> textTemplates)

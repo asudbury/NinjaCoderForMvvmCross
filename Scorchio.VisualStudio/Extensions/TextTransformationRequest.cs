@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-// 	Defines the TextTransformationRequest type.
+//  Defines the TextTransformationRequest type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio.Extensions

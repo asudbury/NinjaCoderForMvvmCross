@@ -5,10 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
 {
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-    using NinjaCoder.MvvmCross.ViewModels.AddProjects;
+    using Factories.Interfaces;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
+    using Services.Interfaces;
 
     /// <summary>
     /// Defines the NugetPackagesFinishedViewModel.cs type.
@@ -31,7 +30,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         private bool suspendReSharperDuringBuild;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProjectsFinishedViewModel" /> class.
+        /// Initializes a new instance of the <see cref="NugetPackagesFinishedViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="projectFactory">The project factory.</param>
@@ -49,7 +48,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         /// </summary>
         public bool SuspendReSharperDuringBuild
         {
-            get { return this.suspendReSharperDuringBuild; }
+            get
+            {
+                return this.suspendReSharperDuringBuild;
+            }
+
             set
             {
                 this.SetProperty(ref this.suspendReSharperDuringBuild, value);
@@ -66,14 +69,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         }
 
         /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        internal void Init()
-        {
-            this.SuspendReSharperDuringBuild = this.settingsService.SuspendReSharperDuringBuild;
-        }
-
-        /// <summary>
         /// For when yous need to save some values that can't be directly bound to UI elements.
         /// Not called when moving previous (see WizardViewModel.MoveToNextStep).
         /// </summary>
@@ -83,6 +78,14 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         public override RouteModifier OnPrevious()
         {
             return this.projectFactory.GetRouteModifier(this.settingsService.FrameworkType);
+        }
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        internal void Init()
+        {
+            this.SuspendReSharperDuringBuild = this.settingsService.SuspendReSharperDuringBuild;
         }
     }
 }

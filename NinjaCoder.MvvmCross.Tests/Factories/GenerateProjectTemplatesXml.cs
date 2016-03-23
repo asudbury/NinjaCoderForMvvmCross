@@ -18,6 +18,9 @@ namespace NinjaCoder.MvvmCross.Tests.Factories
     [TestFixture]
     public class GenerateProjectTemplatesXml
     {
+        /// <summary>
+        /// Builds the XML file.
+        /// </summary>
         [Test]
         public void BuildXmlFile()
         {

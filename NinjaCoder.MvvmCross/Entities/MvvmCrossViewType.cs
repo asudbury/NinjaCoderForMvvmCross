@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-//  Defines the MvvmCrossSampleViewType type.
+//  Defines the MvvmCrossViewType type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Entities
@@ -8,9 +8,9 @@ namespace NinjaCoder.MvvmCross.Entities
     using System.ComponentModel;
 
     /// <summary>
-    /// Defines the MvvmCrossSampleViewType type.
+    /// Defines the MvvmCrossViewType type.
     /// </summary>
-    public enum MvvmCrossSampleViewType
+    public enum MvvmCrossViewType
     {
         /// <summary>
         /// The HardCoded

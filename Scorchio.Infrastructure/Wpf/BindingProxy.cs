@@ -13,7 +13,9 @@ namespace Scorchio.Infrastructure.Wpf
     /// </summary>
     public class BindingProxy : Freezable
     {
-        // Using a DependencyProperty as the backing store for Data.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// The data property.
+        /// </summary>
         public static readonly DependencyProperty DataProperty = DependencyProperty.Register(
             "Data",
             typeof(object),

@@ -11,7 +11,7 @@ namespace NinjaCoder.MvvmCross.UserControls.AddProjects
     public partial class BuildOptionsControl 
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FrameworkSelectorControl"/> class.
+        /// Initializes a new instance of the <see cref="BuildOptionsControl"/> class.
         /// </summary>
         public BuildOptionsControl()
         {

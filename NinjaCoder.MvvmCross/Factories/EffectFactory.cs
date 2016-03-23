@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-// 	Defines the EffectFactory type.
+//  Defines the EffectFactory type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories
@@ -78,7 +78,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 new WizardStepViewModel
                     {
                         ViewModel = this.resolverService.Resolve<EffectFinishedViewModel>(),
-                        ViewType =  typeof(EffectFinishedControl)
+                        ViewType = typeof(EffectFinishedControl)
                     }
             };
 

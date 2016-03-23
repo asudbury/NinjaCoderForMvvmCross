@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-// 	Defines the DependencyServicesFactory type.
+//  Defines the DependencyServicesFactory type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories
@@ -80,7 +80,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 new WizardStepViewModel
                     {
                         ViewModel = this.resolverService.Resolve<DependencyServiceFinishedViewModel>(),
-                        ViewType =  typeof(DependencyServiceFinishedControl)
+                        ViewType = typeof(DependencyServiceFinishedControl)
                     }
             };
 

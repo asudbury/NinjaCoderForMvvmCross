@@ -66,14 +66,6 @@ namespace NinjaCoder.MvvmCross.Controllers
         }
 
         /// <summary>
-        /// Sets the visual studio instance.
-        /// </summary>
-        public void SetDte2(DTE2 dte2)
-        {
-            this.VisualStudioService.DTE2 = dte2; 
-        }
-
-        /// <summary>
         /// Gets the visual studio service.
         /// </summary>
         protected IVisualStudioService VisualStudioService { get; private set; }
@@ -112,6 +104,15 @@ namespace NinjaCoder.MvvmCross.Controllers
         protected Theme CurrentTheme
         {
             get { return this.SettingsService.Theme == "Dark" ? Theme.Dark : Theme.Light; }
+        }
+
+        /// <summary>
+        /// Sets the visual studio instance.
+        /// </summary>
+        /// <param name="dte2">The dte2.</param>
+        public void SetDte2(DTE2 dte2)
+        {
+            this.VisualStudioService.DTE2 = dte2;
         }
 
         /// <summary>

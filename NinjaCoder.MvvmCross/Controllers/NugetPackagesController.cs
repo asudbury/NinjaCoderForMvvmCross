@@ -37,16 +37,6 @@ namespace NinjaCoder.MvvmCross.Controllers
         private readonly INugetPackagesFactory nugetPackagesFactory;
 
         /// <summary>
-        /// The commands.
-        /// </summary>
-        private string commands;
-
-        /// <summary>
-        /// The messages.
-        /// </summary>
-        private List<string> messages;
-
-        /// <summary>
         /// The post nuget commands.
         /// </summary>
         private readonly List<StudioCommand> postNugetCommands;
@@ -55,6 +45,16 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// The post nuget file operations.
         /// </summary>
         private readonly List<FileOperation> postNugetFileOperations;
+
+        /// <summary>
+        /// The commands.
+        /// </summary>
+        private string commands;
+
+        /// <summary>
+        /// The messages.
+        /// </summary>
+        private List<string> messages;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NugetPackagesController" /> class.

@@ -16,7 +16,7 @@ namespace NinjaCoder.MvvmCross.Translators
     /// <summary>
     /// Defines the CustomRenderersTranslator type.
     /// </summary>
-    public class CustomRenderersTranslator :  ITranslator<string, CustomRenderers>
+    public class CustomRenderersTranslator : ITranslator<string, CustomRenderers>
     {
         /// <summary>
         /// Translates the specified from.

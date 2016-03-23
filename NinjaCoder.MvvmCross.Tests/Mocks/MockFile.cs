@@ -558,8 +558,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <param name="encoding">The encoding.</param>
         public override void WriteAllLines(
             string path, 
-            string[] 
-            contents, 
+            string[] contents, 
             Encoding encoding)
         {
         }

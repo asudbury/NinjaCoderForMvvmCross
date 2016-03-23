@@ -62,6 +62,5 @@ B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.VisualStudio\bin\Debug\M
 B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.VisualStudio\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.8.0.xml
 B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.VisualStudio\bin\Debug\Microsoft.VisualStudio.Designer.Interfaces.xml
 B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.VisualStudio\bin\Debug\EnvDTE90.xml
-B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.VisualStudio\obj\Debug\Scorchio.VisualStudio.csprojResolveAssemblyReference.cache
 B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.VisualStudio\obj\Debug\Scorchio.VisualStudio.dll
 B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.VisualStudio\obj\Debug\Scorchio.VisualStudio.pdb

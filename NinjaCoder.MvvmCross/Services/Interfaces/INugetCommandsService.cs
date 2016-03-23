@@ -57,7 +57,6 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Gets the MVVM cross windows store commands.
         /// </summary>
-
         IEnumerable<string> GetMvvmCrossWindowsStoreCommands();
 
         /// <summary>

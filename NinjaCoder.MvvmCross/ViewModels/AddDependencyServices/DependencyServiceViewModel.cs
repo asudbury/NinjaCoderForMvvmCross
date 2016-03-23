@@ -5,14 +5,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddDependencyServices
 {
+    using Factories.Interfaces;
     using MahApps.Metro;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Wpf;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Entities;
+    using Services.Interfaces;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Windows.Input;
@@ -93,15 +93,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddDependencyServices
         }
 
         /// <summary>
-        /// Called when [initialize].
-        /// </summary>
-        internal void Init()
-        {
-            this.AppendServiceToName = this.settingsService.AutomaticallyAddServicetoDependency;
-            this.Directory = this.settingsService.DependencyDirectory;
-        }
-
-        /// <summary>
         /// Gets or sets the name.
         /// </summary>
         public string Name
@@ -115,6 +106,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddDependencyServices
 
                 return null;
             }
+
             set
             {
                 this.SetProperty(ref this.name, value);
@@ -256,6 +248,15 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddDependencyServices
         internal void DisplayWebPage()
         {
             Process.Start(this.settingsService.DependencyServicesWebPage);
+        }
+
+        /// <summary>
+        /// Called when [initialize].
+        /// </summary>
+        internal void Init()
+        {
+            this.AppendServiceToName = this.settingsService.AutomaticallyAddServicetoDependency;
+            this.Directory = this.settingsService.DependencyDirectory;
         }
     }
 }

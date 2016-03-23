@@ -5,11 +5,11 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 {
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Entities;
+    using Factories.Interfaces;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
+    using Services.Interfaces;
     using System.Collections.Generic;
 
     /// <summary>
@@ -189,6 +189,9 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             return this.projectFactory.GetRouteModifier(this.settingsService.FrameworkType);
         }
 
+        /// <summary>
+        /// Called when [initialize].
+        /// </summary>
         public override void OnInitialize()
         {
             base.OnInitialize();

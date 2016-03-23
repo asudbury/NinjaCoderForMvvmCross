@@ -285,6 +285,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the iOS project.
         /// </summary>
+        // ReSharper disable once InconsistentNaming
         internal Project iOSProject
         {
             get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.iOS.GetDescription())); }
@@ -293,6 +294,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the iOS tests project.
         /// </summary>
+        // ReSharper disable once InconsistentNaming
         internal Project iOSTestsProject
         {
             get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.iOSTests.GetDescription())); }

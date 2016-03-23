@@ -6,11 +6,11 @@
 
 namespace NinjaCoder.MvvmCross.Factories
 {
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Entities;
+    using Interfaces;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Entities;
+    using Services.Interfaces;
     using System.Collections.Generic;
 
     /// <summary>
@@ -34,7 +34,7 @@ namespace NinjaCoder.MvvmCross.Factories
         private readonly INugetCommandsService nugetCommandsService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="XamarinFormsProjectFactory"/> class.
+        /// Initializes a new instance of the <see cref="MvvmCrossAndXamarinFormsProjectFactory"/> class.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="settingsService">The settings service.</param>
@@ -80,8 +80,8 @@ namespace NinjaCoder.MvvmCross.Factories
                 this.GetiOSProject());
 
             this.AddProjectIf(
-                (this.settingsService.CreatePlatformTestProjects &&
-                this.visualStudioService.iOSTestsProjectService == null),
+                this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.iOSTestsProjectService == null,
                 this.GetPlatformTestsProject(
                     this.nugetCommandsService.GetiOSTestCommands(),
                     true,
@@ -93,8 +93,8 @@ namespace NinjaCoder.MvvmCross.Factories
                 this.GetDroidProject());
 
             this.AddProjectIf(
-                (this.settingsService.CreatePlatformTestProjects &&
-                this.visualStudioService.DroidTestsProjectService == null),
+                this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.DroidTestsProjectService == null,
                 this.GetPlatformTestsProject(
                     this.nugetCommandsService.GetAndroidTestCommands(),
                     true,
@@ -106,8 +106,8 @@ namespace NinjaCoder.MvvmCross.Factories
                 this.GetWindowsPhoneProject());
 
             this.AddProjectIf(
-                (this.settingsService.CreatePlatformTestProjects &&
-                this.visualStudioService.WindowsPhoneTestsProjectService == null),
+                this.settingsService.CreatePlatformTestProjects &&
+                this.visualStudioService.WindowsPhoneTestsProjectService == null,
                 this.GetPlatformTestsProject(
                     this.nugetCommandsService.GetTestCommands(),
                     true,

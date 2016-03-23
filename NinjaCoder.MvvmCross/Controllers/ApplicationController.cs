@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
+    using Constants;
     using EnvDTE;
     using MahApps.Metro;
     using Scorchio.Infrastructure.Entities;
@@ -14,9 +15,6 @@ namespace NinjaCoder.MvvmCross.Controllers
     using Services.Interfaces;
     using System.Collections.Generic;
     using System.Windows;
-
-    using NinjaCoder.MvvmCross.Constants;
-
     using ViewModels;
     using ViewModels.Options;
     using Views;
@@ -183,6 +181,9 @@ namespace NinjaCoder.MvvmCross.Controllers
             this.applicationService.ShowMvvmCrossHomePage();
         }
 
+        /// <summary>
+        /// Xamarins the forms home page.
+        /// </summary>
         public void XamarinFormsHomePage()
         {
             TraceService.WriteLine("ApplicationController::XamarinFormsHomePage");

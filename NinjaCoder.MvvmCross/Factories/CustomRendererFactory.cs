@@ -1,20 +1,20 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-// 	Defines the DependencyServicesFactory type.
+//  Defines the CustomRendererFactory type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories
 {
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-    using NinjaCoder.MvvmCross.UserControls.AddCustomerRenderers;
-    using NinjaCoder.MvvmCross.ViewModels.AddCustomRenderers;
+    using Entities;
+    using Interfaces;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
+    using Services.Interfaces;
     using System.Collections.Generic;
+    using UserControls.AddCustomerRenderers;
+    using ViewModels.AddCustomRenderers;
 
     /// <summary>
     /// Defines the DependencyServicesFactory type.
@@ -77,7 +77,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 new WizardStepViewModel
                 {
                     ViewModel = this.resolverService.Resolve<CustomRendererFinishedViewModel>(),
-                    ViewType =  typeof(CustomRendereFinishedControl)
+                    ViewType = typeof(CustomRendereFinishedControl)
                 }
             };
 

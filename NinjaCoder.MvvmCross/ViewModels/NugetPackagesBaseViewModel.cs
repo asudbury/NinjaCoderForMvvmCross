@@ -1,16 +1,16 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-// 	Defines the NugetPackagesBaseViewModel type.
+//  Defines the NugetPackagesBaseViewModel type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels
 {
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Entities;
+    using Factories.Interfaces;
     using Scorchio.Infrastructure.Wpf.ViewModels;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Services;
+    using Services.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -159,6 +159,7 @@ namespace NinjaCoder.MvvmCross.ViewModels
         {
             return this.pluginFactory.GetPlugins(uri);
         }
+
         /// <summary>
         /// Gets the category nuget packages.
         /// </summary>

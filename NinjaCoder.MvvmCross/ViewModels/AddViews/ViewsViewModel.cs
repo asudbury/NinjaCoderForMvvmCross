@@ -5,24 +5,23 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddViews
 {
+    using Constants;
+    using Entities;
+    using Extensions;
+    using Factories.Interfaces;
     using MahApps.Metro;
-    using NinjaCoder.MvvmCross.Constants;
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
     using Scorchio.Infrastructure.Entities;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Wpf;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
+    using Services.Interfaces;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Globalization;
     using System.Linq;
     using System.Windows.Input;
-
-    using NinjaCoder.MvvmCross.Extensions;
 
     /// <summary>
     /// Defines the ViewsViewModel type.
@@ -50,11 +49,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         private readonly IMessageBoxService messageBoxService;
 
         /// <summary>
-        /// The view model and views factory.
-        /// </summary>
-        private readonly IViewModelAndViewsFactory viewModelAndViewsFactory;
-
-        /// <summary>
         /// The views.
         /// </summary>
         private ObservableCollection<View> views;
@@ -68,11 +62,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         /// The add command.
         /// </summary>
         private RelayCommand addCommand;
-
-        /// <summary>
-        /// The layout types.
-        /// </summary>
-        private readonly IEnumerable<ImageItemWithDescription> layoutTypes;
 
         /// <summary>
         /// The choose framework command.
@@ -98,16 +87,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         /// The frameworks.
         /// </summary>
         private IEnumerable<ImageItemWithDescription> frameworks;
-
-        /// <summary>
-        /// The page types.
-        /// </summary>
-        private readonly IEnumerable<ImageItemWithDescription> pageTypes;
-
-        /// <summary>
-        /// The MVX views.
-        /// </summary>
-        private readonly IEnumerable<ImageItemWithDescription> mvxViews;
 
         /// <summary>
         /// The MVVM cross ios view types.
@@ -180,11 +159,10 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
             this.visualStudioService = visualStudioService;
             this.settingsService = settingsService;
             this.frameworkFactory = frameworkFactory;
-            this.pageTypes = pageFactory.Pages;
-            this.layoutTypes = layoutFactory.Layouts;
+            this.Pages = pageFactory.Pages;
+            this.Layouts = layoutFactory.Layouts;
             this.messageBoxService = messageBoxService;
-            this.viewModelAndViewsFactory = viewModelAndViewsFactory;
-            this.mvxViews = mvvmCrossViewFactory.Views;
+            this.MvxViews = mvvmCrossViewFactory.Views;
 
             this.frameworks = frameworkFactory.AllowedFrameworks;
 
@@ -192,21 +170,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
 
             this.DisplayGrid();
 
-            this.MvvmCrossiOSViewTypes = this.viewModelAndViewsFactory.GetAvailableMvvmCrossiOSViewTypes();
+            this.MvvmCrossiOSViewTypes = viewModelAndViewsFactory.GetAvailableMvvmCrossiOSViewTypes();
             this.SelectedMvvmCrossiOSViewType = this.settingsService.SelectedMvvmCrossiOSViewType;
-
-             this.showMvvmCrossViewTypes = false;
-
-            if (this.visualStudioService.SolutionAlreadyCreated == false)
-            {
-                if (this.settingsService.FrameworkType.IsMvvmCrossSolutionType())
-                {
-                    if (this.settingsService.AddiOSProject)
-                    {
-                        this.showMvvmCrossViewTypes = true;
-                    }
-                }
-            }
         }
 
         /// <summary>
@@ -301,29 +266,20 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         /// <summary>
         /// Gets the pages types.
         /// </summary>
-        public IEnumerable<ImageItemWithDescription> Pages
-        {
-            get { return this.pageTypes; }
-        }
+        public IEnumerable<ImageItemWithDescription> Pages { get; }
 
         /// <summary>
         /// Gets the MVX views.
         /// </summary>
-        public IEnumerable<ImageItemWithDescription> MvxViews
-        {
-            get { return this.mvxViews; }
-        }
+        public IEnumerable<ImageItemWithDescription> MvxViews { get; }
 
         /// <summary>
         /// Gets the layout types.
         /// </summary>
-        public IEnumerable<ImageItemWithDescription> Layouts
-        {
-            get { return this.layoutTypes; }
-        }
+        public IEnumerable<ImageItemWithDescription> Layouts { get; }
 
         /// <summary>
-        /// Gets a value indicating whether [show grid].
+        /// Gets or sets a value indicating whether [show grid].
         /// </summary>
         public bool ShowGrid
         {
@@ -359,7 +315,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         }
 
         /// <summary>
-        /// Gets a value indicating whether [show layouts].
+        /// Gets or sets a value indicating whether [show layouts].
         /// </summary>
         public bool ShowLayouts
         {
@@ -533,6 +489,19 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
                     this.Add(); 
                 }
             }
+
+            this.showMvvmCrossViewTypes = false;
+
+            if (this.visualStudioService.SolutionAlreadyCreated == false)
+            {
+                if (this.settingsService.FrameworkType.IsMvvmCrossSolutionType())
+                {
+                    if (this.settingsService.AddiOSProject)
+                    {
+                        this.showMvvmCrossViewTypes = true;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -606,6 +575,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         /// <summary>
         /// Chooses the type of the page.
         /// </summary>
+        /// <param name="parameter">The parameter.</param>
         public void ChoosePageType(object parameter)
         {
             this.currentView = this.views.FirstOrDefault(x => x.Name == parameter.ToString());
@@ -641,6 +611,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         /// <summary>
         /// Chooses the type of the layout.
         /// </summary>
+        /// <param name="parameter">The parameter.</param>
         public void ChooseLayoutType(object parameter)
         {
             this.currentView = this.views.FirstOrDefault(x => x.Name == parameter.ToString());
@@ -842,6 +813,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         /// <summary>
         /// Displays the pages web page.
         /// </summary>
+        /// <param name="parameter">The parameter.</param>
         internal void DisplayPagesWebPage(object parameter)
         {
             Process.Start(this.settingsService.XamarinPagesHelp);
@@ -850,11 +822,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         /// <summary>
         /// Displays the layouts web page.
         /// </summary>
+        /// <param name="parameter">The parameter.</param>
         internal void DisplayLayoutsWebPage(object parameter)
         {
             Process.Start(this.settingsService.XamarinLayoutsHelp);
         }
-
 
         /// <summary>
         /// Displays the UI help page.

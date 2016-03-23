@@ -89,7 +89,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// <summary>
         /// Gets the nuget packages URI.
         /// </summary>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <exception cref="System.NotImplementedException">Exception</exception>
         protected override string NugetPackagesUri
         {
             get { throw new NotImplementedException(); }

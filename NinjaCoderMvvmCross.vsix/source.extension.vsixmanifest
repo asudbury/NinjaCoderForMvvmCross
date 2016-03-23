@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="NinjaCoderMvvmCross.vsix..51ede486-dd91-4fa8-936e-9260508e97cd" Version="3.9.8" Language="en-US" Publisher="Scorchio Limited" />
+    <Identity Id="NinjaCoderMvvmCross.vsix..51ede486-dd91-4fa8-936e-9260508e97cd" Version="3.9.9" Language="en-US" Publisher="Scorchio Limited" />
     <DisplayName>Ninja Coder For MvvmCross and Xamarin Forms</DisplayName>
     <Description xml:space="preserve">Ninja Coder for MvvmCross and Xamarin Forms</Description>
   </Metadata>

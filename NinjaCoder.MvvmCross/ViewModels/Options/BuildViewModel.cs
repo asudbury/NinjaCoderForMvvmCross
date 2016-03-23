@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.Options
 {
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Services.Interfaces;
 
     /// <summary>
     ///  Defines the BuildViewModel type.
@@ -38,7 +38,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         private bool useXamarinFormsXamlCompilation;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NinjaBaseViewModel" /> class.
+        /// Initializes a new instance of the <see cref="BuildViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
         public BuildViewModel(ISettingsService settingsService)

@@ -1,16 +1,12 @@
 ﻿namespace NinjaCoder.MvvmCross.UserControls.AddViews
 {
-    using System.Windows.Controls;
-
-    using NinjaCoder.MvvmCross.UserControls.AddNugetPackages;
-
     /// <summary>
     /// Interaction logic for ProjectsFinishedControl.xaml
     /// </summary>
-    public partial class ViewsFinishedControl : UserControl
+    public partial class ViewsFinishedControl
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AddNugetPackages.ViewsFinishedControl"/> class.
+        /// Initializes a new instance of the <see cref="ViewsFinishedControl"/> class.
         /// </summary>
         public ViewsFinishedControl()
         {

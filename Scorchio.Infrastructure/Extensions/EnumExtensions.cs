@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-// 		Defines the EnumExtensions type.
+//  Defines the EnumExtensions type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ namespace Scorchio.Infrastructure.Extensions
     using System.Reflection;
 
     /// <summary>
-    ///	Defines the EnumExtensions type.
+    /// Defines the EnumExtensions type.
     /// </summary>
     public static class EnumExtensions
     {

@@ -129,6 +129,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <summary>
         /// Runs the forms effects controller.
         /// </summary>
+        /// <param name="dte2">The dte2.</param>
         public static void RunFormsEffectsController(DTE2 dte2 = null)
         {
             TraceService.WriteLine("NinjaController::RunFormsEffectsController");
@@ -207,6 +208,9 @@ namespace NinjaCoder.MvvmCross.Controllers
                 .ViewErrorLogFile();
         }
 
+        /// <summary>
+        /// Clears the error log file.
+        /// </summary>
         public static void ClearErrorLogFile()
         {
             TraceService.WriteLine("NinjaController::ClearErrorLogFile");
@@ -366,7 +370,6 @@ namespace NinjaCoder.MvvmCross.Controllers
                     TraceService.WriteError("ReflectionTypeLoadException=" + ex);
                 }
             }    
-
             catch (Exception exception)
             {
                 TraceService.WriteError("Exception=" + exception);

@@ -175,7 +175,7 @@ namespace NinjaCoder.MvvmCross.Services
             //// get the ios storyboard nuget command
 
             if (this.settingsService.AddiOSProject &&
-                this.settingsService.SelectedMvvmCrossiOSViewType == MvvmCrossSampleViewType.StoryBoard.GetDescription())
+                this.settingsService.SelectedMvvmCrossiOSViewType == MvvmCrossViewType.StoryBoard.GetDescription())
             {
                 switch (this.settingsService.FrameworkType)
                 {

@@ -108,8 +108,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddCustomRenderers
             ISettingsService settingsService,
             ITranslator<string, CustomRenderers> translator,
             ICachingService cachingService,
-            ICustomRendererFactory customRendererFactory
-            )
+            ICustomRendererFactory customRendererFactory)
         {
             this.messageBoxService = messageBoxService;
             this.settingsService = settingsService;
@@ -144,6 +143,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddCustomRenderers
 
                 return null;
             }
+
             set
             {
                 this.SetProperty(ref this.name, value);
@@ -306,13 +306,16 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddCustomRenderers
 
                 return false;
             }
+
             return true;
         }
 
+        /// <summary>
+        /// Called when [save].
+        /// </summary>
         public override void OnSave()
         {
             base.OnSave();
-
 
             this.settingsService.AutomaticallyAddRenderer = this.appendRendererToName;
             this.settingsService.CustomRendererDirectory = this.directory;

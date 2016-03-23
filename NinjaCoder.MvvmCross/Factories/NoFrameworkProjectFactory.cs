@@ -6,12 +6,12 @@
 
 namespace NinjaCoder.MvvmCross.Factories
 {
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Entities;
+    using Interfaces;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
+    using Services.Interfaces;
     using System.Collections.Generic;
 
     /// <summary> 
@@ -35,7 +35,7 @@ namespace NinjaCoder.MvvmCross.Factories
         private readonly INugetCommandsService nugetCommandsService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MvvmCrossProjectFactory" /> class.
+        /// Initializes a new instance of the <see cref="NoFrameworkProjectFactory" /> class.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="settingsService">The settings service.</param> 

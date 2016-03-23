@@ -7,8 +7,8 @@ namespace NinjaCoder.MvvmCross.Extensions
 {
     using Constants;
     using Entities;
-    using Services.Interfaces;
     using Scorchio.VisualStudio.Services.Interfaces;
+    using Services.Interfaces;
     using System;
 
     /// <summary>
@@ -23,7 +23,7 @@ namespace NinjaCoder.MvvmCross.Extensions
         /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="usePreRelease">if set to <c>true</c> [use pre release].</param>
-        /// <returns></returns>
+        /// <returns>The Nuget Command strings.</returns>
         internal static string GetNugetCommandStrings(
             this Plugin instance,
             IVisualStudioService visualStudioService,
@@ -80,7 +80,7 @@ namespace NinjaCoder.MvvmCross.Extensions
         /// </summary>
         /// <param name="nugetCommand">The nuget command.</param>
         /// <param name="platform">The platform.</param>
-        /// <returns></returns>
+        /// <returns>True or false.</returns>
         internal static bool IsCommandRequired(
             NugetCommand nugetCommand, 
             string platform)

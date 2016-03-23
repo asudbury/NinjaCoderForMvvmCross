@@ -63,8 +63,6 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Controllers\TestPluginsController.cs" />
-    <Compile Include="Controllers\TestProjectsController.cs" />
     <Compile Include="Factories\TestMockingServiceFactory.cs" />
     <Compile Include="Factories\GenerateProjectTemplatesXml.cs" />
     <Compile Include="Factories\TestTestingServiceFactory.cs" />
@@ -78,13 +76,9 @@
     <Compile Include="Mocks\MockPathBase.cs" />
     <Compile Include="Services\TestApplicationService.cs" />
     <Compile Include="Services\TestCodeConfigService.cs" />
-    <Compile Include="Services\TestNugetService.cs" />
     <Compile Include="Services\TestProjectsService.cs" />
     <Compile Include="Services\TestZipperService.cs" />
-    <Compile Include="Translators\TestCodeConfigTranslator.cs" />
-    <Compile Include="Translators\TestCodeSnippetTranslator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Translators\TestPluginsTranslator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NinjaCoder.MvvmCross\NinjaCoder.MvvmCross.csproj">
@@ -106,6 +100,10 @@
   <ItemGroup>
     <Content Include="TestData\CodeSnippet.xml" />
     <Content Include="TestData\CodeConfig.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Translators\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

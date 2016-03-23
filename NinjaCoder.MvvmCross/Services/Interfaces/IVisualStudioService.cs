@@ -20,6 +20,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Gets or sets the instance.
         /// </summary>
+        // ReSharper disable once InconsistentNaming
         DTE2 DTE2 { get; set; }
 
         /// <summary>
@@ -30,6 +31,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Gets the DTE service.
         /// </summary>
+        // ReSharper disable once InconsistentNaming
         IDTEService DTEService { get; }
 
         /// <summary>
@@ -65,12 +67,13 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Gets the iOS project service.
         /// </summary>
+        // ReSharper disable once InconsistentNaming
         IProjectService iOSProjectService { get; }
 
         /// <summary>
         /// Gets the ios tests project service.
         /// </summary>
-        /// <value>
+        // ReSharper disable once InconsistentNaming
         IProjectService iOSTestsProjectService { get; }
 
         /// <summary>

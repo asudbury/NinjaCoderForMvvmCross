@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories
 {
-    using NinjaCoder.MvvmCross.Entities;
+    using Entities;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services.Interfaces;
@@ -16,6 +16,76 @@ namespace NinjaCoder.MvvmCross.Factories
     /// </summary>
     public abstract class BaseTextTemplateFactory
     {
+
+        /// <summary>
+        /// Gets the name of the class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="projectSuffix">The project suffix.</param>
+        /// <param name="useProjectSuffix">if set to <c>true</c> [use project suffix].</param>
+        /// <returns></returns>
+        internal string GetClassName(
+            string name,
+            ProjectSuffix projectSuffix,
+            bool useProjectSuffix)
+        {
+            if (useProjectSuffix)
+            {
+                return name + this.GetProjectType(projectSuffix);
+            }
+
+            return name;
+        }
+
+        /// <summary>
+        /// Gets the name of the file.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="projectSuffix">The project suffix.</param>
+        /// <param name="useProjectSuffix">if set to <c>true</c> [use project suffix].</param>
+        /// <returns></returns>
+        internal string GetFileName(
+            string name,
+            ProjectSuffix projectSuffix,
+            bool useProjectSuffix)
+        {
+            if (useProjectSuffix == false)
+            {
+                return name + ".cs";
+            }
+
+            if (name.StartsWith("I") ||
+                projectSuffix == ProjectSuffix.XamarinForms)
+            {
+                return name + ".cs";
+            }
+
+            return name + this.GetProjectType(projectSuffix) + ".cs";
+        }
+
+        /// <summary>
+        /// Gets the dictionary.
+        /// </summary>
+        /// <param name="baseDictionary">The base dictionary.</param>
+        /// <param name="nameSpace">The name space.</param>
+        /// <param name="className">Name of the class.</param>
+        /// <param name="platForm">The plat form.</param>
+        /// <returns></returns>
+        internal Dictionary<string, string> GetDictionary(
+            Dictionary<string, string> baseDictionary,
+            string nameSpace,
+            string className,
+            string platForm)
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>(baseDictionary);
+
+            dictionary["NameSpace"] = nameSpace;
+            dictionary["ClassName"] = className;
+            dictionary["Platform"] = platForm;
+
+            return dictionary;
+        }
+
         /// <summary>
         /// Gets the text template information.
         /// </summary>
@@ -27,7 +97,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="baseDictionary">The base dictionary.</param>
         /// <param name="useProjectSuffix">if set to <c>true</c> [use project suffix].</param>
         /// <param name="projectSuffixOverride">The project suffix override.</param>
-        /// <returns></returns>
+        /// <returns>A TextTemplateInfo.</returns>
         protected TextTemplateInfo GetTextTemplateInfo(
             IProjectService projectService,
             string templateName,
@@ -80,75 +150,6 @@ namespace NinjaCoder.MvvmCross.Factories
             string directory)
         {
             return projectService.Name + "." + directory;
-        }
-
-        /// <summary>
-        /// Gets the name of the class.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="projectSuffix">The project suffix.</param>
-        /// <param name="useProjectSuffix">if set to <c>true</c> [use project suffix].</param>
-        /// <returns></returns>
-        internal string GetClassName(
-            string name,
-            ProjectSuffix projectSuffix,
-            bool useProjectSuffix)
-        {
-            if (useProjectSuffix)
-            {
-                return name + this.GetProjectType(projectSuffix);
-            }
-
-            return name;
-        }
-
-        /// <summary>
-        /// Gets the name of the file.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="projectSuffix">The project suffix.</param>
-        /// <param name="useProjectSuffix">if set to <c>true</c> [use project suffix].</param>
-        /// <returns></returns>
-        internal string GetFileName(
-            string name, 
-            ProjectSuffix projectSuffix,
-            bool useProjectSuffix)
-        {
-            if (useProjectSuffix == false)
-            {
-                return name + ".cs";
-            }
-
-            if (name.StartsWith("I") || 
-                projectSuffix == ProjectSuffix.XamarinForms)
-            {
-                return name + ".cs";
-            }
-
-            return name + this.GetProjectType(projectSuffix) + ".cs";
-        }
-
-        /// <summary>
-        /// Gets the dictionary.
-        /// </summary>
-        /// <param name="baseDictionary">The base dictionary.</param>
-        /// <param name="nameSpace">The name space.</param>
-        /// <param name="className">Name of the class.</param>
-        /// <param name="platForm">The plat form.</param>
-        /// <returns></returns>
-        internal Dictionary<string, string> GetDictionary(
-            Dictionary<string, string> baseDictionary,
-            string nameSpace,
-            string className,
-            string platForm)
-        {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>(baseDictionary);
-
-            dictionary["NameSpace"] = nameSpace;
-            dictionary["ClassName"] = className;
-            dictionary["Platform"] = platForm;
-            
-            return dictionary;
         }
     }
 }

@@ -46,6 +46,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <summary>
         /// Gets the plugins.
         /// </summary>
+        /// <param name="uri">The URI.</param>
         /// <returns>The plugins.</returns>
         public Plugins GetPlugins(string uri)
         {
@@ -58,7 +59,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 return this.cachingService.Plugins[uri];
             }
 
-            Plugins plugins =  this.pluginsTranslator.Translate(uri);
+            Plugins plugins = this.pluginsTranslator.Translate(uri);
 
             if (plugins != null)
             {
@@ -67,13 +68,11 @@ namespace NinjaCoder.MvvmCross.Factories
                     TraceService.WriteLine("PluginFactory::GetPlugins pluginCount=" + plugins.Items.Count());
                     this.cachingService.Plugins.Add(uri, plugins);
                 }
-
                 else
                 {
                     TraceService.WriteLine("PluginFactory::GetPlugins has no plugins");
                 }
             }
-
             else
             {
                 TraceService.WriteError("PluginFactory::GetPlugins is null url=" + uri);

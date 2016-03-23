@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
-// 	Defines the BoolToVisibleOrCollapsedConverter type.
+//  Defines the BoolToVisibleOrCollapsedConverter type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.Infrastructure.Wpf.Converters

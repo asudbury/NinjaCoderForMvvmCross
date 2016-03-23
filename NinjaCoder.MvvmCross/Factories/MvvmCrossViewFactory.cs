@@ -5,18 +5,17 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories
 {
-    using NinjaCoder.MvvmCross.Constants;
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Constants;
+    using Entities;
+    using Interfaces;
     using Scorchio.Infrastructure.Entities;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
+    using Services.Interfaces;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-
-    using Scorchio.VisualStudio.Extensions;
 
     /// <summary>
     /// Defines the MvvmCrossViewFactory type.
@@ -31,10 +30,11 @@ namespace NinjaCoder.MvvmCross.Factories
         public MvvmCrossViewFactory(
             ISettingsService settingsService,
             IVisualStudioService visualStudioService)
-            :base(
+            : base(
             settingsService,
             visualStudioService)
         {
+            TraceService.WriteLine("MvvmCrossViewFactory::Constructor");
         }
 
         /// <summary>
@@ -124,7 +124,6 @@ namespace NinjaCoder.MvvmCross.Factories
                 textTemplateInfo.FileOperations.Add(
                     this.GetCompileFileOperation(textTemplateInfo.ProjectSuffix, textTemplateInfo.FileName));
             }
-
             else
             {
                 textTemplateInfo.FileOperations.Add(
@@ -141,7 +140,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="itemTemplateInfo">The item template information.</param>
         /// <param name="view">The view.</param>
         /// <returns></returns>
-        public  TextTemplateInfo GetMvvmCrossView(
+        public TextTemplateInfo GetMvvmCrossView(
             string viewModelName,
             ItemTemplateInfo itemTemplateInfo,
             View view)
@@ -184,7 +183,6 @@ namespace NinjaCoder.MvvmCross.Factories
 
                 textTemplateInfo.ChildItems.Add(childTextTemplateInfo);
             }
-
             else if (itemTemplateInfo.ProjectSuffix == ProjectSuffix.Droid.GetDescription())
             {
                 this.GetDroidMvvmCrossViewLayout(textTemplateInfo, tokens, viewName);
@@ -207,6 +205,8 @@ namespace NinjaCoder.MvvmCross.Factories
             string viewTemplateName,
             string viewName)
         {
+            TraceService.WriteLine("MvvmCrossViewFactory::GetiOSMvvmCrossView viewTemplateName=" + viewTemplateName);
+            
             string folder = viewTemplateName.Replace("View.t4", string.Empty);
             
             string subFolder = this.SettingsService.SelectedMvvmCrossiOSViewType;
@@ -223,8 +223,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 ShortTemplateName = shortFolderName + "View.t4",
                 TemplateName = t4Folder + "View.t4"
             };
-
-
+            
             TextTransformationRequest textTransformationRequest = new TextTransformationRequest
             {
                 SourceFile = textTemplateInfo.TemplateName,
@@ -245,10 +244,10 @@ namespace NinjaCoder.MvvmCross.Factories
             
             //// now handle xib and story board options!
 
-            if (viewTemplateName.Contains("Xib") ||
-                viewTemplateName.Contains("StoryBoard"))
+            if (this.SettingsService.SelectedMvvmCrossiOSViewType == MvvmCrossViewType.StoryBoard.GetDescription() ||
+                this.SettingsService.SelectedMvvmCrossiOSViewType == MvvmCrossViewType.Xib.GetDescription())
             {
-                viewTemplateName = viewTemplateName.ToLower().Contains("xib") ? "ViewXib.t4" : "ViewStoryBoard.t4";
+                viewTemplateName = this.SettingsService.SelectedMvvmCrossiOSViewType == MvvmCrossViewType.Xib.GetDescription() ? "ViewXib.t4" : "ViewStoryBoard.t4";
 
                 TraceService.WriteLine("Adding ChildTextTemplate ViewTemplateName=" + viewTemplateName);
 

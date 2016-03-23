@@ -87,7 +87,6 @@ namespace NinjaCoder.MvvmCross.Controllers
                     this.Process(customRendererViewModel);
                 }
             }
-
             else
             {
                 this.ShowNotXamarinFormsSolutionMessage();
@@ -120,13 +119,11 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                 //// show the readme.
                 this.ShowReadMe("Add Xamarin Forms Custom Renderer", messages);
-
             }
             catch (Exception exception)
             {
                 TraceService.WriteError("Cannot create custom renderer exception=" + exception.Message);
             }
-
         }
     }
 }

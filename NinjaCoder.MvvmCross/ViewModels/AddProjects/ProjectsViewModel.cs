@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 {
+    using Entities;
     using Factories.Interfaces;
     using MahApps.Metro;
     using Scorchio.Infrastructure.Extensions;
@@ -21,8 +22,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
     using System.IO.Abstractions;
     using System.Linq;
     using System.Windows.Input;
-
-    using NinjaCoder.MvvmCross.Entities;
 
     /// <summary>
     /// Defines the ProjectsViewModel type.
@@ -60,6 +59,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         private readonly IFolderBrowserDialogService folderBrowserDialogService;
 
         /// <summary>
+        /// The solution already created.
+        /// </summary>
+        private readonly bool solutionAlreadyCreated;
+
+        /// <summary>
         /// The projects.
         /// </summary>
         private ObservableCollection<SelectableItemViewModel<ProjectTemplateInfo>> projects;
@@ -75,18 +79,19 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         private string project;
 
         /// <summary>
-        /// The solution already created.
-        /// </summary>
-        private readonly bool solutionAlreadyCreated;
-
-        /// <summary>
         /// The project is focused.
         /// </summary>
         private bool projectIsFocused;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProjectsViewModel"/> class.
+        /// Initializes a new instance of the <see cref="ProjectsViewModel" /> class.
         /// </summary>
+        /// <param name="visualStudioService">The visual studio service.</param>
+        /// <param name="settingsService">The settings service.</param>
+        /// <param name="projectFactory">The project factory.</param>
+        /// <param name="fileSystem">The file system.</param>
+        /// <param name="messageBoxService">The message box service.</param>
+        /// <param name="folderBrowserDialogService">The folder browser dialog service.</param>
         public ProjectsViewModel(
             IVisualStudioService visualStudioService,
             ISettingsService settingsService,
@@ -285,27 +290,22 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
                 {
                     this.settingsService.AddCoreTestsProject = templateInfo.IsSelected;
                 }
-
                 else if (templateInfo.Item.ProjectSuffix == ProjectSuffix.Droid.GetDescription())
                 {
                     this.settingsService.AddAndroidProject = templateInfo.IsSelected;
                 }
-
                 else if (templateInfo.Item.ProjectSuffix == ProjectSuffix.iOS.GetDescription())
                 {
                     this.settingsService.AddiOSProject = templateInfo.IsSelected;
                 }
-
                 else if (templateInfo.Item.ProjectSuffix == ProjectSuffix.WindowsPhone.GetDescription())
                 {
                     this.settingsService.AddWindowsPhoneProject = templateInfo.IsSelected;
                 }
-
                 else if (templateInfo.Item.ProjectSuffix == ProjectSuffix.Wpf.GetDescription())
                 {
                     this.settingsService.AddWpfProject = templateInfo.IsSelected;
                 }
-
                 else if (templateInfo.Item.ProjectSuffix == ProjectSuffix.XamarinFormsTests.GetDescription())
                 {
                     this.settingsService.AddXamarinFormsTestsProject = templateInfo.IsSelected;

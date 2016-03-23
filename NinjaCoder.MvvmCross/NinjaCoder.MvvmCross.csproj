@@ -97,7 +97,7 @@
     <Compile Include="Entities\CustomRenderers.cs" />
     <Compile Include="Entities\NugetActions.cs" />
     <Compile Include="Entities\NugetCommand.cs" />
-    <Compile Include="Entities\MvvmCrossSampleViewType.cs" />
+    <Compile Include="Entities\MvvmCrossViewType.cs" />
     <Compile Include="Entities\XamarinFormsCompileOption.cs" />
     <Compile Include="Entities\ViewType.cs" />
     <Compile Include="Entities\XamarinLayout.cs" />
