@@ -1,5 +1,9 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿//   --------------------------------------------------------------------------------------------------------------------
+//   <summary>
+//    Defines the -AssemblyInfo.cs type.
+//   </summary>
+//   -------------------------------------------------------------------------------------------------------------------
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 

@@ -5,10 +5,10 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 {
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Entities;
+    using Factories.Interfaces;
     using Scorchio.Infrastructure.Wpf.ViewModels;
+    using Services.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;

@@ -5,10 +5,10 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 {
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Entities;
+    using Factories.Interfaces;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
+    using Services.Interfaces;
 
     /// <summary>
     /// Defines the FrameworkSelectorViewModel type.
@@ -177,7 +177,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// <summary>
         /// Determines whether this instance [can move to next page].
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True or false.</returns>
         public override bool CanMoveToNextPage()
         {
             bool canMove = false;

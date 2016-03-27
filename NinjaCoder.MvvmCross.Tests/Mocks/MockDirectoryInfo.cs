@@ -165,7 +165,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Creates the subdirectory.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>A DirectoryInfoBase.</returns>
         public override DirectoryInfoBase CreateSubdirectory(string path)
         {
             return null;
@@ -176,7 +176,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="directorySecurity">The directory security.</param>
-        /// <returns></returns>
+        /// <returns>A DirectoryInfoBase.</returns>
         public override DirectoryInfoBase CreateSubdirectory(
             string path, 
             DirectorySecurity directorySecurity)

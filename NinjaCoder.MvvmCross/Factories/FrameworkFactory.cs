@@ -1,18 +1,18 @@
-﻿ // --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <summary>
 //    Defines the FrameworkFactory type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories
 {
+    using Constants;
+    using Entities;
+    using Extensions;
     using Interfaces;
-    using NinjaCoder.MvvmCross.Constants;
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Extensions;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
     using Scorchio.Infrastructure.Entities;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Services;
+    using Services.Interfaces;
     using System.Collections.Generic;
     using System.Linq;
 

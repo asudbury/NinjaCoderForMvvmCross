@@ -20,7 +20,7 @@ namespace Scorchio.Infrastructure.Wpf.Resources
         public static readonly Dictionary<string, ResourceDictionary> SharedDictionaries = new Dictionary<string, ResourceDictionary>();
 
         /// <summary>
-        /// Gets or sets the uniform resource identifier (URI) to load resources from.
+        /// Sets the uniform resource identifier (URI) to load resources from.
         /// </summary>
         public new Uri Source
         {

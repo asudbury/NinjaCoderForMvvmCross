@@ -35,7 +35,7 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// <param name="methodReturnType">Type of the method return.</param>
         /// <param name="methodName">Name of the method.</param>
         /// <param name="directory">The directory.</param>
-        /// <returns></returns>
+        /// <returns>A list of TextTemplateInfos.</returns>
         IEnumerable<TextTemplateInfo> GetTextTemplates(
             string name,
             string methodComment,

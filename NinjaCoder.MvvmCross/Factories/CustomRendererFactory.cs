@@ -107,7 +107,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="directory">The directory.</param>
         /// <param name="renderer">The renderer.</param>
         /// <param name="codeBlock">The code block.</param>
-        /// <returns></returns>
+        /// <returns>A list of TextTemplateInfos.</returns>
         public IEnumerable<TextTemplateInfo> GetTextTemplates(
             string name,
             string directory,
@@ -144,6 +144,7 @@ namespace NinjaCoder.MvvmCross.Factories
                     baseDictionary,
                     true));
 
+            // ReSharper disable once InconsistentNaming
             IProjectService iOSProjectService = this.visualStudioService.iOSProjectService;
 
             if (iOSProjectService != null)
@@ -212,7 +213,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="renderer">The renderer.</param>
         /// <param name="formsProjectName">Name of the forms project.</param>
         /// <param name="codeBlock">The code block.</param>
-        /// <returns></returns>
+        /// <returns>A Dictionary.</returns>
         internal Dictionary<string, string> GetBaseDictionary(
             string name,
             string directory,

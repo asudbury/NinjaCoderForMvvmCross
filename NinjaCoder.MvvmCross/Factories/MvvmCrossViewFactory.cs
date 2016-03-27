@@ -139,7 +139,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="itemTemplateInfo">The item template information.</param>
         /// <param name="view">The view.</param>
-        /// <returns></returns>
+        /// <returns>A TextTemplateInfo.</returns>
         public TextTemplateInfo GetMvvmCrossView(
             string viewModelName,
             ItemTemplateInfo itemTemplateInfo,
@@ -198,7 +198,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="tokens">The tokens.</param>
         /// <param name="viewTemplateName">Name of the view template.</param>
         /// <param name="viewName">Name of the view.</param>
-        /// <returns></returns>
+        /// <returns>A TextTemplateInfo.</returns>
         internal TextTemplateInfo GetiOSMvvmCrossView(
             ItemTemplateInfo itemTemplateInfo,
             Dictionary<string, string> tokens,
@@ -212,7 +212,7 @@ namespace NinjaCoder.MvvmCross.Factories
             string subFolder = this.SettingsService.SelectedMvvmCrossiOSViewType;
             folder = folder.Replace(subFolder, string.Empty);
 
-            string t4Folder = this.SettingsService.ItemTemplatesDirectory + "\\iOS\\" + folder + "\\" + subFolder + "\\";
+            string templateFolder = this.SettingsService.ItemTemplatesDirectory + "\\iOS\\" + folder + "\\" + subFolder + "\\";
             string shortFolderName = folder + "\\" + subFolder + "\\";
 
             TextTemplateInfo textTemplateInfo = new TextTemplateInfo
@@ -221,7 +221,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 ProjectFolder = "Views",
                 Tokens = tokens,
                 ShortTemplateName = shortFolderName + "View.t4",
-                TemplateName = t4Folder + "View.t4"
+                TemplateName = templateFolder + "View.t4"
             };
             
             TextTransformationRequest textTransformationRequest = new TextTransformationRequest
@@ -257,7 +257,7 @@ namespace NinjaCoder.MvvmCross.Factories
                     ProjectFolder = "Views",
                     Tokens = tokens,
                     ShortTemplateName = shortFolderName + viewTemplateName,
-                    TemplateName = t4Folder + viewTemplateName
+                    TemplateName = templateFolder + viewTemplateName
                 };
 
                 TextTransformationRequest childTextTransformationRequest = new TextTransformationRequest
@@ -288,7 +288,7 @@ namespace NinjaCoder.MvvmCross.Factories
                     ProjectFolder = "Views",
                     Tokens = tokens,
                     ShortTemplateName = shortFolderName + viewTemplateName,
-                    TemplateName = t4Folder + viewTemplateName
+                    TemplateName = templateFolder + viewTemplateName
                 };
 
                 childTextTransformationRequest = new TextTransformationRequest

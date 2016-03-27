@@ -5,11 +5,11 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
 {
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Entities;
+    using Factories.Interfaces;
     using Scorchio.Infrastructure.Wpf;
     using Scorchio.Infrastructure.Wpf.ViewModels;
+    using Services.Interfaces;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
@@ -52,18 +52,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         }
 
         /// <summary>
-        /// Called when [initialize].
-        /// </summary>
-        public override void OnInitialize()
-        {
-            if (this.Plugins == null)
-            {
-                Plugins allPackages = this.GetPlugins();
-                this.Plugins = this.GetCategoryNugetPackages(allPackages, string.Empty);
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the plugins.
         /// </summary>
         public ObservableCollection<SelectableItemViewModel<Plugin>> Plugins
@@ -79,15 +67,14 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         {
             get { return new RelayCommand(this.DisplayGitHubPage); }
         }
-        
-        /// <summary>
+
         /// Gets the display name.
         /// </summary>
         public override string DisplayName
         {
             get { return "Xamarin Forms Labs Plugins"; }
         }
-        
+
         /// <summary>
         /// Gets the nuget packages URI.
         /// </summary>
@@ -102,6 +89,18 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         protected override IEnumerable<SelectableItemViewModel<Plugin>> NugetPackages
         {
             get { return this.Plugins; }
+        }
+
+        /// <summary>
+        /// Called when [initialize].
+        /// </summary>
+        public override void OnInitialize()
+        {
+            if (this.Plugins == null)
+            {
+                Plugins allPackages = this.GetPlugins();
+                this.Plugins = this.GetCategoryNugetPackages(allPackages, string.Empty);
+            }
         }
 
         /// <summary>

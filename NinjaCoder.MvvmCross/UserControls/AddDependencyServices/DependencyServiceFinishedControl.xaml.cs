@@ -1,4 +1,9 @@
-﻿namespace NinjaCoder.MvvmCross.UserControls.AddDependencyServices
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//    Defines the DependencyServiceFinishedControl type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace NinjaCoder.MvvmCross.UserControls.AddDependencyServices
 {
     /// <summary>
     /// Interaction logic for DependencyServiceFinishedControl.xaml

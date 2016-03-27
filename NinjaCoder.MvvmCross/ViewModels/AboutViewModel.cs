@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels
 {
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Services.Interfaces;
 
     /// <summary>
     ///  Defines the AboutViewModel type.

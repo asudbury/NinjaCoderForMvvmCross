@@ -6,15 +6,15 @@
 
 namespace NinjaCoder.MvvmCross.Factories
 {
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
+    using Entities;
+    using Interfaces;
     using NinjaCoder.MvvmCross.Services.Interfaces;
-    using NinjaCoder.MvvmCross.UserControls.AddNugetPackages;
-    using NinjaCoder.MvvmCross.UserControls.AddProjects;
-    using NinjaCoder.MvvmCross.ViewModels.AddNugetPackages;
-    using NinjaCoder.MvvmCross.ViewModels.AddProjects;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using System.Collections.Generic;
+    using UserControls.AddNugetPackages;
+    using UserControls.AddProjects;
+    using ViewModels.AddNugetPackages;
+    using ViewModels.AddProjects;
 
     /// <summary>
     ///  Defines the NugetPackagesFactory type.

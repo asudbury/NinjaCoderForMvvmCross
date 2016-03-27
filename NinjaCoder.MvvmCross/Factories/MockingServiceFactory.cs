@@ -6,13 +6,11 @@
 namespace NinjaCoder.MvvmCross.Factories
 {
     using Interfaces;
-
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-
     using Scorchio.Infrastructure.Constants;
     using Scorchio.Infrastructure.Services.Testing;
     using Scorchio.Infrastructure.Services.Testing.Interfaces;
     using Scorchio.VisualStudio.Services;
+    using Services.Interfaces;
     using System.Collections.Generic;
 
     /// <summary>

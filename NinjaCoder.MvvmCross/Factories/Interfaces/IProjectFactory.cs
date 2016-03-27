@@ -6,8 +6,7 @@
 
 namespace NinjaCoder.MvvmCross.Factories.Interfaces
 {
-    using NinjaCoder.MvvmCross.Entities;
-
+    using Entities;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Entities;
     using System.Collections.Generic;
@@ -43,7 +42,7 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// Gets the route modifier.
         /// </summary>
         /// <param name="frameworkType">Type of the framework.</param>
-        /// <returns></returns>
+        /// <returns>The RouteModifier.</returns>
         RouteModifier GetRouteModifier(FrameworkType frameworkType);
     }
 }

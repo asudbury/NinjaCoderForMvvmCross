@@ -170,7 +170,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <summary>
         /// Appends the text.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The stream writer.</returns>
         public override StreamWriter AppendText()
         {
             return null;
@@ -180,7 +180,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Copies to.
         /// </summary>
         /// <param name="destFileName">Name of the dest file.</param>
-        /// <returns></returns>
+        /// <returns>The file info.</returns>
         public override FileInfoBase CopyTo(string destFileName)
         {
             return null;
@@ -191,7 +191,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         /// <param name="destFileName">Name of the dest file.</param>
         /// <param name="overwrite">if set to <c>true</c> [overwrite].</param>
-        /// <returns></returns>
+        /// <returns>The File Info.</returns>
         public override FileInfoBase CopyTo(
             string destFileName, 
             bool overwrite)
@@ -202,7 +202,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <summary>
         /// Creates this instance.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The created stream.</returns>
         public override Stream Create()
         {
             return null;
@@ -211,7 +211,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <summary>
         /// Creates the text.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The Stream Writer.</returns>
         public override StreamWriter CreateText()
         {
             return null;
@@ -234,7 +234,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <summary>
         /// Gets the access control.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The File Security info.</returns>
         public override FileSecurity GetAccessControl()
         {
             return null;
@@ -244,7 +244,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the access control.
         /// </summary>
         /// <param name="includeSections">The include sections.</param>
-        /// <returns></returns>
+        /// <returns>The File Secuirty info.</returns>
         public override FileSecurity GetAccessControl(AccessControlSections includeSections)
         {
             return null;
@@ -262,7 +262,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Opens the specified mode.
         /// </summary>
         /// <param name="mode">The mode.</param>
-        /// <returns></returns>
+        /// <returns>The Opened Stream.</returns>
         public override Stream Open(FileMode mode)
         {
             return null;
@@ -273,7 +273,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         /// <param name="mode">The mode.</param>
         /// <param name="access">The access.</param>
-        /// <returns></returns>
+        /// <returns>The Opened Stream.</returns>
         public override Stream Open(
             FileMode mode, 
             FileAccess access)
@@ -287,7 +287,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <param name="mode">The mode.</param>
         /// <param name="access">The access.</param>
         /// <param name="share">The share.</param>
-        /// <returns></returns>
+        /// <returns>The Opened Stream.</returns>
         public override Stream Open(
             FileMode mode, 
             FileAccess access, 
@@ -299,7 +299,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <summary>
         /// Opens the read.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The Opened Stream.</returns>
         public override Stream OpenRead()
         {
             return null;
@@ -308,7 +308,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <summary>
         /// Opens the text.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The Opened Stream Reader.</returns>
         public override StreamReader OpenText()
         {
             return null;
@@ -317,7 +317,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <summary>
         /// Opens the write.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The Opened Stream.</returns>
         public override Stream OpenWrite()
         {
             return null;
@@ -328,7 +328,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         /// <param name="destinationFileName">Name of the destination file.</param>
         /// <param name="destinationBackupFileName">Name of the destination backup file.</param>
-        /// <returns></returns>
+        /// <returns>The File Info.</returns>
         public override FileInfoBase Replace(
             string destinationFileName, 
             string destinationBackupFileName)
@@ -342,7 +342,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <param name="destinationFileName">Name of the destination file.</param>
         /// <param name="destinationBackupFileName">Name of the destination backup file.</param>
         /// <param name="ignoreMetadataErrors">if set to <c>true</c> [ignore metadata errors].</param>
-        /// <returns></returns>
+        /// <returns>The File Info.</returns>
         public override FileInfoBase Replace(
             string destinationFileName, 
             string destinationBackupFileName, 

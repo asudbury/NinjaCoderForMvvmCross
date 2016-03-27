@@ -19,7 +19,6 @@ namespace NinjaCoder.MvvmCross.Controllers
     using System.IO;
     using System.IO.Abstractions;
     using System.Reflection;
-    using System.Windows;
     using System.Xml.Linq;
     using TinyIoC;
     using Translators;

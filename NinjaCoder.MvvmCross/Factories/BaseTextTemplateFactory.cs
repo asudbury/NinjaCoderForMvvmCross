@@ -23,7 +23,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="name">The name.</param>
         /// <param name="projectSuffix">The project suffix.</param>
         /// <param name="useProjectSuffix">if set to <c>true</c> [use project suffix].</param>
-        /// <returns></returns>
+        /// <returns>The class name.</returns>
         internal string GetClassName(
             string name,
             ProjectSuffix projectSuffix,
@@ -43,7 +43,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="name">The name.</param>
         /// <param name="projectSuffix">The project suffix.</param>
         /// <param name="useProjectSuffix">if set to <c>true</c> [use project suffix].</param>
-        /// <returns></returns>
+        /// <returns>The name of the file.</returns>
         internal string GetFileName(
             string name,
             ProjectSuffix projectSuffix,
@@ -70,18 +70,20 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="nameSpace">The name space.</param>
         /// <param name="className">Name of the class.</param>
         /// <param name="platForm">The plat form.</param>
-        /// <returns></returns>
+        /// <returns>A dictionary.</returns>
         internal Dictionary<string, string> GetDictionary(
             Dictionary<string, string> baseDictionary,
             string nameSpace,
             string className,
             string platForm)
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>(baseDictionary);
+            Dictionary<string, string> dictionary = new Dictionary<string, string>(baseDictionary)
+                                            {
+                                                ["NameSpace"] = nameSpace,
+                                                ["ClassName"] = className,
+                                                ["Platform"] = platForm
+                                            };
 
-            dictionary["NameSpace"] = nameSpace;
-            dictionary["ClassName"] = className;
-            dictionary["Platform"] = platForm;
 
             return dictionary;
         }
@@ -133,7 +135,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// Gets the type of the project.
         /// </summary>
         /// <param name="projectSuffix">The project suffix.</param>
-        /// <returns></returns>
+        /// <returns>The descripiont of the project suffix.</returns>
         protected string GetProjectType(ProjectSuffix projectSuffix)
         {
             return projectSuffix.GetDescription().Replace(".", string.Empty);
@@ -144,7 +146,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// </summary>
         /// <param name="projectService">The project service.</param>
         /// <param name="directory">The directory.</param>
-        /// <returns></returns>
+        /// <returns>The namespace.</returns>
         protected string GetNameSpace(
             IProjectService projectService, 
             string directory)

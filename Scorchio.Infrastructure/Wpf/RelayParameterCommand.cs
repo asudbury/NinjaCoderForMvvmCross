@@ -9,8 +9,10 @@ namespace Scorchio.Infrastructure.Wpf
     using System.Windows.Input;
 
     /// <summary>
-    ///  Defines the RelayParameterCommand type.
+    /// Defines the RelayParameterCommand type.
     /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <seealso cref="System.Windows.Input.ICommand" />
     public class RelayParameterCommand<T> : ICommand
     {
         /// <summary>

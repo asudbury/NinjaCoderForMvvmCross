@@ -1000,26 +1000,23 @@ namespace NinjaCoder.MvvmCross.Services
         {
             RegistryKey softwareKey = Registry.CurrentUser.OpenSubKey("Software");
 
-            if (softwareKey != null)
+            RegistryKey scorchioKey = softwareKey?.OpenSubKey("Scorchio Limited");
+
+            if (scorchioKey != null)
             {
-                RegistryKey scorchioKey = softwareKey.OpenSubKey("Scorchio Limited");
+                RegistryKey ninjaKey = scorchioKey.OpenSubKey("Ninja Coder for MvvmCross", writeable);
 
-                if (scorchioKey != null)
+                if (ninjaKey != null)
                 {
-                    RegistryKey ninjaKey = scorchioKey.OpenSubKey("Ninja Coder for MvvmCross", writeable);
-
-                    if (ninjaKey != null)
+                    if (string.IsNullOrEmpty(subKey) == false)
                     {
-                        if (string.IsNullOrEmpty(subKey) == false)
-                        {
-                            RegistryKey registryKey = ninjaKey.OpenSubKey(subKey, writeable);
+                        RegistryKey registryKey = ninjaKey.OpenSubKey(subKey, writeable);
 
-                            return registryKey ?? ninjaKey.CreateSubKey(subKey);
-                        }
+                        return registryKey ?? ninjaKey.CreateSubKey(subKey);
                     }
-
-                    return ninjaKey;
                 }
+
+                return ninjaKey;
             }
 
             return null;
@@ -1067,56 +1064,38 @@ namespace NinjaCoder.MvvmCross.Services
         {
              RegistryKey registryKey = this.GetRegistryKey(subKey, true);
 
-             if (registryKey != null)
-             {
-                 registryKey.SetValue(name, value);
-             }
+            registryKey?.SetValue(name, value);
         }
 
         /// <summary>
         /// Gets the version.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The version number.</returns>
         internal string GetVersion()
         {
             RegistryKey softwareKey = Registry.CurrentUser.OpenSubKey("Software");
 
-            if (softwareKey != null)
+            RegistryKey microsoftKey = softwareKey?.OpenSubKey("Microsoft");
+
+            RegistryKey vsKey = microsoftKey?.OpenSubKey("VisualStudio");
+
+            RegistryKey versionKey = vsKey?.OpenSubKey("14.0");
+
+            RegistryKey extensionManagerKey = versionKey?.OpenSubKey("ExtensionManager");
+
+            RegistryKey enabledExtensionsKey = extensionManagerKey?.OpenSubKey("EnabledExtensions");
+
+            if (enabledExtensionsKey != null)
             {
-                RegistryKey microsoftKey = softwareKey.OpenSubKey("Microsoft");
+                string[] valueNames = enabledExtensionsKey.GetValueNames();
 
-                if (microsoftKey != null)
+                foreach (string valueName in valueNames)
                 {
-                    RegistryKey vsKey = microsoftKey.OpenSubKey("VisualStudio");
-
-                    if (vsKey != null)
+                    if (valueName.StartsWith("NinjaCoderMvvmCross.vsix"))
                     {
-                        RegistryKey versionKey = vsKey.OpenSubKey("14.0");
+                        string[] parts = valueName.Split(',');
 
-                        if (versionKey != null)
-                        {
-                            RegistryKey extensionManagerKey = versionKey.OpenSubKey("ExtensionManager");
-
-                            if (extensionManagerKey != null)
-                            {
-                                RegistryKey enabledExtensionsKey = extensionManagerKey.OpenSubKey("EnabledExtensions");
-
-                                if (enabledExtensionsKey != null)
-                                {
-                                    string[] valueNames = enabledExtensionsKey.GetValueNames();
-
-                                    foreach (string valueName in valueNames)
-                                    {
-                                        if (valueName.StartsWith("NinjaCoderMvvmCross.vsix"))
-                                        {
-                                            string[] parts = valueName.Split(',');
-
-                                            return parts[1];
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        return parts[1];
                     }
                 }
             }

@@ -5,16 +5,15 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Translators
 {
+    using Constants;
+    using Scorchio.Infrastructure.Translators;
+    using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Services;
     using System;
     using System.Text.RegularExpressions;
     using System.Xml;
     using System.Xml.Linq;
     using System.Xml.Serialization;
-    using Constants;
-
-    using Scorchio.Infrastructure.Translators;
-    using Scorchio.VisualStudio.Entities;
-    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     /// Defines the SnippetTranslator type.

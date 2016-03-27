@@ -5,14 +5,13 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Translators
 {
-    using NinjaCoder.MvvmCross.Entities;
+    using Entities;
     using Scorchio.Infrastructure.Translators;
+    using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Services;
     using System;
     using System.Collections.Generic;
     using System.Xml.Linq;
-
-    using Scorchio.VisualStudio.Entities;
-    using Scorchio.VisualStudio.Services;
 
     /// <summary>
     /// Defines the CommandsListTranslator type.
@@ -53,8 +52,8 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <summary>
         /// Translates the specified from.
         /// </summary>
-        /// <param name="from">From.</param>
-        /// <returns></returns>
+        /// <param name="from">Translate Source.</param>
+        /// <returns>A Commands List.</returns>
         public CommandsList Translate(string @from)
         {
             TraceService.WriteLine("CommandsList::Translate " + @from);

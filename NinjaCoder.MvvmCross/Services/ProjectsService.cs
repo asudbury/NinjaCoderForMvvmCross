@@ -5,9 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
+    using Entities;
+    using Extensions;
     using Interfaces;
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Extensions;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;

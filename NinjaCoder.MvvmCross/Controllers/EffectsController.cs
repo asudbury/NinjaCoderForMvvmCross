@@ -5,19 +5,19 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Controllers
 {
-    using NinjaCoder.MvvmCross.Constants;
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Extensions;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-    using NinjaCoder.MvvmCross.ViewModels.AddEffects;
-    using NinjaCoder.MvvmCross.ViewModels.Wizard;
-    using NinjaCoder.MvvmCross.Views.Wizard;
+    using Constants;
+    using Entities;
+    using Extensions;
+    using Factories.Interfaces;
     using Scorchio.Infrastructure.Services;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
+    using Services.Interfaces;
     using System;
     using System.Collections.Generic;
+    using ViewModels.AddEffects;
+    using ViewModels.Wizard;
+    using Views.Wizard;
 
     /// <summary>
     ///  Defines the EffectsController type.

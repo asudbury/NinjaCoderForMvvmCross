@@ -5,10 +5,10 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.Options
 {
-    using System.Windows;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
     using Scorchio.VisualStudio.Services;
-    using BaseViewModel = NinjaCoder.MvvmCross.ViewModels.NinjaBaseViewModel;
+    using Services.Interfaces;
+    using System.Windows;
+    using BaseViewModel = NinjaBaseViewModel;
 
     /// <summary>
     ///  Defines the OptionsViewModel type.
@@ -76,15 +76,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
                 this.CodingStyleViewModel.LanguageDictionary = value;
             }
         }
-
-        /// <summary>
-        /// Called when ok button pressed.
-        /// </summary>
-        protected override void OnOk()
-        {
-            this.UpdateSettings();
-            base.OnOk();
-        }
        
         /// <summary>
         /// Updates the settings.
@@ -95,6 +86,15 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.BuildViewModel.Save();
             this.ProjectsViewModel.Save();
             this.CodingStyleViewModel.Save();
+        }
+
+        /// <summary>
+        /// Called when ok button pressed.
+        /// </summary>
+        protected override void OnOk()
+        {
+            this.UpdateSettings();
+            base.OnOk();
         }
     }
 }

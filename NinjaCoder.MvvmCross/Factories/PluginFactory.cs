@@ -5,13 +5,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories
 {
-    using System.Linq;
-
     using Entities;
     using Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
     using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Services;
+    using Services.Interfaces;
+    using System.Linq;
 
     /// <summary>
     ///  Defines the PluginFactory type.

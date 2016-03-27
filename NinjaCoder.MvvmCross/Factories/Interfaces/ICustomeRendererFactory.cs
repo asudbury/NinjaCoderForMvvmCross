@@ -34,7 +34,7 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// <param name="directory">The directory.</param>
         /// <param name="renderer">The renderer.</param>
         /// <param name="codeBlock">The code block.</param>
-        /// <returns></returns>
+        /// <returns>A list of TextTemplateInfos.</returns>
         IEnumerable<TextTemplateInfo> GetTextTemplates(
             string name,
             string directory,

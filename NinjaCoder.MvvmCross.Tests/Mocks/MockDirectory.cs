@@ -31,7 +31,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Creates the directory.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The Directory info.</returns>
         public override DirectoryInfoBase CreateDirectory(string path)
         {
             return null;
@@ -42,7 +42,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="directorySecurity">The directory security.</param>
-        /// <returns></returns>
+        /// <returns>The Directory info.</returns>
         public override DirectoryInfoBase CreateDirectory(
             string path, 
             DirectorySecurity directorySecurity)
@@ -73,7 +73,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Existses the specified path.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>True or false.</returns>
         public override bool Exists(string path)
         {
             return this.DirectoryExists;
@@ -83,7 +83,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the access control.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The Directory Security.</returns>
         public override DirectorySecurity GetAccessControl(string path)
         {
             return null;
@@ -94,7 +94,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="includeSections">The include sections.</param>
-        /// <returns></returns>
+        /// <returns>The Directory Security.</returns>
         public override DirectorySecurity GetAccessControl(
             string path, 
             AccessControlSections includeSections)
@@ -106,7 +106,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the creation time.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The created DateTime.</returns>
         public override DateTime GetCreationTime(string path)
         {
             return new DateTime();
@@ -116,7 +116,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the creation time UTC.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The crrated Date Time UTC.</returns>
         public override DateTime GetCreationTimeUtc(string path)
         {
             return new DateTime();
@@ -125,7 +125,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <summary>
         /// Gets the current directory.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The current directory.</returns>
         public override string GetCurrentDirectory()
         {
             return null;
@@ -135,7 +135,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the directories.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The Directories.</returns>
         public override string[] GetDirectories(string path)
         {
             return new string[] { };
@@ -146,7 +146,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="searchPattern">The search pattern.</param>
-        /// <returns></returns>
+        /// <returns>The Directories.</returns>
         public override string[] GetDirectories(string path, string searchPattern)
         {
             return new string[] { };
@@ -158,7 +158,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <param name="path">The path.</param>
         /// <param name="searchPattern">The search pattern.</param>
         /// <param name="searchOption">The search option.</param>
-        /// <returns></returns>
+        /// <returns>The Directories.</returns>
         public override string[] GetDirectories(string path, string searchPattern, SearchOption searchOption)
         {
             return new string[] { };
@@ -168,7 +168,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the directory root.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The Directory root.</returns>
         public override string GetDirectoryRoot(string path)
         {
             return null;
@@ -178,7 +178,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the files.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The files.</returns>
         public override string[] GetFiles(string path)
         {
             return this.GetFilesList;
@@ -189,7 +189,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="searchPattern">The search pattern.</param>
-        /// <returns></returns>
+        /// <returns>The files.</returns>
         public override string[] GetFiles(
             string path, 
             string searchPattern)
@@ -203,7 +203,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <param name="path">The path.</param>
         /// <param name="searchPattern">The search pattern.</param>
         /// <param name="searchOption">The search option.</param>
-        /// <returns></returns>
+        /// <returns>The files.</returns>
         public override string[] GetFiles(
             string path, 
             string searchPattern, 
@@ -216,7 +216,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the file system entries.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The file system entries.</returns>
         public override string[] GetFileSystemEntries(string path)
         {
             return new string[] { };
@@ -227,7 +227,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="searchPattern">The search pattern.</param>
-        /// <returns></returns>
+        /// <returns>The file system entries.</returns>
         public override string[] GetFileSystemEntries(
             string path, 
             string searchPattern)
@@ -239,7 +239,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the last access time.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The last access time.</returns>
         public override DateTime GetLastAccessTime(string path)
         {
             return new DateTime();
@@ -249,7 +249,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the last access time UTC.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The last access time UTC.</returns>
         public override DateTime GetLastAccessTimeUtc(string path)
         {
             return new DateTime();
@@ -259,7 +259,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the last write time.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The last write time.</returns>
         public override DateTime GetLastWriteTime(string path)
         {
             return new DateTime();
@@ -269,7 +269,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the last write time UTC.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The last write time UTC.</returns>
         public override DateTime GetLastWriteTimeUtc(string path)
         {
             return new DateTime();
@@ -278,7 +278,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <summary>
         /// Gets the logical drives.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The logical drives.</returns>
         public override string[] GetLogicalDrives()
         {
             return new string[] { };
@@ -288,7 +288,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the parent.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The parent directory.</returns>
         public override DirectoryInfoBase GetParent(string path)
         {
             return null;

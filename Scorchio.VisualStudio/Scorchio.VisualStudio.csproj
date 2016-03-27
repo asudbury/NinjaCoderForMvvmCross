@@ -110,9 +110,7 @@
     <Compile Include="Extensions\ProjectItemExtensions.cs" />
     <Compile Include="Extensions\SolutionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Interfaces\IMessageFilterService.cs">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
+    <Compile Include="Services\Interfaces\IMessageFilterService.cs"/>
     <Compile Include="Services\Interfaces\IProjectItemService.cs" />
     <Compile Include="Services\Interfaces\IProjectService.cs" />
     <Compile Include="Services\MessageFilterService.cs" />

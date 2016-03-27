@@ -5,9 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
+    using Constants;
+    using Entities;
     using Interfaces;
-    using NinjaCoder.MvvmCross.Constants;
-    using NinjaCoder.MvvmCross.Entities;
     using Scorchio.Infrastructure.Constants;
     using Scorchio.VisualStudio.Services;
     using System.Collections.Generic;
@@ -134,11 +134,6 @@ namespace NinjaCoder.MvvmCross.Services
         private const string XamarinInsightsPackage = "Xamarin.Insights";
 
         /// <summary>
-        /// The scorchio xamarin forms WPF package.
-        /// </summary>
-        private const string ScorchioXamarinFormsWpfPackage = "Scorchio.NinjaCoder.Xamarin.Forms.Wpf";
-
-        /// <summary>
         /// The MVVM cross xamrin forms.
         /// </summary>
         private const string ScorchioMvvmCrossXamrinForms = "Scorchio.NinjaCoder.MvvmCross.Xamarin.Forms";
@@ -160,17 +155,18 @@ namespace NinjaCoder.MvvmCross.Services
         public NugetCommandsService(ISettingsService settingsService)
         {
             TraceService.WriteLine("NugetCommandsService::Constructor");
-
+            
             this.settingsService = settingsService;
         }
 
         /// <summary>
         /// Gets the test commands.
         /// </summary>
+        /// <returns>A List of Nuget commands.</returns>
         public IEnumerable<string> GetTestCommands()
         {
             TraceService.WriteLine("NugetCommandsService::GetTestCommands");
-
+            
             List<string> commands = new List<string>();
 
             //// add the mocking framework.
@@ -228,7 +224,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Getis the os test commands.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetiOSTestCommands()
         {
             List<string> commands = this.GetTestCommands().ToList();
@@ -244,7 +240,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the android test commands.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetAndroidTestCommands()
         {
             List<string> commands = this.GetTestCommands().ToList();
@@ -260,6 +256,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the MVVM cross core cross commands.
         /// </summary>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetMvvmCrossCoreCommands()
         {
             TraceService.WriteLine("NugetCommandsService::GetMvvmCrossCoreCommands");
@@ -281,6 +278,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the MVVM cross tests commands.
         /// </summary>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetMvvmCrossTestsCommands()
         {
             TraceService.WriteLine("NugetCommandsService::GetMvvmCrossTestsCommands");
@@ -315,6 +313,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the MVVM cross droid commands.
         /// </summary>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetMvvmCrossDroidCommands()
         {
             List<string> commands = new List<string> 
@@ -339,6 +338,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the MVVM cross ios commands.
         /// </summary>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetMvvmCrossiOSCommands()
         {
             List<string> commands = new List<string>
@@ -363,6 +363,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the MVVM cross windows phone commands.
         /// </summary>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetMvvmCrossWindowsPhoneCommands()
         {
             List<string> commands = new List<string>
@@ -382,6 +383,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the MVVM cross windows store commands.
         /// </summary>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetMvvmCrossWindowsStoreCommands()
         {
             List<string> commands = new List<string> 
@@ -400,6 +402,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the MVVM cross WPF commands.
         /// </summary>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetMvvmCrossWpfCommands()
         {
             List<string> commands = new List<string> 
@@ -419,7 +422,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the no frameworks core commands.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetNoFrameworksCoreCommands()
         {
             List<string> commands = new List<string> 
@@ -433,6 +436,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the xamarin forms commands.
         /// </summary>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetNoFrameworksCommands()
         {
             List<string> commands = new List<string> 
@@ -451,6 +455,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the no frameworksi os commands.
         /// </summary>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetNoFrameworksiOSCommands()
         {
             List<string> commands = new List<string>
@@ -474,6 +479,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the xamarin forms core commands.
         /// </summary>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetXamarinFormsCoreCommands()
         {
             List<string> commands = new List<string> 
@@ -487,6 +493,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the xamarin forms commands.
         /// </summary>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetXamarinFormsCommands()
         {
             List<string> commands = new List<string> 
@@ -504,9 +511,9 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets the xamarin formsi os commands.
+        /// Gets the xamarin forms ios commands.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetXamarinFormsiOSCommands()
         {
             List<string> commands = new List<string>
@@ -531,7 +538,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the xamarin forms android commands.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetXamarinFormsAndroidCommands()
         {
             List<string> commands = new List<string>
@@ -556,7 +563,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the MVVM cross xamarin forms core commands.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetMvvmCrossXamarinFormsCoreCommands()
         {
             List<string> commands = this.GetMvvmCrossCoreCommands().ToList();
@@ -569,7 +576,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the MVVM cross xamarin forms commands.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetMvvmCrossXamarinFormsCommands()
         {
             List<string> commands = this.GetXamarinFormsCommands().ToList();
@@ -582,6 +589,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the MVVM cross xamarin form droid commands.
         /// </summary>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetMvvmCrossXamarinFormDroidCommands()
         {
             List<string> commands = this.GetMvvmCrossDroidCommands().ToList();
@@ -596,6 +604,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the MVVM cross xamarin formsi os commands.
         /// </summary>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetMvvmCrossXamarinFormsiOSCommands()
         {
             List<string> commands = this.GetMvvmCrossiOSCommands().ToList();
@@ -610,6 +619,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the MVVM cross xamarin forms windows phone commands.
         /// </summary>
+        /// <returns>A list of Nuget commands.</returns>
         public IEnumerable<string> GetMvvmCrossXamarinFormsWindowsPhoneCommands()
         {
             List<string> commands = this.GetMvvmCrossWindowsPhoneCommands().ToList();
@@ -622,29 +632,9 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets the xamarin android commands.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<string> GetXamarinAndroidCommands()
-        {
-            List<string> commands = new List<string>();
-
-            if (this.settingsService.UseXamarinTestCloud)
-            {
-                commands.Add(this.GetXamarinFormsCommand(XamarinTestCloudAgentPackage));
-            }
-
-            if (this.settingsService.UseXamarinInsights)
-            {
-                commands.Add(this.GetXamarinFormsCommand(XamarinInsightsPackage));
-            }
-
-            return commands;
-        }
-
-        /// <summary>
         /// Gets the MVVM cross ios story board command.
         /// </summary>
+        /// <returns>The Nuget command.</returns>
         public string GetMvvmCrossIosStoryBoardCommand()
         {
             return this.GetNinjaCommand(ScorchioMvvmCrossIosStoryBoardPackage, true);
@@ -654,7 +644,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// Gets the MVVM cross command.
         /// </summary>
         /// <param name="command">The command.</param>
-        /// <returns></returns>
+        /// <returns>The Nuget command.</returns>
         internal string GetMvvmCrossCommand(string command)
         {
             if (this.settingsService.UsePreReleaseMvvmCrossNugetPackages)
@@ -669,7 +659,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// Gets the xamarin forms command.
         /// </summary>
         /// <param name="command">The command.</param>
-        /// <returns></returns>
+        /// <returns>The Nuget command.</returns>
         internal string GetXamarinFormsCommand(string command)
         {
             if (this.settingsService.UsePreReleaseXamarinFormsNugetPackages)
@@ -685,7 +675,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         /// <param name="command">The command.</param>
         /// <param name="overWrite">if set to <c>true</c> [over write].</param>
-        /// <returns></returns>
+        /// <returns>The Nuget command.</returns>
         internal string GetNinjaCommand(
             string command,
             bool overWrite)

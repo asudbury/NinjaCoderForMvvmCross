@@ -5,12 +5,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 {
+    using Factories.Interfaces;
     using MahApps.Metro;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Services;
+    using Services.Interfaces;
     using System.Collections.Generic;
 
     /// <summary>

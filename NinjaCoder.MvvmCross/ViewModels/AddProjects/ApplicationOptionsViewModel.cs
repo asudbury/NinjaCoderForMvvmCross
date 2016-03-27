@@ -102,6 +102,26 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         {
             get { return "Application Options"; }
         }
+        
+        /// <summary>
+        /// Gets the nuget packages URI.
+        /// </summary>
+        protected override string NugetPackagesUri
+        {
+            get { return this.settingsService.NugetPackagesUri; }
+        }
+
+        /// <summary>
+        /// Gets the get nuget packages.
+        /// </summary>
+        protected override IEnumerable<SelectableItemViewModel<Plugin>> NugetPackages
+        {
+            get
+            {
+                return this.LocalStoragePlugins == null ? new List<SelectableItemViewModel<Plugin>>() :
+                this.LocalStoragePlugins.Union(this.CloudServicesPlugins).Union(this.AuthenticationPlugins);
+            }
+        }
 
         /// <summary>
         /// Called when [initialize].
@@ -166,26 +186,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             this.cachingService.ApplicationSamplePlugIns = samplePlugins;
 
             return this.GetRouteModifier();
-        }
-
-        /// <summary>
-        /// Gets the nuget packages URI.
-        /// </summary>
-        protected override string NugetPackagesUri
-        {
-            get { return this.settingsService.NugetPackagesUri; }
-        }
-
-        /// <summary>
-        /// Gets the get nuget packages.
-        /// </summary>
-        protected override IEnumerable<SelectableItemViewModel<Plugin>> NugetPackages
-        {
-            get 
-            { 
-                    return this.LocalStoragePlugins == null ? new List<SelectableItemViewModel<Plugin>>() : 
-                    this.LocalStoragePlugins.Union(this.CloudServicesPlugins).Union(this.AuthenticationPlugins); 
-            }
         }
     }
 }

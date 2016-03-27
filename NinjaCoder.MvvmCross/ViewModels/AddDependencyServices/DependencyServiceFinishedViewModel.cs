@@ -5,9 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddDependencyServices
 {
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
+    using Services.Interfaces;
 
     /// <summary>
     /// Defines the DependencyServiceFinishedViewModel type.

@@ -149,6 +149,26 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         }
 
         /// <summary>
+        /// Gets the nuget packages URI.
+        /// </summary>
+        protected override string NugetPackagesUri
+        {
+            get { return this.settingsService.NugetPackagesUri; }
+        }
+
+        /// <summary>
+        /// Gets the get nuget packages.
+        /// </summary>
+        protected override IEnumerable<SelectableItemViewModel<Plugin>> NugetPackages
+        {
+            get
+            {
+                return this.NinjaPlugins == null ? new List<SelectableItemViewModel<Plugin>>() :
+                    this.NinjaCommumityPlugins.Union(this.NinjaPlugins).Union(this.LocalPlugins);
+            }
+        }
+
+        /// <summary>
         /// Called when [initialize].
         /// </summary>
         public override void OnInitialize()
@@ -195,26 +215,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             this.cachingService.ApplicationSamplePlugIns.ToList().AddRange(samplePlugins); 
 
             return this.GetRouteModifier();
-        }
-
-        /// <summary>
-        /// Gets the nuget packages URI.
-        /// </summary>
-        protected override string NugetPackagesUri
-        {
-            get { return this.settingsService.NugetPackagesUri; }
-        }
-
-        /// <summary>
-        /// Gets the get nuget packages.
-        /// </summary>
-        protected override IEnumerable<SelectableItemViewModel<Plugin>> NugetPackages
-        {
-            get 
-            { 
-                return this.NinjaPlugins == null ? new List<SelectableItemViewModel<Plugin>>() : 
-                    this.NinjaCommumityPlugins.Union(this.NinjaPlugins).Union(this.LocalPlugins); 
-            }
         }
     }
 }

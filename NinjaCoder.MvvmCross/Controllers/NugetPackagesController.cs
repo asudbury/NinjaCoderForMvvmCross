@@ -7,19 +7,17 @@ namespace NinjaCoder.MvvmCross.Controllers
 {
     using Constants;
     using Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.ViewModels;
-    using NinjaCoder.MvvmCross.ViewModels.AddNugetPackages;
-    using NinjaCoder.MvvmCross.ViewModels.AddProjects;
-    using NinjaCoder.MvvmCross.ViewModels.Wizard;
-    using NinjaCoder.MvvmCross.Views.Wizard;
+    using Factories.Interfaces;
     using Scorchio.Infrastructure.Services;
+    using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;
-    using System;
     using System.Collections.Generic;
-
-    using Scorchio.VisualStudio.Entities;
+    using ViewModels;
+    using ViewModels.AddNugetPackages;
+    using ViewModels.AddProjects;
+    using ViewModels.Wizard;
+    using Views.Wizard;
 
     /// <summary>
     /// Defines the NugetPackagesController type.

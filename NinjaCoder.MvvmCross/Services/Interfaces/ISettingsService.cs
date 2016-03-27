@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services.Interfaces
 {
-    using NinjaCoder.MvvmCross.Entities;
+    using Entities;
 
     /// <summary>
     /// Defines the ISettingsService type.
@@ -297,6 +297,9 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// </summary>
         string LocalNugetName { get;  }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [create test projects solution folder].
+        /// </summary>
         bool CreateTestProjectsSolutionFolder { get; set; }
 
         /// <summary>
@@ -330,7 +333,6 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Gets the dependency text template.
         /// </summary>
-
         string DependencyTextTemplate { get; }
 
         /// <summary>

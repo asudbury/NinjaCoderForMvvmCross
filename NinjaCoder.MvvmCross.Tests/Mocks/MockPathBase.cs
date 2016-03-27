@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Tests.Mocks
 {
+    using System;
     using System.IO.Abstractions;
 
     /// <summary>
@@ -31,6 +32,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <summary>
         /// Gets the invalid path chars.
         /// </summary>
+        [Obsolete("Please use GetInvalidPathChars or GetInvalidFileNameChars instead.")]
         public override char[] InvalidPathChars
         {
             get { return new char[] { }; }

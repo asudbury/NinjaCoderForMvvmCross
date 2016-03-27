@@ -17,32 +17,32 @@ namespace NinjaCoder.MvvmCross.ViewModels
     using System.Linq;
 
     /// <summary>
-    ///  Defines the NugetPackagesBaseViewModel type.
+    ///     Defines the NugetPackagesBaseViewModel type.
     /// </summary>
     public abstract class NugetPackagesBaseViewModel : BaseWizardStepViewModel
     {
         /// <summary>
-        /// The settings service.
-        /// </summary>
-        private readonly ISettingsService settingsService;
-
-        /// <summary>
-        /// The plugins service.
-        /// </summary>
-        private readonly IPluginsService pluginsService;
-
-        /// <summary>
-        /// The project factory.
-        /// </summary>
-        private readonly IProjectFactory projectFactory;
-
-        /// <summary>
-        /// The plugin factory.
+        ///     The plugin factory.
         /// </summary>
         private readonly IPluginFactory pluginFactory;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NugetPackagesBaseViewModel" /> class.
+        ///     The plugins service.
+        /// </summary>
+        private readonly IPluginsService pluginsService;
+
+        /// <summary>
+        ///     The project factory.
+        /// </summary>
+        private readonly IProjectFactory projectFactory;
+
+        /// <summary>
+        ///     The settings service.
+        /// </summary>
+        private readonly ISettingsService settingsService;
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="NugetPackagesBaseViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="pluginsService">The plugins service.</param>
@@ -61,46 +61,46 @@ namespace NinjaCoder.MvvmCross.ViewModels
         }
 
         /// <summary>
-        /// Gets the nuget actions.
+        ///     Gets the nuget packages URI.
         /// </summary>
-        /// <returns></returns>
+        protected abstract string NugetPackagesUri { get; }
+
+        /// <summary>
+        ///     Gets the get nuget packages.
+        /// </summary>
+        protected abstract IEnumerable<SelectableItemViewModel<Plugin>> NugetPackages { get; }
+
+        /// <summary>
+        ///     Gets the nuget actions.
+        /// </summary>
+        /// <returns>A NugetActions.</returns>
         public NugetActions GetNugetActions()
         {
             TraceService.WriteLine("NugetPackagesBaseViewModel::GetNugetActions");
 
-            NugetActions nugetActions = new NugetActions
+            var nugetActions = new NugetActions
             {
                 NugetCommands = this.GetNugetCommands(),
                 PostNugetCommands = this.pluginsService.GetPostNugetCommands(this.GetRequiredNugetPackages()),
-                PostNugetFileOperations = this.pluginsService.GetPostNugetFileOperations(this.GetRequiredNugetPackages()),
+                PostNugetFileOperations = this.pluginsService.GetPostNugetFileOperations(this.GetRequiredNugetPackages())
             };
 
             return nugetActions;
         }
 
         /// <summary>
-        /// Gets the route modifier.
+        ///     Gets the route modifier.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A RouteModifier.</returns>
         protected RouteModifier GetRouteModifier()
         {
             return this.projectFactory.GetRouteModifier(this.settingsService.FrameworkType);
         }
 
         /// <summary>
-        /// Gets the nuget packages URI.
+        ///     Gets the required nuget packages.
         /// </summary>
-        protected abstract string NugetPackagesUri { get; }
-
-        /// <summary>
-        /// Gets the get nuget packages.
-        /// </summary>
-        protected abstract IEnumerable<SelectableItemViewModel<Plugin>> NugetPackages { get; }
-
-        /// <summary>
-        /// Gets the required nuget packages.
-        /// </summary>
-        /// <returns></returns>
+        /// <returns>A list of plugins.</returns>
         protected IEnumerable<Plugin> GetRequiredNugetPackages()
         {
             TraceService.WriteLine("NugetPackagesBaseViewModel::GetRequiredNugetPackages");
@@ -112,30 +112,30 @@ namespace NinjaCoder.MvvmCross.ViewModels
 
             return new List<Plugin>();
         }
-        
+
         /// <summary>
-        /// Gets the nuget commands.
+        ///     Gets the nuget commands.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The nuget commands.</returns>
         protected string GetNugetCommands()
         {
             TraceService.WriteLine("NugetPackagesBaseViewModel::GetNugetCommands");
 
-            string commands = string.Empty;
+            var commands = string.Empty;
 
-            IEnumerable<Plugin> requiredPlugins = this.GetRequiredNugetPackages();
+            var requiredPlugins = this.GetRequiredNugetPackages();
 
             if (requiredPlugins != null)
             {
-                List<Plugin> plugins = requiredPlugins.ToList();
+                var plugins = requiredPlugins.ToList();
 
                 if (plugins.Any())
                 {
                     commands += string.Join(
                         Environment.NewLine,
                         this.pluginsService.GetNugetCommands(
-                        plugins,
-                        this.settingsService.UsePreReleaseXamarinFormsNugetPackages));
+                            plugins,
+                            this.settingsService.UsePreReleaseXamarinFormsNugetPackages));
                 }
             }
 
@@ -143,7 +143,7 @@ namespace NinjaCoder.MvvmCross.ViewModels
         }
 
         /// <summary>
-        /// Gets the plugins.
+        ///     Gets the plugins.
         /// </summary>
         protected Plugins GetPlugins()
         {
@@ -151,21 +151,21 @@ namespace NinjaCoder.MvvmCross.ViewModels
         }
 
         /// <summary>
-        /// Gets the plugins.
+        ///     Gets the plugins.
         /// </summary>
         /// <param name="uri">The URI.</param>
-        /// <returns></returns>
+        /// <returns>True or false.</returns>
         protected Plugins GetPlugins(string uri)
         {
             return this.pluginFactory.GetPlugins(uri);
         }
 
         /// <summary>
-        /// Gets the category nuget packages.
+        ///     Gets the category nuget packages.
         /// </summary>
         /// <param name="plugins">The plugins.</param>
         /// <param name="category">The category.</param>
-        /// <returns></returns>
+        /// <returns>A collection of plugins.</returns>
         protected ObservableCollection<SelectableItemViewModel<Plugin>> GetCategoryNugetPackages(
             Plugins plugins,
             string category)
@@ -175,12 +175,13 @@ namespace NinjaCoder.MvvmCross.ViewModels
                 return new ObservableCollection<SelectableItemViewModel<Plugin>>();
             }
 
-            ObservableCollection<SelectableItemViewModel<Plugin>> viewModels = new ObservableCollection<SelectableItemViewModel<Plugin>>();
+            var viewModels = new ObservableCollection<SelectableItemViewModel<Plugin>>();
 
-            foreach (SelectableItemViewModel<Plugin> viewModel in from plugin in plugins.Items
-                                                                  where plugin.Frameworks.Contains(this.settingsService.FrameworkType) &&
-                                                                  plugin.Category == category
-                                                                  select new SelectableItemViewModel<Plugin>(plugin))
+            foreach (var viewModel in from plugin in plugins.Items
+                                      where
+                                          plugin.Frameworks.Contains(this.settingsService.FrameworkType)
+                                          && plugin.Category == category
+                                      select new SelectableItemViewModel<Plugin>(plugin))
             {
                 viewModels.Add(viewModel);
             }

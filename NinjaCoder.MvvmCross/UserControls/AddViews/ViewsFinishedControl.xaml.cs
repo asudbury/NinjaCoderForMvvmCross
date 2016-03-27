@@ -1,4 +1,9 @@
-﻿namespace NinjaCoder.MvvmCross.UserControls.AddViews
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//    Defines the ViewsFinishedControl type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace NinjaCoder.MvvmCross.UserControls.AddViews
 {
     /// <summary>
     /// Interaction logic for ProjectsFinishedControl.xaml

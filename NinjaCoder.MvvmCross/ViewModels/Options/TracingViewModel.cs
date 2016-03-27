@@ -5,9 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.Options
 {
-    using NinjaCoder.MvvmCross.Services.Interfaces;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Wpf;
+    using Services.Interfaces;
     using System.Windows;
     using System.Windows.Input;
 

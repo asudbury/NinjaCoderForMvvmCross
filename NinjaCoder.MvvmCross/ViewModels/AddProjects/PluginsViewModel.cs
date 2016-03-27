@@ -145,9 +145,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// </summary>
         /// <param name="plugins">The plugins.</param>
         /// <param name="includeCommunityPlugins">if set to <c>true</c> [community plugins].</param>
-        /// <returns>
-        /// The view Models.
-        /// </returns>
+        /// <returns>The view Models.</returns>
         internal ObservableCollection<SelectableItemViewModel<Plugin>> GetPlugins(
             Plugins plugins,
             bool includeCommunityPlugins)

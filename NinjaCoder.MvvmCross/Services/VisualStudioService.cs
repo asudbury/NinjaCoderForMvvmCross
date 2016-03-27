@@ -6,10 +6,10 @@
 namespace NinjaCoder.MvvmCross.Services
 {
     using Constants;
+    using Entities;
     using EnvDTE;
     using EnvDTE80;
     using Interfaces;
-    using NinjaCoder.MvvmCross.Entities;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio;
     using Scorchio.VisualStudio.Entities;
@@ -424,9 +424,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             IProjectService projectService = this.CoreProjectService;
 
-            return projectService != null
-                       ? projectService.Name.Replace(ProjectSuffix.Core.GetDescription(), string.Empty)
-                       : string.Empty;
+            return projectService?.Name.Replace(ProjectSuffix.Core.GetDescription(), string.Empty) ?? string.Empty;
         }
 
         /// <summary>
@@ -474,9 +472,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the type of the framework.
         /// </summary>
-        /// <returns>
-        /// The framework type.
-        /// </returns>
+        /// <returns>The framework type.</returns>
         public FrameworkType GetFrameworkType()
         {
             int projectType = 0;

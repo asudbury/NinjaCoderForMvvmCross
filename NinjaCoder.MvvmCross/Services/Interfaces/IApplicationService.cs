@@ -31,7 +31,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Gets the application framework.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The Framework Type.</returns>
         FrameworkType GetApplicationFramework();
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Gets the commands list.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A CommandsList.</returns>
         CommandsList GetCommandsList();
 
         /// <summary>

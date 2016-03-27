@@ -50,7 +50,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Appends the text.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The StreamWriter.</returns>
         public override StreamWriter AppendText(string path)
         {
             return null;
@@ -84,7 +84,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Creates the specified path.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The created Stream.</returns>
         public override Stream Create(string path)
         {
             return null;
@@ -95,7 +95,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="bufferSize">Size of the buffer.</param>
-        /// <returns></returns>
+        /// <returns>The created Stream.</returns>
         public override Stream Create(
             string path, 
             int bufferSize)
@@ -109,7 +109,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <param name="path">The path.</param>
         /// <param name="bufferSize">Size of the buffer.</param>
         /// <param name="options">The options.</param>
-        /// <returns></returns>
+        /// <returns>The created Stream.</returns>
         public override Stream Create(
             string path, 
             int bufferSize, 
@@ -125,7 +125,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <param name="bufferSize">Size of the buffer.</param>
         /// <param name="options">The options.</param>
         /// <param name="fileSecurity">The file security.</param>
-        /// <returns></returns>
+        /// <returns>The created Stream.</returns>
         public override Stream Create(
             string path, 
             int bufferSize, 
@@ -139,7 +139,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Creates the text.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The created StreamWriter.</returns>
         public override StreamWriter CreateText(string path)
         {
             return null;
@@ -173,7 +173,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Exists the specified path.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>True or false.</returns>
         public override bool Exists(string path)
         {
             return this.FileExists;
@@ -183,7 +183,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the access control.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The File security.</returns>
         public override FileSecurity GetAccessControl(string path)
         {
             return null;
@@ -194,7 +194,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="includeSections">The include sections.</param>
-        /// <returns></returns>
+        /// <returns>The File security.</returns>
         public override FileSecurity GetAccessControl(
             string path, 
             AccessControlSections includeSections)
@@ -206,7 +206,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the attributes.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The File Attributes.</returns>
         public override FileAttributes GetAttributes(string path)
         {
             return 0;
@@ -216,7 +216,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the creation time.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The created DateTime.</returns>
         public override DateTime GetCreationTime(string path)
         {
             return new DateTime();
@@ -226,7 +226,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the creation time UTC.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The created DateTime in UTC format.</returns>
         public override DateTime GetCreationTimeUtc(string path)
         {
             return new DateTime();
@@ -236,7 +236,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the last access time.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The last accessed DateTime.</returns>
         public override DateTime GetLastAccessTime(string path)
         {
             return new DateTime();
@@ -246,7 +246,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the last access time UTC.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The last accessed DateTime in UTC format.</returns>
         public override DateTime GetLastAccessTimeUtc(string path)
         {
             return new DateTime();
@@ -256,7 +256,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the last write time.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The last written DateTime.</returns>
         public override DateTime GetLastWriteTime(string path)
         {
             return new DateTime();
@@ -266,7 +266,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Gets the last write time UTC.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The last written DateTime in UTC format.</returns>
         public override DateTime GetLastWriteTimeUtc(string path)
         {
             return new DateTime();
@@ -286,7 +286,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="mode">The mode.</param>
-        /// <returns></returns>
+        /// <returns>The opened Stream.</returns>
         public override Stream Open(
             string path, 
             FileMode mode)
@@ -300,7 +300,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <param name="path">The path.</param>
         /// <param name="mode">The mode.</param>
         /// <param name="access">The access.</param>
-        /// <returns></returns>
+        /// <returns>The opened Stream.</returns>
         public override Stream Open(
             string path, 
             FileMode mode, 
@@ -316,7 +316,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// <param name="mode">The mode.</param>
         /// <param name="access">The access.</param>
         /// <param name="share">The share.</param>
-        /// <returns></returns>
+        /// <returns>The opened Stream.</returns>
         public override Stream Open(
             string path, 
             FileMode mode, 
@@ -330,7 +330,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Opens the read.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The opened Stream.</returns>
         public override Stream OpenRead(string path)
         {
             return null;
@@ -340,7 +340,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Opens the text.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The opened StreamReader.</returns>
         public override StreamReader OpenText(string path)
         {
             return null;
@@ -350,7 +350,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Opens the write.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>The opened Stream.</returns>
         public override Stream OpenWrite(string path)
         {
             return null;
@@ -360,7 +360,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Reads all bytes.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>An array of bytes.</returns>
         public override byte[] ReadAllBytes(string path)
         {
             return new byte[] { };
@@ -370,7 +370,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Reads all lines.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>An array of strings.</returns>
         public override string[] ReadAllLines(string path)
         {
             return new string[] { };
@@ -381,7 +381,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="encoding">The encoding.</param>
-        /// <returns></returns>
+        /// <returns>An array of strings.</returns>
         public override string[] ReadAllLines(
             string path, 
             Encoding encoding)
@@ -393,7 +393,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// Reads all text.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <returns></returns>
+        /// <returns>A string.</returns>
         public override string ReadAllText(string path)
         {
             return null;

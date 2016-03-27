@@ -18,7 +18,7 @@ namespace Scorchio.Infrastructure.Extensions
         /// Serializes to string.
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns></returns>
+        /// <returns>The serialized string.</returns>
         public static string SerializeToString(this object instance)
         {
             if (instance == null)

@@ -35,7 +35,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NinjaCoderMvvmCross.vsix</RootNamespace>
-    <AssemblyName>NinjaCoderMvvmCross.vsix</AssemblyName>
+    <AssemblyName>NinjaCoderMvvmCross</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <GeneratePkgDefFile>false</GeneratePkgDefFile>
     <IncludeAssemblyInVSIXContainer>false</IncludeAssemblyInVSIXContainer>

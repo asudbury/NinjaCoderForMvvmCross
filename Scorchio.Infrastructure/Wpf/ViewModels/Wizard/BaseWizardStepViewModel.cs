@@ -66,7 +66,7 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         /// <summary>
         /// Determines whether this instance [can move to next page].
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True or false.</returns>
         public virtual bool CanMoveToNextPage()
         {
             return true;
@@ -75,7 +75,7 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         /// <summary>
         /// Determines whether this instance [can move to previous page].
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True or false.</returns>
         public virtual bool CanMoveToPreviousPage()
         {
             return true;

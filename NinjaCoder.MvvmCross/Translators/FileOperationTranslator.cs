@@ -20,8 +20,8 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <summary>
         /// Translates the specified from.
         /// </summary>
-        /// <param name="from">From.</param>
-        /// <returns></returns>
+        /// <param name="from">The Source..</param>
+        /// <returns>A File Operation.</returns>
         public FileOperation Translate(XElement @from)
         {
             return new FileOperation

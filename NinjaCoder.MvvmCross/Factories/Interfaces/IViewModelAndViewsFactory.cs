@@ -30,7 +30,7 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// <summary>
         /// Gets the available MVVM cross ios view types.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The view types.</returns>
         IEnumerable<string> GetAvailableMvvmCrossiOSViewTypes();
 
             /// <summary>
@@ -40,7 +40,7 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="requiredUIViews">The required UI views.</param>
         /// <param name="unitTestsRequired">if set to <c>true</c> [unit tests required].</param>
-        /// <returns></returns>
+        /// <returns>A list of TextTemplateInfos.</returns>
         IEnumerable<TextTemplateInfo> GetRequiredTextTemplates(
             View view,
             string viewModelName,

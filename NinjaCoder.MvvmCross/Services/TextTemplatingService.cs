@@ -5,13 +5,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Interfaces;
     using Scorchio.VisualStudio.Entities;
+    using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
     using System.Collections.Generic;
-
-    using Scorchio.VisualStudio.Extensions;
 
     /// <summary>
     ///  Defines the TextTemplatingService type.

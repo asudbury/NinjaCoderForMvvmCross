@@ -106,7 +106,7 @@ namespace NinjaCoder.MvvmCross.Translators
         /// Gets the using statement.
         /// </summary>
         /// <param name="element">The element.</param>
-        /// <returns></returns>
+        /// <returns>The Using Statement.</returns>
         internal string GetUsingStatement(XElement element)
         {
             XElement usingElement = element.Element("UsingStatement");
@@ -118,7 +118,7 @@ namespace NinjaCoder.MvvmCross.Translators
         /// Gets the nuget commands.
         /// </summary>
         /// <param name="element">The element.</param>
-        /// <returns></returns>
+        /// <returns>A list of nuget commands.</returns>
         internal IEnumerable<NugetCommand> GetNugetCommands(XElement element)
         {
             List<NugetCommand> nugetCommands = new List<NugetCommand>();
@@ -189,10 +189,10 @@ namespace NinjaCoder.MvvmCross.Translators
         }
 
         /// <summary>
-        /// Overwrites the files.
+        /// Get the Overwrites files flag.
         /// </summary>
         /// <param name="element">The element.</param>
-        /// <returns></returns>
+        /// <returns>True or false.</returns>
         internal bool GetOverwriteFiles(XElement element)
         {
             bool overWrite = false;
@@ -212,7 +212,7 @@ namespace NinjaCoder.MvvmCross.Translators
         /// Gets the description.
         /// </summary>
         /// <param name="element">The element.</param>
-        /// <returns></returns>
+        /// <returns>The Description.</returns>
         internal string GetDescription(XElement element)
         {
             XElement descriptionElement = element.Element("Description");
@@ -224,7 +224,7 @@ namespace NinjaCoder.MvvmCross.Translators
         /// Gets the category.
         /// </summary>
         /// <param name="element">The element.</param>
-        /// <returns></returns>
+        /// <returns>The Category.</returns>
         internal string GetCategory(XElement element)
         {
             XElement categoryElement = element.Element("Category");
@@ -236,7 +236,7 @@ namespace NinjaCoder.MvvmCross.Translators
         /// Gets the ninja nuget commands.
         /// </summary>
         /// <param name="element">The element.</param>
-        /// <returns></returns>
+        /// <returns>A list of plugins.</returns>
         internal IEnumerable<Plugin> GetNinjaSamples(XElement element)
         {
             XElement samplesElement = element.Element("NinjaSamples");
@@ -255,7 +255,7 @@ namespace NinjaCoder.MvvmCross.Translators
         /// Gets the nuget commands.
         /// </summary>
         /// <param name="element">The element.</param>
-        /// <returns></returns>
+        /// <returns>A list of StudioCommands.</returns>
         internal IEnumerable<StudioCommand> GetCommands(XElement element)
         {
             return this.commandsTranslator.Translate(element);
@@ -265,7 +265,7 @@ namespace NinjaCoder.MvvmCross.Translators
         /// Gets the file operations.
         /// </summary>
         /// <param name="element">The element.</param>
-        /// <returns></returns>
+        /// <returns>A list of FileOperations.</returns>
         internal IEnumerable<FileOperation> GetFileOperations(XElement element)
         {
             return this.fileOperationsTranslator.Translate(element);

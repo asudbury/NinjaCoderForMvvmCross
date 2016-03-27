@@ -6,15 +6,13 @@
 
 namespace NinjaCoder.MvvmCross.Factories
 {
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-
+    using Entities;
+    using Interfaces;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Entities;
-    using System.Collections.Generic;
-
     using Scorchio.VisualStudio.Services;
+    using Services.Interfaces;
+    using System.Collections.Generic;
 
     /// <summary>
     ///  Defines the XamarinFormsProjectFactory type. 
@@ -175,7 +173,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <summary>
         /// Gets the forms tests project.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A ProjectTemplateInfo.</returns>
         internal ProjectTemplateInfo GetFormsTestsProject()
         {
             ProjectTemplateInfo projectTemplateInfo = this.GetTestsProject(

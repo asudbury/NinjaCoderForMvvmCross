@@ -1,4 +1,9 @@
-﻿namespace NinjaCoder.MvvmCross.UserControls.AddEffects
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//    Defines the EffectFinishedControl type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace NinjaCoder.MvvmCross.UserControls.AddEffects
 {
     /// <summary>
     /// Interaction logic for EffectFinishedControl.xaml

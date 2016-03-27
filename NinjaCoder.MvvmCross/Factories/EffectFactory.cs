@@ -5,16 +5,16 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories
 {
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Entities;
+    using Interfaces;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
+    using Services.Interfaces;
     using System.Collections.Generic;
-    using NinjaCoder.MvvmCross.UserControls.AddEffects;
-    using NinjaCoder.MvvmCross.ViewModels.AddEffects;
+    using UserControls.AddEffects;
+    using ViewModels.AddEffects;
 
     /// <summary>
     ///  Defines the EffectFactory type.
@@ -106,7 +106,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="directory">The directory.</param>
-        /// <returns></returns>
+        /// <returns>A list of TextTemplateInfos.</returns>
         public IEnumerable<TextTemplateInfo> GetTextTemplates(
             string name,
             string directory)
@@ -119,6 +119,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 name,
                 string.Empty);
 
+            // ReSharper disable once InconsistentNaming
             IProjectService iOSProjectService = this.visualStudioService.iOSProjectService;
 
             if (iOSProjectService != null)
@@ -180,7 +181,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// </summary>
         /// <param name="classNamespace">The class namespace.</param>
         /// <param name="className">Name of the class.</param>
-        /// <returns></returns>
+        /// <returns>A Dictionary.</returns>
         internal Dictionary<string, string> GetBaseDictionary(
             string classNamespace,
             string className)

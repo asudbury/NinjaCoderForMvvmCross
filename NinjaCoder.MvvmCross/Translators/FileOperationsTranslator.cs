@@ -43,8 +43,8 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <summary>
         /// Translates the specified from.
         /// </summary>
-        /// <param name="from">From.</param>
-        /// <returns></returns>
+        /// <param name="from">The Translation Source.</param>
+        /// <returns>A list of FileOperations.</returns>
         public IEnumerable<FileOperation> Translate(XElement @from)
         {
             List<FileOperation> fileOperations = new List<FileOperation>();

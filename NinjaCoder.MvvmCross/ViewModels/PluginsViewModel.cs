@@ -7,7 +7,6 @@ namespace NinjaCoder.MvvmCross.ViewModels
 {
     using Entities;
     using Factories.Interfaces;
-
     using Scorchio.Infrastructure.Wpf;
     using Scorchio.Infrastructure.Wpf.ViewModels;
     using Scorchio.VisualStudio.Services;

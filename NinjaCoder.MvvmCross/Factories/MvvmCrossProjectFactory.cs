@@ -6,11 +6,11 @@
 
 namespace NinjaCoder.MvvmCross.Factories
 {
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Entities;
+    using Interfaces;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Entities;
+    using Services.Interfaces;
     using System.Collections.Generic;
 
     /// <summary>

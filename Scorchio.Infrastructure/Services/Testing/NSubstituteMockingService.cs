@@ -5,10 +5,10 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.Infrastructure.Services.Testing
 {
-    using Scorchio.Infrastructure.Constants;
-    using Scorchio.Infrastructure.Services.Testing.Interfaces;
-    using Scorchio.VisualStudio.Entities;
-    using Scorchio.VisualStudio.Services;
+    using Constants;
+    using Interfaces;
+    using VisualStudio.Entities;
+    using VisualStudio.Services;
 
     /// <summary>
     ///  Defines the NSubstituteMockingService type.
@@ -20,6 +20,9 @@ namespace Scorchio.Infrastructure.Services.Testing
         /// </summary>
         private const string NSubstitute = "NSubstitute";
 
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
         public string Name
         {
             get { return NSubstitute; }

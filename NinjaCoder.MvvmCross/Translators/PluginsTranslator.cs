@@ -42,8 +42,8 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <summary>
         /// Translates the specified from.
         /// </summary>
-        /// <param name="from">From.</param>
-        /// <returns></returns>
+        /// <param name="from">The translation source..</param>
+        /// <returns>A collection of Plugins.</returns>
         public Plugins Translate(string from)
         {
             try

@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services.Interfaces
 {
-    using NinjaCoder.MvvmCross.Entities;
+    using Entities;
     using Scorchio.VisualStudio.Entities;
     using System.Collections.Generic;
 
@@ -27,13 +27,13 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Adds the view models and views.
         /// </summary>
         /// <param name="views">The views.</param>
-        /// <returns></returns>
+        /// <returns>A list of viewmodels and views.</returns>
         IEnumerable<string> AddViewModelsAndViews(IEnumerable<View> views);
         
         /// <summary>
         /// Gets the nuget commands.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A list of nuget commands.</returns>
         IEnumerable<string> GetNugetCommands();
     }
 }

@@ -48,7 +48,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         /// <param name="plugins">The plugins.</param>
         /// <param name="usePreRelease">if set to <c>true</c> [use pre release].</param>
-        /// <returns></returns>
+        /// <returns>A list of nuget commands.</returns>
         public IEnumerable<string> GetNugetCommands(
             IEnumerable<Plugin> plugins, 
             bool usePreRelease)
@@ -67,7 +67,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// Gets the post nuget commands.
         /// </summary>
         /// <param name="plugins">The plugins.</param>
-        /// <returns></returns>
+        /// <returns>A list of StudioCommands.</returns>
         public IEnumerable<StudioCommand> GetPostNugetCommands(IEnumerable<Plugin> plugins)
         {
             TraceService.WriteLine("PluginsService::GetPostNugetCommands");
@@ -94,7 +94,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// Gets the post nuget file operations.
         /// </summary>
         /// <param name="plugins">The plugins.</param>
-        /// <returns></returns>
+        /// <returns>A list of FileOperations.</returns>
         public IEnumerable<FileOperation> GetPostNugetFileOperations(IEnumerable<Plugin> plugins)
         {
             TraceService.WriteLine("PluginsService::GetPostNugetFileOperations");

@@ -1,4 +1,9 @@
-﻿namespace NinjaCoder.MvvmCross.UserControls.AddNugetPackages
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//    Defines the NugetPackagesFinishedControl type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace NinjaCoder.MvvmCross.UserControls.AddNugetPackages
 {
     /// <summary>
     /// Interaction logic for ProjectsFinishedControl.xaml

@@ -747,7 +747,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         /// </summary>
         /// <param name="view">The view.</param>
         /// <param name="items">The items.</param>
-        /// <returns></returns>
+        /// <returns>An ImageItemWithDescription.</returns>
         internal ImageItemWithDescription GetImageItemWithDescription(
             View view,
             IEnumerable<ImageItemWithDescription> items)

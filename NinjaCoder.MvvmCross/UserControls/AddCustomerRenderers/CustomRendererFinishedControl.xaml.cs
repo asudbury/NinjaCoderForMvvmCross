@@ -1,4 +1,9 @@
-﻿namespace NinjaCoder.MvvmCross.UserControls.AddCustomerRenderers
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//    Defines the CustomRendereFinishedControl type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace NinjaCoder.MvvmCross.UserControls.AddCustomerRenderers
 {
     using System.Windows.Controls;
 

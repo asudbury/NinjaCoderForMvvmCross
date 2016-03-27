@@ -5,11 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories
 {
+    using Entities;
     using Interfaces;
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.UserControls.AddViews;
-    using NinjaCoder.MvvmCross.ViewModels.AddNugetPackages;
-    using NinjaCoder.MvvmCross.ViewModels.AddViews;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
@@ -18,9 +15,12 @@ namespace NinjaCoder.MvvmCross.Factories
     using System.Collections.Generic;
     using System.Linq;
     using UserControls.AddProjects;
+    using UserControls.AddViews;
+    using ViewModels.AddNugetPackages;
     using ViewModels.AddProjects;
-    using PluginsControl = NinjaCoder.MvvmCross.UserControls.AddPlugins.PluginsControl;
-    using ProjectsFinishedControl = NinjaCoder.MvvmCross.UserControls.AddProjects.ProjectsFinishedControl;
+    using ViewModels.AddViews;
+    using PluginsControl = UserControls.AddPlugins.PluginsControl;
+    using ProjectsFinishedControl = UserControls.AddProjects.ProjectsFinishedControl;
 
     /// <summary>
     ///  Defines the ProjectFactory type.
@@ -179,9 +179,8 @@ namespace NinjaCoder.MvvmCross.Factories
         }
 
         /// <summary>
-        /// Gets the wizard data.
+        /// Registers the wizard data.
         /// </summary>
-        /// <returns></returns>
         public void RegisterWizardData()
         {
             TraceService.WriteLine("ProjectFactory::RegisterWizardData");
@@ -201,7 +200,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// Gets the route modifier.
         /// </summary>
         /// <param name="frameworkType">Type of the framework.</param>
-        /// <returns></returns>
+        /// <returns>The RouteModifier.</returns>
         public RouteModifier GetRouteModifier(FrameworkType frameworkType)
         {
             RouteModifier routeModifier = new RouteModifier

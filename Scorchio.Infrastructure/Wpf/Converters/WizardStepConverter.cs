@@ -48,7 +48,6 @@ namespace Scorchio.Infrastructure.Wpf.Converters
         /// <returns>
         /// A converted value. If the method returns null, the valid null value is used.
         /// </returns>
-        /// <exception cref="System.InvalidOperationException"></exception>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new InvalidOperationException(string.Format("{0} can only be used OneWay.", this.GetType().Name));

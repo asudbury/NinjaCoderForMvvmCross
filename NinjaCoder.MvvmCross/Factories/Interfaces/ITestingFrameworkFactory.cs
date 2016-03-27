@@ -13,19 +13,19 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// <summary>
         /// Gets the testing class attribute.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The Testing class attribute.</returns>
         string GetTestingClassAttribute();
 
         /// <summary>
         /// Gets the testing method attribute.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The Testing method attribute.</returns>
         string GetTestingMethodAttribute();
 
         /// <summary>
         /// Gets the testing library.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The Testing class library.</returns>
         string GetTestingLibrary();
     }
 }

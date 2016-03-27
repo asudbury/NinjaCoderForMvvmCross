@@ -255,7 +255,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// <summary>
         /// Determines whether this instance [can move to next page].
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True or false.</returns>
         public override bool CanMoveToNextPage()
         {
             if (this.DoesDirectoryAlreadyExist() &&

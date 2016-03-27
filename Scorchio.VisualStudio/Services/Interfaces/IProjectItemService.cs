@@ -5,11 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio.Services.Interfaces
 {
-    using System.Collections.Generic;
-
+    using Entities;
     using EnvDTE;
-
-    using Scorchio.VisualStudio.Entities;
+    using System.Collections.Generic;
 
     /// <summary>
     ///  Defines the IProjectItemService type.
@@ -225,28 +223,28 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// <summary>
         /// Gets the folder project items.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A list of project item services.</returns>
         IEnumerable<IProjectItemService> GetFolderProjectItems();
 
         /// <summary>
         /// Gets the folder.
         /// </summary>
         /// <param name="folderName">Name of the folder.</param>
-        /// <returns></returns>
+        /// <returns>A project item service.</returns>
         IProjectItemService GetFolder(string folderName);
 
         /// <summary>
         /// Gets the folder or create.
         /// </summary>
         /// <param name="folderName">Name of the folder.</param>
-        /// <returns></returns>
+        /// <returns>A project item service.</returns>
         IProjectItemService GetFolderOrCreate(string folderName);
 
         /// <summary>
         /// Gets the project item.
         /// </summary>
         /// <param name="name">The name.</param>
-        /// <returns></returns>
+        /// <returns>A project item service.</returns>
         IProjectItemService GetProjectItem(string name);
     }
 }

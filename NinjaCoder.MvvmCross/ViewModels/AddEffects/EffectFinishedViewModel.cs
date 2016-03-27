@@ -5,9 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddEffects
 {
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
+    using Services.Interfaces;
 
     /// <summary>
     /// Defines the EffectFinishedViewModel type.
@@ -34,14 +33,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddEffects
         }
 
         /// <summary>
-        /// Called when [initialize].
-        /// </summary>
-        public override void OnInitialize()
-        {
-            this.Message = this.cachingService.Messages["EffectFinishMessage"];
-        }
-
-        /// <summary>
         /// Gets or sets the message.
         /// </summary>
         public string Message
@@ -56,6 +47,14 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddEffects
         public override string DisplayName
         {
             get { return "Finished"; }
+        }
+
+        /// <summary>
+        /// Called when [initialize].
+        /// </summary>
+        public override void OnInitialize()
+        {
+            this.Message = this.cachingService.Messages["EffectFinishMessage"];
         }
     }
 }

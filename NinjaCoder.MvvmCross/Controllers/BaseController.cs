@@ -8,9 +8,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     using Constants;
     using EnvDTE;
     using EnvDTE80;
-
     using MahApps.Metro;
-
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Wpf.Views;

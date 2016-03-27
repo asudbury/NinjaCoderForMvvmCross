@@ -6,9 +6,9 @@
 namespace NinjaCoder.MvvmCross.ViewModels
 {
     using MahApps.Metro;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
     using Scorchio.Infrastructure.Wpf;
     using Scorchio.Infrastructure.Wpf.ViewModels;
+    using Services.Interfaces;
     using System.Windows.Input;
 
     /// <summary>
@@ -17,9 +17,13 @@ namespace NinjaCoder.MvvmCross.ViewModels
     public abstract class NinjaBaseViewModel : BaseDialogViewModel
     {
         /// <summary>
-        /// Gets or sets the settings service.
+        /// Initializes a new instance of the <see cref="NinjaBaseViewModel" /> class.
         /// </summary>
-        protected ISettingsService SettingsService { get; set; }
+        /// <param name="settingsService">The settings service.</param>
+        protected NinjaBaseViewModel(ISettingsService settingsService)
+        {
+            this.SettingsService = settingsService;
+        }
 
         /// <summary>
         /// Gets the ok command.
@@ -38,20 +42,16 @@ namespace NinjaCoder.MvvmCross.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the settings service.
+        /// </summary>
+        protected ISettingsService SettingsService { get; set; }
+
+        /// <summary>
         /// Gets the current theme.
         /// </summary>
         protected Theme CurrentTheme
         {
             get { return this.SettingsService.Theme == "Dark" ? Theme.Dark : Theme.Light; }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NinjaBaseViewModel" /> class.
-        /// </summary>
-        /// <param name="settingsService">The settings service.</param>
-        protected NinjaBaseViewModel(ISettingsService settingsService)
-        {
-            this.SettingsService = settingsService;
         }
     }
 }

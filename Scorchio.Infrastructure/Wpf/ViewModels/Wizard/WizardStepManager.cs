@@ -133,7 +133,7 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         /// Creates the new step list.
         /// </summary>
         /// <param name="routeModifier">The route modifier.</param>
-        /// <returns></returns>
+        /// <returns>A list of WizardStepViewModels.</returns>
         private IEnumerable<WizardStepViewModel> CreateNewStepList(RouteModifier routeModifier)
         {
             List<WizardStepViewModel> result = new List<WizardStepViewModel>(this.steps);
@@ -177,7 +177,7 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         /// the current step).
         /// After recreating the list, our CurrentLinkedListStep reference would be referring to an item in the old linked list.
         /// </summary>
-        /// <param name="cacheCurrentStep"></param>
+        /// <param name="cacheCurrentStep">The cache current step.</param>
         private void ResetCurrentLinkedListStepTo(WizardStepViewModel cacheCurrentStep)
         {
             this.CurrentLinkedListStep = this.LinkedSteps.First;
@@ -195,8 +195,8 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels.Wizard
         /// OMG, if the user chooses an option that changes the route through the wizard, then goes back and chooses a different option,
         /// we need to add the appropriate step(s) back into the workflow.
         /// </summary>
-        /// <param name="workingStepList"></param>
-        /// <param name="viewTypes"></param>
+        /// <param name="workingStepList">The working step list.</param>
+        /// <param name="viewTypes">The view types.</param>
         private void AddBack(
             List<WizardStepViewModel> workingStepList, 
             IEnumerable<Type> viewTypes)

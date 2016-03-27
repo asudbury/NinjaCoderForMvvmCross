@@ -238,7 +238,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <summary>
         /// Gets the windows WPF project.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A ProjectTemplateInfo.</returns>
         internal ProjectTemplateInfo GetWindowsWpfProject()
         {
             return new ProjectTemplateInfo

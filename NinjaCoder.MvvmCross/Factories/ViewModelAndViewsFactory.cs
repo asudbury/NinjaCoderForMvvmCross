@@ -109,7 +109,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// </summary>
         /// <param name="friendlyName">Name of the friendly.</param>
         /// <param name="projectSuffix">The project suffix.</param>
-        /// <returns></returns>
+        /// <returns>The ItemTemplateInfo.</returns>
         public ItemTemplateInfo GetView(string friendlyName, string projectSuffix)
         {
             return new ItemTemplateInfo
@@ -133,7 +133,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <summary>
         /// Gets the available MVVM cross ios view types.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A list of available view types.</returns>
         public IEnumerable<string> GetAvailableMvvmCrossiOSViewTypes()
         {
             return (from MvvmCrossViewType enumValue in Enum.GetValues(typeof(MvvmCrossViewType))
@@ -147,7 +147,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="requiredUIViews">The required UI views.</param>
         /// <param name="unitTestsRequired">if set to <c>true</c> [unit tests required].</param>
-        /// <returns></returns>
+        /// <returns>A list of TextTemplateInfos.</returns>
         public IEnumerable<TextTemplateInfo> GetRequiredTextTemplates(
             View view,
             string viewModelName,
@@ -188,78 +188,6 @@ namespace NinjaCoder.MvvmCross.Factories
             }
 
             return textTemplateInfos;
-        }
-
-        /// <summary>
-        /// Gets the xamarin forms view.
-        /// </summary>
-        /// <param name="viewModelName">Name of the view model.</param>
-        /// <param name="view">The view.</param>
-        /// <returns></returns>
-        internal TextTemplateInfo GetXamarinFormsView(string viewModelName, View view)
-        {
-            string viewTemplateName =
-                this.GetViewTemplate(
-                    FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework),
-                    string.Empty,
-                    view.PageType);
-
-            string viewName = viewModelName.Remove(viewModelName.Length - ViewModelSuffix.Length) + "View";
-            string pageType = view.PageType.Replace(" ", string.Empty);
-
-            Dictionary<string, string> tokens = new Dictionary<string, string>
-            {
-                { "ClassName", viewName },
-                { "CoreProjectName", this.VisualStudioService.CoreProjectService.Name },
-                { "NameSpace", this.VisualStudioService.XamarinFormsProjectService.Name + ".Views" },
-                { "PageType", pageType },
-                { "CompileOption", this.SettingsService.UseXamarinFormsXamlCompilation ? XamarinFormsCompileOption.Compile.GetDescription() : XamarinFormsCompileOption.Skip.GetDescription() },
-                { "Content", this.GetFormsViewContent(view)
-                }
-            };
-
-            TextTemplateInfo textTemplateInfo = new TextTemplateInfo
-                {
-                    ProjectSuffix = ProjectSuffix.XamarinForms.GetDescription(),
-                    ProjectFolder = "Views",
-                    Tokens = tokens,
-                    ShortTemplateName = viewTemplateName,
-                    TemplateName = this.SettingsService.ItemTemplatesDirectory + "\\XamarinForms\\" + viewTemplateName
-                };
-
-            TextTransformationRequest textTransformationRequest = new TextTransformationRequest
-            {
-                SourceFile = textTemplateInfo.TemplateName,
-                Parameters = textTemplateInfo.Tokens,
-                RemoveFileHeaders = this.SettingsService.RemoveDefaultFileHeaders,
-                RemoveXmlComments = this.SettingsService.RemoveDefaultComments,
-                RemoveThisPointer = this.SettingsService.RemoveThisPointer
-            };
-
-            TextTransformation textTransformation = this.GetTextTransformationService().Transform(textTransformationRequest);
-
-            textTemplateInfo.TextOutput = textTransformation.Output;
-            textTemplateInfo.FileName = viewName + "." + textTransformation.FileExtension;
-
-            //// we also need to add a build action for the xaml file!
-
-            textTemplateInfo.FileOperations.Add(
-                this.GetEmbeddedResourceFileOperation(
-                    ProjectSuffix.XamarinForms.GetDescription(),
-                    textTemplateInfo.FileName));
-
-            //// add code behind file
-
-            TextTemplateInfo childTextTemplateInfo =
-                this.GetCodeBehindTextTemplateInfo(
-                    ProjectSuffix.XamarinForms.GetDescription(),
-                    viewName,
-                    viewTemplateName,
-                    tokens);
-
-            textTemplateInfo.ChildItems.Add(childTextTemplateInfo);
-
-            return textTemplateInfo;
         }
 
         /// <summary>
@@ -304,11 +232,83 @@ namespace NinjaCoder.MvvmCross.Factories
         }
 
         /// <summary>
+        /// Gets the xamarin forms view.
+        /// </summary>
+        /// <param name="viewModelName">Name of the view model.</param>
+        /// <param name="view">The view.</param>
+        /// <returns>A TextTemplateInfo.</returns>
+        internal TextTemplateInfo GetXamarinFormsView(string viewModelName, View view)
+        {
+            string viewTemplateName =
+                this.GetViewTemplate(
+                    FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework),
+                    string.Empty,
+                    view.PageType);
+
+            string viewName = viewModelName.Remove(viewModelName.Length - ViewModelSuffix.Length) + "View";
+            string pageType = view.PageType.Replace(" ", string.Empty);
+
+            Dictionary<string, string> tokens = new Dictionary<string, string>
+            {
+                { "ClassName", viewName },
+                { "CoreProjectName", this.VisualStudioService.CoreProjectService.Name },
+                { "NameSpace", this.VisualStudioService.XamarinFormsProjectService.Name + ".Views" },
+                { "PageType", pageType },
+                { "CompileOption", this.SettingsService.UseXamarinFormsXamlCompilation ? XamarinFormsCompileOption.Compile.GetDescription() : XamarinFormsCompileOption.Skip.GetDescription() },
+                { "Content", this.GetFormsViewContent(view)
+                }
+            };
+
+            TextTemplateInfo textTemplateInfo = new TextTemplateInfo
+            {
+                ProjectSuffix = ProjectSuffix.XamarinForms.GetDescription(),
+                ProjectFolder = "Views",
+                Tokens = tokens,
+                ShortTemplateName = viewTemplateName,
+                TemplateName = this.SettingsService.ItemTemplatesDirectory + "\\XamarinForms\\" + viewTemplateName
+            };
+
+            TextTransformationRequest textTransformationRequest = new TextTransformationRequest
+            {
+                SourceFile = textTemplateInfo.TemplateName,
+                Parameters = textTemplateInfo.Tokens,
+                RemoveFileHeaders = this.SettingsService.RemoveDefaultFileHeaders,
+                RemoveXmlComments = this.SettingsService.RemoveDefaultComments,
+                RemoveThisPointer = this.SettingsService.RemoveThisPointer
+            };
+
+            TextTransformation textTransformation = this.GetTextTransformationService().Transform(textTransformationRequest);
+
+            textTemplateInfo.TextOutput = textTransformation.Output;
+            textTemplateInfo.FileName = viewName + "." + textTransformation.FileExtension;
+
+            //// we also need to add a build action for the xaml file!
+
+            textTemplateInfo.FileOperations.Add(
+                this.GetEmbeddedResourceFileOperation(
+                    ProjectSuffix.XamarinForms.GetDescription(),
+                    textTemplateInfo.FileName));
+
+            //// add code behind file
+
+            TextTemplateInfo childTextTemplateInfo =
+                this.GetCodeBehindTextTemplateInfo(
+                    ProjectSuffix.XamarinForms.GetDescription(),
+                    viewName,
+                    viewTemplateName,
+                    tokens);
+
+            textTemplateInfo.ChildItems.Add(childTextTemplateInfo);
+
+            return textTemplateInfo;
+        }
+
+        /// <summary>
         /// Gets the view model text template information.
         /// </summary>
         /// <param name="view">The view.</param>
         /// <param name="viewModelName">Name of the view model.</param>
-        /// <returns></returns>
+        /// <returns>A TextTemplateInfo.</returns>
         internal TextTemplateInfo GetViewModelTextTemplateInfo(
             View view, 
             string viewModelName)
@@ -350,7 +350,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// </summary>
         /// <param name="view">The view.</param>
         /// <param name="viewModelName">Name of the view model.</param>
-        /// <returns></returns>
+        /// <returns>A TextTemplateInfo.</returns>
         internal TextTemplateInfo GetUnitTestingItemTemplate(
             View view,
             string viewModelName)
@@ -448,10 +448,11 @@ namespace NinjaCoder.MvvmCross.Factories
 
             if (this.SettingsService.BindContextInXamlForXamarinForms)
             {
-                bindingContext = string.Format("<{0}.BindingContext>{1}        <viewModels:{2} />{1}        </{0}.BindingContext>{1}",
-                                                page,
-                                                Environment.NewLine,
-                                                view.Name + "ViewModel");
+                bindingContext = string.Format(
+                    "<{0}.BindingContext>{1}        <viewModels:{2} />{1}        </{0}.BindingContext>{1}",
+                    page,
+                    Environment.NewLine,
+                    view.Name + "ViewModel");
             }
 
             if (this.SettingsService.BindXamlForXamarinForms)

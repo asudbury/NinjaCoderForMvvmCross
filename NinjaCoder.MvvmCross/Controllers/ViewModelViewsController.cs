@@ -6,15 +6,15 @@
 namespace NinjaCoder.MvvmCross.Controllers
 {
     using Constants;
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.ViewModels.AddViews;
-    using NinjaCoder.MvvmCross.ViewModels.Wizard;
-    using NinjaCoder.MvvmCross.Views.Wizard;
+    using Entities;
+    using Factories.Interfaces;
     using Scorchio.Infrastructure.Services;
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;
     using System.Collections.Generic;
+    using ViewModels.AddViews;
+    using ViewModels.Wizard;
+    using Views.Wizard;
 
     /// <summary>
     /// Defines the ViewModelViewsController type.

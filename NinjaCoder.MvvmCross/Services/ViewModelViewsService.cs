@@ -6,15 +6,14 @@
 namespace NinjaCoder.MvvmCross.Services
 {
     using Constants;
+    using Entities;
     using Factories.Interfaces;
     using Interfaces;
-    using NinjaCoder.MvvmCross.Entities;
+    using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using System.Collections.Generic;
     using System.Linq;
-
-    using Scorchio.Infrastructure.Extensions;
 
     /// <summary>
     ///  Defines the ViewModelViewsService type.
@@ -118,7 +117,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// Adds the view models and views.
         /// </summary>
         /// <param name="views">The views.</param>
-        /// <returns></returns>
+        /// <returns>A list of views.</returns>
         public IEnumerable<string> AddViewModelsAndViews(IEnumerable<View> views)
         {
             TraceService.WriteLine("ViewModelViewsService::AddViewModelsAndViews");
@@ -167,7 +166,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the nuget commands.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A list of nuget commands.</returns>
         public IEnumerable<string> GetNugetCommands()
         {
             List<string> commands = new List<string>();

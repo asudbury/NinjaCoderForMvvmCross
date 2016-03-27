@@ -5,19 +5,15 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Tests.Factories
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
     using Moq;
-
-    using NinjaCoder.MvvmCross.Factories;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-
+    using MvvmCross.Factories;
+    using MvvmCross.Services.Interfaces;
     using NUnit.Framework;
-
     using Scorchio.Infrastructure.Constants;
     using Scorchio.Infrastructure.Services.Testing;
     using Scorchio.Infrastructure.Services.Testing.Interfaces;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     ///  Defines the TestMockingServiceFactory type.
@@ -97,21 +93,6 @@ namespace NinjaCoder.MvvmCross.Tests.Factories
             RhinoMocksMockingService rhinoMockMockingService = (RhinoMocksMockingService)mockingService;
 
             Assert.IsTrue(rhinoMockMockingService != null);
-        }
-
-        /// <summary>
-        /// Tests the get nsubstitute mocking service.
-        /// </summary>
-        [Test]
-        public void TestGetNSubstituteMockingService()
-        {
-            this.mockSettingsService.SetupGet(x => x.MockingFramework).Returns(TestingConstants.NSubstitute.Name);
-
-            IMockingService mockingService = this.factory.GetMockingService();
-
-            NSubstituteMockingService nSubstituteMockingService = (NSubstituteMockingService)mockingService;
-
-            Assert.IsTrue(nSubstituteMockingService != null);
         }
     }
 }

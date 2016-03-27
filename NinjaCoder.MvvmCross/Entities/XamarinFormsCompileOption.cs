@@ -13,13 +13,13 @@ namespace NinjaCoder.MvvmCross.Entities
     public enum XamarinFormsCompileOption
     {
         /// <summary>
-        /// Compile,
+        /// The Compile option.
         /// </summary>
         [Description("Compile")]
         Compile,
 
         /// <summary>
-        /// Skip.
+        /// The Skip option.
         /// </summary>
         [Description("Skip")]
         Skip,

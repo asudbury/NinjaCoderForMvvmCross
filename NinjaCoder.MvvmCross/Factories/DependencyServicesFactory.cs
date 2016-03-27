@@ -5,16 +5,16 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories
 {
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
-    using NinjaCoder.MvvmCross.UserControls.AddDependencyServices;
-    using NinjaCoder.MvvmCross.ViewModels.AddDependencyServices;
+    using Entities;
+    using Interfaces;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
+    using Services.Interfaces;
     using System.Collections.Generic;
+    using UserControls.AddDependencyServices;
+    using ViewModels.AddDependencyServices;
 
     /// <summary>
     /// Defines the DependencyServicesFactory type.
@@ -111,7 +111,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="methodReturnType">Type of the method return.</param>
         /// <param name="methodName">Name of the method.</param>
         /// <param name="directory">The directory.</param>
-        /// <returns></returns>
+        /// <returns>A list of TextTemplateInfos.</returns>
         public IEnumerable<TextTemplateInfo> GetTextTemplates(
             string name,
             string methodComment,
@@ -147,6 +147,7 @@ namespace NinjaCoder.MvvmCross.Factories
                         true));
             }
 
+            // ReSharper disable once InconsistentNaming
             IProjectService iOSProjectService = this.visualStudioService.iOSProjectService;
 
             if (iOSProjectService != null)
@@ -209,7 +210,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="methodReturnType">Type of the method return.</param>
         /// <param name="methodName">Name of the method.</param>
         /// <param name="directory">The directory.</param>
-        /// <returns></returns>
+        /// <returns>A Dictionary.</returns>
         internal Dictionary<string, string> GetBaseDictionary(
             string name,
             string methodComment,

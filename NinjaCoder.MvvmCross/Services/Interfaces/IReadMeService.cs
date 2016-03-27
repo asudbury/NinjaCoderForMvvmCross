@@ -26,7 +26,7 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Gets the seperator line.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The line seperator.</returns>
         string GetSeperatorLine();
     }
 }

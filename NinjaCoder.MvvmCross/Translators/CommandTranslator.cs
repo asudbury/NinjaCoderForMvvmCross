@@ -6,12 +6,10 @@
 
 namespace NinjaCoder.MvvmCross.Translators
 {
-    using System.Data;
-
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Translators;
-    using System.Xml.Linq;
     using Scorchio.VisualStudio.Entities;
+    using System.Xml.Linq;
 
     /// <summary>
     /// Defines the CommandTranslator type.
@@ -21,8 +19,8 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <summary>
         /// Translates the specified from.
         /// </summary>
-        /// <param name="from">From.</param>
-        /// <returns></returns>
+        /// <param name="from">The translation source..</param>
+        /// <returns>A StudioCommand.</returns>
         public StudioCommand Translate(XElement @from)
         {
             return new StudioCommand

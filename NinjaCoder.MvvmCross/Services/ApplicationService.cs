@@ -5,9 +5,10 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
+    using Constants;
+    using Entities;
     using Interfaces;
-    using NinjaCoder.MvvmCross.Constants;
-    using NinjaCoder.MvvmCross.Entities;
+    using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Scorchio.VisualStudio.Services.Interfaces;
@@ -16,8 +17,6 @@ namespace NinjaCoder.MvvmCross.Services
     using System.IO;
     using System.Linq;
     using System.Xml.Linq;
-
-    using Scorchio.Infrastructure.Translators;
 
     /// <summary>
     /// Defines the ApplicationService type.
@@ -138,7 +137,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the application framework.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The Framework Type.</returns>
         public FrameworkType GetApplicationFramework()
         {
             FrameworkType frameworkType = this.visualStudioService.GetFrameworkType();
@@ -236,7 +235,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the commands list.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A CommandsList.</returns>
         public CommandsList GetCommandsList()
         {
             return this.commandsListTranslator.Translate(this.settingsService.ApplicationCommandsUri);

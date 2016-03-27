@@ -1,12 +1,13 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
+// <summary>
 //    Defines the CodeConfigService type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services
 {
+    using Constants;
     using EnvDTE;
     using Interfaces;
-    using NinjaCoder.MvvmCross.Constants;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;

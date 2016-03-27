@@ -5,13 +5,11 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories.Interfaces
 {
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-
-    using NinjaCoder.MvvmCross.Entities;
-
+    using Entities;
     using Scorchio.Infrastructure.Entities;
     using Scorchio.VisualStudio.Entities;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
 
     /// <summary>
     /// Defines the IMvvmCrossViewFactory type.
@@ -29,7 +27,7 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// <param name="viewModelName">Name of the view model.</param>
         /// <param name="itemTemplateInfo">The item template information.</param>
         /// <param name="view">The view.</param>
-        /// <returns></returns>
+        /// <returns>A TextTemplateInfo.</returns>
         TextTemplateInfo GetMvvmCrossView(
             string viewModelName, 
             ItemTemplateInfo itemTemplateInfo, 
@@ -42,7 +40,7 @@ namespace NinjaCoder.MvvmCross.Factories.Interfaces
         /// <param name="tokens">The tokens.</param>
         /// <param name="viewTemplateName">Name of the view template.</param>
         /// <param name="viewName">Name of the view.</param>
-        /// <returns></returns>
+        /// <returns>A TextTemplateInfo.</returns>
         TextTemplateInfo GetMvvmCrossView(
             ItemTemplateInfo itemTemplateInfo,
             Dictionary<string, string> tokens,

@@ -42,8 +42,8 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <summary>
         /// Translates the specified from.
         /// </summary>
-        /// <param name="from">From.</param>
-        /// <returns></returns>
+        /// <param name="from">Translate Source.</param>
+        /// <returns>A list StudioCommands.</returns>
         public IEnumerable<StudioCommand> Translate(XElement @from)
         {
             List<StudioCommand> commands = new List<StudioCommand>();

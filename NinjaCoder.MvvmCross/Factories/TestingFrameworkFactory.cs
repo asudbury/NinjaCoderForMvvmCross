@@ -5,9 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Factories
 {
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
+    using Interfaces;
     using Scorchio.Infrastructure.Constants;
+    using Services.Interfaces;
 
     /// <summary>
     ///  Defines the TestingFrameworkFactory type.
@@ -31,7 +31,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <summary>
         /// Gets the testing class attribute.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The testing class attribute.</returns>
         public string GetTestingClassAttribute()
         {
             switch (this.settingsService.TestingFramework)
@@ -50,7 +50,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <summary>
         /// Gets the testing method attribute.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The name of the testing attribute to use.</returns>
         public string GetTestingMethodAttribute()
         {
             switch (this.settingsService.TestingFramework)
@@ -69,7 +69,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <summary>
         /// Gets the testing library.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The name of the testing library.</returns>
         public string GetTestingLibrary()
         {
             switch (this.settingsService.TestingFramework)

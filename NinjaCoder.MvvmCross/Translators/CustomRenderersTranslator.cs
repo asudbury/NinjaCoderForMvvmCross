@@ -3,10 +3,9 @@
 //  Defines the CustomRenderersTranslator type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Translators
 {
-    using NinjaCoder.MvvmCross.Entities;
+    using Entities;
     using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Services;
     using System.Collections.Generic;
@@ -47,7 +46,9 @@ namespace NinjaCoder.MvvmCross.Translators
         /// <returns></returns>
         internal string GetHelpLink(XElement element)
         {
-            return element.Element("HelpLink").Value;
+            XElement xElement = element.Element("HelpLink");
+
+            return xElement?.Value ?? string.Empty;
         }
 
         /// <summary>

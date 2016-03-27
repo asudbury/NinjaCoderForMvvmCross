@@ -5,16 +5,16 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddCustomRenderers
 {
+    using Entities;
+    using Factories.Interfaces;
     using MahApps.Metro;
-    using NinjaCoder.MvvmCross.Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.Services.Interfaces;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Translators;
     using Scorchio.Infrastructure.Wpf;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Entities;
+    using Services.Interfaces;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
@@ -116,17 +116,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddCustomRenderers
             this.cachingService = cachingService;
             this.customRendererFactory = customRendererFactory;
             this.Init();
-        }
-
-        /// <summary>
-        /// Called when [initialize].
-        /// </summary>
-        internal void Init()
-        {
-            this.AppendRendererToName = this.settingsService.AutomaticallyAddRenderer;
-            this.Directory = this.settingsService.CustomRendererDirectory;
-            this.customRenderers = this.translator.Translate(this.settingsService.XamarinFormsCustomRenderersUri);
-            this.CustomRendererGroups = this.customRenderers.Groups.Select(customerRendererGroup => customerRendererGroup.Name).ToList();
         }
 
         /// <summary>
@@ -247,30 +236,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddCustomRenderers
         }
 
         /// <summary>
-        /// Gets the custom renderers web site command.
-        /// </summary>
-        public ICommand CustomRenderersWebSiteCommand
-        {
-            get { return new RelayCommand(this.DisplayWebPage); }
-        }
-
-        /// <summary>
-        /// Gets the display name.
-        /// </summary>
-        public override string DisplayName
-        {
-            get { return "Custom Renderer"; }
-        }
-
-        /// <summary>
-        /// Displays the web page.
-        /// </summary>
-        internal void DisplayWebPage()
-        {
-            Process.Start(this.customRenderers.HelpLink);
-        }
-
-        /// <summary>
         /// Gets the name of the requested.
         /// </summary>
         public string RequestedName
@@ -289,9 +254,25 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddCustomRenderers
         }
 
         /// <summary>
+        /// Gets the custom renderers web site command.
+        /// </summary>
+        public ICommand CustomRenderersWebSiteCommand
+        {
+            get { return new RelayCommand(this.DisplayWebPage); }
+        }
+
+        /// <summary>
+        /// Gets the display name.
+        /// </summary>
+        public override string DisplayName
+        {
+            get { return "Custom Renderer"; }
+        }
+
+        /// <summary>
         /// Determines whether this instance [can move to next page].
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True or false.</returns>
         public override bool CanMoveToNextPage()
         {
             if (string.IsNullOrEmpty(this.name) ||
@@ -334,6 +315,25 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddCustomRenderers
             }
 
             this.cachingService.Messages["CustomRendererFinishMessage"] = message;
+        }
+
+        /// <summary>
+        /// Called when [initialize].
+        /// </summary>
+        internal void Init()
+        {
+            this.AppendRendererToName = this.settingsService.AutomaticallyAddRenderer;
+            this.Directory = this.settingsService.CustomRendererDirectory;
+            this.customRenderers = this.translator.Translate(this.settingsService.XamarinFormsCustomRenderersUri);
+            this.CustomRendererGroups = this.customRenderers.Groups.Select(customerRendererGroup => customerRendererGroup.Name).ToList();
+        }
+
+        /// <summary>
+        /// Displays the web page.
+        /// </summary>
+        internal void DisplayWebPage()
+        {
+            Process.Start(this.customRenderers.HelpLink);
         }
     }
 }

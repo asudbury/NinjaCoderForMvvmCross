@@ -16,11 +16,6 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels
     public class ImagePickerViewModel : BaseViewModel
     {
         /// <summary>
-        /// Occurs when [image changed].
-        /// </summary>
-        public event EventHandler<ImageChangedEventArgs> ImageChanged;
-        
-        /// <summary>
         /// The images.
         /// </summary>
         private IEnumerable<ImageItem> images;
@@ -29,6 +24,11 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels
         /// The selected image.
         /// </summary>
         private ImageItem selectedImage;
+
+        /// <summary>
+        /// Occurs when [image changed].
+        /// </summary>
+        public event EventHandler<ImageChangedEventArgs> ImageChanged;
 
         /// <summary>
         /// Gets or sets the images.

@@ -54,7 +54,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <summary>
         ///     Gets the text transformation service.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The Text Transformation Service.</returns>
         protected ITextTransformationService GetTextTransformationService()
         {
             return this.textTransformationService ?? (this.textTransformationService = new TextTransformationService());
@@ -65,7 +65,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// </summary>
         /// <param name="platForm">The platform.</param>
         /// <param name="fileName">Name of the file.</param>
-        /// <returns></returns>
+        /// <returns>A FileOperation.</returns>
         protected FileOperation GetEmbeddedResourceFileOperation(string platForm, string fileName)
         {
             return this.GetFileOperation(platForm, fileName, "3");
@@ -76,7 +76,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// </summary>
         /// <param name="platForm">The platform.</param>
         /// <param name="fileName">Name of the file.</param>
-        /// <returns></returns>
+        /// <returns>A FileOperation.</returns>
         protected FileOperation GetPageFileOperation(string platForm, string fileName)
         {
             var operation = "4";
@@ -94,10 +94,30 @@ namespace NinjaCoder.MvvmCross.Factories
         /// </summary>
         /// <param name="platForm">The platform.</param>
         /// <param name="fileName">Name of the file.</param>
-        /// <returns></returns>
+        /// <returns>A FileOperation.</returns>
         protected FileOperation GetCompileFileOperation(string platForm, string fileName)
         {
             return this.GetFileOperation(platForm, fileName, "1");
+        }
+
+        /// <summary>
+        ///     Gets the file operation.
+        /// </summary>
+        /// <param name="platForm">The platform.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="operation">The operation.</param>
+        /// <returns>A FileOperation.</returns>
+        internal FileOperation GetFileOperation(string platForm, string fileName, string operation)
+        {
+            return new FileOperation
+                       {
+                           PlatForm = platForm,
+                           CommandType = "Properties",
+                           Directory = "Views",
+                           File = fileName,
+                           From = "BuildAction",
+                           To = operation
+                       };
         }
 
         /// <summary>
@@ -107,7 +127,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="viewName">Name of the view.</param>
         /// <param name="viewTemplateName">Name of the view template.</param>
         /// <param name="tokens">The tokens.</param>
-        /// <returns></returns>
+        /// <returns>A TextTemplateInfo.</returns>
         protected TextTemplateInfo GetCodeBehindTextTemplateInfo(
             string projectSuffix,
             string viewName,
@@ -122,28 +142,28 @@ namespace NinjaCoder.MvvmCross.Factories
             }
 
             var textTemplateInfo = new TextTemplateInfo
-                                       {
-                                           ProjectSuffix = projectSuffix,
-                                           ProjectFolder = "Views",
-                                           Tokens = tokens,
-                                           ShortTemplateName = viewTemplateName,
-                                           TemplateName =
+            {
+                ProjectSuffix = projectSuffix,
+                ProjectFolder = "Views",
+                Tokens = tokens,
+                ShortTemplateName = viewTemplateName,
+                TemplateName =
                                                templateDirectory + "\\" + "BlankViewCodeBehind.t4"
-                                       };
+            };
 
             var textTransformationRequest = new TextTransformationRequest
-                                                {
-                                                    SourceFile = textTemplateInfo.TemplateName,
-                                                    Parameters = textTemplateInfo.Tokens,
-                                                    RemoveFileHeaders =
+            {
+                SourceFile = textTemplateInfo.TemplateName,
+                Parameters = textTemplateInfo.Tokens,
+                RemoveFileHeaders =
                                                         this.SettingsService
                                                         .RemoveDefaultFileHeaders,
-                                                    RemoveXmlComments =
+                RemoveXmlComments =
                                                         this.SettingsService
                                                         .RemoveDefaultComments,
-                                                    RemoveThisPointer =
+                RemoveThisPointer =
                                                         this.SettingsService.RemoveThisPointer
-                                                };
+            };
 
             var textTransformation = this.GetTextTransformationService().Transform(textTransformationRequest);
 
@@ -159,9 +179,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="frameworkType">Type of the framework.</param>
         /// <param name="type">The type.</param>
         /// <param name="pageType">Type of the page.</param>
-        /// <returns>
-        ///     The View Template.
-        /// </returns>
+        /// <returns>The View Template.</returns>
         protected string GetViewTemplate(FrameworkType frameworkType, string type, string pageType)
         {
             if (frameworkType == FrameworkType.XamarinForms)
@@ -177,7 +195,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// </summary>
         /// <param name="viewName">Name of the view.</param>
         /// <param name="projectSuffix">The project suffix.</param>
-        /// <returns></returns>
+        /// <returns>A Dictionary.</returns>
         protected Dictionary<string, string> GetBaseDictionary(string viewName, string projectSuffix)
         {
             return new Dictionary<string, string>
@@ -193,26 +211,6 @@ namespace NinjaCoder.MvvmCross.Factories
                                this.VisualStudioService.GetProjectServiceBySuffix(projectSuffix)
                                    .Name + ".Views"
                            }
-                       };
-        }
-
-        /// <summary>
-        ///     Gets the file operation.
-        /// </summary>
-        /// <param name="platForm">The platform.</param>
-        /// <param name="fileName">Name of the file.</param>
-        /// <param name="operation">The operation.</param>
-        /// <returns></returns>
-        internal FileOperation GetFileOperation(string platForm, string fileName, string operation)
-        {
-            return new FileOperation
-                       {
-                           PlatForm = platForm,
-                           CommandType = "Properties",
-                           Directory = "Views",
-                           File = fileName,
-                           From = "BuildAction",
-                           To = operation
                        };
         }
     }

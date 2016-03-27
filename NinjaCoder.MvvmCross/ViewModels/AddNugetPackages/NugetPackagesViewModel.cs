@@ -88,6 +88,57 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         }
 
         /// <summary>
+        /// Gets or sets the core nuget packages.
+        /// </summary>
+        public ObservableCollection<SelectableItemViewModel<Plugin>> CoreNugetPackages
+        {
+            get { return this.coreNugetPackages; }
+            set { this.SetProperty(ref this.coreNugetPackages, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the forms nuget packages.
+        /// </summary>
+        public ObservableCollection<SelectableItemViewModel<Plugin>> FormsNugetPackages
+        {
+            get { return this.formsNugetPackages; }
+            set { this.SetProperty(ref this.formsNugetPackages, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to display forms nuget packages.
+        /// </summary>
+        public bool DisplayFormsNugetPackages
+        {
+            get { return this.displayFormsNugetPackages; }
+            set { this.SetProperty(ref this.displayFormsNugetPackages, value); }
+        }
+
+        /// <summary>
+        /// Gets the nuget web site command.
+        /// </summary>
+        public ICommand NugetWebSiteCommand
+        {
+            get { return new RelayCommand(this.DisplayWebPage); }
+        }
+
+        /// <summary>
+        /// Gets the nuget packages URI.
+        /// </summary>
+        protected override string NugetPackagesUri
+        {
+            get { return this.settingsService.NugetPackagesUri; }
+        }
+
+        /// <summary>
+        /// Gets the get nuget packages.
+        /// </summary>
+        protected override IEnumerable<SelectableItemViewModel<Plugin>> NugetPackages
+        {
+            get { return this.CoreNugetPackages.Concat(this.FormsNugetPackages); }
+        }
+
+        /// <summary>
         /// Called when [initialize].
         /// </summary>
         public override void OnInitialize()
@@ -146,57 +197,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         }
 
         /// <summary>
-        /// Gets or sets the core nuget packages.
-        /// </summary>
-        public ObservableCollection<SelectableItemViewModel<Plugin>> CoreNugetPackages
-        {
-            get { return this.coreNugetPackages; }
-            set { this.SetProperty(ref this.coreNugetPackages, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the forms nuget packages.
-        /// </summary>
-        public ObservableCollection<SelectableItemViewModel<Plugin>> FormsNugetPackages
-        {
-            get { return this.formsNugetPackages; }
-            set { this.SetProperty(ref this.formsNugetPackages, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether to display forms nuget packages.
-        /// </summary>
-        public bool DisplayFormsNugetPackages
-        {
-            get { return this.displayFormsNugetPackages; }
-            set { this.SetProperty(ref this.displayFormsNugetPackages, value); }
-        }
-
-        /// <summary>
-        /// Gets the nuget web site command.
-        /// </summary>
-        public ICommand NugetWebSiteCommand
-        {
-            get { return new RelayCommand(this.DisplayWebPage); }
-        }
- 
-        /// <summary>
-        /// Gets the nuget packages URI.
-        /// </summary>
-        protected override string NugetPackagesUri
-        {
-            get { return this.settingsService.NugetPackagesUri; }
-        }
-
-        /// <summary>
-        /// Gets the get nuget packages.
-        /// </summary>
-        protected override IEnumerable<SelectableItemViewModel<Plugin>> NugetPackages
-        {
-            get { return this.CoreNugetPackages.Concat(this.FormsNugetPackages); }
-        }
-
-        /// <summary>
         /// Displays the web page.
         /// </summary>
         internal void DisplayWebPage()
@@ -208,7 +208,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
         /// Gets the packages.
         /// </summary>
         /// <param name="plugins">The plugins.</param>
-        /// <returns></returns>
+        /// <returns>A collection of Plugins.</returns>
         internal ObservableCollection<SelectableItemViewModel<Plugin>> GetPackages(Plugins plugins)
         {
             ObservableCollection<SelectableItemViewModel<Plugin>> viewModels = new ObservableCollection<SelectableItemViewModel<Plugin>>();

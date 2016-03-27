@@ -1,4 +1,9 @@
-﻿namespace NinjaCoder.MvvmCross.UserControls.AddProjects
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//    Defines the ApplicationSamplesOptionsControl type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace NinjaCoder.MvvmCross.UserControls.AddProjects
 {
     /// <summary>
     /// Interaction logic for ApplicationSamplesOptionsControl.xaml

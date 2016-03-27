@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Extensions
 {
-    using NinjaCoder.MvvmCross.Entities;
+    using Entities;
 
     /// <summary>
     ///  Defines the FrameworkTypeExtensions type.
@@ -16,7 +16,7 @@ namespace NinjaCoder.MvvmCross.Extensions
         /// Determines whether [is MVVM cross solution type] [the specified instance].
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns></returns>
+        /// <returns>True or false.</returns>
         public static bool IsMvvmCrossSolutionType(this FrameworkType instance)
         {
             return instance == FrameworkType.MvvmCross || 
@@ -27,7 +27,7 @@ namespace NinjaCoder.MvvmCross.Extensions
         /// Determines whether [is xamarin forms solution type] [the specified instance].
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns></returns>
+        /// <returns>True or false.</returns>
         public static bool IsXamarinFormsSolutionType(this FrameworkType instance)
         {
             return instance == FrameworkType.XamarinForms ||

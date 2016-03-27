@@ -7,18 +7,17 @@ namespace NinjaCoder.MvvmCross.Controllers
 {
     using Constants;
     using Entities;
-    using NinjaCoder.MvvmCross.Factories.Interfaces;
-    using NinjaCoder.MvvmCross.ViewModels.AddDependencyServices;
-    using NinjaCoder.MvvmCross.ViewModels.Wizard;
-    using NinjaCoder.MvvmCross.Views.Wizard;
+    using Extensions;
+    using Factories.Interfaces;
     using Scorchio.Infrastructure.Services;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;
     using System;
     using System.Collections.Generic;
-
-    using NinjaCoder.MvvmCross.Extensions;
+    using ViewModels.AddDependencyServices;
+    using ViewModels.Wizard;
+    using Views.Wizard;
 
     /// <summary>
     /// Defines the DependencyServicesController type.

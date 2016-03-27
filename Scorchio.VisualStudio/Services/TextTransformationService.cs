@@ -64,7 +64,7 @@ namespace Scorchio.VisualStudio.Services
         /// Gets the text.
         /// </summary>
         /// <param name="sourceFile">The source file.</param>
-        /// <returns></returns>
+        /// <returns>The text of the source file.</returns>
         internal string GetText(string sourceFile)
         {
             if (this.cache.Files.ContainsKey(sourceFile))

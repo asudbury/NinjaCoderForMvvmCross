@@ -17,7 +17,7 @@ namespace Scorchio.Infrastructure.Extensions
         /// </summary>
         /// <param name="instance">The instance.</param>
         /// <param name="attributeName">Name of the attribute.</param>
-        /// <returns></returns>
+        /// <returns>The value of the attribute.</returns>
         public static string GetSafeAttributeStringValue(
             this XElement instance,
             string attributeName)

@@ -3,7 +3,6 @@
 //    Defines the MvvmCrossAndXamarinFormsProjectFactory type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Factories
 {
     using Entities;
@@ -150,7 +149,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <summary>
         /// Gets the xamarin forms project.
         /// </summary>
-        /// <returns>A xamarin forms project.</returns>
+        /// <returns>A ProjectTemplateInfo.</returns>
         internal ProjectTemplateInfo GetFormsProject()
         {
             return new ProjectTemplateInfo
@@ -167,7 +166,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <summary>
         /// Gets the forms tests project.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A ProjectTemplateInfo.</returns>
         internal ProjectTemplateInfo GetFormsTestsProject()
         {
             ProjectTemplateInfo projectTemplateInfo = this.GetTestsProject(
@@ -193,7 +192,8 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <summary>
         /// Gets the ios project.
         /// </summary>
-        /// <returns>an iOS project.</returns>
+        /// <returns>A ProjectTemplateInfo.</returns>
+        // ReSharper disable once InconsistentNaming
         internal ProjectTemplateInfo GetiOSProject()
         {
             return new ProjectTemplateInfo
@@ -211,7 +211,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <summary>
         /// Gets the droid project.
         /// </summary>
-        /// <returns>An android project.</returns>
+        /// <returns>A ProjectTemplateInfo.</returns>
         internal ProjectTemplateInfo GetDroidProject()
         {
             return new ProjectTemplateInfo
@@ -229,7 +229,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <summary>
         /// Gets the windows phone project.
         /// </summary>
-        /// <returns>A windows phone project.</returns>
+        /// <returns>A ProjectTemplateInfo.</returns>
         internal ProjectTemplateInfo GetWindowsPhoneProject()
         {
             return new ProjectTemplateInfo
@@ -251,9 +251,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="preSelect">if set to <c>true</c> [pre select].</param>
         /// <param name="projectSuffix">The project suffix.</param>
         /// <param name="projectType">Type of the project.</param>
-        /// <returns>
-        /// A unit tests project.
-        /// </returns>
+        /// <returns>A ProjectTemplateInfo.</returns>
         internal ProjectTemplateInfo GetPlatformTestsProject(
             IEnumerable<string> nugetCommands,
             bool preSelect,

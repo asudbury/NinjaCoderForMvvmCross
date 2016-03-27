@@ -17,7 +17,7 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// Transforms the specified source file.
         /// </summary>
         /// <param name="textTransformationRequest">The text transformation request.</param>
-        /// <returns></returns>
+        /// <returns>A Text Transformation.</returns>
         TextTransformation Transform(TextTransformationRequest textTransformationRequest);
     }
 }

@@ -5,9 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services.Interfaces
 {
+    using Entities;
     using EnvDTE;
     using EnvDTE80;
-    using NinjaCoder.MvvmCross.Entities;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services.Interfaces;
     using System.Collections.Generic;
@@ -105,6 +105,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets the xamarin forms tests project service.
         /// </summary>
         IProjectService XamarinFormsTestsProjectService { get; }
+        
+        /// <summary>
+        /// Gets a value indicating whether [solution already created].
+        /// </summary>
+        bool SolutionAlreadyCreated { get; }
 
         /// <summary>
         /// Gets the folder template infos.
@@ -163,14 +168,9 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         FrameworkType GetFrameworkType();
 
         /// <summary>
-        /// Gets a value indicating whether [solution already created].
-        /// </summary>
-        bool SolutionAlreadyCreated { get; }
-
-        /// <summary>
         /// Gets the text transformation service.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The Text Transformation Service.</returns>
         ITextTransformationService GetTextTransformationService();
     }
 }

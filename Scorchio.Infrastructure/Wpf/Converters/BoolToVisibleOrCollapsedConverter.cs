@@ -30,9 +30,9 @@ namespace Scorchio.Infrastructure.Wpf.Converters
             object parameter, 
             System.Globalization.CultureInfo culture)
         {
-            bool bValue = (bool)value;
+            bool theValue = (bool)value;
 
-            return bValue ? Visibility.Visible : Visibility.Collapsed;
+            return theValue ? Visibility.Visible : Visibility.Collapsed;
         }
 
         /// <summary>
