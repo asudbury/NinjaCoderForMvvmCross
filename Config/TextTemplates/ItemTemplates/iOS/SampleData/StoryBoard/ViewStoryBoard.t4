@@ -9,10 +9,38 @@
             <objects>
                 <viewController id="16" sceneMemberID="viewController" customClass="<#= ClassName #>" storyboardIdentifier="<#= ClassName #>" >
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="11"/>
-                        <viewControllerLayoutGuide type="bottom" id="12"/>
+                        <viewControllerLayoutGuide type="top" id="3"/>
+                        <viewControllerLayoutGuide type="bottom" id="4"/>
                     </layoutGuides>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="20"/>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" minimumFontSize="10" id="9" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="20" y="48" width="280" height="21"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <constraints>
+                                    <constraint id="32" firstItem="9" firstAttribute="height" constant="21"/>
+                                </constraints>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text" borderStyle="roundedRect" minimumFontSize="17" id="14" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="20" y="77" width="280" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <constraints>
+                                    <constraint id="33" firstItem="14" firstAttribute="height" constant="30"/>
+                                </constraints>
+                            </textField>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="UiTextField" destination="14" id="name-outlet-14"/>
+                        <outlet property="UiLabel" destination="9" id="name-outlet-9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="22" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
