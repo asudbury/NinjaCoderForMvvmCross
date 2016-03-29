@@ -11,8 +11,8 @@ For more information, see:
 
 For installation, see:
 
-- http://visualstudiogallery.msdn.microsoft.com/618b51f0-6de8-4f85-95ce-a50c658c7767
- 
+- https://visualstudiogallery.msdn.microsoft.com/e66eddef-d1b7-452d-94db-0689ae2d114b
+
 
 For the visual studio templates for the Ninja see:
 
