@@ -7,7 +7,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddCustomRenderers
 {
     using Entities;
     using Factories.Interfaces;
-    using MahApps.Metro;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Translators;
@@ -280,10 +279,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddCustomRenderers
             {
                 this.messageBoxService.Show(
                     "Please enter all the required fields",
-                    Constants.Settings.ApplicationName,
-                    this.settingsService.BetaTesting,
-                    Theme.Light,
-                    this.settingsService.ThemeColor);
+                    Constants.Settings.ApplicationName);
 
                 return false;
             }

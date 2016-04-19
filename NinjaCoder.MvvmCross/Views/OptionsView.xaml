@@ -29,7 +29,7 @@
     <StackPanel Margin="10" Orientation="Vertical">
 
         <controls:MetroAnimatedTabControl>
-            <TabItem Header="{DynamicResource Tracing}">
+            <TabItem Header="Tracing">
                 <GroupBox Height="{StaticResource TabHeight}">
                     <GroupBox.HeaderTemplate>
                         <DataTemplate>
@@ -39,27 +39,37 @@
                     <options:TracingUserControl DataContext="{Binding TracingViewModel}" LanguageDictionary="{Binding LanguageDictionary}" />
                 </GroupBox>
             </TabItem>
-            <TabItem Header="{DynamicResource Build}">
+            <TabItem Header="Build">
                 <GroupBox Height="{StaticResource TabHeight}">
                     <GroupBox.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Foreground="White" Text="{DynamicResource Build}" />
+                            <TextBlock Foreground="White" Text="Build" />
                         </DataTemplate>
                     </GroupBox.HeaderTemplate>
                     <options:BuildUserControl DataContext="{Binding BuildViewModel}" LanguageDictionary="{Binding LanguageDictionary}" />
                 </GroupBox>
             </TabItem>
-            <TabItem Header="{DynamicResource Projects}">
+            <TabItem Header="Projects">
                 <GroupBox Height="{StaticResource TabHeight}">
                     <GroupBox.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Foreground="White" Text="{DynamicResource Projects}" />
+                            <TextBlock Foreground="White" Text="Projects" />
                         </DataTemplate>
                     </GroupBox.HeaderTemplate>
                     <options:ProjectsUserControl DataContext="{Binding ProjectsViewModel}" LanguageDictionary="{Binding LanguageDictionary}" />
                 </GroupBox>
             </TabItem>
-            <TabItem Header="{DynamicResource CodingStyle}">
+            <TabItem Header="Project Suffixes">
+                <GroupBox Height="{StaticResource TabHeight}">
+                    <GroupBox.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Foreground="White" Text="Project Suffixes" />
+                        </DataTemplate>
+                    </GroupBox.HeaderTemplate>
+                    <options:ProjectsSuffixesUserControl DataContext="{Binding ProjectsSuffixesViewModel}" LanguageDictionary="{Binding LanguageDictionary}" />
+                </GroupBox>
+            </TabItem>
+            <TabItem Header="Coding Style">
                 <GroupBox Height="{StaticResource TabHeight}">
                     <GroupBox.HeaderTemplate>
                         <DataTemplate>

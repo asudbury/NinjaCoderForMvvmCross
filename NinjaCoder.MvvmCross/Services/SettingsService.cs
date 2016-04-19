@@ -181,6 +181,15 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [add windows universal project].
+        /// </summary>
+        public bool AddWindowsUniversalProject
+        {
+            get { return this.GetRegistryValue("Add Projects", "WindowsUniversalProject", "Y") == "Y"; }
+            set { this.SetRegistryValue("Add Projects", "WindowsUniversalProject", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [add xamarin forms tests project].
         /// </summary>
         public bool AddXamarinFormsTestsProject
@@ -275,7 +284,7 @@ namespace NinjaCoder.MvvmCross.Services
         public string StartUpProject
         {
             get { return this.GetRegistryValue("Build", "StartUpProject", string.Empty); }
-            set { this.SetRegistryValue("Build", "StartUpProject", value); }
+            set { this.SetRegistryValue("Build", "StartUpProject", value ?? string.Empty); }
         }
 
         /// <summary>
@@ -285,6 +294,193 @@ namespace NinjaCoder.MvvmCross.Services
         {
             get { return this.GetRegistryValue("Build", "UseXamarinFormsXamlCompilation", "Y") == "Y"; }
             set { this.SetRegistryValue("Build", "UseXamarinFormsXamlCompilation", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets or sets the core project suffix.
+        /// </summary>
+        public string CoreProjectSuffix
+        {
+            get { return this.GetRegistryValue("Project Suffixes", "Core", ProjectSuffix.Core.GetDescription()); }
+            set { this.SetRegistryValue("Project Suffixes", "Core", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the droid project suffix.
+        /// </summary>
+        public string DroidProjectSuffix
+        {
+            get { return this.GetRegistryValue("Project Suffixes", "Droid", ProjectSuffix.Droid.GetDescription()); }
+            set { this.SetRegistryValue("Project Suffixes", "Droid", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the i os project suffix.
+        /// </summary>
+        public string iOSProjectSuffix
+        {
+            get { return this.GetRegistryValue("Project Suffixes", "iOS", ProjectSuffix.iOS.GetDescription()); }
+            set { this.SetRegistryValue("Project Suffixes", "iOS", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the windows phone project suffix.
+        /// </summary>
+        public string WindowsPhoneProjectSuffix
+        {
+            get { return this.GetRegistryValue("Project Suffixes", "WindowsPhone", ProjectSuffix.WindowsPhone.GetDescription()); }
+            set { this.SetRegistryValue("Project Suffixes", "WindowsPhone", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the WPF project suffix.
+        /// </summary>
+        public string WpfProjectSuffix
+        {
+            get { return this.GetRegistryValue("Project Suffixes", "Wpf", ProjectSuffix.Wpf.GetDescription()); }
+            set { this.SetRegistryValue("Project Suffixes", "Wpf", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the xamarin forms project suffix.
+        /// </summary>
+        public string XamarinFormsProjectSuffix
+        {
+            get { return this.GetRegistryValue("Project Suffixes", "XamarinForms", ProjectSuffix.XamarinForms.GetDescription()); }
+            set { this.SetRegistryValue("Project Suffixes", "XamarinForms", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the windows universal project suffix.
+        /// </summary>
+        public string WindowsUniversalProjectSuffix
+        {
+            get { return this.GetRegistryValue("Project Suffixes", "WindowsUniversal", ProjectSuffix.WindowsUniversal.GetDescription()); }
+            set { this.SetRegistryValue("Project Suffixes", "WindowsUniversal", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the core tests project suffix.
+        /// </summary>
+        public string CoreTestsProjectSuffix
+        {
+            get { return this.GetRegistryValue("Project Suffixes", "CoreTests", ProjectSuffix.CoreTests.GetDescription()); }
+            set { this.SetRegistryValue("Project Suffixes", "CoreTests", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the droid tests project suffix.
+        /// </summary>
+        public string DroidTestsProjectSuffix
+        {
+            get { return this.GetRegistryValue("Project Suffixes", "DroidTests", ProjectSuffix.DroidTests.GetDescription()); }
+            set { this.SetRegistryValue("Project Suffixes", "DroidTests", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the ios tests project suffix.
+        /// </summary>
+        public string iOSTestsProjectSuffix
+        {
+            get { return this.GetRegistryValue("Project Suffixes", "iOSTests", ProjectSuffix.iOSTests.GetDescription()); }
+            set { this.SetRegistryValue("Project Suffixes", "iOSTests", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the windows phone tests project suffix.
+        /// </summary>
+        public string WindowsPhoneTestsProjectSuffix
+        {
+            get { return this.GetRegistryValue("Project Suffixes", "WindowsPhoneTests", ProjectSuffix.WindowsPhoneTests.GetDescription()); }
+            set { this.SetRegistryValue("Project Suffixes", "WindowsPhoneTests", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the WPF tests project suffix.
+        /// </summary>
+        public string WpfTestsProjectSuffix
+        {
+            get { return this.GetRegistryValue("Project Suffixes", "WpfTests", ProjectSuffix.WpfTests.GetDescription()); }
+            set { this.SetRegistryValue("Project Suffixes", "WpfTests", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the xamarin forms tests project suffix.
+        /// </summary>
+        public string XamarinFormsTestsProjectSuffix
+        {
+            get { return this.GetRegistryValue("Project Suffixes", "XamarinFormsTests", ProjectSuffix.XamarinFormsTests.GetDescription()); }
+            set { this.SetRegistryValue("Project Suffixes", "XamarinFormsTests", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the windows universal tests project suffix.
+        /// </summary>
+        public string WindowsUniversalTestsProjectSuffix
+        {
+            get { return this.GetRegistryValue("Project Suffixes", "WindowsUniversalTests", ProjectSuffix.WindowsUniversalTests.GetDescription()); }
+            set { this.SetRegistryValue("Project Suffixes", "WindowsUniversalTests", value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [extended logging].
+        /// </summary>
+        public bool ExtendedLogging
+        {
+            get { return this.GetRegistryValue("Tracing", "ExtendedLogging", "N") == "Y"; }
+            set { this.SetRegistryValue("Tracing", "ExtendedLogging", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
+        /// Gets the no framework projects URI.
+        /// </summary>
+        public string NoFrameworkProjectsUri
+        {
+            get
+            {
+                return this.UseLocalUris ?
+                    this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", this.ConfigPath + "NoFrameworkProjects.xml") :
+                    this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/NoFrameworkProjects.xml");
+            }
+        }
+
+        /// <summary>
+        /// Gets the xamarin forms projects URI.
+        /// </summary>
+        public string XamarinFormsProjectsUri
+        {
+            get
+            {
+                return this.UseLocalUris ?
+                    this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", this.ConfigPath + "XamarinFormsProjects.xml") :
+                    this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/XamarinFormsProjects.xml");
+            }
+        }
+
+        /// <summary>
+        /// Gets the MVVM cross projects URI.
+        /// </summary>
+        public string MvvmCrossProjectsUri
+        {
+            get
+            {
+                return this.UseLocalUris ?
+                    this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", this.ConfigPath + "MvvmCrossProjects.xml") :
+                    this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/MvvmCrossProjects.xml");
+            }
+        }
+
+        /// <summary>
+        /// Gets the MVVM cross and xamarin forms projects URI.
+        /// </summary>
+        public string MvvmCrossAndXamarinFormsProjectsUri
+        {
+            get
+            {
+                return this.UseLocalUris ?
+                    this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", this.ConfigPath + "MvvmCrossAndXamarinFormsProjects.xml") :
+                    this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/MvvmCrossAndXamarinFormsProjects.xml");
+            }
         }
 
         /// <summary>
@@ -345,6 +541,7 @@ namespace NinjaCoder.MvvmCross.Services
         public bool BetaTesting
         {
             get { return this.GetRegistryValue("Internals", "BetaTesting", "N") == "Y"; }
+            set { this.SetRegistryValue("Internals", "BetaTesting", value ? "Y" : "N"); }
         }
 
         /// <summary>

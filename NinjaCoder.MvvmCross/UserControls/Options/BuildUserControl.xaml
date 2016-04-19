@@ -31,5 +31,11 @@
         <CheckBox Margin="8"
                   Content="Use Xaml Compilation at build time for Xamarin Forms"
                   IsChecked="{Binding UseXamarinFormsXamlCompilation}" />
+
+        <Separator/>
+        
+        <CheckBox Margin="8"
+                  Content="Enable Beta functionality"
+                  IsChecked="{Binding EnableBetaFunctionality}" />
     </StackPanel>
 </userControls:BaseUserControl>

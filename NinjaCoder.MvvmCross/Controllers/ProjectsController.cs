@@ -8,8 +8,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     using Constants;
     using Entities;
     using Factories.Interfaces;
-    using Scorchio.Infrastructure.Extensions;
-    using Scorchio.Infrastructure.Services;
+     using Scorchio.Infrastructure.Services;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;
@@ -80,6 +79,11 @@ namespace NinjaCoder.MvvmCross.Controllers
         private List<string> messages;
 
         /// <summary>
+        /// The read me created.
+        /// </summary>
+        private bool readMeCreated;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ProjectsController" /> class.
         /// </summary>
         /// <param name="projectsService">The projects service.</param>
@@ -119,6 +123,8 @@ namespace NinjaCoder.MvvmCross.Controllers
             this.commands = string.Empty;
             this.postNugetCommands = new List<StudioCommand>();
             this.postNugetFileOperations = new List<FileOperation>();
+
+            this.messages = new List<string>();
         }
 
         /// <summary>
@@ -162,7 +168,17 @@ namespace NinjaCoder.MvvmCross.Controllers
             }
             catch (Exception exception)
             {
+                //// TODO : this needs refactoring.
+
+                this.VisualStudioService.WriteStatusBarMessage(string.Empty);
                 TraceService.WriteError(exception);
+
+                //// put the error messages in the readme!
+                this.messages.InsertRange(0, TraceService.ErrorMessages);
+
+                TraceService.ErrorMessages = new List<string>();
+
+                this.CreateReadMe(true);
             }
         }
 
@@ -193,8 +209,10 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             this.applicationService.SuspendResharperIfRequested();
 
+            this.projectsService.IsNewSolution = this.VisualStudioService.SolutionAlreadyCreated;
+
             //// create the solution if we don't have one!
-            if (this.VisualStudioService.SolutionAlreadyCreated == false)
+            if (this.projectsService.IsNewSolution == false)
             {
                 this.VisualStudioService.SolutionService.CreateEmptySolution(projectsViewModel.GetSolutionPath(), projectsViewModel.Project);
             }
@@ -205,31 +223,21 @@ namespace NinjaCoder.MvvmCross.Controllers
                 this.VisualStudioService.DTEService.SaveAll();
             }
 
-            TraceService.WriteLine("ProjectsController::Process AddProjects");
-
            this.messages = this.projectsService.AddProjects(
                     this.VisualStudioService,
                     projectsViewModel.GetSolutionPath(),
                     projectsViewModel.GetFormattedRequiredTemplates())
                     .ToList();
 
-            string startUpProject = this.SettingsService.StartUpProject;
-
-            if (startUpProject != string.Empty)
-            {
-                if (this.VisualStudioService.GetProjectServiceBySuffix(startUpProject) != null)
-                {
-                    this.VisualStudioService.SolutionService.SetStartUpProject(projectsViewModel.Project + "." + startUpProject);
-                }
-            }
-
+            this.projectsService.SetStartUpProject();
+            
             //// there is a bug in the xamarin iOS code that means it doesnt apply a couple of xml elements
             //// in the info.plist - here we fix that issue.
 
             if (this.SettingsService.FixInfoPlist)
             {
                 this.applicationService.FixInfoPList(projectsViewModel.GetFormattedRequiredTemplates()
-                        .FirstOrDefault(x => x.ProjectSuffix == ProjectSuffix.iOS.GetDescription()));
+                        .FirstOrDefault(x => x.ProjectSuffix == this.SettingsService.iOSProjectSuffix));
             }
 
             IEnumerable<string> viewNugetCommands = new List<string>();
@@ -287,24 +295,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             //// a bit of (unnecessary) tidying up - replace double new lines!
             this.commands = this.commands.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine); 
 
-            this.OutputNugetCommandsToReadMe();
-
-            if (this.SettingsService.OutputReadMeToLogFile)
-            {
-                TraceService.WriteHeader("Start of NinjaReadMe.txt");
-
-                foreach (string message in this.messages)
-                {
-                    TraceService.WriteLine(message);
-                }
-
-                TraceService.WriteHeader("End of NinjaReadMe.txt");
-            }
-
-            this.ReadMeService.AddLines(
-                this.GetReadMePath(),
-                "Add Projects",
-                this.messages);
+            this.CreateReadMe(false);
 
             TraceService.WriteHeader("RequestedNugetCommands=" + this.commands);
 
@@ -314,6 +305,44 @@ namespace NinjaCoder.MvvmCross.Controllers
             }
 
             TraceService.WriteLine("ProjectsController::Process END");
+        }
+
+        /// <summary>
+        /// Creates the read me.
+        /// </summary>
+        /// <param name="openReadMe">if set to <c>true</c> [open read me].</param>
+        internal void CreateReadMe(bool openReadMe)
+        {
+            //// if we have already created the readme dont do again (this will be when an exception after we have created the readme!!)
+            if (this.readMeCreated)
+            {
+                return;
+            }
+
+            this.OutputNugetCommandsToReadMe();
+
+            if (this.SettingsService.OutputReadMeToLogFile)
+            {
+                foreach (string message in this.messages)
+                {
+                    TraceService.WriteLine(message);
+                }
+            }
+
+            string readMePath = this.GetReadMePath();
+
+            this.ReadMeService.AddLines(
+                readMePath,
+                "Add Projects",
+                this.messages,
+                TraceService.ErrorMessages);
+
+            if (openReadMe)
+            {
+                this.VisualStudioService.DTEService.OpenFile(readMePath);
+            }
+
+            this.readMeCreated = true;
         }
 
         /// <summary>
@@ -345,7 +374,13 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("ProjectsController::OutputNugetCommandsToReadMe");
 
-            if (this.SettingsService.OutputNugetCommandsToReadMe)
+            if (this.projectsService.IsNewSolution)
+            {
+                return;
+            }
+
+            if (this.SettingsService.OutputNugetCommandsToReadMe && 
+                this.commands.Any())
             {
                 this.messages.Add(string.Empty);
                 this.messages.Add(this.ReadMeService.GetSeperatorLine());

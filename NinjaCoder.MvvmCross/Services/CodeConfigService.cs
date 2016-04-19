@@ -141,34 +141,25 @@ namespace NinjaCoder.MvvmCross.Services
             //// find the project
             IProjectService projectService = visualStudioService.GetProjectServiceBySuffix(codeSnippet.Project);
 
-            if (projectService != null)
+            //// find the class
+            IProjectItemService projectItemService = projectService?.GetProjectItem(codeSnippet.Class + ".cs");
+
+            //// find the method.
+            CodeFunction codeFunction = projectItemService?.GetFirstClass().GetFunction(codeSnippet.Method);
+
+            string code = codeFunction?.GetCode();
+
+            if (code?.Contains(codeSnippet.Code.Trim()) == false)
             {
-                //// find the class
-                IProjectItemService projectItemService = projectService.GetProjectItem(codeSnippet.Class + ".cs");
+                codeFunction.InsertCode(codeSnippet.Code, true);
 
-                if (projectItemService != null)
-                {
-                    //// find the method.
-                    CodeFunction codeFunction = projectItemService.GetFirstClass().GetFunction(codeSnippet.Method);
+                string message = string.Format(
+                    "Code added to project {0} class {1} method {2}.",
+                    projectService.Name,
+                    codeSnippet.Class,
+                    codeSnippet.Method);
 
-                    if (codeFunction != null)
-                    {
-                        string code = codeFunction.GetCode();
-
-                        if (code.Contains(codeSnippet.Code.Trim()) == false)
-                        {
-                            codeFunction.InsertCode(codeSnippet.Code, true);
-
-                            string message = string.Format(
-                                "Code added to project {0} class {1} method {2}.",
-                                projectService.Name,
-                                codeSnippet.Class,
-                                codeSnippet.Method);
-
-                            messages.Add(message);
-                        }
-                    }
-                }
+                messages.Add(message);
             }
 
             return messages;

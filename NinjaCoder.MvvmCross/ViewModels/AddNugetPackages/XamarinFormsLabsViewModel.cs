@@ -68,6 +68,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddNugetPackages
             get { return new RelayCommand(this.DisplayGitHubPage); }
         }
 
+        /// <summary>
         /// Gets the display name.
         /// </summary>
         public override string DisplayName

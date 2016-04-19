@@ -133,6 +133,7 @@ namespace NinjaCoder.MvvmCross.Factories
                         name,
                         directory,
                         ProjectSuffix.iOS,
+                        this.settingsService.iOSProjectSuffix,
                         baseDictionary,
                         false));
             }
@@ -150,6 +151,7 @@ namespace NinjaCoder.MvvmCross.Factories
                         name,
                         directory,
                         ProjectSuffix.WindowsPhone,
+                        this.settingsService.WindowsPhoneProjectSuffix,
                         baseDictionary,
                         false,
                         ".WinPhone"));
@@ -168,11 +170,30 @@ namespace NinjaCoder.MvvmCross.Factories
                         name,
                         directory,
                         ProjectSuffix.Droid,
+                        this.settingsService.DroidProjectSuffix,
                         baseDictionary,
                         false,
                         ".Android"));
             }
 
+            IProjectService universalProjectService = this.visualStudioService.WindowsUniversalProjectService;
+
+            if (universalProjectService != null)
+            {
+                TraceService.WriteLine("building universalProject textTemplate");
+
+                textTemplates.Add(
+                    this.GetTextTemplateInfo(
+                        universalProjectService,
+                        this.settingsService.EffectsTextTemplate,
+                        name,
+                        directory,
+                        ProjectSuffix.WindowsUniversal,
+                        this.settingsService.WindowsUniversalProjectSuffix,
+                        baseDictionary,
+                        false,
+                        ".UWP"));
+            }
             return textTemplates;
         }
 

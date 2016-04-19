@@ -493,14 +493,21 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Gets the xamarin forms commands.
         /// </summary>
-        /// <returns>A list of Nuget commands.</returns>
-        public IEnumerable<string> GetXamarinFormsCommands()
+        /// <param name="addScorchioPage">if set to <c>true</c> [add scorchio page].</param>
+        /// <returns>
+        /// A list of Nuget commands.
+        /// </returns>
+        public IEnumerable<string> GetXamarinFormsCommands(bool addScorchioPage = true)
         {
             List<string> commands = new List<string> 
             {
                 this.GetXamarinFormsCommand(XamarinFormsPackage),
-                this.GetNinjaCommand(ScorchioXamarinFormsPackage, true)
             };
+
+            if (addScorchioPage)
+            {
+                commands.Add(this.GetNinjaCommand(ScorchioXamarinFormsPackage, true));
+            }
 
             if (this.settingsService.UseXamarinInsights)
             {

@@ -22,7 +22,7 @@ namespace NinjaCoder.MvvmCross.Services
         public TResolveType Resolve<TResolveType>()
             where TResolveType : class
         {
-            TraceService.WriteLine("ResolverService::Resolve");
+            TraceService.WriteDebugLine("ResolverService::Resolve type=" + typeof(TResolveType));
             TinyIoCContainer container = TinyIoCContainer.Current;
             return container.Resolve<TResolveType>();
         }

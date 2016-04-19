@@ -82,22 +82,34 @@ namespace NinjaCoder.MvvmCross.Factories
 
                 if (this.VisualStudioService.iOSProjectService != null)
                 {
-                    itemTemplateInfos.Add(this.GetView(ProjectType.iOS.GetDescription(), ProjectSuffix.iOS.GetDescription()));
+                    itemTemplateInfos.Add(this.GetView(
+                        ProjectType.iOS.GetDescription(),
+                        ProjectSuffix.iOS.GetDescription().Substring(1), 
+                        this.SettingsService.iOSProjectSuffix));
                 }
 
                 if (this.VisualStudioService.DroidProjectService != null)
                 {
-                    itemTemplateInfos.Add(this.GetView(ProjectType.Droid.GetDescription(), ProjectSuffix.Droid.GetDescription()));
+                    itemTemplateInfos.Add(this.GetView(
+                            ProjectType.Droid.GetDescription(), 
+                            ProjectSuffix.Droid.GetDescription().Substring(1),
+                            this.SettingsService.DroidProjectSuffix));
                 }
 
                 if (this.VisualStudioService.WindowsPhoneProjectService != null)
                 {
-                    itemTemplateInfos.Add(this.GetView(ProjectType.WindowsPhone.GetDescription(), ProjectSuffix.WindowsPhone.GetDescription()));
+                    itemTemplateInfos.Add(this.GetView(
+                        ProjectType.WindowsPhone.GetDescription(),
+                        ProjectSuffix.WindowsPhone.GetDescription().Substring(1), 
+                        this.SettingsService.WindowsPhoneProjectSuffix));
                 }
 
                 if (this.VisualStudioService.WpfProjectService != null)
                 {
-                    itemTemplateInfos.Add(this.GetView(ProjectType.WindowsWpf.GetDescription(), ProjectSuffix.Wpf.GetDescription()));
+                    itemTemplateInfos.Add(this.GetView(
+                        ProjectType.WindowsWpf.GetDescription(),
+                        ProjectSuffix.Wpf.GetDescription().Substring(1), 
+                        this.SettingsService.WpfProjectSuffix));
                 }
 
                 return itemTemplateInfos;
@@ -108,13 +120,20 @@ namespace NinjaCoder.MvvmCross.Factories
         /// Gets the view.
         /// </summary>
         /// <param name="friendlyName">Name of the friendly.</param>
+        /// <param name="projectType">Type of the project.</param>
         /// <param name="projectSuffix">The project suffix.</param>
-        /// <returns>The ItemTemplateInfo.</returns>
-        public ItemTemplateInfo GetView(string friendlyName, string projectSuffix)
+        /// <returns>
+        /// The ItemTemplateInfo.
+        /// </returns>
+        public ItemTemplateInfo GetView(
+            string friendlyName,
+            string projectType,
+            string projectSuffix)
         {
             return new ItemTemplateInfo
                        {
                            FriendlyName = friendlyName,
+                           ProjectType =  projectType,
                            ProjectSuffix = projectSuffix,
                            PreSelected = true
                        };
@@ -239,10 +258,11 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <returns>A TextTemplateInfo.</returns>
         internal TextTemplateInfo GetXamarinFormsView(string viewModelName, View view)
         {
+            TraceService.WriteLine("ViewModelAndViewsFactory::GetXamarinFormsView viewModelName=" + viewModelName + " view=" + view.Name);
+
             string viewTemplateName =
                 this.GetViewTemplate(
                     FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework),
-                    string.Empty,
                     view.PageType);
 
             string viewName = viewModelName.Remove(viewModelName.Length - ViewModelSuffix.Length) + "View";
@@ -261,7 +281,7 @@ namespace NinjaCoder.MvvmCross.Factories
 
             TextTemplateInfo textTemplateInfo = new TextTemplateInfo
             {
-                ProjectSuffix = ProjectSuffix.XamarinForms.GetDescription(),
+                ProjectSuffix = this.SettingsService.XamarinFormsProjectSuffix,
                 ProjectFolder = "Views",
                 Tokens = tokens,
                 ShortTemplateName = viewTemplateName,
@@ -286,14 +306,14 @@ namespace NinjaCoder.MvvmCross.Factories
 
             textTemplateInfo.FileOperations.Add(
                 this.GetEmbeddedResourceFileOperation(
-                    ProjectSuffix.XamarinForms.GetDescription(),
+                    this.SettingsService.XamarinFormsProjectSuffix,
                     textTemplateInfo.FileName));
 
             //// add code behind file
 
             TextTemplateInfo childTextTemplateInfo =
                 this.GetCodeBehindTextTemplateInfo(
-                    ProjectSuffix.XamarinForms.GetDescription(),
+                    this.SettingsService.XamarinFormsProjectSuffix,
                     viewName,
                     viewTemplateName,
                     tokens);
@@ -313,6 +333,8 @@ namespace NinjaCoder.MvvmCross.Factories
             View view, 
             string viewModelName)
         {
+            TraceService.WriteLine("ViewModelAndViewsFactory::GetViewModelTextTemplateInfo viewModelName=" + viewModelName + " view=" + view.Name);
+            
             string templateName = this.GetViewModelTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), view.PageType);
 
             Dictionary<string, string> tokens = new Dictionary<string, string>
@@ -323,7 +345,7 @@ namespace NinjaCoder.MvvmCross.Factories
 
             TextTemplateInfo textTemplateInfo = new TextTemplateInfo
             {
-                ProjectSuffix = ProjectSuffix.Core.GetDescription(),
+                ProjectSuffix = this.SettingsService.CoreProjectSuffix,
                 FileName = viewModelName + ".cs",
                 ProjectFolder = "ViewModels",
                 Tokens = tokens,
@@ -355,6 +377,8 @@ namespace NinjaCoder.MvvmCross.Factories
             View view,
             string viewModelName)
         {
+            TraceService.WriteLine("ViewModelAndViewsFactory::GetUnitTestingItemTemplate viewModelName=" + viewModelName + " view=" + view.Name);
+            
             string templateName = this.GetTestViewModelTemplate(FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework), view.PageType);
 
             Dictionary<string, string> tokens = new Dictionary<string, string>
@@ -370,7 +394,7 @@ namespace NinjaCoder.MvvmCross.Factories
 
             TextTemplateInfo textTemplateInfo = new TextTemplateInfo
             {
-                ProjectSuffix = ProjectSuffix.CoreTests.GetDescription(),
+                ProjectSuffix = this.SettingsService.CoreTestsProjectSuffix,
                 FileName = "Test" + viewModelName + ".cs",
                 ProjectFolder = "ViewModels",
                 Tokens = tokens,
@@ -438,7 +462,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="view">The view.</param>
         internal string GetFormsViewContent(View view)
         {
-            TraceService.WriteLine("ViewModelAndViewsFactory::GetFormsViewContent");
+            TraceService.WriteLine("ViewModelAndViewsFactory::GetFormsViewContent View=" + view.Name);
 
             string page = view.PageType.Replace(" ", string.Empty);
             string layout = view.LayoutType.Replace(" ", string.Empty);

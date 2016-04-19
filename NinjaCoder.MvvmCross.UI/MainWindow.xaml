@@ -5,7 +5,7 @@
                       xmlns:wpf="clr-namespace:Scorchio.Infrastructure.Wpf;assembly=Scorchio.Infrastructure"
                       Title="NinjaCode for MvvmCross UI"
                       Width="300"
-                      Height="350"
+                      Height="450"
                       BorderBrush="{DynamicResource AccentColorBrush}"
                       BorderThickness="1"
                       ShowMaxRestoreButton="False"

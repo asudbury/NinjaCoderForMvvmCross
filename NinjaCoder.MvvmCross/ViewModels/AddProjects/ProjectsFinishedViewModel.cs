@@ -5,12 +5,19 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 {
-    using Entities;
     using Factories.Interfaces;
-    using Scorchio.Infrastructure.Extensions;
+    using Messages;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
+    using Scorchio.VisualStudio.Entities;
     using Services.Interfaces;
     using System.Collections.Generic;
+    using System.Linq;
+
+    using NinjaCoder.MvvmCross.Entities;
+
+    using Scorchio.Infrastructure.Extensions;
+
+    using TinyMessenger;
 
     /// <summary>
     /// Defines the ProjectsFinishedViewModel type.
@@ -23,9 +30,24 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         private readonly ISettingsService settingsService;
 
         /// <summary>
+        /// The visual studio service.
+        /// </summary>
+        private readonly IVisualStudioService visualStudioService;
+
+        /// <summary>
         /// The project factory.
         /// </summary>
         private readonly IProjectFactory projectFactory;
+
+        /// <summary>
+        /// The caching service.
+        /// </summary>
+        private readonly ICachingService cachingService;
+
+        /// <summary>
+        /// The tiny messenger hub.
+        /// </summary>
+        private readonly ITinyMessengerHub tinyMessengerHub;
 
         /// <summary>
         /// The suspend re sharper during build.
@@ -36,6 +58,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// The create test projects solution folder.
         /// </summary>
         private bool createTestProjectsSolutionFolder;
+
+        /// <summary>
+        /// The projects.
+        /// </summary>
+        private List<string> projects;
 
         /// <summary>
         /// The start up projects.
@@ -68,16 +95,30 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         private bool expandCodeFormattingOptions;
 
         /// <summary>
+        /// The tiny message subscription token.
+        /// </summary>
+        private TinyMessageSubscriptionToken tinyMessageSubscriptionToken;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ProjectsFinishedViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
+        /// <param name="visualStudioService">The visual studio service.</param>
         /// <param name="projectFactory">The project factory.</param>
+        /// <param name="cachingService">The caching service.</param>
+        /// <param name="tinyMessengerHub">The tiny messenger hub.</param>
         public ProjectsFinishedViewModel(
             ISettingsService settingsService,
-            IProjectFactory projectFactory)
+            IVisualStudioService visualStudioService,
+            IProjectFactory projectFactory,
+            ICachingService cachingService,
+            ITinyMessengerHub tinyMessengerHub)
         {
             this.settingsService = settingsService;
+            this.visualStudioService = visualStudioService;
             this.projectFactory = projectFactory;
+            this.cachingService = cachingService;
+            this.tinyMessengerHub = tinyMessengerHub;
             this.Init();
         }
 
@@ -113,6 +154,15 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
                 this.SetProperty(ref this.createTestProjectsSolutionFolder, value);
                 this.settingsService.CreateTestProjectsSolutionFolder = value;
             }
+        }
+
+        /// <summary>
+        /// Gets or sets the projects.
+        /// </summary>
+        public List<string> Projects
+        {
+            get { return this.projects; }
+            set { this.SetProperty(ref this.projects, value); }
         }
 
         /// <summary>
@@ -161,6 +211,14 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         }
 
         /// <summary>
+        /// Gets a value indicating whether [display start up project].
+        /// </summary>
+        public bool DisplayStartUpProject
+        {
+            get { return this.StartUpProjects.Count > 0 && this.visualStudioService.SolutionAlreadyCreated == false; }
+        }
+
+        /// <summary>
         /// Gets the display name.
         /// </summary>
         public override string DisplayName
@@ -196,26 +254,42 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         {
             base.OnInitialize();
 
+            this.projects = new List<string>();
+
+            IEnumerable<ProjectTemplateInfo> projectTemplateInfos = this.cachingService.Projects;
+
+            IEnumerable<ProjectTemplateInfo> templateInfos = projectTemplateInfos as ProjectTemplateInfo[] ?? projectTemplateInfos.ToArray();
+
+            foreach (ProjectTemplateInfo projectTemplateInfo in templateInfos)
+            {
+                this.Projects.Add(projectTemplateInfo.Name);
+            }
+
             this.startUpProjects = new List<string>();
             
-            if (this.settingsService.AddWpfProject)
+            if (templateInfos.FirstOrDefault(x => x.ProjectSuffix == this.settingsService.WpfProjectSuffix) != null)
             {
-                this.AddStartUpProject(ProjectSuffix.Wpf);
+                this.AddStartUpProject(this.settingsService.WpfProjectSuffix);
             }
 
-            if (this.settingsService.AddWindowsPhoneProject)
+            if (templateInfos.FirstOrDefault(x => x.ProjectSuffix == this.settingsService.WindowsPhoneProjectSuffix) != null)
             {
-                this.AddStartUpProject(ProjectSuffix.WindowsPhone);
+                this.AddStartUpProject(this.settingsService.WindowsPhoneProjectSuffix);
             }
 
-            if (this.settingsService.AddAndroidProject)
+            if (templateInfos.FirstOrDefault(x => x.ProjectSuffix == this.settingsService.DroidProjectSuffix) != null)
             {
-                this.AddStartUpProject(ProjectSuffix.Droid);
+                this.AddStartUpProject(this.settingsService.DroidProjectSuffix);
             }
 
-            if (this.settingsService.AddiOSProject)
+            if (templateInfos.FirstOrDefault(x => x.ProjectSuffix == this.settingsService.iOSProjectSuffix) != null)
             {
-                this.AddStartUpProject(ProjectSuffix.iOS);
+                this.AddStartUpProject(this.settingsService.iOSProjectSuffix);
+            }
+
+            if (templateInfos.FirstOrDefault(x => x.ProjectSuffix == this.settingsService.WindowsUniversalProjectSuffix) != null)
+            {
+                this.AddStartUpProject(this.settingsService.WindowsUniversalProjectSuffix);
             }
 
             //// we try and use the project the customer used before if in the list!
@@ -239,10 +313,17 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         public override void OnSave()
         {
             base.OnSave();
-            this.settingsService.StartUpProject = this.selectedStartUpProject;
+
+            if (this.DisplayStartUpProject)
+            {
+                this.settingsService.StartUpProject = this.selectedStartUpProject;
+            }
+
             this.settingsService.RemoveDefaultFileHeaders = this.removeDefaultFileHeaders;
             this.settingsService.RemoveDefaultComments = this.removeDefaultComments;
             this.settingsService.RemoveThisPointer = this.removeThisPointer;
+
+            this.tinyMessengerHub.Unsubscribe<ProjectSuffixesUpdatedMessage>(this.tinyMessageSubscriptionToken);
         }
 
         /// <summary>
@@ -255,16 +336,26 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             this.RemoveDefaultFileHeaders = this.settingsService.RemoveDefaultFileHeaders;
             this.RemoveDefaultComments = this.settingsService.RemoveDefaultComments;
             this.RemoveThisPointer = this.settingsService.RemoveThisPointer;
+
+            this.tinyMessageSubscriptionToken = this.tinyMessengerHub.Subscribe<ProjectSuffixesUpdatedMessage>(m => { this.UpdateProjectSuffixes(); });
+        }
+
+        /// <summary>
+        /// Updates the project suffixes.
+        /// </summary>
+        internal void UpdateProjectSuffixes()
+        {
+            //// not currently implemented.
         }
 
         /// <summary>
         /// Adds the start up project.
         /// </summary>
         /// <param name="projectSuffix">The project suffix.</param>
-        internal void AddStartUpProject(ProjectSuffix projectSuffix)
+        internal void AddStartUpProject(string projectSuffix)
         {
-            this.StartUpProjects.Insert(0, projectSuffix.GetDescription().Substring(1));
-            this.SelectedStartUpProject = projectSuffix.GetDescription().Substring(1);
+            this.StartUpProjects.Insert(0, projectSuffix.Substring(1));
+            this.SelectedStartUpProject = projectSuffix.Substring(1);
         }
     }
 }

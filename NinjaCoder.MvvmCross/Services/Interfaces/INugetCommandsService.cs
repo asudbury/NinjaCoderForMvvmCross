@@ -101,8 +101,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Gets the xamarin forms commands.
         /// </summary>
-        /// <returns>A List of Nuget commands.</returns>
-        IEnumerable<string> GetXamarinFormsCommands();
+        /// <param name="addScorchioPage">if set to <c>true</c> [add scorchio page].</param>
+        /// <returns>
+        /// A List of Nuget commands.
+        /// </returns>
+        IEnumerable<string> GetXamarinFormsCommands(bool addScorchioPage = true);
 
         /// <summary>
         /// Gets the xamarin forms ios commands.

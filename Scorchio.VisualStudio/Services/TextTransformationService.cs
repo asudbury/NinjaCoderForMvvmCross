@@ -5,9 +5,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio.Services
 {
-    using Scorchio.VisualStudio.Entities;
-    using Scorchio.VisualStudio.Extensions;
-    using Scorchio.VisualStudio.Services.Interfaces;
+    using Entities;
+    using Extensions;
+    using Interfaces;
     using System.IO;
     using System.Net;
 
@@ -37,12 +37,14 @@ namespace Scorchio.VisualStudio.Services
         /// Transforms the specified source file.
         /// </summary>
         /// <param name="textTransformationRequest">The text transformation request.</param>
-        /// <returns></returns>
+        /// <returns>The Text Transformation.</returns>
         public TextTransformation Transform(TextTransformationRequest textTransformationRequest)
         {
             TraceService.WriteLine("TextTransformationService::Transform sourceFile=" + textTransformationRequest.SourceFile);
 
             string sourceText = this.GetText(textTransformationRequest.SourceFile);
+
+            TraceService.WriteDebugLine("sourceText=" + sourceText);
 
             SimpleTextTemplatingEngine engine = new SimpleTextTemplatingEngine();
 
@@ -56,6 +58,8 @@ namespace Scorchio.VisualStudio.Services
                                                             textTransformationRequest.RemoveThisPointer);
 
             TraceService.WriteLine("After processing template via SimpleTextTemplatingEngine = SUCCESS!");
+
+            TraceService.WriteDebugLine("output=" + textTransformation.Output);
 
             return textTransformation;
         }

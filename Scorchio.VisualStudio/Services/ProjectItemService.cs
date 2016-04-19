@@ -412,5 +412,17 @@ namespace Scorchio.VisualStudio.Services
         {
             return new ProjectItemService(this.projectItem.GetProjectItem(name));
         }
+
+        /// <summary>
+        /// Gets the c# project items.
+        /// </summary>
+        /// <returns>The CSharp files.</returns>
+        public IEnumerable<IProjectItemService> GetCSharpProjectItems()
+        {
+            IEnumerable<ProjectItem> items = this.projectItem.GetSubProjectItems().Where(x => x.IsCSharpFile());
+
+            return items.Select(item => new ProjectItemService(this.projectItem))
+                .Cast<IProjectItemService>().ToList();
+        }
     }
 }

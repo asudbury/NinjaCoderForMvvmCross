@@ -23,11 +23,6 @@ namespace NinjaCoder.MvvmCross.Services
         private readonly IVisualStudioService visualStudioService;
 
         /// <summary>
-        /// The settings service.
-        /// </summary>
-        private readonly ISettingsService settingsService;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="TextTemplatingService" /> class.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
@@ -35,11 +30,11 @@ namespace NinjaCoder.MvvmCross.Services
         public TextTemplatingService(
             IVisualStudioService visualStudioService,
             ISettingsService settingsService)
+            :base(settingsService)
         {
             TraceService.WriteLine("TextTemplatingService::Constructor");
 
             this.visualStudioService = visualStudioService;
-            this.settingsService = settingsService;
         }
 
         /// <summary>
@@ -73,14 +68,14 @@ namespace NinjaCoder.MvvmCross.Services
                                                                             {
                                                                                 SourceFile = textTemplateInfo.TemplateName,
                                                                                 Parameters = textTemplateInfo.Tokens,
-                                                                                RemoveFileHeaders = this.settingsService.RemoveDefaultFileHeaders,
-                                                                                RemoveXmlComments = this.settingsService.RemoveDefaultComments,
-                                                                                RemoveThisPointer = this.settingsService.RemoveThisPointer
+                                                                                RemoveFileHeaders = this.SettingsService.RemoveDefaultFileHeaders,
+                                                                                RemoveXmlComments = this.SettingsService.RemoveDefaultComments,
+                                                                                RemoveThisPointer = this.SettingsService.RemoveThisPointer
                                                                             };
                     
                     textTemplateInfo.TextOutput = textTransformationService.Transform(textTransformationRequest).Output;
 
-                    string message = projectService.AddTextTemplate(textTemplateInfo, this.settingsService.OutputTextTemplateContentToTraceFile);
+                    string message = projectService.AddTextTemplate(textTemplateInfo, this.SettingsService.OutputTextTemplateContentToTraceFile);
 
                     this.Messages.Add(message);
                 }

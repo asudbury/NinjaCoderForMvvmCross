@@ -149,10 +149,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddEffects
             {
                 this.messageBoxService.Show(
                     "Please enter all the required fields",
-                    Constants.Settings.ApplicationName,
-                    this.settingsService.BetaTesting,
-                    Theme.Light,
-                    this.settingsService.ThemeColor);
+                    Constants.Settings.ApplicationName);
 
                 return false;
             }

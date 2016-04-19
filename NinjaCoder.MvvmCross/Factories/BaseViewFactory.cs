@@ -3,11 +3,9 @@
 //  Defines the BaseViewFactory type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Factories
 {
     using Entities;
-    using Scorchio.Infrastructure.Extensions;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Extensions;
     using Scorchio.VisualStudio.Services;
@@ -52,6 +50,26 @@ namespace NinjaCoder.MvvmCross.Factories
         protected IVisualStudioService VisualStudioService { get; }
 
         /// <summary>
+        ///     Gets the file operation.
+        /// </summary>
+        /// <param name="platForm">The platform.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="operation">The operation.</param>
+        /// <returns>A FileOperation.</returns>
+        internal FileOperation GetFileOperation(string platForm, string fileName, string operation)
+        {
+            return new FileOperation
+            {
+                PlatForm = platForm,
+                CommandType = "Properties",
+                Directory = "Views",
+                File = fileName,
+                From = "BuildAction",
+                To = operation
+            };
+        }
+
+        /// <summary>
         ///     Gets the text transformation service.
         /// </summary>
         /// <returns>The Text Transformation Service.</returns>
@@ -81,7 +99,7 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             var operation = "4";
 
-            if (platForm == ProjectSuffix.Wpf.GetDescription())
+            if (platForm == this.SettingsService.WpfProjectSuffix)
             {
                 operation = "5";
             }
@@ -101,26 +119,6 @@ namespace NinjaCoder.MvvmCross.Factories
         }
 
         /// <summary>
-        ///     Gets the file operation.
-        /// </summary>
-        /// <param name="platForm">The platform.</param>
-        /// <param name="fileName">Name of the file.</param>
-        /// <param name="operation">The operation.</param>
-        /// <returns>A FileOperation.</returns>
-        internal FileOperation GetFileOperation(string platForm, string fileName, string operation)
-        {
-            return new FileOperation
-                       {
-                           PlatForm = platForm,
-                           CommandType = "Properties",
-                           Directory = "Views",
-                           File = fileName,
-                           From = "BuildAction",
-                           To = operation
-                       };
-        }
-
-        /// <summary>
         ///     Gets the code behind text template information.
         /// </summary>
         /// <param name="projectSuffix">The project suffix.</param>
@@ -136,36 +134,30 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             var templateDirectory = this.SettingsService.ItemTemplatesDirectory;
 
-            if (projectSuffix == ProjectSuffix.XamarinForms.GetDescription())
+            if (projectSuffix == this.SettingsService.XamarinFormsProjectSuffix)
             {
                 templateDirectory += "\\XamarinForms";
             }
 
-            var textTemplateInfo = new TextTemplateInfo
+            TextTemplateInfo textTemplateInfo = new TextTemplateInfo
             {
                 ProjectSuffix = projectSuffix,
                 ProjectFolder = "Views",
                 Tokens = tokens,
                 ShortTemplateName = viewTemplateName,
-                TemplateName =
-                                               templateDirectory + "\\" + "BlankViewCodeBehind.t4"
+                TemplateName = templateDirectory + "\\" + "BlankViewCodeBehind.t4"
             };
 
-            var textTransformationRequest = new TextTransformationRequest
+            TextTransformationRequest textTransformationRequest = new TextTransformationRequest
             {
                 SourceFile = textTemplateInfo.TemplateName,
                 Parameters = textTemplateInfo.Tokens,
-                RemoveFileHeaders =
-                                                        this.SettingsService
-                                                        .RemoveDefaultFileHeaders,
-                RemoveXmlComments =
-                                                        this.SettingsService
-                                                        .RemoveDefaultComments,
-                RemoveThisPointer =
-                                                        this.SettingsService.RemoveThisPointer
+                RemoveFileHeaders = this.SettingsService.RemoveDefaultFileHeaders,
+                RemoveXmlComments = this.SettingsService.RemoveDefaultComments,
+                RemoveThisPointer = this.SettingsService.RemoveThisPointer
             };
 
-            var textTransformation = this.GetTextTransformationService().Transform(textTransformationRequest);
+            TextTransformation textTransformation = this.GetTextTransformationService().Transform(textTransformationRequest);
 
             textTemplateInfo.TextOutput = textTransformation.Output;
             textTemplateInfo.FileName = viewName + "." + textTransformation.FileExtension;
@@ -174,13 +166,14 @@ namespace NinjaCoder.MvvmCross.Factories
         }
 
         /// <summary>
-        ///     Gets the view template.
+        /// Gets the view template.
         /// </summary>
         /// <param name="frameworkType">Type of the framework.</param>
-        /// <param name="type">The type.</param>
         /// <param name="pageType">Type of the page.</param>
         /// <returns>The View Template.</returns>
-        protected string GetViewTemplate(FrameworkType frameworkType, string type, string pageType)
+        protected string GetViewTemplate(
+            FrameworkType frameworkType, 
+            string pageType)
         {
             if (frameworkType == FrameworkType.XamarinForms)
             {
@@ -201,16 +194,8 @@ namespace NinjaCoder.MvvmCross.Factories
             return new Dictionary<string, string>
                        {
                            { "ClassName", viewName },
-                           {
-                               "ProjectName",
-                               this.VisualStudioService.GetProjectServiceBySuffix(projectSuffix)
-                               .Name
-                           },
-                           {
-                               "NameSpace",
-                               this.VisualStudioService.GetProjectServiceBySuffix(projectSuffix)
-                                   .Name + ".Views"
-                           }
+                           { "ProjectName", this.VisualStudioService.GetProjectServiceBySuffix(projectSuffix).Name },
+                           { "NameSpace", this.VisualStudioService.GetProjectServiceBySuffix(projectSuffix).Name + ".Views" }
                        };
         }
     }

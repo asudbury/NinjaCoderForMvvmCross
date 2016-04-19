@@ -10,8 +10,7 @@ namespace Scorchio.Infrastructure.Services
     using System.IO.Abstractions;
     using System.IO.Compression;
     using System.Linq;
-
-    using Scorchio.VisualStudio.Services;
+    using VisualStudio.Services;
 
     /// <summary>
     ///  Defines the ZipperService type.
@@ -38,6 +37,7 @@ namespace Scorchio.Infrastructure.Services
             TraceService.Initialize(
                 false,
                 true, //// log to console.
+                false,
                 false,
                 string.Empty,
                 false,

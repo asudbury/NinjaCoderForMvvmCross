@@ -48,18 +48,12 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <summary>
         /// Gets the frame works.
         /// </summary>
-        public IEnumerable<string> FrameWorks
-        {
-            get
-            {
-                return new List<string>
-                       {
-                           TestingConstants.NUnit.Name, 
-                           TestingConstants.MsTest.Name,
-                           TestingConstants.XUnit.Name
-                       };
-            }
-        }
+        public IEnumerable<string> FrameWorks => new List<string>
+                                                     {
+                                                         TestingConstants.NUnit.Name, 
+                                                         TestingConstants.MsTest.Name,
+                                                         TestingConstants.XUnit.Name
+                                                     };
 
         /// <summary>
         /// Gets the testing service.

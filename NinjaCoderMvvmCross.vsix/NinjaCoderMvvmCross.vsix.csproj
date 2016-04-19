@@ -105,6 +105,22 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <Link>Config\XamarinFormsNugetPackages.xml</Link>
     </Content>
+    <Content Include="..\Config\MvvmCrossAndXamarinFormsProjects.xml">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\MvvmCrossAndXamarinFormsProjects.xml</Link>
+    </Content>
+    <Content Include="..\Config\MvvmCrossProjects.xml">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\MvvmCrossProjects.xml</Link>
+    </Content>
+    <Content Include="..\Config\NoFrameworkProjects.xml">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\NoFrameworkProjects.xml</Link>
+    </Content>
+    <Content Include="..\Config\XamarinFormsProjects.xml">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <Link>Config\XamarinFormsProjects.xml</Link>
+    </Content>
     <!--Custom Renderers -->
     <Content Include="..\..\NinjaCoderForMvvmCross\Config\TextTemplates\CustomRenderer\BaseCustomRenderer.t4">
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -308,10 +324,38 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <Link>Config\TextTemplates\ItemTemplates\XamarinForms\BlankViewCodeBehind.t4</Link>
     </Content>
+    <Content Include="..\..\Ninja\NinjaCodeMvvmCrossTemplates\ProjectTemplates\NinjaCoder.WindowsUniversal\NinjaCoder.WindowsUniversal.zip">
+      <Link>ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.WindowsUniversal.zip</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\XamarinForms\App.xaml.cs.t4">
+      <Link>Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\XamarinForms\App.xaml.cs.t4</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\XamarinForms\App.xaml.t4">
+      <Link>Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\XamarinForms\App.xaml.t4</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\XamarinForms\MainPage.xaml.cs.t4">
+      <Link>Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\XamarinForms\MainPage.xaml.cs.t4</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\XamarinForms\MainPage.xaml.t4">
+      <Link>Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\XamarinForms\MainPage.xaml.t4</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="ninja-icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="NinjaCoder.MvvmCross.VSPackage.pkgdef">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="NinjaCoder.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -340,10 +384,6 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.Xamarin.Forms.zip">
-      <OutputSubPath>Ninja Coder</OutputSubPath>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="ProjectTemplates\CSharp\Ninja Coder\Xamarin.WindowsPhone.zip">
       <OutputSubPath>Ninja Coder</OutputSubPath>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>

@@ -23,14 +23,9 @@ namespace NinjaCoder.MvvmCross.Services
     public class ProjectsService : BaseService, IProjectsService
     {
         /// <summary>
-        /// The file system.
+        /// The text templating service.
         /// </summary>
-        protected readonly IFileSystem FileSystem;
-
-        /// <summary>
-        /// The settings service.
-        /// </summary>
-        private readonly ISettingsService settingsService;
+        private readonly ITextTemplatingService textTemplatingService;
 
         /// <summary>
         /// The visual studio service.
@@ -38,19 +33,32 @@ namespace NinjaCoder.MvvmCross.Services
         private IVisualStudioService visualStudioService;
 
         /// <summary>
+        /// The file system.
+        /// </summary>
+        protected readonly IFileSystem FileSystem;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ProjectsService" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="fileSystem">The file system.</param>
+        /// <param name="textTemplatingService">The text templating service.</param>
         public ProjectsService(
             ISettingsService settingsService,
-            IFileSystem fileSystem)
+            IFileSystem fileSystem,
+            ITextTemplatingService textTemplatingService)
+            :base(settingsService)
         {
             TraceService.WriteLine("ProjectsService::constructor");
 
-            this.settingsService = settingsService;
             this.FileSystem = fileSystem;
+            this.textTemplatingService = textTemplatingService;
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is new solution.
+        /// </summary>
+        public bool IsNewSolution { get; set; }
 
         /// <summary>
         /// Adds the projects.
@@ -67,6 +75,9 @@ namespace NinjaCoder.MvvmCross.Services
             IEnumerable<ProjectTemplateInfo> projectsInfos)
         {
             TraceService.WriteLine("ProjectsService::AddProjects");
+
+            //// reset the messages.
+            this.Messages = new List<string>();
 
             IEnumerable<ProjectTemplateInfo> projectTemplateInfos = projectsInfos as ProjectTemplateInfo[] ?? projectsInfos.ToArray();
 
@@ -87,72 +98,119 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Sets the start up project.
+        /// </summary>
+        public void SetStartUpProject()
+        {
+            if (this.IsNewSolution)
+            {
+                return;
+            }
+
+            string startUpProject = this.SettingsService.StartUpProject;
+
+            TraceService.WriteLine("StartUpProject=" + startUpProject);
+
+            if (startUpProject != string.Empty)
+            {
+                IProjectService projectService = this.visualStudioService.GetProjectServiceBySuffix(startUpProject);
+
+                if (projectService != null)
+                {
+                    this.visualStudioService.SolutionService.SetStartUpProject(projectService.Name);
+                }
+                else
+                {
+                    TraceService.WriteError("Cannot find StartUpProject=" + startUpProject);
+                }
+            }
+        }
+
+        /// <summary>
         /// Creates the messages.
         /// </summary>
         internal void CreateMessages()
         {
+            if (this.IsNewSolution)
+            {
+                return;
+            }
+
             //// reset the messages.
-            this.Messages = new List<string>
+            this.Messages.AddRange(new List<string>
             {
                 string.Empty,
-                this.settingsService.FrameworkType.GetDescription() + " framework selected.", 
-                this.settingsService.TestingFramework + " testing framework selected.", 
-                this.settingsService.MockingFramework + " mocking framework selected.",
-            };
+                "----------------------------------------------------------------------------------------------------",
+                "Options",
+                "----------------------------------------------------------------------------------------------------",
+                this.SettingsService.FrameworkType.GetDescription() + " framework selected.", 
+                this.SettingsService.TestingFramework + " testing framework selected.", 
+                this.SettingsService.MockingFramework + " mocking framework selected.",
+            });
 
-            if (this.settingsService.UseLocalUris)
+            if (this.SettingsService.UseLocalUris)
             {
                 this.Messages.Add("Use Local Config files selected.");
             }
 
-            if (this.settingsService.UseLocalTextTemplates)
+            if (this.SettingsService.UseLocalTextTemplates)
             {
                 this.Messages.Add("Use Local Text Templates selected.");
             }
 
-            if (this.settingsService.UseLocalNuget)
+            if (this.SettingsService.UseLocalNuget)
             {
                 this.Messages.Add("Use Local Nuget selected.");
             }
 
-            if (this.settingsService.StartUpProject != string.Empty)
+            if (this.SettingsService.StartUpProject != string.Empty)
             {
-                this.Messages.Add("StartUp Project set to " + this.settingsService.StartUpProject + ".");
+                this.Messages.Add("StartUp Project set to " + this.SettingsService.StartUpProject);
             }
 
-            if (this.settingsService.CreatePlatformTestProjects)
+            if (this.SettingsService.FrameworkType.IsMvvmCrossSolutionType() &&
+                this.SettingsService.AddiOSProject)
+            {
+                this.Messages.Add("iOS View Type " + this.SettingsService.SelectedMvvmCrossiOSViewType + " selected.");
+            }
+
+            if (this.SettingsService.CreatePlatformTestProjects)
             {
                 this.Messages.Add("Create Test Projects selected.");
             }
 
-            if (this.settingsService.UseXamarinTestCloud)
+            if (this.SettingsService.UseXamarinTestCloud)
             {
                 this.Messages.Add("Use Xamarin Test Cloud selected.");
             }
 
-            if (this.settingsService.UseXamarinInsights)
+            if (this.SettingsService.UseXamarinInsights)
             {
                 this.Messages.Add("Use Xamarin Insights selected.");
             }
 
-            if (this.settingsService.FrameworkType.IsXamarinFormsSolutionType())
+            if (this.SettingsService.FrameworkType.IsXamarinFormsSolutionType())
             {
-                this.Messages.Add("Xamarin Forms Compile Option=" + this.settingsService.UseXamarinFormsXamlCompilation == "Y" ? XamarinFormsCompileOption.Compile.GetDescription() : XamarinFormsCompileOption.Skip.GetDescription());
+                string type = this.SettingsService.UseXamarinFormsXamlCompilation ? 
+                    XamarinFormsCompileOption.Compile.GetDescription() : 
+                    XamarinFormsCompileOption.Skip.GetDescription();
+
+                this.Messages.Add("Xamarin Forms Compile Option=" + type);
             }
 
-            if (this.settingsService.UsePreReleaseMvvmCrossNugetPackages &&
-                this.settingsService.FrameworkType.IsMvvmCrossSolutionType())
+            if (this.SettingsService.UsePreReleaseMvvmCrossNugetPackages &&
+                this.SettingsService.FrameworkType.IsMvvmCrossSolutionType())
             {
                 this.Messages.Add("Pre Release MvvmCross Nuget Packages selected.");
             }
 
-            if (this.settingsService.UsePreReleaseMvvmCrossNugetPackages &&
-               this.settingsService.FrameworkType.IsXamarinFormsSolutionType())
+            if (this.SettingsService.UsePreReleaseMvvmCrossNugetPackages &&
+               this.SettingsService.FrameworkType.IsXamarinFormsSolutionType())
             {
                 this.Messages.Add("Pre Release Xamarin Forms Nuget Packages selected.");
             }
 
-            if (this.settingsService.UsePreReleaseNinjaNugetPackages)
+            if (this.SettingsService.UsePreReleaseNinjaNugetPackages)
             {
                 this.Messages.Add("Pre Release Ninja Nuget Packages selected.");
             }
@@ -173,7 +231,7 @@ namespace NinjaCoder.MvvmCross.Services
 
             TraceService.WriteLine(message);
             
-            this.settingsService.ActiveProject = projectInfo.FriendlyName;
+            this.SettingsService.ActiveProject = projectInfo.FriendlyName;
 
             this.TryToAddProject(path, projectInfo);
 
@@ -187,7 +245,14 @@ namespace NinjaCoder.MvvmCross.Services
                 projectService != null && 
                 projectInfo.ReferenceCoreProject)
             {
-                projectService.AddProjectReference(coreProjectService);
+                if (projectService.Name != coreProjectService.Name)
+                {
+                    projectService.AddProjectReference(coreProjectService);
+                }
+                else
+                {
+                    TraceService.WriteError("Attemped to reference project to its self project=" + projectService.Name);
+                }
             }
 
             //// now add references to xamarin forms if required.
@@ -199,7 +264,14 @@ namespace NinjaCoder.MvvmCross.Services
                 if (formsProjectService != null && 
                     projectService != null)
                 {
-                    projectService.AddProjectReference(formsProjectService);
+                    if (projectService.Name != formsProjectService.Name)
+                    {
+                        projectService.AddProjectReference(formsProjectService);
+                    }
+                    else
+                    {
+                        TraceService.WriteError("Attemped to reference project to its self project=" + projectService.Name);
+                    }
                 }
             }
 
@@ -226,6 +298,19 @@ namespace NinjaCoder.MvvmCross.Services
                     }
                 }
             }
+
+            //// now add project items (if there are any!)
+
+            if (this.SettingsService.BetaTesting)
+            { 
+                if (projectInfo.ItemTemplates != null && 
+                    projectService != null)
+                {
+                    this.textTemplatingService.AddTextTemplates(
+                        "Adding items to project " + projectService.Name,
+                        projectInfo.ItemTemplates);
+                }
+            }
         }
 
         /// <summary>
@@ -245,6 +330,8 @@ namespace NinjaCoder.MvvmCross.Services
 
             if (this.FileSystem.Directory.Exists(projectPath) == false)
             {
+                TraceService.WriteDebugLine(projectInfo.Name + " " + projectPath + " added to the solution.");
+                
                 this.AddProject(projectInfo, projectPath);
             }
             else
@@ -262,7 +349,7 @@ namespace NinjaCoder.MvvmCross.Services
             ProjectTemplateInfo projectInfo,
             string projectPath)
         {
-            TraceService.WriteLine("ProjectsService::AddProject project=" + projectInfo.Name + " templateName=" + projectInfo.TemplateName);
+            TraceService.WriteLine("ProjectsService::AddProject projectPath=" + projectPath + "templateName = " + projectInfo.TemplateName);
 
             try
             {
@@ -271,9 +358,13 @@ namespace NinjaCoder.MvvmCross.Services
                 TraceService.WriteLine("Template=" + template);
 
                 //// add to TestProjects subfolder if applicable,
-                if (this.settingsService.CreateTestProjectsSolutionFolder && projectInfo.Name.EndsWith("Tests"))
+                if (this.SettingsService.CreateTestProjectsSolutionFolder && projectInfo.Name.EndsWith("Tests"))
                 { 
-                    this.visualStudioService.SolutionService.AddProjectToSubFolder(this.settingsService.TestProjectsSolutionFolderName, projectPath, template, projectInfo.Name);
+                    this.visualStudioService.SolutionService.AddProjectToSubFolder(
+                        this.SettingsService.TestProjectsSolutionFolderName, 
+                        projectPath, 
+                        template, 
+                        projectInfo.Name);
                 }
                 else
                 {
@@ -284,7 +375,9 @@ namespace NinjaCoder.MvvmCross.Services
             }
             catch (Exception exception)
             {
-                TraceService.WriteError("error adding project " + projectPath + " exception=" + exception.Message + " templateName=" + projectInfo.TemplateName);
+                TraceService.WriteError("error adding project exception=" + exception.Message);
+                TraceService.WriteError("projectPath=" + projectPath);
+                TraceService.WriteError("projectInfo.TemplateName=" + projectInfo.TemplateName);
                
                 this.Messages.Add("ERROR " + projectInfo.Name + " not added. exception " + exception.Message + " (template " + projectInfo.TemplateName + ")");
             }

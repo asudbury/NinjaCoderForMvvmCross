@@ -3,7 +3,6 @@
 //  Defines the TextTemplateInfo type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace Scorchio.VisualStudio.Entities
 {
     using System.Collections.Generic;
@@ -58,13 +57,13 @@ namespace Scorchio.VisualStudio.Entities
         public string TextOutput { get; set; }
 
         /// <summary>
-        /// Gets or sets the file operations.
+        /// Gets the file operations.
         /// </summary>
-        public List<FileOperation> FileOperations { get; set; }
+        public List<FileOperation> FileOperations { get; }
 
         /// <summary>
-        /// Gets or sets the child items.
+        /// Gets the child items.
         /// </summary>
-        public List<TextTemplateInfo> ChildItems { get; set; }
+        public List<TextTemplateInfo> ChildItems { get; }
     }
 }

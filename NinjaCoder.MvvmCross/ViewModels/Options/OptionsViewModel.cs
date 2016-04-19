@@ -35,6 +35,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.TracingViewModel = resolverService.Resolve<TracingViewModel>();
             this.BuildViewModel = resolverService.Resolve<BuildViewModel>();
             this.ProjectsViewModel = resolverService.Resolve<ProjectsViewModel>();
+            this.ProjectsSuffixesViewModel = resolverService.Resolve<ProjectsSuffixesViewModel>();
             this.CodingStyleViewModel = resolverService.Resolve<CodingStyleViewModel>();
         }
 
@@ -57,6 +58,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         /// Gets the coding style view model.
         /// </summary>
         public CodingStyleViewModel CodingStyleViewModel { get; private set; }
+
+        /// <summary>
+        /// Gets the projects suffixes view model.
+        /// </summary>
+        public ProjectsSuffixesViewModel ProjectsSuffixesViewModel { get; private set; }
 
         /// <summary>
         /// Gets or sets the language dictionary.
@@ -85,6 +91,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.TracingViewModel.Save();
             this.BuildViewModel.Save();
             this.ProjectsViewModel.Save();
+            this.ProjectsSuffixesViewModel.Save();
             this.CodingStyleViewModel.Save();
         }
 

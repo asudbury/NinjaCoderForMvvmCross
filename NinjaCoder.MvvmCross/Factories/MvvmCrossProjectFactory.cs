@@ -9,6 +9,7 @@ namespace NinjaCoder.MvvmCross.Factories
     using Entities;
     using Interfaces;
     using Scorchio.Infrastructure.Extensions;
+    using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Entities;
     using Services.Interfaces;
     using System.Collections.Generic;
@@ -24,11 +25,6 @@ namespace NinjaCoder.MvvmCross.Factories
         private readonly IVisualStudioService visualStudioService;
 
         /// <summary>
-        /// The settings service.
-        /// </summary>
-        private readonly ISettingsService settingsService;
-
-        /// <summary>
         /// The nuget commands service.
         /// </summary>
         private readonly INugetCommandsService nugetCommandsService;
@@ -37,15 +33,17 @@ namespace NinjaCoder.MvvmCross.Factories
         /// Initializes a new instance of the <see cref="MvvmCrossProjectFactory" /> class.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
-        /// <param name="settingsService">The settings service.</param>
         /// <param name="nugetCommandsService">The nuget commands service.</param>
+        /// <param name="settingsService">The settings service.</param>
+        /// <param name="translator">The translator.</param>
         public MvvmCrossProjectFactory(
             IVisualStudioService visualStudioService,
+            INugetCommandsService nugetCommandsService,
             ISettingsService settingsService,
-            INugetCommandsService nugetCommandsService)
+            ITranslator<string, IEnumerable<ProjectTemplateInfo>> translator)
+            :base(settingsService, translator)
         {
             this.visualStudioService = visualStudioService;
-            this.settingsService = settingsService;
             this.nugetCommandsService = nugetCommandsService;
         }
 
@@ -72,10 +70,10 @@ namespace NinjaCoder.MvvmCross.Factories
                 this.GetDroidProject());
 
             this.AddProjectIf(
-                this.settingsService.CreatePlatformTestProjects &&
+                this.SettingsService.CreatePlatformTestProjects &&
                 this.visualStudioService.DroidTestsProjectService == null,
                 this.GetPlatformTestsProject(
-                    ProjectSuffix.DroidTests.GetDescription(),
+                    this.SettingsService.DroidTestsProjectSuffix,
                     ProjectType.DroidTests.GetDescription()));
 
             this.AddProjectIf(
@@ -83,10 +81,10 @@ namespace NinjaCoder.MvvmCross.Factories
                 this.GetiOSProject());
 
             this.AddProjectIf(
-                this.settingsService.CreatePlatformTestProjects &&
+                this.SettingsService.CreatePlatformTestProjects &&
                 this.visualStudioService.iOSTestsProjectService == null,
                 this.GetPlatformTestsProject(
-                    ProjectSuffix.iOSTests.GetDescription(),
+                    this.SettingsService.iOSTestsProjectSuffix,
                     ProjectType.iOSTests.GetDescription()));
 
             this.AddProjectIf(
@@ -94,10 +92,10 @@ namespace NinjaCoder.MvvmCross.Factories
                 this.GetWindowsPhoneProject());
 
             this.AddProjectIf(
-                this.settingsService.CreatePlatformTestProjects &&
+                this.SettingsService.CreatePlatformTestProjects &&
                 this.visualStudioService.WindowsPhoneTestsProjectService == null,
                 this.GetPlatformTestsProject(
-                    ProjectSuffix.WindowsPhoneTests.GetDescription(),
+                    this.SettingsService.WindowsPhoneTestsProjectSuffix,
                     ProjectType.WindowsPhoneTests.GetDescription()));
             
             this.AddProjectIf(
@@ -105,11 +103,25 @@ namespace NinjaCoder.MvvmCross.Factories
                 this.GetWpfProject());
 
             this.AddProjectIf(
-                this.settingsService.CreatePlatformTestProjects &&
+                this.SettingsService.CreatePlatformTestProjects &&
                 this.visualStudioService.WpfTestsProjectService == null,
                 this.GetPlatformTestsProject(
-                    ProjectSuffix.WpfTests.GetDescription(),
+                    this.SettingsService.WpfTestsProjectSuffix,
                     ProjectType.WindowsWpfTests.GetDescription()));
+
+            if (this.SettingsService.BetaTesting)
+            {
+                this.AddProjectIf(
+                    this.visualStudioService.WindowsUniversalProjectService == null,
+                    this.GetWindowsUniversalProject());
+
+                this.AddProjectIf(
+                    this.SettingsService.CreatePlatformTestProjects
+                    && this.visualStudioService.WindowsUniversalTestsProjectService == null,
+                    this.GetPlatformTestsProject(
+                        this.SettingsService.WindowsUniversalTestsProjectSuffix,
+                        ProjectType.WindowsUniversalTests.GetDescription()));
+            }
 
             return this.ProjectTemplateInfos;
         }
@@ -122,11 +134,12 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             return new ProjectTemplateInfo
             {
-                FriendlyName = ProjectType.Core.GetDescription() + " (Profile " + this.settingsService.PCLProfile + ")",
-                ProjectSuffix = ProjectSuffix.Core.GetDescription(),
+                FriendlyName = ProjectType.Core.GetDescription() + " (Profile " + this.SettingsService.PCLProfile + ")",
+                ProjectSuffix = this.SettingsService.CoreProjectSuffix,
                 TemplateName = ProjectTemplate.Core.GetDescription(),
                 PreSelected = true,
-                NugetCommands = this.nugetCommandsService.GetMvvmCrossCoreCommands()
+                NugetCommands = this.nugetCommandsService.GetMvvmCrossCoreCommands(),
+                ItemTemplates = this.GetProjectItems(FrameworkType.MvvmCross, ProjectType.Core)
             };
         }
 
@@ -138,10 +151,10 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             return this.GetTestsProject(
                 FrameworkType.MvvmCross,
-                this.settingsService.TestingFramework,
+                this.SettingsService.TestingFramework,
                 this.nugetCommandsService.GetMvvmCrossTestsCommands(),
-                this.settingsService.AddCoreTestsProject,
-                ProjectSuffix.CoreTests.GetDescription(),
+                this.SettingsService.AddCoreTestsProject,
+                this.SettingsService.CoreTestsProjectSuffix,
                 ProjectType.CoreTests.GetDescription());
         }
 
@@ -154,11 +167,12 @@ namespace NinjaCoder.MvvmCross.Factories
             return new ProjectTemplateInfo
             {
                 FriendlyName = "Android",
-                ProjectSuffix = ProjectSuffix.Droid.GetDescription(),
+                ProjectSuffix = this.SettingsService.DroidProjectSuffix,
                 TemplateName = ProjectTemplate.Droid.GetDescription(),
                 ReferenceCoreProject = true,
-                PreSelected = this.settingsService.AddAndroidProject,
-                NugetCommands = this.nugetCommandsService.GetMvvmCrossDroidCommands()
+                PreSelected = this.SettingsService.AddAndroidProject,
+                NugetCommands = this.nugetCommandsService.GetMvvmCrossDroidCommands(),
+                ItemTemplates = this.GetProjectItems(FrameworkType.MvvmCross, ProjectType.Droid)
             };
         }
 
@@ -171,11 +185,12 @@ namespace NinjaCoder.MvvmCross.Factories
             return new ProjectTemplateInfo
             {
                 FriendlyName = ProjectType.iOS.GetDescription(),
-                ProjectSuffix = ProjectSuffix.iOS.GetDescription(),
+                ProjectSuffix = this.SettingsService.iOSProjectSuffix,
                 TemplateName = ProjectTemplate.iOS.GetDescription(),
                 ReferenceCoreProject = true,
-                PreSelected = this.settingsService.AddiOSProject,
-                NugetCommands = this.nugetCommandsService.GetMvvmCrossiOSCommands()
+                PreSelected = this.SettingsService.AddiOSProject,
+                NugetCommands = this.nugetCommandsService.GetMvvmCrossiOSCommands(),
+                ItemTemplates = this.GetProjectItems(FrameworkType.MvvmCross, ProjectType.iOS)
             };
         }
 
@@ -187,19 +202,20 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             string templateName = ProjectTemplate.WindowsPhone.GetDescription();
 
-            if (this.settingsService.UsePreReleaseNinjaNugetPackages)
+            if (this.SettingsService.UsePreReleaseNinjaNugetPackages)
             {
                 templateName = ProjectTemplate.WindowsPhone.GetDescription();
             }
 
             return new ProjectTemplateInfo
             {
-                FriendlyName = ProjectType.WindowsPhone.GetDescription() + " " + this.settingsService.WindowsPhoneBuildVersion,
-                ProjectSuffix = ProjectSuffix.WindowsPhone.GetDescription(),
+                FriendlyName = ProjectType.WindowsPhone.GetDescription() + " " + this.SettingsService.WindowsPhoneBuildVersion,
+                ProjectSuffix = this.SettingsService.WindowsPhoneProjectSuffix,
                 TemplateName = templateName,
                 ReferenceCoreProject = true,
-                PreSelected = this.settingsService.AddWindowsPhoneProject,
-                NugetCommands = this.nugetCommandsService.GetMvvmCrossWindowsPhoneCommands()
+                PreSelected = this.SettingsService.AddWindowsPhoneProject,
+                NugetCommands = this.nugetCommandsService.GetMvvmCrossWindowsPhoneCommands(),
+                ItemTemplates = this.GetProjectItems(FrameworkType.MvvmCross, ProjectType.WindowsPhone)
             };
         }
 
@@ -212,11 +228,30 @@ namespace NinjaCoder.MvvmCross.Factories
             return new ProjectTemplateInfo
             {
                 FriendlyName = ProjectType.WindowsWpf.GetDescription(),
-                ProjectSuffix = ProjectSuffix.Wpf.GetDescription(),
+                ProjectSuffix = this.SettingsService.WpfProjectSuffix,
                 TemplateName = ProjectTemplate.Wpf.GetDescription(),
                 ReferenceCoreProject = true,
-                PreSelected = this.settingsService.AddWpfProject,
-                NugetCommands = this.nugetCommandsService.GetMvvmCrossWpfCommands()
+                PreSelected = this.SettingsService.AddWpfProject,
+                NugetCommands = this.nugetCommandsService.GetMvvmCrossWpfCommands(),
+                ItemTemplates = this.GetProjectItems(FrameworkType.MvvmCross, ProjectType.WindowsWpf)
+            };
+        }
+
+        /// <summary>
+        /// Gets the windows universal project.
+        /// </summary>
+        /// <returns>A Windows Universal project.</returns>
+        internal ProjectTemplateInfo GetWindowsUniversalProject()
+        {
+            return new ProjectTemplateInfo
+            {
+                FriendlyName = ProjectType.WindowsUniversal.GetDescription(),
+                ProjectSuffix = this.SettingsService.WindowsUniversalProjectSuffix,
+                TemplateName = ProjectTemplate.WindowsUniversal.GetDescription(),
+                ReferenceCoreProject = true,
+                PreSelected = this.SettingsService.AddWindowsUniversalProject,
+                NugetCommands = this.nugetCommandsService.GetMvvmCrossWpfCommands(),
+                ItemTemplates = this.GetProjectItems(FrameworkType.MvvmCross, ProjectType.WindowsUniversal)
             };
         }
 
@@ -234,7 +269,7 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             return this.GetPlatFormTestsProject(
                 FrameworkType.MvvmCross,
-                this.settingsService.TestingFramework,
+                this.SettingsService.TestingFramework,
                 this.nugetCommandsService.GetTestCommands(),
                 true,
                 projectSuffix,

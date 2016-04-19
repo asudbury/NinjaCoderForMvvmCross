@@ -19,6 +19,14 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
+        /// Gets an error message indicating what is wrong with this object.
+        /// </summary>
+        public string Error
+        {
+            get { return null; }
+        }
+
+        /// <summary>
         /// Gets the error message for the property with the given name.
         /// </summary>
         /// <returns>
@@ -26,14 +34,6 @@ namespace Scorchio.Infrastructure.Wpf.ViewModels
         /// </returns>
         /// <param name="columnName">The name of the property whose error message to get. </param>
         public string this[string columnName]
-        {
-            get { return null; }
-        }
-
-        /// <summary>
-        /// Gets an error message indicating what is wrong with this object.
-        /// </summary>
-        public string Error
         {
             get { return null; }
         }

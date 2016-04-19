@@ -26,6 +26,11 @@ namespace Scorchio.VisualStudio.Entities
         public string ProjectSuffix { get; set; }
 
         /// <summary>
+        /// Gets or sets the type of the project.
+        /// </summary>
+        public string ProjectType { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the item is pre selected.
         /// </summary>
         public bool PreSelected { get; set; }

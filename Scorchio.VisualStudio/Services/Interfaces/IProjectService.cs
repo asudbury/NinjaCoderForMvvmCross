@@ -5,8 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio.Services.Interfaces
 {
+    using Entities;
     using EnvDTE;
-    using Scorchio.VisualStudio.Entities;
     using System.Collections.Generic;
     using VSLangProj;
 
@@ -192,7 +192,7 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// </summary>
         /// <param name="textTemplateInfo">The text template information.</param>
         /// <param name="outputTextTemplateContentToTraceFile">if set to <c>true</c> [output text template content to trace file].</param>
-        /// <returns></returns>
+        /// <returns>The text output.</returns>
         string AddTextTemplate(
             TextTemplateInfo textTemplateInfo,
             bool outputTextTemplateContentToTraceFile);

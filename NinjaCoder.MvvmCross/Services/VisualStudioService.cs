@@ -34,7 +34,8 @@ namespace NinjaCoder.MvvmCross.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="VisualStudioService" /> class.
         /// </summary>
-        public VisualStudioService()
+        public VisualStudioService(ISettingsService settingsService)
+            :base(settingsService)
         {
             TraceService.WriteLine("VisualStudioService::Constructor");
         }
@@ -251,11 +252,39 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets the windows universal project service.
+        /// </summary>
+        public IProjectService WindowsUniversalProjectService
+        {
+            get
+            {
+                Project project = this.WindowsUniversalProject;
+                return project != null ? new ProjectService(project) : null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the windows universal tests project service.
+        /// </summary>
+        public IProjectService WindowsUniversalTestsProjectService
+        {
+            get
+            {
+                Project project = this.WindowsUniversalTestsProject;
+                return project != null ? new ProjectService(project) : null;
+            }
+        }
+
+        /// <summary>
         /// Gets the core project.
         /// </summary>
         internal Project CoreProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.Core.GetDescription())); }
+            get
+            {
+                Project project = this.Projects.FirstOrDefault(x => x.Name.EndsWith(this.SettingsService.CoreProjectSuffix));
+                return project ?? this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.Core.GetDescription()));
+            }
         }
 
         /// <summary>
@@ -263,7 +292,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal Project CoreTestsProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.CoreTests.GetDescription())); }
+            get
+            {
+                Project project = this.Projects.FirstOrDefault(x => x.Name.EndsWith(this.SettingsService.CoreTestsProjectSuffix));
+                return project ?? this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.CoreTests.GetDescription()));
+            }
         }
 
         /// <summary>
@@ -271,7 +304,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal Project DroidProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.Droid.GetDescription())); }
+            get
+            {
+                Project project = this.Projects.FirstOrDefault(x => x.Name.EndsWith(this.SettingsService.DroidProjectSuffix));
+                return project ?? this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.Droid.GetDescription()));
+            }
         }
 
         /// <summary>
@@ -279,7 +316,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal Project DroidTestsProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.DroidTests.GetDescription())); }
+            get
+            {
+                Project project = this.Projects.FirstOrDefault(x => x.Name.EndsWith(this.SettingsService.DroidTestsProjectSuffix));
+                return project ?? this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.DroidTests.GetDescription()));
+            }
         }
 
         /// <summary>
@@ -288,7 +329,11 @@ namespace NinjaCoder.MvvmCross.Services
         // ReSharper disable once InconsistentNaming
         internal Project iOSProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.iOS.GetDescription())); }
+            get
+            {
+                Project project = this.Projects.FirstOrDefault(x => x.Name.EndsWith(this.SettingsService.iOSProjectSuffix));
+                return project ?? this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.iOS.GetDescription()));
+            }
         }
 
         /// <summary>
@@ -297,7 +342,11 @@ namespace NinjaCoder.MvvmCross.Services
         // ReSharper disable once InconsistentNaming
         internal Project iOSTestsProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.iOSTests.GetDescription())); }
+            get
+            {
+                Project project = this.Projects.FirstOrDefault(x => x.Name.EndsWith(this.SettingsService.iOSTestsProjectSuffix));
+                return project ?? this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.iOSTests.GetDescription()));
+            }
         }
 
         /// <summary>
@@ -305,7 +354,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal Project WindowsPhoneProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.WindowsPhone.GetDescription())); }
+            get
+            {
+                Project project = this.Projects.FirstOrDefault(x => x.Name.EndsWith(this.SettingsService.WindowsPhoneProjectSuffix));
+                return project ?? this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.WindowsPhone.GetDescription()));
+            }
         }
 
         /// <summary>
@@ -313,7 +366,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal Project WindowsPhoneTestsProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.WindowsPhoneTests.GetDescription())); }
+            get
+            {
+                Project project = this.Projects.FirstOrDefault(x => x.Name.EndsWith(this.SettingsService.WindowsPhoneTestsProjectSuffix));
+                return project ?? this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.WindowsPhoneTests.GetDescription()));
+            }
         }
         
         /// <summary>
@@ -321,7 +378,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal Project WpfProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.Wpf.GetDescription())); }
+            get
+            {
+                Project project = this.Projects.FirstOrDefault(x => x.Name.EndsWith(this.SettingsService.WpfProjectSuffix));
+                return project ?? this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.Wpf.GetDescription()));
+            }
         }
 
         /// <summary>
@@ -329,7 +390,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal Project WpfTestsProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.WpfTests.GetDescription())); }
+            get
+            {
+                Project project = this.Projects.FirstOrDefault(x => x.Name.EndsWith(this.SettingsService.WpfTestsProjectSuffix));
+                return project ?? this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.WpfTests.GetDescription()));
+            }
         }
 
         /// <summary>
@@ -337,7 +402,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal Project XamarinFormsProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.XamarinForms.GetDescription())); }
+            get
+            {
+                Project project = this.Projects.FirstOrDefault(x => x.Name.EndsWith(this.SettingsService.XamarinFormsProjectSuffix));
+                return project ?? this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.XamarinForms.GetDescription()));
+            }
         }
 
         /// <summary>
@@ -345,7 +414,35 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         internal Project XamarinFormsTestsProject
         {
-            get { return this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.XamarinFormsTests.GetDescription())); }
+            get
+            {
+                Project project = this.Projects.FirstOrDefault(x => x.Name.EndsWith(this.SettingsService.XamarinFormsTestsProjectSuffix));
+                return project ?? this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.XamarinFormsTests.GetDescription()));
+            }
+        }
+
+        /// <summary>
+        /// Gets the windows universal project.
+        /// </summary>
+        internal Project WindowsUniversalProject
+        {
+            get
+            {
+                Project project = this.Projects.FirstOrDefault(x => x.Name.EndsWith(this.SettingsService.WindowsUniversalProjectSuffix));
+                return project ?? this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.WindowsUniversal.GetDescription()));
+            }
+        }
+
+        /// <summary>
+        /// Gets the windows universal tests project.
+        /// </summary>
+        internal Project WindowsUniversalTestsProject
+        {
+            get
+            {
+                Project project = this.Projects.FirstOrDefault(x => x.Name.EndsWith(this.SettingsService.WindowsUniversalTestsProjectSuffix));
+                return project ?? this.Projects.FirstOrDefault(x => x.Name.EndsWith(ProjectSuffix.WindowsUniversalTests.GetDescription()));
+            }
         }
 
         /// <summary>
@@ -435,21 +532,72 @@ namespace NinjaCoder.MvvmCross.Services
         public IProjectService GetProjectServiceBySuffix(string suffix)
         {
             Project project = this.Projects.FirstOrDefault(x => x.Name.EndsWith(suffix));
+
+            if (project == null)
+            {
+                switch (suffix)
+                {
+                    case "Core":
+                        suffix = this.SettingsService.CoreProjectSuffix;
+                        break;
+
+                    case "Core.Tests":
+                        suffix = this.SettingsService.CoreTestsProjectSuffix;
+                        break;
+
+                    case "Droid":
+                        suffix = this.SettingsService.DroidProjectSuffix;
+                        break;
+
+                    case "Droid.Tests":
+                        suffix = this.SettingsService.DroidTestsProjectSuffix;
+                        break;
+
+                    case "iOS":
+                        suffix = this.SettingsService.iOSProjectSuffix;
+                        break;
+
+                    case "iOS.Tests":
+                        suffix = this.SettingsService.iOSTestsProjectSuffix;
+                        break;
+
+                    case "WindowsPhone":
+                        suffix = this.SettingsService.WindowsPhoneProjectSuffix;
+                        break;
+
+                    case "WindowsPhone.Tests":
+                        suffix = this.SettingsService.WindowsPhoneTestsProjectSuffix;
+                        break;
+
+                    case "WindowsUniversal":
+                        suffix = this.SettingsService.WindowsUniversalProjectSuffix;
+                        break;
+
+                    case "WindowsUniversal.Tests":
+                        suffix = this.SettingsService.WindowsUniversalTestsProjectSuffix;
+                        break;
+
+                    case "Wpf":
+                        suffix = this.SettingsService.WpfProjectSuffix;
+                        break;
+
+                    case "Wpf.Tests":
+                        suffix = this.SettingsService.WpfTestsProjectSuffix;
+                        break;
+
+                    case "XamarinForms":
+                        suffix = this.SettingsService.XamarinFormsProjectSuffix;
+                        break;
+
+                    case "XamarinForms.Tests":
+                        suffix = this.SettingsService.XamarinFormsTestsProjectSuffix;
+                        break;
+                }
+
+                project = this.Projects.FirstOrDefault(x => x.Name.EndsWith(suffix));
+            }
+
             return project != null ? new ProjectService(project) : null;
-        }
-
-        /// <summary>
-        /// Gets the project services by suffix.
-        /// </summary>
-        /// <param name="suffix">The suffix.</param>
-        /// <returns>
-        /// A collection of project services.
-        /// </returns>
-        public IEnumerable<IProjectService> GetProjectServicesBySuffix(string suffix)
-        {
-            IEnumerable<Project> projects = this.Projects.Where(x => x.Name.EndsWith(suffix));
-
-            return projects.Select(project => new ProjectService(project)).ToList();
         }
 
         /// <summary>

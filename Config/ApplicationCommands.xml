@@ -1,6 +1,32 @@
 <CommandsList>
-    <Commands>
-    </Commands>
-    <FileOperations>
-    </FileOperations> 
+  <Commands>
+  </Commands>
+  <FileOperations>
+    <FileOperation Platform="Core.Tests" Type="ReplaceText" Name="" File="" Directory="ViewModels" From="using Core." To="using $CoreProject$." />
+
+    <FileOperation Platform="Droid" Type="ReplaceText" Name="" File="MvxFormsAndroidViewPresenter.cs" Directory="Presenters" From="using Core" To="using $CoreProject$" />
+    <FileOperation Platform="Droid" Type="ReplaceText" Name="" File="Setup.cs" Directory="" From="using Forms" To="using $FormsProject$" />
+    <FileOperation Platform="Droid" Type="ReplaceText" Name="" File="Setup.cs" Directory="" From="using Core" To="using $CoreProject$" />
+    <FileOperation Platform="Droid" Type="ReplaceText" Name="" File="MvxFormsAndroidViewPresenter.cs" Directory="Presenters" From="using Forms" To="using $FormsProject$" />
+    <FileOperation Platform="Droid" Type="ReplaceText" Name="" File="" Directory="Views" From="using Core." To="using $CoreProject$." />
+    <FileOperation Platform="Droid" Type="ReplaceText" Name="" File="Setup.cs" Directory="" From="Core.App" To="$CoreProject$.App" />
+    <FileOperation Platform="Droid" Type="ReplaceText" Name="" File="MainActivity.cs" Directory="" From="using Forms" To="using $FormsProject$" />
+
+    <FileOperation Platform="iOS" Type="ReplaceText" Name="" File="MvxFormsIosViewPresenter.cs" Directory="Presenters" From="using Core." To="using $CoreProject$." />
+    <FileOperation Platform="iOS" Type="ReplaceText" Name="" File="MvxFormsIosViewPresenter.cs" Directory="Presenters" From="using Forms" To="using $FormsProject$" />
+    <FileOperation Platform="iOS" Type="ReplaceText" Name="" File="" Directory="Views" From="using Core." To="using $CoreProject$." />
+    <FileOperation Platform="iOS" Type="ReplaceText" Name="" File="AppDelegate" Directory="" From="using Forms" To="using $FormsProject$" />
+    <FileOperation Platform="iOS" Type="ReplaceText" Name="" File="AppDelegate" Directory="" From="Core." To="$CoreProject$." />
+    <FileOperation Platform="iOS" Type="ReplaceText" Name="" File="Setup.cs" Directory="" From="Core.App" To="$CoreProject$.App" />
+
+    <FileOperation Platform="WindowsPhone" Type="ReplaceText" Name="" File="MvxFormsWindowsPhoneViewPresenter.cs" Directory="Presenters" From="using Core" To="using $CoreProject$" />
+    <FileOperation Platform="WindowsPhone" Type="ReplaceText" Name="" File="MvxFormsWindowsPhoneViewPresenter.cs" Directory="Presenters" From="using Forms" To="using $FormsProject$" />
+    <FileOperation Platform="WindowsPhone" Type="ReplaceText" Name="" File="Setup.cs" Directory="" From="using Forms" To="using $FormsProject$" />
+    <FileOperation Platform="WindowsPhone" Type="ReplaceText" Name="" File="" Directory="Views" From="using Core" To="using $CoreProject$" />
+    <FileOperation Platform="WindowsPhone" Type="ReplaceText" Name="" File="MainPage.xaml.cs" Directory="" From="using Forms" To="using $FormsProject$" />
+    <FileOperation Platform="WindowsPhone" Type="ReplaceText" Name="" File="Setup.cs" Directory="" From="Core.App" To="$CoreProject$.App" />
+
+    <FileOperation Platform="Wpf" Type="ReplaceText" Name="" File="Setup.cs" Directory="" From="Core.App" To="$CoreProject$.App" />
+
+  </FileOperations>
 </CommandsList>

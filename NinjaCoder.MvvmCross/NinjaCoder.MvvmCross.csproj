@@ -156,6 +156,7 @@
     <Compile Include="Factories\XamarinFormsProjectFactory.cs" />
     <Compile Include="Factories\XamarinLayoutFactory.cs" />
     <Compile Include="Factories\XamarinPageFactory.cs" />
+    <Compile Include="Messages\ProjectSuffixesUpdatedMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -203,6 +204,8 @@
     <Compile Include="Translators\PluginsTranslator.cs" />
     <Compile Include="Translators\CodeSnippetTranslator.cs" />
     <Compile Include="Translators\PluginTranslator.cs" />
+    <Compile Include="Translators\ProjectTemplatesTranslator.cs" />
+    <Compile Include="Translators\ProjectTemplateTranslator.cs" />
     <Compile Include="UserControls\AddCustomerRenderers\CustomRendererControl.xaml.cs">
       <DependentUpon>CustomRendererControl.xaml</DependentUpon>
     </Compile>
@@ -267,6 +270,9 @@
     <Compile Include="UserControls\Options\CodingStyleUserControl.xaml.cs">
       <DependentUpon>CodingStyleUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Options\ProjectsSuffixesUserControl.xaml.cs">
+      <DependentUpon>ProjectsSuffixesUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Options\ProjectsUserControl.xaml.cs">
       <DependentUpon>ProjectsUserControl.xaml</DependentUpon>
     </Compile>
@@ -293,6 +299,7 @@
     <Compile Include="ViewModels\AddProjects\ProjectsViewModel.cs" />
     <Compile Include="ViewModels\AddViews\ViewsFinishedViewModel.cs" />
     <Compile Include="ViewModels\NugetPackagesBaseViewModel.cs" />
+    <Compile Include="ViewModels\Options\ProjectsSuffixesViewModel.cs" />
     <Compile Include="ViewModels\Wizard\NinjaWizardViewModel.cs" />
     <Compile Include="ViewModels\AddViews\ViewsViewModel.cs" />
     <Compile Include="ViewModels\NinjaBaseViewModel.cs" />
@@ -436,6 +443,10 @@
     <Page Include="UserControls\Options\CodingStyleUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Options\ProjectsSuffixesUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\Options\ProjectsUserControl.xaml">
       <SubType>Designer</SubType>

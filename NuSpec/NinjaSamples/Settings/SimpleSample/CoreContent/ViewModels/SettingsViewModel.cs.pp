@@ -28,8 +28,8 @@ namespace $rootnamespace$.ViewModels
         /// <param name="settingsService">The settings service.</param>
         public SettingsViewModel(ISettingsService settingsService)
         {
-            this.settingsService = settingsService;
-            this.greeting = this.settingsService.Greeting;
+            this.SettingsService = settingsService;
+            this.greeting = this.SettingsService.Greeting;
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace $rootnamespace$.ViewModels
             set
             {
                 this.SetProperty(ref this.greeting, value);
-                this.settingsService.Greeting = value;
+                this.SettingsService.Greeting = value;
             }
         }
     }

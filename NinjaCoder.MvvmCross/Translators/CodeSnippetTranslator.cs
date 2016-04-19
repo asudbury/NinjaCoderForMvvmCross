@@ -84,21 +84,5 @@ namespace NinjaCoder.MvvmCross.Translators
         {
             return statement.Replace(";", string.Empty);
         }
-
-        /// <summary>
-        /// Cleans the code.
-        /// </summary>
-        /// <param name="code">The code.</param>
-        /// <returns>The cleaned up code.</returns>
-        internal string CleanedCode(string code)
-        {
-            if (code != null)
-            {
-                code = code.Replace("\n ", string.Empty);
-                code = code.Trim();
-            }
-
-            return code;
-        }
     }
 }

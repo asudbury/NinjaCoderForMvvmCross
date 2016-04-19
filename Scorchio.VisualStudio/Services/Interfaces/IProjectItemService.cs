@@ -246,5 +246,10 @@ namespace Scorchio.VisualStudio.Services.Interfaces
         /// <param name="name">The name.</param>
         /// <returns>A project item service.</returns>
         IProjectItemService GetProjectItem(string name);
+
+        /// <summary>
+        /// Gets the c# project items.
+        /// </summary>
+        IEnumerable<IProjectItemService> GetCSharpProjectItems();
     }
 }

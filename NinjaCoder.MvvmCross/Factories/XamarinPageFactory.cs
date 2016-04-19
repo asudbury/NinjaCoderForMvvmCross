@@ -66,7 +66,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <returns>the url of the image.</returns>
         internal string GetUrlPath(string image)
         {
-            return string.Format("{0}/{1}", Settings.XamarinResourcePath, image);
+            return $"{Settings.XamarinResourcePath}/{image}";
         }
     }
 }

@@ -28,12 +28,14 @@ namespace NinjaCoder.MvvmCross.Entities
         /// The iOS
         /// </summary>
         [Description(".iOS")]
+        // ReSharper disable once InconsistentNaming
         iOS,
 
         /// <summary>
         /// The iOS Tests.
         /// </summary>
         [Description(".iOS.Tests")]
+        // ReSharper disable once InconsistentNaming
         iOSTests,
 
         /// <summary>

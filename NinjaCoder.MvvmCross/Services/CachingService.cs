@@ -7,9 +7,8 @@ namespace NinjaCoder.MvvmCross.Services
 {
     using Entities;
     using Interfaces;
-    using System.Collections.Generic;
-
     using Scorchio.VisualStudio.Entities;
+    using System.Collections.Generic;
 
     /// <summary>
     ///  Defines the CachingService type.
@@ -74,5 +73,10 @@ namespace NinjaCoder.MvvmCross.Services
         /// Gets the messages.
         /// </summary>
         public IDictionary<string, string> Messages { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the projects.
+        /// </summary>
+        public IEnumerable<ProjectTemplateInfo> Projects { get; set; }
     }
 }

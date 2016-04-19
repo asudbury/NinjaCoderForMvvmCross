@@ -24,11 +24,6 @@ namespace NinjaCoder.MvvmCross.Services
         private readonly IFileSystem fileSystem;
 
         /// <summary>
-        /// The settings service.
-        /// </summary>
-        private readonly ISettingsService settingsService;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="ReadMeService" /> class.
         /// </summary>
         /// <param name="fileSystem">The file system.</param>
@@ -36,11 +31,11 @@ namespace NinjaCoder.MvvmCross.Services
         public ReadMeService(
             IFileSystem fileSystem,
             ISettingsService settingsService)
+            :base(settingsService)
         {
             TraceService.WriteLine("ReadMeService::Constructor");
 
             this.fileSystem = fileSystem;
-            this.settingsService = settingsService;
         }
 
         /// <summary>
@@ -49,10 +44,12 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="filePath">The file path.</param>
         /// <param name="functionName">Name of the function.</param>
         /// <param name="lines">The lines.</param>
+        /// <param name="errorMessages">The error messages.</param>
         public void AddLines(
             string filePath,
             string functionName,
-            IEnumerable<string> lines)
+            IEnumerable<string> lines,
+            IEnumerable<string> errorMessages)
         {
             TraceService.WriteLine("ReadMeService::AddLines functionName=" + functionName);
 
@@ -114,10 +111,12 @@ namespace NinjaCoder.MvvmCross.Services
             {
                 string.Empty,
                 this.GetSeperatorLine(),
-                "Ninja Coder for MvvmCross and Xamarin Forms v" + this.settingsService.ApplicationVersion,
+                "Ninja Coder for MvvmCross and Xamarin Forms v" + this.SettingsService.ApplicationVersion,
                 this.GetSeperatorLine(),
                 string.Empty,
                 "All feedback welcome, please get in touch via twitter.",
+                string.Empty,
+                "Issues Log http://github.com/asudbury/NinjaCoderForMvvmCross/issues",
                 string.Empty,
                 "Thanks",
                 string.Empty,

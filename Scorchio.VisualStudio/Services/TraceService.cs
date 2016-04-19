@@ -6,6 +6,7 @@
 namespace Scorchio.VisualStudio.Services
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
     using System.Windows.Forms;
@@ -29,6 +30,11 @@ namespace Scorchio.VisualStudio.Services
         /// The last trace message.
         /// </summary>
         private static string lastTraceMessage;
+
+        /// <summary>
+        /// The log extended message.
+        /// </summary>
+        private static bool logExtendedMessage;
 
         /// <summary>
         /// Gets a value indicating whether to log to trace.
@@ -67,11 +73,17 @@ namespace Scorchio.VisualStudio.Services
         internal static string ErrorFile { get; private set; }
 
         /// <summary>
+        /// Gets or sets the error messages.
+        /// </summary>
+        public static List<string> ErrorMessages { get; set; }
+
+        /// <summary>
         /// Initializes the specified settings.
         /// </summary>
         /// <param name="logToTraceSetting">if set to <c>true</c> [log to trace setting].</param>
         /// <param name="logToConsoleSetting">if set to <c>true</c> [log to console setting].</param>
         /// <param name="logToFileSetting">if set to <c>true</c> [log to file setting].</param>
+        /// <param name="logExtendedMessageSetting">if set to <c>true</c> [log extended message setting].</param>
         /// <param name="logFileSetting">The log file setting.</param>
         /// <param name="displayErrorsSetting">if set to <c>true</c> [display errors setting].</param>
         /// <param name="errorFileSetting">The error file setting.</param>
@@ -79,6 +91,7 @@ namespace Scorchio.VisualStudio.Services
             bool logToTraceSetting,
             bool logToConsoleSetting,
             bool logToFileSetting,
+            bool logExtendedMessageSetting,
             string logFileSetting,
             bool displayErrorsSetting,
             string errorFileSetting)
@@ -86,9 +99,12 @@ namespace Scorchio.VisualStudio.Services
             logToTrace = logToTraceSetting;
             LogToConsole = logToConsoleSetting;
             logToFile = logToFileSetting;
+            logExtendedMessage = logExtendedMessageSetting;
             LogFile = logFileSetting;
             DisplayErrors = displayErrorsSetting;
             ErrorFile = errorFileSetting;
+
+            ErrorMessages = new List<string>();
 
             if (logToTrace)
             {
@@ -118,6 +134,18 @@ namespace Scorchio.VisualStudio.Services
             if (LogToFile)
             {
                 WriteMessageToLogFile(GetTimedMessage(string.Empty, message));
+            }
+        }
+
+        /// <summary>
+        /// Writes the extended line.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        public static void WriteDebugLine(string message)
+        {
+            if (logExtendedMessage)
+            {
+                WriteLine(message);
             }
         }
 
@@ -173,6 +201,8 @@ namespace Scorchio.VisualStudio.Services
                 MessageBox.Show(message, "Ninja Coder for MvvmCross and Xamarin Forms");
             }
 
+            ErrorMessages.Add(timedMessage);
+
             WriteLine("--------------------------------------------------------");
         }
 
@@ -193,6 +223,7 @@ namespace Scorchio.VisualStudio.Services
             }
             catch (Exception)
             {
+                // ignored
             }
         }
 
@@ -213,6 +244,7 @@ namespace Scorchio.VisualStudio.Services
             }
             catch (Exception)
             {
+                // ignored
             }
         }
 

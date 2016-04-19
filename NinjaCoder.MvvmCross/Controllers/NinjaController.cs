@@ -318,6 +318,8 @@ namespace NinjaCoder.MvvmCross.Controllers
                     container.Register<ITranslator<string, Plugins>>(new PluginsTranslator());
                     container.Register<ITranslator<string, CommandsList>>(new CommandsListTranslator());
                     container.Register<ITranslator<string, CustomRenderers>>(new CustomRenderersTranslator());
+                    container.Register<ITranslator<XElement, ProjectTemplateInfo>>(new ProjectTemplateTranslator());
+                    container.Register<ITranslator<string, IEnumerable<ProjectTemplateInfo>>>(new ProjectTemplatesTranslator());
 
                     //// file io abstraction
                     container.Register<IFileSystem>(new FileSystem());

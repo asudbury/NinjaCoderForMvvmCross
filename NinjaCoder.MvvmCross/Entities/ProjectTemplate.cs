@@ -40,6 +40,7 @@ namespace NinjaCoder.MvvmCross.Entities
         /// The iOS.
         /// </summary>
         [Description("NinjaCoder.iOS.zip")]
+        // ReSharper disable once InconsistentNaming
         iOS,
 
         /// <summary>

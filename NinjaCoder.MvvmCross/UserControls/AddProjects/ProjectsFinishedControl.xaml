@@ -5,6 +5,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d">
 
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+        </ResourceDictionary>
+    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -26,12 +31,13 @@
         <StackPanel Grid.Row="0"
                     Grid.Column="1"
                     Width="500"
-                    Height="400"
+                    Height="600"
                     Orientation="Vertical">
 
             <Separator Margin="5" />
 
             <CheckBox Margin="10"
+                      Visibility="Collapsed"
                       Content="Suspend ReSharper during Ninja creation of projects"
                       IsChecked="{Binding SuspendReSharperDuringBuild}" />
 
@@ -39,9 +45,11 @@
                       Content="Create Test projects in 'Tests' solution folder"
                       IsChecked="{Binding CreateTestProjectsSolutionFolder}" />
 
-            <TextBlock Margin="10, 0, 0 ,2" Text="Startup Project" />
+            <TextBlock Margin="10, 0, 0 ,2" Text="Startup Project" Visibility="{Binding DisplayStartUpProject, Converter={StaticResource BoolToVisibility}}" />
+            
             <ComboBox Width="250"
                       Margin="10,0,0,3"
+                      Visibility="{Binding DisplayStartUpProject, Converter={StaticResource BoolToVisibility}}"
                       HorizontalAlignment="Left"
                       ItemsSource="{Binding StartUpProjects}"
                       SelectedItem="{Binding Path=SelectedStartUpProject,
@@ -66,11 +74,31 @@
                 </StackPanel>
             </Expander>
 
-
-            <Separator Margin="10" />
-
-            <TextBlock Margin="10" Text="Click 'Finish' to generate the solution." />
-
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="3">
+                    <TextBlock Margin="10" Text="The following projects will be created"></TextBlock>
+                    <ListView BorderThickness="0" ItemsSource="{Binding Projects}" >
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Focusable" Value="false"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.Resources>
+                            <Style TargetType="GridViewColumnHeader">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </Style>
+                        </ListView.Resources>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <TextBlock Margin="10">
+                         <Italic>(Project Suffixes can be amended in the Options Screen)</Italic>
+                    </TextBlock>
+                </StackPanel>
+                </ScrollViewer>
         </StackPanel>
 
     </Grid>

@@ -26,11 +26,6 @@ namespace NinjaCoder.MvvmCross.Services
         private readonly IVisualStudioService visualStudioService;
 
         /// <summary>
-        /// The settings service.
-        /// </summary>
-        private readonly ISettingsService settingsService;
-
-        /// <summary>
         /// The view model and views factory.
         /// </summary>
         private readonly IViewModelAndViewsFactory viewModelAndViewsFactory;
@@ -59,11 +54,11 @@ namespace NinjaCoder.MvvmCross.Services
             IViewModelAndViewsFactory viewModelAndViewsFactory,
             IFileOperationService fileOperationService,
             INugetCommandsService nugetCommandsService)
+            :base(settingsService)
         {
             TraceService.WriteLine("ViewModelViewsService::Constructor");
 
             this.visualStudioService = visualStudioService;
-            this.settingsService = settingsService;
             this.viewModelAndViewsFactory = viewModelAndViewsFactory;
             this.fileOperationService = fileOperationService;
             this.nugetCommandsService = nugetCommandsService;
@@ -85,7 +80,7 @@ namespace NinjaCoder.MvvmCross.Services
 
             List<TextTemplateInfo> textTemplates = textTemplateInfos.ToList();
 
-            messages.AddRange(this.visualStudioService.SolutionService.AddItemTemplateToProjects(textTemplates, this.settingsService.OutputTextTemplateContentToTraceFile));
+            messages.AddRange(this.visualStudioService.SolutionService.AddItemTemplateToProjects(textTemplates, this.SettingsService.OutputTextTemplateContentToTraceFile));
 
             //// now add any post action commands
 
@@ -126,15 +121,15 @@ namespace NinjaCoder.MvvmCross.Services
 
             this.visualStudioService.WriteStatusBarMessage(NinjaMessages.AddingViewModelAndViews);
             
-            if (this.settingsService.FrameworkType == FrameworkType.MvvmCrossAndXamarinForms)
+            if (this.SettingsService.FrameworkType == FrameworkType.MvvmCrossAndXamarinForms)
             {
-                this.settingsService.BindXamlForXamarinForms = true;
-                this.settingsService.BindContextInXamlForXamarinForms = false;
+                this.SettingsService.BindXamlForXamarinForms = true;
+                this.SettingsService.BindContextInXamlForXamarinForms = false;
             }
             else
             {
-                this.settingsService.BindXamlForXamarinForms = true;
-                this.settingsService.BindContextInXamlForXamarinForms = true;
+                this.SettingsService.BindXamlForXamarinForms = true;
+                this.SettingsService.BindContextInXamlForXamarinForms = true;
             }
 
             foreach (View view in views)
@@ -173,10 +168,10 @@ namespace NinjaCoder.MvvmCross.Services
 
             //// get the ios storyboard nuget command
 
-            if (this.settingsService.AddiOSProject &&
-                this.settingsService.SelectedMvvmCrossiOSViewType == MvvmCrossViewType.StoryBoard.GetDescription())
+            if (this.SettingsService.AddiOSProject &&
+                this.SettingsService.SelectedMvvmCrossiOSViewType == MvvmCrossViewType.StoryBoard.GetDescription())
             {
-                switch (this.settingsService.FrameworkType)
+                switch (this.SettingsService.FrameworkType)
                 {
                     case FrameworkType.MvvmCross:
                     case FrameworkType.MvvmCrossAndXamarinForms:

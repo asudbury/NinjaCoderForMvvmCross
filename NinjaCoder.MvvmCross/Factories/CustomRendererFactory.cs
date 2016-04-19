@@ -141,6 +141,7 @@ namespace NinjaCoder.MvvmCross.Factories
                     name,
                     directory,
                     ProjectSuffix.XamarinForms,
+                    this.settingsService.XamarinFormsProjectSuffix,
                     baseDictionary,
                     true));
 
@@ -160,6 +161,7 @@ namespace NinjaCoder.MvvmCross.Factories
                         name,
                         directory,
                         ProjectSuffix.iOS,
+                        this.settingsService.iOSProjectSuffix,
                         baseDictionary,
                         true));
             }
@@ -179,6 +181,7 @@ namespace NinjaCoder.MvvmCross.Factories
                         name,
                         directory,
                         ProjectSuffix.WindowsPhone,
+                        this.settingsService.WindowsPhoneProjectSuffix,
                         baseDictionary,
                         true));
             }
@@ -198,6 +201,27 @@ namespace NinjaCoder.MvvmCross.Factories
                         name,
                         directory,
                         ProjectSuffix.Droid,
+                        this.settingsService.DroidProjectSuffix,
+                        baseDictionary,
+                        true));
+            }
+
+            IProjectService universalProjectService = this.visualStudioService.WindowsUniversalProjectService;
+
+            if (universalProjectService != null)
+            {
+                TraceService.WriteLine("building universal textTemplate");
+
+                baseDictionary["Platform"] = "Universal";
+
+                textTemplates.Add(
+                    this.GetTextTemplateInfo(
+                        universalProjectService,
+                        this.settingsService.CustomRendererTextTemplate,
+                        name,
+                        directory,
+                        ProjectSuffix.WindowsUniversal,
+                        this.settingsService.WindowsUniversalProjectSuffix,
                         baseDictionary,
                         true));
             }

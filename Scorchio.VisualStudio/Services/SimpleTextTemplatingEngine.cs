@@ -5,13 +5,10 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio.Services
 {
+    using Entities;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
-
-    using Microsoft.VisualStudio.Shell;
-
-    using Scorchio.VisualStudio.Entities;
 
     /// <summary>
     ///  Defines the MockEngine type.

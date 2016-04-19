@@ -105,7 +105,17 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets the xamarin forms tests project service.
         /// </summary>
         IProjectService XamarinFormsTestsProjectService { get; }
-        
+
+        /// <summary>
+        /// Gets the windows universal project service.
+        /// </summary>
+        IProjectService WindowsUniversalProjectService { get; }
+
+        /// <summary>
+        /// Gets the windows universal tests project service.
+        /// </summary>
+        IProjectService WindowsUniversalTestsProjectService { get; }
+
         /// <summary>
         /// Gets a value indicating whether [solution already created].
         /// </summary>
@@ -147,13 +157,6 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <param name="suffix">The suffix.</param>
         /// <returns>The project service.</returns>
         IProjectService GetProjectServiceBySuffix(string suffix);
-
-        /// <summary>
-        /// Gets the project services by suffix.
-        /// </summary>
-        /// <param name="suffix">The suffix.</param>
-        /// <returns>A collection of project services.</returns>
-        IEnumerable<IProjectService> GetProjectServicesBySuffix(string suffix);
 
         /// <summary>
         /// Gets the public view model names.

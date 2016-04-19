@@ -21,6 +21,10 @@
                   IsChecked="{Binding LogToFile}" />
 
         <CheckBox Margin="10"
+                  Content="Extended Logging"
+                  IsChecked="{Binding ExtendedLogging}" />
+        
+        <CheckBox Margin="10"
                   Content="{DynamicResource DisplayErrors}"
                   IsChecked="{Binding DisplayErrors}" />
 
@@ -32,7 +36,7 @@
 
         <TextBox Margin="10,1,0,0" Text="{Binding LogFilePath}" />
 
-        <StackPanel Margin="10" Orientation="Horizontal">
+        <StackPanel Margin="1" Orientation="Horizontal">
 
             <TextBlock Margin="10">
                 <Hyperlink Command="{Binding ClearLogCommand}">
@@ -52,7 +56,7 @@
 
         <TextBox Margin="10,1,0,0" Text="{Binding ErrorFilePath}" />
 
-        <StackPanel Margin="10" Orientation="Horizontal">
+        <StackPanel Margin="1" Orientation="Horizontal">
 
             <TextBlock Margin="10">
                 <Hyperlink Command="{Binding ClearErrorLogCommand}">

@@ -39,11 +39,10 @@ namespace Scorchio.Infrastructure.Extensions
         /// <summary>
         /// Gets the value from description.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The Enum.</typeparam>
         /// <param name="instance">The instance.</param>
         /// <param name="description">The description.</param>
-        /// <returns></returns>
-        /// <exception cref="System.InvalidOperationException"></exception>
+        /// <returns>The Description of the Enum.</returns>
         public static T GetValueFromDescription<T>(
             this Enum instance,
             string description)

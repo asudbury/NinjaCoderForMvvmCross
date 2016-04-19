@@ -103,9 +103,9 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         bool ProcessNugetCommands { get; }
 
         /// <summary>
-        /// Gets a value indicating whether [beta testing].
+        /// Gets or sets a value indicating whether [beta testing].
         /// </summary>
-        bool BetaTesting { get; }
+        bool BetaTesting { get; set; }
 
         /// <summary>
         /// Gets or sets the default projects path.
@@ -426,6 +426,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         bool AddWpfProject { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [add windows universal project].
+        /// </summary>
+        bool AddWindowsUniversalProject { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [add xamarin forms tests project].
         /// </summary>
         bool AddXamarinFormsTestsProject { get; set; }
@@ -484,5 +489,102 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets or sets a value indicating whether [use xamarin forms xaml compilation].
         /// </summary>
         bool UseXamarinFormsXamlCompilation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the core project suffix.
+        /// </summary>
+        string CoreProjectSuffix { get; set; }
+
+        /// <summary>
+        /// Gets or sets the droid project suffix.
+        /// </summary>
+        string DroidProjectSuffix { get; set; }
+
+        /// <summary>
+        /// Gets or sets the i os project suffix.
+        /// </summary>
+        // ReSharper disable once InconsistentNaming
+        string iOSProjectSuffix { get; set; }
+
+        /// <summary>
+        /// Gets or sets the windows phone project suffix.
+        /// </summary>
+        string WindowsPhoneProjectSuffix { get; set; }
+
+        /// <summary>
+        /// Gets or sets the WPF project suffix.
+        /// </summary>
+        string WpfProjectSuffix { get; set; }
+
+        /// <summary>
+        /// Gets or sets the xamarin forms project suffix.
+        /// </summary>
+        string XamarinFormsProjectSuffix { get; set; }
+
+        /// <summary>
+        /// Gets or sets the windows universal project suffix.
+        /// </summary>
+        string WindowsUniversalProjectSuffix { get; set; }
+
+        /// <summary>
+        /// Gets or sets the core tests project suffix.
+        /// </summary>
+        string CoreTestsProjectSuffix { get; set; }
+
+        /// <summary>
+        /// Gets or sets the droid tests project suffix.
+        /// </summary>
+        string DroidTestsProjectSuffix { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ios tests project suffix.
+        /// </summary>
+        // ReSharper disable once InconsistentNaming
+        string iOSTestsProjectSuffix { get; set; }
+
+        /// <summary>
+        /// Gets or sets the windows phone tests project suffix.
+        /// </summary>
+        string WindowsPhoneTestsProjectSuffix { get; set; }
+
+        /// <summary>
+        /// Gets or sets the WPF tests project suffix.
+        /// </summary>
+        string WpfTestsProjectSuffix { get; set; }
+
+        /// <summary>
+        /// Gets or sets the xamarin forms tests project suffix.
+        /// </summary>
+        string XamarinFormsTestsProjectSuffix { get; set; }
+
+        /// <summary>
+        /// Gets or sets the windows universal tests project suffix.
+        /// </summary>
+        string WindowsUniversalTestsProjectSuffix { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [extended logging].
+        /// </summary>
+        bool ExtendedLogging { get; set; }
+
+        /// <summary>
+        /// Gets the no framework projects URI.
+        /// </summary>
+        string NoFrameworkProjectsUri { get; }
+
+        /// <summary>
+        /// Gets the xamarin forms projects URI.
+        /// </summary>
+        string XamarinFormsProjectsUri { get; }
+
+        /// <summary>
+        /// Gets the MVVM cross projects URI.
+        /// </summary>
+        string MvvmCrossProjectsUri { get; }
+
+        /// <summary>
+        /// Gets the MVVM cross and xamarin forms projects URI.
+        /// </summary>
+        string MvvmCrossAndXamarinFormsProjectsUri { get; }
     }
 }

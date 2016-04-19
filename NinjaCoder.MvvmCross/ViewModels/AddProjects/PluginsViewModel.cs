@@ -94,29 +94,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         }
 
         /// <summary>
-        /// Called when [initialize].
-        /// </summary>
-        public override void OnInitialize()
-        {
-            if (this.CorePlugins == null)
-            {
-                Plugins allPlugins = this.GetPlugins();
-
-                this.CorePlugins = this.GetPlugins(allPlugins, false);
-                this.CommunityPlugins = this.GetPlugins(allPlugins, true);
-
-                if (this.corePlugins.Any() == false && this.communityPlugins.Any())
-                {
-                    this.CommunityPluginsSelected = true;
-                }
-                else
-                {
-                    this.CorePluginsSelected = true;
-                }
-            }
-        }
-
-        /// <summary>
         /// Gets the nuget packages URI.
         /// </summary>
         protected override string NugetPackagesUri
@@ -130,6 +107,32 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         protected override IEnumerable<SelectableItemViewModel<Plugin>> NugetPackages
         {
             get { return this.CorePlugins != null ? this.CorePlugins.Union(this.CommunityPlugins) : new List<SelectableItemViewModel<Plugin>>(); }
+        }
+
+        /// <summary>
+        /// Called when [initialize].
+        /// </summary>
+        public override void OnInitialize()
+        {
+            if (this.CorePlugins == null)
+            {
+                Plugins allPlugins = this.GetPlugins();
+
+                if (allPlugins != null)
+                {
+                    this.CorePlugins = this.GetPlugins(allPlugins, false);
+                    this.CommunityPlugins = this.GetPlugins(allPlugins, true);
+
+                    if (this.corePlugins.Any() == false && this.communityPlugins.Any())
+                    {
+                        this.CommunityPluginsSelected = true;
+                    }
+                    else
+                    {
+                        this.CorePluginsSelected = true;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -150,6 +153,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             Plugins plugins,
             bool includeCommunityPlugins)
         {
+            if (plugins == null)
+            {
+                return null;
+            }
+
             ObservableCollection<SelectableItemViewModel<Plugin>> viewModels = new ObservableCollection<SelectableItemViewModel<Plugin>>();
 
             foreach (SelectableItemViewModel<Plugin> viewModel in from plugin in plugins.Items

@@ -6,9 +6,8 @@
 namespace NinjaCoder.MvvmCross.Services.Interfaces
 {
     using Entities;
-    using System.Collections.Generic;
-
     using Scorchio.VisualStudio.Entities;
+    using System.Collections.Generic;
 
     /// <summary>
     ///  Defines the ICachingService type.
@@ -63,6 +62,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// <summary>
         /// Gets the messages.
         /// </summary>
-        IDictionary<string, string> Messages { get; } 
+        IDictionary<string, string> Messages { get; }
+
+        /// <summary>
+        /// Gets or sets the projects.
+        /// </summary>
+        IEnumerable<ProjectTemplateInfo> Projects { get; set; }
     }
 }

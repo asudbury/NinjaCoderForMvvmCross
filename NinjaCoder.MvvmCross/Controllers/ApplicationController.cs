@@ -88,6 +88,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                 this.SettingsService.LogToTrace, 
                 false,  //// log to console.
                 this.SettingsService.LogToFile, 
+                this.SettingsService.ExtendedLogging,
                 this.SettingsService.LogFilePath, 
                 this.SettingsService.DisplayErrors,
                 this.SettingsService.ErrorFilePath);
@@ -140,10 +141,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             this.MessageBoxService.Show(
                 "Log File has been cleared.", 
-                Settings.ApplicationName,
-                false,
-                Theme.Light,
-                this.SettingsService.ThemeColor);
+                Settings.ApplicationName);
         }
 
         /// <summary>
@@ -156,10 +154,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             this.MessageBoxService.Show(
                 "Error Log File has been cleared.",
-                Settings.ApplicationName,
-                false,
-                Theme.Light,
-                this.SettingsService.ThemeColor);
+                Settings.ApplicationName);
         }
 
         /// <summary>

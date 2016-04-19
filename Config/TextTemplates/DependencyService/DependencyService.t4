@@ -8,6 +8,7 @@
 <#@ parameter type="System.string" name="MethodName" #>
 <#@ parameter type="System.string" name="MethodReturnStatement" #>
 <#@ parameter type="System.string" name="Directory" #>
+<#@ parameter type="System.string" name="FormsProject" #>
 // --------------------------------------------------------------------------------------------------------------------
 // <summary>
 //  Defines the <#= ClassName #> type.
@@ -18,7 +19,7 @@ using <#= NameSpace #>;
 [assembly: Xamarin.Forms.Dependency(typeof(<#= ClassName #>))]
 namespace <#= NameSpace #>
 {
-    using Forms.<#= Directory #>;
+    using <#= FormsProject #>.<#= Directory #>;
 
     /// <summary>
     /// Defines the <#= ClassName #> type.

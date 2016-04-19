@@ -16,7 +16,6 @@ namespace NinjaCoder.MvvmCross.Factories
     /// </summary>
     public abstract class BaseTextTemplateFactory
     {
-
         /// <summary>
         /// Gets the name of the class.
         /// </summary>
@@ -83,8 +82,7 @@ namespace NinjaCoder.MvvmCross.Factories
                                                 ["ClassName"] = className,
                                                 ["Platform"] = platForm
                                             };
-
-
+            
             return dictionary;
         }
 
@@ -96,21 +94,25 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="name">The name.</param>
         /// <param name="directory">The directory.</param>
         /// <param name="projectSuffix">The project suffix.</param>
+        /// <param name="projectSuffixName">Name of the project suffix.</param>
         /// <param name="baseDictionary">The base dictionary.</param>
         /// <param name="useProjectSuffix">if set to <c>true</c> [use project suffix].</param>
         /// <param name="projectSuffixOverride">The project suffix override.</param>
-        /// <returns>A TextTemplateInfo.</returns>
+        /// <returns>
+        /// A TextTemplateInfo.
+        /// </returns>
         protected TextTemplateInfo GetTextTemplateInfo(
             IProjectService projectService,
             string templateName,
             string name,
             string directory,
             ProjectSuffix projectSuffix,
+            string projectSuffixName,
             Dictionary<string, string> baseDictionary,
             bool useProjectSuffix,
             string projectSuffixOverride = "")
         {
-            string projectSuffixString = projectSuffix.GetDescription();
+            string projectSuffixString = projectSuffixName;
 
             if (projectSuffixOverride != string.Empty)
             {
@@ -125,7 +127,7 @@ namespace NinjaCoder.MvvmCross.Factories
                        {
                            TemplateName = templateName,
                            ProjectFolder = directory,
-                           ProjectSuffix = projectSuffix.GetDescription(),
+                           ProjectSuffix = projectSuffixName,
                            FileName = fileName,
                            Tokens = this.GetDictionary(baseDictionary, nameSpace, className, projectSuffixString)
                        };

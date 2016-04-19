@@ -18,6 +18,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.IO;
     using System.Windows;
 
     /// <summary>
@@ -50,6 +51,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                 settingsService.LogToTrace,
                 false, //// log to console.
                 settingsService.LogToFile,
+                settingsService.ExtendedLogging,
                 settingsService.LogFilePath,
                 settingsService.DisplayErrors,
                 settingsService.ErrorFilePath);
@@ -194,7 +196,20 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("BaseController::GetReadMePath");
 
-            string path = this.VisualStudioService.SolutionService.GetDirectoryName() + Settings.NinjaReadMeFile;
+            string directoryName;
+
+            //// this could fail if the solution hasnt actually been created yet!
+            try
+            {
+                directoryName = this.VisualStudioService.SolutionService.GetDirectoryName();
+            }
+            catch (Exception)
+            {
+                // set to templ path.
+                directoryName = Path.GetTempPath();
+            }
+
+            string path = directoryName + Settings.NinjaReadMeFile;
 
             TraceService.WriteLine("BaseController::GetReadMePath path=" + path);
             return path;
@@ -209,10 +224,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             this.MessageBoxService.Show(
                 Settings.NonMvvmCrossSolution, 
-                Settings.ApplicationName,
-                this.SettingsService.BetaTesting,
-                this.CurrentTheme,
-                this.SettingsService.ThemeColor);
+                Settings.ApplicationName);
         }
 
         /// <summary>
@@ -224,10 +236,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             this.MessageBoxService.Show(
                 Settings.NonXamarinFormsSolution,
-                Settings.ApplicationName,
-                this.SettingsService.BetaTesting,
-                this.CurrentTheme,
-                this.SettingsService.ThemeColor);
+                Settings.ApplicationName);
         }
 
         /// <summary>
@@ -239,10 +248,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             this.MessageBoxService.Show(
                 Settings.NonMvvmCrossOrXamarinFormsSolution,
-                Settings.ApplicationName,
-                this.SettingsService.BetaTesting,
-                this.CurrentTheme,
-                this.SettingsService.ThemeColor);
+                Settings.ApplicationName);
         }
 
         /// <summary>
@@ -291,7 +297,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                 //// now construct the ReadMe.txt
                 this.ReadMeLines.AddRange(messages);
                 
-                this.ReadMeService.AddLines(readMePath, function, this.ReadMeLines);
+                this.ReadMeService.AddLines(readMePath, function, this.ReadMeLines, TraceService.ErrorMessages);
 
                 this.VisualStudioService.DTEService.OpenFile(readMePath);
 

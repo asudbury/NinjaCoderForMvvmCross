@@ -85,7 +85,7 @@ namespace NinjaCoder.MvvmCross.Translators
         {
             XElement nameElement = element.Element("Name");
 
-            return nameElement != null ? nameElement.Value : "No Name";
+            return nameElement?.Value ?? "No Name";
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace NinjaCoder.MvvmCross.Translators
         {
             XElement usingElement = element.Element("UsingStatement");
 
-            return usingElement != null ? usingElement.Value : string.Empty;
+            return usingElement?.Value ?? string.Empty;
         }
 
         /// <summary>
@@ -217,7 +217,7 @@ namespace NinjaCoder.MvvmCross.Translators
         {
             XElement descriptionElement = element.Element("Description");
 
-            return descriptionElement != null ? descriptionElement.Value : string.Empty;
+            return descriptionElement?.Value ?? string.Empty;
         }
 
         /// <summary>
@@ -229,7 +229,7 @@ namespace NinjaCoder.MvvmCross.Translators
         {
             XElement categoryElement = element.Element("Category");
 
-            return categoryElement != null ? categoryElement.Value : string.Empty;
+            return categoryElement?.Value ?? string.Empty;
         }
 
         /// <summary>

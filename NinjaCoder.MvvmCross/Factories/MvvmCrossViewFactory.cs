@@ -87,7 +87,7 @@ namespace NinjaCoder.MvvmCross.Factories
         {
             TraceService.WriteLine("MvvmCrossViewFactory::GetMvvmCrossView viewTemplateName=" + viewTemplateName);
 
-            if (itemTemplateInfo.ProjectSuffix == ProjectSuffix.iOS.GetDescription())
+            if (itemTemplateInfo.ProjectSuffix == this.SettingsService.iOSProjectSuffix)
             {
                 return this.GetiOSMvvmCrossView(
                     itemTemplateInfo, 
@@ -102,7 +102,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 ProjectFolder = "Views",
                 Tokens = tokens,
                 ShortTemplateName = viewTemplateName,
-                TemplateName = this.SettingsService.ItemTemplatesDirectory + "\\" + itemTemplateInfo.ProjectSuffix.Substring(1) + "\\" + viewTemplateName
+                TemplateName = this.SettingsService.ItemTemplatesDirectory + "\\" + itemTemplateInfo.ProjectType + "\\" + viewTemplateName
             };
 
             TextTransformationRequest textTransformationRequest = new TextTransformationRequest
@@ -119,7 +119,7 @@ namespace NinjaCoder.MvvmCross.Factories
             textTemplateInfo.TextOutput = textTransformation.Output;
             textTemplateInfo.FileName = viewName + "." + textTransformation.FileExtension;
 
-            if (itemTemplateInfo.ProjectSuffix == ProjectSuffix.Droid.GetDescription())
+            if (itemTemplateInfo.ProjectSuffix == this.SettingsService.DroidProjectSuffix)
             {
                 textTemplateInfo.FileOperations.Add(
                     this.GetCompileFileOperation(textTemplateInfo.ProjectSuffix, textTemplateInfo.FileName));
@@ -149,18 +149,21 @@ namespace NinjaCoder.MvvmCross.Factories
 
             string viewName = viewModelName.Remove(viewModelName.Length - ViewModelSuffix.Length) + "View";
 
+            TraceService.WriteLine("viewName=" + viewName);
+
             string viewTemplateName = this.GetViewTemplate(
                     FrameworkType.MvvmCross.GetValueFromDescription<FrameworkType>(view.Framework),
-                    itemTemplateInfo.ProjectSuffix,
                     view.PageType);
 
             TraceService.WriteLine("ViewTemplateName=" + viewTemplateName);
 
-            if (itemTemplateInfo.ProjectSuffix == ProjectSuffix.iOS.GetDescription())
+            if (itemTemplateInfo.ProjectSuffix == this.SettingsService.iOSProjectSuffix)
             {
                 viewTemplateName = this.SettingsService.SelectedMvvmCrossiOSViewType + viewTemplateName;
-            }
 
+                TraceService.WriteLine("iOS ViewTemplateName=" + viewTemplateName);
+            }
+            
             Dictionary<string, string> tokens = this.GetBaseDictionary(
                 viewName,
                 itemTemplateInfo.ProjectSuffix);
@@ -171,8 +174,8 @@ namespace NinjaCoder.MvvmCross.Factories
                 viewTemplateName,
                 viewName);
 
-            if (itemTemplateInfo.ProjectSuffix == ProjectSuffix.WindowsPhone.GetDescription() ||
-                itemTemplateInfo.ProjectSuffix == ProjectSuffix.Wpf.GetDescription())
+            if (itemTemplateInfo.ProjectSuffix == this.SettingsService.WindowsPhoneProjectSuffix ||
+                itemTemplateInfo.ProjectSuffix == this.SettingsService.WpfProjectSuffix)
             {
                 TextTemplateInfo childTextTemplateInfo =
                     this.GetCodeBehindTextTemplateInfo(
@@ -183,7 +186,7 @@ namespace NinjaCoder.MvvmCross.Factories
 
                 textTemplateInfo.ChildItems.Add(childTextTemplateInfo);
             }
-            else if (itemTemplateInfo.ProjectSuffix == ProjectSuffix.Droid.GetDescription())
+            else if (itemTemplateInfo.ProjectSuffix == this.SettingsService.DroidProjectSuffix)
             {
                 this.GetDroidMvvmCrossViewLayout(textTemplateInfo, tokens, viewName);
             }
@@ -208,16 +211,25 @@ namespace NinjaCoder.MvvmCross.Factories
             TraceService.WriteLine("MvvmCrossViewFactory::GetiOSMvvmCrossView viewTemplateName=" + viewTemplateName);
             
             string folder = viewTemplateName.Replace("View.t4", string.Empty);
-            
+
+            TraceService.WriteLine("folder=" + folder);
+
             string subFolder = this.SettingsService.SelectedMvvmCrossiOSViewType;
+
+            TraceService.WriteLine("subFolder=" + subFolder);
+
             folder = folder.Replace(subFolder, string.Empty);
+
+            TraceService.WriteLine("folder=" + folder);
 
             string templateFolder = this.SettingsService.ItemTemplatesDirectory + "\\iOS\\" + folder + "\\" + subFolder + "\\";
             string shortFolderName = folder + "\\" + subFolder + "\\";
 
+            TraceService.WriteLine("templateFolder=" + templateFolder);
+
             TextTemplateInfo textTemplateInfo = new TextTemplateInfo
             {
-                ProjectSuffix = ProjectSuffix.iOS.GetDescription(),
+                ProjectSuffix = this.SettingsService.iOSProjectSuffix,
                 ProjectFolder = "Views",
                 Tokens = tokens,
                 ShortTemplateName = shortFolderName + "View.t4",
@@ -241,8 +253,10 @@ namespace NinjaCoder.MvvmCross.Factories
             textTemplateInfo.FileOperations.Add(this.GetCompileFileOperation(
                 textTemplateInfo.ProjectSuffix, 
                 textTemplateInfo.FileName));
-            
+
             //// now handle xib and story board options!
+
+            TraceService.WriteLine("SelectedMvvmCrossiOSViewType=" + this.SettingsService.SelectedMvvmCrossiOSViewType);
 
             if (this.SettingsService.SelectedMvvmCrossiOSViewType == MvvmCrossViewType.StoryBoard.GetDescription() ||
                 this.SettingsService.SelectedMvvmCrossiOSViewType == MvvmCrossViewType.Xib.GetDescription())
@@ -326,7 +340,7 @@ namespace NinjaCoder.MvvmCross.Factories
 
             TextTemplateInfo childTextTemplateInfo = new TextTemplateInfo
             {
-                ProjectSuffix = ProjectSuffix.Droid.GetDescription(),
+                ProjectSuffix = this.SettingsService.DroidProjectSuffix,
                 ProjectFolder = "Resources\\Layout",
                 Tokens = tokens,
                 ShortTemplateName = viewTemplateName,
@@ -357,7 +371,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <returns>the url of the image.</returns>
         internal string GetUrlPath(string image)
         {
-            return string.Format("{0}/{1}", Settings.XamarinResourcePath, image);
+            return $"{Settings.XamarinResourcePath}/{image}";
         }
     }
 }

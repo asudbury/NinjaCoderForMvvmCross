@@ -64,7 +64,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Factories\TestMockingServiceFactory.cs" />
-    <Compile Include="Factories\GenerateProjectTemplatesXml.cs" />
     <Compile Include="Factories\TestTestingServiceFactory.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Mocks\MockDirectory.cs" />
@@ -76,7 +75,6 @@
     <Compile Include="Mocks\MockPathBase.cs" />
     <Compile Include="Services\TestApplicationService.cs" />
     <Compile Include="Services\TestCodeConfigService.cs" />
-    <Compile Include="Services\TestProjectsService.cs" />
     <Compile Include="Services\TestZipperService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

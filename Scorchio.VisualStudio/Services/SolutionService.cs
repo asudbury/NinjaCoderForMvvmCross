@@ -5,16 +5,15 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Scorchio.VisualStudio.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-
     using Entities;
     using EnvDTE;
     using EnvDTE80;
     using Extensions;
     using Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
 
     /// <summary>
     ///  Defines the SolutionService type.
@@ -44,26 +43,17 @@ namespace Scorchio.VisualStudio.Services
         /// <summary>
         /// Gets the full name.
         /// </summary>
-        public string FullName
-        {
-            get { return this.solution.FullName; } 
-        }
+        public string FullName => this.solution.FullName;
 
         /// <summary>
         /// Gets a value indicating whether [has globals].
         /// </summary>
-        public bool HasGlobals
-        {
-            get { return this.Globals != null; }
-        }
+        public bool HasGlobals => this.Globals != null;
 
         /// <summary>
         /// Gets the globals.
         /// </summary>
-        public Globals Globals
-        {
-            get { return this.solution.Globals; }
-        }
+        public Globals Globals => this.solution.Globals;
 
         /// <summary>
         /// Globals the variable exists.
@@ -225,7 +215,7 @@ namespace Scorchio.VisualStudio.Services
         /// Gets the solution sub folder.
         /// </summary>
         /// <param name="solutionFolderName">Name of the solution folder.</param>
-        /// <returns></returns>
+        /// <returns>The Solution Project.</returns>
         public Project GetSolutionSubFolder(string solutionFolderName)
         {
             return this.solution

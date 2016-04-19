@@ -57,6 +57,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         private bool outputTextTemplateContentToTraceFile;
 
         /// <summary>
+        /// The extended logging.
+        /// </summary>
+        private bool extendedLogging;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="TracingViewModel" /> class.
         /// </summary>
         /// <param name="applicationService">The application service.</param>
@@ -104,6 +109,15 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         {
             get { return this.displayErrors; }
             set { this.SetProperty(ref this.displayErrors, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [eextended logging].
+        /// </summary>
+        public bool ExtendedLogging
+        {
+            get { return this.extendedLogging; }
+            set { this.SetProperty(ref this.extendedLogging, value); }
         }
 
         /// <summary>
@@ -176,6 +190,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.DisplayErrors = this.SettingsService.DisplayErrors;
             this.ErrorFilePath = this.SettingsService.ErrorFilePath;
             this.OutputTextTemplateContentToTraceFile = this.SettingsService.OutputTextTemplateContentToTraceFile;
+            this.ExtendedLogging = this.SettingsService.ExtendedLogging;
         }
 
         /// <summary>
@@ -189,6 +204,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.SettingsService.DisplayErrors = this.DisplayErrors;
             this.SettingsService.ErrorFilePath = this.ErrorFilePath;
             this.SettingsService.OutputTextTemplateContentToTraceFile = this.OutputTextTemplateContentToTraceFile;
+            this.SettingsService.ExtendedLogging = this.ExtendedLogging;
         }
 
         /// <summary>
@@ -200,10 +216,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
 
             this.messageBoxService.Show(
                 "The trace log has been cleared.",
-                Constants.Settings.ApplicationName,
-                true,
-                this.CurrentTheme,
-                this.SettingsService.ThemeColor);
+                Constants.Settings.ApplicationName);
         }
 
         /// <summary>
@@ -223,10 +236,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
 
             this.messageBoxService.Show(
                 "The error log has been cleared.",
-                Constants.Settings.ApplicationName,
-                true,
-                this.CurrentTheme,
-                this.SettingsService.ThemeColor);
+                Constants.Settings.ApplicationName);
         }
 
         /// <summary>

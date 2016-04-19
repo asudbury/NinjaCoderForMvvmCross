@@ -36,5 +36,10 @@ namespace Scorchio.VisualStudio.Entities
         /// Gets or sets a value indicating whether [reference platform project].
         /// </summary>
         public bool ReferencePlatformProject { get; set; }
+
+        /// <summary>
+        /// Gets or sets the item templates.
+        /// </summary>
+        public IEnumerable<TextTemplateInfo> ItemTemplates { get; set; }
     }
 }

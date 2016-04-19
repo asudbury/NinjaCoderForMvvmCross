@@ -47,9 +47,9 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The project items.</returns>
         public static IEnumerable<ProjectItem> GetProjectItems(this Project instance)
         {
-            ////TraceService.WriteLine("ProjectExtensions::GetProjectItems project=" + instance.Name);
+            TraceService.WriteDebugLine("ProjectExtensions::GetProjectItems project=" + instance.Name);
 
-            return instance.ProjectItems != null ? instance.ProjectItems.Cast<ProjectItem>().ToList() : null;
+            return instance.ProjectItems?.Cast<ProjectItem>().ToList();
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The project items.</returns>
         public static IEnumerable<ProjectItem> GetCSharpProjectItems(this Project instance)
         {
-            TraceService.WriteLine("ProjectExtensions::GetCSharpProjectItems project=" + instance.Name);
+            TraceService.WriteDebugLine("ProjectExtensions::GetCSharpProjectItems project=" + instance.Name);
 
             return instance.ProjectItems.Cast<ProjectItem>().Where(x => x.Name.EndsWith(".cs")).ToList();
         }
@@ -74,7 +74,7 @@ namespace Scorchio.VisualStudio.Extensions
             this Project instance,
             string fileName)
         {
-            TraceService.WriteLine("ProjectExtensions::GetProjectItem project=" + instance.Name + " fileName=" + fileName);
+            TraceService.WriteDebugLine("ProjectExtensions::GetProjectItem project=" + instance.Name + " fileName=" + fileName);
 
             ProjectItem projectItem = instance.GetCSharpProjectItems().FirstOrDefault(x => x.Name.StartsWith(fileName));
 
@@ -113,7 +113,7 @@ namespace Scorchio.VisualStudio.Extensions
             this Project instance,
             string folderName)
         {
-            TraceService.WriteLine("ProjectExtensions::GetFolder project=" + instance.Name + " folderName=" + folderName);
+            TraceService.WriteDebugLine("ProjectExtensions::GetFolder project=" + instance.Name + " folderName=" + folderName);
 
             try
             {
@@ -142,11 +142,11 @@ namespace Scorchio.VisualStudio.Extensions
         /// <returns>The project references.</returns>
         public static IEnumerable<Reference> GetProjectReferences(this Project instance)
         {
-            TraceService.WriteLine("ProjectExtensions::GetProjectReferences project=" + instance.Name);
+            TraceService.WriteDebugLine("ProjectExtensions::GetProjectReferences project=" + instance.Name);
 
             VSProject project = instance.Object as VSProject;
 
-            return project != null ? project.References.Cast<Reference>() : null;
+            return project?.References.Cast<Reference>();
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace Scorchio.VisualStudio.Extensions
             this Project instance,
             string referenceName)
         {
-            TraceService.WriteLine("ProjectExtensions::GetReferencePath project=" + instance.Name);
+            TraceService.WriteDebugLine("ProjectExtensions::GetReferencePath project=" + instance.Name);
 
             IEnumerable<Reference> references = instance.GetProjectReferences();
 
@@ -182,7 +182,7 @@ namespace Scorchio.VisualStudio.Extensions
             this Project instance, 
             Project referencedProject)
         {
-            TraceService.WriteLine("ProjectExtensions::AddProjectReference project=" + instance.Name);
+            TraceService.WriteDebugLine("ProjectExtensions::AddProjectReference project=" + instance.Name + " referenced project=" + referencedProject.Name);
 
             VSProject project = (VSProject)instance.Object;
 
@@ -198,7 +198,7 @@ namespace Scorchio.VisualStudio.Extensions
             this Project instance,
             string referenceName)
         {
-            TraceService.WriteLine("ProjectExtensions::RemoveReference project=" + instance.Name);
+            TraceService.WriteDebugLine("ProjectExtensions::RemoveReference project=" + instance.Name);
 
             instance.GetProjectReferences()
                 .Where(x => x.Name == referenceName)
@@ -215,7 +215,7 @@ namespace Scorchio.VisualStudio.Extensions
             this Project instance,
             string value)
         {
-            TraceService.WriteLine("ProjectExtensions::RemoveReference project=" + instance.Name);
+            TraceService.WriteDebugLine("ProjectExtensions::RemoveReference project=" + instance.Name);
 
             instance.GetProjectReferences()
                 .Where(x => x.Name.Contains(value))
@@ -323,7 +323,6 @@ namespace Scorchio.VisualStudio.Extensions
                     folderProjectItem = subFolderProjectItem;
                 }
             }
-
             else
             {
                 folderProjectItem = instance.ProjectItems

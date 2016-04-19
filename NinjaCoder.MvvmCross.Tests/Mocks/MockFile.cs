@@ -404,7 +404,7 @@ namespace NinjaCoder.MvvmCross.Tests.Mocks
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="encoding">The encoding.</param>
-        /// <returns></returns>
+        /// <returns>The text of the file.</returns>
         public override string ReadAllText(
             string path, 
             Encoding encoding)

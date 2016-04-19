@@ -6,7 +6,6 @@
 namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 {
     using Factories.Interfaces;
-    using MahApps.Metro;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
     using Scorchio.VisualStudio.Services;
@@ -271,7 +270,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// <summary>
         /// Determines whether this instance [can move to next page].
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True or false.</returns>
         public override bool CanMoveToNextPage()
         {
             if (this.UseXamarinTestCloud && 
@@ -279,10 +278,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             {
                 this.messageBoxService.Show(
                     Constants.Settings.XamarinTestCloudAndNUnit,
-                    Constants.Settings.ApplicationName,
-                    this.settingsService.BetaTesting,
-                    Theme.Light,
-                    this.settingsService.ThemeColor);
+                    Constants.Settings.ApplicationName);
 
                 return false;
             }

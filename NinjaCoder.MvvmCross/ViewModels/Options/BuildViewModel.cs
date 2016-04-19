@@ -38,6 +38,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         private bool useXamarinFormsXamlCompilation;
 
         /// <summary>
+        /// The enable beta functionality.
+        /// </summary>
+        private bool enableBetaFunctionality;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="BuildViewModel" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
@@ -91,7 +96,16 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             get { return this.useXamarinFormsXamlCompilation; }
             set { this.SetProperty(ref this.useXamarinFormsXamlCompilation, value); }
         }
-        
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [enable beta functionality].
+        /// </summary>
+        public bool EnableBetaFunctionality
+        {
+            get { return this.enableBetaFunctionality; }
+            set { this.SetProperty(ref this.enableBetaFunctionality, value); }
+        }
+
         /// <summary>
         /// Saves this instance.
         /// </summary>
@@ -102,6 +116,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.SettingsService.OutputErrorsToReadMe = this.OutputErrorsToReadMe;
             this.SettingsService.UseLocalTextTemplates = this.useLocalTextTemplates;
             this.SettingsService.UseXamarinFormsXamlCompilation = this.useXamarinFormsXamlCompilation;
+            this.SettingsService.BetaTesting = this.enableBetaFunctionality;
         }
 
         /// <summary>

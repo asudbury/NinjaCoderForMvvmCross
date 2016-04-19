@@ -23,6 +23,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
     using System.Linq;
     using System.Windows.Input;
 
+    using Scorchio.VisualStudio.Services;
+
     /// <summary>
     /// Defines the ViewsViewModel type.
     /// </summary>
@@ -513,7 +515,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
         /// </returns>
         public override RouteModifier OnNext()
         {
-            this.settingsService.SelectedMvvmCrossiOSViewType = this.selectedMvvmCrossiOSViewType;
+            this.settingsService.SelectedMvvmCrossiOSViewType = this.SelectedMvvmCrossiOSViewType;
+            TraceService.WriteDebugLine("ViewsViewModel::OnNext SelectedMvvmCrossiOSViewType=" + this.settingsService.SelectedMvvmCrossiOSViewType);
             return base.OnNext();
         }
 
@@ -623,10 +626,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddViews
                 {
                     this.messageBoxService.Show(
                           "Tabbed Pages and Carousel Pages can only have Content Layouts.",
-                          Settings.ApplicationName,
-                          true,
-                          Theme.Light,
-                          this.settingsService.ThemeColor);
+                          Settings.ApplicationName);
                     return;
                 }
             }

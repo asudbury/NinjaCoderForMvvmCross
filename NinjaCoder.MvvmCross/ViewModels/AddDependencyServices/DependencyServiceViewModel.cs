@@ -6,7 +6,6 @@
 namespace NinjaCoder.MvvmCross.ViewModels.AddDependencyServices
 {
     using Factories.Interfaces;
-    using MahApps.Metro;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Wpf;
@@ -204,10 +203,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddDependencyServices
             {
                 this.messageBoxService.Show(
                     "Please enter all the required fields",
-                    Constants.Settings.ApplicationName,
-                    this.settingsService.BetaTesting,
-                    Theme.Light,
-                    this.settingsService.ThemeColor);
+                    Constants.Settings.ApplicationName);
 
                 return false;
             }

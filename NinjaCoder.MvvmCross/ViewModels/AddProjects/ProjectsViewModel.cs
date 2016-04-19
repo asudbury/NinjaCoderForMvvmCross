@@ -5,7 +5,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 {
-    using Entities;
     using Factories.Interfaces;
     using MahApps.Metro;
     using Scorchio.Infrastructure.Extensions;
@@ -59,6 +58,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         private readonly IFolderBrowserDialogService folderBrowserDialogService;
 
         /// <summary>
+        /// The caching service.
+        /// </summary>
+        private readonly ICachingService cachingService;
+
+        /// <summary>
         /// The solution already created.
         /// </summary>
         private readonly bool solutionAlreadyCreated;
@@ -92,13 +96,15 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// <param name="fileSystem">The file system.</param>
         /// <param name="messageBoxService">The message box service.</param>
         /// <param name="folderBrowserDialogService">The folder browser dialog service.</param>
+        /// <param name="cachingService">The caching service.</param>
         public ProjectsViewModel(
             IVisualStudioService visualStudioService,
             ISettingsService settingsService,
             IProjectFactory projectFactory,
             IFileSystem fileSystem,
             IMessageBoxService messageBoxService,
-            IFolderBrowserDialogService folderBrowserDialogService)
+            IFolderBrowserDialogService folderBrowserDialogService,
+            ICachingService cachingService)
         {
             TraceService.WriteLine("ProjectsViewModel::Constructor Start");
 
@@ -108,6 +114,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             this.projectFactory = projectFactory;
             this.messageBoxService = messageBoxService;
             this.folderBrowserDialogService = folderBrowserDialogService;
+            this.cachingService = cachingService;
 
             this.projects = new ObservableCollection<SelectableItemViewModel<ProjectTemplateInfo>>();
 
@@ -263,10 +270,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             {
                 this.messageBoxService.Show(
                     Constants.Settings.DirectoryExists,
-                    Constants.Settings.ApplicationName,
-                    this.settingsService.BetaTesting,
-                    Theme.Light, 
-                    this.settingsService.ThemeColor);
+                    Constants.Settings.ApplicationName);
 
                 this.ProjectIsFocused = true;
                 return false;
@@ -284,31 +288,37 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 
             this.settingsService.DefaultProjectsPath = this.Path;
 
+            this.cachingService.Projects = this.GetFormattedRequiredTemplates();
+
             foreach (SelectableItemViewModel<ProjectTemplateInfo> templateInfo in this.projects)
             {
-                if (templateInfo.Item.ProjectSuffix == ProjectSuffix.CoreTests.GetDescription())
+                if (templateInfo.Item.ProjectSuffix == this.settingsService.CoreTestsProjectSuffix)
                 {
                     this.settingsService.AddCoreTestsProject = templateInfo.IsSelected;
                 }
-                else if (templateInfo.Item.ProjectSuffix == ProjectSuffix.Droid.GetDescription())
+                else if (templateInfo.Item.ProjectSuffix == this.settingsService.DroidProjectSuffix)
                 {
                     this.settingsService.AddAndroidProject = templateInfo.IsSelected;
                 }
-                else if (templateInfo.Item.ProjectSuffix == ProjectSuffix.iOS.GetDescription())
+                else if (templateInfo.Item.ProjectSuffix == this.settingsService.iOSProjectSuffix)
                 {
                     this.settingsService.AddiOSProject = templateInfo.IsSelected;
                 }
-                else if (templateInfo.Item.ProjectSuffix == ProjectSuffix.WindowsPhone.GetDescription())
+                else if (templateInfo.Item.ProjectSuffix == this.settingsService.WindowsPhoneProjectSuffix)
                 {
                     this.settingsService.AddWindowsPhoneProject = templateInfo.IsSelected;
                 }
-                else if (templateInfo.Item.ProjectSuffix == ProjectSuffix.Wpf.GetDescription())
+                else if (templateInfo.Item.ProjectSuffix == this.settingsService.WpfProjectSuffix)
                 {
                     this.settingsService.AddWpfProject = templateInfo.IsSelected;
                 }
-                else if (templateInfo.Item.ProjectSuffix == ProjectSuffix.XamarinFormsTests.GetDescription())
+                else if (templateInfo.Item.ProjectSuffix == this.settingsService.XamarinFormsTestsProjectSuffix)
                 {
                     this.settingsService.AddXamarinFormsTestsProject = templateInfo.IsSelected;
+                }
+                else if (templateInfo.Item.ProjectSuffix == this.settingsService.WindowsUniversalProjectSuffix)
+                {
+                    this.settingsService.AddWindowsUniversalProject = templateInfo.IsSelected;
                 }
             }
         }

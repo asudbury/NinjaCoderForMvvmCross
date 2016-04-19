@@ -9,9 +9,11 @@ namespace NinjaCoder.MvvmCross.Factories
     using Extensions;
     using Scorchio.Infrastructure.Constants;
     using Scorchio.Infrastructure.Extensions;
+    using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Entities;
-    using Scorchio.VisualStudio.Services;
+    using Services.Interfaces;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Defines the BaseProjectFactory type.
@@ -19,11 +21,33 @@ namespace NinjaCoder.MvvmCross.Factories
     public abstract class BaseProjectFactory
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseProjectFactory"/> class.
+        /// The dictionary.
         /// </summary>
-        protected BaseProjectFactory()
+        private readonly Dictionary<string, IEnumerable<ProjectTemplateInfo>> dictionary;
+         
+        /// <summary>
+        /// The settings service.
+        /// </summary>
+        protected readonly ISettingsService SettingsService;
+
+        /// <summary>
+        /// The translator.
+        /// </summary>
+        private readonly ITranslator<string, IEnumerable<ProjectTemplateInfo>> translator;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseProjectFactory" /> class.
+        /// </summary>
+        /// <param name="settingsService">The settings service.</param>
+        /// <param name="translator">The translator.</param>
+        protected BaseProjectFactory(
+            ISettingsService settingsService,
+            ITranslator<string, IEnumerable<ProjectTemplateInfo>> translator)
         {
+            this.SettingsService = settingsService;
+            this.translator = translator;
             this.ProjectTemplateInfos = new List<ProjectTemplateInfo>();
+            this.dictionary = new Dictionary<string, IEnumerable<ProjectTemplateInfo>>();
         }
 
         /// <summary>
@@ -66,8 +90,6 @@ namespace NinjaCoder.MvvmCross.Factories
             string projectSuffix,
             string projectType)
         {
-            TraceService.WriteLine("BaseProjectFactory::GetTestsProject");
-
             string friendlyName = projectType;
 
             string templateName = ProjectTemplate.NUnitTests.GetDescription();
@@ -86,8 +108,6 @@ namespace NinjaCoder.MvvmCross.Factories
                     templateName = ProjectTemplate.MsTestTests.GetDescription();
                 }
             }
-
-            TraceService.WriteLine("BaseProjectFactory::GetTestsProject End");
 
             return new ProjectTemplateInfo
             {
@@ -117,8 +137,6 @@ namespace NinjaCoder.MvvmCross.Factories
             string projectSuffix,
             string projectType)
         {
-            TraceService.WriteLine("BaseProjectFactory::GetPlatFormTestsProject");
-
             ProjectTemplateInfo projectTemplateInfo = this.GetTestsProject(
                 frameworkType, 
                 testingFramework, 
@@ -130,9 +148,81 @@ namespace NinjaCoder.MvvmCross.Factories
             projectTemplateInfo.ReferenceCoreProject = false;
             projectTemplateInfo.ReferencePlatformProject = true;
 
-            TraceService.WriteLine("BaseProjectFactory::GetPlatFormTestsProject End");
-
             return projectTemplateInfo;
+        }
+
+        /// <summary>
+        /// Gets the project items.
+        /// </summary>
+        /// <param name="frameworkType">Type of the framework.</param>
+        /// <param name="projectType">Type of the project.</param>
+        /// <returns>A list of TextTemplateInfos.</returns>
+        protected IEnumerable<TextTemplateInfo> GetProjectItems(
+            FrameworkType frameworkType,
+            ProjectType projectType)
+        {
+            if (this.SettingsService.BetaTesting == false)
+            {
+                return new List<TextTemplateInfo>();
+            }
+
+            string uri = string.Empty;
+
+            switch (frameworkType)
+            {
+                case FrameworkType.NoFramework:
+                    uri = this.SettingsService.NoFrameworkProjectsUri;
+                    break;
+
+                case FrameworkType.MvvmCross:
+                    uri = this.SettingsService.MvvmCrossProjectsUri;
+                    break;
+
+                case FrameworkType.XamarinForms:
+                    uri = this.SettingsService.XamarinFormsProjectsUri;
+                    break;
+
+                case  FrameworkType.MvvmCrossAndXamarinForms:
+                    uri = this.SettingsService.MvvmCrossAndXamarinFormsProjectsUri;
+                    break;
+            }
+
+            if (uri != string.Empty)
+            {
+                IEnumerable<ProjectTemplateInfo> projectTemplateInfos = this.GetPojectTemplateInfos(uri);
+
+                ProjectTemplateInfo projectTemplateInfo = projectTemplateInfos.FirstOrDefault(x => x.Name == projectType.GetDescription());
+
+                if (projectTemplateInfo != null)
+                {
+                    return projectTemplateInfo.ItemTemplates;
+                }
+            }
+
+            return new List<TextTemplateInfo>();
+        }
+
+        /// <summary>
+        /// Gets the poject template infos.
+        /// </summary>
+        /// <param name="uri">The URI.</param>
+        /// <returns>The project template infos.</returns>
+        internal IEnumerable<ProjectTemplateInfo> GetPojectTemplateInfos(string uri)
+        {
+            IEnumerable<ProjectTemplateInfo> projectTemplateInfos;
+
+            bool hasValue = this.dictionary.TryGetValue(uri, out projectTemplateInfos);
+
+            if (hasValue)
+            {
+                return projectTemplateInfos;
+            }
+
+            projectTemplateInfos = this.translator.Translate(uri);
+
+            this.dictionary.Add(uri, projectTemplateInfos);
+
+            return projectTemplateInfos;
         }
     }
 }

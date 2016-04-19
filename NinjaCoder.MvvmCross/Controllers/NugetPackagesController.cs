@@ -156,7 +156,8 @@ namespace NinjaCoder.MvvmCross.Controllers
             this.ReadMeService.AddLines(
                 this.GetReadMePath(),
                 "Add Nuget Packages",
-                this.messages);
+                this.messages,
+                TraceService.ErrorMessages);
 
             TraceService.WriteHeader("RequestedNugetCommands=" + this.commands);
 

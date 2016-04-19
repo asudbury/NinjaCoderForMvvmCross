@@ -83,5 +83,17 @@ namespace NinjaCoder.MvvmCross.Entities
         /// </summary>
         [Description("Xamarin Forms Tests")]
         XamarinFormsTests,
+
+        /// <summary>
+        /// The windows universal
+        /// </summary>
+        [Description("Windows Universal")]
+        WindowsUniversal,
+
+        /// <summary>
+        /// The windows universal Tests
+        /// </summary>
+        [Description("Windows Universal Tests")]
+        WindowsUniversalTests,
     }
 }

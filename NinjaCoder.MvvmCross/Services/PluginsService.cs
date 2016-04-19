@@ -6,8 +6,8 @@
 namespace NinjaCoder.MvvmCross.Services
 {
     using Entities;
+    using Extensions;
     using Interfaces;
-    using NinjaCoder.MvvmCross.Extensions;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using System.Collections.Generic;
@@ -24,11 +24,6 @@ namespace NinjaCoder.MvvmCross.Services
         private readonly IVisualStudioService visualStudioService;
 
         /// <summary>
-        /// The settings service.
-        /// </summary>
-        private readonly ISettingsService settingsService;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="PluginsService" /> class.
         /// </summary>
         /// <param name="visualStudioService">The visual studio service.</param>
@@ -36,11 +31,11 @@ namespace NinjaCoder.MvvmCross.Services
         public PluginsService(
             IVisualStudioService visualStudioService,
             ISettingsService settingsService)
+            :base(settingsService)
         {
             TraceService.WriteLine("PluginsService::Constructor");
 
             this.visualStudioService = visualStudioService;
-            this.settingsService = settingsService;
         }
 
         /// <summary>
@@ -59,7 +54,7 @@ namespace NinjaCoder.MvvmCross.Services
 
             return pluginsArray.Select(plugin => plugin.GetNugetCommandStrings(
                 this.visualStudioService,
-                this.settingsService,
+                this.SettingsService,
                 usePreRelease)).ToList();
         }
 
