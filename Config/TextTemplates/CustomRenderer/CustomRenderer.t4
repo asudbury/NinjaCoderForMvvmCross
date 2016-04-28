@@ -2,7 +2,7 @@
 <#@ Output Extension="cs" #>
 <#@ parameter type="System.string" name="Platform" #>
 <#@ parameter type="System.string" name="NameSpace" #>
-<#@ parameter type="System.string" name="FormsProject" #>
+<#@ parameter type="System.string" name="QualifiedFormsProject" #>
 <#@ parameter type="System.string" name="Directory" #>
 <#@ parameter type="System.string" name="ClassName" #>
 <#@ parameter type="System.string" name="RendererBaseType" #>
@@ -14,10 +14,9 @@
 //  Defines the <#= ClassName #> type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-using <#= FormsProject #>.<#= Directory #>;
+using <#= QualifiedFormsProject #>.<#= Directory #>;
 using <#= NameSpace #>;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.<#= Platform #>;
+using Xamarin.Forms.Platform<#= Platform #>;
 
 [assembly: ExportRenderer(typeof(<#= RendererBaseType #>), typeof(<#= ClassName #>))] 
 namespace <#= NameSpace #>

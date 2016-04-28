@@ -6,7 +6,6 @@
 namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
 {
     using Factories.Interfaces;
-    using MahApps.Metro;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Wpf;
@@ -174,7 +173,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
                 if (string.IsNullOrEmpty(this.path) == false &&
                     this.path.EndsWith(@"\") == false)
                 {
-                    this.path = string.Format(@"{0}\", this.path);
+                    this.path = $@"{this.path}\";
                 }
 
                 return this.path;
@@ -329,7 +328,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
         /// <returns>The solution path.</returns>
         public string GetSolutionPath()
         {
-            return string.Format(@"{0}{1}", this.Path, this.Project);
+            return $@"{this.Path}{this.Project}";
         }
 
         /// <summary>

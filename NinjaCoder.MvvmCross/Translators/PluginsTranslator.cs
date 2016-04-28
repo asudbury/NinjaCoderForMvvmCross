@@ -7,6 +7,7 @@ namespace NinjaCoder.MvvmCross.Translators
 {
     using Entities;
     using Scorchio.Infrastructure.Translators;
+    using Scorchio.VisualStudio.Services;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -52,6 +53,8 @@ namespace NinjaCoder.MvvmCross.Translators
 
                 if (doc.Root != null)
                 {
+                    TraceService.WriteDebugLine(doc.Root.Value);
+
                     IEnumerable<XElement> elements = doc.Root.Elements("Plugin");
 
                     List<Plugin> items = elements.Select(element => this.translator.Translate(element)).ToList();

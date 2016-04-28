@@ -104,6 +104,11 @@ namespace NinjaCoder.MvvmCross.Factories
                 operation = "5";
             }
 
+            else if (platForm == this.SettingsService.WindowsUniversalProjectSuffix)
+            {
+                operation = "6";
+            }
+
             return this.GetFileOperation(platForm, fileName, operation);
         }
 
@@ -180,7 +185,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 return "BlankView.t4";
             }
 
-            return string.Format("{0}View.t4", pageType);
+            return $"{pageType}View.t4";
         }
 
         /// <summary>

@@ -33,5 +33,27 @@ namespace Scorchio.Infrastructure.Extensions
 
             return value;
         }
+
+        /// <summary>
+        /// Gets the safe element string value.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="elementName">Name of the element.</param>
+        /// <returns>The value of the element.</returns>
+        public static string GetSafeElementStringValue(
+            this XElement instance,
+            string elementName)
+        {
+            string value = string.Empty;
+
+            XElement element = instance.Element(elementName);
+
+            if (element != null)
+            {
+                value = element.Value;
+            }
+
+            return value;
+        }
     }
 }

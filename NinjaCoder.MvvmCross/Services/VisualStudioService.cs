@@ -531,6 +531,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// <returns>The project service.</returns>
         public IProjectService GetProjectServiceBySuffix(string suffix)
         {
+            if (string.IsNullOrEmpty(suffix))
+            {
+                return null;
+            }
+
             Project project = this.Projects.FirstOrDefault(x => x.Name.EndsWith(suffix));
 
             if (project == null)
@@ -606,15 +611,10 @@ namespace NinjaCoder.MvvmCross.Services
         /// <returns>The public view model names.</returns>
         public IEnumerable<string> GetPublicViewModelNames()
         {
-            if (this.CoreProjectService != null)
-            {
-                IEnumerable<string> viewModelNames = this.CoreProjectService.GetFolderItems("ViewModels", false);
+            IEnumerable<string> viewModelNames = this.CoreProjectService?.GetFolderItems("ViewModels", false);
 
-                //// exclude the base view model.
-                return viewModelNames.ToList().Except(new List<string> { Settings.BaseViewModelName });
-            }
-
-            return null;
+            //// exclude the base view model.
+            return viewModelNames?.ToList().Except(new List<string> { Settings.BaseViewModelName });
         }
 
         /// <summary>

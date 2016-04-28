@@ -83,11 +83,14 @@ namespace Scorchio.VisualStudio.Services
                 output += newLine + "\n";
             }
             
-            foreach (KeyValuePair<string, string> parameter in parameters)
+            if (parameters != null)
             {
-                string t4Parameter = string.Format("<#= {0} #>", parameter.Key);
+                foreach (KeyValuePair<string, string> parameter in parameters)
+                {
+                    string t4Parameter = $"<#= {parameter.Key} #>";
 
-                output = output.Replace(t4Parameter, parameter.Value);
+                    output = output.Replace(t4Parameter, parameter.Value);
+                }
             }
 
             //// sort out single LF and replace with CR LF!

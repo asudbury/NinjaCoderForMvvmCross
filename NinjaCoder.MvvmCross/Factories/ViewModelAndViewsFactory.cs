@@ -112,6 +112,14 @@ namespace NinjaCoder.MvvmCross.Factories
                         this.SettingsService.WpfProjectSuffix));
                 }
 
+                if (this.VisualStudioService.WindowsUniversalProjectService != null)
+                {
+                    itemTemplateInfos.Add(this.GetView(
+                        ProjectType.WindowsUniversal.GetDescription(),
+                        ProjectSuffix.WindowsUniversal.GetDescription().Substring(1),
+                        this.SettingsService.WindowsUniversalProjectSuffix));
+                }
+
                 return itemTemplateInfos;
             }
         }
@@ -340,7 +348,7 @@ namespace NinjaCoder.MvvmCross.Factories
             Dictionary<string, string> tokens = new Dictionary<string, string>
             {
                 { "ClassName", viewModelName },
-                { "NameSpace",  this.VisualStudioService.CoreProjectService.Name + ".ViewModels" }
+                { "NameSpace",  this.VisualStudioService.CoreProjectService != null ? this.VisualStudioService.CoreProjectService.Name + ".ViewModels" : string.Empty}
             };
 
             TextTemplateInfo textTemplateInfo = new TextTemplateInfo

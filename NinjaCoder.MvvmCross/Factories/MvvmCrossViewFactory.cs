@@ -175,7 +175,8 @@ namespace NinjaCoder.MvvmCross.Factories
                 viewName);
 
             if (itemTemplateInfo.ProjectSuffix == this.SettingsService.WindowsPhoneProjectSuffix ||
-                itemTemplateInfo.ProjectSuffix == this.SettingsService.WpfProjectSuffix)
+                itemTemplateInfo.ProjectSuffix == this.SettingsService.WpfProjectSuffix ||
+                itemTemplateInfo.ProjectSuffix == this.SettingsService.WindowsUniversalProjectSuffix)
             {
                 TextTemplateInfo childTextTemplateInfo =
                     this.GetCodeBehindTextTemplateInfo(

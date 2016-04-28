@@ -52,11 +52,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddDependencyServices
         private bool appendServiceToName;
 
         /// <summary>
-        /// The directory.
-        /// </summary>
-        private string directory;
-
-        /// <summary>
         /// The method comment.
         /// </summary>
         private string methodComment;
@@ -96,20 +91,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddDependencyServices
         /// </summary>
         public string Name
         {
-            get
-            {
-                if (this.name != null)
-                {
-                    return this.name.CaptialiseFirstCharacter();
-                }
-
-                return null;
-            }
-
-            set
-            {
-                this.SetProperty(ref this.name, value);
-            }
+            get { return this.name?.CaptialiseFirstCharacter(); }
+            set { this.SetProperty(ref this.name, value); }
         }
 
         /// <summary>
@@ -122,20 +105,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddDependencyServices
         }
 
         /// <summary>
-        /// Gets or sets the directory.
-        /// </summary>
-        public string Directory
-        {
-            get { return this.directory; }
-            set { this.SetProperty(ref this.directory, value); }
-        }
-
-        /// <summary>
         /// Gets or sets the method comment.
         /// </summary>
         public string MethodComment
         {
-            get { return this.methodComment; }
+            get { return this.methodComment.CaptialiseFirstCharacter(); }
             set { this.SetProperty(ref this.methodComment, value); }
         }
 
@@ -153,7 +127,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddDependencyServices
         /// </summary>
         public string MethodName
         {
-            get { return this.methodName; }
+            get { return this.methodName.CaptialiseFirstCharacter(); }
             set { this.SetProperty(ref this.methodName, value); }
         }
 
@@ -219,14 +193,13 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddDependencyServices
             base.OnSave();
 
             this.settingsService.AutomaticallyAddServicetoDependency = this.appendServiceToName;
-            this.settingsService.DependencyDirectory = this.directory;
 
             IEnumerable<TextTemplateInfo> templateInfos = this.dependencyServicesFactory.GetTextTemplates(
                 this.RequestedName,
-                this.methodComment,
-                this.methodReturnType,
-                this.methodName,
-                this.directory);
+                this.MethodComment,
+                this.MethodReturnType,
+                this.MethodName,
+                this.settingsService.DependencyDirectory);
 
             string message = string.Empty;
 
@@ -252,7 +225,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddDependencyServices
         internal void Init()
         {
             this.AppendServiceToName = this.settingsService.AutomaticallyAddServicetoDependency;
-            this.Directory = this.settingsService.DependencyDirectory;
         }
     }
 }

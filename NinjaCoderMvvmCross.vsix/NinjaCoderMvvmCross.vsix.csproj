@@ -344,6 +344,30 @@
       <Link>Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\XamarinForms\MainPage.xaml.t4</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\WindowsUniversal\BlankView.t4">
+      <Link>Config\TextTemplates\ItemTemplates\WindowsUniversal\BlankView.t4</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\WindowsUniversal\SampleDataView.t4">
+      <Link>Config\TextTemplates\ItemTemplates\WindowsUniversal\SampleDataView.t4</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ItemTemplates\WindowsUniversal\WebView.t4">
+      <Link>Config\TextTemplates\ItemTemplates\WindowsUniversal\WebView.t4</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCross\App.xaml.cs.t4">
+      <Link>Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCross\App.xaml.cs.t4</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCross\Setup.cs.t4">
+      <Link>Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCross\Setup.cs.t4</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCross\Views\BaseView.cs.t4">
+      <Link>Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCross\Views\BaseView.cs.t4</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
@@ -430,7 +454,9 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Config\TextTemplates\ItemTemplates\WindowsUniversal\Views\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

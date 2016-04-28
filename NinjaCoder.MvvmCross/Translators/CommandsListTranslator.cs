@@ -64,6 +64,8 @@ namespace NinjaCoder.MvvmCross.Translators
 
                 if (doc.Root != null)
                 {
+                    TraceService.WriteDebugLine(doc.Root.Value);
+
                     return new CommandsList
                                 {
                                     Commands = this.commandsTranslator.Translate(doc.Root),

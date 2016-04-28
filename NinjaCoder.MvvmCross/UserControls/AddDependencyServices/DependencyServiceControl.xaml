@@ -52,12 +52,6 @@
 
             <TextBlock Margin="2" />
 
-            <TextBlock Margin="10,1,0,0" Text="Dependency Directory" />
-
-            <TextBox Margin="10,1,160,0" Text="{Binding Directory}" />
-
-            <TextBlock Margin="2" />
-
             <TextBlock Margin="10,1,0,0" Text="Method Name" />
 
             <TextBox Margin="10,1,160, 0" Text="{Binding MethodName}" />

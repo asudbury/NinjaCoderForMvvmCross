@@ -23,7 +23,6 @@
                VerticalAlignment="Top"
                Source="pack://application:,,,/NinjaCoder.MvvmCross;component/Resources/lefthand.png" />
 
-
         <StackPanel Grid.Row="0"
                     Grid.Column="1"
                     Width="400"
@@ -51,12 +50,6 @@
             <TextBlock Margin="10,1,0,0" Text="Automatically append 'Effect' to Name of the Effect" />
 
             <CheckBox Margin="10,1,160,0" IsChecked="{Binding AppendEffectToName}" />
-
-            <TextBlock Margin="2" />
-
-            <TextBlock Margin="10,1,0,0" Text="Effect Directory" />
-
-            <TextBox Margin="10,1,160,0" Text="{Binding Directory}" />
         </StackPanel>
 
     </Grid>

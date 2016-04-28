@@ -381,10 +381,10 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
-        /// Gets the MVVM cross windows store commands.
+        /// Gets the MVVM cross windows universaL commands.
         /// </summary>
         /// <returns>A list of Nuget commands.</returns>
-        public IEnumerable<string> GetMvvmCrossWindowsStoreCommands()
+        public IEnumerable<string> GetMvvmCrossWindowsUniversalCommands()
         {
             List<string> commands = new List<string> 
             {

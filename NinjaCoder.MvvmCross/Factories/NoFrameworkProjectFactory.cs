@@ -9,11 +9,11 @@ namespace NinjaCoder.MvvmCross.Factories
     using Entities;
     using Interfaces;
     using Scorchio.Infrastructure.Extensions;
-    using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;
     using System.Collections.Generic;
+    using Translators.Interfaces;
 
     /// <summary> 
     ///  Defines the MvvmCrossProjectFactory type. 
@@ -40,7 +40,7 @@ namespace NinjaCoder.MvvmCross.Factories
             IVisualStudioService visualStudioService,
             ISettingsService settingsService,
             INugetCommandsService nugetCommandsService,
-            ITranslator<string, IEnumerable<ProjectTemplateInfo>> translator)
+            IProjectTemplatesTranslator translator)
             :base(settingsService, translator)
         {
             TraceService.WriteLine("NoFrameworkProjectFactory::Constructor");
@@ -131,23 +131,20 @@ namespace NinjaCoder.MvvmCross.Factories
                       this.SettingsService.WpfTestsProjectSuffix,
                       ProjectType.WindowsWpfTests.GetDescription()));
 
-            if (this.SettingsService.BetaTesting)
-            {
-                this.AddProjectIf(
-                    this.visualStudioService.WindowsUniversalProjectService == null,
-                    this.GetWindowsUniversalProject());
+            this.AddProjectIf(
+                this.visualStudioService.WindowsUniversalProjectService == null,
+                this.GetWindowsUniversalProject());
 
-                this.AddProjectIf(
-                    this.SettingsService.CreatePlatformTestProjects
-                    && this.visualStudioService.WindowsUniversalTestsProjectService == null,
-                    this.GetPlatFormTestsProject(
-                        FrameworkType.NoFramework,
-                        this.SettingsService.TestingFramework,
-                        this.nugetCommandsService.GetTestCommands(),
-                        true,
-                        this.SettingsService.WindowsUniversalTestsProjectSuffix,
-                        ProjectType.WindowsUniversalTests.GetDescription()));
-            }
+            this.AddProjectIf(
+                this.SettingsService.CreatePlatformTestProjects
+                && this.visualStudioService.WindowsUniversalTestsProjectService == null,
+                this.GetPlatFormTestsProject(
+                    FrameworkType.NoFramework,
+                    this.SettingsService.TestingFramework,
+                    this.nugetCommandsService.GetTestCommands(),
+                    true,
+                    this.SettingsService.WindowsUniversalTestsProjectSuffix,
+                    ProjectType.WindowsUniversalTests.GetDescription()));
 
             TraceService.WriteLine("NoFrameworkProjectFactory::GetAllowedProjects END");
 

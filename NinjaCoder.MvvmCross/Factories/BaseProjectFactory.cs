@@ -9,11 +9,11 @@ namespace NinjaCoder.MvvmCross.Factories
     using Extensions;
     using Scorchio.Infrastructure.Constants;
     using Scorchio.Infrastructure.Extensions;
-    using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Entities;
     using Services.Interfaces;
     using System.Collections.Generic;
     using System.Linq;
+    using Translators.Interfaces;
 
     /// <summary>
     /// Defines the BaseProjectFactory type.
@@ -33,7 +33,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <summary>
         /// The translator.
         /// </summary>
-        private readonly ITranslator<string, IEnumerable<ProjectTemplateInfo>> translator;
+        private readonly IProjectTemplatesTranslator translator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseProjectFactory" /> class.
@@ -42,7 +42,7 @@ namespace NinjaCoder.MvvmCross.Factories
         /// <param name="translator">The translator.</param>
         protected BaseProjectFactory(
             ISettingsService settingsService,
-            ITranslator<string, IEnumerable<ProjectTemplateInfo>> translator)
+            IProjectTemplatesTranslator translator)
         {
             this.SettingsService = settingsService;
             this.translator = translator;
@@ -161,11 +161,6 @@ namespace NinjaCoder.MvvmCross.Factories
             FrameworkType frameworkType,
             ProjectType projectType)
         {
-            if (this.SettingsService.BetaTesting == false)
-            {
-                return new List<TextTemplateInfo>();
-            }
-
             string uri = string.Empty;
 
             switch (frameworkType)
@@ -191,7 +186,7 @@ namespace NinjaCoder.MvvmCross.Factories
             {
                 IEnumerable<ProjectTemplateInfo> projectTemplateInfos = this.GetPojectTemplateInfos(uri);
 
-                ProjectTemplateInfo projectTemplateInfo = projectTemplateInfos.FirstOrDefault(x => x.Name == projectType.GetDescription());
+                ProjectTemplateInfo projectTemplateInfo = projectTemplateInfos.FirstOrDefault(x => x.Name == projectType.ToString());
 
                 if (projectTemplateInfo != null)
                 {

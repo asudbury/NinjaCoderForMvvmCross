@@ -1,21 +1,13 @@
 <Projects>
-  <Project Name='Windows Universal'>
+  <Project Name='WindowsUniversal'>
     <ItemTemplates>
             <Item>
-                <Source>ProjectTemplateItems\WindowsUniversal\XamarinForms\App.xaml.t4</Source>
-                <Target>App.xaml</Target>
-            </Item>
-            <Item>
-                <Source>ProjectTemplateItems\WindowsUniversal\XamarinForms\App.xaml.cs.t4</Source>
+                <Source>App.xaml.cs.t4</Source>
                 <Target>App.xaml.cs</Target>
             </Item>
             <Item>
-                <Source>ProjectTemplateItems\WindowsUniversal\XamarinForms\MainPage.xaml.t4</Source>
-                <Target>MainPage.xaml</Target>
-            </Item>
-            <Item>
-                <Source>ProjectTemplateItems\WindowsUniversal\XamarinForms\MainPage.xaml.cs.t4</Source>
-                <Target>MainPage.xaml.cs</Target>
+                <Source>Setup.cs.t4</Source>
+                <Target>Setup.cs</Target>
             </Item>
         </ItemTemplates>
   </Project>

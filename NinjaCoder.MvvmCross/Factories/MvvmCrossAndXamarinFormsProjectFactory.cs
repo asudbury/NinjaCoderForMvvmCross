@@ -8,10 +8,10 @@ namespace NinjaCoder.MvvmCross.Factories
     using Entities;
     using Interfaces;
     using Scorchio.Infrastructure.Extensions;
-    using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Entities;
     using Services.Interfaces;
     using System.Collections.Generic;
+    using Translators.Interfaces;
 
     /// <summary>
     ///  Defines the MvvmCrossAndXamarinFormsProjectFactory type. 
@@ -39,7 +39,7 @@ namespace NinjaCoder.MvvmCross.Factories
             IVisualStudioService visualStudioService,
             INugetCommandsService nugetCommandsService,
             ISettingsService settingsService,
-            ITranslator<string, IEnumerable<ProjectTemplateInfo>> translator)
+            IProjectTemplatesTranslator translator)
             :base(settingsService, translator)
         {
             this.visualStudioService = visualStudioService;
@@ -111,7 +111,9 @@ namespace NinjaCoder.MvvmCross.Factories
                     this.SettingsService.WindowsPhoneTestsProjectSuffix,
                     ProjectType.WindowsPhoneTests.GetDescription()));
 
-            if (this.SettingsService.BetaTesting)
+            //// We are currently NOT going to support WindowsUniversal on MvvmCross and Xamarin Forms!
+
+            /*if (this.SettingsService.BetaTesting)
             {
                 this.AddProjectIf(
                     this.visualStudioService.WindowsUniversalProjectService == null,
@@ -125,7 +127,7 @@ namespace NinjaCoder.MvvmCross.Factories
                         true,
                         this.SettingsService.WindowsUniversalTestsProjectSuffix,
                         ProjectType.WindowsUniversalTests.GetDescription()));
-            }
+            }*/
 
             return this.ProjectTemplateInfos; 
         }

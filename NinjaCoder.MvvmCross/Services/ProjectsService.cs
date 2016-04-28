@@ -17,6 +17,10 @@ namespace NinjaCoder.MvvmCross.Services
     using System.IO.Abstractions;
     using System.Linq;
 
+    using Scorchio.VisualStudio.Extensions;
+
+    using Translators.Interfaces;
+
     /// <summary>
     ///  Defines the ProjectsService type.
     /// </summary>
@@ -26,6 +30,11 @@ namespace NinjaCoder.MvvmCross.Services
         /// The text templating service.
         /// </summary>
         private readonly ITextTemplatingService textTemplatingService;
+
+        /// <summary>
+        /// The tokens translator.
+        /// </summary>
+        private readonly ITokensTranslator tokensTranslator;
 
         /// <summary>
         /// The visual studio service.
@@ -43,16 +52,19 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="settingsService">The settings service.</param>
         /// <param name="fileSystem">The file system.</param>
         /// <param name="textTemplatingService">The text templating service.</param>
+        /// <param name="tokensTranslator">The tokens translator.</param>
         public ProjectsService(
             ISettingsService settingsService,
             IFileSystem fileSystem,
-            ITextTemplatingService textTemplatingService)
+            ITextTemplatingService textTemplatingService,
+            ITokensTranslator tokensTranslator)
             :base(settingsService)
         {
             TraceService.WriteLine("ProjectsService::constructor");
 
             this.FileSystem = fileSystem;
             this.textTemplatingService = textTemplatingService;
+            this.tokensTranslator = tokensTranslator;
         }
 
         /// <summary>
@@ -81,7 +93,7 @@ namespace NinjaCoder.MvvmCross.Services
 
             IEnumerable<ProjectTemplateInfo> projectTemplateInfos = projectsInfos as ProjectTemplateInfo[] ?? projectsInfos.ToArray();
 
-            string message = string.Format("ProjectsService::AddProjects project count={0} path={1}", projectTemplateInfos.Count(), path);
+            string message = $"ProjectsService::AddProjects project count={projectTemplateInfos.Count()} path={path}";
             
             TraceService.WriteLine(message);
 
@@ -147,6 +159,11 @@ namespace NinjaCoder.MvvmCross.Services
                 this.SettingsService.TestingFramework + " testing framework selected.", 
                 this.SettingsService.MockingFramework + " mocking framework selected.",
             });
+
+            if (this.SettingsService.BetaTesting)
+            {
+                this.Messages.Add("BETA Testing is set to on!");
+            }
 
             if (this.SettingsService.UseLocalUris)
             {
@@ -227,7 +244,7 @@ namespace NinjaCoder.MvvmCross.Services
             string path,
             ProjectTemplateInfo projectInfo)
         {
-            string message = string.Format("ProjectsService::AddProjectIf project {0}", projectInfo.Name);
+            string message = $"ProjectsService::AddProjectIf project {projectInfo.Name}";
 
             TraceService.WriteLine(message);
             
@@ -299,17 +316,18 @@ namespace NinjaCoder.MvvmCross.Services
                 }
             }
 
-            //// now add project items (if there are any!)
-
-            if (this.SettingsService.BetaTesting)
-            { 
-                if (projectInfo.ItemTemplates != null && 
-                    projectService != null)
+            if (projectInfo.ItemTemplates != null && 
+                projectInfo.ItemTemplates.Any() &&
+                projectService != null)
+            {
+                foreach (TextTemplateInfo textTemplateInfo in projectInfo.ItemTemplates)
                 {
-                    this.textTemplatingService.AddTextTemplates(
-                        "Adding items to project " + projectService.Name,
-                        projectInfo.ItemTemplates);
-                }
+                    textTemplateInfo.Tokens = this.tokensTranslator.Translate(projectService);
+                } 
+                   
+                this.textTemplatingService.AddTextTemplates(
+                    "Adding items to project " + projectService.Name,
+                    projectInfo.ItemTemplates);
             }
         }
 
@@ -326,7 +344,7 @@ namespace NinjaCoder.MvvmCross.Services
 
             //// Project may actually already exist - if so just skip it!
 
-            string projectPath = string.Format(@"{0}\{1}\", path, projectInfo.Name);
+            string projectPath = $@"{path}\{projectInfo.Name}\";
 
             if (this.FileSystem.Directory.Exists(projectPath) == false)
             {

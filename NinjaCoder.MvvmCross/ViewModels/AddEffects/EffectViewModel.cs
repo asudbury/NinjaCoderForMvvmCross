@@ -6,7 +6,6 @@
 namespace NinjaCoder.MvvmCross.ViewModels.AddEffects
 {
     using Factories.Interfaces;
-    using MahApps.Metro;
     using Scorchio.Infrastructure.Extensions;
     using Scorchio.Infrastructure.Services;
     using Scorchio.Infrastructure.Wpf.ViewModels.Wizard;
@@ -44,10 +43,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddEffects
         /// </summary>
         private string name;
 
-        /// <summary>
-        /// The directory.
-        /// </summary>
-        private string directory;
         
         /// <summary>
         /// The append effect to name.
@@ -79,20 +74,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddEffects
         /// </summary>
         public string Name
         {
-            get
-            {
-                if (this.name != null)
-                {
-                    return this.name.CaptialiseFirstCharacter();
-                }
-
-                return null;
-            }
-
-            set
-            {
-                this.SetProperty(ref this.name, value);
-            }
+            get { return this.name?.CaptialiseFirstCharacter(); }
+            set { this.SetProperty(ref this.name, value); }
         }
 
         /// <summary>
@@ -102,15 +85,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddEffects
         {
             get { return this.appendEffectToName; }
             set { this.SetProperty(ref this.appendEffectToName, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the directory.
-        /// </summary>
-        public string Directory
-        {
-            get { return this.directory; }
-            set { this.SetProperty(ref this.directory, value); }
         }
 
         /// <summary>
@@ -165,11 +139,10 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddEffects
             base.OnSave();
 
             this.settingsService.AutomaticallyAddEffect = this.appendEffectToName;
-            this.settingsService.EffectDirectory = this.directory;
 
             IEnumerable<TextTemplateInfo> templateInfos = this.effectFactory.GetTextTemplates(
                     this.RequestedName,
-                    this.directory);
+                    this.settingsService.EffectDirectory);
 
             string message = string.Empty;
 
@@ -187,7 +160,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddEffects
         internal void Init()
         {
             this.AppendEffectToName = this.settingsService.AutomaticallyAddEffect;
-            this.Directory = this.settingsService.EffectDirectory;
         }
     }
 }

@@ -32,11 +32,6 @@ namespace NinjaCoder.MvvmCross.Factories
         private readonly IRegisterService registerService;
 
         /// <summary>
-        /// The settings service.
-        /// </summary>
-        private readonly ISettingsService settingsService;
-
-        /// <summary>
         /// The visual studio service.
         /// </summary>
         private readonly IVisualStudioService visualStudioService;
@@ -53,10 +48,10 @@ namespace NinjaCoder.MvvmCross.Factories
             IRegisterService registerService,
             ISettingsService settingsService,
             IVisualStudioService visualStudioService)
+            :base(settingsService)
         {
             this.resolverService = resolverService;
             this.registerService = registerService;
-            this.settingsService = settingsService;
             this.visualStudioService = visualStudioService;
         }
 
@@ -129,13 +124,14 @@ namespace NinjaCoder.MvvmCross.Factories
                 textTemplates.Add(
                     this.GetTextTemplateInfo(
                         iOSProjectService,
-                        this.settingsService.EffectsTextTemplate,
+                        this.SettingsService.EffectsTextTemplate,
                         name,
                         directory,
                         ProjectSuffix.iOS,
-                        this.settingsService.iOSProjectSuffix,
+                        this.SettingsService.iOSProjectSuffix,
                         baseDictionary,
-                        false));
+                        false,
+                        ".iOS"));
             }
 
             IProjectService windowsPhoneProjectService = this.visualStudioService.WindowsPhoneProjectService;
@@ -147,11 +143,11 @@ namespace NinjaCoder.MvvmCross.Factories
                 textTemplates.Add(
                     this.GetTextTemplateInfo(
                         windowsPhoneProjectService,
-                        this.settingsService.EffectsTextTemplate,
+                        this.SettingsService.EffectsTextTemplate,
                         name,
                         directory,
                         ProjectSuffix.WindowsPhone,
-                        this.settingsService.WindowsPhoneProjectSuffix,
+                        this.SettingsService.WindowsPhoneProjectSuffix,
                         baseDictionary,
                         false,
                         ".WinPhone"));
@@ -166,11 +162,11 @@ namespace NinjaCoder.MvvmCross.Factories
                 textTemplates.Add(
                     this.GetTextTemplateInfo(
                         droidProjectService,
-                        this.settingsService.EffectsTextTemplate,
+                        this.SettingsService.EffectsTextTemplate,
                         name,
                         directory,
                         ProjectSuffix.Droid,
-                        this.settingsService.DroidProjectSuffix,
+                        this.SettingsService.DroidProjectSuffix,
                         baseDictionary,
                         false,
                         ".Android"));
@@ -185,11 +181,11 @@ namespace NinjaCoder.MvvmCross.Factories
                 textTemplates.Add(
                     this.GetTextTemplateInfo(
                         universalProjectService,
-                        this.settingsService.EffectsTextTemplate,
+                        this.SettingsService.EffectsTextTemplate,
                         name,
                         directory,
                         ProjectSuffix.WindowsUniversal,
-                        this.settingsService.WindowsUniversalProjectSuffix,
+                        this.SettingsService.WindowsUniversalProjectSuffix,
                         baseDictionary,
                         false,
                         ".UWP"));

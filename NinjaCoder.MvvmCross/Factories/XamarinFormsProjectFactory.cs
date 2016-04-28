@@ -13,8 +13,7 @@ namespace NinjaCoder.MvvmCross.Factories
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;
     using System.Collections.Generic;
-
-    using Scorchio.Infrastructure.Translators;
+    using Translators.Interfaces;
 
     /// <summary>
     ///  Defines the XamarinFormsProjectFactory type. 
@@ -42,7 +41,7 @@ namespace NinjaCoder.MvvmCross.Factories
             IVisualStudioService visualStudioService,
             ISettingsService settingsService,
             INugetCommandsService nugetCommandsService,
-            ITranslator<string, IEnumerable<ProjectTemplateInfo>> translator)
+            IProjectTemplatesTranslator translator)
             :base(settingsService, translator)
         {
             TraceService.WriteLine("XamarinFormsProjectFactory::Constructor");
@@ -118,21 +117,18 @@ namespace NinjaCoder.MvvmCross.Factories
                     this.SettingsService.WindowsPhoneTestsProjectSuffix,
                     ProjectType.WindowsPhoneTests.GetDescription()));
 
-            if (this.SettingsService.BetaTesting)
-            {
-                this.AddProjectIf(
-                    this.visualStudioService.WindowsUniversalProjectService == null,
-                    this.GetWindowsUniversalProject());
+            this.AddProjectIf(
+                this.visualStudioService.WindowsUniversalProjectService == null,
+                this.GetWindowsUniversalProject());
 
-                this.AddProjectIf(
-                    this.SettingsService.CreatePlatformTestProjects
-                    && this.visualStudioService.WindowsUniversalTestsProjectService == null,
-                    this.GetPlatformTestsProject(
-                        this.nugetCommandsService.GetTestCommands(),
-                        true,
-                        this.SettingsService.WindowsUniversalTestsProjectSuffix,
-                        ProjectType.WindowsUniversalTests.GetDescription()));
-            }
+            this.AddProjectIf(
+                this.SettingsService.CreatePlatformTestProjects
+                && this.visualStudioService.WindowsUniversalTestsProjectService == null,
+                this.GetPlatformTestsProject(
+                    this.nugetCommandsService.GetTestCommands(),
+                    true,
+                    this.SettingsService.WindowsUniversalTestsProjectSuffix,
+                    ProjectType.WindowsUniversalTests.GetDescription()));
 
             return this.ProjectTemplateInfos;
         }

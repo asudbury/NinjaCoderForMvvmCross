@@ -8,6 +8,7 @@ namespace Scorchio.VisualStudio.Services
     using Entities;
     using Extensions;
     using Interfaces;
+    using System.Collections.Generic;
     using System.IO;
     using System.Net;
 
@@ -62,6 +63,29 @@ namespace Scorchio.VisualStudio.Services
             TraceService.WriteDebugLine("output=" + textTransformation.Output);
 
             return textTransformation;
+        }
+
+        /// <summary>
+        /// Gets the text output.
+        /// </summary>
+        /// <param name="sourceText">The source text.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <param name="removeFileHeaders">if set to <c>true</c> [remove file headers].</param>
+        /// <param name="removeXmlComments">if set to <c>true</c> [remove XML comments].</param>
+        /// <param name="removeThisPointer">if set to <c>true</c> [remove this pointer].</param>
+        /// <returns></returns>
+        public string GetTextOutput(
+            string sourceText,
+            IDictionary<string, string> parameters,
+            bool removeFileHeaders,
+            bool removeXmlComments,
+            bool removeThisPointer)
+        {
+            SimpleTextTemplatingEngine engine = new SimpleTextTemplatingEngine();
+
+            TextTransformation textTransformation = engine.ProcessTemplate(sourceText, parameters, removeFileHeaders, removeXmlComments, removeThisPointer);
+
+            return textTransformation.Output;
         }
 
         /// <summary>

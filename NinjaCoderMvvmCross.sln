@@ -697,6 +697,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XamarinForms", "XamarinForm
 		Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\XamarinForms\MainPage.xaml.t4 = Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\XamarinForms\MainPage.xaml.t4
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvvmCross", "MvvmCross", "{757CDBD6-D5F3-4825-96FE-28A21A04F4A5}"
+	ProjectSection(SolutionItems) = preProject
+		Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCross\App.xaml.cs.t4 = Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCross\App.xaml.cs.t4
+		Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCross\Setup.cs.t4 = Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCross\Setup.cs.t4
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsUniversal", "WindowsUniversal", "{DB6FE6F4-71E8-440A-B620-4D747792AB9C}"
+	ProjectSection(SolutionItems) = preProject
+		Config\TextTemplates\ItemTemplates\WindowsUniversal\BlankView.t4 = Config\TextTemplates\ItemTemplates\WindowsUniversal\BlankView.t4
+		Config\TextTemplates\ItemTemplates\WindowsUniversal\SampleDataView.t4 = Config\TextTemplates\ItemTemplates\WindowsUniversal\SampleDataView.t4
+		Config\TextTemplates\ItemTemplates\WindowsUniversal\WebView.t4 = Config\TextTemplates\ItemTemplates\WindowsUniversal\WebView.t4
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Views", "Views", "{4591A8E9-6879-4D36-9496-ACA273B38D79}"
+	ProjectSection(SolutionItems) = preProject
+		Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCross\Views\BaseView.cs.t4 = Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCross\Views\BaseView.cs.t4
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -1317,5 +1335,8 @@ Global
 		{BF2F31CF-1D62-4F70-9D46-3023C1DB1675} = {A780E902-9040-4CA4-AC0B-5F234437C808}
 		{92C49E1B-4A0D-48FE-B852-35AF97A9EEEA} = {BF2F31CF-1D62-4F70-9D46-3023C1DB1675}
 		{FB9BE310-B138-4E74-BB75-5271AD3CDFE6} = {92C49E1B-4A0D-48FE-B852-35AF97A9EEEA}
+		{757CDBD6-D5F3-4825-96FE-28A21A04F4A5} = {92C49E1B-4A0D-48FE-B852-35AF97A9EEEA}
+		{DB6FE6F4-71E8-440A-B620-4D747792AB9C} = {4ADDCA4F-31A1-4446-A0A9-1B1A9B48145B}
+		{4591A8E9-6879-4D36-9496-ACA273B38D79} = {757CDBD6-D5F3-4825-96FE-28A21A04F4A5}
 	EndGlobalSection
 EndGlobal

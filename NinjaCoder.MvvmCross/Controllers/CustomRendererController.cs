@@ -108,7 +108,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                 IEnumerable<TextTemplateInfo> textTemplates = this.customRendererFactory.GetTextTemplates(
                     customRendererViewModel.RequestedName,
-                    customRendererViewModel.Directory,
+                    this.SettingsService.CustomRendererDirectory,
                     customRendererViewModel.SelectedCustomRendererItem,
                     customRendererViewModel.CodeBlock);
 

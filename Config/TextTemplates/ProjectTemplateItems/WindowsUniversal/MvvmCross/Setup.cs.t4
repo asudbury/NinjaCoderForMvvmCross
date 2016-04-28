@@ -1,0 +1,35 @@
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//    Defines the Setup type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace <#= NameSpace #>
+{
+    using MvvmCross.Core.ViewModels;
+    using MvvmCross.WindowsUWP.Platform;
+    using Windows.UI.Xaml.Controls;
+
+    /// <summary>
+    ///    Defines the Setup type.
+    /// </summary>
+    public class Setup : MvxWindowsSetup
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Setup"/> class.
+        /// </summary>
+        /// <param name="rootFrame">The root frame.</param>
+        public Setup(Frame rootFrame)
+            : base(rootFrame)
+        {
+        }
+
+        /// <summary>
+        /// Creates the app.
+        /// </summary>
+        /// <returns>An instance of IMvxApplication.</returns>
+        protected override IMvxApplication CreateApp()
+        {
+            return new <#= CoreProject #>.App();
+        }
+    }
+}

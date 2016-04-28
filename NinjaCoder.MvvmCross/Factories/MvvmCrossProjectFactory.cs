@@ -3,16 +3,15 @@
 //    Defines the MvvmCrossProjectFactory type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace NinjaCoder.MvvmCross.Factories
 {
     using Entities;
     using Interfaces;
     using Scorchio.Infrastructure.Extensions;
-    using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Entities;
     using Services.Interfaces;
     using System.Collections.Generic;
+    using Translators.Interfaces;
 
     /// <summary>
     ///  Defines the MvvmCrossProjectFactory type. 
@@ -40,7 +39,7 @@ namespace NinjaCoder.MvvmCross.Factories
             IVisualStudioService visualStudioService,
             INugetCommandsService nugetCommandsService,
             ISettingsService settingsService,
-            ITranslator<string, IEnumerable<ProjectTemplateInfo>> translator)
+            IProjectTemplatesTranslator translator)
             :base(settingsService, translator)
         {
             this.visualStudioService = visualStudioService;
@@ -109,19 +108,16 @@ namespace NinjaCoder.MvvmCross.Factories
                     this.SettingsService.WpfTestsProjectSuffix,
                     ProjectType.WindowsWpfTests.GetDescription()));
 
-            if (this.SettingsService.BetaTesting)
-            {
-                this.AddProjectIf(
-                    this.visualStudioService.WindowsUniversalProjectService == null,
-                    this.GetWindowsUniversalProject());
+            this.AddProjectIf(
+                this.visualStudioService.WindowsUniversalProjectService == null,
+                this.GetWindowsUniversalProject());
 
-                this.AddProjectIf(
-                    this.SettingsService.CreatePlatformTestProjects
-                    && this.visualStudioService.WindowsUniversalTestsProjectService == null,
-                    this.GetPlatformTestsProject(
-                        this.SettingsService.WindowsUniversalTestsProjectSuffix,
-                        ProjectType.WindowsUniversalTests.GetDescription()));
-            }
+            this.AddProjectIf(
+                this.SettingsService.CreatePlatformTestProjects
+                && this.visualStudioService.WindowsUniversalTestsProjectService == null,
+                this.GetPlatformTestsProject(
+                    this.SettingsService.WindowsUniversalTestsProjectSuffix,
+                    ProjectType.WindowsUniversalTests.GetDescription()));
 
             return this.ProjectTemplateInfos;
         }
@@ -250,7 +246,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 TemplateName = ProjectTemplate.WindowsUniversal.GetDescription(),
                 ReferenceCoreProject = true,
                 PreSelected = this.SettingsService.AddWindowsUniversalProject,
-                NugetCommands = this.nugetCommandsService.GetMvvmCrossWpfCommands(),
+                NugetCommands = this.nugetCommandsService.GetMvvmCrossWindowsUniversalCommands(),
                 ItemTemplates = this.GetProjectItems(FrameworkType.MvvmCross, ProjectType.WindowsUniversal)
             };
         }

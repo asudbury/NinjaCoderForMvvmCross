@@ -8,7 +8,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     using Constants;
     using Entities;
     using Factories.Interfaces;
-     using Scorchio.Infrastructure.Services;
+    using Scorchio.Infrastructure.Services;
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;

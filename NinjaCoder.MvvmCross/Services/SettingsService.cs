@@ -126,7 +126,7 @@ namespace NinjaCoder.MvvmCross.Services
         {
             get { return this.GetRegistryValue(string.Empty, "MvvmCrossHomePage", "http://mvvmcross.com"); }
         }
-        
+
         /// <summary>
         /// Gets the xamarin forms home page.
         /// </summary>
@@ -439,8 +439,8 @@ namespace NinjaCoder.MvvmCross.Services
             get
             {
                 return this.UseLocalUris ?
-                    this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", this.ConfigPath + "NoFrameworkProjects.xml") :
-                    this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/NoFrameworkProjects.xml");
+                    this.GetRegistryValue("Internals", "NoFrameworkProjectsUri", this.ConfigPath + "NoFrameworkProjects.xml") :
+                    this.GetRegistryValue("Internals", "NoFrameworkProjectsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/NoFrameworkProjects.xml");
             }
         }
 
@@ -452,8 +452,8 @@ namespace NinjaCoder.MvvmCross.Services
             get
             {
                 return this.UseLocalUris ?
-                    this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", this.ConfigPath + "XamarinFormsProjects.xml") :
-                    this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/XamarinFormsProjects.xml");
+                    this.GetRegistryValue("Internals", "XamarinFormsProjectsUri", this.ConfigPath + "XamarinFormsProjects.xml") :
+                    this.GetRegistryValue("Internals", "XamarinFormsProjectsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/XamarinFormsProjects.xml");
             }
         }
 
@@ -465,8 +465,8 @@ namespace NinjaCoder.MvvmCross.Services
             get
             {
                 return this.UseLocalUris ?
-                    this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", this.ConfigPath + "MvvmCrossProjects.xml") :
-                    this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/MvvmCrossProjects.xml");
+                    this.GetRegistryValue("Internals", "MvvmCrossProjectsUri", this.ConfigPath + "MvvmCrossProjects.xml") :
+                    this.GetRegistryValue("Internals", "MvvmCrossProjectsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/MvvmCrossProjects.xml");
             }
         }
 
@@ -478,8 +478,8 @@ namespace NinjaCoder.MvvmCross.Services
             get
             {
                 return this.UseLocalUris ?
-                    this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", this.ConfigPath + "MvvmCrossAndXamarinFormsProjects.xml") :
-                    this.GetRegistryValue("Internals", "MvvmCrossPluginsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/MvvmCrossAndXamarinFormsProjects.xml");
+                    this.GetRegistryValue("Internals", "MvvmCrossAndXamarinFormsProjectsUri", this.ConfigPath + "MvvmCrossAndXamarinFormsProjects.xml") :
+                    this.GetRegistryValue("Internals", "MvvmCrossAndXamarinFormsProjectsUri", "https://raw.githubusercontent.com/asudbury/NinjaCoderForMvvmCross/master/Config/MvvmCrossAndXamarinFormsProjects.xml");
             }
         }
 
@@ -1171,6 +1171,26 @@ namespace NinjaCoder.MvvmCross.Services
                 }
 
                 string file = this.GetRegistryValue("Build", "ItemTemplatesDirectory", "ItemTemplates");
+
+                return string.Format(@"{0}\{1}", path, file);
+            }
+        }
+
+        /// <summary>
+        /// Gets the project template items directory.
+        /// </summary>
+        public string ProjectTemplateItemsDirectory
+        {
+            get
+            {
+                string path = this.GithubTemplatesDirectory;
+
+                if (this.UseLocalTextTemplates)
+                {
+                    path = this.LocalTextTemplatesDirectory;
+                }
+
+                string file = this.GetRegistryValue("Build", "ProjectTemplateItemsDirectory", "ProjectTemplateItems");
 
                 return string.Format(@"{0}\{1}", path, file);
             }

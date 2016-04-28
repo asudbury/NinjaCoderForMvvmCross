@@ -83,12 +83,6 @@
 
                 <TextBlock Margin="2" />
 
-                <TextBlock Margin="10,1,0,0" Text="Renderer Directory" />
-
-                <TextBox Margin="10,1,160,0" Text="{Binding Directory}" />
-
-                <TextBlock Margin="2" />
-
                 <TextBlock Margin="10">
 
                     <Hyperlink Command="{Binding CustomRenderersWebSiteCommand}">

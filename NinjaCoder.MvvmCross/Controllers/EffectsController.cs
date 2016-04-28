@@ -109,7 +109,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                 IEnumerable<TextTemplateInfo> textTemplates = this.effectFactory.GetTextTemplates(
                     effectViewModel.RequestedName,
-                    effectViewModel.Directory);
+                    this.SettingsService.EffectDirectory);
                 
                 IEnumerable<string> messages = this.textTemplatingService.AddTextTemplates(
                     NinjaMessages.AddingEffect,

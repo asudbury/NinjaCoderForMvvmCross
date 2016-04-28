@@ -10,12 +10,26 @@ namespace NinjaCoder.MvvmCross.Factories
     using Scorchio.VisualStudio.Entities;
     using Scorchio.VisualStudio.Services.Interfaces;
     using System.Collections.Generic;
+    using Services.Interfaces;
 
     /// <summary>
     /// Defines the BaseTextTemplateFactory type.
     /// </summary>
     public abstract class BaseTextTemplateFactory
     {
+        /// <summary>
+        /// The settings service.
+        /// </summary>
+        protected readonly ISettingsService SettingsService;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseTextTemplateFactory"/> class.
+        /// </summary>
+        protected BaseTextTemplateFactory(ISettingsService settingsService )
+        {
+            this.SettingsService = settingsService;
+        }
+
         /// <summary>
         /// Gets the name of the class.
         /// </summary>
@@ -80,7 +94,8 @@ namespace NinjaCoder.MvvmCross.Factories
                                             {
                                                 ["NameSpace"] = nameSpace,
                                                 ["ClassName"] = className,
-                                                ["Platform"] = platForm
+                                                ["Platform"] = platForm,
+                                                ["FormsProject"] = this.SettingsService.XamarinFormsProjectSuffix.Substring(1)
                                             };
             
             return dictionary;

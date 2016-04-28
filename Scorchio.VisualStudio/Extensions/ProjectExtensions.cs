@@ -117,16 +117,10 @@ namespace Scorchio.VisualStudio.Extensions
 
             try
             {
-                List<ProjectItem> projectItems = instance.ProjectItems != null ? instance.ProjectItems.Cast<ProjectItem>().ToList() : null;
+                List<ProjectItem> projectItems = instance.ProjectItems?.Cast<ProjectItem>().ToList();
 
-                if (projectItems != null)
-                {
-                    return projectItems
-                        .Where(projectItem => projectItem.Kind == VSConstants.VsProjectItemKindPhysicalFolder)
-                        .FirstOrDefault(projectItem => projectItem.Name == folderName);
-                }
-
-                return null;
+                return projectItems?.Where(projectItem => projectItem.Kind == VSConstants.VsProjectItemKindPhysicalFolder)
+                                          .FirstOrDefault(projectItem => projectItem.Name == folderName);
             }
             catch (Exception exception)
             {
@@ -331,12 +325,18 @@ namespace Scorchio.VisualStudio.Extensions
             }
             
             //// if the folder doesn't exist create it.
-            if (folderProjectItem == null)
+            if (folderProjectItem == null && 
+                string.IsNullOrEmpty(folderName) == false) 
             {
                 folderProjectItem = instance.ProjectItems.AddFolder(folderName);
             }
 
-            return folderProjectItem.ProjectItems.AddFromFile(fileName);
+            if (folderProjectItem != null)
+            {
+                return folderProjectItem.ProjectItems.AddFromFile(fileName);
+            }
+
+            return instance.ProjectItems.AddFromFile(fileName);
         }
 
         /// <summary>
@@ -366,7 +366,17 @@ namespace Scorchio.VisualStudio.Extensions
 
             TraceService.WriteLine("projectPath=" + projectPath);
 
-            string directory = projectPath + "\\" + projectFolder;
+            string directory = projectPath;
+
+            if (string.IsNullOrEmpty(projectFolder) == false)
+            {
+                if (directory.EndsWith(@"\") == false)
+                {
+                    directory += @"\";
+                }
+
+                directory += projectFolder;
+            }
 
             TraceService.WriteLine("directory=" + directory);
 
@@ -384,7 +394,7 @@ namespace Scorchio.VisualStudio.Extensions
             File.WriteAllText(path, textOutput);
 
             TraceService.WriteLine("addToFolderFromFile");
-
+            
             instance.AddToFolderFromFile(projectFolder, path);
 
             return fileName + " added to project " + instance.Name;

@@ -55,11 +55,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddCustomRenderers
         private string name;
 
         /// <summary>
-        /// The directory.
-        /// </summary>
-        private string directory;
-
-        /// <summary>
         /// The append renderer to name.
         /// </summary>
         private bool appendRendererToName;
@@ -122,20 +117,8 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddCustomRenderers
         /// </summary>
         public string Name
         {
-            get
-            {
-                if (this.name != null)
-                {
-                    return this.name.CaptialiseFirstCharacter();
-                }
-
-                return null;
-            }
-
-            set
-            {
-                this.SetProperty(ref this.name, value);
-            }
+            get { return this.name?.CaptialiseFirstCharacter(); }
+            set { this.SetProperty(ref this.name, value); }
         }
         
         /// <summary>
@@ -145,15 +128,6 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddCustomRenderers
         {
             get { return this.appendRendererToName; }
             set { this.SetProperty(ref this.appendRendererToName, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the directory.
-        /// </summary>
-        public string Directory
-        {
-            get { return this.directory; }
-            set { this.SetProperty(ref this.directory, value); }
         }
 
         /// <summary>
@@ -295,12 +269,11 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddCustomRenderers
             base.OnSave();
 
             this.settingsService.AutomaticallyAddRenderer = this.appendRendererToName;
-            this.settingsService.CustomRendererDirectory = this.directory;
 
             IEnumerable<TextTemplateInfo> templateInfos = this.customRendererFactory.GetTextTemplates(
                     this.RequestedName,
-                    this.directory,
-                    this.selectedCustomRendererItem,
+                    this.settingsService.CustomRendererDirectory,
+                    this.SelectedCustomRendererItem,
                     string.Empty);
 
             string message = string.Empty;
@@ -319,9 +292,12 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddCustomRenderers
         internal void Init()
         {
             this.AppendRendererToName = this.settingsService.AutomaticallyAddRenderer;
-            this.Directory = this.settingsService.CustomRendererDirectory;
             this.customRenderers = this.translator.Translate(this.settingsService.XamarinFormsCustomRenderersUri);
-            this.CustomRendererGroups = this.customRenderers.Groups.Select(customerRendererGroup => customerRendererGroup.Name).ToList();
+
+            if (this.customRenderers.Groups != null)
+            {
+                this.CustomRendererGroups = this.customRenderers.Groups.Select(customerRendererGroup => customerRendererGroup.Name).ToList();
+            }
         }
 
         /// <summary>

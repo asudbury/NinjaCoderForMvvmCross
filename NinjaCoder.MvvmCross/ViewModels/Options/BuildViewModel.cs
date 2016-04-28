@@ -129,6 +129,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.OutputErrorsToReadMe = this.SettingsService.OutputErrorsToReadMe;
             this.useLocalTextTemplates = this.SettingsService.UseLocalTextTemplates;
             this.useXamarinFormsXamlCompilation = this.SettingsService.UseXamarinFormsXamlCompilation;
+            this.enableBetaFunctionality = this.SettingsService.BetaTesting;
         }
     }
 }

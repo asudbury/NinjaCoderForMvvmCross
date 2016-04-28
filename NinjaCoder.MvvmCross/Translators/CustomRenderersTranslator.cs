@@ -8,6 +8,7 @@ namespace NinjaCoder.MvvmCross.Translators
     using Entities;
     using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Services;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Xml.Linq;
@@ -22,18 +23,27 @@ namespace NinjaCoder.MvvmCross.Translators
         /// </summary>
         /// <param name="from">From.</param>
         /// <returns></returns>
-        public CustomRenderers Translate(string @from)
+        public CustomRenderers Translate(string from)
         {
-            TraceService.WriteLine("CustomRenderers::Translate " + @from);
-
-            XDocument doc = XDocument.Load(@from);
+            TraceService.WriteLine("CustomRenderers::Translate " + from);
 
             CustomRenderers customRenderers = new CustomRenderers();
 
-            if (doc.Root != null)
+            try
             {
-                customRenderers.HelpLink = this.GetHelpLink(doc.Root);
-                customRenderers.Groups = this.GetGroups(doc.Root);
+                XDocument doc = XDocument.Load(@from);
+
+                if (doc.Root != null)
+                {
+                    TraceService.WriteDebugLine(doc.Root.Value);
+
+                    customRenderers.HelpLink = this.GetHelpLink(doc.Root);
+                    customRenderers.Groups = this.GetGroups(doc.Root);
+                }
+            }
+            catch (Exception exception)
+            {
+                TraceService.WriteError(exception);
             }
 
             return customRenderers;

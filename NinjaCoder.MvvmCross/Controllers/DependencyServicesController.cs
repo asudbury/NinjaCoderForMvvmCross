@@ -111,7 +111,7 @@ namespace NinjaCoder.MvvmCross.Controllers
                     dependencyServiceViewModel.MethodComment,
                     dependencyServiceViewModel.MethodReturnType,
                     dependencyServiceViewModel.MethodName,
-                    dependencyServiceViewModel.Directory);
+                    this.SettingsService.DependencyDirectory);
 
                 IEnumerable<string> messages = this.textTemplatingService.AddTextTemplates(
                     NinjaMessages.AddingDependencyService,

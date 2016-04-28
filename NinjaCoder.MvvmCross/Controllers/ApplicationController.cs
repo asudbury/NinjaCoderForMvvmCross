@@ -140,7 +140,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             this.applicationService.ClearLogFile();
 
             this.MessageBoxService.Show(
-                "Log File has been cleared.", 
+                "Trace Log File has been cleared.", 
                 Settings.ApplicationName);
         }
 

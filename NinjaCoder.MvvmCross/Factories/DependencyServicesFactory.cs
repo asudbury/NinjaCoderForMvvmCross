@@ -27,11 +27,6 @@ namespace NinjaCoder.MvvmCross.Factories
         private readonly IVisualStudioService visualStudioService;
 
         /// <summary>
-        /// The settings service.
-        /// </summary>
-        private readonly ISettingsService settingsService;
-
-        /// <summary>
         /// The resolver service.
         /// </summary>
         private readonly IResolverService resolverService;
@@ -53,11 +48,11 @@ namespace NinjaCoder.MvvmCross.Factories
             ISettingsService settingsService,
             IResolverService resolverService,
             IRegisterService registerService)
+            :base(settingsService)
         {
             TraceService.WriteLine("DependencyServicesFactory::Constructor");
 
             this.visualStudioService = visualStudioService;
-            this.settingsService = settingsService;
             this.resolverService = resolverService;
             this.registerService = registerService;
         }
@@ -139,11 +134,11 @@ namespace NinjaCoder.MvvmCross.Factories
                 textTemplates.Add(
                     this.GetTextTemplateInfo(
                         formsProjectService,
-                        this.settingsService.IDependencyTextTemplate,
+                        this.SettingsService.IDependencyTextTemplate,
                         "I" + name,
                         directory,
                         ProjectSuffix.XamarinForms,
-                        this.settingsService.XamarinFormsProjectSuffix,
+                        this.SettingsService.XamarinFormsProjectSuffix,
                         baseDictionary,
                         true));
             }
@@ -158,11 +153,11 @@ namespace NinjaCoder.MvvmCross.Factories
                 textTemplates.Add(
                     this.GetTextTemplateInfo(
                         iOSProjectService,
-                        this.settingsService.DependencyTextTemplate,
+                        this.SettingsService.DependencyTextTemplate,
                         name,
                         directory,
                         ProjectSuffix.iOS,
-                        this.settingsService.iOSProjectSuffix,
+                        this.SettingsService.iOSProjectSuffix,
                         baseDictionary,
                         true));
             }
@@ -176,11 +171,11 @@ namespace NinjaCoder.MvvmCross.Factories
                 textTemplates.Add(
                     this.GetTextTemplateInfo(
                         windowsPhoneProjectService,
-                        this.settingsService.DependencyTextTemplate,
+                        this.SettingsService.DependencyTextTemplate,
                         name,
                         directory,
                         ProjectSuffix.WindowsPhone,
-                        this.settingsService.WindowsPhoneProjectSuffix,
+                        this.SettingsService.WindowsPhoneProjectSuffix,
                         baseDictionary,
                         true));
             }
@@ -194,11 +189,11 @@ namespace NinjaCoder.MvvmCross.Factories
                 textTemplates.Add(
                     this.GetTextTemplateInfo(
                         droidProjectService,
-                        this.settingsService.DependencyTextTemplate,
+                        this.SettingsService.DependencyTextTemplate,
                         name,
                         directory,
                         ProjectSuffix.Droid,
-                        this.settingsService.DroidProjectSuffix,
+                        this.SettingsService.DroidProjectSuffix,
                         baseDictionary,
                         true));
             }
@@ -212,14 +207,15 @@ namespace NinjaCoder.MvvmCross.Factories
                 textTemplates.Add(
                     this.GetTextTemplateInfo(
                         universalProjectService,
-                        this.settingsService.DependencyTextTemplate,
+                        this.SettingsService.DependencyTextTemplate,
                         name,
                         directory,
                         ProjectSuffix.WindowsUniversal,
-                        this.settingsService.WindowsUniversalProjectSuffix,
+                        this.SettingsService.WindowsUniversalProjectSuffix,
                         baseDictionary,
                         true));
             }
+
             return textTemplates;
         }
 

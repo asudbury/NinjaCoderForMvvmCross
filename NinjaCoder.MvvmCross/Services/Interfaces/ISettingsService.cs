@@ -396,6 +396,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         string ItemTemplatesDirectory { get; }
 
         /// <summary>
+        /// Gets the project template items directory.
+        /// </summary>
+        string ProjectTemplateItemsDirectory { get; }
+
+        /// <summary>
         /// Gets the xamarin forms home page.
         /// </summary>
         string XamarinFormsHomePage { get; }

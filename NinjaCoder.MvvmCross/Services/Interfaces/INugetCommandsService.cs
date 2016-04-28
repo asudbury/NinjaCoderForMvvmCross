@@ -63,12 +63,6 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         IEnumerable<string> GetMvvmCrossWindowsPhoneCommands();
 
         /// <summary>
-        /// Gets the MVVM cross windows store commands.
-        /// </summary>
-        /// <returns>A List of Nuget commands.</returns>
-        IEnumerable<string> GetMvvmCrossWindowsStoreCommands();
-
-        /// <summary>
         /// Gets the MVVM cross WPF commands.
         /// </summary>
         /// <returns>A List of Nuget commands.</returns>
@@ -150,6 +144,12 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// </summary>
         /// <returns>A List of Nuget commands.</returns>
         IEnumerable<string> GetMvvmCrossXamarinFormsWindowsPhoneCommands();
+
+        /// <summary>
+        /// Gets the MVVM cross windows universal commands.
+        /// </summary>
+        /// <returns>A list of nuget commands</returns>
+        IEnumerable<string> GetMvvmCrossWindowsUniversalCommands();
 
         /// <summary>
         /// Gets the MVVM cross ios story board command.

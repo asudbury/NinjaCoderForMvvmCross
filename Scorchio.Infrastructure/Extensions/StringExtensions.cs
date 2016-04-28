@@ -17,6 +17,11 @@ namespace Scorchio.Infrastructure.Extensions
         /// <returns>The string.</returns>
         public static string CaptialiseFirstCharacter(this string instance)
         {
+            if (instance == null)
+            {
+                return null;
+            }
+
             if (instance.Length > 0)
             {
                 instance = char.ToUpper(instance[0]) + instance.Substring(1);

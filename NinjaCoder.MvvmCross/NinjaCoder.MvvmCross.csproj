@@ -201,11 +201,15 @@
     <Compile Include="Translators\CustomRenderersTranslator.cs" />
     <Compile Include="Translators\FileOperationsTranslator.cs" />
     <Compile Include="Translators\FileOperationTranslator.cs" />
+    <Compile Include="Translators\Interfaces\ITokensTranslator.cs" />
+    <Compile Include="Translators\Interfaces\IProjectTemplatesTranslator.cs" />
+    <Compile Include="Translators\Interfaces\IProjectTemplateTranslator.cs" />
     <Compile Include="Translators\PluginsTranslator.cs" />
     <Compile Include="Translators\CodeSnippetTranslator.cs" />
     <Compile Include="Translators\PluginTranslator.cs" />
     <Compile Include="Translators\ProjectTemplatesTranslator.cs" />
     <Compile Include="Translators\ProjectTemplateTranslator.cs" />
+    <Compile Include="Translators\TokensTranslator.cs" />
     <Compile Include="UserControls\AddCustomerRenderers\CustomRendererControl.xaml.cs">
       <DependentUpon>CustomRendererControl.xaml</DependentUpon>
     </Compile>
