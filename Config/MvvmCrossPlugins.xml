@@ -2,14 +2,14 @@
 
   <Plugin>
     <Name>Accelerometer</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.Accelerometer</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.Accelerometer</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.Accelerometer</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.Accelerometer</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -20,14 +20,14 @@
 
   <Plugin>
     <Name>Bookmarks</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.Bookmarks</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.Bookmarks</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.Bookmarks</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.Bookmarks</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -38,14 +38,14 @@
 
   <Plugin>
     <Name>Color</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.Color</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.UI</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.Color</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.UI</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -56,14 +56,14 @@
 
   <Plugin>
     <Name>DownloadCache</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.DownloadCache</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.DownloadCache</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.DownloadCache</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.DownloadCache</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -74,14 +74,14 @@
 
   <Plugin>
     <Name>Email</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.Email</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.Email</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.Email</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.Email</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -92,14 +92,14 @@
 
   <Plugin>
     <Name>FieldBinding</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.FieldBinding</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.FieldBinding</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.FieldBinding</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.FieldBinding</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -110,14 +110,14 @@
 
   <Plugin>
     <Name>File</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.File</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.File</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.File</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.File</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -128,14 +128,14 @@
 
   <Plugin>
     <Name>Json</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.Json</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.Json</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.Json</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.Json</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -146,14 +146,14 @@
 
   <Plugin>
     <Name>JsonLocalisation</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.JsonLocalisation</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.JsonLocalisation</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.JsonLocalisation</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.JsonLocalisation</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -164,14 +164,14 @@
 
   <Plugin>
     <Name>Location</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.Location</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.Location</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.Location</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.Location</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -182,14 +182,14 @@
 
   <Plugin>
     <Name>Messenger</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.Messenger</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.Messenger</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.Messenger</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.Messenger</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -200,14 +200,14 @@
 
   <Plugin>
     <Name>MethodBinding</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.MethodBinding</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.MethodBinding</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.MethodBinding</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.MethodBinding</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -218,14 +218,14 @@
 
   <Plugin>
     <Name>Network</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.Network</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.Network</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.Network</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.Network</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -236,14 +236,14 @@
 
   <Plugin>
     <Name>PhoneCall</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.PhoneCall</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.PhoneCall</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.PhoneCall</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.PhoneCall</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -254,14 +254,14 @@
 
   <Plugin>
     <Name>PictureChooser</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.PictureChooser</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.PictureChooser</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.PictureChooser</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.PictureChooser</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -272,14 +272,14 @@
 
   <Plugin>
     <Name>ReflectionEx</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.ReflectionEx</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.ReflectionEx</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.ReflectionEx</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.ReflectionEx</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -290,14 +290,14 @@
 
   <Plugin>
     <Name>ResourceLoader</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.ResourceLoader</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.ResourceLoader</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.ResourceLoader</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.ResourceLoader</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -308,14 +308,14 @@
 
   <Plugin>
     <Name>Settings</Name>
-    <NugetPackage>MvvmCross.Plugins.Settings</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.Settings</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.Settings</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.Settings</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -326,14 +326,14 @@
 
   <Plugin>
     <Name>Share</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.Share</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.Share</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.Share</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.Share</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -344,14 +344,14 @@
 
   <Plugin>
     <Name>SoundEffects</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.SoundEffects</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.SoundEffects</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.SoundEffects</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.SoundEffects</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -362,14 +362,14 @@
 
   <Plugin>
     <Name>ThreadUtils</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.ThreadUtils</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.ThreadUtils</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.ThreadUtils</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.ThreadUtils</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -380,14 +380,14 @@
 
   <Plugin>
     <Name>Visibility</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.Visibility</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.Visibility</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.Visibility</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.Visibility</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -398,14 +398,14 @@
 
   <Plugin>
     <Name>WebBrowser</Name>
-    <NugetPackage>MvvmCross.HotTuna.Plugin.WebBrowser</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.WebBrowser</UsingStatement>
+    <NugetPackage>MvvmCross.Plugin.WebBrowser</NugetPackage>
+    <UsingStatement>MvvmCross.Plugins.WebBrowser</UsingStatement>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -439,7 +439,7 @@
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -452,14 +452,14 @@
   <Plugin>
     <Name>Sqlite</Name>
     <NugetPackage>MvvmCross.Community.Plugin.Sqlite</NugetPackage>
-    <UsingStatement>Cirrious.MvvmCross.Plugins.Sqlite</UsingStatement>
+    <UsingStatement>MvvmCross.Plugins.Sqlite</UsingStatement>
     <BootstrapFileNameOverride>CommunitySqlitePluginBootstrap.cs</BootstrapFileNameOverride>
     <Platforms>
       <Platform>Core</Platform>
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
@@ -477,7 +477,7 @@
       <Platform>iOS</Platform>
       <Platform>Droid</Platform>
       <Platform>WindowsPhone</Platform>
-      <Platform>WindowsStore</Platform>
+      <Platform>WindowsUniversal</Platform>
       <Platform>Wpf</Platform>
     </Platforms>
     <Frameworks>
