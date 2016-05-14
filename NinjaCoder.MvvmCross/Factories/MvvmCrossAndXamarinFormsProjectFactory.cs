@@ -111,15 +111,11 @@ namespace NinjaCoder.MvvmCross.Factories
                     this.SettingsService.WindowsPhoneTestsProjectSuffix,
                     ProjectType.WindowsPhoneTests.GetDescription()));
 
-            //// We are currently NOT going to support WindowsUniversal on MvvmCross and Xamarin Forms!
-
-            /*if (this.SettingsService.BetaTesting)
-            {
-                this.AddProjectIf(
+            this.AddProjectIf(
                     this.visualStudioService.WindowsUniversalProjectService == null,
                     this.GetWindowsUniversalProject());
 
-                this.AddProjectIf(
+            this.AddProjectIf(
                     this.SettingsService.CreatePlatformTestProjects
                     && this.visualStudioService.WindowsUniversalTestsProjectService == null,
                     this.GetPlatformTestsProject(
@@ -127,7 +123,6 @@ namespace NinjaCoder.MvvmCross.Factories
                         true,
                         this.SettingsService.WindowsUniversalTestsProjectSuffix,
                         ProjectType.WindowsUniversalTests.GetDescription()));
-            }*/
 
             return this.ProjectTemplateInfos; 
         }
@@ -279,6 +274,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 ReferenceCoreProject = true,
                 ReferenceXamarinFormsProject = true,
                 PreSelected = this.SettingsService.AddWindowsUniversalProject,
+                NugetCommands = this.nugetCommandsService.GetMvvmCrossXamarinFormsWindowsUniversalCommands(),
                 ItemTemplates = this.GetProjectItems(FrameworkType.MvvmCrossAndXamarinForms, ProjectType.WindowsUniversal)
             };
         }

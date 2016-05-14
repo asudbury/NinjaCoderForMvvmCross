@@ -7,8 +7,6 @@ B:\Users\Adrian\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Scorchio
 B:\Users\Adrian\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Scorchio Limited\NinjaCoder.MvvmCross.VSPackage\4.0\\Scorchio.Infrastructure.dll
 B:\Users\Adrian\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Scorchio Limited\NinjaCoder.MvvmCross.VSPackage\4.0\\System.IO.Abstractions.dll
 B:\Users\Adrian\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Scorchio Limited\NinjaCoder.MvvmCross.VSPackage\4.0\\System.Windows.Interactivity.dll
-B:\Users\Adrian\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Scorchio Limited\NinjaCoder.MvvmCross.VSPackage\4.0\\Microsoft.VisualStudio.TextTemplating.12.0.dll
-B:\Users\Adrian\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Scorchio Limited\NinjaCoder.MvvmCross.VSPackage\4.0\\Microsoft.VisualStudio.TextTemplating.VSHost.12.0.dll
 B:\Users\Adrian\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Scorchio Limited\NinjaCoder.MvvmCross.VSPackage\4.0\\NinjaCoder.MvvmCross.VSPackage.pdb
 B:\Users\Adrian\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Scorchio Limited\NinjaCoder.MvvmCross.VSPackage\4.0\\NinjaCoder.MvvmCross.pdb
 B:\Users\Adrian\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Scorchio Limited\NinjaCoder.MvvmCross.VSPackage\4.0\\Scorchio.VisualStudio.pdb

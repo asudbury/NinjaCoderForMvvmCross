@@ -3,7 +3,6 @@
 //    Defines the Setup type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace $rootnamespace$
 {
     using Forms;
@@ -47,7 +46,7 @@ namespace $rootnamespace$
         {
             Xamarin.Forms.Forms.Init();
 
-            MvxFormsWindowsPhoneViewPresenter presenter = new MvxFormsWindowsPhoneViewPresenter(new XamarinFormsApp(), rootFrame);
+            MvxFormsWindowsUniversalViewPresenter presenter = new MvxFormsWindowsUniversalViewPresenter(new XamarinFormsApp(), rootFrame);
             Mvx.RegisterSingleton<IMvxViewPresenter>(presenter);
 
             return presenter;

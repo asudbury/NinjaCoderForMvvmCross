@@ -7,10 +7,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 {
     using Constants;
     using EnvDTE;
-    using MahApps.Metro;
-    using Scorchio.Infrastructure.Entities;
     using Scorchio.Infrastructure.Services;
-    using Scorchio.Infrastructure.Translators;
     using Scorchio.VisualStudio.Services;
     using Services.Interfaces;
     using System.Collections.Generic;
@@ -30,11 +27,6 @@ namespace NinjaCoder.MvvmCross.Controllers
         private readonly IApplicationService applicationService;
 
         /// <summary>
-        /// The translator.
-        /// </summary>
-        private readonly ITranslator<IList<Accent>, IEnumerable<AccentColor>> translator;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationController" /> class.
         /// </summary>
         /// <param name="applicationService">The application service.</param>
@@ -42,7 +34,6 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="settingsService">The settings service.</param>
         /// <param name="messageBoxService">The message box service.</param>
         /// <param name="resolverService">The resolver service.</param>
-        /// <param name="translator">The translator.</param>
         /// <param name="readMeService">The read me service.</param>
         public ApplicationController(
             IApplicationService applicationService,
@@ -50,7 +41,6 @@ namespace NinjaCoder.MvvmCross.Controllers
             ISettingsService settingsService,
             IMessageBoxService messageBoxService,
             IResolverService resolverService,
-            ITranslator<IList<Accent>, IEnumerable<AccentColor>> translator,
             IReadMeService readMeService)
             : base(
             visualStudioService,
@@ -62,7 +52,6 @@ namespace NinjaCoder.MvvmCross.Controllers
             TraceService.WriteLine("ApplicationController::Constructor");
 
             this.applicationService = applicationService;
-            this.translator = translator;
         }
 
         /// <summary>
@@ -183,6 +172,25 @@ namespace NinjaCoder.MvvmCross.Controllers
         {
             TraceService.WriteLine("ApplicationController::XamarinFormsHomePage");
             this.applicationService.ShowXamarinFormsHomePage();
+        }
+
+        /// <summary>
+        /// Gets the installation directory.
+        /// </summary>
+        /// <returns>The working directory.</returns>
+        public string GetInstallationDirectory()
+        {
+            TraceService.WriteLine("ApplicationController::GetInstallationDirectory");
+            return this.applicationService.GetInstallationDirectory();
+        }
+
+        /// <summary>
+        /// Opens the installation directory.
+        /// </summary>
+        public void OpenInstallationDirectory()
+        {
+            TraceService.WriteLine("ApplicationController::OpenInstallationDirectory");
+            this.applicationService.OpenInstallationDirectory();
         }
     }
 }

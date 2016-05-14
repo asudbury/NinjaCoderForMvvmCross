@@ -1,0 +1,65 @@
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//    Defines the Setup type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace <#= NameSpace #>
+{
+    using Forms;
+    using MvvmCross.Core.ViewModels;
+    using MvvmCross.Core.Views;
+    using MvvmCross.Platform;
+    using MvvmCross.WindowsUWP.Platform;
+    using MvvmCross.WindowsUWP.Views;
+    using Presenters;
+    using Windows.ApplicationModel.Activation;
+    using Windows.UI.Xaml.Controls;
+
+    /// <summary>
+    ///    Defines the Setup type.
+    /// </summary>
+    public class Setup : MvxWindowsSetup
+    {
+        /// <summary>
+        /// The launch activated event arguments.
+        /// </summary>
+        private readonly LaunchActivatedEventArgs launchActivatedEventArgs;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Setup" /> class.
+        /// </summary>
+        /// <param name="rootFrame">The root frame.</param>
+        /// <param name="launchActivatedEventArgs">The <see cref="LaunchActivatedEventArgs"/> instance containing the event data.</param>
+        public Setup(
+            Frame rootFrame,
+            LaunchActivatedEventArgs launchActivatedEventArgs)
+            : base(rootFrame)
+        {
+            this.launchActivatedEventArgs = launchActivatedEventArgs;
+        }
+
+        /// <summary>
+        /// Creates the app.
+        /// </summary>
+        /// <returns>An instance of IMvxApplication.</returns>
+        protected override IMvxApplication CreateApp()
+        {
+            return new Core.App();
+        }
+
+        /// <summary>
+        /// Creates the view presenter.
+        /// </summary>
+        /// <param name="rootFrame">The root frame.</param>
+        /// <returns>The view presenter.</returns>
+        protected override IMvxWindowsViewPresenter CreateViewPresenter(IMvxWindowsFrame rootFrame)
+        {
+            Xamarin.Forms.Forms.Init(this.launchActivatedEventArgs);
+
+            MvxFormsWindowsUniversalViewPresenter presenter = new MvxFormsWindowsUniversalViewPresenter(new XamarinFormsApp(), rootFrame);
+            Mvx.RegisterSingleton<IMvxViewPresenter>(presenter);
+
+            return presenter;
+        }
+    }
+}

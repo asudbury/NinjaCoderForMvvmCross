@@ -5,9 +5,22 @@
                 <Source>App.xaml.cs.t4</Source>
                 <Target>App.xaml.cs</Target>
             </Item>
+                  <Item>
+                <Source>MainPage.xaml.t4</Source>
+                <Target>MainPage.xaml</Target>
+            </Item>
             <Item>
-                <Source>Setup.cs.t4</Source>
-                <Target>Setup.cs</Target>
+                <Source>MainPage.xaml.cs.t4</Source>
+                <Target>MainPage.xaml.cs</Target>
+            </Item>
+            <Item>
+              <Source>Setup.cs.t4</Source>
+              <Target>Setup.cs</Target>
+            </Item>
+            <Item>
+              <Source>Presenter.cs.t4</Source>
+              <Folder>Presenters</Folder>
+              <Target>MvxFormsWindowsUniversalViewPresenter.cs</Target>
             </Item>
         </ItemTemplates>
   </Project>

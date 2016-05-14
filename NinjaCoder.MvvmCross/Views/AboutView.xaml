@@ -20,10 +20,16 @@
     </Window.Resources>
 
         <StackPanel Margin="20,20,20,20">
-        <TextBlock Text="{DynamicResource Version}" Margin="10"></TextBlock>
-        <TextBlock Text="{Binding Version}" FontWeight="Bold" Margin="10,0,0,0"></TextBlock>
-        <TextBlock Text="{Binding MvvmCrossVersion}" FontWeight="Bold" Margin="10,0,0,0"></TextBlock>
-        <TextBlock Text="{DynamicResource BuildDate}" Margin="10"></TextBlock>
-        <TextBlock Text="{Binding BuildDateTime}" FontWeight="Bold" Margin="10,0,0,0"></TextBlock>
-        </StackPanel>
+            <TextBlock Text="{DynamicResource Version}" Margin="10"></TextBlock>
+            <TextBlock Text="{Binding Version}" FontWeight="Bold" Margin="10,0,0,0"></TextBlock>
+            <TextBlock Text="{Binding MvvmCrossVersion}" FontWeight="Bold" Margin="10,0,0,0"></TextBlock>
+            <TextBlock Text="{DynamicResource BuildDate}" Margin="10"></TextBlock>
+            <TextBlock Text="{Binding BuildDateTime}" FontWeight="Bold" Margin="10,0,0,0"></TextBlock>
+
+            <TextBlock Margin="10,30,10,10">
+                    <Hyperlink Command="{Binding OpenInstallationDirectoryCommand}">
+                        <TextBlock Text="Open Installation directory" />
+                   </Hyperlink>
+             </TextBlock>
+    </StackPanel>
 </views:BaseView>

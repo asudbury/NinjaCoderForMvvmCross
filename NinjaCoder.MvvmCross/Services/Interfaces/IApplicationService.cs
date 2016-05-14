@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace NinjaCoder.MvvmCross.Services.Interfaces
 {
-    using NinjaCoder.MvvmCross.Entities;
+    using Entities;
     using Scorchio.VisualStudio.Entities;
 
     /// <summary>
@@ -71,5 +71,16 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Shows the xamarin forms home page.
         /// </summary>
         void ShowXamarinFormsHomePage();
+
+        /// <summary>
+        /// Gets the installation directory.
+        /// </summary>
+        /// <returns>The working directory.</returns>
+        string GetInstallationDirectory();
+
+        /// <summary>
+        /// Opens the installation directory.
+        /// </summary>
+        void OpenInstallationDirectory();
     }
 }

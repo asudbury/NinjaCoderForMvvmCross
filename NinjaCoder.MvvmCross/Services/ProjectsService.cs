@@ -16,9 +16,6 @@ namespace NinjaCoder.MvvmCross.Services
     using System.Collections.Generic;
     using System.IO.Abstractions;
     using System.Linq;
-
-    using Scorchio.VisualStudio.Extensions;
-
     using Translators.Interfaces;
 
     /// <summary>
@@ -323,11 +320,11 @@ namespace NinjaCoder.MvvmCross.Services
                 foreach (TextTemplateInfo textTemplateInfo in projectInfo.ItemTemplates)
                 {
                     textTemplateInfo.Tokens = this.tokensTranslator.Translate(projectService);
-                } 
-                   
+                }
+
                 this.textTemplatingService.AddTextTemplates(
-                    "Adding items to project " + projectService.Name,
-                    projectInfo.ItemTemplates);
+                        "Adding items to project " + projectService.Name,
+                        projectInfo.ItemTemplates);
             }
         }
 

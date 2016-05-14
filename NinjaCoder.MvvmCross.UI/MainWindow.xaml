@@ -48,7 +48,7 @@
                 <MenuItem Command="{Binding MvvmCrossCommand}" Header="MvvmCross Home Page" />
                 <MenuItem Command="{Binding AboutCommand}" Header="About" />
                 <Separator />
-                <MenuItem Command="{Binding OpenWorkingDirectoryCommand}" Header="Open Working Directory" />
+                <MenuItem Command="{Binding OpenInstallationDirectoryCommand}" Header="Open Installation Directory" />
                 <MenuItem Command="{Binding ExitCommand}" Header="Exit" />
             </MenuItem>
         </Menu>

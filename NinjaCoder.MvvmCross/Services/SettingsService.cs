@@ -970,7 +970,7 @@ namespace NinjaCoder.MvvmCross.Services
         /// </summary>
         public string LocalTextTemplatesDirectory
         {
-            get { return this.GetRegistryValue("Build", "LocalTextTemplatesDirectory", @"B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Config\TextTemplates"); }
+            get { return this.GetRegistryValue("Build", "LocalTextTemplatesDirectory", this.WorkingDirectory + @"\Config\TextTemplates"); }
         }
 
         /// <summary>
@@ -997,7 +997,7 @@ namespace NinjaCoder.MvvmCross.Services
 
                 string file = this.GetRegistryValue("Build", "IDependencyTextTemplate", @"DependencyService\IDependencyService.t4");
 
-                return string.Format(@"{0}\{1}", path, file);
+                return $@"{path}\{file}";
             }
         }
 
@@ -1017,7 +1017,7 @@ namespace NinjaCoder.MvvmCross.Services
 
                 string file = this.GetRegistryValue("Build", "DependencyTextTemplate", @"DependencyService\DependencyService.t4");
 
-                return string.Format(@"{0}\{1}", path, file);
+                return $@"{path}\{file}";
             }
         }
 
@@ -1055,7 +1055,7 @@ namespace NinjaCoder.MvvmCross.Services
 
                 string file = this.GetRegistryValue("Build", "BaseCustomRendererTextTemplate", @"CustomRenderer\BaseCustomRenderer.t4");
 
-                return string.Format(@"{0}\{1}", path, file);
+                return $@"{path}\{file}";
             }
         }
 

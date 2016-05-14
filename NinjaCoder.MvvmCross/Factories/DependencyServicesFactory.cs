@@ -48,7 +48,7 @@ namespace NinjaCoder.MvvmCross.Factories
             ISettingsService settingsService,
             IResolverService resolverService,
             IRegisterService registerService)
-            :base(settingsService)
+            : base(settingsService)
         {
             TraceService.WriteLine("DependencyServicesFactory::Constructor");
 

@@ -648,6 +648,21 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets the MVVM cross xamarin forms windows universal commands.
+        /// </summary>
+        /// <returns>A list of Nuget commands.</returns>
+        public IEnumerable<string> GetMvvmCrossXamarinFormsWindowsUniversalCommands()
+        {
+            List<string> commands = this.GetMvvmCrossWindowsUniversalCommands().ToList();
+
+            commands.AddRange(this.GetXamarinFormsCommands());
+
+            commands.Add(this.GetNinjaCommand(ScorchioMvvmCrossXamrinForms, true));
+
+            return commands;
+        }
+
+        /// <summary>
         /// Gets the MVVM cross command.
         /// </summary>
         /// <param name="command">The command.</param>

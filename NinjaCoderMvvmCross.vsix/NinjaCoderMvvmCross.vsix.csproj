@@ -324,10 +324,6 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <Link>Config\TextTemplates\ItemTemplates\XamarinForms\BlankViewCodeBehind.t4</Link>
     </Content>
-    <Content Include="..\..\Ninja\NinjaCodeMvvmCrossTemplates\ProjectTemplates\NinjaCoder.WindowsUniversal\NinjaCoder.WindowsUniversal.zip">
-      <Link>ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.WindowsUniversal.zip</Link>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <Content Include="..\Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\XamarinForms\App.xaml.cs.t4">
       <Link>Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\XamarinForms\App.xaml.cs.t4</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -366,6 +362,30 @@
     </Content>
     <Content Include="..\Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCross\Views\BaseView.cs.t4">
       <Link>Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCross\Views\BaseView.cs.t4</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\App.xaml.cs.t4">
+      <Link>Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\App.xaml.cs.t4</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\MainPage.xaml.cs.t4">
+      <Link>Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\MainPage.xaml.cs.t4</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\Setup.cs.t4">
+      <Link>Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\Setup.cs.t4</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\Presenters\Presenter.cs.t4">
+      <Link>Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\Presenter.cs.t4</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\MainPage.xaml.t4">
+      <Link>Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\MainPage.xaml.t4</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.WindowsUniversal.zip">
+      <OutputSubPath>Ninja Coder</OutputSubPath>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="source.extension.vsixmanifest">

@@ -240,6 +240,28 @@ namespace NinjaCoder.MvvmCross.Controllers
             ResolveController<ApplicationController>(null)
                 .XamarinFormsHomePage();
         }
+        
+        /// <summary>
+        /// Gets the installation directory.
+        /// </summary>
+        public static string GetInstallationDirectory()
+        {
+            TraceService.WriteLine("NinjaController::GetInstallationDirectory");
+
+            return ResolveController<ApplicationController>(null)
+                .GetInstallationDirectory();
+        }
+
+        /// <summary>
+        /// Opens the installation directory.
+        /// </summary>
+        public static void OpenInstallationDirectory()
+        {
+            TraceService.WriteLine("NinjaController::OpenInstallationDirectory");
+
+            ResolveController<ApplicationController>(null)
+                .OpenInstallationDirectory();
+        }
 
         /// <summary>
         /// Attempts to resolve a type using default options.

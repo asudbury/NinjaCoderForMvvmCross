@@ -20,7 +20,7 @@ namespace NinjaCoder.MvvmCross.Controllers
     using Views.Wizard;
 
     /// <summary>
-    ///  Defines the CustomeRendererController type.
+    ///  Defines the CustomRendererController type.
     /// </summary>
     public class CustomRendererController : BaseController
     {
@@ -42,7 +42,7 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <param name="messageBoxService">The message box service.</param>
         /// <param name="resolverService">The resolver service.</param>
         /// <param name="readMeService">The read me service.</param>
-        /// <param name="customRendererFactory">The custome renderer factory.</param>
+        /// <param name="customRendererFactory">The custom renderer factory.</param>
         /// <param name="textTemplatingService">The text templating service.</param>
         public CustomRendererController(
             IVisualStudioService visualStudioService, 

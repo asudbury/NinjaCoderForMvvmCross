@@ -68,27 +68,27 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// <summary>
         /// Gets the visual studio service.
         /// </summary>
-        protected IVisualStudioService VisualStudioService { get; private set; }
+        protected IVisualStudioService VisualStudioService { get; }
 
         /// <summary>
         /// Gets the settings service.
         /// </summary>
-        protected ISettingsService SettingsService { get; private set; }
+        protected ISettingsService SettingsService { get; }
 
         /// <summary>
         /// Gets the message box service.
         /// </summary>
-        protected IMessageBoxService MessageBoxService { get; private set; }
+        protected IMessageBoxService MessageBoxService { get; }
 
         /// <summary>
         /// Gets the resolver service.
         /// </summary>
-        protected IResolverService ResolverService { get; private set; }
+        protected IResolverService ResolverService { get; }
 
         /// <summary>
         /// Gets the readme service.
         /// </summary>
-        protected IReadMeService ReadMeService { get; private set; }
+        protected IReadMeService ReadMeService { get; }
 
         /// <summary>
         /// Gets the read me lines.
@@ -205,7 +205,7 @@ namespace NinjaCoder.MvvmCross.Controllers
             }
             catch (Exception)
             {
-                // set to templ path.
+                // set to temp path.
                 directoryName = Path.GetTempPath();
             }
 

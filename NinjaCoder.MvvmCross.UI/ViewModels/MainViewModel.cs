@@ -7,7 +7,6 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
 {
     using Controllers;
     using EnvDTE;
-    using Microsoft.Win32;
     using Scorchio.Infrastructure.Wpf;
     using Scorchio.Infrastructure.Wpf.ViewModels;
     using System.Collections.Generic;
@@ -34,10 +33,10 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
             {
                 this.projects = NinjaController.GetProjects();
 
-                string workingDirectory = this.GetWorkingDirectory();
+                string workingDirectory = NinjaController.GetInstallationDirectory();
 
                 if (workingDirectory != string.Empty)
-                { 
+                {
                     NinjaController.SetWorkingDirectory(workingDirectory);
                 }
             }
@@ -77,9 +76,9 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         /// </summary>
         public ICommand AddPluginsCommand
         {
-            get { return new RelayCommand(this.AddPlugins); }
+            get { return new RelayCommand(this.AddPlugins);}
         }
-        
+
         /// <summary>
         /// Gets the add nuget packages command.
         /// </summary>
@@ -101,7 +100,7 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         /// </summary>
         public ICommand ClearLogCommand
         {
-            get { return new RelayCommand(this.ClearLog); }
+            get{ return new RelayCommand(this.ClearLog); }
         }
 
         /// <summary>
@@ -152,9 +151,15 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
             get { return new RelayCommand(this.About); }
         }
 
-        public ICommand OpenWorkingDirectoryCommand
+        /// <summary>
+        /// Gets the open installation directory command.
+        /// </summary>
+        /// <value>
+        /// The open installation directory command.
+        /// </value>
+        public ICommand OpenInstallationDirectoryCommand
         {
-            get { return new RelayCommand(this.OpenWorkingDirectory); }
+            get { return new RelayCommand(this.OpenInstallationDirectory); }
         }
 
         /// <summary>
@@ -269,6 +274,7 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         {
             NinjaController.MvvmCrossHomePage();
         }
+
         /// <summary>
         /// Abouts this instance.
         /// </summary>
@@ -284,7 +290,7 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         {
             this.OnOk();
         }
-        
+
         /// <summary>
         /// Formses the dependency service.
         /// </summary>
@@ -318,50 +324,11 @@ namespace NinjaCoder.MvvmCross.UI.ViewModels
         }
 
         /// <summary>
-        /// Opens the working directory.
+        /// Opens the installation directory.
         /// </summary>
-        internal void OpenWorkingDirectory()
+        internal void OpenInstallationDirectory()
         {
-            string workingDirectory = this.GetWorkingDirectory();
-
-            if (workingDirectory != string.Empty)
-            {
-                System.Diagnostics.Process.Start(workingDirectory);
-            }
-        }
-
-        /// <summary>
-        /// Gets the working directory.
-        /// </summary>
-        /// <returns></returns>
-        internal string GetWorkingDirectory()
-        {
-            RegistryKey softwareKey = Registry.CurrentUser.OpenSubKey("Software");
-
-            RegistryKey microsoftKey = softwareKey?.OpenSubKey("Microsoft");
-
-            RegistryKey vsKey = microsoftKey?.OpenSubKey("VisualStudio");
-
-            RegistryKey versionKey = vsKey?.OpenSubKey("14.0");
-
-            RegistryKey extensionManagerKey = versionKey?.OpenSubKey("ExtensionManager");
-
-            RegistryKey enabledExtensionsKey = extensionManagerKey?.OpenSubKey("EnabledExtensions");
-
-            if (enabledExtensionsKey != null)
-            {
-                string[] valueNames = enabledExtensionsKey.GetValueNames();
-
-                foreach (string valueName in valueNames)
-                {
-                    if (valueName.StartsWith("NinjaCoderMvvmCross.vsix"))
-                    {
-                        return enabledExtensionsKey.GetValue(valueName) as string;
-                    }
-                }
-            }
-
-            return string.Empty;
+            NinjaController.OpenInstallationDirectory();
         }
     }
 }

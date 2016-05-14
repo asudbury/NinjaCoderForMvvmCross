@@ -18,6 +18,8 @@ namespace NinjaCoder.MvvmCross.Services
     using System.Linq;
     using System.Xml.Linq;
 
+    using Microsoft.Win32;
+
     /// <summary>
     /// Defines the ApplicationService type.
     /// </summary>
@@ -135,6 +137,21 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Opens the installation directory.
+        /// </summary>
+        public void OpenInstallationDirectory()
+        {
+            TraceService.WriteLine("ApplicationService::OpenWorkingDirectory");
+
+            string installationDirectory = this.GetInstallationDirectory();
+
+            if (installationDirectory != string.Empty)
+            {
+               Process.Start(installationDirectory);
+            }
+        }
+
+        /// <summary>
         /// Gets the application framework.
         /// </summary>
         /// <returns>The Framework Type.</returns>
@@ -248,6 +265,40 @@ namespace NinjaCoder.MvvmCross.Services
         public void SetWorkingDirectory(string path)
         {
             this.settingsService.WorkingDirectory = path;
+        }
+
+        /// <summary>
+        /// Gets the installation directory.
+        /// </summary>
+        /// <returns>The working directory.</returns>
+        public string GetInstallationDirectory()
+        {
+            RegistryKey softwareKey = Registry.CurrentUser.OpenSubKey("Software");
+
+            RegistryKey microsoftKey = softwareKey?.OpenSubKey("Microsoft");
+
+            RegistryKey vsKey = microsoftKey?.OpenSubKey("VisualStudio");
+
+            RegistryKey versionKey = vsKey?.OpenSubKey("14.0");
+
+            RegistryKey extensionManagerKey = versionKey?.OpenSubKey("ExtensionManager");
+
+            RegistryKey enabledExtensionsKey = extensionManagerKey?.OpenSubKey("EnabledExtensions");
+
+            if (enabledExtensionsKey != null)
+            {
+                string[] valueNames = enabledExtensionsKey.GetValueNames();
+
+                foreach (string valueName in valueNames)
+                {
+                    if (valueName.StartsWith("NinjaCoderMvvmCross.vsix"))
+                    {
+                        return enabledExtensionsKey.GetValue(valueName) as string;
+                    }
+                }
+            }
+
+            return string.Empty;
         }
     }
 }

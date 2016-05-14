@@ -156,5 +156,11 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// </summary>
         /// <returns>A Nuget command.</returns>
         string GetMvvmCrossIosStoryBoardCommand();
+
+        /// <summary>
+        /// Gets the MVVM cross xamarin forms windows universal commands.
+        /// </summary>
+        /// <returns>A list of Nuget commands.</returns>
+        IEnumerable<string> GetMvvmCrossXamarinFormsWindowsUniversalCommands();
     }
 }

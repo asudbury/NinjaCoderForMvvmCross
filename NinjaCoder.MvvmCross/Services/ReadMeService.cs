@@ -31,7 +31,7 @@ namespace NinjaCoder.MvvmCross.Services
         public ReadMeService(
             IFileSystem fileSystem,
             ISettingsService settingsService)
-            :base(settingsService)
+            : base(settingsService)
         {
             TraceService.WriteLine("ReadMeService::Constructor");
 

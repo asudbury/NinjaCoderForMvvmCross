@@ -177,7 +177,7 @@ namespace NinjaCoder.MvvmCross.Factories
                     uri = this.SettingsService.XamarinFormsProjectsUri;
                     break;
 
-                case  FrameworkType.MvvmCrossAndXamarinForms:
+                case FrameworkType.MvvmCrossAndXamarinForms:
                     uri = this.SettingsService.MvvmCrossAndXamarinFormsProjectsUri;
                     break;
             }

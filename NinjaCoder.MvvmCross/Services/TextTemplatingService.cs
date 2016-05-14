@@ -30,7 +30,7 @@ namespace NinjaCoder.MvvmCross.Services
         public TextTemplatingService(
             IVisualStudioService visualStudioService,
             ISettingsService settingsService)
-            :base(settingsService)
+            : base(settingsService)
         {
             TraceService.WriteLine("TextTemplatingService::Constructor");
 
