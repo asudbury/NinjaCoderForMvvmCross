@@ -45,7 +45,7 @@ namespace Scorchio.VisualStudio.Services
 
             string sourceText = this.GetText(textTransformationRequest.SourceFile);
 
-            TraceService.WriteDebugLine("sourceText=" + sourceText);
+            ////TraceService.WriteDebugLine("sourceText=" + sourceText);
 
             SimpleTextTemplatingEngine engine = new SimpleTextTemplatingEngine();
 
@@ -60,7 +60,7 @@ namespace Scorchio.VisualStudio.Services
 
             TraceService.WriteLine("After processing template via SimpleTextTemplatingEngine = SUCCESS!");
 
-            TraceService.WriteDebugLine("output=" + textTransformation.Output);
+            ////TraceService.WriteDebugLine("output=" + textTransformation.Output);
 
             return textTransformation;
         }

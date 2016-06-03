@@ -140,7 +140,8 @@ namespace NinjaCoder.MvvmCross.Controllers
                         this.GetReadMePath(),
                         "Add MvvmCross Plugins",
                         messages,
-                        TraceService.ErrorMessages);
+                        TraceService.ErrorMessages,
+                        this.GetTraceMessages(false));
             }
             catch (Exception exception)
             {

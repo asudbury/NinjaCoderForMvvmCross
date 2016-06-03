@@ -484,6 +484,15 @@ namespace NinjaCoder.MvvmCross.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [output logs to read me].
+        /// </summary>
+        public bool OutputLogsToReadMe
+        {
+            get { return this.GetRegistryValue("Tracing", "OutputLogsToReadMe", "N") == "Y"; }
+            set { this.SetRegistryValue("Tracing", "OutputLogsToReadMe", value ? "Y" : "N"); }
+        }
+
+        /// <summary>
         /// Gets the MVVM cross plugins wiki page.
         /// </summary>
         public string MvvmCrossPluginsWikiPage
@@ -602,15 +611,6 @@ namespace NinjaCoder.MvvmCross.Services
         public string WindowsPhoneBuildVersion
         {
             get { return this.GetRegistryValue("Projects", "WindowsPhoneBuildVersion", "8"); }
-        }
-
-        /// <summary>
-        /// Gets or sets the Language override.
-        /// </summary>
-        public string LanguageOverride
-        {
-            get { return this.GetRegistryValue("Visual", "LanguageOverride", "Current Culture"); }
-            set { this.SetRegistryValue("Visual", "LanguageOverride", value); }
         }
 
         /// <summary>

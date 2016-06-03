@@ -134,6 +134,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 ProjectSuffix = this.SettingsService.CoreProjectSuffix,
                 TemplateName = ProjectTemplate.Core.GetDescription(),
                 PreSelected = true,
+                IsEnabled = false,
                 NugetCommands = this.nugetCommandsService.GetMvvmCrossCoreCommands(),
                 ItemTemplates = this.GetProjectItems(FrameworkType.MvvmCross, ProjectType.Core)
             };

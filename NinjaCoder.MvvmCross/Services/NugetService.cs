@@ -278,34 +278,6 @@ namespace NinjaCoder.MvvmCross.Services
         }
  
         /// <summary>
-        /// Replaces the project item text.
-        /// </summary>
-        /// <param name="projectService">The project service.</param>
-        /// <param name="projectItem">The project item.</param>
-        /// <param name="text">The text.</param>
-        /// <param name="replacementText">The replacement text.</param>
-        internal void ReplaceProjectItemText(
-            IProjectService projectService,
-            string projectItem,
-            string text,
-            string replacementText)
-        {
-            TraceService.WriteLine("NugetService::ReplaceProjectItemText");
-
-            if (projectService != null)
-            {
-                IProjectItemService projectItemService = projectService.GetProjectItem(projectItem);
-
-                if (projectItemService != null)
-                {
-                    TraceService.WriteLine("Replacing " + text + " with " + replacementText);
-
-                    projectItemService.ReplaceText(text, replacementText);
-                }
-            }
-        }
-
-        /// <summary>
         /// Executes the post nuget commands.
         /// </summary>
         internal void ExecutePostNugetCommands()

@@ -218,6 +218,11 @@ namespace NinjaCoder.MvvmCross.Services
 
             commands.Add(this.GetNinjaCommand(nugetPackageName, false));
 
+            foreach (string command in commands)
+            {
+                TraceService.WriteLine(command);
+            }
+
             return commands;
         }
 

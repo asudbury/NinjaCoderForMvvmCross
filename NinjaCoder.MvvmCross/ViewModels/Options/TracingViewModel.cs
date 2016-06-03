@@ -52,9 +52,9 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         private string errorFilePath;
 
         /// <summary>
-        /// The output text template content to trace file.
+        /// The output logs to read me.
         /// </summary>
-        private bool outputTextTemplateContentToTraceFile;
+        private bool outputLogsToReadMe;
 
         /// <summary>
         /// The extended logging.
@@ -139,12 +139,12 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [output text template content to trace file].
+        /// Gets or sets a value indicating whether [output logs to read me].
         /// </summary>
-        public bool OutputTextTemplateContentToTraceFile
+        public bool OutputLogsToReadMe
         {
-            get { return this.outputTextTemplateContentToTraceFile; }
-            set { this.SetProperty(ref this.outputTextTemplateContentToTraceFile, value); }
+            get { return this.outputLogsToReadMe; }
+            set { this.SetProperty(ref this.outputLogsToReadMe, value); }
         }
 
         /// <summary>
@@ -189,7 +189,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.LogFilePath = this.SettingsService.LogFilePath;
             this.DisplayErrors = this.SettingsService.DisplayErrors;
             this.ErrorFilePath = this.SettingsService.ErrorFilePath;
-            this.OutputTextTemplateContentToTraceFile = this.SettingsService.OutputTextTemplateContentToTraceFile;
+            this.OutputLogsToReadMe = this.SettingsService.OutputLogsToReadMe;
             this.ExtendedLogging = this.SettingsService.ExtendedLogging;
         }
 
@@ -203,7 +203,7 @@ namespace NinjaCoder.MvvmCross.ViewModels.Options
             this.SettingsService.LogFilePath = this.LogFilePath;
             this.SettingsService.DisplayErrors = this.DisplayErrors;
             this.SettingsService.ErrorFilePath = this.ErrorFilePath;
-            this.SettingsService.OutputTextTemplateContentToTraceFile = this.OutputTextTemplateContentToTraceFile;
+            this.SettingsService.OutputLogsToReadMe = this.OutputLogsToReadMe;
             this.SettingsService.ExtendedLogging = this.ExtendedLogging;
         }
 

@@ -17,7 +17,6 @@ namespace NinjaCoder.MvvmCross.Controllers
     using Services.Interfaces;
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.IO;
     using System.Windows;
 
@@ -297,7 +296,12 @@ namespace NinjaCoder.MvvmCross.Controllers
                 //// now construct the ReadMe.txt
                 this.ReadMeLines.AddRange(messages);
                 
-                this.ReadMeService.AddLines(readMePath, function, this.ReadMeLines, TraceService.ErrorMessages);
+                this.ReadMeService.AddLines(
+                    readMePath, 
+                    function,
+                    this.ReadMeLines, 
+                    TraceService.ErrorMessages, 
+                    this.GetTraceMessages(false));
 
                 this.VisualStudioService.DTEService.OpenFile(readMePath);
 
@@ -321,29 +325,27 @@ namespace NinjaCoder.MvvmCross.Controllers
 
             const string ResourcesBaseUrl = "/NinjaCoder.MvvmCross;component/Resources/";
             
-            string currentCulture = CultureInfo.CurrentCulture.ToString();
-
-            string overrideCulture = this.SettingsService.LanguageOverride;
-
-            //// look for an override.
-            if (overrideCulture != "Current Culture")
-            {
-                currentCulture = overrideCulture;
-            }
-
-            switch (currentCulture)
-            {
-                case "fr-CA":
-                case "French": 
-                    resourceDictionary.Source = new Uri(ResourcesBaseUrl + "StringResources.fr-CA.xaml", UriKind.RelativeOrAbsolute);
-                    break;
-
-                default:
-                    resourceDictionary.Source = new Uri(ResourcesBaseUrl + "StringResources.xaml", UriKind.RelativeOrAbsolute);
-                    break;
-            }
+            resourceDictionary.Source = new Uri(ResourcesBaseUrl + "StringResources.xaml", UriKind.RelativeOrAbsolute);
 
             return resourceDictionary;
+        }
+
+        /// <summary>
+        /// Traces the messages.
+        /// </summary>
+        /// <param name="exceptionRaised">if set to <c>true</c> [exception raised].</param>
+        /// <returns>
+        /// The Trace Messages.
+        /// </returns>
+        internal IEnumerable<string> GetTraceMessages(bool exceptionRaised)
+        {
+            if (this.SettingsService.OutputLogsToReadMe || 
+                exceptionRaised)
+            {
+                return TraceService.Messages;
+            }
+
+            return new List<string>();
         }
     }
 }

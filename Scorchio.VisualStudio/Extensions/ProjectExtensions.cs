@@ -394,8 +394,16 @@ namespace Scorchio.VisualStudio.Extensions
             File.WriteAllText(path, textOutput);
 
             TraceService.WriteLine("addToFolderFromFile");
-            
-            instance.AddToFolderFromFile(projectFolder, path);
+
+            //// this will actually fail if the file already exists in the project - so swallow the exception.
+            try
+            {
+                instance.AddToFolderFromFile(projectFolder, path);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
 
             return fileName + " added to project " + instance.Name;
         }

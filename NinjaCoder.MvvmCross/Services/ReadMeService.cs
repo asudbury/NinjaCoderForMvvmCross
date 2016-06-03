@@ -45,11 +45,13 @@ namespace NinjaCoder.MvvmCross.Services
         /// <param name="functionName">Name of the function.</param>
         /// <param name="lines">The lines.</param>
         /// <param name="errorMessages">The error messages.</param>
+        /// <param name="traceMessages">The trace messages.</param>
         public void AddLines(
             string filePath,
             string functionName,
             IEnumerable<string> lines,
-            IEnumerable<string> errorMessages)
+            IEnumerable<string> errorMessages,
+            IEnumerable<string> traceMessages)
         {
             TraceService.WriteLine("ReadMeService::AddLines functionName=" + functionName);
 
@@ -75,6 +77,32 @@ namespace NinjaCoder.MvvmCross.Services
             sw.WriteLine(this.GetSeperatorLine());
 
             lines.ToList().ForEach(sw.WriteLine);
+            
+            //// now write the errors
+
+            IEnumerable<string> messages = errorMessages as string[] ?? errorMessages.ToArray();
+
+            if (messages.Any())
+            {
+                sw.WriteLine(string.Empty);
+                sw.WriteLine(this.GetSeperatorLine());
+                sw.WriteLine("Error Messages");
+                sw.WriteLine(this.GetSeperatorLine());
+                messages.ToList().ForEach(sw.WriteLine);
+            }
+
+            //// now write the trace messages 
+
+            messages = traceMessages as string[] ?? traceMessages.ToArray();
+
+            if (messages.Any())
+            {
+                sw.WriteLine(string.Empty);
+                sw.WriteLine(this.GetSeperatorLine());
+                sw.WriteLine("Trace Messages");
+                sw.WriteLine(this.GetSeperatorLine());
+                messages.ToList().ForEach(sw.WriteLine);
+            }
 
             //// now write the old lines or add footer
 
@@ -88,6 +116,16 @@ namespace NinjaCoder.MvvmCross.Services
             }
 
             sw.Close();
+        }
+
+        /// <summary>
+        /// Gets the header line.
+        /// </summary>
+        /// <param name="headerText">The header text.</param>
+        /// <returns>The header line.</returns>
+        public string GetHeaderLine(string headerText)
+        {
+            return this.GetSeperatorLine() + Environment.NewLine + headerText + Environment.NewLine + this.GetSeperatorLine();
         }
 
         /// <summary>

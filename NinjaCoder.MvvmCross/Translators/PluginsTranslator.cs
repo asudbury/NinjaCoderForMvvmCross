@@ -53,7 +53,7 @@ namespace NinjaCoder.MvvmCross.Translators
 
                 if (doc.Root != null)
                 {
-                    TraceService.WriteDebugLine(doc.Root.Value);
+                    ////TraceService.WriteDebugLine(doc.Root.Value);
 
                     IEnumerable<XElement> elements = doc.Root.Elements("Plugin");
 

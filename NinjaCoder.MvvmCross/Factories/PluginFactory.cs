@@ -54,7 +54,6 @@ namespace NinjaCoder.MvvmCross.Factories
             if (this.cachingService.Plugins.ContainsKey(uri))
             {
                 TraceService.WriteLine("Using cache");
-                TraceService.WriteLine("PluginFactory::GetPlugins END");
                 return this.cachingService.Plugins[uri];
             }
 
@@ -76,8 +75,6 @@ namespace NinjaCoder.MvvmCross.Factories
             {
                 TraceService.WriteError("PluginFactory::GetPlugins is null url=" + uri);
             }
-
-            TraceService.WriteLine("PluginFactory::GetPlugins END");
 
             return plugins;
         }

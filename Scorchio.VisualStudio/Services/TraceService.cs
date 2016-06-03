@@ -37,6 +37,16 @@ namespace Scorchio.VisualStudio.Services
         private static bool logExtendedMessage;
 
         /// <summary>
+        /// Gets or sets the error messages.
+        /// </summary>
+        public static List<string> ErrorMessages { get; set; }
+
+        /// <summary>
+        /// Gets or sets the messages.
+        /// </summary>
+        public static List<string> Messages { get; set; }
+
+        /// <summary>
         /// Gets a value indicating whether to log to trace.
         /// </summary>
         internal static bool LogToTrace
@@ -73,11 +83,6 @@ namespace Scorchio.VisualStudio.Services
         internal static string ErrorFile { get; private set; }
 
         /// <summary>
-        /// Gets or sets the error messages.
-        /// </summary>
-        public static List<string> ErrorMessages { get; set; }
-
-        /// <summary>
         /// Initializes the specified settings.
         /// </summary>
         /// <param name="logToTraceSetting">if set to <c>true</c> [log to trace setting].</param>
@@ -104,6 +109,7 @@ namespace Scorchio.VisualStudio.Services
             DisplayErrors = displayErrorsSetting;
             ErrorFile = errorFileSetting;
 
+            Messages = new List<string>();
             ErrorMessages = new List<string>();
 
             if (logToTrace)
@@ -121,20 +127,24 @@ namespace Scorchio.VisualStudio.Services
         {
             lastTraceMessage = message;
 
+            string timedMessage = GetTimedMessage(string.Empty, message);
+
             if (LogToTrace)
             {
-                Trace.WriteLine(GetTimedMessage(string.Empty, message));
+                Trace.WriteLine(timedMessage);
             }
 
             if (LogToConsole)
             {
-                Console.WriteLine(GetTimedMessage(string.Empty, message));
+                Console.WriteLine(timedMessage);
             }
 
             if (LogToFile)
             {
-                WriteMessageToLogFile(GetTimedMessage(string.Empty, message));
+                WriteMessageToLogFile(timedMessage);
             }
+
+            Messages?.Add(timedMessage);
         }
 
         /// <summary>

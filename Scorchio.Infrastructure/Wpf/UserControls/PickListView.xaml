@@ -40,7 +40,7 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel>
-                                        <CheckBox IsChecked="{Binding IsSelected}" />
+                                        <CheckBox IsChecked="{Binding IsSelected}" IsEnabled="{Binding IsEnabled}" />
                                     </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>

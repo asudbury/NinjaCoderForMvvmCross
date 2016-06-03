@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:LoadingIndicators.WPF"
                     xmlns:userControls="clr-namespace:Scorchio.Infrastructure.Wpf.UserControls">
     <Style x:Key="LoadingIndicatorArcsStyleKey" TargetType="{x:Type userControls:LoadingIndicator}">
         <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}"/>

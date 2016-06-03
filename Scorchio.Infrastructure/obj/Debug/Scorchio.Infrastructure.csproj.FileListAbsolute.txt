@@ -79,6 +79,7 @@ B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\bin\Debug
 B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
 B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Scorchio.Infrastructure.csprojResolveAssemblyReference.cache
+B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\Colors.baml
 B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\UserControls\ColorComboBoxView.baml
 B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\UserControls\ImagePickerWithDescriptionView.baml
 B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\UserControls\ImagePickerView.baml
@@ -93,6 +94,15 @@ B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug
 B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\GeneratedInternalTypeHelper.g.cs
 B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Scorchio.Infrastructure_MarkupCompile.cache
 B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Scorchio.Infrastructure_MarkupCompile.lref
+B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\Styles.baml
+B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\Styles\LoadingArcs.baml
+B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\Styles\LoadingArcsRing.baml
+B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\Styles\LoadingDoubleBounce.baml
+B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\Styles\LoadingFlipPlane.baml
+B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\Styles\LoadingPulse.baml
+B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\Styles\LoadingRing.baml
+B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\Styles\LoadingThreeDots.baml
+B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\Styles\LoadingWave.baml
 B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\UserControls\DirectoryPickerView.baml
 B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\UserControls\WizardView.baml
 B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\Views\MessageBoxView.baml
@@ -101,12 +111,3 @@ B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug
 B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Scorchio.Infrastructure.csproj.GenerateResource.Cache
 B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Scorchio.Infrastructure.dll
 B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Scorchio.Infrastructure.pdb
-B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\Styles\LoadingArcsRing.baml
-B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\Styles.baml
-B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\Styles\LoadingArcs.baml
-B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\Styles\LoadingFlipPlane.baml
-B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\Styles\LoadingDoubleBounce.baml
-B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\Styles\LoadingPulse.baml
-B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\Styles\LoadingRing.baml
-B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\Styles\LoadingThreeDots.baml
-B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.Infrastructure\obj\Debug\Wpf\Styles\LoadingWave.baml

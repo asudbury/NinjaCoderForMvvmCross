@@ -143,11 +143,6 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         string WindowsPhoneBuildVersion { get; }
 
         /// <summary>
-        /// Gets or sets the langugage override.
-        /// </summary>
-        string LanguageOverride { get; set; }
-
-        /// <summary>
         /// Gets or sets the visual studio version.
         /// </summary>
         string VisualStudioVersion { get; set; }
@@ -591,5 +586,10 @@ namespace NinjaCoder.MvvmCross.Services.Interfaces
         /// Gets the MVVM cross and xamarin forms projects URI.
         /// </summary>
         string MvvmCrossAndXamarinFormsProjectsUri { get; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [output logs to read me].
+        /// </summary>
+        bool OutputLogsToReadMe { get; set; }
     }
 }

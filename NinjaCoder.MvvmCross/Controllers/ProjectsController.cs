@@ -15,6 +15,9 @@ namespace NinjaCoder.MvvmCross.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
+    using Scorchio.Infrastructure.Wpf.ViewModels;
+
     using ViewModels;
     using ViewModels.AddNugetPackages;
     using ViewModels.AddProjects;
@@ -178,7 +181,7 @@ namespace NinjaCoder.MvvmCross.Controllers
 
                 TraceService.ErrorMessages = new List<string>();
 
-                this.CreateReadMe(true);
+                this.CreateReadMe(true, true);
             }
         }
 
@@ -204,7 +207,12 @@ namespace NinjaCoder.MvvmCross.Controllers
             XamarinFormsLabsViewModel xamarinFormsLabsViewModel)
         {
             TraceService.WriteLine("ProjectsController::Process");
-            
+
+            foreach (SelectableItemViewModel<ProjectTemplateInfo> projectTemplateInfo in projectsViewModel.Projects)
+            {
+                TraceService.WriteLine(projectTemplateInfo.Item.Name + " project selected=" + projectTemplateInfo.IsSelected);
+            }
+
             this.VisualStudioService.WriteStatusBarMessage(NinjaMessages.NinjaIsRunning);
 
             this.applicationService.SuspendResharperIfRequested();
@@ -293,9 +301,9 @@ namespace NinjaCoder.MvvmCross.Controllers
             this.cachingService.PostNugetFileOperations = this.postNugetFileOperations;
 
             //// a bit of (unnecessary) tidying up - replace double new lines!
-            this.commands = this.commands.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine); 
+            this.commands = this.commands.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine);
 
-            this.CreateReadMe(false);
+            this.CreateReadMe(false, false);
 
             TraceService.WriteHeader("RequestedNugetCommands=" + this.commands);
 
@@ -311,7 +319,10 @@ namespace NinjaCoder.MvvmCross.Controllers
         /// Creates the read me.
         /// </summary>
         /// <param name="openReadMe">if set to <c>true</c> [open read me].</param>
-        internal void CreateReadMe(bool openReadMe)
+        /// <param name="exceptionRaised">if set to <c>true</c> [exception raised].</param>
+        internal void CreateReadMe(
+            bool openReadMe,
+            bool exceptionRaised)
         {
             //// if we have already created the readme dont do again (this will be when an exception after we have created the readme!!)
             if (this.readMeCreated)
@@ -335,7 +346,8 @@ namespace NinjaCoder.MvvmCross.Controllers
                 readMePath,
                 "Add Projects",
                 this.messages,
-                TraceService.ErrorMessages);
+                TraceService.ErrorMessages,
+                this.GetTraceMessages(exceptionRaised));
 
             if (openReadMe)
             {

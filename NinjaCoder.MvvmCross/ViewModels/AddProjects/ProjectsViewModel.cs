@@ -229,7 +229,10 @@ namespace NinjaCoder.MvvmCross.ViewModels.AddProjects
             IEnumerable<ProjectTemplateInfo> projectTemplateInfos = this.projectFactory.GetAllowedProjects(this.settingsService.FrameworkType);
 
             foreach (SelectableItemViewModel<ProjectTemplateInfo> template in projectTemplateInfos
-                .Select(projectTemplateInfo => new SelectableItemViewModel<ProjectTemplateInfo>(projectTemplateInfo, projectTemplateInfo.PreSelected)))
+                .Select(projectTemplateInfo => new SelectableItemViewModel<ProjectTemplateInfo>(
+                                        projectTemplateInfo, 
+                                        projectTemplateInfo.PreSelected,
+                                        projectTemplateInfo.IsEnabled)))
             {
                 this.projects.Add(template);
             }

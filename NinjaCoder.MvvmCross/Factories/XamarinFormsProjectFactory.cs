@@ -42,7 +42,7 @@ namespace NinjaCoder.MvvmCross.Factories
             ISettingsService settingsService,
             INugetCommandsService nugetCommandsService,
             IProjectTemplatesTranslator translator)
-            :base(settingsService, translator)
+            : base(settingsService, translator)
         {
             TraceService.WriteLine("XamarinFormsProjectFactory::Constructor");
 
@@ -145,6 +145,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 ProjectSuffix = this.SettingsService.CoreProjectSuffix,
                 TemplateName = ProjectTemplate.Core.GetDescription(),
                 PreSelected = true,
+                IsEnabled = false,
                 NugetCommands = this.nugetCommandsService.GetXamarinFormsCoreCommands(),
                 ItemTemplates = this.GetProjectItems(FrameworkType.XamarinForms, ProjectType.Core)
 
@@ -179,6 +180,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 TemplateName = ProjectTemplate.XamarinForms.GetDescription(),
                 PreSelected = true,
                 ReferenceCoreProject = true,
+                IsEnabled = false,
                 NugetCommands = this.nugetCommandsService.GetXamarinFormsCommands(),
                 ItemTemplates = this.GetProjectItems(FrameworkType.XamarinForms, ProjectType.XamarinForms)
             };

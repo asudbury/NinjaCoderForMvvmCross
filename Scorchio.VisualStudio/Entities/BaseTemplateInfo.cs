@@ -11,6 +11,14 @@ namespace Scorchio.VisualStudio.Entities
     public abstract class BaseTemplateInfo
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="BaseTemplateInfo"/> class.
+        /// </summary>
+        protected BaseTemplateInfo()
+        {
+            this.IsEnabled = true;
+        }
+
+        /// <summary>
         /// Gets or sets the name of the friendly.
         /// </summary>
         public string FriendlyName { get; set; }
@@ -34,6 +42,11 @@ namespace Scorchio.VisualStudio.Entities
         /// Gets or sets a value indicating whether the item is pre selected.
         /// </summary>
         public bool PreSelected { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is enabled.
+        /// </summary>
+        public bool IsEnabled { get; set; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.

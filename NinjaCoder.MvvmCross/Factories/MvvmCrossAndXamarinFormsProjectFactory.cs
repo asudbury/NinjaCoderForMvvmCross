@@ -138,6 +138,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 ProjectSuffix = this.SettingsService.CoreProjectSuffix,
                 TemplateName = ProjectTemplate.Core.GetDescription(),
                 PreSelected = true,
+                IsEnabled = false,
                 NugetCommands = this.nugetCommandsService.GetMvvmCrossXamarinFormsCoreCommands(),
                 ItemTemplates = this.GetProjectItems(FrameworkType.MvvmCrossAndXamarinForms, ProjectType.Core)
             };
@@ -170,6 +171,7 @@ namespace NinjaCoder.MvvmCross.Factories
                 ProjectSuffix = this.SettingsService.XamarinFormsProjectSuffix,
                 TemplateName = ProjectTemplate.XamarinForms.GetDescription(),
                 PreSelected = true,
+                IsEnabled = false,
                 ReferenceCoreProject = true,
                 NugetCommands = this.nugetCommandsService.GetMvvmCrossXamarinFormsCommands(),
                 ItemTemplates = this.GetProjectItems(FrameworkType.MvvmCrossAndXamarinForms, ProjectType.XamarinForms)
