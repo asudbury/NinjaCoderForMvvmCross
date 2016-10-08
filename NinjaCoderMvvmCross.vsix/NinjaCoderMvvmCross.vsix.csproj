@@ -232,10 +232,6 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <Link>Config\TextTemplates\Effects\Effect.t4</Link>
     </Content>
-    <Content Include="..\..\Ninja\NinjaCodeMvvmCrossTemplates\ProjectTemplates\NinjaCoder.Droid\bin\Debug\ProjectTemplates\CSharp\1033\NinjaCoder.Droid.zip">
-      <Link>ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.Droid.zip</Link>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Blank\HardCoded\View.t4">
       <IncludeInVSIX>true</IncludeInVSIX>
       <Link>Config\TextTemplates\ItemTemplates\iOS\Blank\HardCoded\View.t4</Link>
@@ -386,6 +382,9 @@
     </Content>
     <Content Include="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.WindowsUniversal.zip">
       <OutputSubPath>Ninja Coder</OutputSubPath>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.Droid.zip">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="source.extension.vsixmanifest">
