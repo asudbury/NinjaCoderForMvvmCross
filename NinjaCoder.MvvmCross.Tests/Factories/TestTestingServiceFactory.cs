@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <summary>
 //    Defines the TestTestingServiceFactory type.
 // </summary>
@@ -60,7 +60,7 @@ namespace NinjaCoder.MvvmCross.Tests.Factories
         {
             IEnumerable<string> frameWorks = this.factory.FrameWorks;
 
-            Assert.IsTrue(frameWorks.Count() == 2);
+            Assert.AreEqual(3, frameWorks.Count());
         }
     }
 }

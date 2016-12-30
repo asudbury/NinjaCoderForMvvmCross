@@ -1,5 +1,0 @@
-B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.VisualStudio\bin\Debug\Scorchio.VisualStudio.dll
-B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.VisualStudio\bin\Debug\Scorchio.VisualStudio.pdb
-B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.VisualStudio\obj\Debug\Scorchio.VisualStudio.With.StrongName.csprojResolveAssemblyReference.cache
-B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.VisualStudio\obj\Debug\Scorchio.VisualStudio.dll
-B:\Scorchio\Projects\c#\NinjaCoderForMvvmCross\Scorchio.VisualStudio\obj\Debug\Scorchio.VisualStudio.pdb

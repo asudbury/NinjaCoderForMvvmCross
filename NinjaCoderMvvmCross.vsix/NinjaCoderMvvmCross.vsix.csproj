@@ -37,12 +37,15 @@
     <RootNamespace>NinjaCoderMvvmCross.vsix</RootNamespace>
     <AssemblyName>NinjaCoderMvvmCross</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(DevEnvDir)\devenv.exe</StartProgram>
+    <StartArguments>/rootsuffix Exp</StartArguments>
     <GeneratePkgDefFile>false</GeneratePkgDefFile>
-    <IncludeAssemblyInVSIXContainer>false</IncludeAssemblyInVSIXContainer>
-    <IncludeDebugSymbolsInVSIXContainer>false</IncludeDebugSymbolsInVSIXContainer>
-    <IncludeDebugSymbolsInLocalVSIXDeployment>false</IncludeDebugSymbolsInLocalVSIXDeployment>
-    <CopyBuildOutputToOutputDirectory>false</CopyBuildOutputToOutputDirectory>
-    <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>
+    <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
+    <IncludeDebugSymbolsInVSIXContainer>true</IncludeDebugSymbolsInVSIXContainer>
+    <IncludeDebugSymbolsInLocalVSIXDeployment>true</IncludeDebugSymbolsInLocalVSIXDeployment>
+    <CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
+    <CopyOutputSymbolsToOutputDirectory>true</CopyOutputSymbolsToOutputDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -232,10 +235,6 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <Link>Config\TextTemplates\Effects\Effect.t4</Link>
     </Content>
-    <Content Include="..\..\Ninja\NinjaCodeMvvmCrossTemplates\ProjectTemplates\NinjaCoder.Droid\bin\Debug\ProjectTemplates\CSharp\1033\NinjaCoder.Droid.zip">
-      <Link>ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.Droid.zip</Link>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <Content Include="..\Config\TextTemplates\ItemTemplates\iOS\Blank\HardCoded\View.t4">
       <IncludeInVSIX>true</IncludeInVSIX>
       <Link>Config\TextTemplates\ItemTemplates\iOS\Blank\HardCoded\View.t4</Link>
@@ -386,6 +385,9 @@
     </Content>
     <Content Include="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.WindowsUniversal.zip">
       <OutputSubPath>Ninja Coder</OutputSubPath>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\CSharp\Ninja Coder\NinjaCoder.Droid.zip">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="source.extension.vsixmanifest">
