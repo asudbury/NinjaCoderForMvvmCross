@@ -1219,9 +1219,24 @@ namespace NinjaCoder.MvvmCross.Services
 
             RegistryKey scorchioKey = softwareKey?.OpenSubKey("Scorchio Limited");
 
+            //// need to create the registry key if not there!
+            
+            if (scorchioKey == null)
+            {
+                softwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
+
+                if (softwareKey != null)
+                {
+                    scorchioKey = softwareKey.CreateSubKey("Scorchio Limited");
+                }
+            }
+
             if (scorchioKey != null)
             {
-                RegistryKey ninjaKey = scorchioKey.OpenSubKey("Ninja Coder for MvvmCross", writeable);
+                //// will need to create registry key if not there!
+                
+                RegistryKey ninjaKey = scorchioKey.OpenSubKey("Ninja Coder for MvvmCross", writeable) ??
+                                       scorchioKey.CreateSubKey("Ninja Coder for MvvmCross");
 
                 if (ninjaKey != null)
                 {
