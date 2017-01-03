@@ -5,8 +5,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$.Services
 {
-    using Refractored.Xam.Settings;
-    using Refractored.Xam.Settings.Abstractions;
+    using Plugin.Settings;
+    using Plugin.Settings.Abstractions;
 
     /// <summary>
     ///      Defines the SettingService type.

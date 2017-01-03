@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace $rootnamespace$.ViewModels
 {
-    using $rootnamespace$.Services;
+    using Services;
 
     /// <summary>
     ///  Defines the SettingsViewModel type.
@@ -28,8 +28,8 @@ namespace $rootnamespace$.ViewModels
         /// <param name="settingsService">The settings service.</param>
         public SettingsViewModel(ISettingsService settingsService)
         {
-            this.SettingsService = settingsService;
-            this.greeting = this.SettingsService.Greeting;
+            this.settingsService = settingsService;
+            this.greeting = this.settingsService.Greeting;
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace $rootnamespace$.ViewModels
             set
             {
                 this.SetProperty(ref this.greeting, value);
-                this.SettingsService.Greeting = value;
+                this.settingsService.Greeting = value;
             }
         }
     }

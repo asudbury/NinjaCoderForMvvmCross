@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Scorchio.NinjaCoder.Settings.Simple.Core</id>
-    <version>1.0.2</version>
+    <version>1.0.7</version>
     <authors>Adrian Sudbury</authors>
     <owners>Scorchio Limited</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -12,7 +12,7 @@
 
     <!-- Core -->
     <file src="CoreContent\Services\ISettingsService.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Services\ISettingsService.cs.pp" />
-    <file src="CoreContent\Services\SettingsService.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Services\SettingsServicecs.cs.pp" />
+    <file src="CoreContent\Services\SettingsService.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Services\SettingsService.cs.pp" />
 
     <file src="CoreContent\ViewModels\SettingsViewModel.cs.pp" target="content\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\ViewModels\SettingsViewModel.cs.pp" />
 

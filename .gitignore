@@ -58,6 +58,9 @@ _ReSharper*/
 #NuGet
 packages/
 
+#Ignore generated nupkg files
+*.nupkg
+
 #Xamarin
 Components/
 

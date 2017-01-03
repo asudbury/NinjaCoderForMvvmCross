@@ -285,7 +285,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimpleSample", "SimpleSample", "{EA228896-B0AB-4E26-9B0F-167FFEF9C98B}"
 	ProjectSection(SolutionItems) = preProject
 		NuSpec\NinjaSamples\Settings\SimpleSample\Scorchio.NinjaCoder.Settings.Simple.1.0.1.nuspec = NuSpec\NinjaSamples\Settings\SimpleSample\Scorchio.NinjaCoder.Settings.Simple.1.0.1.nuspec
-		NuSpec\NinjaSamples\Settings\SimpleSample\Scorchio.NinjaCoder.Settings.Simple.Core.1.0.2.nuspec = NuSpec\NinjaSamples\Settings\SimpleSample\Scorchio.NinjaCoder.Settings.Simple.Core.1.0.2.nuspec
+		NuSpec\NinjaSamples\Settings\SimpleSample\Scorchio.NinjaCoder.Settings.Simple.Core.1.0.7.nuspec = NuSpec\NinjaSamples\Settings\SimpleSample\Scorchio.NinjaCoder.Settings.Simple.Core.1.0.7.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreContent", "CoreContent", "{7C8D43C4-4EC8-4A8C-992E-BFE6F326B60C}"
