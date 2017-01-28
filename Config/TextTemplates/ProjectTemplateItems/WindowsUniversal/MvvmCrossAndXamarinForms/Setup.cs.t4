@@ -23,19 +23,19 @@ namespace <#= NameSpace #>
         /// <summary>
         /// The launch activated event arguments.
         /// </summary>
-        private readonly LaunchActivatedEventArgs launchActivatedEventArgs;
+        private LaunchActivatedEventArgs launchActivatedEventArgs;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Setup" /> class.
         /// </summary>
         /// <param name="rootFrame">The root frame.</param>
-        /// <param name="launchActivatedEventArgs">The <see cref="LaunchActivatedEventArgs"/> instance containing the event data.</param>
+        /// <param name="launchActivatedEventArgsParm">The <see cref="LaunchActivatedEventArgs"/> instance containing the event data.</param>
         public Setup(
             Frame rootFrame,
-            LaunchActivatedEventArgs launchActivatedEventArgs)
+            LaunchActivatedEventArgs launchActivatedEventArgsParm)
             : base(rootFrame)
         {
-            this.launchActivatedEventArgs = launchActivatedEventArgs;
+            this.launchActivatedEventArgs = launchActivatedEventArgsParm;
         }
 
         /// <summary>

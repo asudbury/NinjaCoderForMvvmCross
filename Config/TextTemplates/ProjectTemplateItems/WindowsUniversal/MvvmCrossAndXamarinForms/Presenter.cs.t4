@@ -28,7 +28,7 @@ namespace <#= NameSpace #>.Presenters
         /// <summary>
         /// The root frame.
         /// </summary>
-        private readonly MvxWrappedFrame rootFrame;
+        private readonly IMvxWindowsFrame rootFrame;
 
         /// <summary>
         /// The view service.
@@ -49,7 +49,7 @@ namespace <#= NameSpace #>.Presenters
         /// <param name="viewModelService">The view model service.</param>
         public MvxFormsWindowsUniversalViewPresenter(
             XamarinFormsApp xamarinFormsApp, 
-            MvxWrappedFrame rootFrame, 
+            IMvxWindowsFrame rootFrame, 
             IViewService viewService = null, 
             IViewModelService viewModelService = null)
         {

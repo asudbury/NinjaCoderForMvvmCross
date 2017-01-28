@@ -720,12 +720,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvvmCrossAndXamarinForms", 
 		Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\App.xaml.cs.t4 = Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\App.xaml.cs.t4
 		Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\MainPage.xaml.cs.t4 = Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\MainPage.xaml.cs.t4
 		Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\MainPage.xaml.t4 = Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\MainPage.xaml.t4
-		Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\Setup.cs.t4 = Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\Setup.cs.t4
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presenters", "Presenters", "{4A3013C5-DD89-4130-9B84-97D9106D400B}"
-	ProjectSection(SolutionItems) = preProject
 		Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\Presenters\Presenter.cs.t4 = Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\Presenters\Presenter.cs.t4
+		Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\Setup.cs.t4 = Config\TextTemplates\ProjectTemplateItems\WindowsUniversal\MvvmCrossAndXamarinForms\Setup.cs.t4
 	EndProjectSection
 EndProject
 Global
@@ -1353,6 +1349,5 @@ Global
 		{DB6FE6F4-71E8-440A-B620-4D747792AB9C} = {4ADDCA4F-31A1-4446-A0A9-1B1A9B48145B}
 		{4591A8E9-6879-4D36-9496-ACA273B38D79} = {757CDBD6-D5F3-4825-96FE-28A21A04F4A5}
 		{E695ECA2-BE5B-4317-A612-96A1F6D481B5} = {92C49E1B-4A0D-48FE-B852-35AF97A9EEEA}
-		{4A3013C5-DD89-4130-9B84-97D9106D400B} = {E695ECA2-BE5B-4317-A612-96A1F6D481B5}
 	EndGlobalSection
 EndGlobal
