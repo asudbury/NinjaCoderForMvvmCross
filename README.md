@@ -1,3 +1,11 @@
+# Team City Build Status
+
+<a href="http://vm-scorchio.westeurope.cloudapp.azure.com:888/viewType.html?buildTypeId=NinjaCoderForMvvmCross_Build&guest=1">
+	<img src="http://vm-scorchio.westeurope.cloudapp.azure.com:888/app/rest/builds/buildType:(id:NinjaCoderForMvvmCross_Build)/statusIcon"/>
+</a>
+
+[View Build Status](http://vm-scorchio.westeurope.cloudapp.azure.com:888/viewType.html?buildTypeId=NinjaCoderForMvvmCross_Build&guest=1)
+
 ## A Visual Studio Plugin for MvvmCross
 
 
