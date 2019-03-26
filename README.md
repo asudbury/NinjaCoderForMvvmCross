@@ -1,10 +1,18 @@
-# Team City Build Status
-
-<a href="http://vm-scorchio.westeurope.cloudapp.azure.com:888/viewType.html?buildTypeId=NinjaCoderForMvvmCross_Build&guest=1">
+<table align="center">
+    <tr>
+        <td align="center"><a href=http://vm-scorchio.westeurope.cloudapp.azure.com:888/viewType.html?buildTypeId=NinjaCoderForMvvmCross_Build&guest=1)>Team City Build Status</a></td>
+        <td align="center"><a href="http://vm-scorchio.westeurope.cloudapp.azure.com:888/viewType.html?buildTypeId=NinjaCoderForMvvmCross_Build&guest=1">
 	<img src="http://vm-scorchio.westeurope.cloudapp.azure.com:888/app/rest/builds/buildType:(id:NinjaCoderForMvvmCross_Build)/statusIcon"/>
-</a>
+</a></td>
+    </tr>
+    <tr>
+        <td align="center"><a href="http://vm-scorchio.westeurope.cloudapp.azure.com:888/viewType.html?buildTypeId=ExtensionMethods_Build&guest=1">AppVeyor Build Status</a></td>
+        <td align="center"><a href="https://ci.appveyor.com/project/asudbury/extensionmethods">
+	<img src='https://ci.appveyor.com/api/projects/status/8f6toml9vxkd88op?svg=true'/>
+</a></td>
+    </tr>
+</table>
 
-[View Build Status](http://vm-scorchio.westeurope.cloudapp.azure.com:888/viewType.html?buildTypeId=NinjaCoderForMvvmCross_Build&guest=1)
 
 ## A Visual Studio Plugin for MvvmCross
 
