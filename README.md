@@ -17,9 +17,11 @@ For more information, see:
 - Unit testing - http://adriansudbury.blogspot.co.uk/2013/07/ninja-coders-for-mvvmcross-part-4.html
 
 
-For installation, see:
+For installations, see:
 
-- https://visualstudiogallery.msdn.microsoft.com/e66eddef-d1b7-452d-94db-0689ae2d114b
+- https://marketplace.visualstudio.com/items?itemName=NinjaCoderforMvvmCross.NinjaCoderForMvvmCrossandXamarinForms
+
+- https://marketplace.visualstudio.com/items?itemName=adriansudbury1.NinjaCoderforMvvmCrossandXamarinForms2013
 
 
 For the visual studio templates for the Ninja see:
